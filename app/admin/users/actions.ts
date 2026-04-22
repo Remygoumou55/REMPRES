@@ -1,0 +1,80 @@
+"use server";
+
+import { redirect } from "next/navigation";
+import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import {
+  inviteUser,
+  resendInvite,
+  updateUserRole,
+  deactivateUser,
+  type InviteUserInput,
+} from "@/lib/server/users";
+
+// ---------------------------------------------------------------------------
+// Récupérer l'userId courant (helper interne)
+// ---------------------------------------------------------------------------
+
+async function getCurrentUserId(): Promise<string> {
+  const supabase = getSupabaseServerClient();
+  const { data } = await supabase.auth.getUser();
+  if (!data.user) redirect("/login");
+  return data.user.id;
+}
+
+// ---------------------------------------------------------------------------
+// inviteUserAction — inviter un nouvel utilisateur
+// ---------------------------------------------------------------------------
+
+export async function inviteUserAction(
+  formData: FormData,
+): Promise<{ success: boolean; error?: string }> {
+  const callerId = await getCurrentUserId();
+
+  const input: InviteUserInput = {
+    firstName:     (formData.get("firstName")     as string ?? "").trim(),
+    lastName:      (formData.get("lastName")      as string ?? "").trim(),
+    email:         (formData.get("email")          as string ?? "").trim().toLowerCase(),
+    roleKey:       (formData.get("roleKey")        as string ?? "employe"),
+    departmentKey: (formData.get("departmentKey") as string | null) || null,
+  };
+
+  if (!input.firstName || !input.lastName || !input.email) {
+    return { success: false, error: "Tous les champs obligatoires doivent être remplis." };
+  }
+
+  return inviteUser(input, callerId);
+}
+
+// ---------------------------------------------------------------------------
+// resendInviteAction — renvoyer une invitation
+// ---------------------------------------------------------------------------
+
+export async function resendInviteAction(
+  userId: string,
+): Promise<{ success: boolean; error?: string }> {
+  const callerId = await getCurrentUserId();
+  return resendInvite(userId, callerId);
+}
+
+// ---------------------------------------------------------------------------
+// updateUserRoleAction — changer le rôle
+// ---------------------------------------------------------------------------
+
+export async function updateUserRoleAction(
+  userId: string,
+  newRoleKey: string,
+): Promise<{ success: boolean; error?: string }> {
+  const callerId = await getCurrentUserId();
+  return updateUserRole(userId, newRoleKey, callerId);
+}
+
+// ---------------------------------------------------------------------------
+// deactivateUserAction — désactiver un compte
+// ---------------------------------------------------------------------------
+
+export async function deactivateUserAction(
+  userId: string,
+): Promise<{ success: boolean; error?: string }> {
+  const callerId = await getCurrentUserId();
+  return deactivateUser(userId, callerId);
+}

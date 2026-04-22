@@ -1,0 +1,392 @@
+"use client";
+
+import { useState, useTransition } from "react";
+import {
+  UserPlus,
+  RefreshCw,
+  ShieldCheck,
+  Clock,
+  UserX,
+  MoreVertical,
+  X,
+  Send,
+  CheckCircle,
+  AlertCircle,
+} from "lucide-react";
+import type { UserListItem } from "@/lib/server/users";
+import {
+  inviteUserAction,
+  resendInviteAction,
+  deactivateUserAction,
+} from "./actions";
+
+// ---------------------------------------------------------------------------
+// Constantes
+// ---------------------------------------------------------------------------
+
+const ROLES = [
+  { key: "super_admin",            label: "Super Admin" },
+  { key: "directeur_general",      label: "Directeur Général" },
+  { key: "responsable_vente",      label: "Responsable Vente" },
+  { key: "responsable_rh",         label: "Responsable RH" },
+  { key: "responsable_formation",  label: "Responsable Formation" },
+  { key: "responsable_consultation", label: "Responsable Consultation" },
+  { key: "responsable_marketing",  label: "Responsable Marketing" },
+  { key: "responsable_logistique", label: "Responsable Logistique" },
+  { key: "comptable",              label: "Comptable" },
+  { key: "auditeur",               label: "Auditeur" },
+  { key: "employe",                label: "Employé" },
+] as const;
+
+const DEPARTMENTS = [
+  "Vente", "Finance", "RH", "Formation",
+  "Consultation", "Marketing", "Logistique", "Direction",
+];
+
+// ---------------------------------------------------------------------------
+// Badge statut
+// ---------------------------------------------------------------------------
+
+function StatusBadge({ status }: { status: UserListItem["status"] }) {
+  const cfg = {
+    active:   { label: "Actif",    icon: CheckCircle, cls: "bg-green-100 text-green-700"  },
+    pending:  { label: "En attente", icon: Clock,     cls: "bg-yellow-100 text-yellow-700" },
+    inactive: { label: "Inactif",  icon: UserX,       cls: "bg-gray-100 text-gray-500"    },
+  }[status];
+  const Icon = cfg.icon;
+  return (
+    <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium ${cfg.cls}`}>
+      <Icon size={11} />
+      {cfg.label}
+    </span>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Modal invitation
+// ---------------------------------------------------------------------------
+
+function InviteModal({
+  onClose,
+  onSuccess,
+}: {
+  onClose: () => void;
+  onSuccess: () => void;
+}) {
+  const [pending, startTransition] = useTransition();
+  const [error, setError]     = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setError(null);
+    const fd = new FormData(e.currentTarget);
+    startTransition(async () => {
+      const result = await inviteUserAction(fd);
+      if (result.success) {
+        setSuccess(true);
+        setTimeout(() => { onClose(); onSuccess(); }, 1500);
+      } else {
+        setError(result.error ?? "Erreur inconnue.");
+      }
+    });
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+      <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl">
+        <div className="mb-5 flex items-center justify-between">
+          <h2 className="text-lg font-bold text-gray-900">Inviter un utilisateur</h2>
+          <button onClick={onClose} className="rounded-lg p-1 text-gray-400 hover:bg-gray-100">
+            <X size={20} />
+          </button>
+        </div>
+
+        {success ? (
+          <div className="flex flex-col items-center gap-3 py-6 text-center">
+            <CheckCircle size={48} className="text-green-500" />
+            <p className="font-semibold text-gray-900">Invitation envoyée !</p>
+            <p className="text-sm text-gray-500">L&apos;utilisateur recevra un email pour créer son mot de passe.</p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="mb-1 block text-xs font-medium text-gray-600">Prénom *</label>
+                <input name="firstName" required
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  placeholder="Jean" />
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-medium text-gray-600">Nom *</label>
+                <input name="lastName" required
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  placeholder="Dupont" />
+              </div>
+            </div>
+
+            <div>
+              <label className="mb-1 block text-xs font-medium text-gray-600">Email *</label>
+              <input name="email" type="email" required
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                placeholder="jean.dupont@rempres.com" />
+            </div>
+
+            <div>
+              <label className="mb-1 block text-xs font-medium text-gray-600">Rôle *</label>
+              <select name="roleKey" required
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20">
+                {ROLES.map((r) => (
+                  <option key={r.key} value={r.key}>{r.label}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="mb-1 block text-xs font-medium text-gray-600">Département</label>
+              <select name="departmentKey"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20">
+                <option value="">— Aucun département —</option>
+                {DEPARTMENTS.map((d) => (
+                  <option key={d} value={d.toLowerCase()}>{d}</option>
+                ))}
+              </select>
+            </div>
+
+            {error && (
+              <div className="flex items-start gap-2 rounded-lg bg-red-50 p-3 text-sm text-red-600">
+                <AlertCircle size={16} className="mt-0.5 shrink-0" />
+                {error}
+              </div>
+            )}
+
+            <div className="flex gap-3 pt-2">
+              <button type="button" onClick={onClose}
+                className="flex-1 rounded-lg border border-gray-300 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                Annuler
+              </button>
+              <button type="submit" disabled={pending}
+                className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-primary py-2.5 text-sm font-bold text-white hover:bg-primary/90 disabled:opacity-60">
+                {pending ? (
+                  <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                ) : <Send size={15} />}
+                {pending ? "Envoi…" : "Envoyer l'invitation"}
+              </button>
+            </div>
+          </form>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Menu actions par utilisateur
+// ---------------------------------------------------------------------------
+
+function UserActionsMenu({
+  user,
+  onRefresh,
+}: {
+  user: UserListItem;
+  onRefresh: () => void;
+}) {
+  const [open, setOpen]       = useState(false);
+  const [pending, start]      = useTransition();
+  const [feedback, setFeedback] = useState<string | null>(null);
+
+  async function doResend() {
+    start(async () => {
+      const r = await resendInviteAction(user.id);
+      setFeedback(r.success ? "Invitation renvoyée !" : (r.error ?? "Erreur"));
+      setOpen(false);
+      setTimeout(() => setFeedback(null), 3000);
+    });
+  }
+
+  async function doDeactivate() {
+    if (!confirm(`Désactiver le compte de ${user.email} ?`)) return;
+    start(async () => {
+      const r = await deactivateUserAction(user.id);
+      setFeedback(r.success ? "Compte désactivé." : (r.error ?? "Erreur"));
+      setOpen(false);
+      onRefresh();
+      setTimeout(() => setFeedback(null), 3000);
+    });
+  }
+
+  return (
+    <div className="relative">
+      {feedback && (
+        <span className="absolute -top-8 right-0 z-10 whitespace-nowrap rounded-lg bg-gray-800 px-2 py-1 text-xs text-white">
+          {feedback}
+        </span>
+      )}
+      <button onClick={() => setOpen(!open)} disabled={pending}
+        className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600">
+        <MoreVertical size={16} />
+      </button>
+      {open && (
+        <div className="absolute right-0 top-8 z-20 min-w-[180px] rounded-xl border border-gray-100 bg-white shadow-lg">
+          {user.status === "pending" && (
+            <button onClick={doResend}
+              className="flex w-full items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
+              <RefreshCw size={14} />
+              Renvoyer l&apos;invitation
+            </button>
+          )}
+          {user.status !== "inactive" && (
+            <button onClick={doDeactivate}
+              className="flex w-full items-center gap-2 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50">
+              <UserX size={14} />
+              Désactiver
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Composant principal
+// ---------------------------------------------------------------------------
+
+interface Props {
+  initialUsers: UserListItem[];
+}
+
+export function UsersClient({ initialUsers }: Props) {
+  const [users, setUsers]         = useState<UserListItem[]>(initialUsers);
+  const [showModal, setShowModal] = useState(false);
+  const [search, setSearch]       = useState("");
+  const [refreshing, startRefresh] = useTransition();
+
+  const filtered = users.filter((u) => {
+    const q = search.toLowerCase();
+    return (
+      u.email.toLowerCase().includes(q) ||
+      (u.full_name ?? "").toLowerCase().includes(q) ||
+      (u.role_label ?? "").toLowerCase().includes(q)
+    );
+  });
+
+  function handleRefresh() {
+    startRefresh(async () => {
+      const res = await fetch("/admin/users?json=1");
+      if (res.ok) {
+        const data = await res.json() as UserListItem[];
+        setUsers(data);
+      }
+    });
+  }
+
+  return (
+    <div className="mx-auto max-w-6xl">
+      {/* Header */}
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">Gestion des utilisateurs</h1>
+          <p className="mt-1 text-sm text-gray-500">
+            {users.length} compte{users.length > 1 ? "s" : ""} —{" "}
+            {users.filter((u) => u.status === "active").length} actif{users.filter((u) => u.status === "active").length > 1 ? "s" : ""}
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <button onClick={handleRefresh} disabled={refreshing}
+            className="rounded-lg border border-gray-300 p-2 text-gray-500 hover:bg-gray-50 disabled:opacity-50">
+            <RefreshCw size={16} className={refreshing ? "animate-spin" : ""} />
+          </button>
+          <button onClick={() => setShowModal(true)}
+            className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-bold text-white hover:bg-primary/90">
+            <UserPlus size={16} />
+            Inviter un utilisateur
+          </button>
+        </div>
+      </div>
+
+      {/* Recherche */}
+      <div className="mb-4">
+        <input
+          type="search"
+          placeholder="Rechercher par nom, email ou rôle…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full max-w-sm rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+        />
+      </div>
+
+      {/* Tableau */}
+      <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-gray-100 bg-gray-50">
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">Utilisateur</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">Rôle</th>
+              <th className="hidden px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 sm:table-cell">Département</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">Statut</th>
+              <th className="hidden px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 lg:table-cell">Dernière connexion</th>
+              <th className="px-4 py-3" />
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-50">
+            {filtered.length === 0 ? (
+              <tr>
+                <td colSpan={6} className="py-12 text-center text-gray-400">
+                  {search ? "Aucun utilisateur ne correspond à votre recherche." : "Aucun utilisateur pour l'instant."}
+                </td>
+              </tr>
+            ) : (
+              filtered.map((user) => (
+                <tr key={user.id} className="hover:bg-gray-50/50">
+                  <td className="px-4 py-3">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
+                        {(user.full_name ?? user.email).charAt(0).toUpperCase()}
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-900">
+                          {user.full_name || <span className="italic text-gray-400">Sans nom</span>}
+                        </p>
+                        <p className="text-xs text-gray-500">{user.email}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-4 py-3">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+                      <ShieldCheck size={11} />
+                      {user.role_label ?? user.role_key ?? "—"}
+                    </span>
+                  </td>
+                  <td className="hidden px-4 py-3 text-gray-500 sm:table-cell">
+                    {user.department_key ?? <span className="text-gray-300">—</span>}
+                  </td>
+                  <td className="px-4 py-3">
+                    <StatusBadge status={user.status} />
+                  </td>
+                  <td className="hidden px-4 py-3 text-xs text-gray-400 lg:table-cell">
+                    {user.last_sign_in_at
+                      ? new Date(user.last_sign_in_at).toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" })
+                      : "Jamais connecté"
+                    }
+                  </td>
+                  <td className="px-4 py-3 text-right">
+                    <UserActionsMenu user={user} onRefresh={handleRefresh} />
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Modal */}
+      {showModal && (
+        <InviteModal
+          onClose={() => setShowModal(false)}
+          onSuccess={handleRefresh}
+        />
+      )}
+    </div>
+  );
+}

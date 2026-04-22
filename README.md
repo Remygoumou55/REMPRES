@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# RemPres
 
-## Getting Started
+Plateforme de gestion d'entreprise multi-départements.
 
-First, run the development server:
+## Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+| Technologie | Rôle |
+|---|---|
+| Next.js 14 (App Router) | Framework React fullstack |
+| TypeScript | Typage statique |
+| Tailwind CSS | Styles utilitaires |
+| Supabase | Base de données PostgreSQL + Auth + RLS |
+| Zustand | State management client (devise, panier) |
+| Zod | Validation des données |
+| Vercel | Hébergement et déploiement continu |
+
+## Modules
+
+- **Vente** — Catalogue produits, gestion clients, point de vente, historique
+- **Admin** — Journal d'activité, export CSV/JSON signé, vérification d'intégrité
+- **Auth** — Connexion, récupération de mot de passe, RBAC (rôles / permissions)
+
+## Variables d'environnement requises
+
+Créer un fichier `.env.local` à la racine du projet (`rempres-erp/`) :
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
+SUPABASE_SERVICE_ROLE_KEY=eyJ...
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ces trois variables doivent également être configurées dans le **Vercel Dashboard**
+→ Project → Settings → Environment Variables.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Démarrer en local
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+cd rempres-erp
+npm install
+npm run dev
+```
 
-## Learn More
+L'application est accessible sur [http://localhost:3000](http://localhost:3000).
 
-To learn more about Next.js, take a look at the following resources:
+## Base de données
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Les migrations SQL se trouvent dans `rempres-erp/supabase/sql/` et sont à exécuter
+dans l'ordre dans l'éditeur SQL Supabase :
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Fichier | Contenu |
+|---|---|
+| `001_core_schema.sql` | Tables de base (profiles, permissions) |
+| `002_clients_schema.sql` | Module clients |
+| `003_seed_profiles_permissions.sql` | Données initiales |
+| `004_products_schema.sql` | Module produits |
+| `005_vente_schema.sql` | Module vente (sales, sale_items, stock_movements, expenses) |
+| `006_currency_rates.sql` | Taux de change |
 
-## Deploy on Vercel
+## Déployer sur Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Connecter le dépôt GitHub à [vercel.com](https://vercel.com)
+2. Sélectionner le **Root Directory** : `rempres-erp`
+3. Framework : **Next.js** (auto-détecté)
+4. Build command : `npm run build` (par défaut)
+5. Ajouter les trois variables d'environnement ci-dessus
+6. Déployer
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Scripts disponibles
+
+```bash
+npm run dev      # Serveur de développement (port 3000)
+npm run build    # Build de production
+npm run start    # Démarrer le build de production
+npm run lint     # Linter ESLint
+```

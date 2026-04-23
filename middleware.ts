@@ -102,15 +102,24 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(dashUrl);
   }
 
-  // ── Protection /admin/users — super_admin uniquement ────────────────────
-  if (user && isAdminOnlyPath(pathname)) {
+  // ── Vérifications profil (is_active + role_key) — une seule requête DB ──
+  if (user && isProtectedPath(pathname)) {
     const { data: profile } = await supabase
       .from("profiles")
-      .select("role_key")
+      .select("role_key, is_active")
       .eq("id", user.id)
       .single();
 
-    if (profile?.role_key !== "super_admin") {
+    // Compte bloqué → accès refusé
+    if (profile && profile.is_active === false) {
+      const blockedUrl = request.nextUrl.clone();
+      blockedUrl.pathname = "/access-denied";
+      blockedUrl.searchParams.set("reason", "blocked");
+      return NextResponse.redirect(blockedUrl);
+    }
+
+    // /admin/users — super_admin uniquement
+    if (isAdminOnlyPath(pathname) && profile?.role_key !== "super_admin") {
       const deniedUrl = request.nextUrl.clone();
       deniedUrl.pathname = "/access-denied";
       return NextResponse.redirect(deniedUrl);

@@ -7,17 +7,20 @@ import {
   ShieldCheck,
   Clock,
   UserX,
+  UserCheck,
   MoreVertical,
   X,
   Send,
   CheckCircle,
   AlertCircle,
+  Ban,
 } from "lucide-react";
 import type { UserListItem } from "@/lib/server/users";
 import {
   inviteUserAction,
   resendInviteAction,
   deactivateUserAction,
+  reactivateUserAction,
 } from "./actions";
 
 // ---------------------------------------------------------------------------
@@ -49,9 +52,9 @@ const DEPARTMENTS = [
 
 function StatusBadge({ status }: { status: UserListItem["status"] }) {
   const cfg = {
-    active:   { label: "Actif",    icon: CheckCircle, cls: "bg-green-100 text-green-700"  },
-    pending:  { label: "En attente", icon: Clock,     cls: "bg-yellow-100 text-yellow-700" },
-    inactive: { label: "Inactif",  icon: UserX,       cls: "bg-gray-100 text-gray-500"    },
+    active:   { label: "Actif",    icon: CheckCircle, cls: "bg-emerald-100 text-emerald-700" },
+    pending:  { label: "En attente", icon: Clock,     cls: "bg-amber-100 text-amber-700"    },
+    inactive: { label: "Bloqué",   icon: Ban,         cls: "bg-red-100 text-red-600"         },
   }[status];
   const Icon = cfg.icon;
   return (
@@ -204,11 +207,21 @@ function UserActionsMenu({
     });
   }
 
-  async function doDeactivate() {
-    if (!confirm(`Désactiver le compte de ${user.email} ?`)) return;
+  async function doBlock() {
+    if (!confirm(`Bloquer le compte de ${user.email} ?\n\nCet utilisateur ne pourra plus se connecter.`)) return;
     start(async () => {
       const r = await deactivateUserAction(user.id);
-      setFeedback(r.success ? "Compte désactivé." : (r.error ?? "Erreur"));
+      setFeedback(r.success ? "✓ Compte bloqué." : (r.error ?? "Erreur"));
+      setOpen(false);
+      onRefresh();
+      setTimeout(() => setFeedback(null), 3000);
+    });
+  }
+
+  async function doUnblock() {
+    start(async () => {
+      const r = await reactivateUserAction(user.id);
+      setFeedback(r.success ? "✓ Compte débloqué." : (r.error ?? "Erreur"));
       setOpen(false);
       onRefresh();
       setTimeout(() => setFeedback(null), 3000);
@@ -218,28 +231,35 @@ function UserActionsMenu({
   return (
     <div className="relative">
       {feedback && (
-        <span className="absolute -top-8 right-0 z-10 whitespace-nowrap rounded-lg bg-gray-800 px-2 py-1 text-xs text-white">
+        <span className="absolute -top-8 right-0 z-10 whitespace-nowrap rounded-xl bg-gray-800 px-2.5 py-1.5 text-xs text-white shadow-lg">
           {feedback}
         </span>
       )}
       <button onClick={() => setOpen(!open)} disabled={pending}
-        className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600">
+        className="rounded-xl p-1.5 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600">
         <MoreVertical size={16} />
       </button>
       {open && (
-        <div className="absolute right-0 top-8 z-20 min-w-[180px] rounded-xl border border-gray-100 bg-white shadow-lg">
+        <div className="absolute right-0 top-9 z-20 min-w-[200px] overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xl">
           {user.status === "pending" && (
             <button onClick={doResend}
-              className="flex w-full items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
+              className="flex w-full items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 transition hover:bg-gray-50">
               <RefreshCw size={14} />
               Renvoyer l&apos;invitation
             </button>
           )}
-          {user.status !== "inactive" && (
-            <button onClick={doDeactivate}
-              className="flex w-full items-center gap-2 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50">
+          {user.status === "active" && (
+            <button onClick={doBlock}
+              className="flex w-full items-center gap-2.5 px-4 py-2.5 text-sm text-red-600 transition hover:bg-red-50">
               <UserX size={14} />
-              Désactiver
+              Bloquer l&apos;accès
+            </button>
+          )}
+          {user.status === "inactive" && (
+            <button onClick={doUnblock}
+              className="flex w-full items-center gap-2.5 px-4 py-2.5 text-sm text-emerald-600 transition hover:bg-emerald-50">
+              <UserCheck size={14} />
+              Débloquer l&apos;accès
             </button>
           )}
         </div>

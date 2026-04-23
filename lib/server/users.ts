@@ -244,7 +244,7 @@ export async function updateUserRole(
 }
 
 // ---------------------------------------------------------------------------
-// deactivateUser — désactiver un compte
+// deactivateUser — désactiver / bloquer un compte
 // ---------------------------------------------------------------------------
 
 export async function deactivateUser(
@@ -257,9 +257,8 @@ export async function deactivateUser(
     return { success: false, error: "Accès refusé." };
   }
 
-  // Ne pas se désactiver soi-même
   if (userId === callerUserId) {
-    return { success: false, error: "Vous ne pouvez pas désactiver votre propre compte." };
+    return { success: false, error: "Vous ne pouvez pas bloquer votre propre compte." };
   }
 
   const admin = getSupabaseAdminClient();
@@ -271,8 +270,39 @@ export async function deactivateUser(
 
   if (error) {
     logError("DEACTIVATE_USER", error, { userId });
-    return { success: false, error: "Impossible de désactiver le compte." };
+    return { success: false, error: "Impossible de bloquer le compte." };
   }
 
+  logInfo("BLOCK_USER", `User blocked: ${userId}`, { by: callerUserId });
+  return { success: true };
+}
+
+// ---------------------------------------------------------------------------
+// reactivateUser — débloquer / réactiver un compte
+// ---------------------------------------------------------------------------
+
+export async function reactivateUser(
+  userId: string,
+  callerUserId: string,
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    await assertSuperAdmin(callerUserId);
+  } catch {
+    return { success: false, error: "Accès refusé." };
+  }
+
+  const admin = getSupabaseAdminClient();
+
+  const { error } = await admin
+    .from("profiles")
+    .update({ is_active: true, updated_at: new Date().toISOString() })
+    .eq("id", userId);
+
+  if (error) {
+    logError("REACTIVATE_USER", error, { userId });
+    return { success: false, error: "Impossible de débloquer le compte." };
+  }
+
+  logInfo("UNBLOCK_USER", `User unblocked: ${userId}`, { by: callerUserId });
   return { success: true };
 }

@@ -215,9 +215,9 @@ export default async function ActivityLogsPage({ searchParams }: ActivityLogsPag
             </select>
           </div>
           <div>
-            <label className="mb-1 block text-xs text-gray-500">Date de début</label>
+            <label className="mb-1 block text-xs text-gray-500">Date (jour)</label>
             <input
-              type="datetime-local"
+              type="date"
               name="from"
               defaultValue={filters.from ?? ""}
               className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"

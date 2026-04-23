@@ -47,7 +47,7 @@ type SaleRow = {
 };
 
 type PageProps = {
-  searchParams?: { status?: string; from?: string; to?: string; page?: string };
+  searchParams?: { status?: string; from?: string; to?: string; page?: string; client?: string };
 };
 
 function getClientLabel(client: Client): string {
@@ -67,13 +67,27 @@ export default async function HistoriquePage({ searchParams }: PageProps) {
   const permissions = await getModulePermissions(data.user.id, ["produits", "vente"]);
   if (!permissions.canRead) redirect("/access-denied");
 
-  const status   = searchParams?.status ?? "";
-  const from     = searchParams?.from   ?? "";
-  const to       = searchParams?.to     ?? "";
-  const page     = Math.max(1, Number(searchParams?.page ?? "1"));
-  const pageSize = 20;
-  const rangeFrom = (page - 1) * pageSize;
-  const rangeTo   = rangeFrom + pageSize - 1;
+  const status      = searchParams?.status ?? "";
+  const from        = searchParams?.from   ?? "";
+  const to          = searchParams?.to     ?? "";
+  const clientQuery = searchParams?.client ?? "";
+  const page        = Math.max(1, Number(searchParams?.page ?? "1"));
+  const pageSize    = 20;
+  const rangeFrom   = (page - 1) * pageSize;
+  const rangeTo     = rangeFrom + pageSize - 1;
+
+  // Filtre par nom de client : on récupère les IDs correspondants
+  let clientFilterIds: string[] | null = null;
+  if (clientQuery.trim()) {
+    const q = `%${clientQuery.trim()}%`;
+    const { data: matchingClients } = await supabase
+      .from("clients")
+      .select("id")
+      .or(`first_name.ilike.${q},last_name.ilike.${q},company_name.ilike.${q}`)
+      .is("deleted_at", null)
+      .limit(100);
+    clientFilterIds = (matchingClients ?? []).map((c) => c.id);
+  }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let query: any = supabase
@@ -88,6 +102,14 @@ export default async function HistoriquePage({ searchParams }: PageProps) {
   if (status) query = query.eq("payment_status", status);
   if (from)   query = query.gte("created_at", from);
   if (to)     query = query.lte("created_at", to + "T23:59:59Z");
+  if (clientFilterIds !== null) {
+    if (clientFilterIds.length === 0) {
+      // Aucun client trouvé → forcer résultat vide
+      query = query.eq("id", "00000000-0000-0000-0000-000000000000");
+    } else {
+      query = query.in("client_id", clientFilterIds);
+    }
+  }
 
   const { data: rawSales, count, error } = await query.range(rangeFrom, rangeTo);
 
@@ -114,14 +136,15 @@ export default async function HistoriquePage({ searchParams }: PageProps) {
 
   const buildUrl = (p: number) => {
     const params = new URLSearchParams();
-    if (status) params.set("status", status);
-    if (from)   params.set("from", from);
-    if (to)     params.set("to", to);
+    if (status)      params.set("status", status);
+    if (from)        params.set("from", from);
+    if (to)          params.set("to", to);
+    if (clientQuery) params.set("client", clientQuery);
     params.set("page", String(p));
     return `/vente/historique?${params.toString()}`;
   };
 
-  const hasFilters = !!(status || from || to);
+  const hasFilters = !!(status || from || to || clientQuery);
 
   return (
     <div className="mx-auto max-w-6xl space-y-5">
@@ -151,7 +174,17 @@ export default async function HistoriquePage({ searchParams }: PageProps) {
           <Filter size={12} />
           Filtres
         </div>
-        <div className="grid gap-3 sm:grid-cols-4">
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          {/* Recherche client */}
+          <input
+            type="text"
+            name="client"
+            defaultValue={clientQuery}
+            placeholder="Nom du client…"
+            className="rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+          />
+
+          {/* Statut */}
           <select
             name="status"
             defaultValue={status}
@@ -165,12 +198,14 @@ export default async function HistoriquePage({ searchParams }: PageProps) {
             <option value="cancelled">Annulé</option>
           </select>
 
+          {/* Date début */}
           <input
             type="date"
             name="from"
             defaultValue={from}
             className="rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
           />
+          {/* Date fin */}
           <input
             type="date"
             name="to"
@@ -276,19 +311,20 @@ export default async function HistoriquePage({ searchParams }: PageProps) {
 
                       {/* Actions */}
                       <td className="px-5 py-3.5 text-right">
-                        {isPending ? (
-                          <MarkAsPaidButton
-                            saleId={sale.id}
-                            totalAmountGNF={sale.total_amount_gnf}
-                          />
-                        ) : (
+                        <div className="flex items-center justify-end gap-1.5">
                           <Link
                             href={`/vente/historique/${sale.id}`}
-                            className="inline-flex items-center gap-1 rounded-lg bg-gray-100 px-2.5 py-1.5 text-xs font-medium text-gray-600 transition hover:bg-gray-200"
+                            className="inline-flex items-center gap-1 rounded-xl bg-gray-100 px-2.5 py-1.5 text-xs font-semibold text-gray-600 transition hover:bg-gray-200"
                           >
-                            Détail
+                            Détails
                           </Link>
-                        )}
+                          {isPending && (
+                            <MarkAsPaidButton
+                              saleId={sale.id}
+                              totalAmountGNF={sale.total_amount_gnf}
+                            />
+                          )}
+                        </div>
                       </td>
                     </tr>
                   );

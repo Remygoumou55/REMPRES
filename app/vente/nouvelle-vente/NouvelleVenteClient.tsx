@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo, memo } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -28,7 +28,7 @@ import { logError } from "@/lib/logger";
 import type { Client } from "@/types/client";
 import { useCurrencyStore } from "@/stores/currencyStore";
 import { convertAmount, formatAmount, FALLBACK_RATES, type Currency } from "@/lib/currencyService";
-import { createSaleAction } from "./actions";
+import { createSaleAction, createQuickClientAction } from "./actions";
 import { resolveErrorMessage } from "@/lib/messages";
 
 // ---------------------------------------------------------------------------
@@ -98,7 +98,7 @@ const CURRENCIES: Currency[] = ["GNF", "XOF", "USD", "EUR"];
 // ProductCard — carte interactive POS
 // ---------------------------------------------------------------------------
 
-function ProductCard({
+const ProductCard = memo(function ProductCard({
   product,
   cartQty,
   onAdd,
@@ -191,13 +191,13 @@ function ProductCard({
       )}
     </button>
   );
-}
+});
 
 // ---------------------------------------------------------------------------
 // CartRow — ligne panier premium
 // ---------------------------------------------------------------------------
 
-function CartRow({
+const CartRow = memo(function CartRow({
   item,
   onRemove,
   onUpdateQty,
@@ -261,10 +261,10 @@ function CartRow({
       </div>
     </div>
   );
-}
+});
 
 // ---------------------------------------------------------------------------
-// ClientSelector
+// ClientSelector — avec création rapide de nouveau client
 // ---------------------------------------------------------------------------
 
 function ClientSelector({
@@ -276,10 +276,14 @@ function ClientSelector({
   selected: Client | null;
   onSelect: (c: Client | null) => void;
 }) {
-  const [query, setQuery]   = useState("");
-  const [open, setOpen]     = useState(false);
-  const ref                 = useRef<HTMLDivElement>(null);
-  const debouncedQuery      = useDebounce(query, 200);
+  const [query, setQuery]     = useState("");
+  const [open, setOpen]       = useState(false);
+  const [mode, setMode]       = useState<"search" | "new">("search");
+  const [creating, setCreating] = useState(false);
+  const [createError, setCreateError] = useState<string | null>(null);
+  const [newForm, setNewForm] = useState({ firstName: "", lastName: "", phone: "", email: "" });
+  const ref                   = useRef<HTMLDivElement>(null);
+  const debouncedQuery        = useDebounce(query, 200);
 
   const filtered = debouncedQuery
     ? clients.filter((c) => getClientLabel(c).toLowerCase().includes(debouncedQuery.toLowerCase())).slice(0, 8)
@@ -287,11 +291,39 @@ function ClientSelector({
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+        setMode("search");
+      }
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, []);
+
+  async function handleCreateClient(e: React.FormEvent) {
+    e.preventDefault();
+    if (!newForm.firstName.trim() || !newForm.phone.trim()) {
+      setCreateError("Prénom et téléphone sont obligatoires.");
+      return;
+    }
+    setCreating(true);
+    setCreateError(null);
+    const result = await createQuickClientAction({
+      firstName: newForm.firstName,
+      lastName:  newForm.lastName,
+      phone:     newForm.phone,
+      email:     newForm.email || null,
+    });
+    setCreating(false);
+    if (result.success) {
+      onSelect(result.client);
+      setOpen(false);
+      setMode("search");
+      setNewForm({ firstName: "", lastName: "", phone: "", email: "" });
+    } else {
+      setCreateError(result.error);
+    }
+  }
 
   return (
     <div ref={ref} className="relative">
@@ -301,7 +333,7 @@ function ClientSelector({
       </label>
       <button
         type="button"
-        onClick={() => setOpen((o) => !o)}
+        onClick={() => { setOpen((o) => !o); setMode("search"); }}
         className={`flex w-full items-center justify-between rounded-xl border px-3 py-2.5 text-sm transition focus:outline-none focus:ring-2 focus:ring-primary/20 ${
           selected ? "border-primary/30 bg-primary/5 text-darktext" : "border-gray-200 bg-white text-gray-400"
         }`}
@@ -312,42 +344,114 @@ function ClientSelector({
 
       {open && (
         <div className="absolute left-0 right-0 z-20 mt-1 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xl">
-          <div className="p-2">
-            <input
-              autoFocus
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Rechercher…"
-              className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-primary"
-            />
-          </div>
-          <ul className="max-h-48 overflow-y-auto pb-1">
-            <li>
-              <button
-                type="button"
-                onClick={() => { onSelect(null); setOpen(false); setQuery(""); }}
-                className="flex w-full items-center gap-2 px-3 py-2 text-sm text-gray-400 hover:bg-gray-50"
-              >
-                <Users size={14} className="shrink-0" />
-                Client de passage
-              </button>
-            </li>
-            {filtered.map((c) => (
-              <li key={c.id}>
+          {mode === "search" ? (
+            <>
+              <div className="p-2">
+                <input
+                  autoFocus
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Rechercher un client…"
+                  className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-primary"
+                />
+              </div>
+              <ul className="max-h-48 overflow-y-auto pb-1">
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => { onSelect(null); setOpen(false); setQuery(""); }}
+                    className="flex w-full items-center gap-2 px-3 py-2 text-sm text-gray-400 hover:bg-gray-50"
+                  >
+                    <Users size={14} className="shrink-0" />
+                    Client de passage
+                  </button>
+                </li>
+                {filtered.map((c) => (
+                  <li key={c.id}>
+                    <button
+                      type="button"
+                      onClick={() => { onSelect(c); setOpen(false); setQuery(""); }}
+                      className="flex w-full items-center justify-between px-3 py-2 text-sm hover:bg-gray-50"
+                    >
+                      <span className="font-medium text-darktext">{getClientLabel(c)}</span>
+                      {c.phone && <span className="text-xs text-gray-400">{c.phone}</span>}
+                    </button>
+                  </li>
+                ))}
+                {filtered.length === 0 && (
+                  <li className="px-3 py-2 text-sm text-gray-400">Aucun résultat</li>
+                )}
+              </ul>
+              {/* Bouton créer un nouveau client */}
+              <div className="border-t border-gray-100 p-2">
                 <button
                   type="button"
-                  onClick={() => { onSelect(c); setOpen(false); setQuery(""); }}
-                  className="flex w-full items-center justify-between px-3 py-2 text-sm hover:bg-gray-50"
+                  onClick={() => setMode("new")}
+                  className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-primary hover:bg-primary/5 transition"
                 >
-                  <span className="font-medium text-darktext">{getClientLabel(c)}</span>
-                  {c.phone && <span className="text-xs text-gray-400">{c.phone}</span>}
+                  <Plus size={14} />
+                  Créer un nouveau client
                 </button>
-              </li>
-            ))}
-            {filtered.length === 0 && (
-              <li className="px-3 py-2 text-sm text-gray-400">Aucun client trouvé</li>
-            )}
-          </ul>
+              </div>
+            </>
+          ) : (
+            /* Mode formulaire nouveau client */
+            <form onSubmit={handleCreateClient} className="p-3 space-y-2">
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-sm font-bold text-darktext">Nouveau client</p>
+                <button type="button" onClick={() => setMode("search")} className="text-gray-400 hover:text-gray-600">
+                  <X size={16} />
+                </button>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2">
+                <input
+                  required
+                  placeholder="Prénom *"
+                  value={newForm.firstName}
+                  onChange={(e) => setNewForm((f) => ({ ...f, firstName: e.target.value }))}
+                  className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-primary"
+                />
+                <input
+                  placeholder="Nom"
+                  value={newForm.lastName}
+                  onChange={(e) => setNewForm((f) => ({ ...f, lastName: e.target.value }))}
+                  className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-primary"
+                />
+              </div>
+              <input
+                required
+                type="tel"
+                placeholder="Téléphone *"
+                value={newForm.phone}
+                onChange={(e) => setNewForm((f) => ({ ...f, phone: e.target.value }))}
+                className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-primary"
+              />
+              <input
+                type="email"
+                placeholder="Email (optionnel)"
+                value={newForm.email}
+                onChange={(e) => setNewForm((f) => ({ ...f, email: e.target.value }))}
+                className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-primary"
+              />
+
+              {createError && (
+                <p className="text-xs text-red-600">{createError}</p>
+              )}
+
+              <button
+                type="submit"
+                disabled={creating}
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-2 text-sm font-bold text-white hover:bg-primary/90 disabled:opacity-60"
+              >
+                {creating ? (
+                  <><Loader2 size={14} className="animate-spin" /> Création…</>
+                ) : (
+                  <><Plus size={14} /> Créer et sélectionner</>
+                )}
+              </button>
+            </form>
+          )}
         </div>
       )}
     </div>
@@ -464,22 +568,27 @@ export function NouvelleVenteClient({ products, clients }: Props) {
     setTimeout(() => setToast(null), 2500);
   }, []);
 
-  // ── Derived ─────────────────────────────────────────────────────────────
+  // ── Derived (mémoïsés pour éviter les recalculs inutiles) ───────────────
 
-  const filteredProducts = debouncedSearch
-    ? products.filter(
-        (p) =>
-          p.name.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
-          p.sku.toLowerCase().includes(debouncedSearch.toLowerCase()),
-      )
-    : products;
+  const filteredProducts = useMemo(() => {
+    if (!debouncedSearch) return products;
+    const q = debouncedSearch.toLowerCase();
+    return products.filter(
+      (p) => p.name.toLowerCase().includes(q) || p.sku.toLowerCase().includes(q),
+    );
+  }, [products, debouncedSearch]);
 
-  const cartQtyMap = new Map(cart.map((i) => [i.product.id, i.quantity]));
+  const cartQtyMap = useMemo(
+    () => new Map(cart.map((i) => [i.product.id, i.quantity])),
+    [cart],
+  );
 
-  const subtotalGNF       = cart.reduce((acc, i) => acc + i.product.price_gnf * i.quantity, 0);
-  const discountAmountGNF = Math.round(subtotalGNF * (discountPercent / 100) * 100) / 100;
-  const totalGNF          = subtotalGNF - discountAmountGNF;
-  const totalItems        = cart.reduce((acc, i) => acc + i.quantity, 0);
+  const { subtotalGNF, discountAmountGNF, totalGNF, totalItems } = useMemo(() => {
+    const sub   = cart.reduce((acc, i) => acc + i.product.price_gnf * i.quantity, 0);
+    const disc  = Math.round(sub * (discountPercent / 100) * 100) / 100;
+    const items = cart.reduce((acc, i) => acc + i.quantity, 0);
+    return { subtotalGNF: sub, discountAmountGNF: disc, totalGNF: sub - disc, totalItems: items };
+  }, [cart, discountPercent]);
 
   const displaySubtotal  = formatAmount(convertAmount(subtotalGNF,       selectedCurrency, rates), selectedCurrency);
   const displayDiscount  = formatAmount(convertAmount(discountAmountGNF, selectedCurrency, rates), selectedCurrency);

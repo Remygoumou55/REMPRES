@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { createSale, updatePaymentStatus } from "@/lib/server/sales";
 import type { CreateSaleInput } from "@/lib/validations/sale";
+import type { Client } from "@/types/client";
 
 // ---------------------------------------------------------------------------
 // createSaleAction — appelée depuis NouvelleVenteClient
@@ -45,6 +46,40 @@ export async function createSaleAction(
       error: err instanceof Error ? err.message : "Erreur inconnue lors de la création de la vente",
     };
   }
+}
+
+// ---------------------------------------------------------------------------
+// createQuickClientAction — crée un client "à la volée" depuis le POS
+// ---------------------------------------------------------------------------
+
+export async function createQuickClientAction(input: {
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email?: string | null;
+}): Promise<{ success: true; client: Client } | { success: false; error: string }> {
+  const supabase = getSupabaseServerClient();
+  const { data: auth } = await supabase.auth.getUser();
+  if (!auth.user) redirect("/login");
+
+  const { data, error } = await supabase
+    .from("clients")
+    .insert({
+      client_type: "individual",
+      first_name:  input.firstName.trim(),
+      last_name:   input.lastName.trim(),
+      phone:       input.phone.trim() || null,
+      email:       input.email?.trim() || null,
+      created_by:  auth.user.id,
+    })
+    .select()
+    .single();
+
+  if (error) {
+    return { success: false, error: "Impossible de créer le client. Vérifiez les informations." };
+  }
+
+  return { success: true, client: data as Client };
 }
 
 // ---------------------------------------------------------------------------

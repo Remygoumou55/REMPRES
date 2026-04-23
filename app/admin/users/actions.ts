@@ -7,6 +7,7 @@ import {
   resendInvite,
   updateUserRole,
   deactivateUser,
+  reactivateUser,
   type InviteUserInput,
 } from "@/lib/server/users";
 
@@ -69,7 +70,7 @@ export async function updateUserRoleAction(
 }
 
 // ---------------------------------------------------------------------------
-// deactivateUserAction — désactiver un compte
+// deactivateUserAction — bloquer un compte
 // ---------------------------------------------------------------------------
 
 export async function deactivateUserAction(
@@ -77,4 +78,15 @@ export async function deactivateUserAction(
 ): Promise<{ success: boolean; error?: string }> {
   const callerId = await getCurrentUserId();
   return deactivateUser(userId, callerId);
+}
+
+// ---------------------------------------------------------------------------
+// reactivateUserAction — débloquer un compte
+// ---------------------------------------------------------------------------
+
+export async function reactivateUserAction(
+  userId: string,
+): Promise<{ success: boolean; error?: string }> {
+  const callerId = await getCurrentUserId();
+  return reactivateUser(userId, callerId);
 }

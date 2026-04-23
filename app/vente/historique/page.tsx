@@ -1,36 +1,34 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { ShoppingBag, Filter } from "lucide-react";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getModulePermissions } from "@/lib/server/permissions";
 import type { Client } from "@/types/client";
+import { Badge, type BadgeVariant } from "@/components/ui/badge";
+import { PageHeader } from "@/components/ui/page-header";
 import { MarkAsPaidButton } from "./MarkAsPaidButton";
 
 export const metadata = { title: "Historique des ventes" };
 
 // ---------------------------------------------------------------------------
-// Helpers
+// Config statuts & paiements
 // ---------------------------------------------------------------------------
 
-const STATUT_LABELS: Record<string, { label: string; classes: string }> = {
-  pending:   { label: "En attente",  classes: "bg-yellow-100 text-yellow-700" },
-  partial:   { label: "Partiel",     classes: "bg-blue-100 text-blue-700" },
-  paid:      { label: "Payé",        classes: "bg-green-100 text-green-700" },
-  overdue:   { label: "En retard",   classes: "bg-red-100 text-red-700" },
-  cancelled: { label: "Annulé",      classes: "bg-gray-100 text-gray-500" },
+const STATUT_CFG: Record<string, { label: string; variant: BadgeVariant }> = {
+  pending:   { label: "En attente", variant: "warning" },
+  partial:   { label: "Partiel",    variant: "info"    },
+  paid:      { label: "Payé",       variant: "success" },
+  overdue:   { label: "En retard",  variant: "danger"  },
+  cancelled: { label: "Annulé",     variant: "gray"    },
 };
 
-const PAYMENT_METHOD_LABELS: Record<string, string> = {
+const PAYMENT_LABELS: Record<string, string> = {
   cash:          "Espèces",
   mobile_money:  "Mobile Money",
   bank_transfer: "Virement",
   credit:        "Crédit",
   mixed:         "Mixte",
 };
-
-function getClientLabel(client: Client): string {
-  if (client.client_type === "company") return client.company_name ?? "Entreprise";
-  return [client.first_name, client.last_name].filter(Boolean).join(" ") || "Client";
-}
 
 // ---------------------------------------------------------------------------
 // Types
@@ -49,13 +47,13 @@ type SaleRow = {
 };
 
 type PageProps = {
-  searchParams?: {
-    status?: string;
-    from?: string;
-    to?: string;
-    page?: string;
-  };
+  searchParams?: { status?: string; from?: string; to?: string; page?: string };
 };
+
+function getClientLabel(client: Client): string {
+  if (client.client_type === "company") return client.company_name ?? "Entreprise";
+  return [client.first_name, client.last_name].filter(Boolean).join(" ") || "Client";
+}
 
 // ---------------------------------------------------------------------------
 // Page
@@ -70,14 +68,13 @@ export default async function HistoriquePage({ searchParams }: PageProps) {
   if (!permissions.canRead) redirect("/access-denied");
 
   const status   = searchParams?.status ?? "";
-  const from     = searchParams?.from ?? "";
-  const to       = searchParams?.to ?? "";
+  const from     = searchParams?.from   ?? "";
+  const to       = searchParams?.to     ?? "";
   const page     = Math.max(1, Number(searchParams?.page ?? "1"));
   const pageSize = 20;
   const rangeFrom = (page - 1) * pageSize;
   const rangeTo   = rangeFrom + pageSize - 1;
 
-  // Build query
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let query: any = supabase
     .from("sales")
@@ -96,28 +93,22 @@ export default async function HistoriquePage({ searchParams }: PageProps) {
 
   if (error) {
     return (
-      <div className="rounded-lg bg-red-50 p-6 text-red-700">
+      <div className="rounded-2xl border border-red-200 bg-red-50 p-6 text-sm text-red-700">
         Erreur : {error.message}
       </div>
     );
   }
 
-  const sales = (rawSales ?? []) as SaleRow[];
-  const total = count ?? 0;
+  const sales      = (rawSales ?? []) as SaleRow[];
+  const total      = count ?? 0;
   const totalPages = total === 0 ? 1 : Math.ceil(total / pageSize);
 
-  // Fetch client names for these sales
   const clientIds = Array.from(
     new Set(sales.map((s) => s.client_id).filter((id): id is string => id !== null)),
   );
-
   let clientMap = new Map<string, Client>();
   if (clientIds.length > 0) {
-    const { data: clientsData } = await supabase
-      .from("clients")
-      .select("*")
-      .in("id", clientIds);
-
+    const { data: clientsData } = await supabase.from("clients").select("*").in("id", clientIds);
     clientMap = new Map((clientsData ?? []).map((c) => [c.id, c as Client]));
   }
 
@@ -130,193 +121,215 @@ export default async function HistoriquePage({ searchParams }: PageProps) {
     return `/vente/historique?${params.toString()}`;
   };
 
-  return (
-    <div className="mx-auto max-w-6xl space-y-4">
-      {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg bg-white p-4 shadow-sm">
-        <div>
-          <h1 className="text-2xl font-semibold text-darktext">Historique des ventes</h1>
-          <p className="text-sm text-darktext/80">{total} vente(s) trouvée(s)</p>
-        </div>
-        {permissions.canCreate && (
-          <Link
-            href="/vente/nouvelle-vente"
-            className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-white"
-          >
-            + Nouvelle vente
-          </Link>
-        )}
-      </div>
+  const hasFilters = !!(status || from || to);
 
-      {/* Filters */}
+  return (
+    <div className="mx-auto max-w-6xl space-y-5">
+
+      {/* ── Header ── */}
+      <PageHeader
+        title="Historique des ventes"
+        subtitle={`${total} vente${total > 1 ? "s" : ""} trouvée${total > 1 ? "s" : ""}`}
+        actions={
+          permissions.canCreate && (
+            <Link
+              href="/vente/nouvelle-vente"
+              className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-white transition hover:bg-primary/90"
+            >
+              + Nouvelle vente
+            </Link>
+          )
+        }
+      />
+
+      {/* ── Filtres ── */}
       <form
         method="GET"
-        className="grid gap-3 rounded-lg bg-white p-4 shadow-sm sm:grid-cols-4"
+        className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm"
       >
-        <select
-          name="status"
-          defaultValue={status}
-          className="rounded-md border border-gray-300 px-3 py-2 text-sm"
-        >
-          <option value="">Tous les statuts</option>
-          <option value="pending">En attente</option>
-          <option value="partial">Partiel</option>
-          <option value="paid">Payé</option>
-          <option value="overdue">En retard</option>
-          <option value="cancelled">Annulé</option>
-        </select>
-
-        <input
-          type="date"
-          name="from"
-          defaultValue={from}
-          className="rounded-md border border-gray-300 px-3 py-2 text-sm"
-          placeholder="Date début"
-        />
-        <input
-          type="date"
-          name="to"
-          defaultValue={to}
-          className="rounded-md border border-gray-300 px-3 py-2 text-sm"
-          placeholder="Date fin"
-        />
-
-        <button
-          type="submit"
-          className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-white"
-        >
-          Filtrer
-        </button>
-
-        {(status || from || to) && (
-          <Link
-            href="/vente/historique"
-            className="text-center text-sm text-gray-400 underline sm:col-span-4"
+        <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
+          <Filter size={12} />
+          Filtres
+        </div>
+        <div className="grid gap-3 sm:grid-cols-4">
+          <select
+            name="status"
+            defaultValue={status}
+            className="rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
           >
-            Réinitialiser les filtres
-          </Link>
+            <option value="">Tous les statuts</option>
+            <option value="pending">En attente</option>
+            <option value="partial">Partiel</option>
+            <option value="paid">Payé</option>
+            <option value="overdue">En retard</option>
+            <option value="cancelled">Annulé</option>
+          </select>
+
+          <input
+            type="date"
+            name="from"
+            defaultValue={from}
+            className="rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+          />
+          <input
+            type="date"
+            name="to"
+            defaultValue={to}
+            className="rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+          />
+
+          <button
+            type="submit"
+            className="rounded-xl bg-primary px-4 py-2 text-sm font-medium text-white transition hover:bg-primary/90"
+          >
+            Filtrer
+          </button>
+        </div>
+
+        {hasFilters && (
+          <div className="mt-2">
+            <Link href="/vente/historique" className="text-xs text-gray-400 hover:text-gray-600">
+              Réinitialiser les filtres
+            </Link>
+          </div>
         )}
       </form>
 
-      {/* Table */}
-      <div className="overflow-x-auto rounded-lg bg-white shadow-sm">
-        <table className="w-full text-sm">
-          <thead className="bg-primary text-left text-sm text-white">
-            <tr>
-              <th className="px-4 py-3 font-medium">Référence</th>
-              <th className="px-4 py-3 font-medium">Client</th>
-              <th className="px-4 py-3 font-medium text-right">Total GNF</th>
-              <th className="px-4 py-3 font-medium">Devise</th>
-              <th className="px-4 py-3 font-medium">Paiement</th>
-              <th className="px-4 py-3 font-medium">Statut</th>
-              <th className="px-4 py-3 font-medium">Date</th>
-              <th className="px-4 py-3 font-medium">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-100">
-            {sales.length === 0 ? (
-              <tr>
-                <td colSpan={8} className="px-4 py-8 text-center text-gray-400">
-                  Aucune vente trouvée pour ces critères.
-                </td>
+      {/* ── Table ── */}
+      <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-gray-100 bg-gray-50/60">
+                <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-400">Référence</th>
+                <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-400">Client</th>
+                <th className="px-5 py-3 text-right text-xs font-semibold uppercase tracking-wide text-gray-400">Total</th>
+                <th className="hidden px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-400 md:table-cell">Paiement</th>
+                <th className="px-5 py-3 text-center text-xs font-semibold uppercase tracking-wide text-gray-400">Statut</th>
+                <th className="hidden px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-400 lg:table-cell">Date</th>
+                <th className="px-5 py-3 text-right text-xs font-semibold uppercase tracking-wide text-gray-400">Actions</th>
               </tr>
-            ) : (
-              sales.map((sale) => {
-                const client = sale.client_id ? clientMap.get(sale.client_id) : undefined;
-                const statut = STATUT_LABELS[sale.payment_status] ?? {
-                  label: sale.payment_status,
-                  classes: "bg-gray-100 text-gray-500",
-                };
+            </thead>
+            <tbody className="divide-y divide-gray-50">
+              {sales.length === 0 ? (
+                <tr>
+                  <td colSpan={7} className="py-16 text-center">
+                    <div className="flex flex-col items-center gap-2">
+                      <ShoppingBag size={28} className="text-gray-200" />
+                      <p className="text-sm text-gray-400">Aucune vente pour ces critères</p>
+                    </div>
+                  </td>
+                </tr>
+              ) : (
+                sales.map((sale) => {
+                  const client  = sale.client_id ? clientMap.get(sale.client_id) : undefined;
+                  const statut  = STATUT_CFG[sale.payment_status] ?? { label: sale.payment_status, variant: "gray" as BadgeVariant };
+                  const isPending = sale.payment_status === "pending" || sale.payment_status === "partial";
 
-                return (
-                  <tr key={sale.id} className="hover:bg-graylight/40 transition-colors">
-                    <td className="px-4 py-3 font-mono text-xs text-primary">
-                      <Link
-                        href={`/vente/historique/${sale.id}`}
-                        className="hover:underline"
-                      >
-                        {sale.reference ?? sale.id.slice(0, 8).toUpperCase()}
-                      </Link>
-                    </td>
-                    <td className="px-4 py-3 text-darktext">
-                      {client ? getClientLabel(client) : (
-                        <span className="italic text-gray-400">Client de passage</span>
-                      )}
-                    </td>
-                    <td className="px-4 py-3 text-right font-semibold tabular-nums text-darktext">
-                      {sale.total_amount_gnf.toLocaleString("fr-FR")}
-                    </td>
-                    <td className="px-4 py-3 text-gray-500">{sale.display_currency}</td>
-                    <td className="px-4 py-3 text-gray-500">
-                      {sale.payment_method
-                        ? PAYMENT_METHOD_LABELS[sale.payment_method] ?? sale.payment_method
-                        : "—"}
-                    </td>
-                    <td className="px-4 py-3">
-                      <span
-                        className={`inline-flex rounded-full px-2 py-0.5 text-xs font-semibold ${statut.classes}`}
-                      >
-                        {statut.label}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3 text-xs text-gray-400">
-                      {new Date(sale.created_at).toLocaleDateString("fr-FR", {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric",
-                      })}
-                    </td>
-                    <td className="px-4 py-3">
-                      {sale.payment_status === "pending" || sale.payment_status === "partial" ? (
-                        <MarkAsPaidButton
-                          saleId={sale.id}
-                          totalAmountGNF={sale.total_amount_gnf}
+                  return (
+                    <tr key={sale.id} className="group transition-colors hover:bg-gray-50/60">
+
+                      {/* Référence */}
+                      <td className="px-5 py-3.5">
+                        <span className="rounded-lg bg-primary/5 px-2 py-1 font-mono text-xs font-semibold text-primary">
+                          {sale.reference ?? sale.id.slice(0, 8).toUpperCase()}
+                        </span>
+                      </td>
+
+                      {/* Client */}
+                      <td className="px-5 py-3.5 font-medium text-darktext">
+                        {client ? getClientLabel(client) : (
+                          <span className="italic text-gray-400">Client de passage</span>
+                        )}
+                      </td>
+
+                      {/* Total */}
+                      <td className="px-5 py-3.5 text-right">
+                        <span className="font-bold tabular-nums text-darktext">
+                          {sale.total_amount_gnf.toLocaleString("fr-FR")}
+                        </span>
+                        <span className="ml-1 text-xs text-gray-400">{sale.display_currency}</span>
+                      </td>
+
+                      {/* Mode paiement */}
+                      <td className="hidden px-5 py-3.5 text-gray-500 md:table-cell">
+                        {sale.payment_method ? PAYMENT_LABELS[sale.payment_method] ?? sale.payment_method : "—"}
+                      </td>
+
+                      {/* Statut */}
+                      <td className="px-5 py-3.5 text-center">
+                        <Badge
+                          label={statut.label}
+                          variant={statut.variant}
+                          dot
                         />
-                      ) : (
-                        <Link
-                          href={`/vente/historique/${sale.id}`}
-                          className="text-xs text-primary hover:underline"
-                        >
-                          Détail
-                        </Link>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })
-            )}
-          </tbody>
-        </table>
+                      </td>
+
+                      {/* Date */}
+                      <td className="hidden px-5 py-3.5 text-xs text-gray-400 lg:table-cell">
+                        {new Date(sale.created_at).toLocaleDateString("fr-FR", {
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                      </td>
+
+                      {/* Actions */}
+                      <td className="px-5 py-3.5 text-right">
+                        {isPending ? (
+                          <MarkAsPaidButton
+                            saleId={sale.id}
+                            totalAmountGNF={sale.total_amount_gnf}
+                          />
+                        ) : (
+                          <Link
+                            href={`/vente/historique/${sale.id}`}
+                            className="inline-flex items-center gap-1 rounded-lg bg-gray-100 px-2.5 py-1.5 text-xs font-medium text-gray-600 transition hover:bg-gray-200"
+                          >
+                            Détail
+                          </Link>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      {/* Pagination */}
-      <div className="flex items-center justify-between rounded-lg bg-white p-4 shadow-sm">
-        <p className="text-sm text-darktext/80">
-          Page {page} / {totalPages} — {total} vente(s)
+      {/* ── Pagination ── */}
+      <div className="flex items-center justify-between rounded-2xl border border-gray-100 bg-white px-5 py-3.5 shadow-sm">
+        <p className="text-sm text-gray-500">
+          Page <span className="font-semibold text-darktext">{page}</span> sur{" "}
+          <span className="font-semibold text-darktext">{totalPages}</span>
+          {" "}— {total} vente{total > 1 ? "s" : ""}
         </p>
         <div className="flex gap-2">
           <Link
             href={page > 1 ? buildUrl(page - 1) : "#"}
-            className={`rounded-md px-3 py-2 text-sm ${
+            className={`rounded-xl px-4 py-2 text-sm font-medium transition ${
               page > 1
-                ? "border border-gray-300 text-darktext"
-                : "cursor-not-allowed border border-gray-200 text-gray-400"
+                ? "border border-gray-200 text-darktext hover:bg-gray-50"
+                : "cursor-not-allowed border border-gray-100 text-gray-300"
             }`}
           >
-            Précédent
+            ← Précédent
           </Link>
           <Link
             href={page < totalPages ? buildUrl(page + 1) : "#"}
-            className={`rounded-md px-3 py-2 text-sm ${
+            className={`rounded-xl px-4 py-2 text-sm font-medium transition ${
               page < totalPages
-                ? "border border-gray-300 text-darktext"
-                : "cursor-not-allowed border border-gray-200 text-gray-400"
+                ? "border border-gray-200 text-darktext hover:bg-gray-50"
+                : "cursor-not-allowed border border-gray-100 text-gray-300"
             }`}
           >
-            Suivant
+            Suivant →
           </Link>
         </div>
       </div>
+
     </div>
   );
 }

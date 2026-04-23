@@ -1,7 +1,29 @@
 "use client";
 
 import Link from "next/link";
-import type { DashboardKpis } from "@/lib/server/dashboard-kpis";
+import {
+  Users,
+  Package,
+  ShoppingCart,
+  TrendingUp,
+  AlertTriangle,
+  PlusCircle,
+  UserPlus,
+  ClipboardList,
+  UserCog,
+  ArrowRight,
+  Plus,
+  Pencil,
+  Trash2,
+  Activity,
+  BarChart2,
+} from "lucide-react";
+import { KpiCard } from "@/components/ui/kpi-card";
+import type { DashboardKpis, DayStats, RecentActivityEntry } from "@/lib/server/dashboard-kpis";
+
+// ---------------------------------------------------------------------------
+// Types
+// ---------------------------------------------------------------------------
 
 type DashboardClientProps = {
   email: string | null;
@@ -12,6 +34,182 @@ type DashboardClientProps = {
   kpis: DashboardKpis;
 };
 
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+function formatGNF(amount: number): string {
+  return new Intl.NumberFormat("fr-FR").format(Math.round(amount)) + " GNF";
+}
+
+function getGreeting(): string {
+  const h = new Date().getHours();
+  if (h < 12) return "Bonjour";
+  if (h < 18) return "Bon après-midi";
+  return "Bonsoir";
+}
+
+function toRelativeTime(iso: string): string {
+  const diff = Date.now() - new Date(iso).getTime();
+  const m = Math.floor(diff / 60000);
+  if (m < 1)  return "À l'instant";
+  if (m < 60) return `Il y a ${m} min`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `Il y a ${h}h`;
+  return `Il y a ${Math.floor(h / 24)}j`;
+}
+
+const ACTION_META: Record<string, { label: string; icon: typeof Plus; color: string }> = {
+  create: { label: "Création",     icon: Plus,    color: "text-emerald-500 bg-emerald-50" },
+  update: { label: "Modification", icon: Pencil,  color: "text-sky-500 bg-sky-50"       },
+  delete: { label: "Suppression",  icon: Trash2,  color: "text-red-400 bg-red-50"        },
+};
+
+const MODULE_LABELS: Record<string, string> = {
+  clients:       "Clients",
+  produits:      "Produits",
+  vente:         "Ventes",
+  utilisateurs:  "Utilisateurs",
+  activity_logs: "Journal",
+};
+
+// ---------------------------------------------------------------------------
+// SalesChart — graphique barres 7 jours (pur CSS, zéro dépendance)
+// ---------------------------------------------------------------------------
+
+function SalesChart({ data }: { data: DayStats[] }) {
+  const max = Math.max(...data.map((d) => d.amount), 1);
+  const today = new Date().toISOString().slice(0, 10);
+
+  return (
+    <div className="flex h-36 items-end gap-1.5">
+      {data.map((d) => {
+        const pct     = Math.max((d.amount / max) * 100, 4);
+        const isToday = d.date === today;
+        return (
+          <div key={d.date} className="group relative flex flex-1 flex-col items-center gap-1">
+            {/* Tooltip au hover */}
+            <div className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-xl border border-gray-100 bg-white px-2.5 py-1.5 text-center opacity-0 shadow-lg transition-all group-hover:opacity-100 z-10">
+              <p className="text-xs font-bold text-darktext">{formatGNF(d.amount)}</p>
+              <p className="text-[10px] text-gray-400">{d.count} vente{d.count !== 1 ? "s" : ""}</p>
+            </div>
+            {/* Barre */}
+            <div className="relative w-full" style={{ height: "112px" }}>
+              <div
+                className={`absolute bottom-0 left-0 right-0 rounded-t-xl transition-all duration-500 ${
+                  isToday
+                    ? "bg-primary shadow-sm shadow-primary/30"
+                    : d.amount > 0
+                    ? "bg-primary/25 group-hover:bg-primary/40"
+                    : "bg-gray-100"
+                }`}
+                style={{ height: `${pct}%` }}
+              />
+            </div>
+            {/* Label jour */}
+            <span className={`text-[10px] font-medium ${isToday ? "text-primary" : "text-gray-400"}`}>
+              {d.label}
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// ActivityTimeline — activité récente
+// ---------------------------------------------------------------------------
+
+function ActivityTimeline({ events }: { events: RecentActivityEntry[] }) {
+  if (events.length === 0) {
+    return (
+      <div className="flex flex-col items-center gap-2 py-6 text-center">
+        <Activity size={22} className="text-gray-200" />
+        <p className="text-sm text-gray-400">Aucune activité récente</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-0">
+      {events.map((ev, idx) => {
+        const meta = ACTION_META[ev.action_key] ?? ACTION_META["update"];
+        const Icon = meta.icon;
+        const moduleLabel = MODULE_LABELS[ev.module_key] ?? ev.module_key;
+        return (
+          <div key={ev.id} className="flex gap-3 group">
+            {/* Indicateur timeline */}
+            <div className="flex flex-col items-center pt-1">
+              <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-xl text-xs ${meta.color}`}>
+                <Icon size={12} />
+              </div>
+              {idx < events.length - 1 && (
+                <div className="mt-1 h-full w-px bg-gray-100 min-h-[16px]" />
+              )}
+            </div>
+            {/* Contenu */}
+            <div className="flex-1 pb-3 pt-0.5">
+              <p className="text-sm text-darktext leading-snug">
+                <span className="font-semibold">{meta.label}</span>
+                {" dans "}
+                <span className="font-semibold text-primary">{moduleLabel}</span>
+              </p>
+              <div className="mt-0.5 flex items-center gap-2">
+                {ev.user_email && (
+                  <span className="text-xs text-gray-400 truncate max-w-[120px]">
+                    {ev.user_email.split("@")[0]}
+                  </span>
+                )}
+                <span className="text-[10px] text-gray-300">•</span>
+                <span className="text-xs text-gray-400">{toRelativeTime(ev.created_at)}</span>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Quick Action Card
+// ---------------------------------------------------------------------------
+
+function QuickAction({
+  href,
+  icon: Icon,
+  label,
+  description,
+  color,
+}: {
+  href: string;
+  icon: typeof ShoppingCart;
+  label: string;
+  description: string;
+  color: string;
+}) {
+  return (
+    <Link
+      href={href}
+      className="group flex items-center gap-4 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/20 hover:shadow-md"
+    >
+      <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${color} transition-transform group-hover:scale-110`}>
+        <Icon size={18} />
+      </div>
+      <div className="min-w-0 flex-1">
+        <p className="text-sm font-semibold text-darktext">{label}</p>
+        <p className="truncate text-xs text-gray-400">{description}</p>
+      </div>
+      <ArrowRight size={14} className="shrink-0 text-gray-300 transition-transform group-hover:translate-x-0.5 group-hover:text-primary" />
+    </Link>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Composant principal
+// ---------------------------------------------------------------------------
+
 export function DashboardClient({
   email,
   canReadClients,
@@ -20,56 +218,183 @@ export function DashboardClient({
   isSuperAdmin = false,
   kpis,
 }: DashboardClientProps) {
-  return (
-    <div className="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-sm">
-      <h1 className="text-2xl font-semibold text-darktext">Dashboard</h1>
-      <p className="mt-2 text-sm text-darktext/80">Connecté en tant que : {email ?? "Utilisateur"}</p>
+  const greeting     = getGreeting();
+  const displayName  = email?.split("@")[0] ?? "Utilisateur";
+  const hasStockAlert = kpis.productsOutOfStock > 0 || kpis.productsLowStock > 0;
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2">
-        <div className="rounded-lg border border-gray-200 bg-white p-4">
-          <p className="text-xs font-medium uppercase text-darktext/70">Clients actifs</p>
-          <p className="mt-2 text-2xl font-semibold text-darktext">{kpis.clientsTotal}</p>
-        </div>
-        <div className="rounded-lg border border-gray-200 bg-white p-4">
-          <p className="text-xs font-medium uppercase text-darktext/70">Suppressions clients (24h)</p>
-          <p className="mt-2 text-2xl font-semibold text-darktext">{kpis.deletesClientsLast24h}</p>
-        </div>
+  return (
+    <div className="mx-auto max-w-5xl space-y-6">
+
+      {/* ── Welcome banner ───────────────────────────────────────────────── */}
+      <div className="rounded-2xl bg-gradient-to-br from-primary to-primary-light p-6 text-white shadow-sm">
+        <p className="text-sm font-medium text-white/70">{greeting},</p>
+        <h1 className="mt-1 text-2xl font-bold capitalize">{displayName} 👋</h1>
+        <p className="mt-1 text-sm text-white/60">Voici un aperçu de votre activité du jour.</p>
       </div>
 
-      <div className="mt-6 flex flex-wrap gap-3">
-        {canReadClients ? (
-          <Link
-            href="/vente/clients"
-            className="inline-block rounded-md bg-primary px-4 py-2 text-sm font-medium text-white"
-          >
-            Gérer les clients
-          </Link>
-        ) : null}
-        {canReadProducts ? (
+      {/* ── Alerte stock ─────────────────────────────────────────────────── */}
+      {hasStockAlert && canReadProducts && (
+        <div className="flex items-center gap-3 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3.5">
+          <AlertTriangle size={18} className="shrink-0 text-amber-600" />
+          <p className="flex-1 text-sm text-amber-800">
+            {kpis.productsOutOfStock > 0 && (
+              <span className="font-semibold">{kpis.productsOutOfStock} en rupture. </span>
+            )}
+            {kpis.productsLowStock > 0 && (
+              <span>{kpis.productsLowStock} produit(s) à stock faible.</span>
+            )}
+          </p>
           <Link
             href="/vente/produits"
-            className="inline-block rounded-md bg-primary px-4 py-2 text-sm font-medium text-white"
+            className="shrink-0 rounded-xl bg-amber-600 px-3.5 py-1.5 text-xs font-bold text-white transition hover:bg-amber-700"
           >
-            Gérer les produits
+            Voir →
           </Link>
-        ) : null}
-        {canReadActivityLogs ? (
-          <Link
-            href="/admin/activity-logs"
-            className="inline-block rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-darktext"
-          >
-            Journal d&apos;activité
-          </Link>
-        ) : null}
-        {isSuperAdmin ? (
-          <Link
-            href="/admin/users"
-            className="inline-block rounded-md border border-primary px-4 py-2 text-sm font-medium text-primary"
-          >
-            Gestion des utilisateurs
-          </Link>
-        ) : null}
+        </div>
+      )}
+
+      {/* ── KPI Grid ─────────────────────────────────────────────────────── */}
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <KpiCard
+          label="Clients actifs"
+          value={kpis.clientsTotal}
+          icon={Users}
+          iconColor="text-primary"
+          iconBg="bg-primary/10"
+          sub="Base clients totale"
+        />
+        <KpiCard
+          label="Ventes aujourd'hui"
+          value={kpis.salesToday}
+          icon={ShoppingCart}
+          iconColor="text-emerald-600"
+          iconBg="bg-emerald-50"
+          sub={kpis.salesAmountToday > 0 ? formatGNF(kpis.salesAmountToday) : "Aucune vente"}
+        />
+        <KpiCard
+          label="CA ce mois"
+          value={formatGNF(kpis.salesAmountMonth)}
+          icon={TrendingUp}
+          iconColor="text-sky-600"
+          iconBg="bg-sky-50"
+          sub={`${kpis.salesCountMonth} transaction${kpis.salesCountMonth !== 1 ? "s" : ""}`}
+        />
+        <KpiCard
+          label="Stock à surveiller"
+          value={kpis.productsLowStock + kpis.productsOutOfStock}
+          icon={Package}
+          iconColor={hasStockAlert ? "text-amber-600" : "text-gray-400"}
+          iconBg={hasStockAlert ? "bg-amber-50" : "bg-gray-100"}
+          sub={kpis.productsOutOfStock > 0 ? `${kpis.productsOutOfStock} en rupture` : "Tout va bien"}
+        />
       </div>
+
+      {/* ── Graphique + Activité récente ──────────────────────────────────── */}
+      <div className="grid gap-4 lg:grid-cols-3">
+
+        {/* Graphique 7 jours (2/3) */}
+        <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm lg:col-span-2">
+          <div className="mb-4 flex items-center justify-between">
+            <div>
+              <h2 className="flex items-center gap-2 text-sm font-bold text-darktext">
+                <BarChart2 size={16} className="text-primary" />
+                Ventes — 7 derniers jours
+              </h2>
+              <p className="text-xs text-gray-400">Montant total en GNF</p>
+            </div>
+            <Link
+              href="/vente/historique"
+              className="text-xs font-medium text-primary hover:underline"
+            >
+              Voir tout →
+            </Link>
+          </div>
+          <SalesChart data={kpis.salesLast7Days} />
+        </div>
+
+        {/* Activité récente (1/3) */}
+        <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="flex items-center gap-2 text-sm font-bold text-darktext">
+              <Activity size={15} className="text-primary" />
+              Activité récente
+            </h2>
+            {canReadActivityLogs && (
+              <Link
+                href="/admin/activity-logs"
+                className="text-xs font-medium text-primary hover:underline"
+              >
+                Tout →
+              </Link>
+            )}
+          </div>
+          <ActivityTimeline events={kpis.recentActivity} />
+        </div>
+      </div>
+
+      {/* ── Actions rapides ───────────────────────────────────────────────── */}
+      <div>
+        <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-gray-400">
+          Actions rapides
+        </h2>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {canReadProducts && (
+            <QuickAction
+              href="/vente/nouvelle-vente"
+              icon={ShoppingCart}
+              label="Nouvelle vente"
+              description="Encaisser un client maintenant"
+              color="bg-primary/10 text-primary"
+            />
+          )}
+          {canReadClients && (
+            <QuickAction
+              href="/vente/clients/new"
+              icon={UserPlus}
+              label="Ajouter un client"
+              description="Créer une fiche client"
+              color="bg-emerald-50 text-emerald-600"
+            />
+          )}
+          {canReadProducts && (
+            <QuickAction
+              href="/vente/produits/new"
+              icon={PlusCircle}
+              label="Ajouter un produit"
+              description="Référencer un nouveau produit"
+              color="bg-sky-50 text-sky-600"
+            />
+          )}
+          {canReadActivityLogs && (
+            <QuickAction
+              href="/admin/activity-logs"
+              icon={ClipboardList}
+              label="Journal d'activité"
+              description="Consulter les logs système"
+              color="bg-violet-50 text-violet-600"
+            />
+          )}
+          {canReadProducts && (
+            <QuickAction
+              href="/vente/historique"
+              icon={TrendingUp}
+              label="Historique des ventes"
+              description="Voir toutes les transactions"
+              color="bg-orange-50 text-orange-600"
+            />
+          )}
+          {isSuperAdmin && (
+            <QuickAction
+              href="/admin/users"
+              icon={UserCog}
+              label="Gérer les utilisateurs"
+              description="Inviter et configurer les accès"
+              color="bg-pink-50 text-pink-600"
+            />
+          )}
+        </div>
+      </div>
+
     </div>
   );
 }

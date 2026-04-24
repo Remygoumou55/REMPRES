@@ -17,7 +17,10 @@ export async function getProductById(id: string) {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function updateProduct(id: string, updates: any) {
+export async function updateProduct(
+  id: string,
+  updates: Record<string, unknown>
+) {
   const { data, error } = await supabase
     .from("products")
     .update(updates)

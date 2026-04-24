@@ -65,11 +65,8 @@ export default async function EditProductPage({ params, searchParams }: EditProd
         stock_threshold: Number(getFieldValue(formData, "stock_threshold")),
       };
 
-      const requestHeaders = headers();
-      await updateProduct(params.id, payload, userId, {
-        ip: requestHeaders.get("x-forwarded-for") ?? requestHeaders.get("x-real-ip"),
-        userAgent: requestHeaders.get("user-agent"),
-      });
+     
+      await updateProduct(params.id, payload);
     } catch (error) {
       const message = mapProductError(error, "Impossible de modifier le produit pour le moment.");
       redirect(`/vente/produits/${params.id}/edit?error=${encodeURIComponent(message)}`);

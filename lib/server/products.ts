@@ -28,3 +28,33 @@ export async function updateProduct(id: string, updates: any) {
   if (error) throw error;
   return data;
 }
+
+export async function listProducts() {
+  const { data, error } = await supabase
+    .from("products")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) throw error;
+  return data;
+}
+
+export async function createProduct(payload: any) {
+  const { data, error } = await supabase
+    .from("products")
+    .insert(payload)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+}
+
+export async function softDeleteProduct(id: string) {
+  const { error } = await supabase
+    .from("products")
+    .update({ deleted_at: new Date().toISOString() })
+    .eq("id", id);
+
+  if (error) throw error;
+}

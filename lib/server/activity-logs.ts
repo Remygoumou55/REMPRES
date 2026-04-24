@@ -60,6 +60,16 @@ function maskSensitiveJson(value: Json): Json {
   return output;
 }
 
+const DAY = /^(\d{4}-\d{2}-\d{2})$/;
+
+/** Borne un filtre "jour" (input type=date) sur toute la journée en UTC. */
+function dayStartUtc(isoDay: string): string {
+  return `${isoDay}T00:00:00.000Z`;
+}
+function dayEndUtc(isoDay: string): string {
+  return `${isoDay}T23:59:59.999Z`;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function applyFilters(query: any, filters?: ActivityLogsFilters) {
   let nextQuery = query;
@@ -67,8 +77,31 @@ function applyFilters(query: any, filters?: ActivityLogsFilters) {
   if (filters?.actionKey) nextQuery = nextQuery.eq("action_key", filters.actionKey);
   if (filters?.actorUserId) nextQuery = nextQuery.eq("actor_user_id", filters.actorUserId);
   if (filters?.targetId) nextQuery = nextQuery.ilike("target_id", `%${filters.targetId}%`);
-  if (filters?.from) nextQuery = nextQuery.gte("created_at", filters.from);
-  if (filters?.to) nextQuery = nextQuery.lte("created_at", filters.to);
+
+  const fromRaw = filters?.from?.trim();
+  const toRaw   = filters?.to?.trim();
+  const fromDay = fromRaw && DAY.test(fromRaw) ? fromRaw : null;
+  const toDay   = toRaw && DAY.test(toRaw) ? toRaw : null;
+
+  if (fromDay) {
+    const start = dayStartUtc(fromDay);
+    let end: string;
+    if (toDay) {
+      end = dayEndUtc(toDay);
+    } else if (toRaw && !toDay) {
+      end = toRaw;
+    } else {
+      end = dayEndUtc(fromDay);
+    }
+    nextQuery = nextQuery.gte("created_at", start).lte("created_at", end);
+  } else {
+    if (fromRaw) nextQuery = nextQuery.gte("created_at", fromRaw);
+    if (toRaw) {
+      const lteVal = toDay ? dayEndUtc(toDay) : toRaw;
+      nextQuery = nextQuery.lte("created_at", lteVal);
+    }
+  }
+
   return nextQuery;
 }
 

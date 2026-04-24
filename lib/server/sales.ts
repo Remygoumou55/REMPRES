@@ -189,7 +189,7 @@ export async function createSale(
     {
       p_seller_id:        sellerId,
       p_created_by:       userId,
-      p_client_id:        clientId ?? null,
+      p_client_id:        clientId,
       p_items:            items.map((i) => ({
         product_id:       i.productId,
         product_name:     i.productName,

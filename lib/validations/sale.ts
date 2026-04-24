@@ -24,7 +24,10 @@ export type SaleItem = z.infer<typeof saleItemSchema>;
 
 export const createSaleSchema = z
   .object({
-    clientId: z.string().uuid("Identifiant client invalide").nullable().optional(),
+    /** Phase 2 : une vente doit toujours être rattachée à un client (existant ou créé au POS). */
+    clientId: z
+      .string("Un client est obligatoire pour enregistrer la vente.")
+      .pipe(z.uuid("Identifiant client invalide.")),
     items: z.array(saleItemSchema).min(1, "La vente doit contenir au moins un article"),
     discountPercent: z.coerce.number().min(0, "Minimum 0 %").max(100, "Maximum 100 %").default(0),
     paymentMethod: z.enum([

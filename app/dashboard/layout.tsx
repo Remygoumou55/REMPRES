@@ -11,6 +11,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
       canReadProducts={access.canReadProducts}
       canReadActivityLogs={access.canReadActivityLogs}
       isSuperAdmin={access.isSuperAdmin}
+      canReadFinance={access.canReadFinance}
     >
       {children}
     </AppShell>

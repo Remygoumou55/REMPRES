@@ -3,7 +3,9 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import { z } from "zod";
 import { createSale, updatePaymentStatus } from "@/lib/server/sales";
+import { resolveErrorMessage } from "@/lib/messages";
 import type { CreateSaleInput } from "@/lib/validations/sale";
 import type { Client } from "@/types/client";
 
@@ -41,9 +43,18 @@ export async function createSaleAction(
       sale: { id: sale.id, reference: sale.reference, total_amount_gnf: sale.total_amount_gnf },
     };
   } catch (err) {
+    if (err instanceof z.ZodError) {
+      const first = err.issues[0];
+      return {
+        success: false,
+        error: first?.message ?? "Données invalides. Vérifiez le formulaire.",
+      };
+    }
     return {
       success: false,
-      error: err instanceof Error ? err.message : "Erreur inconnue lors de la création de la vente",
+      error: resolveErrorMessage(
+        err instanceof Error ? err.message : "Erreur inconnue lors de la création de la vente",
+      ),
     };
   }
 }
@@ -106,7 +117,9 @@ export async function markAsPaidAction(
   } catch (err) {
     return {
       success: false,
-      error: err instanceof Error ? err.message : "Erreur lors de la mise à jour du statut",
+      error: resolveErrorMessage(
+        err instanceof Error ? err.message : "Erreur lors de la mise à jour du statut",
+      ),
     };
   }
 }

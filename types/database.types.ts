@@ -393,14 +393,38 @@ export type Database = {
         };
         Relationships: [];
       };
+      expense_categories: {
+        Row: {
+          id: string;
+          name: string;
+          color: string;
+          sort_order: number;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          color?: string;
+          sort_order?: number;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          color?: string;
+          sort_order?: number;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
       expenses: {
         Row: {
           id: string;
-          category: string;
+          category_id: string;
           description: string;
           amount_gnf: number;
           supplier: string | null;
-          payment_method: string | null;
+          payment_method: "cash" | "mobile_money" | "bank_transfer" | "other" | null;
           expense_date: string;
           receipt_url: string | null;
           created_by: string | null;
@@ -410,11 +434,11 @@ export type Database = {
         };
         Insert: {
           id?: string;
-          category: string;
+          category_id: string;
           description: string;
           amount_gnf: number;
           supplier?: string | null;
-          payment_method?: string | null;
+          payment_method?: "cash" | "mobile_money" | "bank_transfer" | "other" | null;
           expense_date: string;
           receipt_url?: string | null;
           created_by?: string | null;
@@ -424,11 +448,11 @@ export type Database = {
         };
         Update: {
           id?: string;
-          category?: string;
+          category_id?: string;
           description?: string;
           amount_gnf?: number;
           supplier?: string | null;
-          payment_method?: string | null;
+          payment_method?: "cash" | "mobile_money" | "bank_transfer" | "other" | null;
           expense_date?: string;
           receipt_url?: string | null;
           created_by?: string | null;
@@ -441,7 +465,7 @@ export type Database = {
       financial_transactions: {
         Row: {
           id: string;
-          source_type: "sale" | "training" | "consultation";
+          source_type: "sale" | "training" | "consultation" | "expense";
           source_id: string;
           client_id: string | null;
           created_by: string | null;
@@ -459,7 +483,7 @@ export type Database = {
         };
         Insert: {
           id?: string;
-          source_type: "sale" | "training" | "consultation";
+          source_type: "sale" | "training" | "consultation" | "expense";
           source_id: string;
           client_id?: string | null;
           created_by?: string | null;
@@ -477,7 +501,7 @@ export type Database = {
         };
         Update: {
           id?: string;
-          source_type?: "sale" | "training" | "consultation";
+          source_type?: "sale" | "training" | "consultation" | "expense";
           source_id?: string;
           client_id?: string | null;
           created_by?: string | null;
@@ -520,9 +544,41 @@ export type Database = {
         };
         Returns: Json;
       };
+      create_expense_transaction: {
+        Args: {
+          p_user_id: string;
+          p_category_id: string;
+          p_amount_gnf: number;
+          p_description: string;
+          p_expense_date: string;
+          p_payment_method: "cash" | "mobile_money" | "bank_transfer" | "other";
+          p_receipt_url?: string | null;
+        };
+        Returns: Json;
+      };
+      update_expense_transaction: {
+        Args: {
+          p_expense_id: string;
+          p_user_id: string;
+          p_category_id: string;
+          p_amount_gnf: number;
+          p_description: string;
+          p_expense_date: string;
+          p_payment_method: "cash" | "mobile_money" | "bank_transfer" | "other";
+          p_receipt_url?: string | null;
+        };
+        Returns: Json;
+      };
+      delete_expense_transaction: {
+        Args: {
+          p_expense_id: string;
+          p_user_id: string;
+        };
+        Returns: Json;
+      };
       record_financial_transaction: {
         Args: {
-          p_source_type: "sale" | "training" | "consultation";
+          p_source_type: "sale" | "training" | "consultation" | "expense";
           p_source_id: string;
           p_client_id: string | null;
           p_created_by: string;
@@ -535,7 +591,9 @@ export type Database = {
         Returns: string | null;
       };
     };
-    Enums: Record<string, never>;
+    Enums: {
+      expense_payment_method: "cash" | "mobile_money" | "bank_transfer" | "other";
+    };
     CompositeTypes: Record<string, never>;
   };
 };

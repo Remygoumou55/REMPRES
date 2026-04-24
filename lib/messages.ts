@@ -45,6 +45,9 @@ export const ERROR_CODES: Record<string, string> = {
 
   // Générique
   TRANSACTION_FAILED:  "Une erreur est survenue. Veuillez réessayer.",
+
+  // Client vente
+  CLIENT_REQUIRED: "Veuillez sélectionner un client existant ou en créer un avant de valider la vente.",
 };
 
 // ---------------------------------------------------------------------------

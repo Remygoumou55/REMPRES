@@ -119,3 +119,28 @@ export async function assertSuperAdmin(userId: string) {
     throw new Error("Accès refusé");
   }
 }
+
+/**
+ * Liste des profils (filtre global Finance / admin). RLS : un non super_admin
+ * ne voit que son profil — n’appeler qu’après isSuperAdmin.
+ */
+export async function listProfilesForAdminSelect(): Promise<{ id: string; label: string }[]> {
+  const supabase = getSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("id, first_name, last_name, email")
+    .is("deleted_at", null)
+    .order("last_name", { ascending: true })
+    .limit(500);
+
+  if (error) {
+    return [];
+  }
+  return (data ?? []).map((p) => {
+    const name = [p.first_name, p.last_name].filter(Boolean).join(" ").trim();
+    return {
+      id: p.id,
+      label: name || p.email || p.id.slice(0, 8),
+    };
+  });
+}

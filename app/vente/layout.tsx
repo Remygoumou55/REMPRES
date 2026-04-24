@@ -11,6 +11,7 @@ export default async function VenteLayout({ children }: { children: React.ReactN
       canReadProducts={access.canReadProducts}
       canReadActivityLogs={access.canReadActivityLogs}
       isSuperAdmin={access.isSuperAdmin}
+      canReadFinance={access.canReadFinance}
     >
       {children}
     </AppShell>

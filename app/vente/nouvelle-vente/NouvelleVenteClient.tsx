@@ -29,7 +29,8 @@ import type { Client } from "@/types/client";
 import { useCurrencyStore } from "@/stores/currencyStore";
 import { convertAmount, formatAmount, FALLBACK_RATES, type Currency } from "@/lib/currencyService";
 import { createSaleAction, createQuickClientAction } from "./actions";
-import { resolveErrorMessage } from "@/lib/messages";
+import { resolveErrorMessage, ERROR_CODES } from "@/lib/messages";
+import { formatGNF } from "@/lib/utils/formatCurrency";
 
 // ---------------------------------------------------------------------------
 // Types locaux
@@ -54,10 +55,6 @@ function useDebounce<T>(value: T, delay: number): T {
     return () => clearTimeout(t);
   }, [value, delay]);
   return debounced;
-}
-
-function formatGNF(amount: number): string {
-  return new Intl.NumberFormat("fr-FR").format(Math.round(amount)) + " GNF";
 }
 
 // ---------------------------------------------------------------------------
@@ -329,7 +326,7 @@ function ClientSelector({
     <div ref={ref} className="relative">
       <label className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-gray-400">
         <Users size={11} />
-        Client
+        Client <span className="text-red-500">*</span>
       </label>
       <button
         type="button"
@@ -338,7 +335,9 @@ function ClientSelector({
           selected ? "border-primary/30 bg-primary/5 text-darktext" : "border-gray-200 bg-white text-gray-400"
         }`}
       >
-        <span className="truncate">{selected ? getClientLabel(selected) : "Client de passage"}</span>
+        <span className="truncate">
+          {selected ? getClientLabel(selected) : "Sélectionner un client…"}
+        </span>
         <ChevronDown size={14} className="shrink-0 text-gray-400" />
       </button>
 
@@ -356,16 +355,6 @@ function ClientSelector({
                 />
               </div>
               <ul className="max-h-48 overflow-y-auto pb-1">
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => { onSelect(null); setOpen(false); setQuery(""); }}
-                    className="flex w-full items-center gap-2 px-3 py-2 text-sm text-gray-400 hover:bg-gray-50"
-                  >
-                    <Users size={14} className="shrink-0" />
-                    Client de passage
-                  </button>
-                </li>
                 {filtered.map((c) => (
                   <li key={c.id}>
                     <button
@@ -596,7 +585,7 @@ export function NouvelleVenteClient({ products, clients }: Props) {
 
   // ── Cart operations ─────────────────────────────────────────────────────
 
-  function addToCart(product: Product) {
+  const addToCart = useCallback((product: Product) => {
     if (product.stock_quantity <= 0) return;
     setCart((prev) => {
       const existing = prev.find((i) => i.product.id === product.id);
@@ -609,13 +598,13 @@ export function NouvelleVenteClient({ products, clients }: Props) {
       return [...prev, { product, quantity: 1 }];
     });
     showToast(`✓ ${product.name} ajouté au panier`);
-  }
+  }, [showToast]);
 
-  function removeFromCart(productId: string) {
+  const removeFromCart = useCallback((productId: string) => {
     setCart((prev) => prev.filter((i) => i.product.id !== productId));
-  }
+  }, []);
 
-  function updateQuantity(productId: string, delta: number) {
+  const updateQuantity = useCallback((productId: string, delta: number) => {
     setCart((prev) =>
       prev
         .map((i) => {
@@ -627,18 +616,22 @@ export function NouvelleVenteClient({ products, clients }: Props) {
         })
         .filter((i): i is CartItem => i !== null),
     );
-  }
+  }, []);
 
   // ── Submit ───────────────────────────────────────────────────────────────
 
   async function handleSubmit() {
     if (cart.length === 0 || isSubmitting) return;
+    if (!selectedClient) {
+      setSubmitError(ERROR_CODES.CLIENT_REQUIRED);
+      return;
+    }
     setIsSubmitting(true);
     setSubmitError(null);
 
     try {
       const result = await createSaleAction({
-        clientId: selectedClient?.id ?? null,
+        clientId: selectedClient.id,
         items: cart.map((i) => ({
           productId:      i.product.id,
           productName:    i.product.name,
@@ -916,10 +909,10 @@ export function NouvelleVenteClient({ products, clients }: Props) {
                 {/* Bouton valider */}
                 <button
                   type="button"
-                  disabled={cart.length === 0 || isSubmitting}
+                  disabled={cart.length === 0 || !selectedClient || isSubmitting}
                   onClick={handleSubmit}
                   className={`flex w-full items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-extrabold transition-all ${
-                    cart.length === 0
+                    cart.length === 0 || !selectedClient
                       ? "cursor-not-allowed bg-gray-100 text-gray-400"
                       : isSubmitting
                       ? "cursor-wait bg-primary/80 text-white"
@@ -933,6 +926,8 @@ export function NouvelleVenteClient({ products, clients }: Props) {
                     </>
                   ) : cart.length === 0 ? (
                     "Panier vide"
+                  ) : !selectedClient ? (
+                    "Choisir un client"
                   ) : (
                     <>
                       <CheckCircle size={16} />

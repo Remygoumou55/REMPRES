@@ -1,21 +1,11 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import {
-  PlusCircle,
-  Pencil,
-  Trash2,
-  ClipboardList,
-  AlertTriangle,
-  CheckCircle2,
-  Download,
-  FileJson,
-  Filter,
-} from "lucide-react";
+import { ClipboardList, AlertTriangle, CheckCircle2, Download, FileJson, Filter } from "lucide-react";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getActivityLogsMonitoring, listActivityLogs } from "@/lib/server/activity-logs";
 import { isSuperAdmin } from "@/lib/server/permissions";
 import { ActivityLogsVerifyUpload } from "@/components/admin/activity-logs-verify-upload";
-import { Badge } from "@/components/ui/badge";
+import { ActivityLogTimelineRow } from "@/components/admin/activity-log-timeline-row";
 import { PageHeader } from "@/components/ui/page-header";
 
 // ---------------------------------------------------------------------------
@@ -36,42 +26,8 @@ type ActivityLogsPageProps = {
 };
 
 // ---------------------------------------------------------------------------
-// Helpers — phrases humaines
+// Helpers
 // ---------------------------------------------------------------------------
-
-const MODULE_LABELS: Record<string, string> = {
-  clients:   "un client",
-  produits:  "un produit",
-  vente:     "une vente",
-  users:     "un utilisateur",
-  formation: "une formation",
-  stock:     "le stock",
-};
-
-const ACTION_LABELS: Record<string, { phrase: string; icon: typeof PlusCircle; color: string; bg: string }> = {
-  create: { phrase: "a ajouté",    icon: PlusCircle, color: "text-emerald-600", bg: "bg-emerald-50" },
-  update: { phrase: "a modifié",   icon: Pencil,     color: "text-amber-600",   bg: "bg-amber-50"   },
-  delete: { phrase: "a supprimé",  icon: Trash2,     color: "text-red-500",     bg: "bg-red-50"     },
-};
-
-function toHumanPhrase(moduleKey: string, actionKey: string): string {
-  const action = ACTION_LABELS[actionKey]?.phrase ?? `a effectué "${actionKey}" sur`;
-  const mod    = MODULE_LABELS[moduleKey] ?? `le module "${moduleKey}"`;
-  return `${action} ${mod}`;
-}
-
-function toRelativeTime(dateStr: string): string {
-  const diff = Date.now() - new Date(dateStr).getTime();
-  const s = Math.floor(diff / 1000);
-  if (s < 60)   return "À l'instant";
-  const m = Math.floor(s / 60);
-  if (m < 60)   return `Il y a ${m} min`;
-  const h = Math.floor(m / 60);
-  if (h < 24)   return `Il y a ${h}h`;
-  const d = Math.floor(h / 24);
-  if (d < 7)    return `Il y a ${d} jour${d > 1 ? "s" : ""}`;
-  return new Date(dateStr).toLocaleDateString("fr-FR", { day: "2-digit", month: "short" });
-}
 
 function shortId(uuid: string): string {
   return uuid.slice(0, 8).toUpperCase();
@@ -252,57 +208,18 @@ export default async function ActivityLogsPage({ searchParams }: ActivityLogsPag
         ) : (
           <div className="divide-y divide-gray-50">
             {result.data.map((row, idx) => {
-              const actionCfg  = ACTION_LABELS[row.action_key] ?? ACTION_LABELS.update;
-              const ActionIcon = actionCfg.icon;
-              const actorName  = row.actor_user_id ? (actorNames.get(row.actor_user_id) ?? shortId(row.actor_user_id)) : "Système";
-              const phrase     = toHumanPhrase(row.module_key, row.action_key);
-              const isLast     = idx === result.data.length - 1;
-
+              const actorName =
+                row.actor_user_id
+                  ? (actorNames.get(row.actor_user_id) ?? shortId(row.actor_user_id))
+                  : "Système";
+              const isLast = idx === result.data.length - 1;
               return (
-                <div key={row.id} className="relative flex gap-4 px-5 py-4 hover:bg-gray-50/40 transition-colors">
-                  {/* Ligne de timeline */}
-                  {!isLast && (
-                    <div className="absolute left-[2.6rem] top-12 bottom-0 w-px bg-gray-100" />
-                  )}
-
-                  {/* Icône action */}
-                  <div className={`relative mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${actionCfg.bg}`}>
-                    <ActionIcon size={14} className={actionCfg.color} />
-                  </div>
-
-                  {/* Contenu */}
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-start justify-between gap-2">
-                      <div>
-                        <span className="text-sm font-semibold text-darktext capitalize">
-                          {actorName.split("@")[0]}
-                        </span>
-                        <span className="ml-1.5 text-sm text-gray-500">{phrase}</span>
-                      </div>
-                      <span className="shrink-0 text-xs text-gray-400">{toRelativeTime(row.created_at)}</span>
-                    </div>
-
-                    <div className="mt-1.5 flex flex-wrap items-center gap-2">
-                      <Badge
-                        label={row.module_key}
-                        variant="primary"
-                      />
-                      {row.target_table && row.target_id && (
-                        <span className="font-mono text-xs text-gray-400">
-                          #{shortId(row.target_id)}
-                        </span>
-                      )}
-                      <span className="text-xs text-gray-400">
-                        {new Date(row.created_at).toLocaleString("fr-FR", {
-                          day: "2-digit",
-                          month: "short",
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}
-                      </span>
-                    </div>
-                  </div>
-                </div>
+                <ActivityLogTimelineRow
+                  key={row.id}
+                  row={row}
+                  actorName={actorName}
+                  isLast={isLast}
+                />
               );
             })}
           </div>

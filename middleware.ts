@@ -142,6 +142,7 @@ export const config = {
     "/auth/set-password",
     // Modules métier (construits ou en cours)
     "/rh/:path*",
+    "/finance",
     "/finance/:path*",
     "/formation/:path*",
     "/consultation/:path*",

@@ -12,12 +12,14 @@ export async function getLayoutAccess() {
 
   const permissions = await getClientsPermissions(data.user.id);
   const productsPermissions = await getModulePermissions(data.user.id, ["produits", "vente"]);
+  const financePermissions = await getModulePermissions(data.user.id, ["finance"]);
   const canReadActivityLogs = await isSuperAdmin(data.user.id);
 
   return {
     email: data.user.email ?? null,
     canReadClients: permissions.canRead,
     canReadProducts: productsPermissions.canRead,
+    canReadFinance: financePermissions.canRead,
     canReadActivityLogs,
     isSuperAdmin: canReadActivityLogs, // même vérification
   };

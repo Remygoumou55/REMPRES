@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import {
   Users,
@@ -17,9 +18,11 @@ import {
   Trash2,
   Activity,
   BarChart2,
+  Download,
 } from "lucide-react";
 import { KpiCard } from "@/components/ui/kpi-card";
-import type { DashboardKpis, DayStats, RecentActivityEntry } from "@/lib/server/dashboard-kpis";
+import { formatGNF } from "@/lib/utils/formatCurrency";
+import type { DashboardKpis, RecentActivityEntry } from "@/lib/server/dashboard-kpis";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -34,13 +37,18 @@ type DashboardClientProps = {
   kpis: DashboardKpis;
 };
 
+const SalesChart = dynamic(
+  () =>
+    import("@/components/dashboard/sales-chart").then((m) => ({ default: m.SalesChart })),
+  {
+    loading: () => <div className="h-36 animate-pulse rounded-2xl bg-gray-100/80" />,
+    ssr: false,
+  },
+);
+
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
-
-function formatGNF(amount: number): string {
-  return new Intl.NumberFormat("fr-FR").format(Math.round(amount)) + " GNF";
-}
 
 function getGreeting(): string {
   const h = new Date().getHours();
@@ -63,59 +71,18 @@ const ACTION_META: Record<string, { label: string; icon: typeof Plus; color: str
   create: { label: "Création",     icon: Plus,    color: "text-emerald-500 bg-emerald-50" },
   update: { label: "Modification", icon: Pencil,  color: "text-sky-500 bg-sky-50"       },
   delete: { label: "Suppression",  icon: Trash2,  color: "text-red-400 bg-red-50"        },
+  export: { label: "Export",       icon: Download, color: "text-violet-500 bg-violet-50" },
 };
 
 const MODULE_LABELS: Record<string, string> = {
   clients:       "Clients",
   produits:      "Produits",
   vente:         "Ventes",
+  depenses:      "Dépenses",
+  finance:       "Finance",
   utilisateurs:  "Utilisateurs",
   activity_logs: "Journal",
 };
-
-// ---------------------------------------------------------------------------
-// SalesChart — graphique barres 7 jours (pur CSS, zéro dépendance)
-// ---------------------------------------------------------------------------
-
-function SalesChart({ data }: { data: DayStats[] }) {
-  const max = Math.max(...data.map((d) => d.amount), 1);
-  const today = new Date().toISOString().slice(0, 10);
-
-  return (
-    <div className="flex h-36 items-end gap-1.5">
-      {data.map((d) => {
-        const pct     = Math.max((d.amount / max) * 100, 4);
-        const isToday = d.date === today;
-        return (
-          <div key={d.date} className="group relative flex flex-1 flex-col items-center gap-1">
-            {/* Tooltip au hover */}
-            <div className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-xl border border-gray-100 bg-white px-2.5 py-1.5 text-center opacity-0 shadow-lg transition-all group-hover:opacity-100 z-10">
-              <p className="text-xs font-bold text-darktext">{formatGNF(d.amount)}</p>
-              <p className="text-[10px] text-gray-400">{d.count} vente{d.count !== 1 ? "s" : ""}</p>
-            </div>
-            {/* Barre */}
-            <div className="relative w-full" style={{ height: "112px" }}>
-              <div
-                className={`absolute bottom-0 left-0 right-0 rounded-t-xl transition-all duration-500 ${
-                  isToday
-                    ? "bg-primary shadow-sm shadow-primary/30"
-                    : d.amount > 0
-                    ? "bg-primary/25 group-hover:bg-primary/40"
-                    : "bg-gray-100"
-                }`}
-                style={{ height: `${pct}%` }}
-              />
-            </div>
-            {/* Label jour */}
-            <span className={`text-[10px] font-medium ${isToday ? "text-primary" : "text-gray-400"}`}>
-              {d.label}
-            </span>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
 
 // ---------------------------------------------------------------------------
 // ActivityTimeline — activité récente

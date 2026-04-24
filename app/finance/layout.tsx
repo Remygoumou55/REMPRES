@@ -1,7 +1,7 @@
 import { AppShell } from "@/components/layout/app-shell";
 import { getLayoutAccess } from "@/lib/server/layout-access";
 
-export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+export default async function FinanceLayout({ children }: { children: React.ReactNode }) {
   const access = await getLayoutAccess();
 
   return (

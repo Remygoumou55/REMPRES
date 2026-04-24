@@ -16,6 +16,8 @@ import {
   X,
   LogOut,
   ChevronRight,
+  Wallet,
+  BarChart3,
   type LucideIcon,
 } from "lucide-react";
 import { getSupabaseBrowserClient } from "@/lib/supabase";
@@ -31,6 +33,8 @@ type AppShellProps = {
   canReadProducts: boolean;
   canReadActivityLogs: boolean;
   isSuperAdmin?: boolean;
+  /** Module Finance (dépenses) */
+  canReadFinance?: boolean;
   children: React.ReactNode;
 };
 
@@ -115,7 +119,10 @@ function SidebarContent({ email, groups, pathname, onClose, onLogout }: SidebarC
               </p>
               <div className="space-y-0.5">
                 {visibleItems.map((item) => {
-                  const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
+                  const isActive =
+                    item.href === "/finance"
+                      ? pathname === "/finance"
+                      : pathname === item.href || pathname.startsWith(`${item.href}/`);
                   const Icon = item.icon;
                   return (
                     <Link
@@ -184,6 +191,7 @@ export function AppShell({
   canReadProducts,
   canReadActivityLogs,
   isSuperAdmin = false,
+  canReadFinance = false,
   children,
 }: AppShellProps) {
   const pathname = usePathname();
@@ -204,6 +212,13 @@ export function AppShell({
         { href: "/vente/produits",       label: "Produits",        icon: Package,     visible: canReadProducts },
         { href: "/vente/nouvelle-vente", label: "Nouvelle vente",  icon: ShoppingCart, visible: canReadProducts },
         { href: "/vente/historique",     label: "Historique",      icon: History,     visible: canReadProducts },
+      ],
+    },
+    {
+      label: "Finance",
+      items: [
+        { href: "/finance", label: "Vue d'ensemble", icon: BarChart3, visible: canReadFinance },
+        { href: "/finance/depenses", label: "Dépenses", icon: Wallet, visible: canReadFinance },
       ],
     },
     {

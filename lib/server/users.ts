@@ -15,7 +15,9 @@
 import { getSupabaseAdminClient } from "@/lib/supabaseAdmin";
 import { assertSuperAdmin } from "@/lib/server/permissions";
 import { logError, logInfo } from "@/lib/logger";
+import { insertActivityLog } from "@/lib/server/insert-activity-log";
 import { appConfig } from "@/lib/config";
+import type { Json } from "@/types/database.types";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -51,6 +53,30 @@ export interface InviteUserInput {
 function getRedirectUrl(): string {
   const base = appConfig.baseUrl.replace(/\/$/, "");
   return `${base}/auth/callback?type=invite`;
+}
+
+async function tryActivityLog(
+  input: {
+    actorUserId: string;
+    moduleKey: string;
+    actionKey: string;
+    targetTable: string;
+    targetId?: string | null;
+    metadata?: Json;
+  },
+) {
+  try {
+    await insertActivityLog({
+      actorUserId: input.actorUserId,
+      moduleKey: input.moduleKey,
+      actionKey: input.actionKey,
+      targetTable: input.targetTable,
+      targetId: input.targetId ?? null,
+      metadata: input.metadata ?? {},
+    });
+  } catch (e) {
+    logError("USERS_ACTIVITY_LOG", e, { op: input.actionKey, target: input.targetId });
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -163,6 +189,17 @@ export async function inviteUser(
   }
 
   logInfo("INVITE_USER", `User invited: ${input.email}`, { role: input.roleKey });
+  await tryActivityLog({
+    actorUserId: callerUserId,
+    moduleKey: "utilisateurs",
+    actionKey: "create",
+    targetTable: "profiles",
+    targetId: data.user.id,
+    metadata: {
+      summary: `Invitation envoyée (${input.email})`,
+      role_key: input.roleKey,
+    },
+  });
   return { success: true, userId: data.user.id };
 }
 
@@ -210,6 +247,14 @@ export async function resendInvite(
     return { success: false, error: "Impossible de renvoyer l'invitation." };
   }
 
+  await tryActivityLog({
+    actorUserId: callerUserId,
+    moduleKey: "utilisateurs",
+    actionKey: "update",
+    targetTable: "profiles",
+    targetId: userId,
+    metadata: { summary: "Invitation renvoyée" },
+  });
   return { success: true };
 }
 
@@ -240,6 +285,14 @@ export async function updateUserRole(
     return { success: false, error: "Impossible de mettre à jour le rôle." };
   }
 
+  await tryActivityLog({
+    actorUserId: callerUserId,
+    moduleKey: "utilisateurs",
+    actionKey: "update",
+    targetTable: "profiles",
+    targetId: userId,
+    metadata: { summary: "Rôle modifié", new_role: newRoleKey },
+  });
   return { success: true };
 }
 
@@ -274,6 +327,14 @@ export async function deactivateUser(
   }
 
   logInfo("BLOCK_USER", `User blocked: ${userId}`, { by: callerUserId });
+  await tryActivityLog({
+    actorUserId: callerUserId,
+    moduleKey: "utilisateurs",
+    actionKey: "update",
+    targetTable: "profiles",
+    targetId: userId,
+    metadata: { summary: "Compte désactivé", op: "deactivate" },
+  });
   return { success: true };
 }
 
@@ -304,5 +365,13 @@ export async function reactivateUser(
   }
 
   logInfo("UNBLOCK_USER", `User unblocked: ${userId}`, { by: callerUserId });
+  await tryActivityLog({
+    actorUserId: callerUserId,
+    moduleKey: "utilisateurs",
+    actionKey: "update",
+    targetTable: "profiles",
+    targetId: userId,
+    metadata: { summary: "Compte réactivé", op: "reactivate" },
+  });
   return { success: true };
 }

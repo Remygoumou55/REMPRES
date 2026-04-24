@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
-import { headers } from "next/headers";
+/app/vente/produits/[id]/edit/page.tsx
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getProductById, softDeleteProduct } from "@/lib/server/products";
 import { FlashMessage } from "@/components/ui/flash-message";

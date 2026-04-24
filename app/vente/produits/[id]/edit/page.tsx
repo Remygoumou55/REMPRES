@@ -1,5 +1,4 @@
 import { notFound, redirect } from "next/navigation";
-import { headers } from "next/headers";
 import { ProductForm } from "@/components/forms/product-form";
 import { getProductById, updateProduct } from "@/lib/server/products";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";

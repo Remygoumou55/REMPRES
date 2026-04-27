@@ -129,7 +129,9 @@ export async function getClientsPermissions(userId: string): Promise<ClientsPerm
 export async function assertClientsPermission(userId: string, action: PermissionAction) {
   const permissions = await getClientsPermissions(userId);
 
-  if (!canDoAction(permissions, action)) {
+  if (!permissions || !canDoAction(permissions, action)) {
+  return null;
+}
     throw new Error("Accès refusé");
   }
 
@@ -160,6 +162,8 @@ export async function isSuperAdmin(userId: string): Promise<boolean> {
 
 export async function assertSuperAdmin(userId: string) {
   if (!(await isSuperAdmin(userId))) {
+  return false;
+}
     throw new Error("Accès refusé");
   }
 }

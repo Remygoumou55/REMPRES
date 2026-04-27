@@ -18,7 +18,7 @@ type PermissionRow = {
   can_delete: boolean;
 };
 
-/** Default: deny all — no implicit admin, no bootstrap grants. */
+/** Default: deny all */
 const DENY_ALL: ModulePermissions = {
   canRead: false,
   canCreate: false,
@@ -26,7 +26,10 @@ const DENY_ALL: ModulePermissions = {
   canDelete: false,
 };
 
-function canDoAction(permissions: ClientsPermissions, action: PermissionAction) {
+function canDoAction(
+  permissions: ClientsPermissions,
+  action: PermissionAction
+) {
   switch (action) {
     case "read":
       return permissions.canRead;
@@ -36,6 +39,8 @@ function canDoAction(permissions: ClientsPermissions, action: PermissionAction) 
       return permissions.canUpdate;
     case "delete":
       return permissions.canDelete;
+    default:
+      return false;
   }
 }
 
@@ -49,11 +54,10 @@ function aggregatePermissions(rows: PermissionRow[]): ModulePermissions {
 }
 
 /**
- * Lit le profil (rôle) en base. Erreur DB → ok: false (échec explicite).
- * Absence de ligne profil → roleKey null, ok: true.
+ * Récupère le rôle utilisateur
  */
 async function getProfileRoleKey(
-  userId: string,
+  userId: string
 ): Promise<{ roleKey: string | null; ok: boolean }> {
   const supabase = getSupabaseServerClient();
 
@@ -77,32 +81,24 @@ async function getProfileRoleKey(
 }
 
 /**
- * Permissions issues de la table `permissions` uniquement.
- * - Pas de profil / pas de rôle → refus.
- * - Erreur lecture profil ou permissions → refus (fail closed).
- * - Aucune ligne permissions pour ce rôle + modules → refus (pas de fallback code).
+ * Permissions par module
  */
 export async function getModulePermissions(
   userId: string,
-  moduleKeys: string[],
+  moduleKeys: string[]
 ): Promise<ModulePermissions> {
-  if (!userId?.trim()) {
-    return DENY_ALL;
-  }
-
-  if (!moduleKeys.length) {
+  if (!userId?.trim() || !moduleKeys.length) {
     return DENY_ALL;
   }
 
   const { roleKey, ok } = await getProfileRoleKey(userId);
-  if (!ok) {
-    return DENY_ALL;
-  }
-  if (!roleKey) {
+
+  if (!ok || !roleKey) {
     return DENY_ALL;
   }
 
   const supabase = getSupabaseServerClient();
+
   const { data, error } = await supabase
     .from("permissions")
     .select("can_create,can_read,can_update,can_delete")
@@ -122,23 +118,37 @@ export async function getModulePermissions(
   return aggregatePermissions(data as PermissionRow[]);
 }
 
-export async function getClientsPermissions(userId: string): Promise<ClientsPermissions> {
+/**
+ * Permissions clients
+ */
+export async function getClientsPermissions(
+  userId: string
+): Promise<ClientsPermissions> {
   return getModulePermissions(userId, ["clients", "vente"]);
 }
 
-export async function assertClientsPermission(userId: string, action: PermissionAction) {
+/**
+ * Vérifie permission (SAFE — ne crash jamais)
+ */
+export async function assertClientsPermission(
+  userId: string,
+  action: PermissionAction
+): Promise<ClientsPermissions | null> {
   const permissions = await getClientsPermissions(userId);
 
   if (!permissions || !canDoAction(permissions, action)) {
-  return null;
-}
-    throw new Error("Accès refusé");
+    return null;
   }
 
   return permissions;
 }
 
-export async function getUserRole(userId: string): Promise<string | null> {
+/**
+ * Rôle utilisateur
+ */
+export async function getUserRole(
+  userId: string
+): Promise<string | null> {
   const supabase = getSupabaseServerClient();
 
   const { data, error } = await supabase
@@ -149,25 +159,33 @@ export async function getUserRole(userId: string): Promise<string | null> {
     .maybeSingle();
 
   if (error) {
-    throw new Error(`Impossible de récupérer le rôle utilisateur: ${error.message}`);
+    console.error("getUserRole error:", error.message);
+    return null;
   }
 
   return data?.role_key?.trim() ?? null;
 }
 
+/**
+ * Vérifie super admin
+ */
 export async function isSuperAdmin(userId: string): Promise<boolean> {
   const role = await getUserRole(userId);
   return role === "super_admin";
 }
 
-export async function assertSuperAdmin(userId: string) {
-  if (!(await isSuperAdmin(userId))) {
-  return false;
-}
-    throw new Error("Accès refusé");
-  }
+/**
+ * Assert super admin SAFE
+ */
+export async function assertSuperAdmin(
+  userId: string
+): Promise<boolean> {
+  return await isSuperAdmin(userId);
 }
 
+/**
+ * Liste profils (admin UI)
+ */
 export async function listProfilesForAdminSelect(): Promise<
   { id: string; label: string }[]
 > {
@@ -186,7 +204,10 @@ export async function listProfilesForAdminSelect(): Promise<
   }
 
   return (data ?? []).map((p) => {
-    const name = [p.first_name, p.last_name].filter(Boolean).join(" ").trim();
+    const name = [p.first_name, p.last_name]
+      .filter(Boolean)
+      .join(" ")
+      .trim();
 
     return {
       id: p.id,

@@ -56,7 +56,7 @@ export default async function ReceiptPage({ params }: PageProps) {
   if (!authData.user) redirect("/login");
 
   // Permissions
-  const perms = await getModulePermissions(authData.user.id, ["vente/produits"]);
+  const perms = await getModulePermissions(authData.user.id, ["vente", "produits"]);
   if (!perms.canRead) redirect("/access-denied");
 
   // ── Vente ────────────────────────────────────────────────────────────────

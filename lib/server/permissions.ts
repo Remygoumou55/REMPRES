@@ -18,20 +18,12 @@ type PermissionRow = {
   can_delete: boolean;
 };
 
-const FALLBACK_ROLE_PERMISSIONS: Record<string, ClientsPermissions> = {
-  super_admin: { canRead: true, canCreate: true, canUpdate: true, canDelete: true },
-  directeur_general: { canRead: true, canCreate: true, canUpdate: true, canDelete: false },
-  responsable_vente: { canRead: true, canCreate: true, canUpdate: true, canDelete: true },
-  comptable: { canRead: true, canCreate: false, canUpdate: false, canDelete: false },
-  auditeur: { canRead: true, canCreate: false, canUpdate: false, canDelete: false },
-  employe: { canRead: true, canCreate: false, canUpdate: false, canDelete: false },
-};
-
-const BOOTSTRAP_PERMISSIONS: ClientsPermissions = {
-  canRead: true,
-  canCreate: true,
-  canUpdate: true,
-  canDelete: true,
+/** Default: deny all — no implicit admin, no bootstrap grants. */
+const DENY_ALL: ModulePermissions = {
+  canRead: false,
+  canCreate: false,
+  canUpdate: false,
+  canDelete: false,
 };
 
 function canDoAction(permissions: ClientsPermissions, action: PermissionAction) {
@@ -47,7 +39,22 @@ function canDoAction(permissions: ClientsPermissions, action: PermissionAction) 
   }
 }
 
-async function getRoleKey(userId: string) {
+function aggregatePermissions(rows: PermissionRow[]): ModulePermissions {
+  return {
+    canRead: rows.some((p) => p.can_read),
+    canCreate: rows.some((p) => p.can_create),
+    canUpdate: rows.some((p) => p.can_update),
+    canDelete: rows.some((p) => p.can_delete),
+  };
+}
+
+/**
+ * Lit le profil (rôle) en base. Erreur DB → ok: false (échec explicite).
+ * Absence de ligne profil → roleKey null, ok: true.
+ */
+async function getProfileRoleKey(
+  userId: string,
+): Promise<{ roleKey: string | null; ok: boolean }> {
   const supabase = getSupabaseServerClient();
 
   const { data, error } = await supabase
@@ -58,33 +65,44 @@ async function getRoleKey(userId: string) {
     .maybeSingle();
 
   if (error) {
-    console.error("getRoleKey error:", error.message);
-    return null;
+    console.error("getProfileRoleKey error:", error.message);
+    return { roleKey: null, ok: false };
   }
 
-  return data?.role_key ?? null;
+  if (!data?.role_key || !String(data.role_key).trim()) {
+    return { roleKey: null, ok: true };
+  }
+
+  return { roleKey: String(data.role_key).trim(), ok: true };
 }
 
-function aggregatePermissions(rows: PermissionRow[]): ModulePermissions {
-  return {
-    canRead: rows.some((p) => p.can_read),
-    canCreate: rows.some((p) => p.can_create),
-    canUpdate: rows.some((p) => p.can_update),
-    canDelete: rows.some((p) => p.can_delete),
-  };
-}
-
+/**
+ * Permissions issues de la table `permissions` uniquement.
+ * - Pas de profil / pas de rôle → refus.
+ * - Erreur lecture profil ou permissions → refus (fail closed).
+ * - Aucune ligne permissions pour ce rôle + modules → refus (pas de fallback code).
+ */
 export async function getModulePermissions(
   userId: string,
-  moduleKeys: string[]
+  moduleKeys: string[],
 ): Promise<ModulePermissions> {
-  const supabase = getSupabaseServerClient();
-  const roleKey = await getRoleKey(userId);
-
-  if (!roleKey) {
-    return BOOTSTRAP_PERMISSIONS;
+  if (!userId?.trim()) {
+    return DENY_ALL;
   }
 
+  if (!moduleKeys.length) {
+    return DENY_ALL;
+  }
+
+  const { roleKey, ok } = await getProfileRoleKey(userId);
+  if (!ok) {
+    return DENY_ALL;
+  }
+  if (!roleKey) {
+    return DENY_ALL;
+  }
+
+  const supabase = getSupabaseServerClient();
   const { data, error } = await supabase
     .from("permissions")
     .select("can_create,can_read,can_update,can_delete")
@@ -94,14 +112,14 @@ export async function getModulePermissions(
 
   if (error) {
     console.error("getModulePermissions error:", error.message);
-    return FALLBACK_ROLE_PERMISSIONS[roleKey] ?? BOOTSTRAP_PERMISSIONS;
+    return DENY_ALL;
   }
 
-  if (data && data.length > 0) {
-    return aggregatePermissions(data as PermissionRow[]);
+  if (!data?.length) {
+    return DENY_ALL;
   }
 
-  return FALLBACK_ROLE_PERMISSIONS[roleKey] ?? BOOTSTRAP_PERMISSIONS;
+  return aggregatePermissions(data as PermissionRow[]);
 }
 
 export async function getClientsPermissions(userId: string): Promise<ClientsPermissions> {
@@ -132,7 +150,7 @@ export async function getUserRole(userId: string): Promise<string | null> {
     throw new Error(`Impossible de récupérer le rôle utilisateur: ${error.message}`);
   }
 
-  return data?.role_key ?? null;
+  return data?.role_key?.trim() ?? null;
 }
 
 export async function isSuperAdmin(userId: string): Promise<boolean> {

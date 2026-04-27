@@ -1,5 +1,4 @@
 import { redirect } from "next/navigation";
-import { headers } from "next/headers";
 import { ProductForm } from "@/components/forms/product-form";
 import { createProduct } from "@/lib/server/products";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
@@ -14,6 +13,12 @@ function getFieldValue(formData: FormData, name: string) {
 function getNullableFieldValue(formData: FormData, name: string) {
   const value = getFieldValue(formData, name).trim();
   return value.length > 0 ? value : null;
+}
+
+function getNumberValue(formData: FormData, name: string) {
+  const value = getFieldValue(formData, name);
+  const num = Number(value);
+  return isNaN(num) ? 0 : num;
 }
 
 type NewProductPageProps = {
@@ -32,6 +37,7 @@ export default async function NewProductPage({ searchParams }: NewProductPagePro
   }
 
   const permissions = await getModulePermissions(data.user.id, ["produits", "vente"]);
+
   if (!permissions.canCreate) {
     redirect("/access-denied");
   }
@@ -40,8 +46,10 @@ export default async function NewProductPage({ searchParams }: NewProductPagePro
 
   async function createProductAction(formData: FormData) {
     "use server";
+
     try {
       const permissions = await getModulePermissions(userId, ["produits", "vente"]);
+
       if (!permissions.canCreate) {
         throw new Error("Accès refusé");
       }
@@ -52,20 +60,22 @@ export default async function NewProductPage({ searchParams }: NewProductPagePro
         description: getNullableFieldValue(formData, "description"),
         image_url: getNullableFieldValue(formData, "image_url"),
         unit: getFieldValue(formData, "unit"),
-        price_gnf: Number(getFieldValue(formData, "price_gnf")),
-        stock_quantity: Number(getFieldValue(formData, "stock_quantity")),
-        stock_threshold: Number(getFieldValue(formData, "stock_threshold")),
+        price_gnf: getNumberValue(formData, "price_gnf"),
+        stock_quantity: getNumberValue(formData, "stock_quantity"),
+        stock_threshold: getNumberValue(formData, "stock_threshold"),
       };
 
-      const requestHeaders = headers();
-      await createProduct(input, userId, {
-        ip: requestHeaders.get("x-forwarded-for") ?? requestHeaders.get("x-real-ip"),
-        userAgent: requestHeaders.get("user-agent"),
-      });
+      await createProduct(input);
+
     } catch (error) {
-      const message = mapProductError(error, "Impossible de créer le produit pour le moment.");
+      const message = mapProductError(
+        error,
+        "Impossible de créer le produit pour le moment."
+      );
+
       redirect(`/vente/produits/new?error=${encodeURIComponent(message)}`);
     }
+
     redirect(`/vente/produits?success=${encodeURIComponent("Produit créé avec succès.")}`);
   }
 
@@ -79,4 +89,3 @@ export default async function NewProductPage({ searchParams }: NewProductPagePro
     />
   );
 }
-

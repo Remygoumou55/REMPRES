@@ -1,63 +1,248 @@
-import { createClient } from "@supabase/supabase-js";
+import type { Product } from "@/types/product";
+import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import type { Json } from "@/types/database.types";
+import { createProductSchema, type CreateProductInput } from "@/lib/validations/product";
+import { getModulePermissions, type ModulePermissions } from "@/lib/server/permissions";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+const PRODUCT_COLUMNS =
+  "id,sku,name,description,image_url,unit,price_gnf,stock_quantity,stock_threshold,created_by,created_at,updated_at,deleted_at";
 
-export async function getProductById(id: string) {
-  const { data, error } = await supabase
-    .from("products")
-    .select("*")
-    .eq("id", id)
-    .single();
+const MODULE_KEYS = ["produits", "vente"] as const;
 
-  if (error) throw error;
-  return data;
+/**
+ * Identité = session Supabase uniquement. Jamais de userId passé par le client.
+ */
+async function requireSessionUserId(): Promise<string> {
+  const supabase = getSupabaseServerClient();
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+  if (error || !user) {
+    throw new Error("Non authentifié");
+  }
+  return user.id;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function updateProduct(
-  id: string,
-  updates: Record<string, unknown>
-) {
-  const { data, error } = await supabase
-    .from("products")
-    .update(updates)
-    .eq("id", id)
-    .select()
-    .single();
-
-  if (error) throw error;
-  return data;
+async function requireProductPermissions(
+  require: Partial<Pick<ModulePermissions, "canRead" | "canCreate" | "canUpdate" | "canDelete">>,
+): Promise<{ userId: string; perms: ModulePermissions }> {
+  const userId = await requireSessionUserId();
+  const perms = await getModulePermissions(userId, [...MODULE_KEYS]);
+  if (require.canRead && !perms.canRead) {
+    throw new Error("Accès refusé : lecture produits");
+  }
+  if (require.canCreate && !perms.canCreate) {
+    throw new Error("Accès refusé : création produit");
+  }
+  if (require.canUpdate && !perms.canUpdate) {
+    throw new Error("Accès refusé : modification produit");
+  }
+  if (require.canDelete && !perms.canDelete) {
+    throw new Error("Accès refusé : suppression produit");
+  }
+  return { userId, perms };
 }
 
-export async function listProducts() {
-  const { data, error } = await supabase
-    .from("products")
-    .select("*")
+function getProductsTable() {
+  return getSupabaseServerClient().from("products");
+}
+
+async function createActivityLog(params: {
+  actorUserId: string;
+  actionKey: "create" | "update" | "delete";
+  targetId?: string;
+  metadata?: Json;
+}) {
+  const supabase = getSupabaseServerClient();
+  const { error } = await supabase.from("activity_logs").insert({
+    actor_user_id: params.actorUserId,
+    module_key: "produits",
+    action_key: params.actionKey,
+    target_table: "products",
+    target_id: params.targetId ?? null,
+    metadata: params.metadata ?? {},
+  });
+  if (error) {
+    throw new Error(`Impossible d'écrire le journal d'activité: ${error.message}`);
+  }
+}
+
+function sanitizeProductForLog(p: Product | null) {
+  if (!p) return null;
+  return {
+    id: p.id,
+    sku: p.sku,
+    name: p.name,
+    unit: p.unit,
+    price_gnf: p.price_gnf,
+    stock_quantity: p.stock_quantity,
+    stock_threshold: p.stock_threshold,
+    deleted_at: p.deleted_at,
+  };
+}
+
+/**
+ * Détail d’un produit. Session + droit lecture ; RLS renforce côté base.
+ */
+export async function getProductById(id: string): Promise<Product | null> {
+  if (!id?.trim()) throw new Error("ID produit invalide");
+  await requireProductPermissions({ canRead: true });
+
+  const { data, error } = await getProductsTable()
+    .select(PRODUCT_COLUMNS)
+    .eq("id", id)
+    .is("deleted_at", null)
+    .maybeSingle();
+
+  if (error) {
+    throw new Error(`Impossible de récupérer le produit: ${error.message}`);
+  }
+  if (!data) {
+    return null;
+  }
+  return data as Product;
+}
+
+/**
+ * Liste catalogue. Même règle : lecture.
+ */
+export async function listProducts(): Promise<Product[]> {
+  await requireProductPermissions({ canRead: true });
+
+  const { data, error } = await getProductsTable()
+    .select(PRODUCT_COLUMNS)
+    .is("deleted_at", null)
     .order("created_at", { ascending: false });
 
-  if (error) throw error;
-  return data;
+  if (error) {
+    throw new Error(`Impossible de charger les produits: ${error.message}`);
+  }
+  return (data ?? []) as Product[];
 }
 
-export async function createProduct(payload: any) {
-  const { data, error } = await supabase
-    .from("products")
-    .insert(payload)
-    .select()
+/**
+ * Création. `created_by` = session (re-vérifié, jamais fourni par le body).
+ */
+export async function createProduct(input: CreateProductInput): Promise<Product> {
+  const { userId } = await requireProductPermissions({ canCreate: true });
+  const validated = createProductSchema.parse(input);
+
+  const { data, error } = await getProductsTable()
+    .insert({
+      ...validated,
+      created_by: userId,
+    })
+    .select(PRODUCT_COLUMNS)
     .single();
 
-  if (error) throw error;
-  return data;
+  if (error) {
+    throw new Error(`Impossible de créer le produit: ${error.message}`);
+  }
+
+  const row = data as Product;
+  try {
+    await createActivityLog({
+      actorUserId: userId,
+      actionKey: "create",
+      targetId: row.id,
+      metadata: {
+        before: null,
+        after: sanitizeProductForLog(row),
+      },
+    });
+  } catch (logErr) {
+    console.error("[ActivityLog] produit create:", logErr);
+  }
+
+  return row;
 }
 
-export async function softDeleteProduct(id: string) {
-  const { error } = await supabase
-    .from("products")
-    .update({ deleted_at: new Date().toISOString() })
-    .eq("id", id);
+/**
+ * Mise à jour. Permission applicative canUpdate ; RLS = créateur ou super_admin.
+ */
+export async function updateProduct(id: string, input: CreateProductInput): Promise<Product> {
+  const { userId } = await requireProductPermissions({ canUpdate: true });
+  const validated = createProductSchema.parse(input);
 
-  if (error) throw error;
+  const { data: before } = await getProductsTable()
+    .select(PRODUCT_COLUMNS)
+    .eq("id", id)
+    .is("deleted_at", null)
+    .maybeSingle();
+
+  if (!before) {
+    throw new Error("Produit introuvable");
+  }
+
+  const { data, error } = await getProductsTable()
+    .update({
+      ...validated,
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", id)
+    .is("deleted_at", null)
+    .select(PRODUCT_COLUMNS)
+    .single();
+
+  if (error) {
+    throw new Error(`Impossible de mettre à jour le produit: ${error.message}`);
+  }
+
+  const row = data as Product;
+  try {
+    await createActivityLog({
+      actorUserId: userId,
+      actionKey: "update",
+      targetId: id,
+      metadata: {
+        before: sanitizeProductForLog(before as Product | null),
+        after: sanitizeProductForLog(row),
+      },
+    });
+  } catch (logErr) {
+    console.error("[ActivityLog] produit update:", logErr);
+  }
+
+  return row;
+}
+
+/**
+ * Soft delete. Permission canDelete.
+ */
+export async function softDeleteProduct(id: string): Promise<void> {
+  const { userId } = await requireProductPermissions({ canDelete: true });
+
+  const { data: before } = await getProductsTable()
+    .select(PRODUCT_COLUMNS)
+    .eq("id", id)
+    .is("deleted_at", null)
+    .maybeSingle();
+
+  if (!before) {
+    throw new Error("Produit introuvable");
+  }
+
+  const { error } = await getProductsTable()
+    .update({ deleted_at: new Date().toISOString(), updated_at: new Date().toISOString() })
+    .eq("id", id)
+    .is("deleted_at", null);
+
+  if (error) {
+    throw new Error(`Impossible de supprimer le produit: ${error.message}`);
+  }
+
+  try {
+    await createActivityLog({
+      actorUserId: userId,
+      actionKey: "delete",
+      targetId: id,
+      metadata: {
+        before: sanitizeProductForLog(before as Product | null),
+        after: null,
+      },
+    });
+  } catch (logErr) {
+    console.error("[ActivityLog] produit delete:", logErr);
+  }
 }

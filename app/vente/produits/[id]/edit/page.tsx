@@ -15,6 +15,12 @@ function getNullableFieldValue(formData: FormData, name: string) {
   return value.length > 0 ? value : null;
 }
 
+function getNumberValue(formData: FormData, name: string) {
+  const value = getFieldValue(formData, name);
+  const num = Number(value);
+  return isNaN(num) ? 0 : num;
+}
+
 type EditProductPageProps = {
   params: {
     id: string;
@@ -33,22 +39,27 @@ export default async function EditProductPage({ params, searchParams }: EditProd
     redirect("/login");
   }
 
-  const permissions = await getModulePermissions(data.user.id, ["produits", "vente"]);
+  const userId = data.user.id;
+  const productId = params.id; // ✅ FIX IMPORTANT
+
+  const permissions = await getModulePermissions(userId, ["produits", "vente"]);
+
   if (!permissions.canUpdate) {
     redirect("/access-denied");
   }
 
-  const product = await getProductById(params.id);
+  const product = await getProductById(productId);
+
   if (!product) {
     notFound();
   }
 
-  const userId = data.user.id;
-
   async function updateProductAction(formData: FormData) {
     "use server";
+
     try {
       const permissions = await getModulePermissions(userId, ["produits", "vente"]);
+
       if (!permissions.canUpdate) {
         throw new Error("Accès refusé");
       }
@@ -59,18 +70,23 @@ export default async function EditProductPage({ params, searchParams }: EditProd
         description: getNullableFieldValue(formData, "description"),
         image_url: getNullableFieldValue(formData, "image_url"),
         unit: getFieldValue(formData, "unit"),
-        price_gnf: Number(getFieldValue(formData, "price_gnf")),
-        stock_quantity: Number(getFieldValue(formData, "stock_quantity")),
-        stock_threshold: Number(getFieldValue(formData, "stock_threshold")),
+        price_gnf: getNumberValue(formData, "price_gnf"),
+        stock_quantity: getNumberValue(formData, "stock_quantity"),
+        stock_threshold: getNumberValue(formData, "stock_threshold"),
       };
 
-     
-      await updateProduct(params.id, payload);
+      await updateProduct(productId, payload);
+
     } catch (error) {
-      const message = mapProductError(error, "Impossible de modifier le produit pour le moment.");
-      redirect(`/vente/produits/${params.id}/edit?error=${encodeURIComponent(message)}`);
+      const message = mapProductError(
+        error,
+        "Impossible de modifier le produit pour le moment."
+      );
+
+      redirect(`/vente/produits/${productId}/edit?error=${encodeURIComponent(message)}`);
     }
-    redirect(`/vente/produits/${params.id}?success=${encodeURIComponent("Produit mis à jour avec succès.")}`);
+
+    redirect(`/vente/produits/${productId}?success=${encodeURIComponent("Produit mis à jour avec succès.")}`);
   }
 
   return (
@@ -79,10 +95,9 @@ export default async function EditProductPage({ params, searchParams }: EditProd
       submitLabel="Enregistrer"
       action={updateProductAction}
       initialValues={product}
-      cancelHref={`/vente/produits/${params.id}`}
+      cancelHref={`/vente/produits/${productId}`}
       successMessage={searchParams?.success}
       errorMessage={searchParams?.error}
     />
   );
 }
-

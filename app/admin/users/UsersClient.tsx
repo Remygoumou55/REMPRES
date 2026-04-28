@@ -208,7 +208,8 @@ function UserActionsMenu({
   }
 
   async function doBlock() {
-    if (!confirm(`Bloquer le compte de ${user.email} ?\n\nCet utilisateur ne pourra plus se connecter.`)) return;
+    const who = (user.full_name ?? "").trim() || "Cet utilisateur";
+    if (!confirm(`Bloquer le compte de ${who} ?\n\nCet utilisateur ne pourra plus se connecter.`)) return;
     start(async () => {
       const r = await deactivateUserAction(user.id);
       setFeedback(r.success ? "✓ Compte bloqué." : (r.error ?? "Erreur"));
@@ -286,9 +287,10 @@ export function UsersClient({ initialUsers }: Props) {
   const filtered = users.filter((u) => {
     const q = search.toLowerCase();
     return (
-      u.email.toLowerCase().includes(q) ||
       (u.full_name ?? "").toLowerCase().includes(q) ||
-      (u.role_label ?? "").toLowerCase().includes(q)
+      (u.role_label ?? "").toLowerCase().includes(q) ||
+      (u.role_key ?? "").toLowerCase().includes(q) ||
+      (u.department_key ?? "").toLowerCase().includes(q)
     );
   });
 
@@ -362,7 +364,7 @@ export function UsersClient({ initialUsers }: Props) {
       <div className="mb-4">
         <input
           type="search"
-          placeholder="Rechercher par nom, email ou rôle…"
+          placeholder="Rechercher par nom, rôle ou département…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="w-full max-w-sm rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
@@ -390,18 +392,27 @@ export function UsersClient({ initialUsers }: Props) {
                 </td>
               </tr>
             ) : (
-              filtered.map((user) => (
+              filtered.map((user) => {
+                const nameForInitial = (user.full_name ?? "").trim();
+                const initial =
+                  nameForInitial.length > 0
+                    ? nameForInitial.charAt(0).toUpperCase()
+                    : (user.role_key ?? "?").charAt(0).toUpperCase();
+                const subline = (user.department_key ?? "").trim() || null;
+                return (
                 <tr key={user.id} className="hover:bg-gray-50/50">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
                       <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
-                        {(user.full_name ?? user.email).charAt(0).toUpperCase()}
+                        {initial}
                       </div>
                       <div>
                         <p className="font-medium text-gray-900">
                           {user.full_name || <span className="italic text-gray-400">Sans nom</span>}
                         </p>
-                        <p className="text-xs text-gray-500">{user.email}</p>
+                        {subline ? (
+                          <p className="text-xs text-gray-500">{subline}</p>
+                        ) : null}
                       </div>
                     </div>
                   </td>
@@ -427,7 +438,8 @@ export function UsersClient({ initialUsers }: Props) {
                     <UserActionsMenu user={user} onRefresh={handleRefresh} />
                   </td>
                 </tr>
-              ))
+              );
+              })
             )}
           </tbody>
         </table>

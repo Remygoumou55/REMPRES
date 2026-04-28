@@ -10,6 +10,7 @@ import {
   reactivateUser,
   type InviteUserInput,
 } from "@/lib/server/users";
+import { err, type SafeResult } from "@/lib/server/safe-result";
 
 // ---------------------------------------------------------------------------
 // Récupérer l'userId courant (helper interne)
@@ -28,7 +29,7 @@ async function getCurrentUserId(): Promise<string> {
 
 export async function inviteUserAction(
   formData: FormData,
-): Promise<{ success: boolean; error?: string }> {
+): Promise<SafeResult<{ userId: string }>> {
   const callerId = await getCurrentUserId();
 
   const input: InviteUserInput = {
@@ -40,7 +41,7 @@ export async function inviteUserAction(
   };
 
   if (!input.firstName || !input.lastName || !input.email) {
-    return { success: false, error: "Tous les champs obligatoires doivent être remplis." };
+    return err("Tous les champs obligatoires doivent être remplis.");
   }
 
   return inviteUser(input, callerId);
@@ -52,7 +53,7 @@ export async function inviteUserAction(
 
 export async function resendInviteAction(
   userId: string,
-): Promise<{ success: boolean; error?: string }> {
+): Promise<SafeResult<null>> {
   const callerId = await getCurrentUserId();
   return resendInvite(userId, callerId);
 }
@@ -64,7 +65,7 @@ export async function resendInviteAction(
 export async function updateUserRoleAction(
   userId: string,
   newRoleKey: string,
-): Promise<{ success: boolean; error?: string }> {
+): Promise<SafeResult<null>> {
   const callerId = await getCurrentUserId();
   return updateUserRole(userId, newRoleKey, callerId);
 }

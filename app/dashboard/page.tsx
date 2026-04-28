@@ -3,6 +3,7 @@ import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { DashboardClient } from "./DashboardClient";
 import { getClientsPermissions, getModulePermissions, isSuperAdmin } from "@/lib/server/permissions";
 import { getDashboardKpis } from "@/lib/server/dashboard-kpis";
+import { getCachedProfileDisplayName } from "@/lib/server/profile-display";
 
 export default async function DashboardPage() {
   const supabase = getSupabaseServerClient();
@@ -12,22 +13,24 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
-  const [permissions, productsPermissions, canReadActivityLogs, kpis] = await Promise.all([
-    getClientsPermissions(data.user.id),
-    getModulePermissions(data.user.id, ["produits", "vente"]),
-    isSuperAdmin(data.user.id),
-    getDashboardKpis(),
-  ]);
+  const userId = data.user.id;
 
-  const superAdmin = await isSuperAdmin(data.user.id);
+  const [permissions, productsPermissions, superAdminFlag, kpis, userDisplayName] =
+    await Promise.all([
+      getClientsPermissions(userId),
+      getModulePermissions(userId, ["produits", "vente"]),
+      isSuperAdmin(userId),
+      getDashboardKpis(),
+      getCachedProfileDisplayName(userId),
+    ]);
 
   return (
     <DashboardClient
-      email={data.user.email ?? null}
+      userDisplayName={userDisplayName}
       canReadClients={permissions.canRead}
       canReadProducts={productsPermissions.canRead}
-      canReadActivityLogs={canReadActivityLogs}
-      isSuperAdmin={superAdmin}
+      canReadActivityLogs={superAdminFlag}
+      isSuperAdmin={superAdminFlag}
       kpis={kpis}
     />
   );

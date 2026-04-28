@@ -29,6 +29,7 @@ const PUBLIC_PATHS = [
   "/forgot-password",
   "/reset-password",
   "/auth/callback",
+  "/auth/error",
   "/coming-soon",
   "/error-profile",
   "/access-denied",

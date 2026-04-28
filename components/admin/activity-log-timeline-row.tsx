@@ -90,8 +90,8 @@ export function ActivityLogTimelineRow({ row, actorName, isLast }: ActivityLogRo
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
-              <span className="text-sm font-semibold capitalize text-darktext">
-                {displayActor.split("@")[0]}
+              <span className="text-sm font-semibold text-darktext">
+                {displayActor}
               </span>
               <span className="ml-1.5 text-sm text-gray-500">{phrase}</span>
             </div>

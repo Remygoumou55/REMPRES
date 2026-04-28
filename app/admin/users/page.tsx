@@ -68,28 +68,21 @@ export default async function AdminUsersPage() {
   let users: UserListItem[] = [];
   let listErrorMessage: string | null = null;
 
-  try {
-    users = await listUsers(userId);
-  } catch (error) {
-    console.error("[LIST_USERS_ERROR]", error);
-
-    if (
-      error instanceof Error &&
-      error.message === USERS_LIST_CONFIG_ERROR_CODE
-    ) {
+  const listResult = await listUsers(userId);
+  if (!listResult.success) {
+    if (listResult.error === USERS_LIST_CONFIG_ERROR_CODE) {
       listErrorMessage =
         "Configuration serveur invalide (variables Supabase serveur incomplètes). Contactez un administrateur.";
       users = [];
-    } else if (
-      error instanceof Error &&
-      error.message === "Accès refusé."
-    ) {
+    } else if (listResult.error === "Accès refusé.") {
       redirect("/access-denied");
     } else {
       listErrorMessage =
         "Impossible de charger les utilisateurs pour le moment. Réessayez plus tard.";
       users = [];
     }
+  } else {
+    users = listResult.data;
   }
 
   return (

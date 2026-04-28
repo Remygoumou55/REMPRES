@@ -29,7 +29,7 @@ import type { DashboardKpis, RecentActivityEntry } from "@/lib/server/dashboard-
 // ---------------------------------------------------------------------------
 
 type DashboardClientProps = {
-  email: string | null;
+  userDisplayName: string;
   canReadClients: boolean;
   canReadProducts: boolean;
   canReadActivityLogs: boolean;
@@ -122,13 +122,15 @@ function ActivityTimeline({ events }: { events: RecentActivityEntry[] }) {
                 {" dans "}
                 <span className="font-semibold text-primary">{moduleLabel}</span>
               </p>
-              <div className="mt-0.5 flex items-center gap-2">
-                {ev.user_email && (
-                  <span className="text-xs text-gray-400 truncate max-w-[120px]">
-                    {ev.user_email.split("@")[0]}
-                  </span>
-                )}
-                <span className="text-[10px] text-gray-300">•</span>
+              <div className="mt-0.5 flex items-center gap-2 flex-wrap">
+                {(ev.actor_display_name ?? "").trim() ? (
+                  <>
+                    <span className="text-xs text-gray-400 truncate max-w-[160px]">
+                      {ev.actor_display_name}
+                    </span>
+                    <span className="text-[10px] text-gray-300">•</span>
+                  </>
+                ) : null}
                 <span className="text-xs text-gray-400">{toRelativeTime(ev.created_at)}</span>
               </div>
             </div>
@@ -178,15 +180,15 @@ function QuickAction({
 // ---------------------------------------------------------------------------
 
 export function DashboardClient({
-  email,
+  userDisplayName,
   canReadClients,
   canReadProducts,
   canReadActivityLogs,
   isSuperAdmin = false,
   kpis,
 }: DashboardClientProps) {
-  const greeting     = getGreeting();
-  const displayName  = email?.split("@")[0] ?? "Utilisateur";
+  const greeting    = getGreeting();
+  const displayName = userDisplayName.trim() || "Utilisateur";
   const hasStockAlert = kpis.productsOutOfStock > 0 || kpis.productsLowStock > 0;
 
   return (
@@ -195,7 +197,7 @@ export function DashboardClient({
       {/* ── Welcome banner ───────────────────────────────────────────────── */}
       <div className="rounded-2xl bg-gradient-to-br from-primary to-primary-light p-6 text-white shadow-sm">
         <p className="text-sm font-medium text-white/70">{greeting},</p>
-        <h1 className="mt-1 text-2xl font-bold capitalize">{displayName} 👋</h1>
+        <h1 className="mt-1 text-2xl font-bold">{displayName} 👋</h1>
         <p className="mt-1 text-sm text-white/60">Voici un aperçu de votre activité du jour.</p>
       </div>
 

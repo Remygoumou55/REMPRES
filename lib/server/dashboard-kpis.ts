@@ -1,5 +1,9 @@
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getActivityLogsMonitoring } from "@/lib/server/activity-logs";
+import {
+  formatProfileDisplayName,
+  profileDisplayNameOrFallback,
+} from "@/lib/server/profile-display";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -16,7 +20,8 @@ export type RecentActivityEntry = {
   id:         string;
   action_key: string;       // "create" | "update" | "delete"
   module_key: string;
-  user_email: string | null;
+  /** Libellé issu de `profiles.first_name` / `last_name` uniquement */
+  actor_display_name: string | null;
   created_at: string;
 };
 
@@ -143,20 +148,23 @@ export async function getDashboardKpis(): Promise<DashboardKpis> {
   const actorIdSet = new Set<string>();
   (recentLogs ?? []).forEach((l) => { if (l.actor_user_id) actorIdSet.add(l.actor_user_id); });
   const actorIds = Array.from(actorIdSet);
-  let actorEmails: Record<string, string> = {};
+  const actorNames: Record<string, string> = {};
   if (actorIds.length > 0) {
     const { data: profiles } = await supabase
       .from("profiles")
-      .select("id, email")
+      .select("id, first_name, last_name")
       .in("id", actorIds);
-    actorEmails = Object.fromEntries((profiles ?? []).map((p) => [p.id, p.email ?? ""]));
+    for (const p of profiles ?? []) {
+      const label = formatProfileDisplayName(p.first_name, p.last_name).trim();
+      actorNames[p.id] = label || profileDisplayNameOrFallback(null, null);
+    }
   }
 
   const recentActivity: RecentActivityEntry[] = (recentLogs ?? []).map((l) => ({
     id:         l.id,
     action_key: l.action_key,
     module_key: l.module_key,
-    user_email: l.actor_user_id ? (actorEmails[l.actor_user_id] ?? null) : null,
+    actor_display_name: l.actor_user_id ? (actorNames[l.actor_user_id] ?? null) : null,
     created_at: l.created_at,
   }));
 

@@ -1,6 +1,10 @@
 import { redirect } from "next/navigation";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getClientsPermissions, getModulePermissions, isSuperAdmin } from "@/lib/server/permissions";
+import {
+  avatarInitialFromDisplayName,
+  getCachedProfileDisplayName,
+} from "@/lib/server/profile-display";
 
 export async function getLayoutAccess() {
   const supabase = getSupabaseServerClient();
@@ -10,13 +14,25 @@ export async function getLayoutAccess() {
     redirect("/login");
   }
 
-  const permissions = await getClientsPermissions(data.user.id);
-  const productsPermissions = await getModulePermissions(data.user.id, ["produits", "vente"]);
-  const financePermissions = await getModulePermissions(data.user.id, ["finance"]);
-  const canReadActivityLogs = await isSuperAdmin(data.user.id);
+  const userId = data.user.id;
+
+  const [
+    permissions,
+    productsPermissions,
+    financePermissions,
+    canReadActivityLogs,
+    userDisplayName,
+  ] = await Promise.all([
+    getClientsPermissions(userId),
+    getModulePermissions(userId, ["produits", "vente"]),
+    getModulePermissions(userId, ["finance"]),
+    isSuperAdmin(userId),
+    getCachedProfileDisplayName(userId),
+  ]);
 
   return {
-    email: data.user.email ?? null,
+    userDisplayName,
+    userAvatarInitial: avatarInitialFromDisplayName(userDisplayName),
     canReadClients: permissions.canRead,
     canReadProducts: productsPermissions.canRead,
     canReadFinance: financePermissions.canRead,

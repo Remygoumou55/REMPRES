@@ -26,11 +26,9 @@ export async function GET() {
       return NextResponse.json({ error: "Accès réservé aux super-administrateurs." }, { status: 403 });
     }
 
-    let users;
-    try {
-      users = await listUsers(data.user.id);
-    } catch (e) {
-      if (e instanceof Error && e.message === USERS_LIST_CONFIG_ERROR_CODE) {
+    const listResult = await listUsers(data.user.id);
+    if (!listResult.success) {
+      if (listResult.error === USERS_LIST_CONFIG_ERROR_CODE) {
         const cfg = getSupabaseAdminConfigErrorMessage();
         logError("API_ADMIN_USERS_GET", cfg ? new Error(cfg) : new Error("config"), {
           route: "/api/admin/users",
@@ -44,11 +42,14 @@ export async function GET() {
           { status: 503 },
         );
       }
-
-      throw e;
+      if (listResult.error === "Accès refusé.") {
+        return NextResponse.json({ error: "Accès refusé." }, { status: 403 });
+      }
+      logError("API_ADMIN_USERS_GET", new Error(listResult.error), { route: "/api/admin/users" });
+      return NextResponse.json({ error: listResult.error }, { status: 500 });
     }
 
-    return NextResponse.json(users);
+    return NextResponse.json(listResult.data);
   } catch (err) {
     logError("API_ADMIN_USERS_GET", err, { route: "/api/admin/users" });
     return NextResponse.json(

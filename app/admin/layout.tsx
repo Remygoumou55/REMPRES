@@ -6,7 +6,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   return (
     <AppShell
-      email={access.email}
+      userDisplayName={access.userDisplayName}
+      userAvatarInitial={access.userAvatarInitial}
       canReadClients={access.canReadClients}
       canReadProducts={access.canReadProducts}
       canReadActivityLogs={access.canReadActivityLogs}

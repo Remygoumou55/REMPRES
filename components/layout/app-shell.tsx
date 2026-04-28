@@ -28,7 +28,8 @@ import { appConfig, getLogoUrl } from "@/lib/config";
 // ---------------------------------------------------------------------------
 
 type AppShellProps = {
-  email: string | null;
+  userDisplayName: string;
+  userAvatarInitial: string;
   canReadClients: boolean;
   canReadProducts: boolean;
   canReadActivityLogs: boolean;
@@ -55,11 +56,11 @@ type NavGroup = {
 // Avatar initiales
 // ---------------------------------------------------------------------------
 
-function UserAvatar({ email }: { email: string | null }) {
-  const initial = (email ?? "U").charAt(0).toUpperCase();
+function UserAvatar({ initial }: { initial: string }) {
+  const ch = (initial ?? "U").charAt(0).toUpperCase();
   return (
     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/20 text-sm font-bold text-white">
-      {initial}
+      {ch}
     </div>
   );
 }
@@ -69,14 +70,22 @@ function UserAvatar({ email }: { email: string | null }) {
 // ---------------------------------------------------------------------------
 
 type SidebarContentProps = {
-  email: string | null;
+  userDisplayName: string;
+  userAvatarInitial: string;
   groups: NavGroup[];
   pathname: string;
   onClose?: () => void;
   onLogout: () => void;
 };
 
-function SidebarContent({ email, groups, pathname, onClose, onLogout }: SidebarContentProps) {
+function SidebarContent({
+  userDisplayName,
+  userAvatarInitial,
+  groups,
+  pathname,
+  onClose,
+  onLogout,
+}: SidebarContentProps) {
   return (
     <div className="flex h-full flex-col">
       {/* ── Logo ── */}
@@ -160,10 +169,10 @@ function SidebarContent({ email, groups, pathname, onClose, onLogout }: SidebarC
       {/* ── User card ── */}
       <div className="border-t border-white/10 p-3">
         <div className="flex items-center gap-2.5 rounded-xl p-2">
-          <UserAvatar email={email} />
+          <UserAvatar initial={userAvatarInitial} />
           <div className="min-w-0 flex-1">
             <p className="truncate text-xs font-medium text-white">
-              {email ?? "Utilisateur"}
+              {userDisplayName}
             </p>
             <p className="text-[10px] text-white/40">Connecté</p>
           </div>
@@ -186,7 +195,8 @@ function SidebarContent({ email, groups, pathname, onClose, onLogout }: SidebarC
 // ---------------------------------------------------------------------------
 
 export function AppShell({
-  email,
+  userDisplayName,
+  userAvatarInitial,
   canReadClients,
   canReadProducts,
   canReadActivityLogs,
@@ -256,7 +266,8 @@ export function AppShell({
         }`}
       >
         <SidebarContent
-          email={email}
+          userDisplayName={userDisplayName}
+          userAvatarInitial={userAvatarInitial}
           groups={navGroups}
           pathname={pathname}
           onClose={() => setIsMobileMenuOpen(false)}
@@ -271,7 +282,8 @@ export function AppShell({
         <aside className="hidden w-[240px] shrink-0 bg-primary md:block">
           <div className="sticky top-0 h-screen">
             <SidebarContent
-              email={email}
+              userDisplayName={userDisplayName}
+              userAvatarInitial={userAvatarInitial}
               groups={navGroups}
               pathname={pathname}
               onLogout={handleLogout}
@@ -313,10 +325,10 @@ export function AppShell({
             <div className="flex items-center gap-2">
               <div className="hidden items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 sm:flex">
                 <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white">
-                  {(email ?? "U").charAt(0).toUpperCase()}
+                  {(userAvatarInitial ?? "U").charAt(0).toUpperCase()}
                 </div>
                 <span className="max-w-[140px] truncate text-xs font-medium text-gray-700">
-                  {email ?? "Utilisateur"}
+                  {userDisplayName}
                 </span>
               </div>
             </div>

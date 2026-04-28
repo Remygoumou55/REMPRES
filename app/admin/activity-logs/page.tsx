@@ -7,6 +7,10 @@ import { isSuperAdmin } from "@/lib/server/permissions";
 import { ActivityLogsVerifyUpload } from "@/components/admin/activity-logs-verify-upload";
 import { ActivityLogTimelineRow } from "@/components/admin/activity-log-timeline-row";
 import { PageHeader } from "@/components/ui/page-header";
+import {
+  formatProfileDisplayName,
+  profileDisplayNameOrFallback,
+} from "@/lib/server/profile-display";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -70,9 +74,12 @@ export default async function ActivityLogsPage({ searchParams }: ActivityLogsPag
   if (actorIds.length > 0) {
     const { data: profiles } = await supabase
       .from("profiles")
-      .select("id, email")
+      .select("id, first_name, last_name")
       .in("id", actorIds as string[]);
-    (profiles ?? []).forEach((p) => actorNames.set(p.id, p.email ?? shortId(p.id)));
+    (profiles ?? []).forEach((p) => {
+      const label = formatProfileDisplayName(p.first_name, p.last_name).trim();
+      actorNames.set(p.id, label || profileDisplayNameOrFallback(null, null, shortId(p.id)));
+    });
   }
 
   const buildUrl = (nextPage: number) => {

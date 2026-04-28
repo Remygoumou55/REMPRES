@@ -6,7 +6,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
   return (
     <AppShell
-      email={access.email}
+      userDisplayName={access.userDisplayName}
+      userAvatarInitial={access.userAvatarInitial}
       canReadClients={access.canReadClients}
       canReadProducts={access.canReadProducts}
       canReadActivityLogs={access.canReadActivityLogs}

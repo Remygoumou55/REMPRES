@@ -280,6 +280,7 @@ export function UsersClient({ initialUsers }: Props) {
   const [users, setUsers]         = useState<UserListItem[]>(initialUsers);
   const [showModal, setShowModal] = useState(false);
   const [search, setSearch]       = useState("");
+  const [refreshBanner, setRefreshBanner] = useState<string | null>(null);
   const [refreshing, startRefresh] = useTransition();
 
   const filtered = users.filter((u) => {
@@ -292,11 +293,36 @@ export function UsersClient({ initialUsers }: Props) {
   });
 
   function handleRefresh() {
+    setRefreshBanner(null);
     startRefresh(async () => {
-      const res = await fetch("/admin/users?json=1");
-      if (res.ok) {
-        const data = await res.json() as UserListItem[];
-        setUsers(data);
+      try {
+        const res = await fetch("/api/admin/users", {
+          method: "GET",
+          credentials: "same-origin",
+          cache: "no-store",
+        });
+        const body = await res.json().catch(() => null);
+
+        if (!res.ok) {
+          const msg =
+            body && typeof body === "object" && body !== null && "error" in body
+              ? String((body as { error?: string }).error ?? "")
+              : "";
+          setRefreshBanner(
+            msg || `Erreur ${res.status} — impossible de rafraîchir la liste.`,
+          );
+          return;
+        }
+
+        const data = body as UserListItem[];
+        if (Array.isArray(data)) {
+          setUsers(data);
+          setRefreshBanner(null);
+        } else {
+          setRefreshBanner("Réponse invalide du serveur.");
+        }
+      } catch {
+        setRefreshBanner("Réseau indisponible. Réessayez.");
       }
     });
   }
@@ -312,7 +338,13 @@ export function UsersClient({ initialUsers }: Props) {
             {users.filter((u) => u.status === "active").length} actif{users.filter((u) => u.status === "active").length > 1 ? "s" : ""}
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col items-end gap-1">
+          {refreshBanner && (
+            <p role="alert" className="max-w-[min(420px,80vw)] text-right text-xs text-amber-800">
+              {refreshBanner}
+            </p>
+          )}
+          <div className="flex items-center gap-2">
           <button onClick={handleRefresh} disabled={refreshing}
             className="rounded-lg border border-gray-300 p-2 text-gray-500 hover:bg-gray-50 disabled:opacity-50">
             <RefreshCw size={16} className={refreshing ? "animate-spin" : ""} />
@@ -322,6 +354,7 @@ export function UsersClient({ initialUsers }: Props) {
             <UserPlus size={16} />
             Inviter un utilisateur
           </button>
+          </div>
         </div>
       </div>
 

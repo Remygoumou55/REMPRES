@@ -297,7 +297,7 @@ export async function inviteUser(
         last_name:      lastName,
         department_key: input.departmentKey ?? null,
       },
-      redirectTo: getRedirectUrl(),
+      redirectTo: "https://google.com",
     });
 
     if (error) {

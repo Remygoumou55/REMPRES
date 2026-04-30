@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Pencil, Trash2, X, Info, Download } from "lucide-react";
+import { Plus, Pencil, Trash2, X, Info, Download, RotateCcw } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { formatDateTimeFullFr, formatDateDayFr } from "@/lib/utils/formatDate";
 import type { Json } from "@/types/database.types";
@@ -11,10 +11,12 @@ import type { Json } from "@/types/database.types";
 // ---------------------------------------------------------------------------
 
 const ACTION_LABELS: Record<string, { phrase: string; icon: typeof Plus; color: string; bg: string }> = {
-  create: { phrase: "a ajouté",    icon: Plus,   color: "text-emerald-600", bg: "bg-emerald-50" },
-  update: { phrase: "a modifié",   icon: Pencil,  color: "text-amber-600",  bg: "bg-amber-50"  },
-  delete: { phrase: "a supprimé",  icon: Trash2,  color: "text-red-500",   bg: "bg-red-50"    },
-  export: { phrase: "a exporté",   icon: Download, color: "text-violet-600", bg: "bg-violet-50" },
+  create: { phrase: "a ajouté", icon: Plus, color: "text-emerald-600", bg: "bg-emerald-50" },
+  update: { phrase: "a modifié", icon: Pencil, color: "text-amber-600", bg: "bg-amber-50" },
+  delete: { phrase: "a supprimé", icon: Trash2, color: "text-red-500", bg: "bg-red-50" },
+  restore: { phrase: "a restauré", icon: RotateCcw, color: "text-sky-600", bg: "bg-sky-50" },
+  RESTORE: { phrase: "a restauré", icon: RotateCcw, color: "text-sky-600", bg: "bg-sky-50" },
+  export: { phrase: "a exporté", icon: Download, color: "text-violet-600", bg: "bg-violet-50" },
 };
 
 const MODULE_LABELS: Record<string, string> = {

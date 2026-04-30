@@ -1,0 +1,72 @@
+---
+description: Enforces the "popup pro" modal pattern for ALL data-entry forms in REMPRES ERP
+globs: **/*.tsx
+alwaysApply: false
+---
+
+# REMPRES — Règle : Toutes les saisies sont en Modal
+
+## Principe fondamental
+
+**Aucun formulaire de saisie ne doit apparaître en ligne (inline/flat) dans la page.**  
+Toute création ou modification de données doit s'ouvrir dans le composant `<Modal>`.
+
+## Composant à utiliser
+
+```tsx
+import {
+  Modal,
+  ModalField,
+  ModalInput,
+  ModalTextarea,
+  ModalSelect,
+  ModalError,
+  ModalActions,
+} from "@/components/ui/modal";
+```
+
+## Pattern standard — formulaire modal
+
+```tsx
+// ✅ CORRECT
+function MyFeatureModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const [error, setError] = useState<string | null>(null);
+  const [pending, start] = useTransition();
+
+  return (
+    <Modal open={open} onClose={onClose} title="Titre" icon={<Icon size={18} />} size="md">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <ModalField label="Champ" required>
+          <ModalInput name="field" required placeholder="…" />
+        </ModalField>
+        <ModalError message={error} />
+        <ModalActions onCancel={onClose} submitLabel="Enregistrer" loading={pending} />
+      </form>
+    </Modal>
+  );
+}
+
+// ❌ INTERDIT — formulaire inline dans la page
+{showForm && (
+  <div className="rounded-xl bg-white p-4">
+    <form>…</form>   {/* NON */}
+  </div>
+)}
+```
+
+## Règles obligatoires
+
+1. **Bouton déclencheur** → `onClick={() => setOpen(true)}` — jamais de formulaire visible par défaut.
+2. **Fermeture** → bouton ✕ + clic overlay + touche Échap (géré automatiquement par `<Modal>`).
+3. **Taille** → `sm` | `md` (défaut) | `lg` | `xl` selon le nombre de champs.
+4. **Erreurs** → uniquement via `<ModalError message={error} />`.
+5. **Boutons** → uniquement via `<ModalActions>` (annuler + valider).
+6. **Jamais** `fixed inset-0` manuellement — tout est dans `<Modal>`.
+
+## Exemples existants
+
+- `components/forms/client-form.tsx` — ClientForm
+- `components/forms/product-form.tsx` — ProductForm
+- `app/admin/users/UsersClient.tsx` — InviteModal
+- `app/finance/depenses/DepensesClient.tsx` — Nouvelle dépense / Modifier
+- `app/vente/nouvelle-vente/NouvelleVenteClient.tsx` — QuickClientModal

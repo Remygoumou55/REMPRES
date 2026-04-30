@@ -3,13 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "npm run check:utf8 && next dev -p 3030",
+    "dev:clean": "node -e \"try{require('fs').rmSync('.next',{recursive:true,force:true})}catch(e){}\" && next dev -p 3030",
+    "build": "npm run check:utf8 && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "generate:favicons": "node scripts/generate-favicons.mjs"
+    "generate:favicons": "node scripts/generate-favicons.mjs",
+    "check:utf8": "node scripts/check-utf8.cjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.0",
@@ -35,6 +37,7 @@
     "zustand": "^5.0.12"
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.20",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

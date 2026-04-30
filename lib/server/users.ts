@@ -331,14 +331,13 @@ export async function listUsers(
     }
   }
 
-  const { data: profilesRaw } = await admin
-    .from("profiles")
-    .select("id, first_name, last_name, role_key, department_key, is_active")
-    .is("deleted_at", null);
-
-  const { data: rolesRaw } = await admin
-    .from("app_roles")
-    .select("key, label");
+  const [{ data: profilesRaw }, { data: rolesRaw }] = await Promise.all([
+    admin
+      .from("profiles")
+      .select("id, first_name, last_name, role_key, department_key, is_active")
+      .is("deleted_at", null),
+    admin.from("app_roles").select("key, label"),
+  ]);
 
   type ProfileRow = {
     id: string;

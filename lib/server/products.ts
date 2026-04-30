@@ -5,7 +5,7 @@ import { createProductSchema, type CreateProductInput } from "@/lib/validations/
 import { getModulePermissions, type ModulePermissions } from "@/lib/server/permissions";
 
 const PRODUCT_COLUMNS =
-  "id,sku,name,description,image_url,unit,price_gnf,stock_quantity,stock_threshold,created_by,created_at,updated_at,deleted_at";
+  "id,sku,name,description,image_url,unit,price_gnf,stock_quantity,stock_threshold,created_by,created_at,updated_at,deleted_at,deleted_by";
 
 const MODULE_KEYS = ["produits", "vente"] as const;
 
@@ -50,7 +50,7 @@ function getProductsTable() {
 
 async function createActivityLog(params: {
   actorUserId: string;
-  actionKey: "create" | "update" | "delete";
+  actionKey: "create" | "update" | "delete" | "RESTORE";
   targetId?: string;
   metadata?: Json;
 }) {
@@ -79,6 +79,7 @@ function sanitizeProductForLog(p: Product | null) {
     stock_quantity: p.stock_quantity,
     stock_threshold: p.stock_threshold,
     deleted_at: p.deleted_at,
+    deleted_by: p.deleted_by,
   };
 }
 
@@ -117,6 +118,23 @@ export async function listProducts(): Promise<Product[]> {
 
   if (error) {
     throw new Error(`Impossible de charger les produits: ${error.message}`);
+  }
+  return (data ?? []) as Product[];
+}
+
+/**
+ * Produits archivés (soft delete). Nécessite canDelete (aligné RLS).
+ */
+export async function listArchivedProducts(): Promise<Product[]> {
+  await requireProductPermissions({ canDelete: true });
+
+  const { data, error } = await getProductsTable()
+    .select(PRODUCT_COLUMNS)
+    .not("deleted_at", "is", null)
+    .order("deleted_at", { ascending: false });
+
+  if (error) {
+    throw new Error(`Impossible de charger les produits archivés: ${error.message}`);
   }
   return (data ?? []) as Product[];
 }
@@ -223,13 +241,23 @@ export async function softDeleteProduct(id: string): Promise<void> {
     throw new Error("Produit introuvable");
   }
 
-  const { error } = await getProductsTable()
-    .update({ deleted_at: new Date().toISOString(), updated_at: new Date().toISOString() })
+  const { data: updatedRows, error } = await getProductsTable()
+    .update({
+      deleted_at: new Date().toISOString(),
+      deleted_by: userId,
+      updated_at: new Date().toISOString(),
+    })
     .eq("id", id)
-    .is("deleted_at", null);
+    .is("deleted_at", null)
+    .select("id");
 
   if (error) {
     throw new Error(`Impossible de supprimer le produit: ${error.message}`);
+  }
+  if (!updatedRows?.length) {
+    throw new Error(
+      "Impossible de supprimer le produit: accès refusé, produit introuvable ou déjà supprimé.",
+    );
   }
 
   try {
@@ -245,4 +273,60 @@ export async function softDeleteProduct(id: string): Promise<void> {
   } catch (logErr) {
     console.error("[ActivityLog] produit delete:", logErr);
   }
+}
+
+/**
+ * Restaure un produit archivé.
+ */
+export async function restoreProduct(id: string): Promise<Product> {
+  if (!id?.trim()) throw new Error("ID produit invalide");
+  const { userId } = await requireProductPermissions({ canDelete: true });
+
+  const { data: archived, error: fetchErr } = await getProductsTable()
+    .select(PRODUCT_COLUMNS)
+    .eq("id", id)
+    .not("deleted_at", "is", null)
+    .maybeSingle();
+
+  if (fetchErr) {
+    throw new Error(`Impossible de lire le produit archivé: ${fetchErr.message}`);
+  }
+  if (!archived) {
+    throw new Error("Produit archivé introuvable");
+  }
+
+  const { data: rows, error } = await getProductsTable()
+    .update({
+      deleted_at: null,
+      deleted_by: null,
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", id)
+    .not("deleted_at", "is", null)
+    .select(PRODUCT_COLUMNS);
+
+  if (error) {
+    throw new Error(`Impossible de restaurer le produit: ${error.message}`);
+  }
+  if (!rows?.length) {
+    throw new Error("Impossible de restaurer le produit: accès refusé ou déjà actif.");
+  }
+
+  const restored = rows[0] as Product;
+
+  try {
+    await createActivityLog({
+      actorUserId: userId,
+      actionKey: "RESTORE",
+      targetId: id,
+      metadata: {
+        before: sanitizeProductForLog(archived as Product | null),
+        after: sanitizeProductForLog(restored),
+      },
+    });
+  } catch (logErr) {
+    console.error("[ActivityLog] produit restore:", logErr);
+  }
+
+  return restored;
 }

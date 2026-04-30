@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 
 export type ClientsPermissions = {
@@ -54,11 +55,9 @@ function aggregatePermissions(rows: PermissionRow[]): ModulePermissions {
 }
 
 /**
- * Récupère le rôle utilisateur
+ * Récupère le rôle utilisateur (une requête profil par userId et par requête RSC).
  */
-async function getProfileRoleKey(
-  userId: string
-): Promise<{ roleKey: string | null; ok: boolean }> {
+const getProfileRoleKey = cache(async (userId: string): Promise<{ roleKey: string | null; ok: boolean }> => {
   const supabase = getSupabaseServerClient();
 
   const { data, error } = await supabase
@@ -78,44 +77,55 @@ async function getProfileRoleKey(
   }
 
   return { roleKey: String(data.role_key).trim(), ok: true };
-}
+});
+
+const getModulePermissionsMemo = cache(
+  async (userId: string, sortedModulesKey: string): Promise<ModulePermissions> => {
+    const moduleKeys = sortedModulesKey.split(",").filter(Boolean);
+    if (!userId || !moduleKeys.length) {
+      return DENY_ALL;
+    }
+
+    const { roleKey, ok } = await getProfileRoleKey(userId);
+
+    if (!ok || !roleKey) {
+      return DENY_ALL;
+    }
+
+    const supabase = getSupabaseServerClient();
+
+    const { data, error } = await supabase
+      .from("permissions")
+      .select("can_create,can_read,can_update,can_delete")
+      .eq("role_key", roleKey)
+      .in("module_key", moduleKeys)
+      .is("deleted_at", null);
+
+    if (error) {
+      console.error("getModulePermissions error:", error.message);
+      return DENY_ALL;
+    }
+
+    if (!data?.length) {
+      return DENY_ALL;
+    }
+
+    return aggregatePermissions(data as PermissionRow[]);
+  },
+);
 
 /**
  * Permissions par module
  */
 export async function getModulePermissions(
   userId: string,
-  moduleKeys: string[]
+  moduleKeys: string[],
 ): Promise<ModulePermissions> {
   if (!userId?.trim() || !moduleKeys.length) {
     return DENY_ALL;
   }
-
-  const { roleKey, ok } = await getProfileRoleKey(userId);
-
-  if (!ok || !roleKey) {
-    return DENY_ALL;
-  }
-
-  const supabase = getSupabaseServerClient();
-
-  const { data, error } = await supabase
-    .from("permissions")
-    .select("can_create,can_read,can_update,can_delete")
-    .eq("role_key", roleKey)
-    .in("module_key", moduleKeys)
-    .is("deleted_at", null);
-
-  if (error) {
-    console.error("getModulePermissions error:", error.message);
-    return DENY_ALL;
-  }
-
-  if (!data?.length) {
-    return DENY_ALL;
-  }
-
-  return aggregatePermissions(data as PermissionRow[]);
+  const sortedKey = [...moduleKeys].sort().join(",");
+  return getModulePermissionsMemo(userId.trim(), sortedKey);
 }
 
 /**
@@ -144,27 +154,13 @@ export async function assertClientsPermission(
 }
 
 /**
- * Rôle utilisateur
+ * Rôle utilisateur (dédoublonné avec getProfileRoleKey quand les deux sont utilisés).
  */
-export async function getUserRole(
-  userId: string
-): Promise<string | null> {
-  const supabase = getSupabaseServerClient();
-
-  const { data, error } = await supabase
-    .from("profiles")
-    .select("role_key")
-    .eq("id", userId)
-    .is("deleted_at", null)
-    .maybeSingle();
-
-  if (error) {
-    console.error("getUserRole error:", error.message);
-    return null;
-  }
-
-  return data?.role_key?.trim() ?? null;
-}
+export const getUserRole = cache(async (userId: string): Promise<string | null> => {
+  const { roleKey, ok } = await getProfileRoleKey(userId);
+  if (!ok) return null;
+  return roleKey;
+});
 
 /**
  * Vérifie super admin

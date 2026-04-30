@@ -1,9 +1,21 @@
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
+import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
+import { Users, Building2, Phone, Mail, MapPin, FileText, Globe, Save, Plus } from "lucide-react";
 import type { ClientType } from "@/types/client";
-import { FlashMessage } from "@/components/ui/flash-message";
+import {
+  Modal,
+  ModalField,
+  ModalInput,
+  ModalTextarea,
+  ModalError,
+  ModalActions,
+} from "@/components/ui/modal";
+
+// ---------------------------------------------------------------------------
+// Types
+// ---------------------------------------------------------------------------
 
 type ClientFormValues = {
   client_type?: ClientType;
@@ -23,10 +35,15 @@ type ClientFormProps = {
   submitLabel: string;
   action: (formData: FormData) => void | Promise<void>;
   initialValues?: ClientFormValues;
+  /** URL de retour après annulation ou succès */
   cancelHref?: string;
   successMessage?: string;
   errorMessage?: string;
 };
+
+// ---------------------------------------------------------------------------
+// ClientForm — rendu sous forme de Modal
+// ---------------------------------------------------------------------------
 
 export function ClientForm({
   title,
@@ -34,171 +51,185 @@ export function ClientForm({
   action,
   initialValues,
   cancelHref = "/vente/clients",
-  successMessage,
   errorMessage,
 }: ClientFormProps) {
+  const router = useRouter();
+  const [pending, startTransition] = useTransition();
+  const [error, setError] = useState<string | null>(errorMessage ?? null);
   const [clientType, setClientType] = useState<ClientType>(
     initialValues?.client_type ?? "individual",
   );
 
+  const isIndividual = clientType === "individual";
+
+  function handleCancel() {
+    router.push(cancelHref);
+  }
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setError(null);
+    const fd = new FormData(e.currentTarget);
+    startTransition(async () => {
+      try {
+        await action(fd);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Une erreur est survenue.");
+      }
+    });
+  }
+
   return (
-    <main className="min-h-screen bg-graylight p-6">
-      <div className="mx-auto max-w-3xl rounded-lg bg-white p-6 shadow-sm">
-        <h1 className="text-2xl font-semibold text-darktext">{title}</h1>
-        <div className="mt-4">
-          <FlashMessage success={successMessage} error={errorMessage} />
+    <Modal
+      open
+      onClose={handleCancel}
+      title={title}
+      subtitle={isIndividual ? "Particulier" : "Entreprise"}
+      icon={isIndividual ? <Users size={18} /> : <Building2 size={18} />}
+      size="lg"
+    >
+      <form onSubmit={handleSubmit} className="space-y-4">
+
+        {/* Type */}
+        <div>
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">Type de client</p>
+          <div className="grid grid-cols-2 gap-2">
+            {(["individual", "company"] as const).map((t) => (
+              <button
+                key={t}
+                type="button"
+                onClick={() => setClientType(t)}
+                className={`flex items-center justify-center gap-2 rounded-xl border py-2.5 text-sm font-semibold transition-all ${
+                  clientType === t
+                    ? "border-primary bg-primary text-white shadow-sm"
+                    : "border-gray-200 bg-white text-gray-500 hover:border-primary/30 hover:text-primary"
+                }`}
+              >
+                {t === "individual" ? <Users size={14} /> : <Building2 size={14} />}
+                {t === "individual" ? "Particulier" : "Entreprise"}
+              </button>
+            ))}
+          </div>
+          {/* Champ caché pour le server action */}
+          <input type="hidden" name="client_type" value={clientType} />
         </div>
 
-        <form action={action} className="mt-6 space-y-4">
-          <div>
-            <label className="mb-1 block text-sm font-medium text-darktext" htmlFor="client_type">
-              Type de client
-            </label>
-            <select
-              id="client_type"
-              name="client_type"
-              value={clientType}
-              onChange={(event) => setClientType(event.target.value as ClientType)}
-              className="w-full rounded-md border border-gray-300 px-3 py-2"
-            >
-              <option value="individual">Individuel</option>
-              <option value="company">Entreprise</option>
-            </select>
-          </div>
-
-          {clientType === "individual" ? (
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <label className="mb-1 block text-sm font-medium text-darktext" htmlFor="first_name">
-                  Prénom
-                </label>
-                <input
-                  id="first_name"
-                  name="first_name"
-                  defaultValue={initialValues?.first_name ?? ""}
-                  className="w-full rounded-md border border-gray-300 px-3 py-2"
-                  required
-                />
-              </div>
-              <div>
-                <label className="mb-1 block text-sm font-medium text-darktext" htmlFor="last_name">
-                  Nom
-                </label>
-                <input
-                  id="last_name"
-                  name="last_name"
-                  defaultValue={initialValues?.last_name ?? ""}
-                  className="w-full rounded-md border border-gray-300 px-3 py-2"
-                  required
-                />
-              </div>
-            </div>
-          ) : (
-            <div>
-              <label className="mb-1 block text-sm font-medium text-darktext" htmlFor="company_name">
-                Nom de l&apos;entreprise
-              </label>
-              <input
-                id="company_name"
-                name="company_name"
-                defaultValue={initialValues?.company_name ?? ""}
-                className="w-full rounded-md border border-gray-300 px-3 py-2"
+        {/* Identité */}
+        {isIndividual ? (
+          <div className="grid grid-cols-2 gap-3">
+            <ModalField label="Prénom" required>
+              <ModalInput
+                autoFocus
+                name="first_name"
                 required
+                defaultValue={initialValues?.first_name ?? ""}
+                placeholder="Malin"
+              />
+            </ModalField>
+            <ModalField label="Nom">
+              <ModalInput
+                name="last_name"
+                defaultValue={initialValues?.last_name ?? ""}
+                placeholder="Loua"
+              />
+            </ModalField>
+          </div>
+        ) : (
+          <ModalField label="Nom de l'entreprise" required>
+            <ModalInput
+              autoFocus
+              name="company_name"
+              required
+              defaultValue={initialValues?.company_name ?? ""}
+              placeholder="Nom de l'entreprise"
+            />
+          </ModalField>
+        )}
+
+        {/* Téléphone + Email */}
+        <div className="grid grid-cols-2 gap-3">
+          <ModalField label="Téléphone">
+            <div className="relative">
+              <Phone size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+              <ModalInput
+                name="phone"
+                type="tel"
+                defaultValue={initialValues?.phone ?? ""}
+                placeholder="623 00 00 00"
+                className="pl-8"
               />
             </div>
-          )}
-
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <label className="mb-1 block text-sm font-medium text-darktext" htmlFor="email">
-                Email
-              </label>
-              <input
-                id="email"
+          </ModalField>
+          <ModalField label="Email">
+            <div className="relative">
+              <Mail size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+              <ModalInput
                 name="email"
                 type="email"
                 defaultValue={initialValues?.email ?? ""}
-                className="w-full rounded-md border border-gray-300 px-3 py-2"
+                placeholder="email@exemple.com"
+                className="pl-8"
               />
             </div>
-            <div>
-              <label className="mb-1 block text-sm font-medium text-darktext" htmlFor="phone">
-                Téléphone
-              </label>
-              <input
-                id="phone"
-                name="phone"
-                defaultValue={initialValues?.phone ?? ""}
-                className="w-full rounded-md border border-gray-300 px-3 py-2"
-              />
-            </div>
-          </div>
+          </ModalField>
+        </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <label className="mb-1 block text-sm font-medium text-darktext" htmlFor="city">
-                Ville
-              </label>
-              <input
-                id="city"
-                name="city"
-                defaultValue={initialValues?.city ?? ""}
-                className="w-full rounded-md border border-gray-300 px-3 py-2"
+        {/* Adresse + Ville + Pays */}
+        <div className="grid grid-cols-3 gap-3">
+          <ModalField label="Adresse">
+            <div className="relative">
+              <MapPin size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+              <ModalInput
+                name="address"
+                defaultValue={initialValues?.address ?? ""}
+                placeholder="Quartier…"
+                className="pl-8"
               />
             </div>
-            <div>
-              <label className="mb-1 block text-sm font-medium text-darktext" htmlFor="country">
-                Pays
-              </label>
-              <input
-                id="country"
+          </ModalField>
+          <ModalField label="Ville">
+            <ModalInput
+              name="city"
+              defaultValue={initialValues?.city ?? ""}
+              placeholder="Conakry"
+            />
+          </ModalField>
+          <ModalField label="Pays">
+            <div className="relative">
+              <Globe size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+              <ModalInput
                 name="country"
-                defaultValue={initialValues?.country ?? ""}
-                className="w-full rounded-md border border-gray-300 px-3 py-2"
+                defaultValue={initialValues?.country ?? "Guinée"}
+                placeholder="Guinée"
+                className="pl-8"
               />
             </div>
-          </div>
+          </ModalField>
+        </div>
 
-          <div>
-            <label className="mb-1 block text-sm font-medium text-darktext" htmlFor="address">
-              Adresse
-            </label>
-            <input
-              id="address"
-              name="address"
-              defaultValue={initialValues?.address ?? ""}
-              className="w-full rounded-md border border-gray-300 px-3 py-2"
-            />
-          </div>
-
-          <div>
-            <label className="mb-1 block text-sm font-medium text-darktext" htmlFor="notes">
-              Notes
-            </label>
-            <textarea
-              id="notes"
+        {/* Notes */}
+        <ModalField label="Notes">
+          <div className="relative">
+            <FileText size={13} className="absolute left-3 top-3 text-gray-400" />
+            <ModalTextarea
               name="notes"
+              rows={3}
               defaultValue={initialValues?.notes ?? ""}
-              className="min-h-[120px] w-full rounded-md border border-gray-300 px-3 py-2"
+              placeholder="Informations complémentaires…"
+              className="pl-8"
             />
           </div>
+        </ModalField>
 
-          <div className="flex gap-3">
-            <button
-              type="submit"
-              className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-white"
-            >
-              {submitLabel}
-            </button>
-            <Link
-              href={cancelHref}
-              className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-darktext"
-            >
-              Annuler
-            </Link>
-          </div>
-        </form>
-      </div>
-    </main>
+        <ModalError message={error} />
+
+        <ModalActions
+          onCancel={handleCancel}
+          submitLabel={submitLabel}
+          loading={pending}
+          submitIcon={initialValues ? <Save size={14} /> : <Plus size={14} />}
+        />
+      </form>
+    </Modal>
   );
 }

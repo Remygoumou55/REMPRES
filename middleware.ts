@@ -8,6 +8,7 @@ import type { Database } from "@/types/database.types";
 
 const PROTECTED_PREFIXES = [
   "/dashboard",
+  "/settings",
   "/vente",
   "/admin",
   "/auth/set-password",

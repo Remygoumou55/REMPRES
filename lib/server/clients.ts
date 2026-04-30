@@ -7,6 +7,7 @@ import {
   type CreateClientInput,
   type UpdateClientInput,
 } from "@/lib/validations/client";
+import { getClientsPermissions } from "@/lib/server/permissions";
 
 type ClientListParams = {
   search?: string;
@@ -29,7 +30,7 @@ type RequestContext = {
 };
 
 const CLIENT_COLUMNS =
-  "id,client_type,first_name,last_name,company_name,email,phone,address,city,country,notes,created_by,created_at,updated_at,deleted_at";
+  "id,client_type,first_name,last_name,company_name,email,phone,address,city,country,notes,created_by,created_at,updated_at,deleted_at,deleted_by";
 
 function normalizePagination(page?: number, pageSize?: number) {
   const safePage = Number.isInteger(page) && (page ?? 1) > 0 ? (page as number) : 1;
@@ -53,7 +54,7 @@ function getClientsTable() {
 
 async function createActivityLog(params: {
   actorUserId: string;
-  actionKey: "create" | "update" | "delete";
+  actionKey: "create" | "update" | "delete" | "RESTORE";
   targetId?: string;
   metadata?: Json;
 }) {
@@ -91,6 +92,7 @@ function sanitizeClientForLog(client: Client | null) {
     city: client.city,
     country: client.country,
     deleted_at: client.deleted_at,
+    deleted_by: client.deleted_by,
   };
 }
 
@@ -121,6 +123,50 @@ export async function listClients(params: ClientListParams = {}): Promise<Client
 
   if (error) {
     throw new Error(`Impossible de charger la liste des clients: ${error.message}`);
+  }
+
+  const total = count ?? 0;
+  const totalPages = total === 0 ? 1 : Math.ceil(total / safePageSize);
+
+  return {
+    data: (data ?? []) as Client[],
+    total,
+    page: safePage,
+    pageSize: safePageSize,
+    totalPages,
+  };
+}
+
+/**
+ * Clients archivés (soft delete). Nécessite canDelete sur le module clients / vente (aligné RLS).
+ */
+export async function listArchivedClients(
+  params: Pick<ClientListParams, "page" | "pageSize"> = {},
+): Promise<ClientListResult> {
+  const { safePage, safePageSize } = normalizePagination(params.page, params.pageSize);
+  const from = (safePage - 1) * safePageSize;
+  const to = from + safePageSize - 1;
+
+  const supabase = getSupabaseServerClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    throw new Error("Non authentifié");
+  }
+  const perms = await getClientsPermissions(user.id);
+  if (!perms.canDelete) {
+    throw new Error("Accès refusé : archives clients");
+  }
+
+  const { data, count, error } = await getClientsTable()
+    .select(CLIENT_COLUMNS, { count: "exact" })
+    .not("deleted_at", "is", null)
+    .order("deleted_at", { ascending: false })
+    .range(from, to);
+
+  if (error) {
+    throw new Error(`Impossible de charger les clients archivés: ${error.message}`);
   }
 
   const total = count ?? 0;
@@ -270,13 +316,21 @@ export async function softDeleteClient(
     throw new Error("Client introuvable");
   }
 
-  const { error } = await getClientsTable()
-    .update({ deleted_at: new Date().toISOString() })
+  const { data: updatedRows, error } = await getClientsTable()
+    .update({
+      deleted_at: new Date().toISOString(),
+      deleted_by: userId,
+      updated_at: new Date().toISOString(),
+    })
     .eq("id", id)
-    .is("deleted_at", null);
+    .is("deleted_at", null)
+    .select("id");
 
   if (error) {
     throw new Error(`Impossible de supprimer le client: ${error.message}`);
+  }
+  if (!updatedRows?.length) {
+    throw new Error("Impossible de supprimer le client: accès refusé ou client déjà supprimé.");
   }
 
   try {
@@ -298,4 +352,69 @@ export async function softDeleteClient(
   }
 
   return { success: true };
+}
+
+/**
+ * Restaure un client archivé (deleted_at / deleted_by effacés).
+ */
+export async function restoreClient(
+  id: string,
+  userId: string,
+  context?: RequestContext,
+): Promise<Client> {
+  if (!id || !id.trim()) {
+    throw new Error("ID client invalide");
+  }
+
+  const { data: archived, error: fetchErr } = await getClientsTable()
+    .select(CLIENT_COLUMNS)
+    .eq("id", id)
+    .not("deleted_at", "is", null)
+    .maybeSingle();
+
+  if (fetchErr) {
+    throw new Error(`Impossible de lire le client archivé: ${fetchErr.message}`);
+  }
+  if (!archived) {
+    throw new Error("Client archivé introuvable");
+  }
+
+  const { data: rows, error } = await getClientsTable()
+    .update({
+      deleted_at: null,
+      deleted_by: null,
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", id)
+    .not("deleted_at", "is", null)
+    .select(CLIENT_COLUMNS);
+
+  if (error) {
+    throw new Error(`Impossible de restaurer le client: ${error.message}`);
+  }
+  if (!rows?.length) {
+    throw new Error("Impossible de restaurer le client: accès refusé ou déjà actif.");
+  }
+
+  const restored = rows[0] as Client;
+
+  try {
+    await createActivityLog({
+      actorUserId: userId,
+      actionKey: "RESTORE",
+      targetId: id,
+      metadata: {
+        before: sanitizeClientForLog(archived as Client),
+        after: sanitizeClientForLog(restored),
+        context: {
+          ip: context?.ip ?? null,
+          userAgent: context?.userAgent ?? null,
+        },
+      },
+    });
+  } catch (logError) {
+    console.error("[ActivityLog] Failed to log client restore:", logError);
+  }
+
+  return restored;
 }

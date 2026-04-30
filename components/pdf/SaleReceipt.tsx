@@ -16,7 +16,7 @@ import {
   StyleSheet,
 } from "@react-pdf/renderer";
 import { appConfig } from "@/lib/config";
-import { formatGNF } from "@/lib/utils/formatCurrency";
+import { formatMoney, type SupportedCurrency } from "@/lib/utils/formatCurrency";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -40,7 +40,10 @@ export interface SaleReceiptData {
   discount_percent: number;
   discount_amount:  number;
   total_amount_gnf: number;
-  display_currency: string;
+  /** Devise affichée lors de la saisie (GNF | XOF | USD | EUR) */
+  display_currency: SupportedCurrency;
+  /** Taux de change GNF → display_currency au moment de la vente */
+  exchange_rate:    number;
   notes:            string | null;
   client_name:      string | null;
   client_phone:     string | null;
@@ -278,6 +281,7 @@ function paymentMethodLabel(method: string | null): string {
   const map: Record<string, string> = {
     cash:          "Espèces",
     mobile_money:  "Mobile Money",
+    orange_money:  "Orange Money",
     bank_transfer: "Virement bancaire",
     credit:        "Crédit",
     mixed:         "Paiement mixte",
@@ -318,6 +322,13 @@ interface SaleReceiptProps {
 export function SaleReceipt({ data, logoUrl }: SaleReceiptProps) {
   const hasDiscount = data.discount_percent > 0 || data.discount_amount > 0;
   const docRef = buildDocumentRef(data.reference);
+  const currency = (data.display_currency as SupportedCurrency) ?? "GNF";
+  const rate     = data.exchange_rate ?? 1;
+
+  /** Formate un montant GNF dans la devise d'affichage de la vente */
+  function fmt(amountGNF: number): string {
+    return formatMoney(amountGNF, currency, rate);
+  }
 
   // Fallback robuste : si logoUrl est vide ou invalide, on n'affiche pas l'image
   // (évite une erreur de rendu PDF en cas de réseau ou chemin incorrect)
@@ -353,7 +364,7 @@ export function SaleReceipt({ data, logoUrl }: SaleReceiptProps) {
               <Text style={s.invoiceRef}>N° {docRef}</Text>
             )}
             <Text style={s.invoiceMeta}>Date : {fmtDate(data.created_at)}</Text>
-            <Text style={s.invoiceMeta}>Devise : {data.display_currency}</Text>
+            <Text style={s.invoiceMeta}>Devise : {currency}</Text>
           </View>
         </View>
 
@@ -400,13 +411,13 @@ export function SaleReceipt({ data, logoUrl }: SaleReceiptProps) {
             </View>
             <Text style={[s.tdText, s.colQty]}>{item.quantity}</Text>
             <Text style={[s.tdText, s.colPrice]}>
-              {formatGNF(item.unit_price_gnf)}
+              {fmt(item.unit_price_gnf)}
             </Text>
             <Text style={[s.tdText, s.colDiscount]}>
               {item.discount_percent > 0 ? `${item.discount_percent}%` : "—"}
             </Text>
             <Text style={[s.tdText, s.colTotal]}>
-              {formatGNF(item.total_price_gnf)}
+              {fmt(item.total_price_gnf)}
             </Text>
           </View>
         ))}
@@ -415,7 +426,7 @@ export function SaleReceipt({ data, logoUrl }: SaleReceiptProps) {
         <View style={s.totalsBlock}>
           <View style={s.totalRow}>
             <Text style={s.totalLabel}>Sous-total</Text>
-            <Text style={s.totalValue}>{formatGNF(data.subtotal)}</Text>
+            <Text style={s.totalValue}>{fmt(data.subtotal)}</Text>
           </View>
 
           {hasDiscount && (
@@ -424,7 +435,7 @@ export function SaleReceipt({ data, logoUrl }: SaleReceiptProps) {
                 Remise ({data.discount_percent}%)
               </Text>
               <Text style={s.totalDiscount}>
-                {"\u2212"} {formatGNF(data.discount_amount)}
+                {"\u2212"} {fmt(data.discount_amount)}
               </Text>
             </View>
           )}
@@ -434,7 +445,7 @@ export function SaleReceipt({ data, logoUrl }: SaleReceiptProps) {
           <View style={s.totalFinalRow}>
             <Text style={s.totalFinalLabel}>TOTAL</Text>
             <Text style={s.totalFinalValue}>
-              {formatGNF(data.total_amount_gnf)}
+              {fmt(data.total_amount_gnf)}
             </Text>
           </View>
         </View>

@@ -3,13 +3,18 @@
  *
  * Fonctions PURES — utilisables côté client ET serveur (aucun import serveur).
  * Les fonctions nécessitant Supabase sont dans lib/server/currencyService.ts.
+ *
+ * NOTE : `formatAmount` délègue à `formatMoney` de lib/utils/formatCurrency.ts
+ * pour garantir un rendu 100 % identique entre l'UI et le PDF du reçu.
  */
+
+import { formatMoney, type SupportedCurrency } from "@/lib/utils/formatCurrency";
 
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
 
-export type Currency = "GNF" | "XOF" | "USD" | "EUR";
+export type Currency = SupportedCurrency;
 export type CurrencyRates = Record<string, number>;
 
 // Taux de secours — valeurs indicatives avril 2026.
@@ -28,7 +33,7 @@ export const FALLBACK_RATES: CurrencyRates = {
  * Convertit `amountGNF` vers `toCurrency` en utilisant les taux fournis.
  * Les taux sont exprimés en "unités de devise par 1 GNF".
  *
- * @example convertAmount(10000, 'USD', { GNF: 1, USD: 0.000116 }) → 1.16
+ * @example convertAmount(10_000, 'USD', { GNF: 1, USD: 0.000116 }) → 1.16
  */
 export function convertAmount(
   amountGNF: number,
@@ -48,37 +53,26 @@ export function convertAmount(
 // ---------------------------------------------------------------------------
 
 /**
- * Formate `amount` dans la devise cible selon les conventions locales RemPres.
+ * Formate `alreadyConvertedAmount` dans la devise cible.
  *
- * | Devise | Exemple    |
- * |--------|------------|
- * | GNF    | 10 000 GNF |
- * | XOF    | 460 FCFA   |
- * | USD    | $1.16      |
- * | EUR    | 1,07 €     |
+ * ⚠️ Le montant doit être DÉJÀ converti (pas en GNF d'origine).
+ *    Utiliser convertAmount() en amont si nécessaire.
+ *
+ * Délègue à formatMoney() — rendu identique UI et PDF.
+ *
+ * | Devise | Exemple       |
+ * |--------|---------------|
+ * | GNF    | 10 000 GNF    |
+ * | XOF    | 460 FCFA      |
+ * | USD    | $1.16         |
+ * | EUR    | 1,07 €        |
  */
-export function formatAmount(amount: number, currency: Currency): string {
-  switch (currency) {
-    case "GNF":
-    case "XOF": {
-      const rounded = Math.round(amount);
-      const formatted = rounded.toLocaleString("fr-FR", { useGrouping: true });
-      const symbol = currency === "GNF" ? "GNF" : "FCFA";
-      return `${formatted}\u202F${symbol}`;
-    }
-    case "USD":
-      return `$${amount.toLocaleString("en-US", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })}`;
-    case "EUR":
-      return `${amount.toLocaleString("fr-FR", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })}\u202F€`;
-    default:
-      return `${amount} ${currency}`;
-  }
+export function formatAmount(
+  alreadyConvertedAmount: number,
+  currency: Currency,
+): string {
+  // Montant déjà converti → taux = 1 (pas de re-conversion)
+  return formatMoney(alreadyConvertedAmount, currency, 1);
 }
 
 // ---------------------------------------------------------------------------

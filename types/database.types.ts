@@ -149,6 +149,7 @@ export type Database = {
           created_at: string;
           updated_at: string;
           deleted_at: string | null;
+          deleted_by: string | null;
         };
         Insert: {
           id?: string;
@@ -166,6 +167,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
           deleted_at?: string | null;
+          deleted_by?: string | null;
         };
         Update: {
           id?: string;
@@ -183,6 +185,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
           deleted_at?: string | null;
+          deleted_by?: string | null;
         };
         Relationships: [];
       };
@@ -201,6 +204,7 @@ export type Database = {
           created_at: string;
           updated_at: string;
           deleted_at: string | null;
+          deleted_by: string | null;
         };
         Insert: {
           id?: string;
@@ -216,6 +220,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
           deleted_at?: string | null;
+          deleted_by?: string | null;
         };
         Update: {
           id?: string;
@@ -231,6 +236,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
           deleted_at?: string | null;
+          deleted_by?: string | null;
         };
         Relationships: [];
       };
@@ -285,7 +291,14 @@ export type Database = {
           total_amount_gnf: number;
           display_currency: string;
           exchange_rate: number;
-          payment_method: "cash" | "mobile_money" | "bank_transfer" | "credit" | "mixed" | null;
+          payment_method:
+            | "cash"
+            | "mobile_money"
+            | "orange_money"
+            | "bank_transfer"
+            | "credit"
+            | "mixed"
+            | null;
           payment_status: "pending" | "partial" | "paid" | "overdue" | "cancelled";
           amount_paid_gnf: number;
           notes: string | null;
@@ -305,7 +318,14 @@ export type Database = {
           total_amount_gnf: number;
           display_currency?: string;
           exchange_rate?: number;
-          payment_method?: "cash" | "mobile_money" | "bank_transfer" | "credit" | "mixed" | null;
+          payment_method?:
+            | "cash"
+            | "mobile_money"
+            | "orange_money"
+            | "bank_transfer"
+            | "credit"
+            | "mixed"
+            | null;
           payment_status?: "pending" | "partial" | "paid" | "overdue" | "cancelled";
           amount_paid_gnf?: number;
           notes?: string | null;
@@ -325,7 +345,14 @@ export type Database = {
           total_amount_gnf?: number;
           display_currency?: string;
           exchange_rate?: number;
-          payment_method?: "cash" | "mobile_money" | "bank_transfer" | "credit" | "mixed" | null;
+          payment_method?:
+            | "cash"
+            | "mobile_money"
+            | "orange_money"
+            | "bank_transfer"
+            | "credit"
+            | "mixed"
+            | null;
           payment_status?: "pending" | "partial" | "paid" | "overdue" | "cancelled";
           amount_paid_gnf?: number;
           notes?: string | null;
@@ -333,6 +360,42 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
           deleted_at?: string | null;
+        };
+        Relationships: [];
+      };
+      sales_archive: {
+        Row: {
+          id: string;
+          original_sale_id: string;
+          archived_by: string | null;
+          client_id: string | null;
+          total_amount_gnf: number | null;
+          payment_status: string | null;
+          created_at: string | null;
+          archived_at: string;
+          raw_data: Json;
+        };
+        Insert: {
+          id?: string;
+          original_sale_id: string;
+          archived_by?: string | null;
+          client_id?: string | null;
+          total_amount_gnf?: number | null;
+          payment_status?: string | null;
+          created_at?: string | null;
+          archived_at?: string;
+          raw_data?: Json;
+        };
+        Update: {
+          id?: string;
+          original_sale_id?: string;
+          archived_by?: string | null;
+          client_id?: string | null;
+          total_amount_gnf?: number | null;
+          payment_status?: string | null;
+          created_at?: string | null;
+          archived_at?: string;
+          raw_data?: Json;
         };
         Relationships: [];
       };
@@ -589,6 +652,10 @@ export type Database = {
           p_status?: string;
         };
         Returns: string | null;
+      };
+      archive_and_soft_delete_sale: {
+        Args: { p_sale_id: string };
+        Returns: undefined;
       };
     };
     Enums: {

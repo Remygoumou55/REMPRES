@@ -28,6 +28,10 @@ export function mapProductError(error: unknown, fallbackMessage: string): string
     return "Action refusée par la sécurité de la base de données.";
   }
 
+  if (raw.includes("row-level security") || raw.includes("violates row-level")) {
+    return "Action refusée par la sécurité de la base de données.";
+  }
+
   return error.message || fallbackMessage;
 }
 

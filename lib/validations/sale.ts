@@ -30,11 +30,13 @@ export const createSaleSchema = z
       .pipe(z.uuid("Identifiant client invalide.")),
     items: z.array(saleItemSchema).min(1, "La vente doit contenir au moins un article"),
     discountPercent: z.coerce.number().min(0, "Minimum 0 %").max(100, "Maximum 100 %").default(0),
-    paymentMethod: z.enum([
-      "cash",
-      "mobile_money",
-      "bank_transfer",
-    ], { error: "Mode de paiement invalide. Valeurs acceptées : cash, mobile_money, bank_transfer" }),
+    paymentMethod: z.enum(
+      ["cash", "mobile_money", "orange_money", "bank_transfer"],
+      {
+        error:
+          "Mode de paiement invalide. Valeurs acceptées : cash, mobile_money, orange_money, bank_transfer",
+      },
+    ),
     displayCurrency: z.enum(["GNF", "XOF", "USD", "EUR"], {
       error: "Devise invalide (GNF, XOF, USD, EUR)",
     }),

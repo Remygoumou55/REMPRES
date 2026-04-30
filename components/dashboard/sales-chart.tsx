@@ -1,7 +1,9 @@
 "use client";
 
 import type { DayStats } from "@/lib/server/dashboard-kpis";
-import { formatGNF } from "@/lib/utils/formatCurrency";
+import { formatMoney } from "@/lib/utils/formatCurrency";
+import { useCurrencyStore } from "@/stores/currencyStore";
+import { convertAmount } from "@/lib/currencyService";
 
 type Props = { data: DayStats[] };
 
@@ -9,6 +11,12 @@ type Props = { data: DayStats[] };
  * Graphique 7 jours (barres CSS) — extrait pour chargement dynamique optionnel.
  */
 export function SalesChart({ data }: Props) {
+  const currency = useCurrencyStore((s) => s.selectedCurrency);
+  const rates    = useCurrencyStore((s) => s.rates);
+  function fmtChart(amountGNF: number) {
+    return formatMoney(convertAmount(amountGNF, currency, rates), currency, 1);
+  }
+
   const max = Math.max(...data.map((d) => d.amount), 1);
   const today = new Date().toISOString().slice(0, 10);
   const allEmpty = data.every((d) => d.amount === 0);
@@ -30,7 +38,7 @@ export function SalesChart({ data }: Props) {
         return (
           <div key={d.date} className="group relative flex flex-1 flex-col items-center gap-1">
             <div className="pointer-events-none absolute -top-10 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-xl border border-gray-100 bg-white px-2.5 py-1.5 text-center opacity-0 shadow-lg transition-all group-hover:opacity-100">
-              <p className="text-xs font-bold text-darktext">{formatGNF(d.amount)}</p>
+              <p className="text-xs font-bold text-darktext">{fmtChart(d.amount)}</p>
               <p className="text-[10px] text-gray-400">
                 {d.count} vente{d.count !== 1 ? "s" : ""}
               </p>

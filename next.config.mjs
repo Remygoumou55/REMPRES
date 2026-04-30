@@ -1,5 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Tree-shake des icônes Lucide (moins de JS à parser sur la navigation)
+  experimental: {
+    optimizePackageImports: ["lucide-react"],
+  },
+
   // ── Images ──────────────────────────────────────────────────────────────
   images: {
     // Les URLs d'image produit sont saisies manuellement et peuvent
@@ -43,6 +48,10 @@ const nextConfig = {
   // ── Redirects ─────────────────────────────────────────────────────────────
   // Redirige la racine vers /login si l'utilisateur n'est pas connecté
   // (géré par middleware.ts, pas besoin de redirect ici)
+
+  // Ne pas désactiver `config.cache` en dev : avec Next 14 cela provoque souvent des
+  // chunks CSS/JS incohérents après HMR → page « nue » (liens violets, sans layout).
+  // Si un état bizarre persiste : supprimer le dossier `.next` puis relancer `npm run dev`.
 };
 
 export default nextConfig;

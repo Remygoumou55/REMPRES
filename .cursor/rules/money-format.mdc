@@ -1,0 +1,38 @@
+---
+description: Règle de formatage monétaire — toujours utiliser formatMoney avec la devise du store
+globs: **/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Système monétaire — règles obligatoires
+
+## Fonction canonique
+
+Utiliser **uniquement** `formatMoney` depuis `@/lib/utils/formatCurrency`.
+
+```typescript
+// ✅ CORRECT
+import { formatMoney } from "@/lib/utils/formatCurrency";
+import { useCurrencyStore } from "@/stores/currencyStore";
+import { convertAmount } from "@/lib/currencyService";
+
+const currency = useCurrencyStore((s) => s.selectedCurrency);
+const rates    = useCurrencyStore((s) => s.rates);
+
+// Conversion GNF → devise affichée, puis formatage
+const display = formatMoney(convertAmount(amountGNF, currency, rates), currency, 1);
+
+// ❌ INTERDIT — définir une formatGNF locale
+function formatGNF(n: number) { return n + " GNF"; }
+
+// ❌ INTERDIT — ignorer la devise du store
+const display = formatGNF(amountGNF);
+```
+
+## Règles
+
+1. **Jamais** de `formatGNF` défini localement dans un composant ou une page.
+2. Importer `formatGNF` depuis `@/lib/utils/formatCurrency` si tu veux GNF fixe (PDF de rapport, résumé archivé).
+3. Pour tout affichage live (KPI, liste, carte produit, graphique), utiliser `useCurrencyStore` + `convertAmount` + `formatMoney`.
+4. Le store (`selectedCurrency`, `rates`) est mis à jour automatiquement via `CurrencyProvider` au démarrage.
+5. Ne jamais passer de taux en dur (`1`, `9500`) dans le code — utiliser `rates[currency]`.

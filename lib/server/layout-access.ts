@@ -1,26 +1,26 @@
+import { cache } from "react";
 import { redirect } from "next/navigation";
-import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getClientsPermissions, getModulePermissions, isSuperAdmin } from "@/lib/server/permissions";
 import {
   avatarInitialFromDisplayName,
   getCachedProfileDisplayName,
 } from "@/lib/server/profile-display";
 
-export async function getLayoutAccess() {
-  const supabase = getSupabaseServerClient();
-  const { data } = await supabase.auth.getUser();
+export const getLayoutAccess = cache(async () => {
+  const user = await getServerSessionUser();
 
-  if (!data.user) {
+  if (!user) {
     redirect("/login");
   }
 
-  const userId = data.user.id;
+  const userId = user.id;
 
   const [
     permissions,
     productsPermissions,
     financePermissions,
-    canReadActivityLogs,
+    isSuperAdminUser,
     userDisplayName,
   ] = await Promise.all([
     getClientsPermissions(userId),
@@ -36,7 +36,9 @@ export async function getLayoutAccess() {
     canReadClients: permissions.canRead,
     canReadProducts: productsPermissions.canRead,
     canReadFinance: financePermissions.canRead,
-    canReadActivityLogs,
-    isSuperAdmin: canReadActivityLogs, // même vérification
+    canReadActivityLogs: isSuperAdminUser,
+    isSuperAdmin: isSuperAdminUser,
+    canArchiveClients: permissions.canRead && permissions.canDelete,
+    canArchiveProduits: productsPermissions.canRead && productsPermissions.canDelete,
   };
-}
+});

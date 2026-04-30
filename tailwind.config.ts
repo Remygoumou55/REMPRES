@@ -5,6 +5,9 @@ const config: Config = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    // Groupe de routes Next `(app)` : certains résolveurs de glob sont capricieux avec ()
+    "./app/(app)/**/*.{js,ts,jsx,tsx,mdx}",
+    "./lib/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -13,9 +16,15 @@ const config: Config = {
           "0%":   { opacity: "0", transform: "translateY(12px) translateX(-50%)" },
           "100%": { opacity: "1", transform: "translateY(0)    translateX(-50%)" },
         },
+        /** Barre de progression indéterminée (écrans de chargement de route) */
+        routeLoad: {
+          "0%":   { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(350%)" },
+        },
       },
       animation: {
         fadeInUp: "fadeInUp 0.25s ease forwards",
+        "route-load": "routeLoad 1.15s ease-in-out infinite",
       },
       colors: {
         background: "var(--background)",

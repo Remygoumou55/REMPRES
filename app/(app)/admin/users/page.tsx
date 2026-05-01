@@ -1,11 +1,23 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+import dynamicImport from "next/dynamic";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
-import { assertSuperAdmin } from "@/lib/server/permissions";
+import { assertAdminRole } from "@/lib/server/permissions";
 import { getSupabaseAdminClient } from "@/lib/supabaseAdmin";
 import { USERS_LIST_CONFIG_ERROR_CODE } from "@/lib/server/users-errors";
 import { listUsers, type UserListItem } from "@/lib/server/users";
-import { UsersClient } from "./UsersClient";
+import { logError } from "@/lib/logger";
+
+const UsersClient = dynamicImport(
+  () => import("./UsersClient").then((m) => m.UsersClient),
+  {
+    loading: () => (
+      <div className="rounded-2xl border border-gray-200 bg-white p-4 text-sm text-gray-500 shadow-sm">
+        Chargement...
+      </div>
+    ),
+  },
+);
 
 /** Session (cookies / auth) — pas de prerender statique */
 export const dynamic = "force-dynamic";
@@ -24,16 +36,16 @@ export default async function AdminUsersPage() {
 
   const userId = authData.user.id;
 
-  // 1 — assertSuperAdmin dans try/catch (erreurs inattendues → access-denied).
+  // 1 — assertAdminRole dans try/catch (erreurs inattendues → access-denied).
   // Pas de redirect() dans ce try : redirect() lève et ne doit pas être avalé ici.
-  let superAdminOk = false;
+  let adminRoleOk = false;
   try {
-    superAdminOk = await assertSuperAdmin(userId);
+    adminRoleOk = await assertAdminRole(userId);
   } catch {
     redirect("/access-denied");
   }
 
-  if (!superAdminOk) {
+  if (!adminRoleOk) {
     redirect("/access-denied");
   }
 
@@ -61,7 +73,7 @@ export default async function AdminUsersPage() {
   try {
     getSupabaseAdminClient();
   } catch (error) {
-    console.error("Admin client error:", error);
+    logError("auth", "Admin client error", { userId, error });
     redirect("/access-denied");
   }
 

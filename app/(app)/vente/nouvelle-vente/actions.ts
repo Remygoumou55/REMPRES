@@ -102,7 +102,7 @@ export async function createQuickClientAction(input: {
       city:         input.city?.trim() || null,
       created_by:   auth.user.id,
     })
-    .select()
+    .select("id,client_type,first_name,last_name,company_name,email,phone,address,city,country,notes,created_by,created_at,updated_at,deleted_at,deleted_by")
     .single();
 
   if (error) {

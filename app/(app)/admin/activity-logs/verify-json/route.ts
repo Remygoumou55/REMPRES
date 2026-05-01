@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { verifyActivityLogsSignedJsonIntegrity } from "@/lib/server/activity-logs";
-import { isSuperAdmin } from "@/lib/server/permissions";
+import { isAdminRole } from "@/lib/server/permissions";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 
 export async function POST(request: Request) {
@@ -11,7 +11,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Non authentifie" }, { status: 401 });
   }
 
-  const allowed = await isSuperAdmin(data.user.id);
+  const allowed = await isAdminRole(data.user.id);
   if (!allowed) {
     return NextResponse.json({ error: "Acces refuse" }, { status: 403 });
   }

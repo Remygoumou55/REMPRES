@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
-import { isSuperAdmin } from "@/lib/server/permissions";
+import { isAdminRole } from "@/lib/server/permissions";
 import { appConfig } from "@/lib/config";
 import {
   Settings2,
@@ -80,7 +80,7 @@ export default async function SettingsPage() {
 
   if (!data.user) redirect("/login");
 
-  const isAdmin = await isSuperAdmin(data.user.id);
+  const isAdmin = await isAdminRole(data.user.id);
 
   return (
     <div className="mx-auto max-w-3xl space-y-8">

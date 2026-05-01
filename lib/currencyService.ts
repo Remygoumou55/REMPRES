@@ -2,7 +2,9 @@
  * lib/currencyService.ts
  *
  * Fonctions PURES — utilisables côté client ET serveur (aucun import serveur).
- * Les fonctions nécessitant Supabase sont dans lib/server/currencyService.ts.
+ * Conversion métier : RPC via `convertCurrency` (`@/lib/services/currencyService`) /
+ * `convertCurrencyRpc` (`@/lib/currency/convertCurrencyRpc`). Rafraîchissement des taux
+ * affichés / stock : `lib/server/currencyService.ts` et `/api/currency/refresh`.
  *
  * NOTE : `formatAmount` délègue à `formatMoney` de lib/utils/formatCurrency.ts
  * pour garantir un rendu 100 % identique entre l'UI et le PDF du reçu.
@@ -26,37 +28,15 @@ export const FALLBACK_RATES: CurrencyRates = {
 };
 
 // ---------------------------------------------------------------------------
-// 1. Convertir un montant depuis GNF
-// ---------------------------------------------------------------------------
-
-/**
- * Convertit `amountGNF` vers `toCurrency` en utilisant les taux fournis.
- * Les taux sont exprimés en "unités de devise par 1 GNF".
- *
- * @example convertAmount(10_000, 'USD', { GNF: 1, USD: 0.000116 }) → 1.16
- */
-export function convertAmount(
-  amountGNF: number,
-  toCurrency: Currency,
-  rates: CurrencyRates,
-): number {
-  if (toCurrency === "GNF") return Math.round(amountGNF * 100) / 100;
-
-  const rate = rates[toCurrency];
-  if (!rate || rate <= 0) return 0;
-
-  return Math.round(amountGNF * rate * 100) / 100;
-}
-
-// ---------------------------------------------------------------------------
-// 2. Formater un montant pour l'affichage
+// 1. Formater un montant pour l'affichage
 // ---------------------------------------------------------------------------
 
 /**
  * Formate `alreadyConvertedAmount` dans la devise cible.
  *
  * ⚠️ Le montant doit être DÉJÀ converti (pas en GNF d'origine).
- *    Utiliser convertAmount() en amont si nécessaire.
+ *    Utiliser `convertCurrency` (RPC) via les hooks `useCurrencyConversion` /
+ *    `useCurrencyBatchConversion` pour convertir avant formatage.
  *
  * Délègue à formatMoney() — rendu identique UI et PDF.
  *
@@ -76,7 +56,7 @@ export function formatAmount(
 }
 
 // ---------------------------------------------------------------------------
-// 3. Obtenir le symbole d'une devise
+// 2. Obtenir le symbole d'une devise
 // ---------------------------------------------------------------------------
 
 const CURRENCY_SYMBOLS: Record<Currency, string> = {

@@ -20,6 +20,7 @@
 import { useEffect, useRef } from "react";
 import { useCurrencyStore } from "@/stores/currencyStore";
 import type { CurrencyRates } from "@/lib/currencyService";
+import { logInfo } from "@/lib/logger";
 
 const REFRESH_INTERVAL_MS = 60 * 60 * 1000; // 1 heure
 
@@ -71,10 +72,7 @@ export function CurrencyProvider() {
           setRates(data.rates, updatedAt);
 
           if (!data.fromCache) {
-            console.info(
-              "[CurrencyProvider] Taux mis à jour depuis l'API externe.",
-              data.rates,
-            );
+            logInfo("currency", "rates refreshed from external API", { rates: data.rates });
           }
         }
       } catch {

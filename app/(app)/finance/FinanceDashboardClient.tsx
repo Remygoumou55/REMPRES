@@ -27,8 +27,7 @@ import {
   Wallet,
 } from "lucide-react";
 import type { CsvExportSections, FinanceCfoData, FinanceDayPoint } from "@/lib/server/finance-overview";
-import { convertAmount, formatAmount, type Currency, type CurrencyRates } from "@/lib/currencyService";
-import { displayGnf } from "@/lib/finance-display";
+import { formatAmount, type Currency } from "@/lib/currencyService";
 import { PageHeader } from "@/components/ui/page-header";
 import type { ExpenseCategoryRow } from "@/lib/server/expenses";
 import {
@@ -50,6 +49,7 @@ import { useFinanceLiveData } from "./hooks/useFinanceLiveData";
 import { FinanceExportModal, type PdfSections } from "@/components/finance/FinanceExportModal";
 import { SearchInput } from "@/components/ui/search-input";
 import { useGlobalSearch } from "@/lib/hooks/use-global-search";
+import { useCurrencyBatchConversion } from "@/hooks/useCurrencyConversion";
 
 const CURRENCY_KEY = "rempres-finance-currency";
 
@@ -64,7 +64,6 @@ type Props = {
   canFilterByUser: boolean;
   selectedCategoryIds: string[];
   selectedCreatedBy: string | null;
-  currencyRates: CurrencyRates;
 };
 
 function useDisplayCurrency() {
@@ -144,7 +143,7 @@ function CategoryBar({
   fmt,
 }: {
   rows: { categoryId: string; name: string; color: string; amount: number }[];
-  fmt: (gnf: number) => string;
+  fmt: (key: string, amountGnf: number) => string;
 }) {
   if (rows.length === 0) {
     return (
@@ -162,7 +161,7 @@ function CategoryBar({
           <li key={r.categoryId} className="flex flex-col gap-1">
             <div className="flex justify-between text-sm">
               <span className="font-medium text-darktext">{r.name}</span>
-              <span className="tabular-nums text-gray-600">{fmt(r.amount)}</span>
+              <span className="tabular-nums text-gray-600">{fmt(`cat:${r.categoryId}`, r.amount)}</span>
             </div>
             <div className="h-2 w-full overflow-hidden rounded-full bg-gray-100">
               <div
@@ -184,7 +183,6 @@ function ChartBlockRevenueExpense({
   base7d,
   forecastNextDays,
   currency,
-  rates,
 }: {
   mode: ChartMode;
   onModeChange: (m: ChartMode) => void;
@@ -192,7 +190,6 @@ function ChartBlockRevenueExpense({
   base7d: FinanceDayPoint[];
   forecastNextDays: FinanceProjectionDay[];
   currency: Currency;
-  rates: CurrencyRates;
 }) {
   const series = mode === "7d" ? base7d : baseRange;
   const withForecast: RevExpChartRow[] = useMemo(() => {
@@ -202,21 +199,41 @@ function ChartBlockRevenueExpense({
     return toRevenueExpenseChartRows(baseRange, forecastNextDays);
   }, [mode, series, baseRange, forecastNextDays]);
 
-  const chartData = useMemo(() => {
-    const conv = (g: number) => convertAmount(g, currency, rates);
-    return withForecast.map((d) => ({
-      ...d,
-      labelShort: d.label,
-      revenue: conv(d.revenue),
-      expenses: conv(d.expenses),
-      revProj: d.revProj == null ? null : conv(d.revProj),
-      expProj: d.expProj == null ? null : conv(d.expProj),
-    }));
-  }, [withForecast, currency, rates]);
+  const chartData = useMemo(
+    () =>
+      withForecast.map((d) => ({
+        ...d,
+        labelShort: d.label,
+      })),
+    [withForecast],
+  );
+  const chartItems = useMemo(
+    () =>
+      chartData.flatMap((d) => [
+        { key: `${d.date}:revenue`, amount: d.revenue },
+        { key: `${d.date}:expenses`, amount: d.expenses },
+        ...(d.revProj == null ? [] : [{ key: `${d.date}:revProj`, amount: d.revProj }]),
+        ...(d.expProj == null ? [] : [{ key: `${d.date}:expProj`, amount: d.expProj }]),
+      ]),
+    [chartData],
+  );
+  const { convertedByKey: convertedChart, hasUnavailable: chartConversionUnavailable } = useCurrencyBatchConversion(chartItems, "GNF", currency);
+  const convertedChartData = useMemo(
+    () =>
+      chartData.map((d) => ({
+        ...d,
+        revenue: convertedChart[`${d.date}:revenue`] ?? 0,
+        expenses: convertedChart[`${d.date}:expenses`] ?? 0,
+        revProj: d.revProj == null ? null : (convertedChart[`${d.date}:revProj`] ?? 0),
+        expProj: d.expProj == null ? null : (convertedChart[`${d.date}:expProj`] ?? 0),
+      })),
+    [chartData, convertedChart],
+  );
 
   const fmtY = (v: number) => formatAmount(v, currency);
   const empty =
-    chartData.length === 0 || chartData.every((d) => d.revenue === 0 && d.expenses === 0 && !d.revProj);
+    convertedChartData.length === 0 ||
+    convertedChartData.every((d) => d.revenue === 0 && d.expenses === 0 && !d.revProj);
 
   return (
     <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
@@ -251,22 +268,26 @@ function ChartBlockRevenueExpense({
           Prévision (pointillés) : tendance linéaire + moyenne sur l’historique de la période — {DEFAULT_PROJECTION_HORIZON} j. après la fin de plage (indicatif).
         </p>
       )}
-      {empty ? (
+      {chartConversionUnavailable ? (
+        <div className="flex h-64 flex-col items-center justify-center rounded-xl border border-amber-200 bg-amber-50/50 text-center">
+          <p className="text-sm font-medium text-amber-700">Conversion indisponible</p>
+        </div>
+      ) : empty ? (
         <div className="flex h-64 flex-col items-center justify-center rounded-xl border border-dashed border-gray-200 bg-gray-50/50 text-center">
           <p className="text-sm font-medium text-gray-400">Aucune donnée sur la plage affichée</p>
         </div>
       ) : (
         <div className="h-80 w-full min-w-0">
           <ResponsiveContainer width="100%" height="100%">
-            <ComposedChart data={chartData} margin={{ top: 8, right: 8, left: 4, bottom: 0 }}>
+            <ComposedChart data={convertedChartData} margin={{ top: 8, right: 8, left: 4, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" className="stroke-gray-100" />
               <XAxis
                 dataKey="labelShort"
                 tick={{ fontSize: 10, fill: "#64748b" }}
                 interval={0}
-                angle={chartData.length > 12 ? -35 : 0}
-                textAnchor={chartData.length > 12 ? "end" : "middle"}
-                height={chartData.length > 12 ? 70 : 28}
+                angle={convertedChartData.length > 12 ? -35 : 0}
+                textAnchor={convertedChartData.length > 12 ? "end" : "middle"}
+                height={convertedChartData.length > 12 ? 70 : 28}
               />
               <YAxis
                 tick={{ fontSize: 11, fill: "#64748b" }}
@@ -335,29 +356,51 @@ function ChartBlockRevenueExpense({
 function CashflowChart({
   points,
   currency,
-  rates,
 }: {
   points: FinanceCfoData["cashflowInRange"];
   currency: Currency;
-  rates: CurrencyRates;
 }) {
   const fmt = (v: number) => formatAmount(v, currency);
   const chartData = useMemo(
     () =>
-      points.map((p) => {
-        const conv = (g: number) => convertAmount(g, currency, rates);
-        return {
-          ...p,
-          labelShort: p.label,
-          cashIn: conv(p.cashIn),
-          cashOut: conv(p.cashOut),
-          net: conv(p.net),
-          cumulative: conv(p.cumulative),
-        };
-      }),
-    [points, currency, rates],
+      points.map((p) => ({
+        ...p,
+        labelShort: p.label,
+      })),
+    [points],
   );
-  const empty = chartData.length === 0 || chartData.every((d) => d.cashIn === 0 && d.cashOut === 0);
+  const cashItems = useMemo(
+    () =>
+      chartData.flatMap((d) => [
+        { key: `${d.date}:cashIn`, amount: d.cashIn },
+        { key: `${d.date}:cashOut`, amount: d.cashOut },
+        { key: `${d.date}:net`, amount: d.net },
+        { key: `${d.date}:cumulative`, amount: d.cumulative },
+      ]),
+    [chartData],
+  );
+  const { convertedByKey: convertedCash, hasUnavailable: cashConversionUnavailable } = useCurrencyBatchConversion(cashItems, "GNF", currency);
+  const convertedCashData = useMemo(
+    () =>
+      chartData.map((d) => ({
+        ...d,
+        cashIn: convertedCash[`${d.date}:cashIn`] ?? 0,
+        cashOut: convertedCash[`${d.date}:cashOut`] ?? 0,
+        net: convertedCash[`${d.date}:net`] ?? 0,
+        cumulative: convertedCash[`${d.date}:cumulative`] ?? 0,
+      })),
+    [chartData, convertedCash],
+  );
+  const empty =
+    convertedCashData.length === 0 ||
+    convertedCashData.every((d) => d.cashIn === 0 && d.cashOut === 0);
+  if (cashConversionUnavailable) {
+    return (
+      <div className="flex h-64 flex-col items-center justify-center rounded-xl border border-amber-200 bg-amber-50/50 text-center">
+        <p className="text-sm text-amber-700">Conversion indisponible</p>
+      </div>
+    );
+  }
   if (empty) {
     return (
       <div className="flex h-64 flex-col items-center justify-center rounded-xl border border-dashed border-gray-200 bg-gray-50/50 text-center">
@@ -368,15 +411,15 @@ function CashflowChart({
   return (
     <div className="h-80 w-full min-w-0">
       <ResponsiveContainer width="100%" height="100%">
-        <ComposedChart data={chartData} margin={{ top: 8, right: 12, left: 4, bottom: 0 }}>
+        <ComposedChart data={convertedCashData} margin={{ top: 8, right: 12, left: 4, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" className="stroke-gray-100" />
           <XAxis
             dataKey="labelShort"
             tick={{ fontSize: 10, fill: "#64748b" }}
             interval={0}
-            angle={chartData.length > 10 ? -35 : 0}
-            textAnchor={chartData.length > 10 ? "end" : "middle"}
-            height={chartData.length > 10 ? 64 : 28}
+            angle={convertedCashData.length > 10 ? -35 : 0}
+            textAnchor={convertedCashData.length > 10 ? "end" : "middle"}
+            height={convertedCashData.length > 10 ? 64 : 28}
           />
           <YAxis
             yAxisId="l"
@@ -513,7 +556,6 @@ export function FinanceDashboardClient({
   canFilterByUser,
   selectedCategoryIds,
   selectedCreatedBy,
-  currencyRates,
 }: Props) {
   const { data, updatedAt, refreshing, refetch } = useFinanceLiveData({
     initialData: initial,
@@ -538,13 +580,54 @@ export function FinanceDashboardClient({
     saveAlertSettings(s);
   }, []);
 
-  const rates = currencyRates;
-  const fmt = useCallback((gnf: number) => displayGnf(gnf, currency, rates), [currency, rates]);
-
   const profitPositive = data.profit >= 0;
   const projection = useMemo(
     () => buildFinanceProjection(data.chartInRange, to, DEFAULT_PROJECTION_HORIZON),
     [data.chartInRange, to],
+  );
+
+  const financeConvItems = useMemo(
+    () => [
+      { key: "kpi:totalRevenue", amount: data.totalRevenue },
+      { key: "kpi:totalExpenses", amount: data.totalExpenses },
+      { key: "kpi:profit", amount: data.profit },
+      { key: "kpi:avgDailyRevenue", amount: data.avgDailyRevenue },
+      { key: "kpi:avgDailyExpenses", amount: data.avgDailyExpenses },
+      { key: "proj:totalProjectedRevenue", amount: projection.totalProjectedRevenue },
+      { key: "proj:totalProjectedExpenses", amount: projection.totalProjectedExpenses },
+      { key: "proj:totalProjectedProfit", amount: projection.totalProjectedProfit },
+      ...data.expensesByCategory.map((r) => ({
+        key: `cat:${r.categoryId}`,
+        amount: r.amount,
+      })),
+    ],
+    [
+      data.avgDailyExpenses,
+      data.avgDailyRevenue,
+      data.expensesByCategory,
+      data.profit,
+      data.totalExpenses,
+      data.totalRevenue,
+      projection.totalProjectedExpenses,
+      projection.totalProjectedProfit,
+      projection.totalProjectedRevenue,
+    ],
+  );
+
+  const {
+    convertedByKey: financeConverted,
+    loading: financeConvLoading,
+  } = useCurrencyBatchConversion(financeConvItems, "GNF", currency);
+
+  const fmt = useCallback(
+    (key: string, amountGnf: number) => {
+      if (!Number.isFinite(amountGnf)) return "—";
+      if (financeConvLoading) return "…";
+      const v = financeConverted[key];
+      if (v === null) return "Conversion indisponible";
+      return formatAmount(v, currency);
+    },
+    [currency, financeConverted, financeConvLoading],
   );
 
   const alerts = useMemo(
@@ -778,19 +861,19 @@ export function FinanceDashboardClient({
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <KpiCard
           title="Chiffre d'affaires"
-          value={fmt(data.totalRevenue)}
+          value={fmt("kpi:totalRevenue", data.totalRevenue)}
           sub={<DeltaText pct={data.delta.revenuePct} kind="revenue" />}
           accent="blue"
         />
         <KpiCard
           title="Dépenses"
-          value={fmt(data.totalExpenses)}
+          value={fmt("kpi:totalExpenses", data.totalExpenses)}
           sub={<DeltaText pct={data.delta.expensesPct} kind="expenses" />}
           accent="neutral"
         />
         <KpiCard
           title="Résultat (CA − dépenses)"
-          value={fmt(data.profit)}
+          value={fmt("kpi:profit", data.profit)}
           sub={<DeltaText pct={data.delta.profitPct} kind="profit" />}
           accent={profitPositive ? "green" : "red"}
         />
@@ -803,7 +886,7 @@ export function FinanceDashboardClient({
         />
         <KpiCard
           title="Moy. revenu / jour"
-          value={fmt(data.avgDailyRevenue)}
+          value={fmt("kpi:avgDailyRevenue", data.avgDailyRevenue)}
           sub={
             <span className="text-gray-500">
               sur {data.dayCount} jour{data.dayCount > 1 ? "s" : ""}
@@ -811,7 +894,7 @@ export function FinanceDashboardClient({
           }
           accent="blue"
         />
-        <KpiCard title="Moy. dépense / jour" value={fmt(data.avgDailyExpenses)} accent="neutral" />
+        <KpiCard title="Moy. dépense / jour" value={fmt("kpi:avgDailyExpenses", data.avgDailyExpenses)} accent="neutral" />
       </div>
 
       <div className="rounded-2xl border border-indigo-100 bg-indigo-50/40 p-5 shadow-sm">
@@ -820,7 +903,7 @@ export function FinanceDashboardClient({
           Prévision (indicatif)
         </h2>
         <p className="mb-3 text-xs text-gray-600">
-          Sur les {DEFAULT_PROJECTION_HORIZON} jours calendaires suivant <strong>{to}</strong> : CA projeté {fmt(projection.totalProjectedRevenue)}, dépenses {fmt(projection.totalProjectedExpenses)}, résultat {fmt(projection.totalProjectedProfit)}. Basé sur la tendance de la période filtrée, sans saisonnalité.
+          Sur les {DEFAULT_PROJECTION_HORIZON} jours calendaires suivant <strong>{to}</strong> : CA projeté {fmt("proj:totalProjectedRevenue", projection.totalProjectedRevenue)}, dépenses {fmt("proj:totalProjectedExpenses", projection.totalProjectedExpenses)}, résultat {fmt("proj:totalProjectedProfit", projection.totalProjectedProfit)}. Basé sur la tendance de la période filtrée, sans saisonnalité.
         </p>
         <ul className="grid gap-2 text-sm text-gray-700 sm:grid-cols-3">
           <li className="rounded-lg border border-white/60 bg-white/80 px-3 py-2">
@@ -840,7 +923,6 @@ export function FinanceDashboardClient({
           base7d={data.chartLast7d}
           forecastNextDays={chartMode === "range" ? projection.nextDays : []}
           currency={currency}
-          rates={rates}
         />
         <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
           <div className="mb-3 flex items-center gap-2">
@@ -848,7 +930,7 @@ export function FinanceDashboardClient({
             <h2 className="text-base font-bold text-darktext">Trésorerie (flux & cumul net)</h2>
           </div>
           <p className="mb-3 text-xs text-gray-500">Affichage converti selon la devise choisie (données source en GNF).</p>
-          <CashflowChart points={data.cashflowInRange} currency={currency} rates={rates} />
+          <CashflowChart points={data.cashflowInRange} currency={currency} />
         </div>
         <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
           <h2 className="mb-4 text-base font-bold text-darktext">Dépenses par catégorie</h2>

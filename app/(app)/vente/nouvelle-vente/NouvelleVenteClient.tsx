@@ -28,16 +28,19 @@ import type { Product } from "@/types/product";
 import { logError } from "@/lib/logger";
 import type { Client } from "@/types/client";
 import { useCurrencyStore } from "@/stores/currencyStore";
-import { convertAmount, formatAmount, FALLBACK_RATES, type Currency } from "@/lib/currencyService";
-import { createSaleAction, createQuickClientAction } from "./actions";
+import { FALLBACK_RATES, type Currency } from "@/lib/currencyService";
+import { createQuickClientAction } from "./actions";
 import { resolveErrorMessage, ERROR_CODES } from "@/lib/messages";
-import { formatMoney } from "@/lib/utils/formatCurrency";
+import { formatCurrency } from "@/utils/currency";
+import { useSales } from "@/hooks/useSales";
+import { useCurrencyBatchConversion, useCurrencyConversion } from "@/hooks/useCurrencyConversion";
 import {
   Modal,
   ModalField,
   ModalInput,
   ModalError,
 } from "@/components/ui/modal";
+import { useToast } from "@/components/providers/ToastProvider";
 
 // ---------------------------------------------------------------------------
 // Types locaux
@@ -71,26 +74,6 @@ function useDebounce<T>(value: T, delay: number): T {
 }
 
 // ---------------------------------------------------------------------------
-// Toast simple
-// ---------------------------------------------------------------------------
-
-function Toast({ message, onClose }: { message: string; onClose: () => void }) {
-  useEffect(() => {
-    const t = setTimeout(onClose, 2500);
-    return () => clearTimeout(t);
-  }, [onClose]);
-
-  return (
-    <div className="fixed bottom-6 left-1/2 z-[600] -translate-x-1/2 animate-fadeInUp">
-      <div className="flex items-center gap-2.5 rounded-2xl bg-gray-900 px-4 py-3 shadow-2xl">
-        <CheckCircle size={15} className="shrink-0 text-emerald-400" />
-        <span className="text-sm font-medium text-white">{message}</span>
-      </div>
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------------------
 // PAYMENT METHODS
 // ---------------------------------------------------------------------------
 
@@ -114,13 +97,11 @@ const ProductCard = memo(function ProductCard({
   cartQty,
   onAdd,
   currency,
-  rate,
 }: {
   product: Product;
   cartQty: number;
   onAdd: (p: Product) => void;
   currency: Currency;
-  rate: number;
 }) {
   const [pulse, setPulse] = useState(false);
   const outOfStock  = product.stock_quantity <= 0;
@@ -179,7 +160,7 @@ const ProductCard = memo(function ProductCard({
       <div className="mt-3 flex items-end justify-between">
         <div>
           <p className={`text-base font-extrabold tabular-nums ${cartQty > 0 ? "text-primary" : "text-darktext"}`}>
-            {formatMoney(product.price_gnf, currency, rate)}
+            <PriceText amount={product.price_gnf} currency={currency} />
           </p>
         </div>
         <div className="text-right">
@@ -217,14 +198,12 @@ const CartRow = memo(function CartRow({
   onRemove,
   onUpdateQty,
   currency,
-  rate,
   compact = false,
 }: {
   item: CartItem;
   onRemove: (id: string) => void;
   onUpdateQty: (id: string, delta: number) => void;
   currency: Currency;
-  rate: number;
   /** Ligne ultra-compacte pour le modal panier (pas de scroll) */
   compact?: boolean;
 }) {
@@ -240,7 +219,7 @@ const CartRow = memo(function CartRow({
         <div className="min-w-0 flex-1">
           <p className="truncate text-xs font-semibold text-darktext">{item.product.name}</p>
           <p className="truncate text-[10px] text-gray-400 tabular-nums">
-            {formatMoney(item.product.price_gnf, currency, rate)} × {item.quantity}
+            <PriceText amount={item.product.price_gnf} currency={currency} /> × {item.quantity}
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-0.5">
@@ -267,7 +246,7 @@ const CartRow = memo(function CartRow({
         </div>
         <div className="w-[4.5rem] shrink-0 text-right">
           <p className="text-[11px] font-bold tabular-nums text-darktext leading-tight">
-            {formatMoney(lineTotal, currency, rate)}
+            <PriceText amount={lineTotal} currency={currency} />
           </p>
         </div>
         <button
@@ -295,7 +274,7 @@ const CartRow = memo(function CartRow({
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-semibold text-darktext">{item.product.name}</p>
         <p className="text-xs text-gray-400">
-          {formatMoney(item.product.price_gnf, currency, rate)} / unité
+          <PriceText amount={item.product.price_gnf} currency={currency} /> / unité
         </p>
       </div>
 
@@ -325,7 +304,7 @@ const CartRow = memo(function CartRow({
 
       {/* Total ligne */}
       <div className="w-24 shrink-0 text-right">
-        <p className="text-sm font-bold tabular-nums text-darktext">{formatMoney(lineTotal, currency, rate)}</p>
+        <p className="text-sm font-bold tabular-nums text-darktext"><PriceText amount={lineTotal} currency={currency} /></p>
         <button
           type="button"
           onClick={() => onRemove(item.product.id)}
@@ -337,6 +316,12 @@ const CartRow = memo(function CartRow({
     </div>
   );
 });
+
+function PriceText({ amount, currency }: { amount: number; currency: Currency }) {
+  const { converted } = useCurrencyConversion({ amount, from: "GNF", to: currency });
+  if (converted === null) return <>Conversion indisponible</>;
+  return <>{formatCurrency(converted, currency)}</>;
+}
 
 // ---------------------------------------------------------------------------
 // QuickClientModal — modal création rapide de client (z-[500] au-dessus POS)
@@ -376,6 +361,13 @@ function QuickClientModal({
   const [form, setForm]     = useState<QuickClientForm>(EMPTY_FORM);
   const [saving, setSaving] = useState(false);
   const [error, setError]   = useState<string | null>(null);
+  const mountedRef = useRef(true);
+
+  useEffect(() => {
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
 
   function set(key: keyof QuickClientForm, value: string) {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -391,25 +383,31 @@ function QuickClientModal({
     e.preventDefault();
     setSaving(true);
     setError(null);
+    try {
+      const result = await createQuickClientAction({
+        clientType:  form.clientType,
+        firstName:   form.firstName,
+        lastName:    form.lastName,
+        companyName: form.companyName,
+        phone:       form.phone,
+        email:       form.email || null,
+        address:     form.address || null,
+        city:        form.city || null,
+      });
 
-    const result = await createQuickClientAction({
-      clientType:  form.clientType,
-      firstName:   form.firstName,
-      lastName:    form.lastName,
-      companyName: form.companyName,
-      phone:       form.phone,
-      email:       form.email || null,
-      address:     form.address || null,
-      city:        form.city || null,
-    });
+      if (!mountedRef.current) return;
+      setSaving(false);
 
-    setSaving(false);
-
-    if (result.success) {
-      setForm(EMPTY_FORM);
-      onCreated(result.client);
-    } else {
-      setError(result.error);
+      if (result.success) {
+        setForm(EMPTY_FORM);
+        onCreated(result.client);
+      } else {
+        setError(result.error);
+      }
+    } catch {
+      if (!mountedRef.current) return;
+      setSaving(false);
+      setError("Impossible de créer le client pour le moment.");
     }
   }
 
@@ -780,6 +778,8 @@ function SuccessContent({
 type Props = { products: Product[]; clients: Client[] };
 
 export function NouvelleVenteClient({ products, clients }: Props) {
+  const { submitSale } = useSales();
+  const { showSuccess, showError } = useToast();
 
   // ── Cart ────────────────────────────────────────────────────────────────
   const [cart, setCart]                       = useState<CartItem[]>([]);
@@ -810,11 +810,12 @@ export function NouvelleVenteClient({ products, clients }: Props) {
   const [completedSale, setCompletedSale] = useState<CompletedSale | null>(null);
   const [cartModalOpen, setCartModalOpen] = useState(false);
 
-  // ── Toast ───────────────────────────────────────────────────────────────
-  const [toast, setToast] = useState<string | null>(null);
-  const showToast = useCallback((msg: string) => {
-    setToast(msg);
-    setTimeout(() => setToast(null), 2500);
+  const mountedRef = useRef(true);
+
+  useEffect(() => {
+    return () => {
+      mountedRef.current = false;
+    };
   }, []);
 
   // ── Derived (mémoïsés pour éviter les recalculs inutiles) ────────────
@@ -849,9 +850,25 @@ export function NouvelleVenteClient({ products, clients }: Props) {
     return { subtotalGNF: sub, discountAmountGNF: disc, totalGNF: sub - disc, totalItems: items };
   }, [cart, discountPercent]);
 
-  const displaySubtotal = formatAmount(convertAmount(subtotalGNF,       selectedCurrency, rates), selectedCurrency);
-  const displayDiscount = formatAmount(convertAmount(discountAmountGNF, selectedCurrency, rates), selectedCurrency);
-  const displayTotal    = formatAmount(convertAmount(totalGNF,          selectedCurrency, rates), selectedCurrency);
+  const {
+    convertedByKey: totalsConverted,
+    loading: totalsLoading,
+    hasUnavailable: totalsUnavailable,
+  } = useCurrencyBatchConversion(
+    [
+      { key: "subtotal", amount: subtotalGNF },
+      { key: "discount", amount: discountAmountGNF },
+      { key: "total", amount: totalGNF },
+    ],
+    "GNF",
+    selectedCurrency,
+  );
+  const subtotalValue = totalsConverted["subtotal"];
+  const discountValue = totalsConverted["discount"];
+  const totalValue = totalsConverted["total"];
+  const displaySubtotal = subtotalValue === null ? "Conversion indisponible" : formatCurrency(subtotalValue ?? 0, selectedCurrency);
+  const displayDiscount = discountValue === null ? "Conversion indisponible" : formatCurrency(discountValue ?? 0, selectedCurrency);
+  const displayTotal = totalValue === null ? "Conversion indisponible" : formatCurrency(totalValue ?? 0, selectedCurrency);
 
   // ── Cart operations ─────────────────────────────────────────────────
 
@@ -867,8 +884,8 @@ export function NouvelleVenteClient({ products, clients }: Props) {
       }
       return [...prev, { product, quantity: 1 }];
     });
-    showToast(`✓ ${product.name} ajouté au panier`);
-  }, [showToast]);
+    showSuccess(`${product.name} ajoute au panier`);
+  }, [showSuccess]);
 
   const removeFromCart = useCallback((productId: string) => {
     setCart((prev) => prev.filter((i) => i.product.id !== productId));
@@ -892,6 +909,10 @@ export function NouvelleVenteClient({ products, clients }: Props) {
 
   async function handleSubmit() {
     if (cart.length === 0 || isSubmitting) return;
+    if (totalsUnavailable) {
+      setSubmitError("Conversion indisponible. Réessayez avant de valider la vente.");
+      return;
+    }
     if (!selectedClient) {
       setSubmitError(ERROR_CODES.CLIENT_REQUIRED);
       return;
@@ -900,7 +921,7 @@ export function NouvelleVenteClient({ products, clients }: Props) {
     setSubmitError(null);
 
     try {
-      const result = await createSaleAction({
+      const result = await submitSale({
         clientId: selectedClient.id,
         items: cart.map((i) => ({
           productId:      i.product.id,
@@ -917,27 +938,36 @@ export function NouvelleVenteClient({ products, clients }: Props) {
         notes: null,
       });
 
+      if (!mountedRef.current) return;
       if (result.success) {
         const saleCurrency = selectedCurrency;
         const saleRates    = rates;
+        const completedTotal = totalsConverted["total"];
         setCompletedSale({
           ...result.sale,
-          displayTotal: formatAmount(
-            convertAmount(result.sale.total_amount_gnf, saleCurrency, saleRates),
-            saleCurrency,
-          ),
+          displayTotal:
+            completedTotal === null
+              ? "Conversion indisponible"
+              : formatCurrency(completedTotal ?? result.sale.total_amount_gnf, saleCurrency),
         });
         // Prochaine vente : affichage catalogue / panier en franc guinéen par défaut
         setSelectedCurrency("GNF");
       } else {
         logError("SALE_SUBMIT", result.error, { cartSize: cart.length });
-        setSubmitError(resolveErrorMessage(result.error));
+        const message = resolveErrorMessage(result.error);
+        setSubmitError(message);
+        showError(message || "Échec de l’opération");
       }
     } catch (err) {
+      if (!mountedRef.current) return;
       logError("SALE_SUBMIT_UNEXPECTED", err, { cartSize: cart.length });
-      setSubmitError("Une erreur inattendue est survenue. Veuillez réessayer.");
+      const message = "Une erreur est survenue";
+      setSubmitError(message);
+      showError(message);
     } finally {
-      setIsSubmitting(false);
+      if (mountedRef.current) {
+        setIsSubmitting(false);
+      }
     }
   }
 
@@ -956,9 +986,6 @@ export function NouvelleVenteClient({ products, clients }: Props) {
 
   return (
     <>
-      {/* Toast */}
-      {toast && <Toast message={toast} onClose={() => setToast(null)} />}
-
       <div className="flex flex-col gap-4">
 
         {/* ── En-tête de page ─────────────────────────────────────────────── */}
@@ -1039,7 +1066,6 @@ export function NouvelleVenteClient({ products, clients }: Props) {
                           cartQty={cartQtyMap.get(p.id) ?? 0}
                           onAdd={addToCart}
                           currency={selectedCurrency}
-                          rate={rates[selectedCurrency] ?? 1}
                         />
                       ))}
                     </div>
@@ -1136,7 +1162,6 @@ export function NouvelleVenteClient({ products, clients }: Props) {
                         onRemove={removeFromCart}
                         onUpdateQty={updateQuantity}
                         currency={selectedCurrency}
-                        rate={rates[selectedCurrency] ?? 1}
                       />
                     ))}
                   </div>
@@ -1195,8 +1220,9 @@ export function NouvelleVenteClient({ products, clients }: Props) {
             <div className="rounded-xl bg-gradient-to-br from-primary to-primary-light px-3 py-2.5 text-center">
               <p className="text-[10px] font-semibold uppercase tracking-widest text-white/60">Total à payer</p>
               <p className="mt-0.5 text-2xl font-extrabold tracking-tight text-white">{displayTotal}</p>
+              {totalsLoading ? <p className="mt-0.5 text-[10px] text-white/60">Conversion en cours...</p> : null}
               {selectedCurrency !== "GNF" && (
-                <p className="mt-0.5 text-[10px] text-white/50">≈ {formatMoney(totalGNF, "GNF", 1)}</p>
+                <p className="mt-0.5 text-[10px] text-white/50">≈ {formatCurrency(totalGNF, "GNF")}</p>
               )}
             </div>
 
@@ -1243,12 +1269,18 @@ export function NouvelleVenteClient({ products, clients }: Props) {
                   {submitError}
                 </div>
               )}
+              {totalsUnavailable && !submitError && (
+                <div className="flex items-start gap-1.5 rounded-xl border border-amber-200 bg-amber-50 p-2.5 text-xs text-amber-700">
+                  <AlertCircle size={14} className="mt-0.5 shrink-0" />
+                  Conversion indisponible
+                </div>
+              )}
               <button
                 type="button"
-                disabled={cart.length === 0 || !selectedClient || isSubmitting}
+                disabled={cart.length === 0 || !selectedClient || isSubmitting || totalsUnavailable}
                 onClick={handleSubmit}
                 className={`flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3.5 text-sm font-extrabold shadow-lg transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
-                  cart.length === 0 || !selectedClient
+                  cart.length === 0 || !selectedClient || totalsUnavailable
                     ? "cursor-not-allowed bg-gray-100 text-gray-400 shadow-none"
                     : isSubmitting
                     ? "cursor-wait bg-primary/85 text-white shadow-primary/20"
@@ -1264,6 +1296,8 @@ export function NouvelleVenteClient({ products, clients }: Props) {
                   "Panier vide"
                 ) : !selectedClient ? (
                   "Choisir un client"
+                ) : totalsUnavailable ? (
+                  "Conversion indisponible"
                 ) : (
                   <>
                     <CheckCircle size={18} strokeWidth={2.25} />

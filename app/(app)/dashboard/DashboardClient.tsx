@@ -22,11 +22,11 @@ import {
 } from "lucide-react";
 import { KpiCard } from "@/components/ui/kpi-card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { formatMoney } from "@/lib/utils/formatCurrency";
 import { useCurrencyStore } from "@/stores/currencyStore";
-import { convertAmount } from "@/lib/currencyService";
+import { formatCurrency } from "@/utils/currency";
 import type { DashboardKpis, RecentActivityEntry } from "@/lib/server/dashboard-kpis";
 import { withCreateModalQuery } from "@/lib/routing/modal-query";
+import { useCurrencyConversion } from "@/hooks/useCurrencyConversion";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -197,15 +197,24 @@ export function DashboardClient({
 
   // Devise sélectionnée par l'utilisateur
   const currency = useCurrencyStore((s) => s.selectedCurrency);
-  const rates    = useCurrencyStore((s) => s.rates);
-  const rate     = rates[currency] ?? 1;
-
-  function fmt(amountGNF: number) {
-    return formatMoney(amountGNF, currency, rate);
-  }
-  function fmtConverted(amountGNF: number) {
-    return formatMoney(convertAmount(amountGNF, currency, rates), currency, 1);
-  }
+  const { converted: salesTodayConverted } = useCurrencyConversion({
+    amount: kpis.salesAmountToday,
+    from: "GNF",
+    to: currency,
+  });
+  const { converted: salesMonthConverted } = useCurrencyConversion({
+    amount: kpis.salesAmountMonth,
+    from: "GNF",
+    to: currency,
+  });
+  const salesTodayDisplay =
+    salesTodayConverted === null
+      ? "Conversion indisponible"
+      : formatCurrency(salesTodayConverted, currency);
+  const salesMonthDisplay =
+    salesMonthConverted === null
+      ? "Conversion indisponible"
+      : formatCurrency(salesMonthConverted, currency);
 
   return (
     <div className="mx-auto max-w-5xl space-y-6">
@@ -254,11 +263,11 @@ export function DashboardClient({
           icon={ShoppingCart}
           iconColor="text-emerald-600"
           iconBg="bg-emerald-50"
-          sub={kpis.salesAmountToday > 0 ? fmtConverted(kpis.salesAmountToday) : "Aucune vente"}
+          sub={kpis.salesAmountToday > 0 ? salesTodayDisplay : "Aucune vente"}
         />
         <KpiCard
           label="CA ce mois"
-          value={fmtConverted(kpis.salesAmountMonth)}
+          value={salesMonthDisplay}
           icon={TrendingUp}
           iconColor="text-sky-600"
           iconBg="bg-sky-50"

@@ -1,7 +1,7 @@
 import { cache } from "react";
 import { redirect } from "next/navigation";
 import { getServerSessionUser } from "@/lib/server/auth-session";
-import { getClientsPermissions, getModulePermissions, isSuperAdmin } from "@/lib/server/permissions";
+import { getClientsPermissions, getModulePermissions, isAdminRole } from "@/lib/server/permissions";
 import {
   avatarInitialFromDisplayName,
   getCachedProfileDisplayName,
@@ -20,13 +20,13 @@ export const getLayoutAccess = cache(async () => {
     permissions,
     productsPermissions,
     financePermissions,
-    isSuperAdminUser,
+    isAdminRoleUser,
     userDisplayName,
   ] = await Promise.all([
     getClientsPermissions(userId),
     getModulePermissions(userId, ["produits", "vente"]),
     getModulePermissions(userId, ["finance"]),
-    isSuperAdmin(userId),
+    isAdminRole(userId),
     getCachedProfileDisplayName(userId),
   ]);
 
@@ -36,8 +36,8 @@ export const getLayoutAccess = cache(async () => {
     canReadClients: permissions.canRead,
     canReadProducts: productsPermissions.canRead,
     canReadFinance: financePermissions.canRead,
-    canReadActivityLogs: isSuperAdminUser,
-    isSuperAdmin: isSuperAdminUser,
+    canReadActivityLogs: isAdminRoleUser,
+    isSuperAdmin: isAdminRoleUser,
     canArchiveClients: permissions.canRead && permissions.canDelete,
     canArchiveProduits: productsPermissions.canRead && productsPermissions.canDelete,
   };

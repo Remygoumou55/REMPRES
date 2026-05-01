@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/modal";
 import { useCurrency } from "@/hooks/useCurrency";
 import { formatCurrency } from "@/utils/currency";
+import { convertCurrency } from "@/lib/services/currencyService";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -68,7 +69,7 @@ export function ProductForm({
   cancelHref = "/vente/produits",
   errorMessage,
 }: ProductFormProps) {
-  const { currency, convert } = useCurrency();
+  const { currency } = useCurrency();
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(errorMessage ?? null);
@@ -78,6 +79,9 @@ export function ProductForm({
   const [priceValue, setPriceValue] = useState<number>(
     Math.max(0, initialValues?.price_gnf ?? 0),
   );
+  const [convertedPrice, setConvertedPrice] = useState<number | null>(null);
+  const [conversionLoading, setConversionLoading] = useState(false);
+  const conversionUnavailable = currency !== "GNF" && priceValue > 0 && !conversionLoading && convertedPrice === null;
 
   useEffect(() => {
     if (!selectedImageFile) {
@@ -91,13 +95,34 @@ export function ProductForm({
 
   const previewUrl = filePreviewUrl || initialPreviewUrl;
   const formattedPrice = useMemo(() => formatGNFInput(priceValue), [priceValue]);
-  const convertedPrice = useMemo(() => {
-    try {
-      return convert(priceValue, "GNF", currency);
-    } catch {
-      return priceValue;
+  useEffect(() => {
+    let mounted = true;
+    if (currency === "GNF" || priceValue <= 0) {
+      setConvertedPrice(priceValue);
+      setConversionLoading(false);
+      return () => {
+        mounted = false;
+      };
     }
-  }, [convert, currency, priceValue]);
+
+    const timer = window.setTimeout(async () => {
+      setConversionLoading(true);
+      const result = await convertCurrency({
+        amount: priceValue,
+        from: "GNF",
+        to: currency,
+      });
+      if (mounted) {
+        setConvertedPrice(result);
+        setConversionLoading(false);
+      }
+    }, 180);
+
+    return () => {
+      mounted = false;
+      window.clearTimeout(timer);
+    };
+  }, [currency, priceValue]);
   const defaultUnit = initialValues?.unit && initialValues.unit.trim().length > 0
     ? initialValues.unit
     : "Unité";
@@ -109,6 +134,10 @@ export function ProductForm({
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError(null);
+    if (conversionUnavailable) {
+      setError("Conversion indisponible. Veuillez réessayer dans quelques instants.");
+      return;
+    }
     const fd = new FormData(e.currentTarget);
     startTransition(async () => {
       try {
@@ -208,9 +237,15 @@ export function ProductForm({
               <input type="hidden" name="price_gnf" value={String(priceValue)} />
             </div>
             <p className="mt-1 text-[11px] text-gray-400">
-              {currency === "GNF"
-                ? "Valeur enregistrée en devise de base (GNF)."
-                : `${formatCurrency(convertedPrice, currency)} ≈ ${formatCurrency(priceValue, "GNF")}`}
+              {currency === "GNF" ? (
+                "Valeur en devise de base (GNF)."
+              ) : conversionLoading ? (
+                "Conversion en cours..."
+              ) : convertedPrice === null ? (
+                "Conversion indisponible"
+              ) : (
+                `${formatCurrency(convertedPrice, currency)} ≈ ${formatCurrency(priceValue, "GNF")}`
+              )}
             </p>
           </ModalField>
           <ModalField label="Stock initial" required>
@@ -286,7 +321,8 @@ export function ProductForm({
         <ModalActions
           onCancel={handleCancel}
           submitLabel={submitLabel}
-          loading={pending}
+          loading={pending || conversionLoading}
+          submitDisabled={conversionUnavailable}
           submitIcon={initialValues ? <Save size={14} /> : <Plus size={14} />}
         />
       </form>

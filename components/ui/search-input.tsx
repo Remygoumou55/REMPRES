@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import { Search, X } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 type SearchInputProps = {
   value: string;
@@ -33,7 +34,7 @@ export function SearchInput({
   return (
     <div className={`relative ${className ?? ""}`}>
       <Search size={14} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-      <input
+      <Input
         type="search"
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -44,7 +45,7 @@ export function SearchInput({
           }
         }}
         placeholder={placeholder}
-        className="w-full rounded-lg border border-gray-200 bg-white py-2 pl-9 pr-9 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+        className="bg-white py-2 pl-9 pr-9"
       />
       {value ? (
         <button

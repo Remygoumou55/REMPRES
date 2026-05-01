@@ -8,7 +8,6 @@ import type { Product } from "@/types/product";
 import { EmptyState } from "@/components/ui/empty-state";
 import { SearchInput } from "@/components/ui/search-input";
 import { ProductsRowActions } from "@/components/vente/produits/products-row-actions";
-import { formatGNF } from "@/lib/utils/formatCurrency";
 import { useGlobalSearch } from "@/lib/hooks/use-global-search";
 import { withCreateModalQuery } from "@/lib/routing/modal-query";
 import { useRowSelection } from "@/lib/hooks/use-row-selection";
@@ -16,6 +15,7 @@ import { ConfirmDangerDialog } from "@/components/ui/confirm-danger-dialog";
 import { BulkDeleteActionBar } from "@/components/ui/bulk-delete-action-bar";
 import { deleteProductsFromListBulkAction } from "@/app/(app)/vente/produits/actions";
 import { useCurrency } from "@/hooks/useCurrency";
+import { useCurrencyBatchConversion } from "@/hooks/useCurrencyConversion";
 import { formatCurrency } from "@/utils/currency";
 
 type ProductsTableProps = {
@@ -43,7 +43,7 @@ export function ProductsTable({
   canDelete = false,
   listQueryString,
 }: ProductsTableProps) {
-  const { currency, convert } = useCurrency();
+  const { currency } = useCurrency();
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [confirmBulkOpen, setConfirmBulkOpen] = useState(false);
@@ -66,6 +66,38 @@ export function ProductsTable({
   });
 
   const rows = filteredData;
+
+  const convItems = useMemo(() => {
+    const items: { key: string; amount: number }[] = [];
+    for (const p of rows) {
+      items.push({ key: `unit:${p.id}`, amount: p.price_gnf });
+      if (p.stock_quantity > 0) {
+        items.push({ key: `line:${p.id}`, amount: p.stock_quantity * p.price_gnf });
+      }
+    }
+    if (rows.length > 1) {
+      items.push({
+        key: "catalogTotal",
+        amount: rows.reduce((s, p) => s + p.stock_quantity * p.price_gnf, 0),
+      });
+    }
+    return items;
+  }, [rows]);
+
+  const { convertedByKey: convertedPrices, loading: pricesConvLoading } = useCurrencyBatchConversion(
+    convItems,
+    "GNF",
+    currency,
+  );
+
+  function convertedMoney(key: string, dash?: boolean) {
+    if (dash) return "—";
+    if (pricesConvLoading) return "…";
+    const v = convertedPrices[key];
+    if (v === null) return "Conversion indisponible";
+    return formatCurrency(v ?? 0, currency);
+  }
+
   const {
     selectedIds,
     selectedSet,
@@ -224,7 +256,7 @@ export function ProductsTable({
                   <td className="px-3 py-3.5 text-right">
                     <div className="text-right">
                       <span className="text-xs font-semibold tabular-nums text-darktext">
-                        {formatCurrency(convert(product.price_gnf, "GNF", currency), currency)}
+                        {convertedMoney(`unit:${product.id}`)}
                       </span>
                       {currency !== "GNF" ? (
                         <p className="text-[10px] text-gray-400">≈ {formatCurrency(product.price_gnf, "GNF")}</p>
@@ -235,7 +267,7 @@ export function ProductsTable({
                     <div className="text-right">
                       <span className="text-xs font-bold tabular-nums text-primary">
                         {product.stock_quantity > 0
-                          ? formatCurrency(convert(montant, "GNF", currency), currency)
+                          ? convertedMoney(`line:${product.id}`)
                           : "—"}
                       </span>
                       {currency !== "GNF" && product.stock_quantity > 0 ? (
@@ -264,7 +296,7 @@ export function ProductsTable({
                 <td className="px-3 py-3 text-right font-bold tabular-nums text-darktext">{totalQty}</td>
                 <td className="px-3 py-3" />
                 <td className="px-3 py-3 text-right text-xs font-bold tabular-nums text-primary">
-                  {formatCurrency(convert(totalAmount, "GNF", currency), currency)}
+                  {convertedMoney("catalogTotal")}
                 </td>
                 <td />
               </tr>

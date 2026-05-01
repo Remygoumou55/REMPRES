@@ -21,8 +21,8 @@ const PROTECTED_PREFIXES = [
   "/logistique",
 ];
 
-// Routes accessibles uniquement au rôle super_admin
-const ADMIN_ONLY_PREFIXES = ["/admin/users"];
+// Routes accessibles uniquement au rôle admin canonique.
+const ADMIN_ONLY_PREFIXES = ["/admin/users", "/admin/currency", "/admin/archives"];
 
 // Routes publiques (pas de redirection si connecté, sauf /login)
 const PUBLIC_PATHS = [
@@ -35,6 +35,14 @@ const PUBLIC_PATHS = [
   "/error-profile",
   "/access-denied",
 ];
+
+const PROFILE_CACHE_COOKIE = "__rempres_profile_ok_ts";
+const PROFILE_CACHE_TTL_MS = 2 * 60 * 1000;
+
+function isAdminRoleKey(roleKey: string | null | undefined): boolean {
+  const normalized = String(roleKey ?? "").trim().toLowerCase();
+  return normalized === "super_admin" || normalized === "admin" || normalized === "directeur_general";
+}
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -84,10 +92,11 @@ export async function middleware(request: NextRequest) {
     },
   });
 
-  // 1. Vérification de l'authentification (JWT revalidé côté serveur)
+  // 1. Vérification authentification basée sur session cookie (léger).
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
+  const user = session?.user ?? null;
 
   // ── Non connecté → accès à une route protégée : rediriger vers /login ──
   if (isProtectedPath(pathname) && !user) {
@@ -106,25 +115,44 @@ export async function middleware(request: NextRequest) {
 
   // ── Vérifications profil (is_active + role_key) — une seule requête DB ──
   if (user && isProtectedPath(pathname)) {
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("role_key, is_active")
-      .eq("id", user.id)
-      .single();
+    const isAdminRoute = isAdminOnlyPath(pathname);
+    const cachedProfileCheckedAt = Number(request.cookies.get(PROFILE_CACHE_COOKIE)?.value ?? "0");
+    const profileCacheFresh =
+      Number.isFinite(cachedProfileCheckedAt) &&
+      cachedProfileCheckedAt > 0 &&
+      Date.now() - cachedProfileCheckedAt < PROFILE_CACHE_TTL_MS;
 
-    // Compte bloqué → accès refusé
-    if (profile && profile.is_active === false) {
-      const blockedUrl = request.nextUrl.clone();
-      blockedUrl.pathname = "/access-denied";
-      blockedUrl.searchParams.set("reason", "blocked");
-      return NextResponse.redirect(blockedUrl);
-    }
+    // On évite de relire "profiles" à chaque clic d'onglet.
+    if (!profileCacheFresh || isAdminRoute) {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("role_key, is_active")
+        .eq("id", user.id)
+        .single();
 
-    // /admin/users — super_admin uniquement
-    if (isAdminOnlyPath(pathname) && profile?.role_key !== "super_admin") {
-      const deniedUrl = request.nextUrl.clone();
-      deniedUrl.pathname = "/access-denied";
-      return NextResponse.redirect(deniedUrl);
+      // Compte bloqué → accès refusé
+      if (profile && profile.is_active === false) {
+        const blockedUrl = request.nextUrl.clone();
+        blockedUrl.pathname = "/access-denied";
+        blockedUrl.searchParams.set("reason", "blocked");
+        return NextResponse.redirect(blockedUrl);
+      }
+
+      // Routes admin-only — rôle admin canonique requis.
+      if (isAdminRoute && !isAdminRoleKey(profile?.role_key)) {
+        const deniedUrl = request.nextUrl.clone();
+        deniedUrl.pathname = "/access-denied";
+        return NextResponse.redirect(deniedUrl);
+      }
+
+      // Cache soft: réduit fortement la latence inter-onglets.
+      response.cookies.set(PROFILE_CACHE_COOKIE, String(Date.now()), {
+        httpOnly: true,
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production",
+        path: "/",
+        maxAge: Math.floor(PROFILE_CACHE_TTL_MS / 1000),
+      });
     }
   }
 

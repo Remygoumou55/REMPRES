@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import {
   ClipboardList,
   LayoutDashboard,
@@ -27,6 +27,7 @@ import {
 import { getSupabaseBrowserClient } from "@/lib/supabase";
 import { appConfig, getLogoUrl } from "@/lib/config";
 import { CurrencySwitcher } from "@/components/CurrencySwitcher";
+import { logError, logInfo } from "@/lib/logger";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -104,13 +105,11 @@ function PrimarySidebar({
   activeModule,
   userAvatarInitial,
   onLogout,
-  prefetchHref,
 }: {
   modules: ModuleDef[];
   activeModule: ModuleId;
   userAvatarInitial: string;
   onLogout: () => void;
-  prefetchHref: (href: string) => void;
 }) {
   return (
     <div className="flex h-full w-full flex-col items-center">
@@ -131,9 +130,8 @@ function PrimarySidebar({
       <div className="w-full shrink-0 px-2 pb-3">
         <Link
           href="/dashboard"
-          prefetch
+          prefetch={false}
           title="Tableau de bord"
-          onPointerEnter={() => prefetchHref("/dashboard")}
           className={`flex w-full flex-col items-center gap-1 rounded-xl px-1 py-2.5 transition-all ${
             activeModule === "dashboard"
               ? "bg-white/20 text-white shadow-sm"
@@ -159,9 +157,8 @@ function PrimarySidebar({
               <Link
                 key={m.id}
                 href={m.href}
-                prefetch
+                prefetch={false}
                 title={m.label}
-                onPointerEnter={() => prefetchHref(m.href)}
                 className={`group flex w-full flex-col items-center gap-1.5 rounded-xl px-1 py-3 transition-all ${
                   isActive
                     ? "bg-white/20 text-white shadow-sm"
@@ -202,11 +199,9 @@ function PrimarySidebar({
 function SecondarySidebarPanel({
   module,
   pathname,
-  prefetchHref,
 }: {
   module: ModuleDef | null;
   pathname: string;
-  prefetchHref: (href: string) => void;
 }) {
   if (!module) return null;
 
@@ -241,8 +236,7 @@ function SecondarySidebarPanel({
                   <Link
                     key={item.href}
                     href={item.href}
-                    prefetch
-                    onPointerEnter={() => prefetchHref(item.href)}
+                    prefetch={false}
                     className={`group flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm transition-all ${
                       isActive
                         ? "bg-primary text-white shadow-sm"
@@ -282,7 +276,6 @@ function MobileSidebar({
   pathname,
   onClose,
   onLogout,
-  prefetchHref,
 }: {
   modules: ModuleDef[];
   activeModule: ModuleId;
@@ -291,7 +284,6 @@ function MobileSidebar({
   pathname: string;
   onClose: () => void;
   onLogout: () => void;
-  prefetchHref: (href: string) => void;
 }) {
   return (
     <div className="flex h-full flex-col">
@@ -321,8 +313,7 @@ function MobileSidebar({
       <div className="px-3 pb-2">
         <Link
           href="/dashboard"
-          prefetch
-          onPointerEnter={() => prefetchHref("/dashboard")}
+          prefetch={false}
           onClick={onClose}
           className={`flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-medium transition-all ${
             activeModule === "dashboard"
@@ -358,8 +349,7 @@ function MobileSidebar({
                       <Link
                         key={item.href}
                         href={item.href}
-                        prefetch
-                        onPointerEnter={() => prefetchHref(item.href)}
+                        prefetch={false}
                         onClick={onClose}
                         className={`flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-medium transition-all ${
                           isActive
@@ -423,19 +413,6 @@ export function AppShell({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSidebarOpen,    setIsSidebarOpen]    = useState(true);
 
-  /** Précharge la page dès le survol / contact (clic perçu plus rapide). */
-  const prefetchHref = useCallback(
-    (href: string) => {
-      if (!href) return;
-      try {
-        void router.prefetch(href);
-      } catch {
-        /* noop */
-      }
-    },
-    [router],
-  );
-
   const activeModule = detectModule(pathname);
 
   // ── Modules et items ─────────────────────────────────────────────────────
@@ -487,10 +464,15 @@ export function AppShell({
       : null;
 
   async function handleLogout() {
-    const supabase = getSupabaseBrowserClient();
-    await supabase.auth.signOut();
-    router.replace("/login");
-    router.refresh();
+    try {
+      const supabase = getSupabaseBrowserClient();
+      await supabase.auth.signOut();
+      logInfo("auth", "logout success", { module: "app-shell" });
+      router.replace("/login");
+      router.refresh();
+    } catch (error) {
+      logError("auth", "logout failed", { error, module: "app-shell" });
+    }
   }
 
   const pageSlug  = pathname.split("/").filter(Boolean).pop() ?? "";
@@ -522,7 +504,6 @@ export function AppShell({
           pathname={pathname}
           onClose={() => setIsMobileMenuOpen(false)}
           onLogout={handleLogout}
-          prefetchHref={prefetchHref}
         />
       </aside>
 
@@ -542,7 +523,6 @@ export function AppShell({
               activeModule={activeModule}
               userAvatarInitial={userAvatarInitial}
               onLogout={handleLogout}
-              prefetchHref={prefetchHref}
             />
           </div>
         </aside>
@@ -625,7 +605,6 @@ export function AppShell({
               <SecondarySidebarPanel
                 module={activeModuleDef}
                 pathname={pathname}
-                prefetchHref={prefetchHref}
               />
             )}
 

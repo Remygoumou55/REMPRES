@@ -8,6 +8,7 @@ import {
   type UpdateClientInput,
 } from "@/lib/validations/client";
 import { getClientsPermissions } from "@/lib/server/permissions";
+import { logError } from "@/lib/logger";
 
 type ClientListParams = {
   search?: string;
@@ -104,7 +105,8 @@ export async function listClients(params: ClientListParams = {}): Promise<Client
   const to = from + safePageSize - 1;
 
   let query = getClientsTable()
-    .select(CLIENT_COLUMNS, { count: "exact" })
+    // "planned" avoids full exact count scans that can block navigation.
+    .select(CLIENT_COLUMNS, { count: "planned" })
     .is("deleted_at", null)
     .order("created_at", { ascending: false });
 
@@ -160,7 +162,7 @@ export async function listArchivedClients(
   }
 
   const { data, count, error } = await getClientsTable()
-    .select(CLIENT_COLUMNS, { count: "exact" })
+    .select(CLIENT_COLUMNS, { count: "planned" })
     .not("deleted_at", "is", null)
     .order("deleted_at", { ascending: false })
     .range(from, to);
@@ -234,8 +236,11 @@ export async function createClient(
         },
       },
     });
-  } catch (logError) {
-    console.error("[ActivityLog] Failed to log client create:", logError);
+  } catch (activityLogError) {
+    logError("clients", "[ActivityLog] Failed to log client create", {
+      userId,
+      error: activityLogError,
+    });
   }
 
   return data as Client;
@@ -295,8 +300,12 @@ export async function updateClient(
         },
       },
     });
-  } catch (logError) {
-    console.error("[ActivityLog] Failed to log client update:", logError);
+  } catch (activityLogError) {
+    logError("clients", "[ActivityLog] Failed to log client update", {
+      userId,
+      clientId: id,
+      error: activityLogError,
+    });
   }
 
   return data as Client;
@@ -347,8 +356,12 @@ export async function softDeleteClient(
         },
       },
     });
-  } catch (logError) {
-    console.error("[ActivityLog] Failed to log client delete:", logError);
+  } catch (activityLogError) {
+    logError("clients", "[ActivityLog] Failed to log client delete", {
+      userId,
+      clientId: id,
+      error: activityLogError,
+    });
   }
 
   return { success: true };
@@ -412,8 +425,12 @@ export async function restoreClient(
         },
       },
     });
-  } catch (logError) {
-    console.error("[ActivityLog] Failed to log client restore:", logError);
+  } catch (activityLogError) {
+    logError("clients", "[ActivityLog] Failed to log client restore", {
+      userId,
+      clientId: id,
+      error: activityLogError,
+    });
   }
 
   return restored;

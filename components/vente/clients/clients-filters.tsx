@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useMemo, useState, useTransition } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -40,6 +40,8 @@ export function ClientsFilters({ initialQuery, initialType, initialPageSize }: P
     p.set("page", "1");
 
     const qs = p.toString();
+    const currentQs = stableParams.toString();
+    if (qs === currentQs) return;
     startTransition(() => {
       router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
     });
@@ -50,7 +52,7 @@ export function ClientsFilters({ initialQuery, initialType, initialPageSize }: P
       pushFilters({ q: query, type, pageSize });
     }, 250);
     return () => window.clearTimeout(timer);
-  }, [query, type, pageSize]);
+  }, [pageSize, query, type]);
 
   return (
     <div className="grid gap-3 rounded-lg bg-white p-4 shadow-sm sm:grid-cols-4">

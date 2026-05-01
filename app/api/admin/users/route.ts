@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getSupabaseAdminConfigErrorMessage } from "@/lib/supabaseAdmin";
-import { isSuperAdmin } from "@/lib/server/permissions";
+import { isAdminRole } from "@/lib/server/permissions";
 import { USERS_LIST_CONFIG_ERROR_CODE } from "@/lib/server/users-errors";
 import { listUsers } from "@/lib/server/users";
 import { logError } from "@/lib/logger";
@@ -21,9 +21,9 @@ export async function GET() {
       return NextResponse.json({ error: "Non authentifié." }, { status: 401 });
     }
 
-    const isAdmin = await isSuperAdmin(data.user.id);
+    const isAdmin = await isAdminRole(data.user.id);
     if (!isAdmin) {
-      return NextResponse.json({ error: "Accès réservé aux super-administrateurs." }, { status: 403 });
+      return NextResponse.json({ error: "Accès réservé aux administrateurs." }, { status: 403 });
     }
 
     const listResult = await listUsers(data.user.id);

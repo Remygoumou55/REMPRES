@@ -20,6 +20,9 @@
 import { useEffect, useId } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Select } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 
 type ModalSize = "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "full";
 
@@ -162,15 +165,17 @@ export function Modal({
 export function ModalField({
   label,
   required,
+  htmlFor,
   children,
 }: {
   label: string;
   required?: boolean;
+  htmlFor?: string;
   children: React.ReactNode;
 }) {
   return (
     <div className="space-y-1">
-      <label className="text-xs font-medium text-gray-500">
+      <label htmlFor={htmlFor} className="text-xs font-medium text-gray-500">
         {label}
         {required && <span className="ml-0.5 text-red-500">*</span>}
       </label>
@@ -186,19 +191,7 @@ export function ModalField({
 export function ModalInput(
   props: React.InputHTMLAttributes<HTMLInputElement>,
 ) {
-  return (
-    <input
-      {...props}
-      className={[
-        "w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm",
-        "outline-none transition",
-        "focus:border-primary focus:ring-2 focus:ring-primary/15",
-        "placeholder:text-gray-300",
-        "disabled:bg-gray-50 disabled:text-gray-400",
-        props.className ?? "",
-      ].join(" ")}
-    />
-  );
+  return <Input {...props} />;
 }
 
 // ---------------------------------------------------------------------------
@@ -229,17 +222,7 @@ export function ModalTextarea(
 export function ModalSelect(
   props: React.SelectHTMLAttributes<HTMLSelectElement>,
 ) {
-  return (
-    <select
-      {...props}
-      className={[
-        "w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm",
-        "bg-white outline-none transition",
-        "focus:border-primary focus:ring-2 focus:ring-primary/15",
-        props.className ?? "",
-      ].join(" ")}
-    />
-  );
+  return <Select {...props} />;
 }
 
 // ---------------------------------------------------------------------------
@@ -262,39 +245,39 @@ export function ModalError({ message }: { message: string | null }) {
 // ModalActions — boutons en pied de modal (annuler + valider)
 // ---------------------------------------------------------------------------
 
-import { Loader2 } from "lucide-react";
-
 export function ModalActions({
   onCancel,
   submitLabel,
   loading,
+  submitDisabled,
   submitIcon,
 }: {
   onCancel: () => void;
   submitLabel: string;
   loading?: boolean;
+  submitDisabled?: boolean;
   submitIcon?: React.ReactNode;
 }) {
   return (
     <div className="flex gap-2.5 pt-2">
-      <button
+      <Button
         type="button"
         onClick={onCancel}
-        className="flex-1 rounded-2xl border border-gray-200 py-3 text-sm font-semibold text-gray-600 transition hover:bg-gray-50"
+        variant="outline"
+        className="flex-1 rounded-2xl py-3 text-sm font-semibold text-gray-600 transition hover:bg-gray-50"
       >
         Annuler
-      </button>
-      <button
+      </Button>
+      <Button
         type="submit"
-        disabled={loading}
-        className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-primary py-3 text-sm font-bold text-white shadow-md shadow-primary/25 transition hover:bg-primary/90 disabled:opacity-60"
+        variant="primary"
+        loading={loading}
+        loadingText="Traitement en cours..."
+        disabled={submitDisabled}
+        className="flex-1 rounded-2xl py-3 text-sm font-bold text-white shadow-md shadow-primary/25 transition hover:bg-primary/90"
       >
-        {loading ? (
-          <><Loader2 size={14} className="animate-spin" /> Enregistrement…</>
-        ) : (
-          <>{submitIcon}{submitLabel}</>
-        )}
-      </button>
+        <>{submitIcon}{submitLabel}</>
+      </Button>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { AlertTriangle, CheckCircle2, Download, FileJson, Filter } from "lucide-react";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getActivityLogsMonitoring, listActivityLogs } from "@/lib/server/activity-logs";
-import { isSuperAdmin } from "@/lib/server/permissions";
+import { isAdminRole } from "@/lib/server/permissions";
 import { ActivityLogsVerifyUpload } from "@/components/admin/activity-logs-verify-upload";
 import { ActivityLogsSearchList } from "@/components/admin/activity-logs-search-list";
 import { PageHeader } from "@/components/ui/page-header";
@@ -48,7 +48,7 @@ export default async function ActivityLogsPage({ searchParams }: ActivityLogsPag
   if (!data.user) redirect("/login");
 
   try {
-    const allowed = await isSuperAdmin(data.user.id);
+    const allowed = await isAdminRole(data.user.id);
     if (!allowed) redirect("/access-denied");
   } catch {
     redirect("/access-denied");

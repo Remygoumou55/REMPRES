@@ -16,6 +16,7 @@ import {
   type CreateSaleInput,
   type SaleListParamsInput,
 } from "@/lib/validations/sale";
+import { logError, logInfo } from "@/lib/logger";
 
 // ---------------------------------------------------------------------------
 // Types internes
@@ -173,6 +174,7 @@ export async function createSale(
   if (!userId?.trim()) {
     throw new Error("Utilisateur non authentifié");
   }
+  logInfo("sales", "create sale started", { userId });
 
   // 1. Validation Zod côté TypeScript (avant d'atteindre la DB)
   const validated = createSaleSchema.parse(input);
@@ -210,13 +212,27 @@ export async function createSale(
     // Les erreurs métier de la fonction ont un message structuré (ex: "INSUFFICIENT_STOCK")
     // On les transmet directement pour un affichage utilisateur lisible
     const detail = (rpcError as { details?: string }).details ?? rpcError.message;
+    logError("sales", "create sale rpc failed", {
+      userId,
+      detail,
+      code: rpcError.code,
+      hint: rpcError.hint,
+    });
     throw new Error(detail || rpcError.message);
   }
 
   // 3. Extraction du résultat JSONB → types TypeScript
-  const result = rpcResult as { sale: Record<string, unknown>; items: Record<string, unknown>[] };
+  // La RPC renvoie aussi status, sale_id, total_amount_gnf (STEP 6 — atomicité côté DB).
+  const result = rpcResult as {
+    sale: Record<string, unknown>;
+    items?: Record<string, unknown>[];
+    status?: string;
+    sale_id?: string;
+    total_amount_gnf?: number;
+  };
 
   if (!result?.sale) {
+    logError("sales", "create sale invalid rpc response", { userId, rpcResult });
     throw new Error("Réponse inattendue du serveur lors de la création de la vente.");
   }
 
@@ -244,9 +260,15 @@ export async function createSale(
         },
       },
     });
-  } catch (logError) {
-    console.error("[ActivityLog] Failed to log sale create :", logError);
+  } catch (activityLogError) {
+    logError("sales", "[ActivityLog] Failed to log sale create", { userId, error: activityLogError });
   }
+
+  logInfo("sales", "create sale success", {
+    userId,
+    saleId: saleRow.id,
+    totalAmountGnf: saleRow.total_amount_gnf,
+  });
 
   return { ...saleRow, items: itemRows };
 }
@@ -428,8 +450,12 @@ export async function updatePaymentStatus(
         },
       },
     });
-  } catch (logError) {
-    console.error("[ActivityLog] Failed to log payment status update :", logError);
+  } catch (activityLogError) {
+    logError("sales", "[ActivityLog] Failed to log payment status update", {
+      userId,
+      saleId: validated.saleId,
+      error: activityLogError,
+    });
   }
 
   return updated as unknown as SaleRow;

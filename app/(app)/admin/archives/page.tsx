@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Package, Users } from "lucide-react";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
-import { isSuperAdmin } from "@/lib/server/permissions";
+import { isAdminRole } from "@/lib/server/permissions";
 import { listArchivedClients } from "@/lib/server/clients";
 import { listArchivedProducts } from "@/lib/server/products";
 import type { Client } from "@/types/client";
@@ -41,7 +41,7 @@ export default async function AdminArchivesPage({ searchParams }: PageProps) {
   const { data } = await supabase.auth.getUser();
   if (!data.user) redirect("/login");
 
-  if (!(await isSuperAdmin(data.user.id))) {
+  if (!(await isAdminRole(data.user.id))) {
     redirect("/access-denied");
   }
 

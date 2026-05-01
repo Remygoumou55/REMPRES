@@ -24,6 +24,7 @@ import {
   getStoredRates,
 } from "@/lib/server/currencyService";
 import { FALLBACK_RATES } from "@/lib/currencyService";
+import { logError, logWarn } from "@/lib/logger";
 
 // Durée (ms) au-delà de laquelle les taux sont considérés obsolètes
 const STALE_THRESHOLD_MS = 60 * 60 * 1000; // 1 heure
@@ -68,7 +69,10 @@ export async function GET() {
         fromCache = false;
       } else {
         // L'appel externe a échoué → on renvoie les taux en base (ou fallback)
-        console.warn("[/api/currency/refresh] Refresh externe échoué :", result.error);
+        logWarn("currency", "external refresh failed", {
+          userId: auth.user.id,
+          error: result.error,
+        });
         if (Object.keys(rates).length <= 1) {
           rates = { ...FALLBACK_RATES };
         }
@@ -86,7 +90,10 @@ export async function GET() {
       },
     );
   } catch (err) {
-    console.error("[/api/currency/refresh] Erreur inattendue :", err);
+    logError("currency", "refresh route unexpected error", {
+      userId: auth.user.id,
+      error: err,
+    });
     return NextResponse.json(
       {
         rates: { ...FALLBACK_RATES },

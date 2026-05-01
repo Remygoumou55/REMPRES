@@ -1,114 +1,144 @@
-/**
- * lib/logger.ts
- * Logger centralisé pour RemPres.
- *
- * En production, ces logs apparaissent dans Vercel Functions Logs.
- * Structure prête pour l'intégration future d'un service externe
- * (Sentry, Datadog, LogRocket…) en remplaçant uniquement ce fichier.
- *
- * USAGE :
- *   import { logError, logInfo, logWarning } from "@/lib/logger";
- *   logError("SALE_CREATION", error, { userId, saleId });
- */
+type LogLevel = "info" | "warn" | "error";
 
-type LogLevel = "info" | "warning" | "error";
+type LogMetadata = Record<string, unknown>;
 
-interface LogEntry {
-  level:     LogLevel;
-  context:   string;
-  message:   string;
-  data?:     Record<string, unknown>;
+type LogPayload = {
   timestamp: string;
+  level: LogLevel;
+  module: string;
+  message: string;
+  userId: string | null;
+  metadata?: LogMetadata;
+  runtime: "client" | "server";
+};
+
+const SENSITIVE_KEYS = new Set([
+  "password",
+  "token",
+  "access_token",
+  "refresh_token",
+  "authorization",
+  "cookie",
+  "secret",
+]);
+
+function detectRuntime(): "client" | "server" {
+  return typeof window === "undefined" ? "server" : "client";
 }
 
-// ---------------------------------------------------------------------------
-// Formateur interne
-// ---------------------------------------------------------------------------
-
-function formatEntry(entry: LogEntry): string {
-  const prefix = {
-    info:    "[INFO]   ",
-    warning: "[WARN]   ",
-    error:   "[ERROR]  ",
-  }[entry.level];
-
-  return `${prefix} ${entry.timestamp} | ${entry.context} | ${entry.message}`;
+function toMessage(input: unknown): string {
+  if (input instanceof Error) return input.message;
+  if (typeof input === "string") return input;
+  try {
+    return JSON.stringify(input);
+  } catch {
+    return "Unknown error";
+  }
 }
 
-function buildEntry(
-  level: LogLevel,
-  context: string,
-  error: unknown,
-  data?: Record<string, unknown>,
-): LogEntry {
-  const message =
-    error instanceof Error
-      ? error.message
-      : typeof error === "string"
-      ? error
-      : JSON.stringify(error);
+function sanitizeValue(value: unknown): unknown {
+  if (value === null || value === undefined) return value;
+  if (typeof value !== "object") return value;
+  if (Array.isArray(value)) return value.map(sanitizeValue);
 
-  return {
-    level,
-    context,
-    message,
-    data,
-    timestamp: new Date().toISOString(),
+  const out: Record<string, unknown> = {};
+  for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
+    if (SENSITIVE_KEYS.has(k.toLowerCase())) {
+      out[k] = "[REDACTED]";
+    } else {
+      out[k] = sanitizeValue(v);
+    }
+  }
+  return out;
+}
+
+function emit(payload: LogPayload): void {
+  const line = `[${payload.level.toUpperCase()}] ${payload.timestamp} | ${payload.module} | ${payload.message}`;
+
+  if (payload.level === "error") {
+    console.error(line, payload);
+    return;
+  }
+  if (payload.level === "warn") {
+    console.warn(line, payload);
+    return;
+  }
+  console.info(line, payload);
+}
+
+function persistServerLog(payload: LogPayload): void {
+  if (payload.runtime !== "server") return;
+  if (payload.level === "info") return; // keep persistence lightweight
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!supabaseUrl || !serviceKey) return;
+
+  const endpoint = `${supabaseUrl.replace(/\/$/, "")}/rest/v1/logs`;
+  const body = {
+    level: payload.level,
+    module: payload.module,
+    message: payload.message,
+    metadata: payload.metadata ?? {},
+    user_id: payload.userId,
   };
+
+  void fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      apikey: serviceKey,
+      Authorization: `Bearer ${serviceKey}`,
+      Prefer: "return=minimal",
+    },
+    body: JSON.stringify(body),
+  }).catch(() => {
+    // Never throw from logger path.
+  });
 }
 
-// ---------------------------------------------------------------------------
-// API publique
-// ---------------------------------------------------------------------------
-
-/**
- * Enregistre une erreur (exception ou message).
- * @param context  Identifiant lisible du lieu d'appel (ex: "SALE_CREATION")
- * @param error    L'erreur capturée (Error, string, ou unknown)
- * @param data     Données contextuelles optionnelles (userId, saleId…)
- */
-export function logError(
-  context: string,
-  error: unknown,
-  data?: Record<string, unknown>,
+function write(
+  level: LogLevel,
+  module: string,
+  message: unknown,
+  metadata?: LogMetadata,
 ): void {
-  const entry = buildEntry("error", context, error, data);
-  console.error(formatEntry(entry), data ?? "");
-
-  // TODO Phase 7 : envoyer à Sentry / Datadog
-  // if (process.env.NODE_ENV === "production") {
-  //   Sentry.captureException(error, { extra: { context, ...data } });
-  // }
+  const payload: LogPayload = {
+    timestamp: new Date().toISOString(),
+    level,
+    module,
+    message: toMessage(message),
+    userId: typeof metadata?.userId === "string" ? metadata.userId : null,
+    metadata: sanitizeValue(metadata) as LogMetadata | undefined,
+    runtime: detectRuntime(),
+  };
+  emit(payload);
+  persistServerLog(payload);
 }
 
-/**
- * Enregistre un événement informatif.
- * @param context  Identifiant lisible du lieu d'appel
- * @param message  Message descriptif
- * @param data     Données contextuelles optionnelles
- */
 export function logInfo(
-  context: string,
+  module: string,
   message: string,
-  data?: Record<string, unknown>,
+  metadata?: LogMetadata,
 ): void {
-  // Silencieux en production — debug uniquement en développement
-  if (process.env.NODE_ENV !== "development") return;
-  const entry = buildEntry("info", context, message, data);
-  console.info(formatEntry(entry), data ?? "");
+  write("info", module, message, metadata);
 }
 
-/**
- * Enregistre un avertissement non bloquant.
- * @param context  Identifiant lisible du lieu d'appel
- * @param message  Message d'avertissement
- * @param data     Données contextuelles optionnelles
- */
-export function logWarning(
-  context: string,
+export function logWarn(
+  module: string,
   message: string,
-  data?: Record<string, unknown>,
+  metadata?: LogMetadata,
 ): void {
-  const entry = buildEntry("warning", context, message, data);
-  console.warn(formatEntry(entry), data ?? "");
+  write("warn", module, message, metadata);
+}
+
+// Backward compatibility with old name.
+export const logWarning = logWarn;
+
+export function logError(
+  module: string,
+  error: unknown,
+  metadata?: LogMetadata,
+): void {
+  write("error", module, error, metadata);
 }

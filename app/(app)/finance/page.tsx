@@ -3,7 +3,6 @@ import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getModulePermissions, isSuperAdmin, listProfilesForAdminSelect } from "@/lib/server/permissions";
 import { getFinanceCfoData } from "@/lib/server/finance-overview";
-import { getStoredRates } from "@/lib/server/currencyService";
 import { listExpenseCategories } from "@/lib/server/expenses";
 import { parseCategoryIds, parseCreatedBy } from "@/lib/finance-query-params";
 import { FinanceDashboardClient } from "./FinanceDashboardClient";
@@ -53,11 +52,10 @@ export default async function FinancePage({ searchParams }: PageProps) {
   const createdByUserId = parseCreatedBy(searchParams.createdBy, superAdmin);
 
   const supabase = getSupabaseServerClient();
-  const [data, categoryOptions, profileOptions, currencyRates] = await Promise.all([
+  const [data, categoryOptions, profileOptions] = await Promise.all([
     getFinanceCfoData(supabase, { from, to, categoryIds, createdByUserId }),
     listExpenseCategories(),
     superAdmin ? listProfilesForAdminSelect() : Promise.resolve([] as { id: string; label: string }[]),
-    getStoredRates(),
   ]);
 
   return (
@@ -70,7 +68,6 @@ export default async function FinancePage({ searchParams }: PageProps) {
       canFilterByUser={superAdmin}
       selectedCategoryIds={categoryIds}
       selectedCreatedBy={createdByUserId}
-      currencyRates={currencyRates}
     />
   );
 }

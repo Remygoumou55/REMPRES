@@ -24,6 +24,18 @@ import {
   deactivateUserAction,
   reactivateUserAction,
 } from "./actions";
+import { useToast } from "@/components/providers/ToastProvider";
+import {
+  DataTable,
+  DataTableHead,
+  DataTableHeaderCell,
+  DataTableRow,
+  DataTableCell,
+  DataTableEmpty,
+} from "@/components/ui/table";
+import { Input } from "@/components/ui/input";
+import { Select } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 
 // ---------------------------------------------------------------------------
 // Constantes
@@ -74,9 +86,13 @@ function StatusBadge({ status }: { status: UserListItem["status"] }) {
 function InviteModal({
   onClose,
   onSuccess,
+  onNotifySuccess,
+  onNotifyError,
 }: {
   onClose: () => void;
   onSuccess: () => void;
+  onNotifySuccess: (message?: string) => void;
+  onNotifyError: (message?: string) => void;
 }) {
   const [pending, startTransition] = useTransition();
   const [error, setError]     = useState<string | null>(null);
@@ -90,9 +106,12 @@ function InviteModal({
       const result = await inviteUserAction(fd);
       if (result.success) {
         setSuccess(true);
+        onNotifySuccess("Opération réussie");
         setTimeout(() => { onClose(); onSuccess(); }, 1500);
       } else {
-        setError(result.error ?? "Erreur inconnue.");
+        const message = result.error ?? "Une erreur est survenue";
+        setError(message);
+        onNotifyError(message);
       }
     });
   }
@@ -102,7 +121,12 @@ function InviteModal({
       <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl">
         <div className="mb-5 flex items-center justify-between">
           <h2 className="text-lg font-bold text-gray-900">Inviter un utilisateur</h2>
-          <button onClick={onClose} className="rounded-lg p-1 text-gray-400 hover:bg-gray-100">
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Fermer la fenêtre"
+            className="rounded-lg p-1 text-gray-400 hover:bg-gray-100"
+          >
             <X size={20} />
           </button>
         </div>
@@ -118,44 +142,36 @@ function InviteModal({
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="mb-1 block text-xs font-medium text-gray-600">Prénom *</label>
-                <input name="firstName" required
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                  placeholder="Jean" />
+                <Input name="firstName" required placeholder="Jean" />
               </div>
               <div>
                 <label className="mb-1 block text-xs font-medium text-gray-600">Nom *</label>
-                <input name="lastName" required
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                  placeholder="Dupont" />
+                <Input name="lastName" required placeholder="Dupont" />
               </div>
             </div>
 
             <div>
               <label className="mb-1 block text-xs font-medium text-gray-600">Email *</label>
-              <input name="email" type="email" required
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                placeholder="jean.dupont@rempres.com" />
+              <Input name="email" type="email" required placeholder="jean.dupont@rempres.com" />
             </div>
 
             <div>
               <label className="mb-1 block text-xs font-medium text-gray-600">Rôle *</label>
-              <select name="roleKey" required
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20">
+              <Select name="roleKey" required>
                 {ROLES.map((r) => (
                   <option key={r.key} value={r.key}>{r.label}</option>
                 ))}
-              </select>
+              </Select>
             </div>
 
             <div>
               <label className="mb-1 block text-xs font-medium text-gray-600">Département</label>
-              <select name="departmentKey"
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20">
+              <Select name="departmentKey">
                 <option value="">— Aucun département —</option>
                 {DEPARTMENTS.map((d) => (
                   <option key={d} value={d.toLowerCase()}>{d}</option>
                 ))}
-              </select>
+              </Select>
             </div>
 
             {error && (
@@ -166,17 +182,13 @@ function InviteModal({
             )}
 
             <div className="flex gap-3 pt-2">
-              <button type="button" onClick={onClose}
-                className="flex-1 rounded-lg border border-gray-300 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">
+              <Button type="button" onClick={onClose} variant="outline" className="flex-1 h-10 text-sm font-medium text-gray-700 hover:bg-gray-50">
                 Annuler
-              </button>
-              <button type="submit" disabled={pending}
-                className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-primary py-2.5 text-sm font-bold text-white hover:bg-primary/90 disabled:opacity-60">
-                {pending ? (
-                  <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                ) : <Send size={15} />}
-                {pending ? "Envoi…" : "Envoyer l'invitation"}
-              </button>
+              </Button>
+              <Button type="submit" variant="primary" loading={pending} loadingText="Traitement en cours..." className="flex-1 h-10 text-sm font-bold text-white">
+                {!pending ? <Send size={15} /> : null}
+                Envoyer l'invitation
+              </Button>
             </div>
           </form>
         )}
@@ -192,9 +204,13 @@ function InviteModal({
 function UserActionsMenu({
   user,
   onRefresh,
+  onNotifySuccess,
+  onNotifyError,
 }: {
   user: UserListItem;
   onRefresh: () => void;
+  onNotifySuccess: (message?: string) => void;
+  onNotifyError: (message?: string) => void;
 }) {
   const [open, setOpen]       = useState(false);
   const [pending, start]      = useTransition();
@@ -203,7 +219,9 @@ function UserActionsMenu({
   async function doResend() {
     start(async () => {
       const r = await resendInviteAction(user.id);
-      setFeedback(r.success ? "Invitation renvoyée !" : (r.error ?? "Erreur"));
+      if (r.success) onNotifySuccess("Opération réussie");
+      else onNotifyError(r.error ?? "Échec de l’opération");
+      setFeedback(r.success ? "Invitation renvoyée !" : (r.error ?? "Une erreur est survenue"));
       setOpen(false);
       setTimeout(() => setFeedback(null), 3000);
     });
@@ -214,7 +232,9 @@ function UserActionsMenu({
     if (!confirm(`Bloquer le compte de ${who} ?\n\nCet utilisateur ne pourra plus se connecter.`)) return;
     start(async () => {
       const r = await deactivateUserAction(user.id);
-      setFeedback(r.success ? "✓ Compte bloqué." : (r.error ?? "Erreur"));
+      if (r.success) onNotifySuccess("Opération réussie");
+      else onNotifyError(r.error ?? "Échec de l’opération");
+      setFeedback(r.success ? "✓ Compte bloqué." : (r.error ?? "Une erreur est survenue"));
       setOpen(false);
       onRefresh();
       setTimeout(() => setFeedback(null), 3000);
@@ -224,7 +244,9 @@ function UserActionsMenu({
   async function doUnblock() {
     start(async () => {
       const r = await reactivateUserAction(user.id);
-      setFeedback(r.success ? "✓ Compte débloqué." : (r.error ?? "Erreur"));
+      if (r.success) onNotifySuccess("Opération réussie");
+      else onNotifyError(r.error ?? "Échec de l’opération");
+      setFeedback(r.success ? "✓ Compte débloqué." : (r.error ?? "Une erreur est survenue"));
       setOpen(false);
       onRefresh();
       setTimeout(() => setFeedback(null), 3000);
@@ -280,6 +302,7 @@ interface Props {
 }
 
 export function UsersClient({ initialUsers }: Props) {
+  const { showSuccess, showError } = useToast();
   const [users, setUsers]         = useState<UserListItem[]>(initialUsers);
   const [showModal, setShowModal] = useState(false);
   const [refreshBanner, setRefreshBanner] = useState<string | null>(null);
@@ -322,6 +345,7 @@ export function UsersClient({ initialUsers }: Props) {
           setRefreshBanner(
             msg || `Erreur ${res.status} — impossible de rafraîchir la liste.`,
           );
+          showError("Une erreur est survenue");
           return;
         }
 
@@ -331,9 +355,11 @@ export function UsersClient({ initialUsers }: Props) {
           setRefreshBanner(null);
         } else {
           setRefreshBanner("Réponse invalide du serveur.");
+          showError("Une erreur est survenue");
         }
       } catch {
         setRefreshBanner("Réseau indisponible. Réessayez.");
+        showError("Une erreur est survenue");
       }
     });
   }
@@ -382,25 +408,25 @@ export function UsersClient({ initialUsers }: Props) {
       </div>
 
       {/* Tableau */}
-      <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+      <DataTable>
         <table className="w-full text-sm">
-          <thead>
+          <DataTableHead>
             <tr className="border-b border-gray-100 bg-gray-50">
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">Utilisateur</th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">Rôle</th>
-              <th className="hidden px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 sm:table-cell">Département</th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">Statut</th>
-              <th className="hidden px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 lg:table-cell">Dernière connexion</th>
-              <th className="px-4 py-3" />
+              <DataTableHeaderCell>Utilisateur</DataTableHeaderCell>
+              <DataTableHeaderCell>Rôle</DataTableHeaderCell>
+              <DataTableHeaderCell className="hidden sm:table-cell">Département</DataTableHeaderCell>
+              <DataTableHeaderCell>Statut</DataTableHeaderCell>
+              <DataTableHeaderCell className="hidden lg:table-cell">Dernière connexion</DataTableHeaderCell>
+              <DataTableHeaderCell className="text-right">Actions</DataTableHeaderCell>
             </tr>
-          </thead>
+          </DataTableHead>
           <tbody className="divide-y divide-gray-50">
             {filtered.length === 0 ? (
-              <tr>
-                <td colSpan={6} className="py-12 text-center text-gray-400">
-                  {query ? "Aucun utilisateur ne correspond à votre recherche." : "Aucun utilisateur pour l'instant."}
-                </td>
-              </tr>
+              <DataTableEmpty
+                colSpan={6}
+                title={query ? "Aucun résultat" : "Aucun utilisateur"}
+                description={query ? "Aucun utilisateur ne correspond à votre recherche." : "Aucun utilisateur pour l'instant."}
+              />
             ) : (
               filtered.map((user) => {
                 const nameForInitial = (user.full_name ?? "").trim();
@@ -410,8 +436,8 @@ export function UsersClient({ initialUsers }: Props) {
                     : (user.role_key ?? "?").charAt(0).toUpperCase();
                 const subline = (user.department_key ?? "").trim() || null;
                 return (
-                <tr key={user.id} className="hover:bg-gray-50/50">
-                  <td className="px-4 py-3">
+                <DataTableRow key={user.id}>
+                  <DataTableCell>
                     <div className="flex items-center gap-3">
                       <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
                         {initial}
@@ -425,41 +451,48 @@ export function UsersClient({ initialUsers }: Props) {
                         ) : null}
                       </div>
                     </div>
-                  </td>
-                  <td className="px-4 py-3">
+                  </DataTableCell>
+                  <DataTableCell>
                     <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
                       <ShieldCheck size={11} />
                       {user.role_label ?? user.role_key ?? "—"}
                     </span>
-                  </td>
-                  <td className="hidden px-4 py-3 text-gray-500 sm:table-cell">
+                  </DataTableCell>
+                  <DataTableCell className="hidden text-gray-500 sm:table-cell">
                     {user.department_key ?? <span className="text-gray-300">—</span>}
-                  </td>
-                  <td className="px-4 py-3">
+                  </DataTableCell>
+                  <DataTableCell>
                     <StatusBadge status={user.status} />
-                  </td>
-                  <td className="hidden px-4 py-3 text-xs text-gray-400 lg:table-cell">
+                  </DataTableCell>
+                  <DataTableCell className="hidden text-xs text-gray-400 lg:table-cell">
                     {user.last_sign_in_at
                       ? new Date(user.last_sign_in_at).toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" })
                       : "Jamais connecté"
                     }
-                  </td>
-                  <td className="px-4 py-3 text-right">
-                    <UserActionsMenu user={user} onRefresh={handleRefresh} />
-                  </td>
-                </tr>
+                  </DataTableCell>
+                  <DataTableCell className="text-right">
+                    <UserActionsMenu
+                      user={user}
+                      onRefresh={handleRefresh}
+                      onNotifySuccess={showSuccess}
+                      onNotifyError={showError}
+                    />
+                  </DataTableCell>
+                </DataTableRow>
               );
               })
             )}
           </tbody>
         </table>
-      </div>
+      </DataTable>
 
       {/* Modal */}
       {showModal && (
         <InviteModal
           onClose={() => setShowModal(false)}
           onSuccess={handleRefresh}
+          onNotifySuccess={showSuccess}
+          onNotifyError={showError}
         />
       )}
     </div>

@@ -5,8 +5,10 @@
  * Ne pas importer dans des Client Components.
  */
 
+import { convertCurrencyRpc } from "@/lib/currency/convertCurrencyRpc";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { FALLBACK_RATES, type Currency, type CurrencyRates } from "@/lib/currencyService";
+import { logError, logWarn } from "@/lib/logger";
 
 type RateRow = {
   base_currency?: string | null;
@@ -17,8 +19,6 @@ type RateRow = {
   rate_to_gnf?: number | null;
   updated_at?: string | null;
 };
-
-type ServiceResult<T> = { success: true; data: T } | { success: false; error: string };
 
 const RATE_CACHE_TTL_MS = 5 * 60 * 1000; // 5 min
 const rateCache = new Map<string, { value: number; expiresAt: number }>();
@@ -70,7 +70,7 @@ async function readRatePair(base: string, quote: string): Promise<number | null>
 
   // Schéma standard: base_currency + quote_currency + rate
   const { data: standardRows } = await (supabase.from("currency_rates") as any)
-    .select("*")
+    .select("rate,fetched_at,updated_at")
     .eq("base_currency", b)
     .eq("quote_currency", q)
     .order("fetched_at", { ascending: false })
@@ -84,7 +84,7 @@ async function readRatePair(base: string, quote: string): Promise<number | null>
   // Compat schéma alternatif: currency_code + rate_to_gnf
   if (b === "GNF") {
     const { data: modernRows } = await (supabase.from("currency_rates") as any)
-      .select("*")
+      .select("rate_to_gnf,updated_at")
       .eq("currency_code", q)
       .limit(1);
     const rateToGnf = (modernRows?.[0] as RateRow | undefined)?.rate_to_gnf;
@@ -93,7 +93,7 @@ async function readRatePair(base: string, quote: string): Promise<number | null>
 
   if (q === "GNF") {
     const { data: modernRows } = await (supabase.from("currency_rates") as any)
-      .select("*")
+      .select("rate_to_gnf,updated_at")
       .eq("currency_code", b)
       .limit(1);
     const rateToGnf = (modernRows?.[0] as RateRow | undefined)?.rate_to_gnf;
@@ -152,16 +152,34 @@ export async function getRate(from: string, to: string): Promise<number> {
   throw new Error(`Taux introuvable (${fromCode} -> ${toCode}).`);
 }
 
-export async function convert(amount: number, from: string, to: string): Promise<number> {
-  if (!Number.isFinite(amount) || amount <= 0) {
-    throw new Error("amount doit être > 0.");
+export async function convert(amount: number, from: string, to: string): Promise<number | null> {
+  if (!Number.isFinite(amount)) {
+    return null;
+  }
+  if (amount === 0) {
+    return 0;
   }
 
-  const rate = await getRate(from, to);
-  return Math.round(amount * rate * 100) / 100;
+  try {
+    const supabase = getSupabaseServerClient();
+    const result = await convertCurrencyRpc(
+      supabase,
+      { amount, from, to },
+      { logPrefix: "Currency conversion failed (server)" },
+    );
+    return result ?? null;
+  } catch (error) {
+    logError("currency", "Currency conversion failed (server)", {
+      amount,
+      from,
+      to,
+      error,
+    });
+    return null;
+  }
 }
 
-export async function convertToBase(amount: number, from: string): Promise<number> {
+export async function convertToBase(amount: number, from: string): Promise<number | null> {
   return convert(amount, from, "GNF");
 }
 
@@ -177,12 +195,13 @@ export async function getStoredRates(): Promise<CurrencyRates> {
       try {
         rates[target] = await getRate("GNF", target);
       } catch {
+        logWarn("currency", "Missing exchange rate, using fallback", { from: "GNF", to: target });
         rates[target] = FALLBACK_RATES[target] ?? 0;
       }
     }
     return rates;
   } catch (err) {
-    console.error("[currencyService] Erreur dans getStoredRates :", err);
+    logError("currency", "[currencyService] Erreur dans getStoredRates", { error: err });
     return { ...FALLBACK_RATES };
   }
 }

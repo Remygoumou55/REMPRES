@@ -5,7 +5,7 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Mail, Lock, Eye, EyeOff, AlertCircle, Loader2 } from "lucide-react";
 import { getSupabaseBrowserClient } from "@/lib/supabase";
-import { logError } from "@/lib/logger";
+import { logError, logInfo, logWarn } from "@/lib/logger";
 import { getDestinationForRole } from "@/lib/roleRedirects";
 
 // ---------------------------------------------------------------------------
@@ -53,6 +53,7 @@ export function LoginForm() {
     });
 
     if (signInError) {
+      logWarn("auth", "login failed", { email, reason: signInError.message });
       const msg = signInError.message.toLowerCase();
       if (msg.includes("network") || msg.includes("fetch") || msg.includes("failed to fetch")) {
         setError("Problème de connexion. Vérifiez votre réseau et réessayez.");
@@ -73,15 +74,19 @@ export function LoginForm() {
 
       if (profileError || !profile) {
         // Le profil n'existe pas → compte mal configuré
-        logError("LOGIN_NO_PROFILE", profileError ?? new Error("profile is null"), { userId: data.user.id });
+        logError("auth", "login profile missing", {
+          userId: data.user.id,
+          error: profileError ?? new Error("profile is null"),
+        });
         router.replace("/error-profile");
         return;
       }
 
+      logInfo("auth", "login success", { userId: data.user.id, role: profile.role_key });
       router.replace(getDestinationForRole(profile.role_key));
       router.refresh();
     } catch (err) {
-      logError("LOGIN_PROFILE_FETCH", err, { userId: data.user.id });
+      logError("auth", "login profile fetch failed", { userId: data.user.id, error: err });
       setError("Une erreur est survenue lors de la connexion. Veuillez réessayer.");
       setLoading(false);
     }

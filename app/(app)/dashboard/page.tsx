@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { DashboardClient } from "./DashboardClient";
-import { getClientsPermissions, getModulePermissions, isSuperAdmin } from "@/lib/server/permissions";
+import { getClientsPermissions, getModulePermissions, isAdminRole } from "@/lib/server/permissions";
 import { getDashboardKpis } from "@/lib/server/dashboard-kpis";
 import { getCachedProfileDisplayName } from "@/lib/server/profile-display";
 
@@ -14,11 +14,11 @@ export default async function DashboardPage() {
 
   const userId = user.id;
 
-  const [permissions, productsPermissions, superAdminFlag, kpis, userDisplayName] =
+  const [permissions, productsPermissions, adminRoleFlag, kpis, userDisplayName] =
     await Promise.all([
       getClientsPermissions(userId),
       getModulePermissions(userId, ["produits", "vente"]),
-      isSuperAdmin(userId),
+      isAdminRole(userId),
       getDashboardKpis(),
       getCachedProfileDisplayName(userId),
     ]);
@@ -28,8 +28,8 @@ export default async function DashboardPage() {
       userDisplayName={userDisplayName}
       canReadClients={permissions.canRead}
       canReadProducts={productsPermissions.canRead}
-      canReadActivityLogs={superAdminFlag}
-      isSuperAdmin={superAdminFlag}
+      canReadActivityLogs={adminRoleFlag}
+      isSuperAdmin={adminRoleFlag}
       kpis={kpis}
     />
   );

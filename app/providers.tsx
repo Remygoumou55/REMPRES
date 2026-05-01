@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useState } from "react";
 import { makeQueryClient } from "@/lib/queryClient";
 import { CurrencyContextProvider } from "@/context/CurrencyContext";
+import { ToastProvider } from "@/components/providers/ToastProvider";
 
 type ProvidersProps = {
   children: React.ReactNode;
@@ -15,7 +16,9 @@ export function Providers({ children }: ProvidersProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <CurrencyContextProvider>{children}</CurrencyContextProvider>
+      <ToastProvider>
+        <CurrencyContextProvider>{children}</CurrencyContextProvider>
+      </ToastProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

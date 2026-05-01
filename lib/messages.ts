@@ -65,6 +65,14 @@ export const SUCCESS_MESSAGES = {
   PRODUCT_DELETED:    "Produit supprimé.",
 } as const;
 
+export const FEEDBACK_MESSAGES = {
+  OPERATION_SUCCESS: "Opération réussie",
+  OPERATION_FAILED: "Échec de l’opération",
+  GENERIC_ERROR: "Une erreur est survenue",
+  LOADING: "Traitement en cours...",
+  NO_DATA: "Aucune donnée disponible",
+} as const;
+
 // ---------------------------------------------------------------------------
 // resolveErrorMessage — fonction principale
 // ---------------------------------------------------------------------------

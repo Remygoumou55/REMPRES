@@ -64,12 +64,11 @@ export default async function HistoriquePage({ searchParams }: PageProps) {
     clientFilterIds = (matchingClients ?? []).map((c) => c.id);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let query: any = supabase
+  let query = supabase
     .from("sales")
     .select(
       "id,reference,client_id,total_amount_gnf,display_currency,payment_method,payment_status,amount_paid_gnf,created_at",
-      { count: "exact" },
+      { count: "planned" },
     )
     .is("deleted_at", null)
     .order("created_at", { ascending: false });
@@ -104,7 +103,10 @@ export default async function HistoriquePage({ searchParams }: PageProps) {
   );
   const clientsById: Record<string, Client> = {};
   if (clientIds.length > 0) {
-    const { data: clientsData } = await supabase.from("clients").select("*").in("id", clientIds);
+    const { data: clientsData } = await supabase
+      .from("clients")
+      .select("id,client_type,first_name,last_name,company_name,email,phone,address,city,country,notes,created_by,created_at,updated_at,deleted_at,deleted_by")
+      .in("id", clientIds);
     for (const row of clientsData ?? []) {
       clientsById[row.id] = row as Client;
     }

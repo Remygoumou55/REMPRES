@@ -3,6 +3,7 @@ import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import type { Json } from "@/types/database.types";
 import { createProductSchema, type CreateProductInput } from "@/lib/validations/product";
 import { getModulePermissions, type ModulePermissions } from "@/lib/server/permissions";
+import { logError, logInfo } from "@/lib/logger";
 
 const PRODUCT_COLUMNS =
   "id,sku,name,description,image_url,unit,price_gnf,stock_quantity,stock_threshold,created_by,created_at,updated_at,deleted_at,deleted_by";
@@ -145,6 +146,7 @@ export async function listArchivedProducts(): Promise<Product[]> {
 export async function createProduct(input: CreateProductInput): Promise<Product> {
   const { userId } = await requireProductPermissions({ canCreate: true });
   const validated = createProductSchema.parse(input);
+  logInfo("products", "create product started", { userId, sku: validated.sku });
 
   const { data, error } = await getProductsTable()
     .insert({
@@ -170,8 +172,14 @@ export async function createProduct(input: CreateProductInput): Promise<Product>
       },
     });
   } catch (logErr) {
-    console.error("[ActivityLog] produit create:", logErr);
+    logError("products", "[ActivityLog] produit create failed", { userId, error: logErr });
   }
+
+  logInfo("products", "create product success", {
+    userId,
+    productId: row.id,
+    sku: row.sku,
+  });
 
   return row;
 }
@@ -219,7 +227,7 @@ export async function updateProduct(id: string, input: CreateProductInput): Prom
       },
     });
   } catch (logErr) {
-    console.error("[ActivityLog] produit update:", logErr);
+    logError("products", "[ActivityLog] produit update failed", { userId, productId: id, error: logErr });
   }
 
   return row;
@@ -271,7 +279,7 @@ export async function softDeleteProduct(id: string): Promise<void> {
       },
     });
   } catch (logErr) {
-    console.error("[ActivityLog] produit delete:", logErr);
+    logError("products", "[ActivityLog] produit delete failed", { userId, productId: id, error: logErr });
   }
 }
 
@@ -325,7 +333,7 @@ export async function restoreProduct(id: string): Promise<Product> {
       },
     });
   } catch (logErr) {
-    console.error("[ActivityLog] produit restore:", logErr);
+    logError("products", "[ActivityLog] produit restore failed", { userId, productId: id, error: logErr });
   }
 
   return restored;

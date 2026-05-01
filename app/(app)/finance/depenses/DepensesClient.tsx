@@ -35,7 +35,9 @@ import { formatMoney } from "@/lib/utils/formatCurrency";
 import { formatCurrency } from "@/utils/currency";
 import { formatDateDayFr } from "@/lib/utils/formatDate";
 import { useCurrencyStore } from "@/stores/currencyStore";
-import { convertAmount } from "@/lib/currencyService";
+import { convertCurrency } from "@/lib/services/currencyService";
+import { useCurrencyBatchConversion } from "@/hooks/useCurrencyConversion";
+import { useToast } from "@/components/providers/ToastProvider";
 import { getSupabaseBrowserClient } from "@/lib/supabase";
 import {
   buildReceiptObjectPath,
@@ -100,6 +102,7 @@ export function DepensesClient({
   currentUserId,
   isSuperAdmin,
 }: Props) {
+  const { showSuccess, showError } = useToast();
   const router = useRouter();
   const sp = useSearchParams();
   const [pending, startTransition] = useTransition();
@@ -107,9 +110,21 @@ export function DepensesClient({
 
   // Devise sélectionnée par l'utilisateur
   const currency = useCurrencyStore((s) => s.selectedCurrency);
-  const rates    = useCurrencyStore((s) => s.rates);
-  function fmtD(amountGNF: number) {
-    return formatMoney(convertAmount(amountGNF, currency, rates), currency, 1);
+  const { convertedByKey: summaryConverted } = useCurrencyBatchConversion(
+    [
+      { key: "totalRange", amount: stats.totalInRange },
+      { key: "totalToday", amount: stats.totalToday },
+      { key: "totalMonth", amount: stats.totalMonth },
+      ...list.data.map((r) => ({ key: `row:${r.id}`, amount: r.amount_gnf })),
+      ...stats.byCategory.map((b) => ({ key: `cat:${b.categoryId}`, amount: b.total })),
+    ],
+    "GNF",
+    currency,
+  );
+  function fmtD(amountGNF: number, key?: string) {
+    const amount = key ? summaryConverted[key] : null;
+    if (key) return amount === null ? "Conversion indisponible" : formatCurrency(amount ?? 0, currency);
+    return formatMoney(amountGNF, "GNF", 1);
   }
   const [formOpen, setFormOpen] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -179,6 +194,10 @@ export function DepensesClient({
   async function onCreateSubmit(e: React.FormEvent) {
     e.preventDefault();
     setFormError(null);
+    if (typedConvertUnavailable) {
+      setFormError("Conversion indisponible. Réessayez avant de valider.");
+      return;
+    }
     setSaving(true);
     const amountNum = Number(String(amount).replace(/\s/g, "").replace(",", "."));
 
@@ -193,6 +212,7 @@ export function DepensesClient({
     if (!result.success) {
       setSaving(false);
       setFormError(result.error);
+      showError(result.error || "Échec de l’opération");
       return;
     }
 
@@ -201,6 +221,7 @@ export function DepensesClient({
       const v = validateReceiptFile(receiptFile);
       if (v) {
         setFormError(v);
+        showError(v);
         setSaving(false);
         return;
       }
@@ -211,12 +232,14 @@ export function DepensesClient({
         .upload(path, receiptFile, { contentType: receiptFile.type, upsert: false });
       if (upErr) {
         setFormError("Envoi de la pièce justificative échoué : " + upErr.message);
+        showError("Échec de l’opération");
         setSaving(false);
         return;
       }
       const ar = await attachExpenseReceiptAction(newId, path);
       if (!ar.success) {
         setFormError(ar.error);
+        showError(ar.error || "Échec de l’opération");
         setSaving(false);
         return;
       }
@@ -224,6 +247,7 @@ export function DepensesClient({
 
     setSaving(false);
     setToast("Dépense enregistrée.");
+    showSuccess("Opération réussie");
     setFormOpen(false);
     setDescription("");
     setAmount("");
@@ -236,6 +260,39 @@ export function DepensesClient({
     () => Number(String(amount).replace(/\s/g, "").replace(",", ".")) || 0,
     [amount],
   );
+  const [typedConvertedAmount, setTypedConvertedAmount] = useState<number | null>(null);
+  const [typedConvertLoading, setTypedConvertLoading] = useState(false);
+  const typedConvertUnavailable =
+    currency !== "GNF" && typedAmountGNF > 0 && !typedConvertLoading && typedConvertedAmount === null;
+
+  useEffect(() => {
+    let mounted = true;
+    if (currency === "GNF" || typedAmountGNF <= 0) {
+      setTypedConvertedAmount(typedAmountGNF);
+      setTypedConvertLoading(false);
+      return () => {
+        mounted = false;
+      };
+    }
+
+    const timer = window.setTimeout(async () => {
+      setTypedConvertLoading(true);
+      const result = await convertCurrency({
+        amount: typedAmountGNF,
+        from: "GNF",
+        to: currency,
+      });
+      if (mounted) {
+        setTypedConvertedAmount(result);
+        setTypedConvertLoading(false);
+      }
+    }, 180);
+
+    return () => {
+      mounted = false;
+      window.clearTimeout(timer);
+    };
+  }, [currency, typedAmountGNF]);
 
   function openEdit(row: ExpenseListRow) {
     setEditReceipt(null);
@@ -292,6 +349,7 @@ export function DepensesClient({
     setSaving(false);
     if (res.success) {
       setToast("Dépense mise à jour.");
+      showSuccess("Opération réussie");
       setEditing(null);
       setEditReceipt(null);
       setEditRemoveReceipt(false);
@@ -299,6 +357,7 @@ export function DepensesClient({
       setTimeout(() => setToast(null), 3000);
     } else {
       setFormError(res.error);
+      showError(res.error || "Échec de l’opération");
     }
   }
 
@@ -308,10 +367,12 @@ export function DepensesClient({
     setDeleting(null);
     if (r.success) {
       setToast("Dépense supprimée.");
+      showSuccess("Opération réussie");
       router.refresh();
       setTimeout(() => setToast(null), 3000);
     } else {
       setFormError(r.error);
+      showError(r.error || "Échec de l’opération");
     }
   }
 
@@ -365,7 +426,11 @@ export function DepensesClient({
               <p className="mt-1 text-[11px] text-gray-400">
                 {currency === "GNF"
                   ? "Montant enregistré en GNF."
-                  : `${formatCurrency(convertAmount(typedAmountGNF, currency, rates), currency)} ≈ ${formatCurrency(typedAmountGNF, "GNF")}`}
+                  : typedConvertLoading
+                  ? "Conversion en cours..."
+                  : typedConvertedAmount === null
+                  ? "Conversion indisponible"
+                  : `${formatCurrency(typedConvertedAmount, currency)} ≈ ${formatCurrency(typedAmountGNF, "GNF")}`}
               </p>
             </ModalField>
             <ModalField label="Catégorie" required>
@@ -432,6 +497,7 @@ export function DepensesClient({
             onCancel={() => { setFormOpen(false); setFormError(null); }}
             submitLabel="Enregistrer"
             loading={saving}
+            submitDisabled={typedConvertUnavailable}
             submitIcon={<Plus size={14} />}
           />
         </form>
@@ -440,21 +506,21 @@ export function DepensesClient({
       <div className="grid gap-3 sm:grid-cols-3">
         <KpiCard
           label="Total (période filtrée)"
-          value={fmtD(stats.totalInRange)}
+          value={fmtD(stats.totalInRange, "totalRange")}
           icon={Wallet}
           iconColor="text-rose-600"
           iconBg="bg-rose-50"
         />
         <KpiCard
           label="Aujourd'hui"
-          value={fmtD(stats.totalToday)}
+          value={fmtD(stats.totalToday, "totalToday")}
           icon={TrendingDown}
           iconColor="text-amber-600"
           iconBg="bg-amber-50"
         />
         <KpiCard
           label="Mois (mois de la fin de période)"
-          value={fmtD(stats.totalMonth)}
+          value={fmtD(stats.totalMonth, "totalMonth")}
           icon={BarChart2}
           iconColor="text-sky-600"
           iconBg="bg-sky-50"
@@ -480,7 +546,7 @@ export function DepensesClient({
                   </div>
                 </div>
                 <span className="w-32 shrink-0 text-right text-xs font-semibold tabular-nums text-darktext">
-                  {fmtD(b.total)}
+                    {fmtD(b.total, `cat:${b.categoryId}`)}
                 </span>
                 <span className="w-24 shrink-0 truncate text-xs text-gray-500">{b.name}</span>
               </div>
@@ -601,7 +667,7 @@ export function DepensesClient({
                     </td>
                     <td className="px-3 py-3 text-right font-bold tabular-nums text-rose-700">
                       <div className="text-right">
-                        <span>{fmtD(row.amount_gnf)}</span>
+                        <span>{fmtD(row.amount_gnf, `row:${row.id}`)}</span>
                         {currency !== "GNF" ? (
                           <p className="text-[10px] font-normal text-gray-400">≈ {formatCurrency(row.amount_gnf, "GNF")}</p>
                         ) : null}

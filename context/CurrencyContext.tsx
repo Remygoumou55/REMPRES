@@ -3,10 +3,11 @@
 import { createContext, useContext, useEffect, useMemo } from "react";
 import { useRef } from "react";
 import { useCurrencyStore } from "@/stores/currencyStore";
-import { convertAmount, FALLBACK_RATES, formatAmount, type Currency, type CurrencyRates } from "@/lib/currencyService";
+import { FALLBACK_RATES, formatAmount, type Currency, type CurrencyRates } from "@/lib/currencyService";
 
 const USER_CURRENCY_KEY = "user_currency";
 const REFRESH_INTERVAL_MS = 5 * 60 * 1000; // 5 min
+const REFRESH_TIMEOUT_MS = 2500;
 const RETRY_COOLDOWN_MS = 60 * 1000; // 1 min after failure
 
 type CurrencyContextValue = {
@@ -14,7 +15,6 @@ type CurrencyContextValue = {
   rates: CurrencyRates;
   getUserCurrency: () => Currency;
   setUserCurrency: (currency: Currency) => void;
-  convert: (amount: number, from: Currency, to: Currency) => number;
   format: (amount: number, currency: Currency) => string;
   loading: boolean;
 };
@@ -37,14 +37,24 @@ export function CurrencyContextProvider({ children }: { children: React.ReactNod
   const inFlightRef = useRef(false);
   const lastAttemptRef = useRef<number>(0);
   const lastFailureRef = useRef<number>(0);
+  const mountedRef = useRef(true);
 
   const loading = !lastUpdated;
+
+  useEffect(() => {
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
 
   useEffect(() => {
     try {
       const stored = localStorage.getItem(USER_CURRENCY_KEY);
       if (stored) {
-        setSelectedCurrency(safeCurrency(stored));
+        const safe = safeCurrency(stored);
+        if (safe !== selectedCurrency) {
+          setSelectedCurrency(safe);
+        }
       } else {
         localStorage.setItem(USER_CURRENCY_KEY, selectedCurrency);
       }
@@ -59,8 +69,11 @@ export function CurrencyContextProvider({ children }: { children: React.ReactNod
     if (now - lastAttemptRef.current < 10_000) return; // anti-burst
     if (lastFailureRef.current > 0 && now - lastFailureRef.current < RETRY_COOLDOWN_MS) return;
 
+    // Do not force refresh on cold start; keep UI responsive with persisted/fallback rates.
+    // Refresh only when we already have a timestamp and it is stale.
     const shouldRefresh =
-      !lastUpdated || Date.now() - new Date(lastUpdated).getTime() > REFRESH_INTERVAL_MS;
+      Boolean(lastUpdated) &&
+      Date.now() - new Date(lastUpdated as string).getTime() > REFRESH_INTERVAL_MS;
 
     if (!shouldRefresh) return;
 
@@ -69,8 +82,13 @@ export function CurrencyContextProvider({ children }: { children: React.ReactNod
     lastAttemptRef.current = now;
 
     async function refreshRates() {
+      const controller = new AbortController();
+      const timeoutId = window.setTimeout(() => controller.abort(), REFRESH_TIMEOUT_MS);
       try {
-        const res = await fetch("/api/currency/refresh", { cache: "no-store" });
+        const res = await fetch("/api/currency/refresh", {
+          cache: "no-store",
+          signal: controller.signal,
+        });
         if (!res.ok) {
           lastFailureRef.current = Date.now();
           return;
@@ -80,7 +98,7 @@ export function CurrencyContextProvider({ children }: { children: React.ReactNod
           updatedAt?: string | null;
         };
 
-        if (!cancelled && data.rates && Object.keys(data.rates).length > 0) {
+        if (!cancelled && mountedRef.current && data.rates && Object.keys(data.rates).length > 0) {
           setRates(data.rates, data.updatedAt ?? new Date().toISOString());
           lastFailureRef.current = 0;
         } else {
@@ -90,6 +108,7 @@ export function CurrencyContextProvider({ children }: { children: React.ReactNod
         // Keep fallback rates silently.
         lastFailureRef.current = Date.now();
       } finally {
+        window.clearTimeout(timeoutId);
         inFlightRef.current = false;
       }
     }
@@ -115,19 +134,6 @@ export function CurrencyContextProvider({ children }: { children: React.ReactNod
         } catch {
           // no-op
         }
-      },
-      convert: (amount, from, to) => {
-        if (!Number.isFinite(amount)) return 0;
-        if (from === to) return amount;
-
-        // Convert through GNF because frontend rates are keyed from GNF.
-        if (from === "GNF") return convertAmount(amount, to, safeRates);
-        if (to === "GNF") {
-          const rate = safeRates[from] ?? 0;
-          return rate > 0 ? Math.round((amount / rate) * 100) / 100 : amount;
-        }
-        const inGnf = (safeRates[from] ?? 0) > 0 ? amount / (safeRates[from] ?? 1) : amount;
-        return convertAmount(inGnf, to, safeRates);
       },
       format: (amount, currency) => formatAmount(Number.isFinite(amount) ? amount : 0, currency),
       loading,

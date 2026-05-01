@@ -1,5 +1,6 @@
 import { cache } from "react";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import { logError } from "@/lib/logger";
 
 export type ClientsPermissions = {
   canRead: boolean;
@@ -9,6 +10,7 @@ export type ClientsPermissions = {
 };
 
 export type ModulePermissions = ClientsPermissions;
+export type CanonicalRole = "admin" | "manager" | "agent";
 
 type PermissionAction = "read" | "create" | "update" | "delete";
 
@@ -26,6 +28,18 @@ const DENY_ALL: ModulePermissions = {
   canUpdate: false,
   canDelete: false,
 };
+
+const ADMIN_ROLE_KEYS = new Set(["super_admin", "admin", "directeur_general"]);
+const MANAGER_ROLE_KEYS = new Set([
+  "manager",
+  "responsable_vente",
+  "comptable",
+  "responsable_formation",
+  "responsable_consultation",
+  "responsable_rh",
+  "responsable_marketing",
+  "responsable_logistique",
+]);
 
 function canDoAction(
   permissions: ClientsPermissions,
@@ -68,7 +82,7 @@ const getProfileRoleKey = cache(async (userId: string): Promise<{ roleKey: strin
     .maybeSingle();
 
   if (error) {
-    console.error("getProfileRoleKey error:", error.message);
+    logError("auth", "getProfileRoleKey error", { error: error.message, userId });
     return { roleKey: null, ok: false };
   }
 
@@ -92,17 +106,25 @@ const getModulePermissionsMemo = cache(
       return DENY_ALL;
     }
 
+    const canonicalRole = toCanonicalRole(roleKey);
+    const roleKeysToCheck =
+      canonicalRole === roleKey ? [roleKey] : [roleKey, canonicalRole];
+
     const supabase = getSupabaseServerClient();
 
     const { data, error } = await supabase
       .from("permissions")
       .select("can_create,can_read,can_update,can_delete")
-      .eq("role_key", roleKey)
+      .in("role_key", roleKeysToCheck)
       .in("module_key", moduleKeys)
       .is("deleted_at", null);
 
     if (error) {
-      console.error("getModulePermissions error:", error.message);
+      logError("auth", "getModulePermissions error", {
+        error: error.message,
+        userId,
+        moduleKeys,
+      });
       return DENY_ALL;
     }
 
@@ -162,12 +184,29 @@ export const getUserRole = cache(async (userId: string): Promise<string | null> 
   return roleKey;
 });
 
+export function toCanonicalRole(roleKey: string | null | undefined): CanonicalRole {
+  const normalized = String(roleKey ?? "").trim().toLowerCase();
+  if (ADMIN_ROLE_KEYS.has(normalized)) return "admin";
+  if (MANAGER_ROLE_KEYS.has(normalized)) return "manager";
+  return "agent";
+}
+
+export async function getCanonicalUserRole(userId: string): Promise<CanonicalRole> {
+  const role = await getUserRole(userId);
+  return toCanonicalRole(role);
+}
+
 /**
  * Vérifie super admin
  */
 export async function isSuperAdmin(userId: string): Promise<boolean> {
   const role = await getUserRole(userId);
   return role === "super_admin";
+}
+
+export async function isAdminRole(userId: string): Promise<boolean> {
+  const role = await getUserRole(userId);
+  return toCanonicalRole(role) === "admin";
 }
 
 /**
@@ -177,6 +216,12 @@ export async function assertSuperAdmin(
   userId: string
 ): Promise<boolean> {
   return await isSuperAdmin(userId);
+}
+
+export async function assertAdminRole(
+  userId: string
+): Promise<boolean> {
+  return await isAdminRole(userId);
 }
 
 /**
@@ -195,7 +240,7 @@ export async function listProfilesForAdminSelect(): Promise<
     .limit(500);
 
   if (error) {
-    console.error("listProfilesForAdminSelect error:", error.message);
+    logError("auth", "listProfilesForAdminSelect error", { error: error.message });
     return [];
   }
 

@@ -163,7 +163,7 @@ function QuickAction({
   color: string;
 }) {
   return (
-    <Link
+    <a
       href={href}
       className="group flex items-center gap-4 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/20 hover:shadow-md"
     >
@@ -175,7 +175,7 @@ function QuickAction({
         <p className="truncate text-xs text-gray-400">{description}</p>
       </div>
       <ArrowRight size={14} className="shrink-0 text-gray-300 transition-transform group-hover:translate-x-0.5 group-hover:text-primary" />
-    </Link>
+    </a>
   );
 }
 

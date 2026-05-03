@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { markAsPaidAction } from "@/app/(app)/vente/nouvelle-vente/actions";
 import { resolveErrorMessage } from "@/lib/messages";
@@ -9,6 +10,7 @@ import { formatGNF } from "@/lib/utils/formatCurrency";
 type Props = { saleId: string; totalAmountGNF: number };
 
 export function MarkAsPaidButton({ saleId, totalAmountGNF }: Props) {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -25,6 +27,7 @@ export function MarkAsPaidButton({ saleId, totalAmountGNF }: Props) {
     setLoading(false);
     if (result.success) {
       setDone(true);
+      router.refresh();
     } else {
       setError(resolveErrorMessage(result.error));
     }

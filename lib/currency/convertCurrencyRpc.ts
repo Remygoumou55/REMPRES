@@ -42,8 +42,8 @@ function writeCache(key: string, value: number) {
 }
 
 /**
- * Conversion métier via RPC Supabase — point unique pour l’appel réseau `convert_currency`.
- * Accepte tout client Supabase (navigateur ou serveur).
+ * Conversion métier via RPC Supabase (`convert_currency`).
+ * Préférer `@/lib/currency/convertCurrency` pour try/catch et logs homogènes.
  */
 export async function convertCurrencyRpc(
   supabase: SupabaseClient,

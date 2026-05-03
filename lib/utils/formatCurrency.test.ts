@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { formatGNF } from "./formatCurrency";
 
-/** Normalise les espaces (fr-FR utilise souvent U+202F entre milliers). */
+/** Normalise les espaces insécables (U+202F fin, U+00A0 classique — tous deux utilisés selon le formatage). */
 function norm(s: string): string {
-  return s.replace(/\u202f/g, " ");
+  return s.replace(/\u202f/g, " ").replace(/\u00a0/g, " ");
 }
 
 describe("formatGNF", () => {

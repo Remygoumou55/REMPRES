@@ -40,6 +40,13 @@ export interface InviteUserInput {
   departmentKey: string | null;
 }
 
+export interface UpdateUserAdminInput {
+  firstName: string;
+  lastName: string;
+  roleKey: string;
+  departmentKey: string | null;
+}
+
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
@@ -756,5 +763,144 @@ export async function reactivateUser(
   } catch (e) {
     logError("REACTIVATE_USER", e, { userId });
     return { success: false, error: "Impossible de débloquer le compte." };
+  }
+}
+
+// ---------------------------------------------------------------------------
+// updateUserAdmin
+// ---------------------------------------------------------------------------
+
+export async function updateUserAdmin(
+  userId: string,
+  input: UpdateUserAdminInput,
+  callerUserId: string,
+): Promise<SafeResult<null>> {
+  if (!(await isSuperAdmin(callerUserId))) {
+    return err("Accès refusé.");
+  }
+
+  try {
+    const cfg = getSupabaseAdminConfigErrorMessage();
+    if (cfg) {
+      logError("UPDATE_USER_ADMIN", new Error(cfg), { userId, step: "config" });
+      return err("Configuration serveur incomplète. Contactez l’administrateur.");
+    }
+
+    let admin: ReturnType<typeof getSupabaseAdmin>;
+    try {
+      admin = getSupabaseAdmin();
+    } catch (e) {
+      logError("UPDATE_USER_ADMIN", e, { userId, step: "admin:client" });
+      return err("Configuration serveur incomplète. Contactez l’administrateur.");
+    }
+
+    const firstName = (input.firstName ?? "").trim();
+    const lastName = (input.lastName ?? "").trim();
+    if (!firstName || !lastName) {
+      return err("Le prénom et le nom sont obligatoires.");
+    }
+
+    const roleResolved = await resolveAppRoleKey(admin, input.roleKey, {
+      op: "update_user_admin",
+      userId,
+      step: "validate_role_key",
+    });
+    if (!roleResolved.ok) return err(roleResolved.error);
+
+    const { error } = await admin
+      .from("profiles")
+      .update({
+        first_name: firstName,
+        last_name: lastName,
+        role_key: roleResolved.roleKey,
+        department_key: input.departmentKey ?? null,
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", userId)
+      .is("deleted_at", null);
+
+    if (error) {
+      logError("UPDATE_USER_ADMIN", error, { userId });
+      return err("Impossible de modifier l'utilisateur.");
+    }
+
+    await tryActivityLog({
+      actorUserId: callerUserId,
+      moduleKey: "utilisateurs",
+      actionKey: "update",
+      targetTable: "profiles",
+      targetId: userId,
+      metadata: {
+        summary: "Utilisateur modifié",
+        role_key: roleResolved.roleKey,
+        department_key: input.departmentKey ?? null,
+      },
+    });
+
+    return ok(null);
+  } catch (e) {
+    logError("UPDATE_USER_ADMIN", e, { userId });
+    return err("Impossible de modifier l'utilisateur.");
+  }
+}
+
+// ---------------------------------------------------------------------------
+// deleteUserAdmin
+// ---------------------------------------------------------------------------
+
+export async function deleteUserAdmin(
+  userId: string,
+  callerUserId: string,
+): Promise<SafeResult<null>> {
+  if (!(await isSuperAdmin(callerUserId))) {
+    return err("Accès refusé.");
+  }
+  if (userId === callerUserId) {
+    return err("Vous ne pouvez pas supprimer votre propre compte.");
+  }
+
+  try {
+    const cfg = getSupabaseAdminConfigErrorMessage();
+    if (cfg) {
+      logError("DELETE_USER_ADMIN", new Error(cfg), { userId, step: "config" });
+      return err("Configuration serveur incomplète. Contactez l’administrateur.");
+    }
+
+    let admin: ReturnType<typeof getSupabaseAdmin>;
+    try {
+      admin = getSupabaseAdmin();
+    } catch (e) {
+      logError("DELETE_USER_ADMIN", e, { userId, step: "admin:client" });
+      return err("Configuration serveur incomplète. Contactez l’administrateur.");
+    }
+
+    const { error: authErr } = await admin.auth.admin.deleteUser(userId);
+    if (authErr) {
+      logError("DELETE_USER_ADMIN", authErr, { userId, step: "auth.deleteUser" });
+      return err("Impossible de supprimer l'utilisateur.");
+    }
+
+    await admin
+      .from("profiles")
+      .update({
+        deleted_at: new Date().toISOString(),
+        is_active: false,
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", userId);
+
+    await tryActivityLog({
+      actorUserId: callerUserId,
+      moduleKey: "utilisateurs",
+      actionKey: "delete",
+      targetTable: "profiles",
+      targetId: userId,
+      metadata: { summary: "Utilisateur supprimé" },
+    });
+
+    return ok(null);
+  } catch (e) {
+    logError("DELETE_USER_ADMIN", e, { userId });
+    return err("Impossible de supprimer l'utilisateur.");
   }
 }

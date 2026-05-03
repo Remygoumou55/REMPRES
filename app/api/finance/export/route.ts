@@ -11,7 +11,7 @@ import {
   buildFinanceExportCsv,
   buildFinanceExportCsvSections,
 } from "@/lib/server/finance-overview";
-import { parseCategoryIds, parseCreatedBy } from "@/lib/finance-query-params";
+import { parseCategoryIds, parseCreatedBy, parseFinanceIsoDate } from "@/lib/finance-query-params";
 import { FinanceReportPdf } from "@/components/pdf/FinanceReportPdf";
 import type { Json } from "@/types/database.types";
 
@@ -22,11 +22,6 @@ function firstDayOfMonth(): string {
 
 function today(): string {
   return new Date().toISOString().slice(0, 10);
-}
-
-function parseDate(s: string | null, fallback: string): string {
-  if (!s || !/^\d{4}-\d{2}-\d{2}$/.test(s)) return fallback;
-  return s;
 }
 
 function clampOrder(from: string, to: string): { from: string; to: string } {
@@ -71,8 +66,8 @@ export async function GET(request: Request) {
   const url = new URL(request.url);
   const t = today();
   const { from, to } = clampOrder(
-    parseDate(url.searchParams.get("from"), firstDayOfMonth()),
-    parseDate(url.searchParams.get("to"), t),
+    parseFinanceIsoDate(url.searchParams.get("from"), firstDayOfMonth()),
+    parseFinanceIsoDate(url.searchParams.get("to"), t),
   );
   const allCat = url.searchParams.getAll("category");
   const finalCats = parseCategoryIds(allCat.length ? allCat : url.searchParams.get("category") ?? undefined);
@@ -163,8 +158,8 @@ export async function POST(request: Request) {
 
   const t = today();
   const { from, to } = clampOrder(
-    parseDate(typeof body.from === "string" ? body.from : null, firstDayOfMonth()),
-    parseDate(typeof body.to === "string" ? body.to : null, t),
+    parseFinanceIsoDate(typeof body.from === "string" ? body.from : null, firstDayOfMonth()),
+    parseFinanceIsoDate(typeof body.to === "string" ? body.to : null, t),
   );
   const categoryIds = parseCategoryIds(
     Array.isArray(body.categoryIds) ? body.categoryIds.map(String) : undefined,

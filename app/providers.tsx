@@ -19,7 +19,9 @@ export function Providers({ children }: ProvidersProps) {
       <ToastProvider>
         <CurrencyContextProvider>{children}</CurrencyContextProvider>
       </ToastProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {process.env.NODE_ENV === "development" ? (
+        <ReactQueryDevtools initialIsOpen={false} />
+      ) : null}
     </QueryClientProvider>
   );
 }

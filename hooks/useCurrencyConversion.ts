@@ -41,11 +41,18 @@ export function useCurrencyConversion({
 
     const timer = window.setTimeout(async () => {
       setLoading(true);
-      const result = await convertCurrency({ amount, from, to });
-      if (mounted) {
+      try {
+        const result = await convertCurrency({ amount, from, to });
+        if (!mounted) return;
         setConverted(result);
-        setLoading(false);
         setUnavailable(result === null);
+      } catch {
+        if (mounted) {
+          setConverted(null);
+          setUnavailable(true);
+        }
+      } finally {
+        if (mounted) setLoading(false);
       }
     }, debounceMs);
 
@@ -91,24 +98,31 @@ export function useCurrencyBatchConversion(
 
     const timer = window.setTimeout(async () => {
       setLoading(true);
-      const pairs = await Promise.all(
-        stableItems.map(async (item) => {
-          let value: number | null;
-          if (!Number.isFinite(item.amount)) {
-            value = null;
-          } else if (item.amount === 0) {
-            value = 0;
-          } else {
-            value = await convertCurrency({ amount: item.amount, from, to });
-          }
-          return [item.key, value] as const;
-        }),
-      );
-      if (mounted) {
-        const map = Object.fromEntries(pairs);
-        setConvertedByKey(map);
-        setHasUnavailable(Object.values(map).some((v) => v === null));
-        setLoading(false);
+      try {
+        const pairs = await Promise.all(
+          stableItems.map(async (item) => {
+            let value: number | null;
+            if (!Number.isFinite(item.amount)) {
+              value = null;
+            } else if (item.amount === 0) {
+              value = 0;
+            } else {
+              try {
+                value = await convertCurrency({ amount: item.amount, from, to });
+              } catch {
+                value = null;
+              }
+            }
+            return [item.key, value] as const;
+          }),
+        );
+        if (mounted) {
+          const map = Object.fromEntries(pairs);
+          setConvertedByKey(map);
+          setHasUnavailable(Object.values(map).some((v) => v === null));
+        }
+      } finally {
+        if (mounted) setLoading(false);
       }
     }, debounceMs);
 

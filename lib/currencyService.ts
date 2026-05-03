@@ -2,9 +2,9 @@
  * lib/currencyService.ts
  *
  * Fonctions PURES — utilisables côté client ET serveur (aucun import serveur).
- * Conversion métier : RPC via `convertCurrency` (`@/lib/services/currencyService`) /
- * `convertCurrencyRpc` (`@/lib/currency/convertCurrencyRpc`). Rafraîchissement des taux
- * affichés / stock : `lib/server/currencyService.ts` et `/api/currency/refresh`.
+ * Conversion métier : couche unique `@/lib/currency/convertCurrency` (RPC interne).
+ * Client : `@/lib/services/currencyService`. Serveur : `convert()` dans `lib/server/currencyService.ts`.
+ * Rafraîchissement des taux : `lib/server/currencyService.ts` et `/api/currency/refresh`.
  *
  * NOTE : `formatAmount` délègue à `formatMoney` de lib/utils/formatCurrency.ts
  * pour garantir un rendu 100 % identique entre l'UI et le PDF du reçu.

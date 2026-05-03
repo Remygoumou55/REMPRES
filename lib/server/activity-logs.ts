@@ -62,6 +62,13 @@ function maskSensitiveJson(value: Json): Json {
 
 const DAY = /^(\d{4}-\d{2}-\d{2})$/;
 
+type ActivityLogsQueryLike = {
+  eq: (column: string, value: string) => ActivityLogsQueryLike;
+  ilike: (column: string, value: string) => ActivityLogsQueryLike;
+  gte: (column: string, value: string) => ActivityLogsQueryLike;
+  lte: (column: string, value: string) => ActivityLogsQueryLike;
+};
+
 /** Borne un filtre "jour" (input type=date) sur toute la journée en UTC. */
 function dayStartUtc(isoDay: string): string {
   return `${isoDay}T00:00:00.000Z`;
@@ -70,13 +77,12 @@ function dayEndUtc(isoDay: string): string {
   return `${isoDay}T23:59:59.999Z`;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function applyFilters(query: any, filters?: ActivityLogsFilters) {
+function applyFilters<T extends ActivityLogsQueryLike>(query: T, filters?: ActivityLogsFilters): T {
   let nextQuery = query;
-  if (filters?.moduleKey) nextQuery = nextQuery.eq("module_key", filters.moduleKey);
-  if (filters?.actionKey) nextQuery = nextQuery.eq("action_key", filters.actionKey);
-  if (filters?.actorUserId) nextQuery = nextQuery.eq("actor_user_id", filters.actorUserId);
-  if (filters?.targetId) nextQuery = nextQuery.ilike("target_id", `%${filters.targetId}%`);
+  if (filters?.moduleKey) nextQuery = nextQuery.eq("module_key", filters.moduleKey) as unknown as T;
+  if (filters?.actionKey) nextQuery = nextQuery.eq("action_key", filters.actionKey) as unknown as T;
+  if (filters?.actorUserId) nextQuery = nextQuery.eq("actor_user_id", filters.actorUserId) as unknown as T;
+  if (filters?.targetId) nextQuery = nextQuery.ilike("target_id", `%${filters.targetId}%`) as unknown as T;
 
   const fromRaw = filters?.from?.trim();
   const toRaw   = filters?.to?.trim();
@@ -93,12 +99,12 @@ function applyFilters(query: any, filters?: ActivityLogsFilters) {
     } else {
       end = dayEndUtc(fromDay);
     }
-    nextQuery = nextQuery.gte("created_at", start).lte("created_at", end);
+    nextQuery = nextQuery.gte("created_at", start).lte("created_at", end) as unknown as T;
   } else {
-    if (fromRaw) nextQuery = nextQuery.gte("created_at", fromRaw);
+    if (fromRaw) nextQuery = nextQuery.gte("created_at", fromRaw) as unknown as T;
     if (toRaw) {
       const lteVal = toDay ? dayEndUtc(toDay) : toRaw;
-      nextQuery = nextQuery.lte("created_at", lteVal);
+      nextQuery = nextQuery.lte("created_at", lteVal) as unknown as T;
     }
   }
 

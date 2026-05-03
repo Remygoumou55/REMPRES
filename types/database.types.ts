@@ -657,6 +657,14 @@ export type Database = {
         Args: { p_sale_id: string };
         Returns: undefined;
       };
+      admin_permanently_delete_archived_client: {
+        Args: { p_client_id: string };
+        Returns: undefined;
+      };
+      admin_permanently_delete_archived_product: {
+        Args: { p_product_id: string };
+        Returns: undefined;
+      };
     };
     Enums: {
       expense_payment_method: "cash" | "mobile_money" | "bank_transfer" | "other";

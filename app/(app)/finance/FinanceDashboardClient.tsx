@@ -86,7 +86,7 @@ function DeltaText({
   pct: number | null;
   kind: "revenue" | "expenses" | "profit";
 }) {
-  if (pct == null) {
+  if (pct == null || Number.isNaN(pct)) {
     return <span className="text-gray-400">n/a</span>;
   }
   const good =
@@ -217,7 +217,11 @@ function ChartBlockRevenueExpense({
       ]),
     [chartData],
   );
-  const { convertedByKey: convertedChart, hasUnavailable: chartConversionUnavailable } = useCurrencyBatchConversion(chartItems, "GNF", currency);
+  const {
+    convertedByKey: convertedChart,
+    hasUnavailable: chartConversionUnavailable,
+    loading: chartConvLoading,
+  } = useCurrencyBatchConversion(chartItems, "GNF", currency);
   const convertedChartData = useMemo(
     () =>
       chartData.map((d) => ({
@@ -268,7 +272,11 @@ function ChartBlockRevenueExpense({
           Prévision (pointillés) : tendance linéaire + moyenne sur l’historique de la période — {DEFAULT_PROJECTION_HORIZON} j. après la fin de plage (indicatif).
         </p>
       )}
-      {chartConversionUnavailable ? (
+      {chartConvLoading ? (
+        <div className="flex h-64 flex-col items-center justify-center rounded-xl border border-dashed border-gray-200 bg-gray-50/50 text-center">
+          <p className="text-sm font-medium text-gray-400">Conversion des montants…</p>
+        </div>
+      ) : chartConversionUnavailable ? (
         <div className="flex h-64 flex-col items-center justify-center rounded-xl border border-amber-200 bg-amber-50/50 text-center">
           <p className="text-sm font-medium text-amber-700">Conversion indisponible</p>
         </div>
@@ -361,14 +369,13 @@ function CashflowChart({
   currency: Currency;
 }) {
   const fmt = (v: number) => formatAmount(v, currency);
-  const chartData = useMemo(
-    () =>
-      points.map((p) => ({
-        ...p,
-        labelShort: p.label,
-      })),
-    [points],
-  );
+  const chartData = useMemo(() => {
+    const safe = Array.isArray(points) ? points : [];
+    return safe.map((p) => ({
+      ...p,
+      labelShort: p.label,
+    }));
+  }, [points]);
   const cashItems = useMemo(
     () =>
       chartData.flatMap((d) => [
@@ -379,7 +386,11 @@ function CashflowChart({
       ]),
     [chartData],
   );
-  const { convertedByKey: convertedCash, hasUnavailable: cashConversionUnavailable } = useCurrencyBatchConversion(cashItems, "GNF", currency);
+  const {
+    convertedByKey: convertedCash,
+    hasUnavailable: cashConversionUnavailable,
+    loading: cashConvLoading,
+  } = useCurrencyBatchConversion(cashItems, "GNF", currency);
   const convertedCashData = useMemo(
     () =>
       chartData.map((d) => ({
@@ -394,6 +405,13 @@ function CashflowChart({
   const empty =
     convertedCashData.length === 0 ||
     convertedCashData.every((d) => d.cashIn === 0 && d.cashOut === 0);
+  if (cashConvLoading) {
+    return (
+      <div className="flex h-64 flex-col items-center justify-center rounded-xl border border-dashed border-gray-200 bg-gray-50/50 text-center">
+        <p className="text-sm font-medium text-gray-400">Conversion des montants…</p>
+      </div>
+    );
+  }
   if (cashConversionUnavailable) {
     return (
       <div className="flex h-64 flex-col items-center justify-center rounded-xl border border-amber-200 bg-amber-50/50 text-center">
@@ -624,6 +642,7 @@ export function FinanceDashboardClient({
       if (!Number.isFinite(amountGnf)) return "—";
       if (financeConvLoading) return "…";
       const v = financeConverted[key];
+      if (v === undefined) return "…";
       if (v === null) return "Conversion indisponible";
       return formatAmount(v, currency);
     },
@@ -688,6 +707,8 @@ export function FinanceDashboardClient({
       a.click();
       URL.revokeObjectURL(url);
       setExportOpen(false);
+    } catch {
+      /* réseau ou blob — pas de blocage UI */
     } finally {
       setExportBusy(false);
     }
@@ -879,7 +900,11 @@ export function FinanceDashboardClient({
         />
         <KpiCard
           title="Marge nette"
-          value={data.marginPct == null ? "—" : `${data.marginPct.toFixed(1)} %`}
+          value={
+            data.marginPct == null || Number.isNaN(data.marginPct)
+              ? "—"
+              : `${data.marginPct.toFixed(1)} %`
+          }
           sub={<span className="text-gray-500">(identique toute devise)</span>}
           accent="amber"
           titleHint="(Chiffre d'affaires − dépenses) / chiffre d'affaires"

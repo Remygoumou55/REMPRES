@@ -27,7 +27,9 @@ export function ConfirmDangerDialog({
   return (
     <Modal
       open={open}
-      onClose={onCancel}
+      onClose={() => {
+        if (!loading) onCancel();
+      }}
       title={title}
       subtitle="Action irréversible"
       icon={<AlertTriangle size={18} />}

@@ -1,7 +1,13 @@
 /**
  * Alertes pilotage (règles pures) — paramètres fournis par l’app (souvent localStorage).
  */
-import type { FinanceCfoData } from "@/lib/server/finance-overview";
+import type { FinanceCfoData, PeriodDelta } from "@/lib/server/finance-overview";
+
+const FALLBACK_DELTA: PeriodDelta = {
+  revenuePct: null,
+  expensesPct: null,
+  profitPct: null,
+};
 
 export type FinanceAlertLevel = "critical" | "warning" | "info";
 
@@ -63,8 +69,10 @@ export function computeFinanceAlerts(
   settings: FinanceAlertSettings,
 ): FinanceAlertItem[] {
   const out: FinanceAlertItem[] = [];
+  const delta = d.delta ?? FALLBACK_DELTA;
+  const chartDays = d.chartInRange ?? [];
 
-  if (settings.warnNegativeProfit && d.profit < 0) {
+  if (settings.warnNegativeProfit && Number(d.profit) < 0) {
     out.push({
       id: "neg-profit",
       level: "critical",
@@ -73,23 +81,30 @@ export function computeFinanceAlerts(
     });
   }
 
-  if (d.delta.revenuePct != null && d.delta.revenuePct < settings.minRevenueDeltaPct) {
+  const revPct = delta.revenuePct;
+  if (
+    typeof revPct === "number" &&
+    Number.isFinite(revPct) &&
+    revPct < settings.minRevenueDeltaPct
+  ) {
     out.push({
       id: "revenue-drop",
-      level: d.delta.revenuePct < settings.minRevenueDeltaPct * 1.5 ? "critical" : "warning",
+      level: revPct < settings.minRevenueDeltaPct * 1.5 ? "critical" : "warning",
       title: "Baisse du chiffre d'affaires",
-      message: `Le CA a varié de ${d.delta.revenuePct.toFixed(1)}% par rapport à la période précédente (seuil: ${settings.minRevenueDeltaPct}%).`,
+      message: `Le CA a varié de ${revPct.toFixed(1)}% par rapport à la période précédente (seuil: ${settings.minRevenueDeltaPct}%).`,
     });
   }
 
   if (settings.maxDayExpenseGnf > 0) {
-    for (const row of d.chartInRange) {
-      if (row.expenses > settings.maxDayExpenseGnf) {
+    for (const row of chartDays) {
+      const dayExp = Number(row?.expenses);
+      if (!Number.isFinite(dayExp)) continue;
+      if (dayExp > settings.maxDayExpenseGnf) {
         out.push({
           id: `day-exp-${row.date}`,
           level: "warning",
           title: "Dépenses journalières élevées",
-          message: `Le ${row.date}, les dépenses (${Math.round(row.expenses).toLocaleString("fr-FR")} GNF) dépassent le seuil (${settings.maxDayExpenseGnf.toLocaleString("fr-FR")} GNF).`,
+          message: `Le ${row.date}, les dépenses (${Math.round(dayExp).toLocaleString("fr-FR")} GNF) dépassent le seuil (${settings.maxDayExpenseGnf.toLocaleString("fr-FR")} GNF).`,
         });
         break; // une alerte regroupée suffit
       }

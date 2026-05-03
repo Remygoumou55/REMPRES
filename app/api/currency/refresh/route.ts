@@ -7,7 +7,7 @@
  *
  * Sécurité : session Supabase obligatoire (authentifié uniquement).
  * Cache navigateur : Cache-Control max-age=3600 → le navigateur ne rappelle pas
- * dans la même heure, mais le CurrencyProvider le fait au pire une fois par session.
+ * dans la même heure ; le CurrencyContextProvider déclenche un fetch si les taux sont périmés.
  *
  * Réponse JSON :
  * {

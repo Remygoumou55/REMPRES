@@ -218,10 +218,10 @@ export function CurrencyAdminClient({ rows, isSuperAdmin }: Props) {
       {/* ── Note d'information ───────────────────────────────────────────── */}
       <div className="rounded-2xl border border-gray-100 bg-gray-50 px-5 py-4 text-xs text-gray-400 space-y-1">
         <p className="font-semibold text-gray-500">Comment ça fonctionne</p>
-        <p>• Les taux sont rafraîchis automatiquement à la connexion si anciens de plus d'1 heure.</p>
-        <p>• Le bouton "Forcer le rafraîchissement" appelle ExchangeRate-API immédiatement.</p>
-        <p>• En cas d'échec de l'API externe, les derniers taux en base sont conservés.</p>
-        <p>• Tous les montants dans l'application (panier, reçus, historique) utilisent ces taux.</p>
+        <p>• Les taux sont rafraîchis automatiquement à la connexion si anciens de plus d&apos;1 heure.</p>
+        <p>• Le bouton &quot;Forcer le rafraîchissement&quot; appelle ExchangeRate-API immédiatement.</p>
+        <p>• En cas d&apos;échec de l&apos;API externe, les derniers taux en base sont conservés.</p>
+        <p>• Tous les montants dans l&apos;application (panier, reçus, historique) utilisent ces taux.</p>
       </div>
     </div>
   );

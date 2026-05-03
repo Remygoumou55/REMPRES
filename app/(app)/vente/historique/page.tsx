@@ -23,6 +23,8 @@ type PageProps = {
   };
 };
 
+type PaymentStatus = "pending" | "partial" | "paid" | "overdue" | "cancelled";
+
 function safeDecodeSearchParam(value: string | undefined): string | undefined {
   if (typeof value !== "string" || value.trim() === "") return undefined;
   try {
@@ -41,7 +43,12 @@ export default async function HistoriquePage({ searchParams }: PageProps) {
 
   const supabase = getSupabaseServerClient();
 
-  const status = searchParams?.status ?? "";
+  const rawStatus = searchParams?.status ?? "";
+  const status: PaymentStatus | "" = (
+    ["pending", "partial", "paid", "overdue", "cancelled"] as const
+  ).includes(rawStatus as PaymentStatus)
+    ? (rawStatus as PaymentStatus)
+    : "";
   const from = searchParams?.from ?? "";
   const to = searchParams?.to ?? "";
   const clientQuery = searchParams?.client ?? "";

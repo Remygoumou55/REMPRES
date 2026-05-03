@@ -9,6 +9,7 @@ import {
   eachDayOfInterval,
   format,
   isBefore,
+  isValid,
   parseISO,
   startOfDay,
 } from "date-fns";
@@ -227,7 +228,7 @@ function buildCashflow(points: FinanceDayPoint[]): FinanceCashflowPoint[] {
 function buildDayLabels(from: string, to: string): { date: string; label: string }[] {
   const start = parseISO(from);
   const end = parseISO(to);
-  if (isBefore(end, start)) return [];
+  if (!isValid(start) || !isValid(end) || isBefore(end, start)) return [];
   const interval = eachDayOfInterval({ start, end });
   return interval.map((d) => ({
     date: format(d, "yyyy-MM-dd"),
@@ -236,7 +237,9 @@ function buildDayLabels(from: string, to: string): { date: string; label: string
 }
 
 function last7dDays(to: string): { date: string; label: string }[] {
-  const end = startOfDay(parseISO(to));
+  const parsed = parseISO(to);
+  if (!isValid(parsed)) return [];
+  const end = startOfDay(parsed);
   const start = addDays(end, -6);
   return eachDayOfInterval({ start, end }).map((d) => ({
     date: format(d, "yyyy-MM-dd"),
@@ -247,6 +250,9 @@ function last7dDays(to: string): { date: string; label: string }[] {
 function previousPeriodRange(from: string, to: string): { prevFrom: string; prevTo: string } {
   const a = parseISO(from);
   const b = parseISO(to);
+  if (!isValid(a) || !isValid(b)) {
+    return { prevFrom: from, prevTo: to };
+  }
   const n = differenceInCalendarDays(b, a) + 1;
   const prevEnd = addDays(a, -1);
   const prevStart = addDays(prevEnd, -(n - 1));
@@ -354,7 +360,12 @@ export async function getFinanceCfoData(
   ]);
 
   const profit = current.totalRevenue - current.totalExpenses;
-  const dayCount = Math.max(1, differenceInCalendarDays(parseISO(to), parseISO(from)) + 1);
+  const fromD = parseISO(from);
+  const toD = parseISO(to);
+  const dayCount =
+    isValid(fromD) && isValid(toD)
+      ? Math.max(1, differenceInCalendarDays(toD, fromD) + 1)
+      : 1;
   const marginPct =
     current.totalRevenue > 0 ? (profit / current.totalRevenue) * 100 : null;
 

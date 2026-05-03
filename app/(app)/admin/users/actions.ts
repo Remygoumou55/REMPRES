@@ -6,9 +6,12 @@ import {
   inviteUser,
   resendInvite,
   updateUserRole,
+  updateUserAdmin,
+  deleteUserAdmin,
   deactivateUser,
   reactivateUser,
   type InviteUserInput,
+  type UpdateUserAdminInput,
 } from "@/lib/server/users";
 import { err, type SafeResult } from "@/lib/server/safe-result";
 
@@ -90,4 +93,19 @@ export async function reactivateUserAction(
 ): Promise<{ success: boolean; error?: string }> {
   const callerId = await getCurrentUserId();
   return reactivateUser(userId, callerId);
+}
+
+export async function updateUserAdminAction(
+  userId: string,
+  input: UpdateUserAdminInput,
+): Promise<SafeResult<null>> {
+  const callerId = await getCurrentUserId();
+  return updateUserAdmin(userId, input, callerId);
+}
+
+export async function deleteUserAdminAction(
+  userId: string,
+): Promise<SafeResult<null>> {
+  const callerId = await getCurrentUserId();
+  return deleteUserAdmin(userId, callerId);
 }

@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { RotateCcw } from "lucide-react";
+import { pushThenRefresh } from "@/lib/navigation/push-then-refresh";
 export type ArchiveRestoreResult =
   | { success: true; data: null }
   | { success: false; error: string };
@@ -41,13 +42,13 @@ export function RestoreArchiveButton({
       const result = await restoreAction(entityId);
       setOpen(false);
       if (result.success) {
-        router.push(
+        pushThenRefresh(
+          router,
           withListFlash(redirectPath, listQueryString, { success: `${entityLabel} restauré avec succès.` }),
         );
       } else {
-        router.push(withListFlash(redirectPath, listQueryString, { error: result.error }));
+        pushThenRefresh(router, withListFlash(redirectPath, listQueryString, { error: result.error }));
       }
-      router.refresh();
     });
   }
 

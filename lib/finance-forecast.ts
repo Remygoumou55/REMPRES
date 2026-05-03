@@ -2,7 +2,7 @@
  * Prévisions (GNF) — logique pure partagée. Basée sur l’historique journalier
  * (moyenne + tendance linéaire simple).
  */
-import { addDays, format, parseISO } from "date-fns";
+import { addDays, format, isValid, parseISO } from "date-fns";
 import { fr } from "date-fns/locale";
 import type { FinanceDayPoint } from "@/lib/server/finance-overview";
 
@@ -53,18 +53,31 @@ export const DEFAULT_PROJECTION_HORIZON = 7;
  * À partir de la série journalière (période filtrée), projette N jours calendaires
  * au-delà de `lastHistoricalDate` (généralement `to` de la plage).
  */
+const EMPTY_PROJECTION: FinanceProjectionSummary = {
+  nextDays: [],
+  totalProjectedRevenue: 0,
+  totalProjectedExpenses: 0,
+  totalProjectedProfit: 0,
+  trendRevenuePerDay: 0,
+  trendExpensesPerDay: 0,
+};
+
 export function buildFinanceProjection(
   chartInRange: FinanceDayPoint[],
   lastHistoricalDate: string,
   horizonDays: number = DEFAULT_PROJECTION_HORIZON,
 ): FinanceProjectionSummary {
-  const rev = chartInRange.map((d) => d.revenue);
-  const exp = chartInRange.map((d) => d.expenses);
-  const n = Math.max(1, chartInRange.length);
+  const anchor = parseISO(lastHistoricalDate);
+  if (!isValid(anchor)) return EMPTY_PROJECTION;
+
+  const series = Array.isArray(chartInRange) ? chartInRange : [];
+  const rev = series.map((d) => (Number.isFinite(Number(d?.revenue)) ? Number(d.revenue) : 0));
+  const exp = series.map((d) => (Number.isFinite(Number(d?.expenses)) ? Number(d.expenses) : 0));
+  const n = Math.max(1, series.length);
   const rLine = olsLine(rev);
   const eLine = olsLine(exp);
 
-  const start = addDays(parseISO(lastHistoricalDate), 1);
+  const start = addDays(anchor, 1);
   const nextDays: FinanceProjectionDay[] = [];
   let tr = 0;
   let te = 0;
@@ -106,12 +119,14 @@ export function toRevenueExpenseChartRows(
   history: FinanceDayPoint[],
   forecast: FinanceProjectionDay[],
 ): RevExpChartRow[] {
-  const rows: RevExpChartRow[] = history.map((p) => ({
+  const hist = Array.isArray(history) ? history : [];
+  const rows: RevExpChartRow[] = hist.map((p) => ({
     ...p,
     revProj: null,
     expProj: null,
   }));
-  for (const f of forecast) {
+  const fc = Array.isArray(forecast) ? forecast : [];
+  for (const f of fc) {
     rows.push({
       date: f.date,
       label: f.label,

@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Users } from "lucide-react";
 import type { Client } from "@/types/client";
@@ -13,8 +12,10 @@ import { useGlobalSearch } from "@/lib/hooks/use-global-search";
 import { withCreateModalQuery } from "@/lib/routing/modal-query";
 import { useRowSelection } from "@/lib/hooks/use-row-selection";
 import { deleteClientsFromListBulkAction } from "@/app/(app)/vente/clients/actions";
+import { pushThenRefresh } from "@/lib/navigation/push-then-refresh";
 import { ConfirmDangerDialog } from "@/components/ui/confirm-danger-dialog";
 import { BulkDeleteActionBar } from "@/components/ui/bulk-delete-action-bar";
+import { useToast } from "@/components/providers/ToastProvider";
 
 type ClientsTableProps = {
   clients: Client[];
@@ -57,6 +58,7 @@ export function ClientsTable({
   listQueryString,
 }: ClientsTableProps) {
   const router = useRouter();
+  const { showSuccess, showError } = useToast();
   const [pending, startTransition] = useTransition();
   const [confirmBulkOpen, setConfirmBulkOpen] = useState(false);
 
@@ -106,15 +108,13 @@ export function ClientsTable({
       setConfirmBulkOpen(false);
       if (result.success) {
         clearSelection();
-        router.push(
-          withListFlash(listQueryString, {
-            success: `${result.data.deleted} client(s) supprimé(s) avec succès.`,
-          }),
-        );
+        const msg = `${result.data.deleted} client(s) supprimé(s) avec succès.`;
+        showSuccess(msg);
+        pushThenRefresh(router, withListFlash(listQueryString, { success: msg }));
       } else {
-        router.push(withListFlash(listQueryString, { error: result.error }));
+        showError(result.error);
+        pushThenRefresh(router, withListFlash(listQueryString, { error: result.error }));
       }
-      router.refresh();
     });
   }
 
@@ -125,12 +125,12 @@ export function ClientsTable({
         title="Aucun client pour l'instant"
         description="Ajoutez votre premier client pour commencer à gérer votre portefeuille."
         action={
-          <Link
+          <a
             href={withCreateModalQuery("/vente/clients")}
             className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary/90"
           >
             + Ajouter un client
-          </Link>
+          </a>
         }
       />
     );

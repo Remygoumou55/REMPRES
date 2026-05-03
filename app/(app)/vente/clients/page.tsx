@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { Archive } from "lucide-react";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
@@ -9,7 +10,7 @@ import { ClientsTable } from "@/components/vente/clients/clients-table";
 import { ClientsFilters } from "@/components/vente/clients/clients-filters";
 import { assertClientsPermission, getClientsPermissions } from "@/lib/server/permissions";
 import { FlashMessage } from "@/components/ui/flash-message";
-import { ClientForm } from "@/components/forms/client-form";
+import { ClientForm, type ClientFormActionResult } from "@/components/forms/client-form";
 import type { ClientType } from "@/types/client";
 import { mapClientError } from "@/lib/server/client-error-messages";
 import { withCreateModalQuery } from "@/lib/routing/modal-query";
@@ -26,6 +27,15 @@ type ClientsPageProps = {
   };
 };
 
+function safeDecode(value: string | undefined): string | undefined {
+  if (typeof value !== "string" || value.trim() === "") return undefined;
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+}
+
 function getFieldValue(formData: FormData, name: string) {
   const value = formData.get(name);
   return typeof value === "string" ? value : "";
@@ -37,15 +47,16 @@ export default async function ClientsPage({ searchParams }: ClientsPageProps) {
   if (!user) {
     redirect("/login");
   }
-  const permissions = await getClientsPermissions(user.id);
+  const userId = user.id;
+  const permissions = await getClientsPermissions(userId);
   if (!permissions.canRead) {
     redirect("/access-denied");
   }
 
   const q = searchParams?.q ?? "";
   const type = searchParams?.type ?? "all";
-  const successMessage = searchParams?.success;
-  const errorMessage = searchParams?.error;
+  const successMessage = safeDecode(searchParams?.success);
+  const errorMessage = safeDecode(searchParams?.error);
   const page = Number(searchParams?.page ?? "1");
   const pageSize = Number(searchParams?.pageSize ?? "10") as 10 | 25 | 50;
 
@@ -68,10 +79,10 @@ export default async function ClientsPage({ searchParams }: ClientsPageProps) {
   const listQueryString = listParams.toString();
   const createOpen = searchParams?.create === "1";
 
-  async function createClientAction(formData: FormData) {
+  async function createClientAction(formData: FormData): Promise<ClientFormActionResult> {
     "use server";
     try {
-      await assertClientsPermission(user.id, "create");
+      await assertClientsPermission(userId, "create");
 
       const input = {
         client_type: getFieldValue(formData, "client_type") as ClientType,
@@ -87,15 +98,18 @@ export default async function ClientsPage({ searchParams }: ClientsPageProps) {
       };
 
       const requestHeaders = headers();
-      await createClient(input, user.id, {
+      await createClient(input, userId, {
         ip: requestHeaders.get("x-forwarded-for") ?? requestHeaders.get("x-real-ip"),
         userAgent: requestHeaders.get("user-agent"),
       });
     } catch (error) {
       const message = mapClientError(error, "Impossible de créer le client pour le moment.");
-      redirect(`/vente/clients?create=1&error=${encodeURIComponent(message)}`);
+      return { ok: false, message };
     }
-    redirect(`/vente/clients?success=${encodeURIComponent("Client créé avec succès.")}`);
+    return {
+      ok: true,
+      redirectTo: `/vente/clients?success=${encodeURIComponent("Client créé avec succès.")}`,
+    };
   }
 
   return (
@@ -117,22 +131,28 @@ export default async function ClientsPage({ searchParams }: ClientsPageProps) {
               </Link>
             ) : null}
             {permissions.canCreate ? (
-              <Link
+              <a
                 href={withCreateModalQuery("/vente/clients")}
                 className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-white transition hover:bg-primary-dark"
               >
                 + Nouveau client
-              </Link>
+              </a>
             ) : null}
           </div>
         </div>
         <FlashMessage success={successMessage} error={errorMessage} />
 
-        <ClientsFilters
-          initialQuery={q}
-          initialType={type}
-          initialPageSize={String(result.pageSize) as "10" | "25" | "50"}
-        />
+        <Suspense
+          fallback={
+            <div className="h-24 animate-pulse rounded-lg bg-white shadow-sm" aria-hidden />
+          }
+        >
+          <ClientsFilters
+            initialQuery={q}
+            initialType={type}
+            initialPageSize={String(result.pageSize) as "10" | "25" | "50"}
+          />
+        </Suspense>
 
         <ClientsTable
           clients={result.data}
@@ -174,7 +194,6 @@ export default async function ClientsPage({ searchParams }: ClientsPageProps) {
           title="Nouveau client"
           submitLabel="Créer le client"
           action={createClientAction}
-          cancelHref="/vente/clients"
           successMessage={successMessage}
           errorMessage={errorMessage}
         />

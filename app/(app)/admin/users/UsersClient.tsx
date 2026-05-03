@@ -8,12 +8,13 @@ import {
   Clock,
   UserX,
   UserCheck,
-  MoreVertical,
   X,
   Send,
   CheckCircle,
   AlertCircle,
   Ban,
+  Pencil,
+  Trash2,
 } from "lucide-react";
 import type { UserListItem } from "@/lib/server/users";
 import { SearchInput } from "@/components/ui/search-input";
@@ -23,6 +24,8 @@ import {
   resendInviteAction,
   deactivateUserAction,
   reactivateUserAction,
+  updateUserAdminAction,
+  deleteUserAdminAction,
 } from "./actions";
 import { useToast } from "@/components/providers/ToastProvider";
 import {
@@ -36,6 +39,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { ConfirmDangerDialog } from "@/components/ui/confirm-danger-dialog";
 
 // ---------------------------------------------------------------------------
 // Constantes
@@ -59,6 +63,10 @@ const DEPARTMENTS = [
   "Vente", "Finance", "RH", "Formation",
   "Consultation", "Marketing", "Logistique", "Direction",
 ];
+
+/** Bouton action icône seule — compact, lisible au survol (title) */
+const ACTION_ICON =
+  "inline-flex size-8 shrink-0 items-center justify-center rounded-lg border transition outline-none focus-visible:ring-2 focus-visible:ring-primary/25 focus-visible:ring-offset-1 disabled:pointer-events-none disabled:opacity-45";
 
 // ---------------------------------------------------------------------------
 // Badge statut
@@ -187,11 +195,115 @@ function InviteModal({
               </Button>
               <Button type="submit" variant="primary" loading={pending} loadingText="Traitement en cours..." className="flex-1 h-10 text-sm font-bold text-white">
                 {!pending ? <Send size={15} /> : null}
-                Envoyer l'invitation
+                Envoyer l&apos;invitation
               </Button>
             </div>
           </form>
         )}
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Modal édition utilisateur
+// ---------------------------------------------------------------------------
+
+function EditUserModal({
+  user,
+  onClose,
+  onSaved,
+  onNotifyError,
+}: {
+  user: UserListItem;
+  onClose: () => void;
+  onSaved: () => void;
+  onNotifyError: (message?: string) => void;
+}) {
+  const [pending, startTransition] = useTransition();
+  const [error, setError] = useState<string | null>(null);
+  const [firstName, setFirstName] = useState(user.first_name ?? "");
+  const [lastName, setLastName] = useState(user.last_name ?? "");
+  const [roleKey, setRoleKey] = useState(user.role_key ?? "employe");
+  const [departmentKey, setDepartmentKey] = useState(user.department_key ?? "");
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setError(null);
+    startTransition(async () => {
+      const result = await updateUserAdminAction(user.id, {
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        roleKey,
+        departmentKey: departmentKey || null,
+      });
+      if (result.success) {
+        onSaved();
+      } else {
+        const msg = result.error ?? "Impossible de modifier l’utilisateur.";
+        setError(msg);
+        onNotifyError(msg);
+      }
+    });
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+      <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl">
+        <div className="mb-5 flex items-center justify-between">
+          <h2 className="text-lg font-bold text-gray-900">Modifier l&apos;utilisateur</h2>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Fermer la fenêtre"
+            className="rounded-lg p-1 text-gray-400 hover:bg-gray-100"
+          >
+            <X size={20} />
+          </button>
+        </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="mb-1 block text-xs font-medium text-gray-600">Prénom *</label>
+              <Input value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+            </div>
+            <div>
+              <label className="mb-1 block text-xs font-medium text-gray-600">Nom *</label>
+              <Input value={lastName} onChange={(e) => setLastName(e.target.value)} required />
+            </div>
+          </div>
+          <div>
+            <label className="mb-1 block text-xs font-medium text-gray-600">Rôle *</label>
+            <Select value={roleKey} onChange={(e) => setRoleKey(e.target.value)} required>
+              {ROLES.map((r) => (
+                <option key={r.key} value={r.key}>{r.label}</option>
+              ))}
+            </Select>
+          </div>
+          <div>
+            <label className="mb-1 block text-xs font-medium text-gray-600">Département</label>
+            <Select value={departmentKey} onChange={(e) => setDepartmentKey(e.target.value)}>
+              <option value="">— Aucun département —</option>
+              {DEPARTMENTS.map((d) => (
+                <option key={d} value={d.toLowerCase()}>{d}</option>
+              ))}
+            </Select>
+          </div>
+          {error && (
+            <div className="flex items-start gap-2 rounded-lg bg-red-50 p-3 text-sm text-red-600">
+              <AlertCircle size={16} className="mt-0.5 shrink-0" />
+              {error}
+            </div>
+          )}
+          <div className="flex gap-3 pt-2">
+            <Button type="button" onClick={onClose} variant="outline" className="flex-1 h-10 text-sm font-medium text-gray-700 hover:bg-gray-50">
+              Annuler
+            </Button>
+            <Button type="submit" variant="primary" loading={pending} loadingText="Traitement en cours..." className="flex-1 h-10 text-sm font-bold text-white">
+              Enregistrer
+            </Button>
+          </div>
+        </form>
       </div>
     </div>
   );
@@ -212,33 +324,33 @@ function UserActionsMenu({
   onNotifySuccess: (message?: string) => void;
   onNotifyError: (message?: string) => void;
 }) {
-  const [open, setOpen]       = useState(false);
   const [pending, start]      = useTransition();
-  const [feedback, setFeedback] = useState<string | null>(null);
+  const [editOpen, setEditOpen] = useState(false);
+  const [confirmKind, setConfirmKind] = useState<null | "block" | "delete">(null);
+  const [confirmBusy, setConfirmBusy] = useState(false);
+
+  const displayName = (user.full_name ?? "").trim() || "Utilisateur sans nom";
+  const emailLine = user.email ? ` (${user.email})` : "";
 
   async function doResend() {
     start(async () => {
       const r = await resendInviteAction(user.id);
       if (r.success) onNotifySuccess("Opération réussie");
       else onNotifyError(r.error ?? "Échec de l’opération");
-      setFeedback(r.success ? "Invitation renvoyée !" : (r.error ?? "Une erreur est survenue"));
-      setOpen(false);
-      setTimeout(() => setFeedback(null), 3000);
     });
   }
 
-  async function doBlock() {
-    const who = (user.full_name ?? "").trim() || "Cet utilisateur";
-    if (!confirm(`Bloquer le compte de ${who} ?\n\nCet utilisateur ne pourra plus se connecter.`)) return;
-    start(async () => {
+  async function executeBlock() {
+    setConfirmBusy(true);
+    try {
       const r = await deactivateUserAction(user.id);
-      if (r.success) onNotifySuccess("Opération réussie");
+      if (r.success) onNotifySuccess("Accès désactivé");
       else onNotifyError(r.error ?? "Échec de l’opération");
-      setFeedback(r.success ? "✓ Compte bloqué." : (r.error ?? "Une erreur est survenue"));
-      setOpen(false);
       onRefresh();
-      setTimeout(() => setFeedback(null), 3000);
-    });
+    } finally {
+      setConfirmBusy(false);
+      setConfirmKind(null);
+    }
   }
 
   async function doUnblock() {
@@ -246,49 +358,113 @@ function UserActionsMenu({
       const r = await reactivateUserAction(user.id);
       if (r.success) onNotifySuccess("Opération réussie");
       else onNotifyError(r.error ?? "Échec de l’opération");
-      setFeedback(r.success ? "✓ Compte débloqué." : (r.error ?? "Une erreur est survenue"));
-      setOpen(false);
       onRefresh();
-      setTimeout(() => setFeedback(null), 3000);
     });
   }
 
+  async function executeDelete() {
+    setConfirmBusy(true);
+    try {
+      const r = await deleteUserAdminAction(user.id);
+      if (r.success) onNotifySuccess("Compte supprimé");
+      else onNotifyError(r.error ?? "Échec de l’opération");
+      onRefresh();
+    } finally {
+      setConfirmBusy(false);
+      setConfirmKind(null);
+    }
+  }
+
   return (
-    <div className="relative">
-      {feedback && (
-        <span className="absolute -top-8 right-0 z-10 whitespace-nowrap rounded-xl bg-gray-800 px-2.5 py-1.5 text-xs text-white shadow-lg">
-          {feedback}
-        </span>
-      )}
-      <button onClick={() => setOpen(!open)} disabled={pending}
-        className="rounded-xl p-1.5 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600">
-        <MoreVertical size={16} />
+    <div className="flex flex-wrap justify-end gap-1">
+      <button
+        type="button"
+        onClick={() => setEditOpen(true)}
+        disabled={pending}
+        title="Modifier le profil"
+        aria-label="Modifier le profil"
+        className={`${ACTION_ICON} border-gray-200 bg-white text-gray-600 hover:border-gray-300 hover:bg-gray-50`}
+      >
+        <Pencil size={15} strokeWidth={2} />
       </button>
-      {open && (
-        <div className="absolute right-0 top-9 z-20 min-w-[200px] overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xl">
-          {user.status === "pending" && (
-            <button onClick={doResend}
-              className="flex w-full items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 transition hover:bg-gray-50">
-              <RefreshCw size={14} />
-              Renvoyer l&apos;invitation
-            </button>
-          )}
-          {user.status === "active" && (
-            <button onClick={doBlock}
-              className="flex w-full items-center gap-2.5 px-4 py-2.5 text-sm text-red-600 transition hover:bg-red-50">
-              <UserX size={14} />
-              Bloquer l&apos;accès
-            </button>
-          )}
-          {user.status === "inactive" && (
-            <button onClick={doUnblock}
-              className="flex w-full items-center gap-2.5 px-4 py-2.5 text-sm text-emerald-600 transition hover:bg-emerald-50">
-              <UserCheck size={14} />
-              Débloquer l&apos;accès
-            </button>
-          )}
-        </div>
+      {user.status === "pending" && (
+        <button
+          type="button"
+          onClick={doResend}
+          disabled={pending || confirmBusy}
+          title="Renvoyer l’invitation par e-mail"
+          aria-label="Renvoyer l’invitation par e-mail"
+          className={`${ACTION_ICON} border-amber-200 bg-white text-amber-700 hover:border-amber-300 hover:bg-amber-50`}
+        >
+          <RefreshCw size={15} strokeWidth={2} />
+        </button>
       )}
+      {user.status === "active" && (
+        <button
+          type="button"
+          onClick={() => setConfirmKind("block")}
+          disabled={pending || confirmBusy}
+          title="Désactiver l’accès au compte"
+          aria-label="Désactiver l’accès au compte"
+          className={`${ACTION_ICON} border-red-200 bg-white text-red-600 hover:border-red-300 hover:bg-red-50`}
+        >
+          <UserX size={15} strokeWidth={2} />
+        </button>
+      )}
+      {user.status === "inactive" && (
+        <button
+          type="button"
+          onClick={doUnblock}
+          disabled={pending || confirmBusy}
+          title="Réactiver l’accès au compte"
+          aria-label="Réactiver l’accès au compte"
+          className={`${ACTION_ICON} border-emerald-200 bg-white text-emerald-600 hover:border-emerald-300 hover:bg-emerald-50`}
+        >
+          <UserCheck size={15} strokeWidth={2} />
+        </button>
+      )}
+      <button
+        type="button"
+        onClick={() => setConfirmKind("delete")}
+        disabled={pending || confirmBusy}
+        title="Supprimer définitivement le compte"
+        aria-label="Supprimer définitivement le compte"
+        className={`${ACTION_ICON} border-red-300 bg-white text-red-700 hover:border-red-400 hover:bg-red-50`}
+      >
+        <Trash2 size={15} strokeWidth={2} />
+      </button>
+      {editOpen && (
+        <EditUserModal
+          user={user}
+          onClose={() => setEditOpen(false)}
+          onSaved={() => {
+            setEditOpen(false);
+            onNotifySuccess("Utilisateur modifié");
+            onRefresh();
+          }}
+          onNotifyError={onNotifyError}
+        />
+      )}
+      <ConfirmDangerDialog
+        open={confirmKind === "block"}
+        title="Désactiver l’accès au compte"
+        message={`Vous allez désactiver l’accès pour « ${displayName} »${emailLine}. Cette personne ne pourra plus se connecter à RemPres tant que le compte n’est pas réactivé. L’opération est tracée dans le journal d’activité.`}
+        confirmLabel="Désactiver l’accès"
+        loadingLabel="Désactivation…"
+        loading={confirmBusy}
+        onCancel={() => !confirmBusy && setConfirmKind(null)}
+        onConfirm={() => void executeBlock()}
+      />
+      <ConfirmDangerDialog
+        open={confirmKind === "delete"}
+        title="Supprimer définitivement le compte"
+        message={`Vous demandez la suppression définitive du compte « ${displayName} »${emailLine}. Le profil sera retiré et l’accès à l’application sera supprimé. Cette opération ne peut pas être annulée. Ne confirmez qu’après vérification et si vous disposez de l’autorisation requise.`}
+        confirmLabel="Supprimer définitivement"
+        loadingLabel="Suppression…"
+        loading={confirmBusy}
+        onCancel={() => !confirmBusy && setConfirmKind(null)}
+        onConfirm={() => void executeDelete()}
+      />
     </div>
   );
 }
@@ -417,7 +593,7 @@ export function UsersClient({ initialUsers }: Props) {
               <DataTableHeaderCell className="hidden sm:table-cell">Département</DataTableHeaderCell>
               <DataTableHeaderCell>Statut</DataTableHeaderCell>
               <DataTableHeaderCell className="hidden lg:table-cell">Dernière connexion</DataTableHeaderCell>
-              <DataTableHeaderCell className="text-right">Actions</DataTableHeaderCell>
+              <DataTableHeaderCell className="w-[1%] whitespace-nowrap text-right">Actions</DataTableHeaderCell>
             </tr>
           </DataTableHead>
           <tbody className="divide-y divide-gray-50">
@@ -470,7 +646,7 @@ export function UsersClient({ initialUsers }: Props) {
                       : "Jamais connecté"
                     }
                   </DataTableCell>
-                  <DataTableCell className="text-right">
+                  <DataTableCell className="whitespace-nowrap text-right">
                     <UserActionsMenu
                       user={user}
                       onRefresh={handleRefresh}

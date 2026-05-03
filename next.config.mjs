@@ -1,8 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Tree-shake des icônes Lucide (moins de JS à parser sur la navigation)
+  eslint: {
+    ignoreDuringBuilds: false,
+  },
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+
+  // Tree-shake des paquets lourds côté client (navigation, graphiques)
   experimental: {
-    optimizePackageImports: ["lucide-react"],
+    optimizePackageImports: ["lucide-react", "recharts"],
   },
 
   // ── Images ──────────────────────────────────────────────────────────────

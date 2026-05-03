@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -128,9 +127,8 @@ function PrimarySidebar({
 
       {/* Tableau de bord */}
       <div className="w-full shrink-0 px-2 pb-3">
-        <Link
+        <a
           href="/dashboard"
-          prefetch={false}
           title="Tableau de bord"
           className={`flex w-full flex-col items-center gap-1 rounded-xl px-1 py-2.5 transition-all ${
             activeModule === "dashboard"
@@ -140,7 +138,7 @@ function PrimarySidebar({
         >
           <LayoutDashboard size={18} />
           <span className="text-[8px] font-bold uppercase tracking-wide leading-none">Accueil</span>
-        </Link>
+        </a>
       </div>
 
       {/* Séparateur */}
@@ -154,10 +152,9 @@ function PrimarySidebar({
             const isActive = activeModule === m.id;
             const Icon = m.icon;
             return (
-              <Link
+              <a
                 key={m.id}
                 href={m.href}
-                prefetch={false}
                 title={m.label}
                 className={`group flex w-full flex-col items-center gap-1.5 rounded-xl px-1 py-3 transition-all ${
                   isActive
@@ -169,7 +166,7 @@ function PrimarySidebar({
                 <span className="text-center text-[8px] font-bold uppercase tracking-wide leading-none">
                   {m.shortLabel}
                 </span>
-              </Link>
+              </a>
             );
           })}
       </nav>
@@ -233,10 +230,9 @@ function SecondarySidebarPanel({
                 const isActive = isNavItemActive(item.href, pathname);
                 const ItemIcon = item.icon;
                 return (
-                  <Link
+                  <a
                     key={item.href}
                     href={item.href}
-                    prefetch={false}
                     className={`group flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm transition-all ${
                       isActive
                         ? "bg-primary text-white shadow-sm"
@@ -253,7 +249,7 @@ function SecondarySidebarPanel({
                     {isActive && (
                       <ChevronRight size={12} className="shrink-0 text-white/60" />
                     )}
-                  </Link>
+                  </a>
                 );
               })}
             </div>
@@ -311,9 +307,8 @@ function MobileSidebar({
 
       {/* Dashboard */}
       <div className="px-3 pb-2">
-        <Link
+        <a
           href="/dashboard"
-          prefetch={false}
           onClick={onClose}
           className={`flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-medium transition-all ${
             activeModule === "dashboard"
@@ -326,7 +321,7 @@ function MobileSidebar({
           {activeModule === "dashboard" && (
             <ChevronRight size={12} className="ml-auto text-white/40" />
           )}
-        </Link>
+        </a>
       </div>
 
       {/* Groupes par module */}
@@ -346,10 +341,9 @@ function MobileSidebar({
                     const isActive = isNavItemActive(item.href, pathname);
                     const ItemIcon = item.icon;
                     return (
-                      <Link
+                      <a
                         key={item.href}
                         href={item.href}
-                        prefetch={false}
                         onClick={onClose}
                         className={`flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-medium transition-all ${
                           isActive
@@ -363,7 +357,7 @@ function MobileSidebar({
                         />
                         <span className="flex-1 truncate">{item.label}</span>
                         {isActive && <ChevronRight size={11} className="shrink-0 text-white/40" />}
-                      </Link>
+                      </a>
                     );
                   })}
                 </div>

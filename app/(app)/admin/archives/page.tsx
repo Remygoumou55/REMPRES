@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { Package, Users } from "lucide-react";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { isAdminRole } from "@/lib/server/permissions";
 import { listArchivedClients } from "@/lib/server/clients";
@@ -10,9 +9,11 @@ import type { Product } from "@/types/product";
 import { getProfileLabelsByIds } from "@/lib/server/profile-display";
 import { PageHeader } from "@/components/ui/page-header";
 import { FlashMessage } from "@/components/ui/flash-message";
-import { RestoreArchiveButton } from "@/components/shared/restore-archive-button";
-import { restoreClientAction } from "@/app/(app)/vente/clients/actions";
-import { restoreProductAction } from "@/app/(app)/vente/produits/actions";
+import {
+  AdminGlobalArchivesClient,
+  type AdminArchiveClientRow,
+  type AdminArchiveProductRow,
+} from "@/components/admin/admin-global-archives-client";
 
 export const metadata = { title: "Archives (admin)" };
 
@@ -34,6 +35,42 @@ function getClientDisplayName(client: Client): string {
     return client.company_name ?? "Entreprise";
   }
   return `${client.first_name ?? ""} ${client.last_name ?? ""}`.trim() || "Client";
+}
+
+function formatDeletedAt(iso: string | null | undefined): string {
+  if (!iso) return "—";
+  return new Date(iso).toLocaleString("fr-FR", {
+    dateStyle: "short",
+    timeStyle: "short",
+  });
+}
+
+function buildClientSearchIndex(client: Client, displayName: string): string {
+  const parts = [
+    displayName,
+    client.email,
+    client.phone,
+    client.city,
+    client.country,
+    client.company_name,
+    client.first_name,
+    client.last_name,
+    client.address,
+    client.notes,
+  ];
+  return parts
+    .filter((x): x is string => typeof x === "string" && x.trim().length > 0)
+    .map((s) => s.trim())
+    .join(" ")
+    .toLowerCase();
+}
+
+function buildProductSearchIndex(product: Product): string {
+  return [product.name, product.sku, product.description ?? ""]
+    .filter((s) => s && String(s).trim().length > 0)
+    .map((s) => String(s).trim())
+    .join(" ")
+    .toLowerCase();
 }
 
 export default async function AdminArchivesPage({ searchParams }: PageProps) {
@@ -61,9 +98,35 @@ export default async function AdminArchivesPage({ searchParams }: PageProps) {
 
   const actorIds = [
     ...clients.map((c) => c.deleted_by),
-    ...products.map((p) => p.deleted_by),
+    ...products.map((pr) => pr.deleted_by),
   ].filter((id): id is string => Boolean(id));
   const actorLabels = await getProfileLabelsByIds(actorIds);
+
+  const clientRows: AdminArchiveClientRow[] = clients.map((client) => {
+    const label = getClientDisplayName(client);
+    return {
+      id: client.id,
+      label,
+      deletedAtLabel: formatDeletedAt(client.deleted_at),
+      deletedByLabel:
+        client.deleted_by && actorLabels[client.deleted_by]
+          ? actorLabels[client.deleted_by]
+          : "—",
+      searchIndex: buildClientSearchIndex(client, label),
+    };
+  });
+
+  const productRows: AdminArchiveProductRow[] = products.map((product) => ({
+    id: product.id,
+    name: product.name,
+    sku: product.sku,
+    deletedAtLabel: formatDeletedAt(product.deleted_at),
+    deletedByLabel:
+      product.deleted_by && actorLabels[product.deleted_by]
+        ? actorLabels[product.deleted_by]
+        : "—",
+    searchIndex: buildProductSearchIndex(product),
+  }));
 
   return (
     <div className="mx-auto max-w-6xl space-y-8">
@@ -82,126 +145,7 @@ export default async function AdminArchivesPage({ searchParams }: PageProps) {
 
       <FlashMessage success={safeDecode(searchParams?.success)} error={safeDecode(searchParams?.error)} />
 
-      <section className="space-y-3">
-        <h2 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400">
-          <Users size={16} />
-          Clients archivés ({clients.length})
-        </h2>
-        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-100 bg-gray-50/60">
-                  <th className="px-4 py-2 text-left text-xs font-semibold text-gray-400">Client</th>
-                  <th className="px-4 py-2 text-left text-xs font-semibold text-gray-400">Supprimé</th>
-                  <th className="px-4 py-2 text-left text-xs font-semibold text-gray-400">Par</th>
-                  <th className="px-4 py-2 text-right text-xs font-semibold text-gray-400">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-50">
-                {clients.length === 0 ? (
-                  <tr>
-                    <td colSpan={4} className="px-4 py-6 text-center text-gray-500">
-                      Aucun client archivé.
-                    </td>
-                  </tr>
-                ) : (
-                  clients.map((client) => {
-                    const name = getClientDisplayName(client);
-                    const by =
-                      client.deleted_by && actorLabels[client.deleted_by]
-                        ? actorLabels[client.deleted_by]
-                        : "—";
-                    return (
-                      <tr key={client.id}>
-                        <td className="px-4 py-2 font-medium">{name}</td>
-                        <td className="px-4 py-2 text-gray-600">
-                          {client.deleted_at
-                            ? new Date(client.deleted_at).toLocaleString("fr-FR", {
-                                dateStyle: "short",
-                                timeStyle: "short",
-                              })
-                            : "—"}
-                        </td>
-                        <td className="px-4 py-2 text-gray-500">{by}</td>
-                        <td className="px-4 py-2 text-right">
-                          <RestoreArchiveButton
-                            entityId={client.id}
-                            entityLabel={name}
-                            restoreAction={restoreClientAction}
-                            redirectPath="/admin/archives"
-                            listQueryString=""
-                          />
-                        </td>
-                      </tr>
-                    );
-                  })
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <Link href="/vente/clients/archives" className="text-xs text-primary hover:underline">
-          Ouvrir la page archives clients →
-        </Link>
-      </section>
-
-      <section className="space-y-3">
-        <h2 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400">
-          <Package size={16} />
-          Produits archivés ({products.length})
-        </h2>
-        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-100 bg-gray-50/60">
-                  <th className="px-4 py-2 text-left text-xs font-semibold text-gray-400">Produit</th>
-                  <th className="px-4 py-2 text-left text-xs font-semibold text-gray-400">SKU</th>
-                  <th className="px-4 py-2 text-left text-xs font-semibold text-gray-400">Supprimé</th>
-                  <th className="px-4 py-2 text-right text-xs font-semibold text-gray-400">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-50">
-                {products.length === 0 ? (
-                  <tr>
-                    <td colSpan={4} className="px-4 py-6 text-center text-gray-500">
-                      Aucun produit archivé.
-                    </td>
-                  </tr>
-                ) : (
-                  products.map((product) => (
-                    <tr key={product.id}>
-                      <td className="px-4 py-2 font-medium">{product.name}</td>
-                      <td className="px-4 py-2 font-mono text-xs text-gray-600">{product.sku}</td>
-                      <td className="px-4 py-2 text-gray-600">
-                        {product.deleted_at
-                          ? new Date(product.deleted_at).toLocaleString("fr-FR", {
-                              dateStyle: "short",
-                              timeStyle: "short",
-                            })
-                          : "—"}
-                      </td>
-                      <td className="px-4 py-2 text-right">
-                        <RestoreArchiveButton
-                          entityId={product.id}
-                          entityLabel={product.name}
-                          restoreAction={restoreProductAction}
-                          redirectPath="/admin/archives"
-                          listQueryString=""
-                        />
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <Link href="/vente/produits/archives" className="text-xs text-primary hover:underline">
-          Ouvrir la page archives produits →
-        </Link>
-      </section>
+      <AdminGlobalArchivesClient clients={clientRows} products={productRows} />
     </div>
   );
 }

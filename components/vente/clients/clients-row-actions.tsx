@@ -6,8 +6,10 @@ import { useRouter } from "next/navigation";
 import { Eye, Trash2 } from "lucide-react";
 import type { Client } from "@/types/client";
 import { deleteClientFromListAction } from "@/app/(app)/vente/clients/actions";
+import { pushThenRefresh } from "@/lib/navigation/push-then-refresh";
 import { EditActionLink } from "@/components/ui/edit-action-link";
 import { ConfirmDangerDialog } from "@/components/ui/confirm-danger-dialog";
+import { useToast } from "@/components/providers/ToastProvider";
 
 type ClientsRowActionsProps = {
   client: Client;
@@ -35,6 +37,7 @@ export function ClientsRowActions({
   listQueryString,
 }: ClientsRowActionsProps) {
   const router = useRouter();
+  const { showSuccess, showError } = useToast();
   const [pending, startTransition] = useTransition();
   const [confirmOpen, setConfirmOpen] = useState(false);
 
@@ -43,11 +46,12 @@ export function ClientsRowActions({
       const result = await deleteClientFromListAction(client.id);
       setConfirmOpen(false);
       if (result.success) {
-        router.push(withListFlash(listQueryString, { success: "Client supprimé avec succès." }));
+        showSuccess("Le client a bien été supprimé.");
+        pushThenRefresh(router, withListFlash(listQueryString, { success: "Le client a bien été supprimé." }));
       } else {
-        router.push(withListFlash(listQueryString, { error: result.error }));
+        showError(result.error);
+        pushThenRefresh(router, withListFlash(listQueryString, { error: result.error }));
       }
-      router.refresh();
     });
   }
 

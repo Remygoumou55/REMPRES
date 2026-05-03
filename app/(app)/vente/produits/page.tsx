@@ -41,9 +41,10 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
   if (!user) {
     redirect("/login");
   }
+  const userId = user.id;
 
   // 🔐 Permissions
-  const permissions = await getModulePermissions(user.id, ["produits", "vente"]);
+  const permissions = await getModulePermissions(userId, ["produits", "vente"]);
 
   if (!permissions.canRead) {
     redirect("/access-denied");
@@ -68,7 +69,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
     "use server";
 
     try {
-      const createPermissions = await getModulePermissions(user.id, ["produits", "vente"]);
+      const createPermissions = await getModulePermissions(userId, ["produits", "vente"]);
       if (!createPermissions.canCreate) {
         throw new Error("Accès refusé");
       }
@@ -118,12 +119,12 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                 </Link>
               ) : null}
               {permissions.canCreate ? (
-                <Link
+                <a
                   href={withCreateModalQuery("/vente/produits")}
                   className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-white transition hover:bg-primary-dark"
                 >
                   + Nouveau produit
-                </Link>
+                </a>
               ) : null}
             </div>
           ) : null}
@@ -146,7 +147,6 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
           title="Nouveau produit"
           submitLabel="Créer le produit"
           action={createProductAction}
-          cancelHref="/vente/produits"
           successMessage={successMessage}
           errorMessage={errorMessage}
         />

@@ -4,7 +4,7 @@ import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getModulePermissions, isSuperAdmin, listProfilesForAdminSelect } from "@/lib/server/permissions";
 import { getFinanceCfoData } from "@/lib/server/finance-overview";
 import { listExpenseCategories } from "@/lib/server/expenses";
-import { parseCategoryIds, parseCreatedBy } from "@/lib/finance-query-params";
+import { parseCategoryIds, parseCreatedBy, parseFinanceIsoDate } from "@/lib/finance-query-params";
 import { FinanceDashboardClient } from "./FinanceDashboardClient";
 
 function firstDayOfMonth(): string {
@@ -14,11 +14,6 @@ function firstDayOfMonth(): string {
 
 function today(): string {
   return new Date().toISOString().slice(0, 10);
-}
-
-function parseDate(s: string | undefined, fallback: string): string {
-  if (!s || !/^\d{4}-\d{2}-\d{2}$/.test(s)) return fallback;
-  return s;
 }
 
 function clampOrder(from: string, to: string): { from: string; to: string } {
@@ -38,8 +33,8 @@ export default async function FinancePage({ searchParams }: PageProps) {
   if (!perms.canRead) redirect("/access-denied");
 
   const t = today();
-  const rawFrom = parseDate(searchParams.from, firstDayOfMonth());
-  const rawTo = parseDate(searchParams.to, t);
+  const rawFrom = parseFinanceIsoDate(searchParams.from, firstDayOfMonth());
+  const rawTo = parseFinanceIsoDate(searchParams.to, t);
   const { from, to } = clampOrder(rawFrom, rawTo);
 
   const superAdmin = await isSuperAdmin(user.id);

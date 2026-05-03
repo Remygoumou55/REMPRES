@@ -8,7 +8,7 @@ import type { ClientType } from "@/types/client";
 import { assertClientsPermission, getClientsPermissions } from "@/lib/server/permissions";
 import { FlashMessage } from "@/components/ui/flash-message";
 import { DeleteClientButton } from "@/components/vente/clients/delete-client-button";
-import { ClientForm } from "@/components/forms/client-form";
+import { ClientForm, type ClientFormActionResult } from "@/components/forms/client-form";
 import { EditActionLink } from "@/components/ui/edit-action-link";
 import { DetailPageModal } from "@/components/ui/detail-page-modal";
 import { mapClientError } from "@/lib/server/client-error-messages";
@@ -73,7 +73,7 @@ export default async function ClientDetailPage({ params, searchParams }: ClientD
     redirect(`/vente/clients?success=${encodeURIComponent("Client supprimé avec succès.")}`);
   }
 
-  async function updateClientAction(formData: FormData) {
+  async function updateClientAction(formData: FormData): Promise<ClientFormActionResult> {
     "use server";
     try {
       await assertClientsPermission(userId, "update");
@@ -98,9 +98,12 @@ export default async function ClientDetailPage({ params, searchParams }: ClientD
       });
     } catch (error) {
       const message = mapClientError(error, "Impossible de modifier le client pour le moment.");
-      redirect(`/vente/clients/${params.id}?edit=1&error=${encodeURIComponent(message)}`);
+      return { ok: false, message };
     }
-    redirect(`/vente/clients/${params.id}?success=${encodeURIComponent("Client mis à jour avec succès.")}`);
+    return {
+      ok: true,
+      redirectTo: `/vente/clients/${params.id}?success=${encodeURIComponent("Client mis à jour avec succès.")}`,
+    };
   }
 
   return (
@@ -174,7 +177,6 @@ export default async function ClientDetailPage({ params, searchParams }: ClientD
           submitLabel="Enregistrer"
           action={updateClientAction}
           initialValues={client}
-          cancelHref={`/vente/clients/${params.id}`}
           successMessage={searchParams?.success}
           errorMessage={searchParams?.error}
         />

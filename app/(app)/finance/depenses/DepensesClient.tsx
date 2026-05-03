@@ -31,7 +31,6 @@ import { ConfirmDangerDialog } from "@/components/ui/confirm-danger-dialog";
 import { useGlobalSearch } from "@/lib/hooks/use-global-search";
 import { PageHeader } from "@/components/ui/page-header";
 import { KpiCard } from "@/components/ui/kpi-card";
-import { formatMoney } from "@/lib/utils/formatCurrency";
 import { formatCurrency } from "@/utils/currency";
 import { formatDateDayFr } from "@/lib/utils/formatDate";
 import { useCurrencyStore } from "@/stores/currencyStore";
@@ -124,7 +123,7 @@ export function DepensesClient({
   function fmtD(amountGNF: number, key?: string) {
     const amount = key ? summaryConverted[key] : null;
     if (key) return amount === null ? "Conversion indisponible" : formatCurrency(amount ?? 0, currency);
-    return formatMoney(amountGNF, "GNF", 1);
+    return formatCurrency(amountGNF, "GNF");
   }
   const [formOpen, setFormOpen] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -277,14 +276,17 @@ export function DepensesClient({
 
     const timer = window.setTimeout(async () => {
       setTypedConvertLoading(true);
-      const result = await convertCurrency({
-        amount: typedAmountGNF,
-        from: "GNF",
-        to: currency,
-      });
-      if (mounted) {
-        setTypedConvertedAmount(result);
-        setTypedConvertLoading(false);
+      try {
+        const result = await convertCurrency({
+          amount: typedAmountGNF,
+          from: "GNF",
+          to: currency,
+        });
+        if (mounted) setTypedConvertedAmount(result);
+      } catch {
+        if (mounted) setTypedConvertedAmount(null);
+      } finally {
+        if (mounted) setTypedConvertLoading(false);
       }
     }, 180);
 

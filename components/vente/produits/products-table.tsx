@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Package } from "lucide-react";
 import type { Product } from "@/types/product";
@@ -14,6 +13,8 @@ import { useRowSelection } from "@/lib/hooks/use-row-selection";
 import { ConfirmDangerDialog } from "@/components/ui/confirm-danger-dialog";
 import { BulkDeleteActionBar } from "@/components/ui/bulk-delete-action-bar";
 import { deleteProductsFromListBulkAction } from "@/app/(app)/vente/produits/actions";
+import { pushThenRefresh } from "@/lib/navigation/push-then-refresh";
+import { useToast } from "@/components/providers/ToastProvider";
 import { useCurrency } from "@/hooks/useCurrency";
 import { useCurrencyBatchConversion } from "@/hooks/useCurrencyConversion";
 import { formatCurrency } from "@/utils/currency";
@@ -45,6 +46,7 @@ export function ProductsTable({
 }: ProductsTableProps) {
   const { currency } = useCurrency();
   const router = useRouter();
+  const { showSuccess, showError } = useToast();
   const [pending, startTransition] = useTransition();
   const [confirmBulkOpen, setConfirmBulkOpen] = useState(false);
 
@@ -94,8 +96,9 @@ export function ProductsTable({
     if (dash) return "—";
     if (pricesConvLoading) return "…";
     const v = convertedPrices[key];
+    if (v === undefined) return "…";
     if (v === null) return "Conversion indisponible";
-    return formatCurrency(v ?? 0, currency);
+    return formatCurrency(v, currency);
   }
 
   const {
@@ -124,15 +127,13 @@ export function ProductsTable({
       setConfirmBulkOpen(false);
       if (result.success) {
         clearSelection();
-        router.push(
-          withListFlash(listQueryString, {
-            success: `${result.data.deleted} produit(s) supprimé(s) avec succès.`,
-          }),
-        );
+        const msg = `${result.data.deleted} produit(s) supprimé(s) avec succès.`;
+        showSuccess(msg);
+        pushThenRefresh(router, withListFlash(listQueryString, { success: msg }));
       } else {
-        router.push(withListFlash(listQueryString, { error: result.error }));
+        showError(result.error);
+        pushThenRefresh(router, withListFlash(listQueryString, { error: result.error }));
       }
-      router.refresh();
     });
   }
 
@@ -143,19 +144,18 @@ export function ProductsTable({
         title="Aucun produit pour l'instant"
         description="Ajoutez votre premier produit pour commencer à gérer votre catalogue."
         action={
-          <Link
+          <a
             href={withCreateModalQuery("/vente/produits")}
             className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary/90"
           >
             + Ajouter un produit
-          </Link>
+          </a>
         }
       />
     );
   }
 
   const totalQty = rows.reduce((s, p) => s + p.stock_quantity, 0);
-  const totalAmount = rows.reduce((s, p) => s + p.stock_quantity * p.price_gnf, 0);
 
   return (
     <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">

@@ -941,7 +941,6 @@ export function NouvelleVenteClient({ products, clients }: Props) {
       if (!mountedRef.current) return;
       if (result.success) {
         const saleCurrency = selectedCurrency;
-        const saleRates    = rates;
         const completedTotal = totalsConverted["total"];
         setCompletedSale({
           ...result.sale,

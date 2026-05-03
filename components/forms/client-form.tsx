@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useCloseModalNavigation } from "@/lib/hooks/use-close-modal-navigation";
 import { Users, Building2, Phone, Mail, MapPin, FileText, Globe, Save, Plus } from "lucide-react";
 import type { ClientType } from "@/types/client";
 import {
@@ -30,13 +30,16 @@ type ClientFormValues = {
   notes?: string | null;
 };
 
+/** Retour des Server Actions — évite `redirect()` seul qui peut laisser useTransition bloqué côté client. */
+export type ClientFormActionResult =
+  | { ok: true; redirectTo: string }
+  | { ok: false; message: string };
+
 type ClientFormProps = {
   title: string;
   submitLabel: string;
-  action: (formData: FormData) => void | Promise<void>;
+  action: (formData: FormData) => void | Promise<void | ClientFormActionResult>;
   initialValues?: ClientFormValues;
-  /** URL de retour après annulation ou succès */
-  cancelHref?: string;
   successMessage?: string;
   errorMessage?: string;
 };
@@ -50,10 +53,9 @@ export function ClientForm({
   submitLabel,
   action,
   initialValues,
-  cancelHref = "/vente/clients",
   errorMessage,
 }: ClientFormProps) {
-  const router = useRouter();
+  const closeModal = useCloseModalNavigation();
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(errorMessage ?? null);
   const [clientType, setClientType] = useState<ClientType>(
@@ -63,7 +65,7 @@ export function ClientForm({
   const isIndividual = clientType === "individual";
 
   function handleCancel() {
-    router.push(cancelHref);
+    closeModal();
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -72,7 +74,15 @@ export function ClientForm({
     const fd = new FormData(e.currentTarget);
     startTransition(async () => {
       try {
-        await action(fd);
+        const result = await action(fd);
+        if (result && typeof result === "object" && "ok" in result) {
+          if (result.ok) {
+            window.location.assign(result.redirectTo);
+            return;
+          }
+          setError(result.message);
+          return;
+        }
       } catch (err) {
         setError(err instanceof Error ? err.message : "Une erreur est survenue.");
       }

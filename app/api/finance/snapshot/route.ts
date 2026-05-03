@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getModulePermissions, isSuperAdmin } from "@/lib/server/permissions";
 import { getFinanceCfoData } from "@/lib/server/finance-overview";
-import { parseCategoryIds, parseCreatedBy } from "@/lib/finance-query-params";
+import { parseCategoryIds, parseCreatedBy, parseFinanceIsoDate } from "@/lib/finance-query-params";
 
 function firstDayOfMonth(): string {
   const d = new Date();
@@ -11,11 +11,6 @@ function firstDayOfMonth(): string {
 
 function today(): string {
   return new Date().toISOString().slice(0, 10);
-}
-
-function parseDate(s: string | null, fallback: string): string {
-  if (!s || !/^\d{4}-\d{2}-\d{2}$/.test(s)) return fallback;
-  return s;
 }
 
 function clampOrder(from: string, to: string): { from: string; to: string } {
@@ -42,8 +37,8 @@ export async function GET(request: Request) {
   const url = new URL(request.url);
   const t = today();
   const { from, to } = clampOrder(
-    parseDate(url.searchParams.get("from"), firstDayOfMonth()),
-    parseDate(url.searchParams.get("to"), t),
+    parseFinanceIsoDate(url.searchParams.get("from"), firstDayOfMonth()),
+    parseFinanceIsoDate(url.searchParams.get("to"), t),
   );
   const allCat = url.searchParams.getAll("category");
   const categoryIds = parseCategoryIds(allCat.length ? allCat : url.searchParams.get("category") ?? undefined);

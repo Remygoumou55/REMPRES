@@ -101,7 +101,7 @@ export function Modal({
       role="dialog"
       aria-modal="true"
       aria-labelledby={titleId}
-      className={`fixed inset-0 z-[300] flex items-center justify-center ${overlayClassName ?? "p-4"}`}
+      className={`fixed inset-0 z-[9999] flex items-center justify-center ${overlayClassName ?? "p-4"}`}
     >
       {/* Overlay flouté */}
       <div
@@ -112,6 +112,7 @@ export function Modal({
 
       {/* Carte */}
       <div
+        role="document"
         className={`relative z-10 flex min-h-0 w-full flex-col overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-black/5 ${SIZE_CLASSES[size]} ${cardClassName ?? ""}`}
       >
         {/* En-tête */}

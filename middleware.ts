@@ -167,6 +167,8 @@ export const config = {
   matcher: [
     // Routes construites
     "/dashboard/:path*",
+    "/settings",
+    "/settings/:path*",
     "/vente/:path*",
     "/admin/:path*",
     "/auth/set-password",

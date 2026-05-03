@@ -5,30 +5,11 @@
  */
 
 import { redirect, notFound } from "next/navigation";
-import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getModulePermissions } from "@/lib/server/permissions";
 import type { SaleReceiptData } from "@/components/pdf/SaleReceipt";
-
-// ---------------------------------------------------------------------------
-// Import dynamique du composant client (PDFViewer = browser only)
-// ---------------------------------------------------------------------------
-
-const ReceiptClient = dynamic(
-  () => import("./ReceiptClient").then((m) => m.ReceiptClient),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="flex min-h-screen items-center justify-center bg-graylight">
-        <div className="text-center">
-          <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent" />
-          <p className="text-sm text-gray-500">Génération du reçu PDF…</p>
-        </div>
-      </div>
-    ),
-  },
-);
+import { ReceiptClient } from "./ReceiptClient";
 
 // ---------------------------------------------------------------------------
 // Metadata dynamique

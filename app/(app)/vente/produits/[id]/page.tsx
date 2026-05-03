@@ -225,7 +225,6 @@ export default async function ProductDetailPage({ params, searchParams }: Produc
           submitLabel="Enregistrer"
           action={updateProductAction}
           initialValues={product}
-          cancelHref={`/vente/produits/${params.id}`}
           successMessage={searchParams?.success}
           errorMessage={searchParams?.error}
         />

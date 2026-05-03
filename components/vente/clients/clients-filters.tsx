@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, useTransition } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { SearchInput } from "@/components/ui/search-input";
@@ -20,6 +20,7 @@ export function ClientsFilters({ initialQuery, initialType, initialPageSize }: P
   const [query, setQuery] = useState(initialQuery);
   const [type, setType] = useState<Props["initialType"]>(initialType);
   const [pageSize, setPageSize] = useState<Props["initialPageSize"]>(initialPageSize);
+  const skipInitialSyncRef = useRef(false);
 
   useEffect(() => setQuery(initialQuery), [initialQuery]);
   useEffect(() => setType(initialType), [initialType]);
@@ -27,32 +28,59 @@ export function ClientsFilters({ initialQuery, initialType, initialPageSize }: P
 
   const stableParams = useMemo(() => new URLSearchParams(searchParams.toString()), [searchParams]);
 
-  function pushFilters(next: { q: string; type: Props["initialType"]; pageSize: Props["initialPageSize"] }) {
-    const p = new URLSearchParams(stableParams.toString());
+  /** Chaîne de requête actuelle : le navigateur a toujours la vérité (évite useSearchParams en retard). */
+  const readLocationQueryString = useCallback((): string => {
+    if (typeof window === "undefined") return stableParams.toString();
+    const loc = window.location.search;
+    return loc.startsWith("?") ? loc.slice(1) : loc;
+  }, [stableParams]);
 
-    if (next.q.trim()) p.set("q", next.q.trim());
-    else p.delete("q");
+  const pushFilters = useCallback(
+    (next: { q: string; type: Props["initialType"]; pageSize: Props["initialPageSize"] }) => {
+      // Toujours partir de l’URL réelle en client : sinon ?create=1 peut disparaître avant que
+      // useSearchParams soit à jour → le formulaire « Nouveau client » ne s’affiche jamais.
+      const baseQs = readLocationQueryString() || stableParams.toString();
+      const p = new URLSearchParams(baseQs);
 
-    if (next.type !== "all") p.set("type", next.type);
-    else p.delete("type");
+      if (next.q.trim()) p.set("q", next.q.trim());
+      else p.delete("q");
 
-    p.set("pageSize", next.pageSize);
-    p.set("page", "1");
+      if (next.type !== "all") p.set("type", next.type);
+      else p.delete("type");
 
-    const qs = p.toString();
-    const currentQs = stableParams.toString();
-    if (qs === currentQs) return;
-    startTransition(() => {
-      router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
-    });
-  }
+      p.set("pageSize", next.pageSize);
+      p.set("page", "1");
+
+      const qs = p.toString();
+      const currentQs = readLocationQueryString() || stableParams.toString();
+      if (qs === currentQs) return;
+
+      startTransition(() => {
+        router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+      });
+    },
+    [pathname, readLocationQueryString, router, stableParams],
+  );
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
+      // Au chargement direct sur ?create=1, ne pas lancer tout de suite un replace :
+      // cela évite une course avec l’hydratation / useSearchParams qui pouvait effacer create.
+      if (typeof window !== "undefined") {
+        const sp = new URLSearchParams(
+          window.location.search.startsWith("?")
+            ? window.location.search.slice(1)
+            : window.location.search,
+        );
+        if (sp.get("create") === "1" && !skipInitialSyncRef.current) {
+          skipInitialSyncRef.current = true;
+          return;
+        }
+      }
       pushFilters({ q: query, type, pageSize });
     }, 250);
     return () => window.clearTimeout(timer);
-  }, [pageSize, query, type]);
+  }, [pageSize, pushFilters, query, type]);
 
   return (
     <div className="grid gap-3 rounded-lg bg-white p-4 shadow-sm sm:grid-cols-4">

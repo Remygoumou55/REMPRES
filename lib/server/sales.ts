@@ -85,6 +85,17 @@ type RequestContext = {
   userAgent?: string | null;
 };
 
+type SalesListQuery = {
+  eq: (column: string, value: string) => SalesListQuery;
+  gte: (column: string, value: string) => SalesListQuery;
+  lte: (column: string, value: string) => SalesListQuery;
+  ilike: (column: string, value: string) => SalesListQuery;
+  range: (
+    from: number,
+    to: number,
+  ) => Promise<{ data: unknown[] | null; count: number | null; error: { message: string } | null }>;
+};
+
 // ---------------------------------------------------------------------------
 // Utilitaires internes
 // ---------------------------------------------------------------------------
@@ -293,12 +304,11 @@ export async function listSales(rawParams: SaleListParamsInput = {}): Promise<Sa
   const to = from + safePageSize - 1;
 
   const supabase = getSupabaseServerClient();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let query: any = supabase
+  let query = supabase
     .from("sales")
     .select(SALE_COLUMNS, { count: "exact" })
     .is("deleted_at", null)
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false }) as unknown as SalesListQuery;
 
   if (params.paymentStatus) {
     query = query.eq("payment_status", params.paymentStatus);

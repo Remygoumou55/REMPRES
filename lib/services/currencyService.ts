@@ -1,24 +1,22 @@
 "use client";
 
-import { convertCurrencyRpc } from "@/lib/currency/convertCurrencyRpc";
+import { convertCurrency as convertCurrencyThroughSupabase } from "@/lib/currency/convertCurrency";
+import type { ConvertCurrencyArgs } from "@/lib/currency/convertCurrency";
 import { getSupabaseBrowserClient } from "@/lib/supabase";
 import { logError } from "@/lib/logger";
 
-type ConvertCurrencyArgs = {
-  amount: number;
-  from: string;
-  to: string;
-};
-
-/** Point d’entrée unique côté client pour les conversions métier (RPC). */
+/**
+ * Point d’entrée client : même pile que le serveur (`lib/server/currencyService.convert`),
+ * via `@/lib/currency/convertCurrency`.
+ */
 export async function convertCurrency(args: ConvertCurrencyArgs): Promise<number | null> {
   try {
     const supabase = getSupabaseBrowserClient();
-    return await convertCurrencyRpc(supabase, args, {
+    return await convertCurrencyThroughSupabase(supabase, args, {
       logPrefix: "Currency conversion failed (client)",
     });
   } catch (error) {
-    logError("currency", "Currency conversion failed (client)", {
+    logError("currency", "Currency conversion failed (client bootstrap)", {
       amount: args.amount,
       from: args.from,
       to: args.to,

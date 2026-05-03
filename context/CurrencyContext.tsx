@@ -4,11 +4,13 @@ import { createContext, useContext, useEffect, useMemo } from "react";
 import { useRef } from "react";
 import { useCurrencyStore } from "@/stores/currencyStore";
 import { FALLBACK_RATES, formatAmount, type Currency, type CurrencyRates } from "@/lib/currencyService";
+import { logInfo } from "@/lib/logger";
 
 const USER_CURRENCY_KEY = "user_currency";
-const REFRESH_INTERVAL_MS = 5 * 60 * 1000; // 5 min
+/** Aligné sur STALE_THRESHOLD_MS côté `/api/currency/refresh` — une seule logique de fraîcheur. */
+const REFRESH_INTERVAL_MS = 60 * 60 * 1000;
 const REFRESH_TIMEOUT_MS = 2500;
-const RETRY_COOLDOWN_MS = 60 * 1000; // 1 min after failure
+const RETRY_COOLDOWN_MS = 60 * 1000;
 
 type CurrencyContextValue = {
   currency: Currency;
@@ -63,19 +65,18 @@ export function CurrencyContextProvider({ children }: { children: React.ReactNod
     }
   }, [selectedCurrency, setSelectedCurrency]);
 
+  /** Rafraîchissement des taux : store jamais initialisé ou plus vieux que REFRESH_INTERVAL_MS. */
   useEffect(() => {
     if (inFlightRef.current) return;
     const now = Date.now();
-    if (now - lastAttemptRef.current < 10_000) return; // anti-burst
+    if (now - lastAttemptRef.current < 10_000) return;
     if (lastFailureRef.current > 0 && now - lastFailureRef.current < RETRY_COOLDOWN_MS) return;
 
-    // Do not force refresh on cold start; keep UI responsive with persisted/fallback rates.
-    // Refresh only when we already have a timestamp and it is stale.
-    const shouldRefresh =
-      Boolean(lastUpdated) &&
-      Date.now() - new Date(lastUpdated as string).getTime() > REFRESH_INTERVAL_MS;
+    const needsFetch =
+      !lastUpdated ||
+      now - new Date(lastUpdated as string).getTime() > REFRESH_INTERVAL_MS;
 
-    if (!shouldRefresh) return;
+    if (!needsFetch) return;
 
     let cancelled = false;
     inFlightRef.current = true;
@@ -96,16 +97,19 @@ export function CurrencyContextProvider({ children }: { children: React.ReactNod
         const data = (await res.json()) as {
           rates?: CurrencyRates;
           updatedAt?: string | null;
+          fromCache?: boolean;
         };
 
         if (!cancelled && mountedRef.current && data.rates && Object.keys(data.rates).length > 0) {
           setRates(data.rates, data.updatedAt ?? new Date().toISOString());
           lastFailureRef.current = 0;
+          if (!data.fromCache) {
+            logInfo("currency", "rates refreshed from external API", { rates: data.rates });
+          }
         } else {
           lastFailureRef.current = Date.now();
         }
       } catch {
-        // Keep fallback rates silently.
         lastFailureRef.current = Date.now();
       } finally {
         window.clearTimeout(timeoutId);

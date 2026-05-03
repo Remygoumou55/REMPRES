@@ -12,7 +12,7 @@ type Props = { data: DayStats[] };
  */
 export function SalesChart({ data }: Props) {
   const currency = useCurrencyStore((s) => s.selectedCurrency);
-  const { convertedByKey } = useCurrencyBatchConversion(
+  const { convertedByKey, loading } = useCurrencyBatchConversion(
     data.map((d) => ({ key: d.date, amount: d.amount })),
     "GNF",
     currency,
@@ -34,15 +34,14 @@ export function SalesChart({ data }: Props) {
   return (
     <div className="flex h-36 items-end gap-1.5">
       {data.map((d) => {
-        const pct     = Math.max((d.amount / max) * 100, 4);
+        const pct = Math.max((d.amount / max) * 100, 4);
         const isToday = d.date === today;
+        const conv = convertedByKey[d.date];
         return (
           <div key={d.date} className="group relative flex flex-1 flex-col items-center gap-1">
             <div className="pointer-events-none absolute -top-10 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-xl border border-gray-100 bg-white px-2.5 py-1.5 text-center opacity-0 shadow-lg transition-all group-hover:opacity-100">
               <p className="text-xs font-bold text-darktext">
-                {convertedByKey[d.date] === null
-                  ? "Conversion indisponible"
-                  : formatCurrency(convertedByKey[d.date] ?? 0, currency)}
+                {loading || conv === undefined ? "…" : conv === null ? "Conversion indisponible" : formatCurrency(conv, currency)}
               </p>
               <p className="text-[10px] text-gray-400">
                 {d.count} vente{d.count !== 1 ? "s" : ""}

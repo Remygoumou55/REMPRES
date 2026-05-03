@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useCloseModalNavigation } from "@/lib/hooks/use-close-modal-navigation";
 import Image from "next/image";
-import { Package, Tag, Layers, DollarSign, Archive, AlertTriangle, FileText, Image as ImageIcon, Save, Plus, Upload } from "lucide-react";
+import { Package, Tag, Layers, DollarSign, Archive, AlertTriangle, FileText, Save, Plus, Upload } from "lucide-react";
 import {
   Modal,
   ModalField,
@@ -52,7 +52,6 @@ type ProductFormProps = {
   submitLabel: string;
   action: (formData: FormData) => void | Promise<void>;
   initialValues?: ProductFormValues;
-  cancelHref?: string;
   successMessage?: string;
   errorMessage?: string;
 };
@@ -66,11 +65,10 @@ export function ProductForm({
   submitLabel,
   action,
   initialValues,
-  cancelHref = "/vente/produits",
   errorMessage,
 }: ProductFormProps) {
   const { currency } = useCurrency();
-  const router = useRouter();
+  const closeModal = useCloseModalNavigation();
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(errorMessage ?? null);
   const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
@@ -107,14 +105,17 @@ export function ProductForm({
 
     const timer = window.setTimeout(async () => {
       setConversionLoading(true);
-      const result = await convertCurrency({
-        amount: priceValue,
-        from: "GNF",
-        to: currency,
-      });
-      if (mounted) {
-        setConvertedPrice(result);
-        setConversionLoading(false);
+      try {
+        const result = await convertCurrency({
+          amount: priceValue,
+          from: "GNF",
+          to: currency,
+        });
+        if (mounted) setConvertedPrice(result);
+      } catch {
+        if (mounted) setConvertedPrice(null);
+      } finally {
+        if (mounted) setConversionLoading(false);
       }
     }, 180);
 
@@ -128,7 +129,7 @@ export function ProductForm({
     : "Unité";
 
   function handleCancel() {
-    router.push(cancelHref);
+    closeModal();
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {

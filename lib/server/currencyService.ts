@@ -3,9 +3,12 @@
  *
  * Fonctions SERVEUR uniquement — nécessitent next/headers via supabaseServer.
  * Ne pas importer dans des Client Components.
+ *
+ * TODO(strict-build): typer les requêtes `currency_rates` / `currencies` avec Database
+ * (Supabase) et retirer LooseRatesQuery / LooseQueryResult.
  */
 
-import { convertCurrencyRpc } from "@/lib/currency/convertCurrencyRpc";
+import { convertCurrency } from "@/lib/currency/convertCurrency";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { FALLBACK_RATES, type Currency, type CurrencyRates } from "@/lib/currencyService";
 import { logError, logWarn } from "@/lib/logger";
@@ -19,6 +22,34 @@ type RateRow = {
   rate_to_gnf?: number | null;
   updated_at?: string | null;
 };
+
+type LooseQueryResult<T> = {
+  data: T[] | null;
+  error: { message?: string } | null;
+};
+
+type LooseRatesQuery = {
+  select: (columns: string) => LooseRatesQuery;
+  eq: (column: string, value: string) => LooseRatesQuery;
+  order: (column: string, options: { ascending: boolean }) => LooseRatesQuery;
+  limit: (count: number) => Promise<LooseQueryResult<RateRow>>;
+};
+
+type LooseCurrenciesQuery = {
+  select: (columns: string) => LooseCurrenciesQuery;
+  eq: (column: string, value: string) => LooseCurrenciesQuery;
+  maybeSingle: () => Promise<{ data: { code?: string } | null; error: { message?: string } | null }>;
+};
+
+function ratesQuery() {
+  const supabase = getSupabaseServerClient();
+  return supabase.from("currency_rates") as unknown as LooseRatesQuery;
+}
+
+function currenciesQuery() {
+  const supabase = getSupabaseServerClient();
+  return supabase.from("currencies") as unknown as LooseCurrenciesQuery;
+}
 
 const RATE_CACHE_TTL_MS = 5 * 60 * 1000; // 5 min
 const rateCache = new Map<string, { value: number; expiresAt: number }>();
@@ -51,8 +82,7 @@ function writeCachedRate(from: string, to: string, value: number) {
 
 async function currencyExists(code: string): Promise<boolean> {
   try {
-    const supabase = getSupabaseServerClient();
-    const { data, error } = await (supabase.from("currencies") as any)
+    const { data, error } = await currenciesQuery()
       .select("code")
       .eq("code", norm(code))
       .maybeSingle();
@@ -64,12 +94,11 @@ async function currencyExists(code: string): Promise<boolean> {
 }
 
 async function readRatePair(base: string, quote: string): Promise<number | null> {
-  const supabase = getSupabaseServerClient();
   const b = norm(base);
   const q = norm(quote);
 
   // Schéma standard: base_currency + quote_currency + rate
-  const { data: standardRows } = await (supabase.from("currency_rates") as any)
+  const { data: standardRows } = await ratesQuery()
     .select("rate,fetched_at,updated_at")
     .eq("base_currency", b)
     .eq("quote_currency", q)
@@ -83,7 +112,7 @@ async function readRatePair(base: string, quote: string): Promise<number | null>
 
   // Compat schéma alternatif: currency_code + rate_to_gnf
   if (b === "GNF") {
-    const { data: modernRows } = await (supabase.from("currency_rates") as any)
+    const { data: modernRows } = await ratesQuery()
       .select("rate_to_gnf,updated_at")
       .eq("currency_code", q)
       .limit(1);
@@ -92,7 +121,7 @@ async function readRatePair(base: string, quote: string): Promise<number | null>
   }
 
   if (q === "GNF") {
-    const { data: modernRows } = await (supabase.from("currency_rates") as any)
+    const { data: modernRows } = await ratesQuery()
       .select("rate_to_gnf,updated_at")
       .eq("currency_code", b)
       .limit(1);
@@ -162,14 +191,13 @@ export async function convert(amount: number, from: string, to: string): Promise
 
   try {
     const supabase = getSupabaseServerClient();
-    const result = await convertCurrencyRpc(
+    return await convertCurrency(
       supabase,
       { amount, from, to },
       { logPrefix: "Currency conversion failed (server)" },
     );
-    return result ?? null;
   } catch (error) {
-    logError("currency", "Currency conversion failed (server)", {
+    logError("currency", "Currency conversion failed (server bootstrap)", {
       amount,
       from,
       to,
@@ -262,7 +290,22 @@ export async function fetchAndUpdateRates(): Promise<{
     }
 
     const supabase = getSupabaseServerClient();
-    const { error: standardUpsertError } = await (supabase.from("currency_rates") as any)
+    const currencyRatesTable = supabase.from("currency_rates") as unknown as {
+      upsert: (
+        rows: {
+          base_currency: string;
+          quote_currency: string;
+          rate: number;
+          source: string;
+          fetched_at: string;
+          valid_from: string;
+          created_at: string;
+        }[],
+        options: { onConflict: string },
+      ) => Promise<{ error: { message?: string } | null }>;
+    };
+
+    const { error: standardUpsertError } = await currencyRatesTable
       .upsert(upsertRowsStandard, { onConflict: "base_currency,quote_currency" });
 
     // Compatibilité ancienne structure

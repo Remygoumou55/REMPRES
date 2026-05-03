@@ -6,8 +6,10 @@ import { useRouter } from "next/navigation";
 import { Eye, Trash2 } from "lucide-react";
 import type { Product } from "@/types/product";
 import { deleteProductFromListAction } from "@/app/(app)/vente/produits/actions";
+import { pushThenRefresh } from "@/lib/navigation/push-then-refresh";
 import { EditActionLink } from "@/components/ui/edit-action-link";
 import { ConfirmDangerDialog } from "@/components/ui/confirm-danger-dialog";
+import { useToast } from "@/components/providers/ToastProvider";
 
 type ProductsRowActionsProps = {
   product: Product;
@@ -35,6 +37,7 @@ export function ProductsRowActions({
   listQueryString,
 }: ProductsRowActionsProps) {
   const router = useRouter();
+  const { showSuccess, showError } = useToast();
   const [pending, startTransition] = useTransition();
   const [confirmOpen, setConfirmOpen] = useState(false);
 
@@ -43,11 +46,12 @@ export function ProductsRowActions({
       const result = await deleteProductFromListAction(product.id);
       setConfirmOpen(false);
       if (result.success) {
-        router.push(withListFlash(listQueryString, { success: "Produit supprimé avec succès." }));
+        showSuccess("Le produit a bien été supprimé.");
+        pushThenRefresh(router, withListFlash(listQueryString, { success: "Le produit a bien été supprimé." }));
       } else {
-        router.push(withListFlash(listQueryString, { error: result.error }));
+        showError(result.error);
+        pushThenRefresh(router, withListFlash(listQueryString, { error: result.error }));
       }
-      router.refresh();
     });
   }
 

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Trash2 } from "lucide-react";
 import { archiveAndDeleteSaleAction } from "@/app/(app)/vente/historique/actions";
+import { pushThenRefresh } from "@/lib/navigation/push-then-refresh";
 import { MarkAsPaidButton } from "@/components/vente/historique/mark-as-paid-button";
 import { ConfirmDangerDialog } from "@/components/ui/confirm-danger-dialog";
 
@@ -48,13 +49,13 @@ export function SalesRowActions({
       const result = await archiveAndDeleteSaleAction(sale.id);
       setConfirmOpen(false);
       if (result.success) {
-        router.push(
+        pushThenRefresh(
+          router,
           withListFlash(listQueryString, { success: "Vente archivée et retirée de l'historique." }),
         );
       } else {
-        router.push(withListFlash(listQueryString, { error: result.error }));
+        pushThenRefresh(router, withListFlash(listQueryString, { error: result.error }));
       }
-      router.refresh();
     });
   }
 

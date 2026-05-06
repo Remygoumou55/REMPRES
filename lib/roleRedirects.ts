@@ -1,36 +1,53 @@
 /**
- * lib/roleRedirects.ts
- * Source unique de vérité pour le mapping role_key → route de destination.
- *
- * Utilisé par :
- *   - app/login/LoginForm.tsx  (côté client)
- *   - app/page.tsx             (côté serveur)
- *   - app/auth/callback/route.ts
- *
- * Convention :
- *   ✅ Module construit   → route réelle  (/dashboard, /vente/nouvelle-vente…)
- *   🚧 Module en chantier → /coming-soon?module=xxx
+ * Redirection post-login — combine rôle générique + département (pas de logique « responsable_* »).
  */
-
-export const ROLE_REDIRECTS: Record<string, string> = {
-  super_admin:               "/dashboard",
-  directeur_general:         "/dashboard",
-  responsable_vente:         "/vente/nouvelle-vente",
-  responsable_rh:            "/rh",
-  responsable_formation:     "/formation",
-  responsable_consultation:  "/consultation",
-  responsable_marketing:     "/marketing",
-  responsable_logistique:    "/logistique",
-  comptable:                 "/finance",
-  auditeur:                  "/admin/activity-logs",
-  employe:                   "/dashboard",
-};
+import {
+  DEPARTMENT_KEYS,
+  getDepartmentNavigationEntry,
+  normalizeDepartmentKey,
+} from "@/lib/departments/department-config";
+import { effectiveAuthRoleKey, ROLE_KEYS } from "@/lib/auth/roles";
 
 /**
- * Retourne la route de destination pour un rôle donné.
- * Fallback sécurisé : /dashboard si le rôle est inconnu.
+ * Destination après authentification selon rôle et département principal.
+ * Chemins canoniques définis dans `department-config.ts` (`DEPARTMENT_NAVIGATION`).
  */
-export function getDestinationForRole(roleKey: string | null | undefined): string {
-  if (!roleKey) return "/dashboard";
-  return ROLE_REDIRECTS[roleKey] ?? "/dashboard";
+export function getPostLoginDestination(
+  roleKey: string | null | undefined,
+  departmentKey?: string | null,
+): string {
+  const r = effectiveAuthRoleKey(roleKey);
+  const dk = normalizeDepartmentKey(departmentKey);
+
+  if (r === ROLE_KEYS.SUPER_ADMIN) {
+    return "/admin/dashboard";
+  }
+
+  if (r === ROLE_KEYS.ACCOUNTANT) {
+    return getDepartmentNavigationEntry(DEPARTMENT_KEYS.FINANCE)?.dashboardRoute ?? "/finance/dashboard";
+  }
+
+  if (r === ROLE_KEYS.AUDITOR) {
+    return getDepartmentNavigationEntry(DEPARTMENT_KEYS.AUDIT)?.dashboardRoute ?? "/admin/activity-logs";
+  }
+
+  const nav = getDepartmentNavigationEntry(dk);
+
+  if (r === ROLE_KEYS.MANAGER) {
+    return nav?.dashboardRoute ?? "/dashboard";
+  }
+
+  if (r === ROLE_KEYS.AGENT) {
+    return nav?.operationalRootRoute ?? "/dashboard";
+  }
+
+  return "/dashboard";
+}
+
+/** @deprecated Utiliser `getPostLoginDestination(role_key, department_key)`. */
+export function getDestinationForRole(
+  roleKey: string | null | undefined,
+  departmentKey?: string | null,
+): string {
+  return getPostLoginDestination(roleKey, departmentKey);
 }

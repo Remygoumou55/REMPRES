@@ -74,7 +74,7 @@ export default async function HistoriquePage({ searchParams }: PageProps) {
   let query = supabase
     .from("sales")
     .select(
-      "id,reference,client_id,total_amount_gnf,display_currency,payment_method,payment_status,amount_paid_gnf,created_at",
+      "id,reference,client_id,total_amount_gnf,display_currency,payment_method,payment_status,amount_paid_gnf,created_at,lifecycle_status",
       { count: "planned" },
     )
     .is("deleted_at", null)

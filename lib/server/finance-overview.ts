@@ -58,7 +58,11 @@ export type PeriodDelta = {
 };
 
 export type FinanceCfoData = {
+  /** CA net ventes (significatif pour résultat et marges). Alias historique des écrans existants. */
   totalRevenue: number;
+  grossSaleRevenue: number;
+  cancelledSaleRevenue: number;
+  netSaleRevenue: number;
   totalExpenses: number;
   profit: number;
   marginPct: number | null;
@@ -71,6 +75,9 @@ export type FinanceCfoData = {
   expensesByCategory: FinanceCategorySlice[];
   previous: {
     totalRevenue: number;
+    grossSaleRevenue: number;
+    cancelledSaleRevenue: number;
+    netSaleRevenue: number;
     totalExpenses: number;
     profit: number;
   };
@@ -91,8 +98,32 @@ function rangeEndIso(d: string): string {
   return `${d}T23:59:59.999Z`;
 }
 
-function isActiveFt(r: FTRow): boolean {
-  return r.status !== "cancelled" && (r.source_type === "sale" || r.source_type === "expense");
+function isActiveExpenseFt(r: FTRow): boolean {
+  return r.source_type === "expense" && r.status !== "cancelled";
+}
+
+function isNetSaleFt(r: FTRow): boolean {
+  return r.source_type === "sale" && r.status !== "cancelled";
+}
+
+function sumSaleBuckets(rows: FTRow[]): {
+  grossSaleRevenue: number;
+  cancelledSaleRevenue: number;
+  netSaleRevenue: number;
+} {
+  let gross = 0;
+  let cancelled = 0;
+  for (const r of rows) {
+    if (r.source_type !== "sale") continue;
+    const a = Number(r.amount_gnf);
+    gross += a;
+    if (r.status === "cancelled") cancelled += a;
+  }
+  return {
+    grossSaleRevenue: gross,
+    cancelledSaleRevenue: cancelled,
+    netSaleRevenue: gross - cancelled,
+  };
 }
 
 function pctChange(cur: number, prev: number): number | null {
@@ -113,7 +144,6 @@ async function loadFtInWindow(
       .from("financial_transactions")
       .select("id, source_type, source_id, amount_gnf, status, created_at, created_by")
       .in("source_type", ["sale", "expense"])
-      .not("status", "eq", "cancelled")
       .gte("created_at", rangeStartIso(from))
       .lte("created_at", rangeEndIso(to))
       .order("created_at", { ascending: true });
@@ -181,10 +211,8 @@ function applyCategoryFilter(
   });
 }
 
-function sumByType(rows: FTRow[], type: "sale" | "expense"): number {
-  return rows
-    .filter((r) => isActiveFt(r) && r.source_type === type)
-    .reduce((s, r) => s + Number(r.amount_gnf), 0);
+function sumExpenseNet(rows: FTRow[]): number {
+  return rows.filter(isActiveExpenseFt).reduce((s, r) => s + Number(r.amount_gnf), 0);
 }
 
 function bucketByDay(
@@ -196,13 +224,12 @@ function bucketByDay(
     byDate.set(d.date, { revenue: 0, expenses: 0 });
   }
   for (const r of rows) {
-    if (!isActiveFt(r)) continue;
     const d = r.created_at.slice(0, 10);
     const cur = byDate.get(d);
     if (!cur) continue;
     const a = Number(r.amount_gnf);
-    if (r.source_type === "sale") cur.revenue += a;
-    else if (r.source_type === "expense") cur.expenses += a;
+    if (isNetSaleFt(r)) cur.revenue += a;
+    else if (isActiveExpenseFt(r)) cur.expenses += a;
   }
   return days.map(({ date, label }) => {
     const c = byDate.get(date) ?? { revenue: 0, expenses: 0 };
@@ -314,6 +341,9 @@ async function processWindow(
   categoryRows: ExpenseCategoryRow[],
 ): Promise<{
   totalRevenue: number;
+  grossSaleRevenue: number;
+  cancelledSaleRevenue: number;
+  netSaleRevenue: number;
   totalExpenses: number;
   chartForDays: FinanceDayPoint[];
   expensesByCategory: FinanceCategorySlice[];
@@ -325,12 +355,17 @@ async function processWindow(
 
   const rangeDays = buildDayLabels(from, to);
   const chartForDays = bucketByDay(ftFiltered, rangeDays);
-  const totalRevenue = sumByType(ftFiltered, "sale");
-  const totalExpenses = sumByType(ftFiltered, "expense");
+  const saleBuckets = sumSaleBuckets(ftFiltered);
+  const netSaleRevenue = saleBuckets.netSaleRevenue;
+  const totalRevenue = netSaleRevenue;
+  const totalExpenses = sumExpenseNet(ftFiltered);
   const expensesByCategory = await buildExpenseCategorySlices(supabase, ftFiltered, categoryRows);
 
   return {
     totalRevenue,
+    grossSaleRevenue: saleBuckets.grossSaleRevenue,
+    cancelledSaleRevenue: saleBuckets.cancelledSaleRevenue,
+    netSaleRevenue,
     totalExpenses,
     chartForDays,
     expensesByCategory,
@@ -359,7 +394,7 @@ export async function getFinanceCfoData(
     processWindow(supabase, d7from, d7to, filters, categoryRows),
   ]);
 
-  const profit = current.totalRevenue - current.totalExpenses;
+  const profit = current.netSaleRevenue - current.totalExpenses;
   const fromD = parseISO(from);
   const toD = parseISO(to);
   const dayCount =
@@ -367,25 +402,28 @@ export async function getFinanceCfoData(
       ? Math.max(1, differenceInCalendarDays(toD, fromD) + 1)
       : 1;
   const marginPct =
-    current.totalRevenue > 0 ? (profit / current.totalRevenue) * 100 : null;
+    current.netSaleRevenue > 0 ? (profit / current.netSaleRevenue) * 100 : null;
 
   const chartInRange = current.chartForDays;
   const chartLast7d = d7w.chartForDays;
   const cashflowInRange = buildCashflow(chartInRange);
 
-  const prevProfit = previous.totalRevenue - previous.totalExpenses;
+  const prevProfit = previous.netSaleRevenue - previous.totalExpenses;
   const delta: PeriodDelta = {
-    revenuePct: pctChange(current.totalRevenue, previous.totalRevenue),
+    revenuePct: pctChange(current.netSaleRevenue, previous.netSaleRevenue),
     expensesPct: pctChange(current.totalExpenses, previous.totalExpenses),
     profitPct: pctChange(profit, prevProfit),
   };
 
   return {
     totalRevenue: current.totalRevenue,
+    grossSaleRevenue: current.grossSaleRevenue,
+    cancelledSaleRevenue: current.cancelledSaleRevenue,
+    netSaleRevenue: current.netSaleRevenue,
     totalExpenses: current.totalExpenses,
     profit,
     marginPct,
-    avgDailyRevenue: current.totalRevenue / dayCount,
+    avgDailyRevenue: current.netSaleRevenue / dayCount,
     avgDailyExpenses: current.totalExpenses / dayCount,
     dayCount,
     chartInRange,
@@ -394,6 +432,9 @@ export async function getFinanceCfoData(
     expensesByCategory: current.expensesByCategory,
     previous: {
       totalRevenue: previous.totalRevenue,
+      grossSaleRevenue: previous.grossSaleRevenue,
+      cancelledSaleRevenue: previous.cancelledSaleRevenue,
+      netSaleRevenue: previous.netSaleRevenue,
       totalExpenses: previous.totalExpenses,
       profit: prevProfit,
     },
@@ -454,7 +495,10 @@ export function buildFinanceExportCsvSections(
   if (sections.includeSummary) {
     lines.push(
       `Indicateur;Valeur (GNF)`,
-      `Chiffre d'affaires;${Math.round(d.totalRevenue)}`,
+      `CA brut ventes (inclut annulés);${Math.round(d.grossSaleRevenue)}`,
+      `CA annulé ventes;${Math.round(d.cancelledSaleRevenue)}`,
+      `CA net ventes;${Math.round(d.netSaleRevenue)}`,
+      `Chiffre d'affaires (alias CA net);${Math.round(d.totalRevenue)}`,
       `Dépenses;${Math.round(d.totalExpenses)}`,
       `Résultat;${Math.round(d.profit)}`,
       `Marge %;${d.marginPct == null ? "" : d.marginPct.toFixed(1)}`,

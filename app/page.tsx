@@ -72,11 +72,11 @@ export default async function LandingPage() {
   if (data.user) {
     const { data: profile } = await supabase
       .from("profiles")
-      .select("role_key")
+      .select("role_key, department_key")
       .eq("id", data.user.id)
       .maybeSingle();
 
-    redirect(getDestinationForRole(profile?.role_key));
+    redirect(getDestinationForRole(profile?.role_key, profile?.department_key));
   }
 
   return (

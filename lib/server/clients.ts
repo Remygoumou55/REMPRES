@@ -7,6 +7,7 @@ import {
   type CreateClientInput,
   type UpdateClientInput,
 } from "@/lib/validations/client";
+import { assertOperationalMutationAllowed } from "@/lib/server/auth-operational-guards";
 import { getClientsPermissions } from "@/lib/server/permissions";
 import { logError } from "@/lib/logger";
 
@@ -210,6 +211,7 @@ export async function createClient(
   if (!userId || !userId.trim()) {
     throw new Error("Utilisateur non authentifié");
   }
+  await assertOperationalMutationAllowed(userId);
 
   const validated = createClientSchema.parse(input);
   const payload = { ...validated, created_by: userId };
@@ -256,6 +258,7 @@ export async function updateClient(
   if (!id || !id.trim()) {
     throw new Error("ID client invalide");
   }
+  await assertOperationalMutationAllowed(userId);
 
   const validated = updateClientSchema.parse({ id, ...input });
   const payload = {
@@ -320,6 +323,7 @@ export async function softDeleteClient(
   if (!id || !id.trim()) {
     throw new Error("ID client invalide");
   }
+  await assertOperationalMutationAllowed(userId);
 
   const previousClient = await getClientById(id);
   if (!previousClient) {
@@ -379,6 +383,7 @@ export async function restoreClient(
   if (!id || !id.trim()) {
     throw new Error("ID client invalide");
   }
+  await assertOperationalMutationAllowed(userId);
 
   const { data: archived, error: fetchErr } = await getClientsTable()
     .select(CLIENT_COLUMNS)

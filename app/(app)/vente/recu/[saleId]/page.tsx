@@ -45,7 +45,6 @@ export default async function ReceiptPage({ params }: PageProps) {
     .from("sales")
     .select("*")
     .eq("id", saleId)
-    .is("deleted_at", null)
     .single();
 
   if (saleError || !sale) return notFound();

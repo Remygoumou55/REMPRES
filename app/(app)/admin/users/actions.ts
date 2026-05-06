@@ -13,6 +13,7 @@ import {
   type InviteUserInput,
   type UpdateUserAdminInput,
 } from "@/lib/server/users";
+import { normalizeDepartmentKey } from "@/lib/departments/department-config";
 import { err, type SafeResult } from "@/lib/server/safe-result";
 
 // ---------------------------------------------------------------------------
@@ -35,12 +36,13 @@ export async function inviteUserAction(
 ): Promise<SafeResult<{ userId: string }>> {
   const callerId = await getCurrentUserId();
 
+  const deptRaw = (formData.get("departmentKey") as string | null)?.trim() ?? "";
   const input: InviteUserInput = {
     firstName:     (formData.get("firstName")     as string ?? "").trim(),
     lastName:      (formData.get("lastName")      as string ?? "").trim(),
     email:         (formData.get("email")          as string ?? "").trim().toLowerCase(),
-    roleKey:       (formData.get("roleKey")        as string ?? "employe"),
-    departmentKey: (formData.get("departmentKey") as string | null) || null,
+    roleKey:       (formData.get("roleKey")        as string ?? "agent"),
+    departmentKey: deptRaw ? normalizeDepartmentKey(deptRaw) : null,
   };
 
   if (!input.firstName || !input.lastName || !input.email) {

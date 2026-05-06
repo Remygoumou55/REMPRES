@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import {
   UserPlus,
   RefreshCw,
@@ -40,29 +41,8 @@ import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { ConfirmDangerDialog } from "@/components/ui/confirm-danger-dialog";
-
-// ---------------------------------------------------------------------------
-// Constantes
-// ---------------------------------------------------------------------------
-
-const ROLES = [
-  { key: "super_admin",            label: "Super Admin" },
-  { key: "directeur_general",      label: "Directeur Général" },
-  { key: "responsable_vente",      label: "Responsable Vente" },
-  { key: "responsable_rh",         label: "Responsable RH" },
-  { key: "responsable_formation",  label: "Responsable Formation" },
-  { key: "responsable_consultation", label: "Responsable Consultation" },
-  { key: "responsable_marketing",  label: "Responsable Marketing" },
-  { key: "responsable_logistique", label: "Responsable Logistique" },
-  { key: "comptable",              label: "Comptable" },
-  { key: "auditeur",               label: "Auditeur" },
-  { key: "employe",                label: "Employé" },
-] as const;
-
-const DEPARTMENTS = [
-  "Vente", "Finance", "RH", "Formation",
-  "Consultation", "Marketing", "Logistique", "Direction",
-];
+import { ROLE_OPTIONS_UI } from "@/lib/auth/roles";
+import { DEPARTMENT_OPTIONS_UI } from "@/lib/departments/department-config";
 
 /** Bouton action icône seule — compact, lisible au survol (title) */
 const ACTION_ICON =
@@ -166,7 +146,7 @@ function InviteModal({
             <div>
               <label className="mb-1 block text-xs font-medium text-gray-600">Rôle *</label>
               <Select name="roleKey" required>
-                {ROLES.map((r) => (
+                {ROLE_OPTIONS_UI.map((r) => (
                   <option key={r.key} value={r.key}>{r.label}</option>
                 ))}
               </Select>
@@ -176,8 +156,8 @@ function InviteModal({
               <label className="mb-1 block text-xs font-medium text-gray-600">Département</label>
               <Select name="departmentKey">
                 <option value="">— Aucun département —</option>
-                {DEPARTMENTS.map((d) => (
-                  <option key={d} value={d.toLowerCase()}>{d}</option>
+                {DEPARTMENT_OPTIONS_UI.map((d) => (
+                  <option key={d.key} value={d.key}>{d.label}</option>
                 ))}
               </Select>
             </div>
@@ -224,7 +204,7 @@ function EditUserModal({
   const [error, setError] = useState<string | null>(null);
   const [firstName, setFirstName] = useState(user.first_name ?? "");
   const [lastName, setLastName] = useState(user.last_name ?? "");
-  const [roleKey, setRoleKey] = useState(user.role_key ?? "employe");
+  const [roleKey, setRoleKey] = useState(user.role_key ?? "agent");
   const [departmentKey, setDepartmentKey] = useState(user.department_key ?? "");
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -275,7 +255,7 @@ function EditUserModal({
           <div>
             <label className="mb-1 block text-xs font-medium text-gray-600">Rôle *</label>
             <Select value={roleKey} onChange={(e) => setRoleKey(e.target.value)} required>
-              {ROLES.map((r) => (
+              {ROLE_OPTIONS_UI.map((r) => (
                 <option key={r.key} value={r.key}>{r.label}</option>
               ))}
             </Select>
@@ -284,8 +264,8 @@ function EditUserModal({
             <label className="mb-1 block text-xs font-medium text-gray-600">Département</label>
             <Select value={departmentKey} onChange={(e) => setDepartmentKey(e.target.value)}>
               <option value="">— Aucun département —</option>
-              {DEPARTMENTS.map((d) => (
-                <option key={d} value={d.toLowerCase()}>{d}</option>
+              {DEPARTMENT_OPTIONS_UI.map((d) => (
+                <option key={d.key} value={d.key}>{d.label}</option>
               ))}
             </Select>
           </div>
@@ -478,6 +458,7 @@ interface Props {
 }
 
 export function UsersClient({ initialUsers }: Props) {
+  const router = useRouter();
   const { showSuccess, showError } = useToast();
   const [users, setUsers]         = useState<UserListItem[]>(initialUsers);
   const [showModal, setShowModal] = useState(false);
@@ -529,6 +510,7 @@ export function UsersClient({ initialUsers }: Props) {
         if (Array.isArray(data)) {
           setUsers(data);
           setRefreshBanner(null);
+          router.refresh();
         } else {
           setRefreshBanner("Réponse invalide du serveur.");
           showError("Une erreur est survenue");

@@ -3,6 +3,7 @@
 import { headers } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import { assertOperationalMutationAllowed } from "@/lib/server/auth-operational-guards";
 import { isAdminRole } from "@/lib/server/permissions";
 import { restoreClient } from "@/lib/server/clients";
 import { restoreProduct } from "@/lib/server/products";
@@ -41,6 +42,12 @@ export async function adminBulkRestoreArchivedClientsAction(
 ): Promise<SafeResult<{ restored: number }>> {
   const session = await requireAdminSession();
   if (!session) return err("Accès refusé.");
+  try {
+    await assertOperationalMutationAllowed(session.userId);
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : "Accès refusé.";
+    return err(msg);
+  }
 
   const ids = normalizeIds(clientIds);
   if (ids.length === 0) return err("Aucun client sélectionné.");
@@ -67,6 +74,12 @@ export async function adminBulkRestoreArchivedProductsAction(
 ): Promise<SafeResult<{ restored: number }>> {
   const session = await requireAdminSession();
   if (!session) return err("Accès refusé.");
+  try {
+    await assertOperationalMutationAllowed(session.userId);
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : "Accès refusé.";
+    return err(msg);
+  }
 
   const ids = normalizeIds(productIds);
   if (ids.length === 0) return err("Aucun produit sélectionné.");
@@ -92,6 +105,12 @@ export async function adminPermanentDeleteArchivedClientsAction(
 ): Promise<SafeResult<{ deleted: number }>> {
   const session = await requireAdminSession();
   if (!session) return err("Accès refusé.");
+  try {
+    await assertOperationalMutationAllowed(session.userId);
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : "Accès refusé.";
+    return err(msg);
+  }
 
   const ids = normalizeIds(clientIds);
   if (ids.length === 0) return err("Aucun client sélectionné.");
@@ -122,6 +141,12 @@ export async function adminPermanentDeleteArchivedProductsAction(
 ): Promise<SafeResult<{ deleted: number }>> {
   const session = await requireAdminSession();
   if (!session) return err("Accès refusé.");
+  try {
+    await assertOperationalMutationAllowed(session.userId);
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : "Accès refusé.";
+    return err(msg);
+  }
 
   const ids = normalizeIds(productIds);
   if (ids.length === 0) return err("Aucun produit sélectionné.");

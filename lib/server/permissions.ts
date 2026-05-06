@@ -1,4 +1,6 @@
 import { cache } from "react";
+import { getSupervisionScope, hasAdminConsoleAccess, type SupervisionScope } from "@/lib/auth/permissions";
+import { normalizeRoleKey } from "@/lib/auth/roles";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { logError } from "@/lib/logger";
 
@@ -10,6 +12,7 @@ export type ClientsPermissions = {
 };
 
 export type ModulePermissions = ClientsPermissions;
+/** Compat historique — les permissions fines viennent de la table `permissions` par `role_key`. */
 export type CanonicalRole = "admin" | "manager" | "agent";
 
 type PermissionAction = "read" | "create" | "update" | "delete";
@@ -29,21 +32,9 @@ const DENY_ALL: ModulePermissions = {
   canDelete: false,
 };
 
-const ADMIN_ROLE_KEYS = new Set(["super_admin", "admin", "directeur_general"]);
-const MANAGER_ROLE_KEYS = new Set([
-  "manager",
-  "responsable_vente",
-  "comptable",
-  "responsable_formation",
-  "responsable_consultation",
-  "responsable_rh",
-  "responsable_marketing",
-  "responsable_logistique",
-]);
-
 function canDoAction(
   permissions: ClientsPermissions,
-  action: PermissionAction
+  action: PermissionAction,
 ) {
   switch (action) {
     case "read":
@@ -68,29 +59,62 @@ function aggregatePermissions(rows: PermissionRow[]): ModulePermissions {
   };
 }
 
+export type ProfileAuthBrief = {
+  roleKey: string | null;
+  departmentKey: string | null;
+  departmentId: string | null;
+  ok: boolean;
+  supervisionScope: SupervisionScope;
+};
+
 /**
- * Récupère le rôle utilisateur (une requête profil par userId et par requête RSC).
+ * Contexte d’autorisation profil (rôle générique + département) — une requête par cycle RSC.
  */
-const getProfileRoleKey = cache(async (userId: string): Promise<{ roleKey: string | null; ok: boolean }> => {
+export const getProfileAuthBrief = cache(async (userId: string): Promise<ProfileAuthBrief> => {
   const supabase = getSupabaseServerClient();
 
   const { data, error } = await supabase
     .from("profiles")
-    .select("role_key")
+    .select("role_key, department_key, department_id")
     .eq("id", userId)
     .is("deleted_at", null)
     .maybeSingle();
 
   if (error) {
-    logError("auth", "getProfileRoleKey error", { error: error.message, userId });
-    return { roleKey: null, ok: false };
+    logError("auth", "getProfileAuthBrief error", { error: error.message, userId });
+    return {
+      roleKey: null,
+      departmentKey: null,
+      departmentId: null,
+      ok: false,
+      supervisionScope: "restricted",
+    };
   }
 
   if (!data?.role_key || !String(data.role_key).trim()) {
-    return { roleKey: null, ok: true };
+    return {
+      roleKey: null,
+      departmentKey: null,
+      departmentId: null,
+      ok: true,
+      supervisionScope: getSupervisionScope(null, null),
+    };
   }
 
-  return { roleKey: String(data.role_key).trim(), ok: true };
+  const departmentId =
+    data.department_id != null ? String(data.department_id).trim() || null : null;
+
+  const roleKey = String(data.role_key).trim();
+  const departmentKey =
+    data.department_key != null ? String(data.department_key).trim() || null : null;
+
+  return {
+    roleKey,
+    departmentKey,
+    departmentId,
+    ok: true,
+    supervisionScope: getSupervisionScope(roleKey, departmentKey),
+  };
 });
 
 const getModulePermissionsMemo = cache(
@@ -100,22 +124,18 @@ const getModulePermissionsMemo = cache(
       return DENY_ALL;
     }
 
-    const { roleKey, ok } = await getProfileRoleKey(userId);
+    const brief = await getProfileAuthBrief(userId);
 
-    if (!ok || !roleKey) {
+    if (!brief.ok || !brief.roleKey) {
       return DENY_ALL;
     }
-
-    const canonicalRole = toCanonicalRole(roleKey);
-    const roleKeysToCheck =
-      canonicalRole === roleKey ? [roleKey] : [roleKey, canonicalRole];
 
     const supabase = getSupabaseServerClient();
 
     const { data, error } = await supabase
       .from("permissions")
       .select("can_create,can_read,can_update,can_delete")
-      .in("role_key", roleKeysToCheck)
+      .eq("role_key", brief.roleKey)
       .in("module_key", moduleKeys)
       .is("deleted_at", null);
 
@@ -137,7 +157,7 @@ const getModulePermissionsMemo = cache(
 );
 
 /**
- * Permissions par module
+ * Permissions par module (agrégation sur les lignes `permissions` du rôle exact du profil).
  */
 export async function getModulePermissions(
   userId: string,
@@ -154,7 +174,7 @@ export async function getModulePermissions(
  * Permissions clients
  */
 export async function getClientsPermissions(
-  userId: string
+  userId: string,
 ): Promise<ClientsPermissions> {
   return getModulePermissions(userId, ["clients", "vente"]);
 }
@@ -164,7 +184,7 @@ export async function getClientsPermissions(
  */
 export async function assertClientsPermission(
   userId: string,
-  action: PermissionAction
+  action: PermissionAction,
 ): Promise<ClientsPermissions | null> {
   const permissions = await getClientsPermissions(userId);
 
@@ -176,18 +196,19 @@ export async function assertClientsPermission(
 }
 
 /**
- * Rôle utilisateur (dédoublonné avec getProfileRoleKey quand les deux sont utilisés).
+ * Rôle utilisateur brut (`profiles.role_key`).
  */
 export const getUserRole = cache(async (userId: string): Promise<string | null> => {
-  const { roleKey, ok } = await getProfileRoleKey(userId);
-  if (!ok) return null;
-  return roleKey;
+  const brief = await getProfileAuthBrief(userId);
+  if (!brief.ok) return null;
+  return brief.roleKey;
 });
 
+/** Classification grossière (UX / redirections héritées). */
 export function toCanonicalRole(roleKey: string | null | undefined): CanonicalRole {
-  const normalized = String(roleKey ?? "").trim().toLowerCase();
-  if (ADMIN_ROLE_KEYS.has(normalized)) return "admin";
-  if (MANAGER_ROLE_KEYS.has(normalized)) return "manager";
+  const r = normalizeRoleKey(roleKey);
+  if (r === "super_admin") return "admin";
+  if (r === "manager" || r === "accountant" || r === "auditor") return "manager";
   return "agent";
 }
 
@@ -205,22 +226,19 @@ export async function isSuperAdmin(userId: string): Promise<boolean> {
 }
 
 export async function isAdminRole(userId: string): Promise<boolean> {
-  const role = await getUserRole(userId);
-  return toCanonicalRole(role) === "admin";
+  const brief = await getProfileAuthBrief(userId);
+  if (!brief.ok) return false;
+  return hasAdminConsoleAccess(brief.roleKey, brief.departmentKey);
 }
 
 /**
  * Assert super admin SAFE
  */
-export async function assertSuperAdmin(
-  userId: string
-): Promise<boolean> {
+export async function assertSuperAdmin(userId: string): Promise<boolean> {
   return await isSuperAdmin(userId);
 }
 
-export async function assertAdminRole(
-  userId: string
-): Promise<boolean> {
+export async function assertAdminRole(userId: string): Promise<boolean> {
   return await isAdminRole(userId);
 }
 

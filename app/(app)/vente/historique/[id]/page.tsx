@@ -76,7 +76,6 @@ export default async function SaleDetailPage({ params }: PageProps) {
       "id,reference,client_id,seller_id,subtotal,discount_percent,discount_amount,total_amount_gnf,display_currency,exchange_rate,payment_method,payment_status,amount_paid_gnf,notes,created_at",
     )
     .eq("id", params.id)
-    .is("deleted_at", null)
     .single();
 
   if (error || !sale) return notFound();

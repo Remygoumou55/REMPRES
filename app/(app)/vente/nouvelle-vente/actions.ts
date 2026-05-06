@@ -10,6 +10,7 @@ import type { CreateSaleInput } from "@/lib/validations/sale";
 import type { Client } from "@/types/client";
 import { insertActivityLog } from "@/lib/server/insert-activity-log";
 import { logError } from "@/lib/logger";
+import { assertOperationalMutationAllowed } from "@/lib/server/auth-operational-guards";
 import { getClientsPermissions } from "@/lib/server/permissions";
 
 // ---------------------------------------------------------------------------
@@ -80,6 +81,7 @@ export async function createQuickClientAction(input: {
   const supabase = getSupabaseServerClient();
   const { data: auth } = await supabase.auth.getUser();
   if (!auth.user) redirect("/login");
+  await assertOperationalMutationAllowed(auth.user.id);
   const perms = await getClientsPermissions(auth.user.id);
   if (!perms.canCreate) {
     return { success: false, error: "Accès refusé: vous n'avez pas la permission de créer un client." };

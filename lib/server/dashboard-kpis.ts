@@ -32,6 +32,14 @@ export type DashboardKpis = {
   salesAmountToday:      number;
   salesAmountMonth:      number;
   salesCountMonth:       number;
+  /** Σ montants ventes sur la période (inclut les montants annulés pour lecture brute KPI). */
+  grossSaleAmountToday:  number;
+  grossSaleAmountMonth:  number;
+  cancelledSaleAmountToday:  number;
+  cancelledSaleAmountMonth:  number;
+  /** CA net ventes = brut − annulations (cohérent avec les agrégations finance). */
+  netSaleAmountToday:    number;
+  netSaleAmountMonth:    number;
   productsLowStock:      number;
   productsOutOfStock:    number;
   salesLast7Days:        DayStats[];
@@ -43,6 +51,31 @@ export type DashboardKpis = {
 // ---------------------------------------------------------------------------
 
 const DAY_LABELS = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+
+type SaleKpiRow = {
+  total_amount_gnf: number | null;
+  payment_status: string | null;
+  created_at: string;
+};
+
+function summarizeSaleAmounts(rows: SaleKpiRow[] | null) {
+  const list = rows ?? [];
+  let gross = 0;
+  let cancelled = 0;
+  for (const r of list) {
+    const amt = Number(r.total_amount_gnf ?? 0);
+    gross += amt;
+    if (r.payment_status === "cancelled") {
+      cancelled += amt;
+    }
+  }
+  return {
+    count: list.length,
+    grossSaleAmount: gross,
+    cancelledSaleAmount: cancelled,
+    netSaleAmount: gross - cancelled,
+  };
+}
 
 function buildLast7Days(): { iso: string; label: string }[] {
   const result: { iso: string; label: string }[] = [];
@@ -86,22 +119,19 @@ export async function getDashboardKpis(): Promise<DashboardKpis> {
       .is("deleted_at", null),
     supabase
       .from("sales")
-      .select("total_amount_gnf")
+      .select("total_amount_gnf,payment_status,created_at")
       .is("deleted_at", null)
-      .gte("created_at", todayStart.toISOString())
-      .neq("payment_status", "cancelled"),
+      .gte("created_at", todayStart.toISOString()),
     supabase
       .from("sales")
-      .select("total_amount_gnf")
+      .select("total_amount_gnf,payment_status,created_at")
       .is("deleted_at", null)
-      .gte("created_at", monthStart.toISOString())
-      .neq("payment_status", "cancelled"),
+      .gte("created_at", monthStart.toISOString()),
     supabase
       .from("sales")
-      .select("created_at, total_amount_gnf")
+      .select("created_at, total_amount_gnf, payment_status")
       .is("deleted_at", null)
-      .gte("created_at", sevenDaysAgo.toISOString())
-      .neq("payment_status", "cancelled"),
+      .gte("created_at", sevenDaysAgo.toISOString()),
     supabase
       .from("products")
       .select("stock_quantity, stock_threshold")
@@ -115,24 +145,29 @@ export async function getDashboardKpis(): Promise<DashboardKpis> {
   ]);
 
   const clientsTotal = clientsRes.count ?? 0;
-  const todaySales = todaySalesRes.data;
-  const salesToday       = todaySales?.length ?? 0;
-  const salesAmountToday = (todaySales ?? []).reduce((s, r) => s + (r.total_amount_gnf ?? 0), 0);
+  const todayAgg = summarizeSaleAmounts(todaySalesRes.data as SaleKpiRow[] | null);
+  const salesToday = todayAgg.count;
+  const grossSaleAmountToday = todayAgg.grossSaleAmount;
+  const cancelledSaleAmountToday = todayAgg.cancelledSaleAmount;
+  const netSaleAmountToday = todayAgg.netSaleAmount;
+  const salesAmountToday = netSaleAmountToday;
 
-  const monthlySales = monthlySalesRes.data;
-  const salesAmountMonth = (monthlySales ?? []).reduce((s, r) => s + (r.total_amount_gnf ?? 0), 0);
-  const salesCountMonth  = monthlySales?.length ?? 0;
+  const monthAgg = summarizeSaleAmounts(monthlySalesRes.data as SaleKpiRow[] | null);
+  const salesCountMonth = monthAgg.count;
+  const grossSaleAmountMonth = monthAgg.grossSaleAmount;
+  const cancelledSaleAmountMonth = monthAgg.cancelledSaleAmount;
+  const netSaleAmountMonth = monthAgg.netSaleAmount;
+  const salesAmountMonth = netSaleAmountMonth;
 
-  const weekSales = weekSalesRes.data;
+  const weekSales = weekSalesRes.data as SaleKpiRow[] | null;
   const days = buildLast7Days();
   const salesLast7Days: DayStats[] = days.map(({ iso, label }) => {
-    const dayRows = (weekSales ?? []).filter(
-      (r) => r.created_at.slice(0, 10) === iso,
-    );
+    const dayRows = (weekSales ?? []).filter((r) => r.created_at.slice(0, 10) === iso);
+    const dayNet = summarizeSaleAmounts(dayRows).netSaleAmount;
     return {
       date:   iso,
       label,
-      amount: dayRows.reduce((s, r) => s + (r.total_amount_gnf ?? 0), 0),
+      amount: dayNet,
       count:  dayRows.length,
     };
   });
@@ -182,6 +217,12 @@ export async function getDashboardKpis(): Promise<DashboardKpis> {
     salesAmountToday,
     salesAmountMonth,
     salesCountMonth,
+    grossSaleAmountToday,
+    grossSaleAmountMonth,
+    cancelledSaleAmountToday,
+    cancelledSaleAmountMonth,
+    netSaleAmountToday,
+    netSaleAmountMonth,
     productsLowStock,
     productsOutOfStock,
     salesLast7Days,

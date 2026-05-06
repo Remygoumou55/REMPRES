@@ -26,6 +26,9 @@ export function normalizeFinanceCfoData(raw: FinanceCfoData | Record<string, unk
 
   return {
     totalRevenue: finite(d.totalRevenue, 0),
+    grossSaleRevenue: finite(d.grossSaleRevenue, 0),
+    cancelledSaleRevenue: finite(d.cancelledSaleRevenue, 0),
+    netSaleRevenue: finite(d.netSaleRevenue, finite(d.totalRevenue, 0)),
     totalExpenses: finite(d.totalExpenses, 0),
     profit: finite(d.profit, 0),
     marginPct:
@@ -45,10 +48,23 @@ export function normalizeFinanceCfoData(raw: FinanceCfoData | Record<string, unk
       prevRaw && typeof prevRaw === "object"
         ? {
             totalRevenue: finite(prevRaw.totalRevenue, 0),
+            grossSaleRevenue: finite(prevRaw.grossSaleRevenue, 0),
+            cancelledSaleRevenue: finite(prevRaw.cancelledSaleRevenue, 0),
+            netSaleRevenue: finite(
+              prevRaw.netSaleRevenue,
+              finite(prevRaw.totalRevenue, 0),
+            ),
             totalExpenses: finite(prevRaw.totalExpenses, 0),
             profit: finite(prevRaw.profit, 0),
           }
-        : { totalRevenue: 0, totalExpenses: 0, profit: 0 },
+        : {
+            totalRevenue: 0,
+            grossSaleRevenue: 0,
+            cancelledSaleRevenue: 0,
+            netSaleRevenue: 0,
+            totalExpenses: 0,
+            profit: 0,
+          },
     delta:
       deltaRaw && typeof deltaRaw === "object"
         ? {

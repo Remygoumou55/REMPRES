@@ -5,6 +5,8 @@
 
 "use server";
 
+import { validateInviteRoleDepartment } from "@/lib/auth/permissions";
+import { normalizeDepartmentKey } from "@/lib/departments/department-config";
 import { getSupabaseAdmin, getSupabaseAdminConfigErrorMessage } from "@/lib/supabaseAdmin";
 import { isSuperAdmin } from "@/lib/server/permissions";
 import { logError, logInfo, logWarning } from "@/lib/logger";
@@ -90,7 +92,13 @@ function getInviteRedirectUrl(): string {
 }
 
 const INVITE_EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const DEFAULT_ROLE_KEY = "employe";
+const DEFAULT_ROLE_KEY = "agent";
+
+function normalizeInviteDepartmentKey(raw: string | null | undefined): string | null {
+  const s = String(raw ?? "").trim();
+  if (!s) return null;
+  return normalizeDepartmentKey(s);
+}
 
 /** Email d’invitation : trim + minuscules (source unique pour Auth + profiles). */
 function normalizeInviteEmail(raw: unknown): string {
@@ -464,12 +472,18 @@ export async function inviteUser(
     }
     const roleKey = roleResolved.roleKey;
 
+    const departmentNormalized = normalizeInviteDepartmentKey(input.departmentKey);
+    const combo = validateInviteRoleDepartment(roleKey, departmentNormalized);
+    if (!combo.ok) {
+      return err(combo.error);
+    }
+
     const { data, error } = await admin.auth.admin.inviteUserByEmail(email, {
       data: {
         role_key: roleKey,
         first_name: firstName,
         last_name: lastName,
-        department_key: input.departmentKey ?? null,
+        department_key: departmentNormalized,
       },
       redirectTo: getInviteRedirectUrl(),
     });
@@ -507,7 +521,7 @@ export async function inviteUser(
       firstName,
       lastName,
       roleKey,
-      departmentKey: input.departmentKey ?? null,
+      departmentKey: departmentNormalized,
     });
 
     if (!syncResult.ok) {
@@ -583,7 +597,7 @@ export async function resendInvite(
 
     const { error } = await admin.auth.admin.inviteUserByEmail(userData.user.email, {
       data: {
-        role_key: profile?.role_key ?? "employe",
+        role_key: profile?.role_key ?? "agent",
         first_name: profile?.first_name ?? "",
         last_name: profile?.last_name ?? "",
         department_key: profile?.department_key ?? null,
@@ -807,13 +821,19 @@ export async function updateUserAdmin(
     });
     if (!roleResolved.ok) return err(roleResolved.error);
 
+    const departmentNormalized = normalizeInviteDepartmentKey(input.departmentKey);
+    const combo = validateInviteRoleDepartment(roleResolved.roleKey, departmentNormalized);
+    if (!combo.ok) {
+      return err(combo.error);
+    }
+
     const { error } = await admin
       .from("profiles")
       .update({
         first_name: firstName,
         last_name: lastName,
         role_key: roleResolved.roleKey,
-        department_key: input.departmentKey ?? null,
+        department_key: departmentNormalized,
         updated_at: new Date().toISOString(),
       })
       .eq("id", userId)
@@ -833,7 +853,7 @@ export async function updateUserAdmin(
       metadata: {
         summary: "Utilisateur modifié",
         role_key: roleResolved.roleKey,
-        department_key: input.departmentKey ?? null,
+        department_key: departmentNormalized,
       },
     });
 

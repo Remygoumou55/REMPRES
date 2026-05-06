@@ -57,6 +57,30 @@ export type Database = {
         };
         Relationships: [];
       };
+      departments: {
+        Row: {
+          id: string;
+          key: string;
+          label: string;
+          active: boolean;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          key: string;
+          label: string;
+          active?: boolean;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          key?: string;
+          label?: string;
+          active?: boolean;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
       profiles: {
         Row: {
           id: string;
@@ -65,6 +89,7 @@ export type Database = {
           email: string | null;
           role_key: string;
           department_key: string | null;
+          department_id: string | null;
           avatar_url: string | null;
           is_active: boolean;
           created_at: string;
@@ -78,6 +103,7 @@ export type Database = {
           email?: string | null;
           role_key: string;
           department_key?: string | null;
+          department_id?: string | null;
           avatar_url?: string | null;
           is_active?: boolean;
           created_at?: string;
@@ -91,6 +117,7 @@ export type Database = {
           email?: string | null;
           role_key?: string;
           department_key?: string | null;
+          department_id?: string | null;
           avatar_url?: string | null;
           is_active?: boolean;
           created_at?: string;
@@ -306,6 +333,7 @@ export type Database = {
           created_at: string;
           updated_at: string;
           deleted_at: string | null;
+          lifecycle_status: "validated" | "cancelled" | "archived";
         };
         Insert: {
           id?: string;
@@ -333,6 +361,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
           deleted_at?: string | null;
+          lifecycle_status?: "validated" | "cancelled" | "archived";
         };
         Update: {
           id?: string;
@@ -360,6 +389,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
           deleted_at?: string | null;
+          lifecycle_status?: "validated" | "cancelled" | "archived";
         };
         Relationships: [];
       };

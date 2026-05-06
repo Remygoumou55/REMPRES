@@ -2,6 +2,7 @@
  * Dépenses — lecture agrégée + CRUD via RPC (atomique, journal, financial_transactions).
  * Montant canonique : amount_gnf (GNF).
  */
+import { assertOperationalMutationAllowed } from "@/lib/server/auth-operational-guards";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { insertActivityLog } from "@/lib/server/insert-activity-log";
 import { logError } from "@/lib/logger";
@@ -202,6 +203,7 @@ export async function getExpenseStats(filters: { from: string; to: string; categ
 // ---------------------------------------------------------------------------
 
 export async function createExpense(userId: string, input: CreateExpenseFormInput) {
+  await assertOperationalMutationAllowed(userId);
   const parsed = createExpenseFormSchema.parse(input);
   const supabase = getSupabaseServerClient();
 
@@ -251,6 +253,7 @@ export async function setExpenseReceiptPath(
   expenseId: string,
   path: string | null,
 ): Promise<void> {
+  await assertOperationalMutationAllowed(userId);
   const supabase = getSupabaseServerClient();
   const { error } = await supabase
     .from("expenses")
@@ -284,6 +287,7 @@ export async function setExpenseReceiptPath(
 // ---------------------------------------------------------------------------
 
 export async function updateExpense(userId: string, input: UpdateExpenseFormInput) {
+  await assertOperationalMutationAllowed(userId);
   const parsed = updateExpenseFormSchema.parse(input);
   const supabase = getSupabaseServerClient();
 
@@ -324,6 +328,7 @@ export async function updateExpense(userId: string, input: UpdateExpenseFormInpu
 }
 
 export async function deleteExpense(userId: string, expenseId: string) {
+  await assertOperationalMutationAllowed(userId);
   const supabase = getSupabaseServerClient();
   const { data, error } = await supabase.rpc("delete_expense_transaction", {
     p_expense_id: expenseId,

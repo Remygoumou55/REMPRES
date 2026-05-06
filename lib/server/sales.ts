@@ -17,6 +17,7 @@ import {
   type SaleListParamsInput,
 } from "@/lib/validations/sale";
 import { logError, logInfo } from "@/lib/logger";
+import { assertOperationalMutationAllowed } from "@/lib/server/auth-operational-guards";
 import { getModulePermissions } from "@/lib/server/permissions";
 
 // ---------------------------------------------------------------------------
@@ -57,6 +58,7 @@ export type SaleRow = {
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
+  lifecycle_status: "validated" | "cancelled" | "archived";
 };
 
 export type SaleItemRow = {
@@ -188,6 +190,7 @@ export async function createSale(
   if (!userId?.trim()) {
     throw new Error("Utilisateur non authentifié");
   }
+  await assertOperationalMutationAllowed(userId);
   const perms = await getModulePermissions(userId, [...SALES_MODULE_KEYS]);
   if (!perms.canCreate) {
     throw new Error("Accès refusé: vous n'avez pas la permission de créer une vente.");
@@ -254,7 +257,11 @@ export async function createSale(
     throw new Error("Réponse inattendue du serveur lors de la création de la vente.");
   }
 
-  const saleRow = result.sale as unknown as SaleRow;
+  const saleRowRaw = result.sale as unknown as SaleRow;
+  const saleRow: SaleRow = {
+    ...saleRowRaw,
+    lifecycle_status: saleRowRaw.lifecycle_status ?? "validated",
+  };
   const itemRows = (result.items ?? []) as unknown as SaleItemRow[];
 
   // 4. Log d'activité (silencieux — ne doit jamais bloquer la vente)
@@ -298,7 +305,7 @@ export async function createSale(
 const SALE_COLUMNS =
   "id,reference,client_id,seller_id,subtotal,discount_percent,discount_amount," +
   "total_amount_gnf,display_currency,exchange_rate,payment_method,payment_status," +
-  "amount_paid_gnf,notes,created_by,created_at,updated_at,deleted_at";
+  "amount_paid_gnf,notes,created_by,created_at,updated_at,deleted_at,lifecycle_status";
 
 /**
  * Liste paginée des ventes actives avec filtres.
@@ -315,6 +322,7 @@ export async function listSales(rawParams: SaleListParamsInput = {}): Promise<Sa
     .from("sales")
     .select(SALE_COLUMNS, { count: "exact" })
     .is("deleted_at", null)
+    .neq("lifecycle_status", "archived")
     .order("created_at", { ascending: false }) as unknown as SalesListQuery;
 
   if (params.paymentStatus) {
@@ -406,6 +414,7 @@ export async function updatePaymentStatus(
   userId: string,
   context?: RequestContext,
 ): Promise<SaleRow> {
+  await assertOperationalMutationAllowed(userId);
   const perms = await getModulePermissions(userId, [...SALES_MODULE_KEYS]);
   if (!perms.canUpdate) {
     throw new Error("Accès refusé: vous n'avez pas la permission de modifier une vente.");
@@ -429,6 +438,11 @@ export async function updatePaymentStatus(
   }
 
   const existingSale = existing as unknown as SaleRow;
+  if (existingSale.lifecycle_status !== "validated") {
+    throw new Error(
+      "Cette vente ne peut plus être modifiée (statut cycle de vie : archivée ou annulée).",
+    );
+  }
 
   // Promotion automatique vers "paid" si le montant couvre le total
   let finalStatus = validated.newStatus;

@@ -45,6 +45,9 @@ function mergeFinanceSnapshot(prev: FinanceCfoData, incoming: unknown): FinanceC
 
   return {
     totalRevenue: finiteNum(i.totalRevenue, prev.totalRevenue),
+    grossSaleRevenue: finiteNum(i.grossSaleRevenue, prev.grossSaleRevenue),
+    cancelledSaleRevenue: finiteNum(i.cancelledSaleRevenue, prev.cancelledSaleRevenue),
+    netSaleRevenue: finiteNum(i.netSaleRevenue, prev.netSaleRevenue),
     totalExpenses: finiteNum(i.totalExpenses, prev.totalExpenses),
     profit: finiteNum(i.profit, prev.profit),
     marginPct:
@@ -64,6 +67,12 @@ function mergeFinanceSnapshot(prev: FinanceCfoData, incoming: unknown): FinanceC
       prevIn && typeof prevIn === "object"
         ? {
             totalRevenue: finiteNum(prevIn.totalRevenue, prev.previous.totalRevenue),
+            grossSaleRevenue: finiteNum(prevIn.grossSaleRevenue, prev.previous.grossSaleRevenue),
+            cancelledSaleRevenue: finiteNum(
+              prevIn.cancelledSaleRevenue,
+              prev.previous.cancelledSaleRevenue,
+            ),
+            netSaleRevenue: finiteNum(prevIn.netSaleRevenue, prev.previous.netSaleRevenue),
             totalExpenses: finiteNum(prevIn.totalExpenses, prev.previous.totalExpenses),
             profit: finiteNum(prevIn.profit, prev.previous.profit),
           }

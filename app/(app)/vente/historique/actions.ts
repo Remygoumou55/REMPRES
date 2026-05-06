@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import { assertOperationalMutationAllowed } from "@/lib/server/auth-operational-guards";
 import { getModulePermissions } from "@/lib/server/permissions";
 import { ok, err, type SafeResult } from "@/lib/server/safe-result";
 import { mapArchiveSaleError } from "@/lib/server/sale-error-messages";
@@ -27,6 +28,13 @@ export async function archiveAndDeleteSaleAction(saleId: string): Promise<SafeRe
   const perms = await getModulePermissions(data.user.id, [...MODULE_KEYS]);
   if (!perms.canDelete) {
     return err("Accès refusé: vous n'avez pas la permission pour cette action.");
+  }
+
+  try {
+    await assertOperationalMutationAllowed(data.user.id);
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : "Accès refusé.";
+    return err(msg);
   }
 
   const { error } = await supabase.rpc("archive_and_soft_delete_sale", { p_sale_id: id });

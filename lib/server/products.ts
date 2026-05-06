@@ -2,6 +2,7 @@ import type { Product } from "@/types/product";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import type { Json } from "@/types/database.types";
 import { createProductSchema, type CreateProductInput } from "@/lib/validations/product";
+import { assertOperationalMutationAllowed } from "@/lib/server/auth-operational-guards";
 import { getModulePermissions, type ModulePermissions } from "@/lib/server/permissions";
 import { logError, logInfo } from "@/lib/logger";
 
@@ -29,6 +30,9 @@ async function requireProductPermissions(
   require: Partial<Pick<ModulePermissions, "canRead" | "canCreate" | "canUpdate" | "canDelete">>,
 ): Promise<{ userId: string; perms: ModulePermissions }> {
   const userId = await requireSessionUserId();
+  if (require.canCreate || require.canUpdate || require.canDelete) {
+    await assertOperationalMutationAllowed(userId);
+  }
   const perms = await getModulePermissions(userId, [...MODULE_KEYS]);
   if (require.canRead && !perms.canRead) {
     throw new Error("Accès refusé : lecture produits");

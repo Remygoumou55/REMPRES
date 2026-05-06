@@ -7,6 +7,7 @@ import { Eye, EyeOff, Lock, CheckCircle, Loader2 } from "lucide-react";
 import { getSupabaseBrowserClient } from "@/lib/supabase";
 import { appConfig, getLogoUrl } from "@/lib/config";
 import { logError } from "@/lib/logger";
+import { getDestinationForRole } from "@/lib/roleRedirects";
 
 // ---------------------------------------------------------------------------
 // Validation
@@ -113,7 +114,22 @@ export function SetPasswordForm() {
       }
 
       setSuccess(true);
-      setTimeout(() => router.replace("/dashboard"), 2500);
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      let dest = "/dashboard";
+      if (user?.id) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("role_key, department_key")
+          .eq("id", user.id)
+          .maybeSingle();
+        dest = getDestinationForRole(profile?.role_key ?? null, profile?.department_key ?? null);
+      }
+      setTimeout(() => {
+        router.replace(dest);
+        router.refresh();
+      }, 2500);
     } catch (err) {
       logError("SET_PASSWORD_UNEXPECTED", err);
       setError("Une erreur inattendue est survenue. Veuillez réessayer.");

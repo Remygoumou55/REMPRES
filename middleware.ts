@@ -1,6 +1,11 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/auth-helpers-nextjs";
 import type { Database } from "@/types/database.types";
+import {
+  canAccessPathForProfile,
+  hasAdminConsoleAccess,
+  isSupervisionOnlyDepartmentKey,
+} from "@/lib/auth/permissions";
 
 // ---------------------------------------------------------------------------
 // Routes protégées — authentification requise
@@ -12,7 +17,6 @@ const PROTECTED_PREFIXES = [
   "/vente",
   "/admin",
   "/auth/set-password",
-  // Modules métier (construits ou en cours de développement)
   "/rh",
   "/finance",
   "/formation",
@@ -20,17 +24,6 @@ const PROTECTED_PREFIXES = [
   "/marketing",
   "/logistique",
 ];
-
-// Routes accessibles uniquement au rôle admin canonique.
-const ADMIN_ONLY_PREFIXES = ["/admin"];
-
-const PROFILE_CACHE_COOKIE = "__rempres_profile_ok_ts";
-const PROFILE_CACHE_TTL_MS = 2 * 60 * 1000;
-
-function isAdminRoleKey(roleKey: string | null | undefined): boolean {
-  const normalized = String(roleKey ?? "").trim().toLowerCase();
-  return normalized === "super_admin" || normalized === "admin" || normalized === "directeur_general";
-}
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -42,10 +35,32 @@ function isProtectedPath(pathname: string) {
   );
 }
 
-function isAdminOnlyPath(pathname: string) {
-  return ADMIN_ONLY_PREFIXES.some(
-    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
-  );
+/**
+ * Routes sous `/admin` réservées à la console (super_admin / DG administration).
+ * Les journaux d’activité sont sous `/admin` mais accessibles aux auditeurs via `canAccessPathForProfile`.
+ */
+function isAdminConsoleRestrictedPath(pathname: string): boolean {
+  if (!(pathname === "/admin" || pathname.startsWith("/admin/"))) return false;
+  if (
+    pathname === "/admin/activity-logs" ||
+    pathname.startsWith("/admin/activity-logs/")
+  ) {
+    return false;
+  }
+  return true;
+}
+
+function isVenteOperationalPath(pathname: string): boolean {
+  if (pathname === "/vente" || pathname.startsWith("/vente/")) {
+    if (
+      pathname.startsWith("/vente/historique") ||
+      pathname.startsWith("/vente/recu/")
+    ) {
+      return false;
+    }
+    return true;
+  }
+  return false;
 }
 
 // ---------------------------------------------------------------------------
@@ -56,7 +71,7 @@ export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
   const { pathname } = request.nextUrl;
 
-  const supabaseUrl  = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   if (!supabaseUrl || !supabaseAnon) return response;
@@ -74,13 +89,10 @@ export async function middleware(request: NextRequest) {
     },
   });
 
-  // 1. Vérification authentification — getUser() valide le JWT côté serveur
-  //    (contrairement à getSession() qui lit le cookie sans le vérifier).
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // ── Non connecté → accès à une route protégée : rediriger vers /login ──
   if (isProtectedPath(pathname) && !user) {
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = "/login";
@@ -88,81 +100,88 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // ── Connecté → tente d'accéder à /login : rediriger vers /dashboard ────
+  // Session active sur /login → la racine résout la destination via profil (évite destination figée /dashboard).
   if (pathname === "/login" && user) {
-    const dashUrl = request.nextUrl.clone();
-    dashUrl.pathname = "/dashboard";
-    return NextResponse.redirect(dashUrl);
+    const rootUrl = request.nextUrl.clone();
+    rootUrl.pathname = "/";
+    return NextResponse.redirect(rootUrl);
   }
 
-  // ── Vérifications profil (is_active + role_key) — une seule requête DB ──
   if (user && isProtectedPath(pathname)) {
-    const isAdminRoute = isAdminOnlyPath(pathname);
-    const cachedProfileCheckedAt = Number(request.cookies.get(PROFILE_CACHE_COOKIE)?.value ?? "0");
-    const profileCacheFresh =
-      Number.isFinite(cachedProfileCheckedAt) &&
-      cachedProfileCheckedAt > 0 &&
-      Date.now() - cachedProfileCheckedAt < PROFILE_CACHE_TTL_MS;
+    const { data: profile, error: profileError } = await supabase
+      .from("profiles")
+      .select("role_key, is_active, department_key, department_id")
+      .eq("id", user.id)
+      .is("deleted_at", null)
+      .maybeSingle();
 
-    // On évite de relire "profiles" à chaque clic d'onglet.
-    if (!profileCacheFresh || isAdminRoute) {
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("role_key, is_active")
-        .eq("id", user.id)
-        .single();
+    if (profileError || !profile) {
+      const errUrl = request.nextUrl.clone();
+      errUrl.pathname = "/error-profile";
+      return NextResponse.redirect(errUrl);
+    }
 
-      // Compte bloqué → accès refusé
-      if (profile && profile.is_active === false) {
-        const blockedUrl = request.nextUrl.clone();
-        blockedUrl.pathname = "/access-denied";
-        blockedUrl.searchParams.set("reason", "blocked");
-        return NextResponse.redirect(blockedUrl);
-      }
+    if (profile.is_active === false) {
+      const blockedUrl = request.nextUrl.clone();
+      blockedUrl.pathname = "/access-denied";
+      blockedUrl.searchParams.set("reason", "blocked");
+      return NextResponse.redirect(blockedUrl);
+    }
 
-      // Routes admin-only — rôle admin canonique requis.
-      if (isAdminRoute && !isAdminRoleKey(profile?.role_key)) {
-        const deniedUrl = request.nextUrl.clone();
-        deniedUrl.pathname = "/access-denied";
-        return NextResponse.redirect(deniedUrl);
-      }
+    const roleKey = profile.role_key ?? null;
+    const deptKey = profile.department_key ?? null;
 
-      // Cache soft: réduit fortement la latence inter-onglets.
-      response.cookies.set(PROFILE_CACHE_COOKIE, String(Date.now()), {
-        httpOnly: true,
-        sameSite: "lax",
-        secure: process.env.NODE_ENV === "production",
-        path: "/",
-        maxAge: Math.floor(PROFILE_CACHE_TTL_MS / 1000),
-      });
+    if (
+      isAdminConsoleRestrictedPath(pathname) &&
+      !hasAdminConsoleAccess(roleKey, deptKey)
+    ) {
+      const deniedUrl = request.nextUrl.clone();
+      deniedUrl.pathname = "/access-denied";
+      return NextResponse.redirect(deniedUrl);
+    }
+
+    if (
+      isSupervisionOnlyDepartmentKey(deptKey) &&
+      isVenteOperationalPath(pathname)
+    ) {
+      const dashUrl = request.nextUrl.clone();
+      dashUrl.pathname = "/dashboard";
+      return NextResponse.redirect(dashUrl);
+    }
+
+    if (!canAccessPathForProfile(pathname, roleKey, deptKey)) {
+      const deniedUrl = request.nextUrl.clone();
+      deniedUrl.pathname = "/access-denied";
+      return NextResponse.redirect(deniedUrl);
     }
   }
 
   return response;
 }
 
-// ---------------------------------------------------------------------------
-// Matcher — liste exhaustive de toutes les routes gérées
-// ---------------------------------------------------------------------------
-
 export const config = {
   matcher: [
-    // Routes construites
+    "/dashboard",
     "/dashboard/:path*",
     "/settings",
     "/settings/:path*",
+    "/vente",
     "/vente/:path*",
+    "/admin",
     "/admin/:path*",
     "/auth/set-password",
-    // Modules métier (construits ou en cours)
+    "/rh",
     "/rh/:path*",
     "/finance",
     "/finance/:path*",
+    "/formation",
     "/formation/:path*",
+    "/consultation",
     "/consultation/:path*",
+    "/marketing",
     "/marketing/:path*",
+    "/logistique",
     "/logistique/:path*",
-    // Pages d'auth (pour rediriger les utilisateurs déjà connectés)
     "/login",
   ],
 };

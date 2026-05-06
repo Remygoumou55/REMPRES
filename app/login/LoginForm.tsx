@@ -69,7 +69,7 @@ export function LoginForm() {
     try {
       const { data: profile, error: profileError } = await supabase
         .from("profiles")
-        .select("role_key")
+        .select("role_key, department_key")
         .eq("id", data.user.id)
         .single();
 
@@ -84,7 +84,7 @@ export function LoginForm() {
       }
 
       logInfo("auth", "login success", { userId: data.user.id, role: profile.role_key });
-      router.replace(getDestinationForRole(profile.role_key));
+      router.replace(getDestinationForRole(profile.role_key, profile.department_key));
       router.refresh();
     } catch (err) {
       logError("auth", "login profile fetch failed", { userId: data.user.id, error: err });

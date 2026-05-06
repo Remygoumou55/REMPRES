@@ -140,7 +140,8 @@ export async function listClients(params: ClientListParams = {}): Promise<Client
 }
 
 /**
- * Clients archivés (soft delete). Nécessite canDelete sur le module clients / vente (aligné RLS).
+ * Clients archivés (soft delete) : lignes avec `deleted_at` non null — équivalent logique à « archivé ».
+ * (Pas de colonne `is_archived` : le filtre archive est `deleted_at IS NOT NULL`.)
  */
 export async function listArchivedClients(
   params: Pick<ClientListParams, "page" | "pageSize"> = {},

@@ -1,11 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: false,
-  },
-  typescript: {
-    ignoreBuildErrors: false,
-  },
+  // Prod : retire les console.log/debug pour un JS un peu plus léger (garde error/warn).
+  compiler:
+    process.env.NODE_ENV === "production"
+      ? { removeConsole: { exclude: ["error", "warn"] } }
+      : undefined,
+
+  // Next.js : `eslint.ignoreDuringBuilds` et `typescript.ignoreBuildErrors`
+  // sont false par défaut — ne pas les activer (build prod doit lint + typecheck).
 
   // Tree-shake des paquets lourds côté client (navigation, graphiques)
   experimental: {
@@ -14,10 +16,12 @@ const nextConfig = {
 
   // ── Images ──────────────────────────────────────────────────────────────
   images: {
-    // Les URLs d'image produit sont saisies manuellement et peuvent
-    // pointer vers n'importe quel domaine externe (Supabase Storage, CDN…).
+    // Images distantes : Supabase Storage uniquement.
+    // ⚠️ Ne PAS remettre hostname: "**" — vecteur d'abus (le serveur
+    //    téléchargerait et optimiserait n'importe quelle URL soumise).
     remotePatterns: [
-      { protocol: "https", hostname: "**" },
+      { protocol: "https", hostname: "*.supabase.co" },
+      { protocol: "https", hostname: "*.supabase.in" },
     ],
   },
 

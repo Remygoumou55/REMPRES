@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import type { DayStats } from "@/lib/server/dashboard-kpis";
 import { useCurrencyStore } from "@/stores/currencyStore";
 import { formatCurrency } from "@/utils/currency";
@@ -18,9 +19,9 @@ export function SalesChart({ data }: Props) {
     currency,
   );
 
-  const max = Math.max(...data.map((d) => d.amount), 1);
+  const max = useMemo(() => Math.max(...data.map((d) => d.amount), 1), [data]);
   const today = new Date().toISOString().slice(0, 10);
-  const allEmpty = data.every((d) => d.amount === 0);
+  const allEmpty = useMemo(() => data.every((d) => d.amount === 0), [data]);
 
   if (allEmpty) {
     return (

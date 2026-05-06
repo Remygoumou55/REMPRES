@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import type { FormEvent } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Mail, Lock, Eye, EyeOff, AlertCircle, Loader2 } from "lucide-react";
 import { getSupabaseBrowserClient } from "@/lib/supabase";
@@ -88,6 +89,7 @@ export function LoginForm() {
     } catch (err) {
       logError("auth", "login profile fetch failed", { userId: data.user.id, error: err });
       setError("Une erreur est survenue lors de la connexion. Veuillez réessayer.");
+    } finally {
       setLoading(false);
     }
   }

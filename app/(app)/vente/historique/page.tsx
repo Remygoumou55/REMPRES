@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { Filter } from "lucide-react";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getModulePermissions } from "@/lib/server/permissions";
@@ -8,6 +7,7 @@ import type { Client } from "@/types/client";
 import { PageHeader } from "@/components/ui/page-header";
 import { FlashMessage } from "@/components/ui/flash-message";
 import { SalesTable, type SaleRow } from "@/components/vente/historique/sales-table";
+import { HistoriqueSalesFiltersForm } from "@/components/vente/historique/historique-sales-filters-form";
 
 export const metadata = { title: "Historique des ventes" };
 
@@ -137,8 +137,6 @@ export default async function HistoriquePage({ searchParams }: PageProps) {
   listParams.set("page", String(page));
   const listQueryString = listParams.toString();
 
-  const hasFilters = !!(status || from || to || clientQuery);
-
   return (
     <div className="mx-auto max-w-6xl space-y-5">
       <PageHeader
@@ -158,62 +156,12 @@ export default async function HistoriquePage({ searchParams }: PageProps) {
 
       <FlashMessage success={successMessage} error={errorMessage} />
 
-      <form method="GET" className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
-        <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
-          <Filter size={12} />
-          Filtres
-        </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-          <input
-            type="text"
-            name="client"
-            defaultValue={clientQuery}
-            placeholder="Nom du client…"
-            className="rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-          />
-
-          <select
-            name="status"
-            defaultValue={status}
-            className="rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-          >
-            <option value="">Tous les statuts</option>
-            <option value="pending">En attente</option>
-            <option value="partial">Partiel</option>
-            <option value="paid">Payé</option>
-            <option value="overdue">En retard</option>
-            <option value="cancelled">Annulé</option>
-          </select>
-
-          <input
-            type="date"
-            name="from"
-            defaultValue={from}
-            className="rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-          />
-          <input
-            type="date"
-            name="to"
-            defaultValue={to}
-            className="rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-          />
-
-          <button
-            type="submit"
-            className="rounded-xl bg-primary px-4 py-2 text-sm font-medium text-white transition hover:bg-primary/90"
-          >
-            Filtrer
-          </button>
-        </div>
-
-        {hasFilters && (
-          <div className="mt-2">
-            <Link href="/vente/historique" className="text-xs text-gray-400 hover:text-gray-600">
-              Réinitialiser les filtres
-            </Link>
-          </div>
-        )}
-      </form>
+      <HistoriqueSalesFiltersForm
+        initialClient={clientQuery}
+        initialStatus={status}
+        initialFrom={from}
+        initialTo={to}
+      />
 
       <SalesTable
         sales={sales}

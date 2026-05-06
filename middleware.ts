@@ -22,19 +22,7 @@ const PROTECTED_PREFIXES = [
 ];
 
 // Routes accessibles uniquement au rôle admin canonique.
-const ADMIN_ONLY_PREFIXES = ["/admin/users", "/admin/currency", "/admin/archives"];
-
-// Routes publiques (pas de redirection si connecté, sauf /login)
-const PUBLIC_PATHS = [
-  "/login",
-  "/forgot-password",
-  "/reset-password",
-  "/auth/callback",
-  "/auth/error",
-  "/coming-soon",
-  "/error-profile",
-  "/access-denied",
-];
+const ADMIN_ONLY_PREFIXES = ["/admin"];
 
 const PROFILE_CACHE_COOKIE = "__rempres_profile_ok_ts";
 const PROFILE_CACHE_TTL_MS = 2 * 60 * 1000;
@@ -57,12 +45,6 @@ function isProtectedPath(pathname: string) {
 function isAdminOnlyPath(pathname: string) {
   return ADMIN_ONLY_PREFIXES.some(
     (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
-  );
-}
-
-function isPublicPath(pathname: string) {
-  return PUBLIC_PATHS.some(
-    (p) => pathname === p || pathname.startsWith(`${p}/`),
   );
 }
 
@@ -92,11 +74,11 @@ export async function middleware(request: NextRequest) {
     },
   });
 
-  // 1. Vérification authentification basée sur session cookie (léger).
+  // 1. Vérification authentification — getUser() valide le JWT côté serveur
+  //    (contrairement à getSession() qui lit le cookie sans le vérifier).
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  const user = session?.user ?? null;
+    data: { user },
+  } = await supabase.auth.getUser();
 
   // ── Non connecté → accès à une route protégée : rediriger vers /login ──
   if (isProtectedPath(pathname) && !user) {

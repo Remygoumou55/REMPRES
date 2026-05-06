@@ -23,6 +23,7 @@ import { X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 type ModalSize = "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "full";
 
@@ -113,7 +114,11 @@ export function Modal({
       {/* Carte */}
       <div
         role="document"
-        className={`relative z-10 flex min-h-0 w-full flex-col overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-black/5 ${SIZE_CLASSES[size]} ${cardClassName ?? ""}`}
+        className={cn(
+          "relative z-10 flex min-h-0 w-full flex-col overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-black/5",
+          SIZE_CLASSES[size],
+          cardClassName,
+        )}
       >
         {/* En-tête */}
         <div className={`flex shrink-0 items-center gap-3 border-b border-gray-100 px-6 py-5 ${headerClassName ?? ""}`}

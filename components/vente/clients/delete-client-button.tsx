@@ -1,46 +1,53 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { ConfirmDangerDialog } from "@/components/ui/confirm-danger-dialog";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/providers/ToastProvider";
+import { resolveUnknownErrorMessage } from "@/lib/messages";
 
 type DeleteClientButtonProps = {
+  /** Server action d’archivage (soft delete) */
+  deleteAction: () => Promise<void>;
   label?: string;
 };
 
-export function DeleteClientButton({ label = "Supprimer" }: DeleteClientButtonProps) {
+export function DeleteClientButton({ deleteAction, label = "Supprimer" }: DeleteClientButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [pending, startTransition] = useTransition();
+  const { showError } = useToast();
 
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function confirmDelete() {
-    const form = document.getElementById("delete-client-form");
-    if (form instanceof HTMLFormElement) {
-      form.requestSubmit();
-    }
+  function handleConfirm() {
+    startTransition(async () => {
+      try {
+        setIsOpen(false);
+        await deleteAction();
+      } catch (error) {
+        showError(resolveUnknownErrorMessage(error));
+      }
+    });
   }
 
   return (
     <>
-      <button
+      <Button
         type="button"
-        className="rounded-md bg-danger px-4 py-2 text-sm font-medium text-white"
-        onClick={openModal}
+        variant="danger"
+        onClick={() => setIsOpen(true)}
+        disabled={pending}
       >
         {label}
-      </button>
+      </Button>
 
       <ConfirmDangerDialog
         open={isOpen}
         title="Confirmer la suppression"
         message="Cette action archive le client (soft delete). Voulez-vous continuer ?"
-        onCancel={closeModal}
-        onConfirm={confirmDelete}
+        confirmLabel="Confirmer"
+        loadingLabel="Suppression…"
+        loading={pending}
+        onCancel={() => !pending && setIsOpen(false)}
+        onConfirm={handleConfirm}
       />
     </>
   );

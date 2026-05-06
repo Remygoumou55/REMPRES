@@ -12,6 +12,7 @@ import { ClientForm, type ClientFormActionResult } from "@/components/forms/clie
 import { EditActionLink } from "@/components/ui/edit-action-link";
 import { DetailPageModal } from "@/components/ui/detail-page-modal";
 import { mapClientError } from "@/lib/server/client-error-messages";
+import { isDetailEditOpen } from "@/lib/routing/modal-query";
 
 type ClientDetailPageProps = {
   params: {
@@ -21,6 +22,7 @@ type ClientDetailPageProps = {
     success?: string;
     error?: string;
     edit?: string;
+    view?: string;
   };
 };
 
@@ -154,6 +156,7 @@ export default async function ClientDetailPage({ params, searchParams }: ClientD
           {permissions.canUpdate ? (
             <EditActionLink
               href={`/vente/clients/${client.id}`}
+              entityId={client.id}
               label="Modifier"
               className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-white"
             />
@@ -165,13 +168,11 @@ export default async function ClientDetailPage({ params, searchParams }: ClientD
             Retour
           </Link>
           {permissions.canDelete ? (
-            <form id="delete-client-form" action={deleteClientAction}>
-              <DeleteClientButton />
-            </form>
+            <DeleteClientButton deleteAction={deleteClientAction} />
           ) : null}
         </div>
 
-      {permissions.canUpdate && searchParams?.edit === "1" ? (
+      {permissions.canUpdate && isDetailEditOpen(searchParams?.edit, params.id) ? (
         <ClientForm
           title="Modifier le client"
           submitLabel="Enregistrer"

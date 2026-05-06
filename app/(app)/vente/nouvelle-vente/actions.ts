@@ -5,9 +5,12 @@ import { redirect } from "next/navigation";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { z } from "zod";
 import { createSale, updatePaymentStatus } from "@/lib/server/sales";
-import { resolveErrorMessage } from "@/lib/messages";
+import { resolveErrorMessageWithContext } from "@/lib/messages";
 import type { CreateSaleInput } from "@/lib/validations/sale";
 import type { Client } from "@/types/client";
+import { insertActivityLog } from "@/lib/server/insert-activity-log";
+import { logError } from "@/lib/logger";
+import { getClientsPermissions } from "@/lib/server/permissions";
 
 // ---------------------------------------------------------------------------
 // createSaleAction — appelée depuis NouvelleVenteClient
@@ -52,8 +55,9 @@ export async function createSaleAction(
     }
     return {
       success: false,
-      error: resolveErrorMessage(
+      error: resolveErrorMessageWithContext(
         err instanceof Error ? err.message : "Erreur inconnue lors de la création de la vente",
+        "creation de vente",
       ),
     };
   }
@@ -76,6 +80,10 @@ export async function createQuickClientAction(input: {
   const supabase = getSupabaseServerClient();
   const { data: auth } = await supabase.auth.getUser();
   if (!auth.user) redirect("/login");
+  const perms = await getClientsPermissions(auth.user.id);
+  if (!perms.canCreate) {
+    return { success: false, error: "Accès refusé: vous n'avez pas la permission de créer un client." };
+  }
 
   const clientType = input.clientType ?? "individual";
 
@@ -109,6 +117,26 @@ export async function createQuickClientAction(input: {
     return { success: false, error: "Impossible de créer le client. Vérifiez les informations." };
   }
 
+  try {
+    await insertActivityLog({
+      actorUserId: auth.user.id,
+      moduleKey: "clients",
+      actionKey: "create",
+      targetTable: "clients",
+      targetId: data.id,
+      metadata: {
+        source: "quick_create_sale_flow",
+        action_at: new Date().toISOString(),
+      },
+    });
+  } catch (logErr) {
+    logError("quick-client", "failed to log quick client create", {
+      userId: auth.user.id,
+      clientId: data.id,
+      error: logErr,
+    });
+  }
+
   return { success: true, client: data as Client };
 }
 
@@ -136,8 +164,9 @@ export async function markAsPaidAction(
   } catch (err) {
     return {
       success: false,
-      error: resolveErrorMessage(
+      error: resolveErrorMessageWithContext(
         err instanceof Error ? err.message : "Erreur lors de la mise à jour du statut",
+        "mise a jour du paiement",
       ),
     };
   }

@@ -97,6 +97,7 @@ export function ClientForm({
       subtitle={isIndividual ? "Particulier" : "Entreprise"}
       icon={isIndividual ? <Users size={18} /> : <Building2 size={18} />}
       size="lg"
+      cardClassName="max-h-[90vh] max-w-[min(500px,calc(100vw-2rem))]"
     >
       <form onSubmit={handleSubmit} className="space-y-4">
 

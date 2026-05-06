@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { hrefCloseModalFromBrowserLocation } from "@/lib/routing/modal-query";
 
 /**
- * Ferme une modale pilotée par l’URL (`?create=1`, `?edit=1`) en retirant ces paramètres
+ * Ferme une modale pilotée par l’URL (`?create=1`, `?edit=<id>`, `?view=<id>`) en retirant ces paramètres
  * tout en conservant filtres, pagination, messages flash, etc.
  *
  * Navigation document complète (`location.assign`) : avec les Server Components, `router.replace`

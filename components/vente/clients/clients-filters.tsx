@@ -4,6 +4,9 @@ import { useCallback, useEffect, useMemo, useRef, useState, useTransition } from
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { SearchInput } from "@/components/ui/search-input";
+import { MODAL_ACTION_PARAM_KEYS } from "@/lib/routing/modal-query";
+
+const FLASH_PARAM_KEYS = ["success", "error"] as const;
 
 type Props = {
   initialQuery: string;
@@ -51,6 +54,16 @@ export function ClientsFilters({ initialQuery, initialType, initialPageSize }: P
       p.set("pageSize", next.pageSize);
       p.set("page", "1");
 
+      const loc = new URLSearchParams(readLocationQueryString());
+      for (const key of MODAL_ACTION_PARAM_KEYS) {
+        const v = loc.get(key);
+        if (v != null && v !== "") p.set(key, v);
+      }
+      for (const key of FLASH_PARAM_KEYS) {
+        const v = loc.get(key);
+        if (v != null && v !== "") p.set(key, v);
+      }
+
       const qs = p.toString();
       const currentQs = readLocationQueryString() || stableParams.toString();
       if (qs === currentQs) return;
@@ -72,7 +85,11 @@ export function ClientsFilters({ initialQuery, initialType, initialPageSize }: P
             ? window.location.search.slice(1)
             : window.location.search,
         );
-        if (sp.get("create") === "1" && !skipInitialSyncRef.current) {
+        const hasModalInUrl =
+          sp.get("create") === "1" ||
+          Boolean(sp.get("edit")?.trim()) ||
+          Boolean(sp.get("view")?.trim());
+        if (hasModalInUrl && !skipInitialSyncRef.current) {
           skipInitialSyncRef.current = true;
           return;
         }

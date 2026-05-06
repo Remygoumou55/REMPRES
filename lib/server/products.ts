@@ -124,7 +124,8 @@ export async function listProducts(): Promise<Product[]> {
 }
 
 /**
- * Produits archivés (soft delete). Nécessite canDelete (aligné RLS).
+ * Produits archivés (soft delete) : `deleted_at` non null — équivalent logique à « archivé ».
+ * (Pas de colonne `is_archived` : le filtre archive est `deleted_at IS NOT NULL`.)
  */
 export async function listArchivedProducts(): Promise<Product[]> {
   await requireProductPermissions({ canDelete: true });

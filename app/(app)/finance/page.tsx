@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import { redirect } from "next/navigation";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
@@ -5,7 +6,23 @@ import { getModulePermissions, isSuperAdmin, listProfilesForAdminSelect } from "
 import { getFinanceCfoData } from "@/lib/server/finance-overview";
 import { listExpenseCategories } from "@/lib/server/expenses";
 import { parseCategoryIds, parseCreatedBy, parseFinanceIsoDate } from "@/lib/finance-query-params";
-import { FinanceDashboardClient } from "./FinanceDashboardClient";
+import { RouteLoadingShell } from "@/components/ui/route-loading-shell";
+
+/** Code-split : Recharts et graphiques ne sont chargés qu’en ouvrant /finance. */
+const FinanceDashboardClient = dynamic(
+  () =>
+    import("./FinanceDashboardClient").then((mod) => ({
+      default: mod.FinanceDashboardClient,
+    })),
+  {
+    ssr: true,
+    loading: () => (
+      <div className="space-y-6 p-4 md:p-6" aria-busy="true">
+        <RouteLoadingShell label="Chargement du pilotage financier…" />
+      </div>
+    ),
+  },
+);
 
 function firstDayOfMonth(): string {
   const d = new Date();

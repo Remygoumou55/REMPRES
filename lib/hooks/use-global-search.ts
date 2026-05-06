@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type Primitive = string | number | boolean | null | undefined | Date;
 
@@ -32,6 +32,8 @@ export function useGlobalSearch<T>({
   }, [query, delay]);
 
   const normalizedFields = useMemo(() => searchFields, [searchFields]);
+  const filteredCacheRef = useRef<Map<string, T[]>>(new Map());
+  const suggestionsCacheRef = useRef<Map<string, string[]>>(new Map());
 
   /**
    * Index mémoire pour éviter de retraiter les champs à chaque frappe.
@@ -66,33 +68,63 @@ export function useGlobalSearch<T>({
     });
   }, [data, normalizedFields]);
 
+  useEffect(() => {
+    filteredCacheRef.current.clear();
+    suggestionsCacheRef.current.clear();
+  }, [indexedData]);
+
   const filteredData = useMemo(() => {
     const q = debouncedQuery.toLowerCase();
     if (!q || q.length < minQueryLength) return data;
+    const cached = filteredCacheRef.current.get(q);
+    if (cached) return cached;
 
-    // Ranking ultra-léger: prefix > includes (ordre plus pertinent pour l'utilisateur)
-    const matches: Array<{ score: number; item: T }> = [];
-    for (const entry of indexedData) {
-      let bestScore = 0;
-      for (const val of entry.valuesLower) {
-        if (val.startsWith(q)) bestScore = Math.max(bestScore, 2);
-        else if (val.includes(q)) bestScore = Math.max(bestScore, 1);
+    // If query extends a previous query, filter from the smaller cached subset.
+    let source = indexedData;
+    if (q.length > 1) {
+      const parent = filteredCacheRef.current.get(q.slice(0, -1));
+      if (parent && parent.length < data.length) {
+        const parentSet = new Set(parent);
+        source = indexedData.filter((entry) => parentSet.has(entry.item));
       }
-      if (bestScore > 0) matches.push({ score: bestScore, item: entry.item });
     }
 
-    matches.sort((a, b) => b.score - a.score);
-    return matches.map((m) => m.item);
+    // Prefix matches first, then includes.
+    const prefix: T[] = [];
+    const includes: T[] = [];
+    for (const entry of source) {
+      let bestScore = 0;
+      for (const val of entry.valuesLower) {
+        if (val.startsWith(q)) {
+          bestScore = 2;
+          break;
+        }
+        if (bestScore === 0 && val.includes(q)) bestScore = 1;
+      }
+      if (bestScore === 2) prefix.push(entry.item);
+      else if (bestScore === 1) includes.push(entry.item);
+    }
+    const result = [...prefix, ...includes];
+    filteredCacheRef.current.set(q, result);
+    return result;
   }, [data, debouncedQuery, minQueryLength, indexedData]);
 
   const suggestions = useMemo(() => {
     if (!debouncedQuery) return [] as string[];
     const q = debouncedQuery.toLowerCase();
+    const cached = suggestionsCacheRef.current.get(q);
+    if (cached) return cached;
     const startsWith: string[] = [];
     const includes: string[] = [];
     const seen = new Set<string>();
 
+    // Reuse narrowed search scope when possible.
+    const pool = filteredData.length > 0 && filteredData.length < data.length
+      ? new Set(filteredData)
+      : null;
+
     for (const entry of indexedData) {
+      if (pool && !pool.has(entry.item)) continue;
       for (let i = 0; i < entry.valuesRaw.length; i += 1) {
         const raw = entry.valuesRaw[i];
         const low = entry.valuesLower[i];
@@ -106,8 +138,10 @@ export function useGlobalSearch<T>({
         }
       }
     }
-    return [...startsWith, ...includes].slice(0, maxSuggestions);
-  }, [debouncedQuery, indexedData, maxSuggestions]);
+    const result = [...startsWith, ...includes].slice(0, maxSuggestions);
+    suggestionsCacheRef.current.set(q, result);
+    return result;
+  }, [debouncedQuery, filteredData, data.length, indexedData, maxSuggestions]);
 
   const completion = useMemo(() => {
     const q = debouncedQuery.trim();

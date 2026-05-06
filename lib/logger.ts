@@ -66,35 +66,26 @@ function emit(payload: LogPayload): void {
   console.info(line, payload);
 }
 
-function persistServerLog(payload: LogPayload): void {
-  if (payload.runtime !== "server") return;
-  if (payload.level === "info") return; // keep persistence lightweight
-
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!supabaseUrl || !serviceKey) return;
-
-  const endpoint = `${supabaseUrl.replace(/\/$/, "")}/rest/v1/logs`;
-  const body = {
-    level: payload.level,
-    module: payload.module,
-    message: payload.message,
-    metadata: payload.metadata ?? {},
-    user_id: payload.userId,
-  };
-
-  void fetch(endpoint, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      apikey: serviceKey,
-      Authorization: `Bearer ${serviceKey}`,
-      Prefer: "return=minimal",
-    },
-    body: JSON.stringify(body),
-  }).catch(() => {
-    // Never throw from logger path.
-  });
+function persistServerLog(_payload: LogPayload): void {
+  // TODO: Réactiver quand une table `server_logs` sera créée dans Supabase.
+  //
+  // La table visée (`logs`) n'existe pas dans le schéma actuel (seule `activity_logs`
+  // existe, avec un schéma différent : action_key, module_key, etc.).
+  // Chaque appel faisait un POST silencieusement échoué.
+  //
+  // Pour activer : créer la migration SQL suivante dans supabase/sql/ :
+  //   CREATE TABLE IF NOT EXISTS server_logs (
+  //     id         uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  //     level      text NOT NULL,
+  //     module     text NOT NULL,
+  //     message    text NOT NULL,
+  //     metadata   jsonb DEFAULT '{}',
+  //     user_id    uuid REFERENCES auth.users(id),
+  //     created_at timestamptz DEFAULT now()
+  //   );
+  //   ALTER TABLE server_logs ENABLE ROW LEVEL SECURITY;
+  //   CREATE POLICY "service_role_only" ON server_logs FOR ALL USING (auth.role() = 'service_role');
+  return;
 }
 
 function write(

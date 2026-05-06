@@ -36,6 +36,8 @@ export const getLayoutAccess = cache(async () => {
     canReadClients: permissions.canRead,
     canReadProducts: productsPermissions.canRead,
     canReadFinance: financePermissions.canRead,
+    canCreateFinance: financePermissions.canCreate,
+    canUpdateFinance: financePermissions.canUpdate,
     canReadActivityLogs: isAdminRoleUser,
     isSuperAdmin: isAdminRoleUser,
     canArchiveClients: permissions.canRead && permissions.canDelete,

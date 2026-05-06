@@ -11,6 +11,7 @@ import { EditActionLink } from "@/components/ui/edit-action-link";
 import { DetailPageModal } from "@/components/ui/detail-page-modal";
 import { getModulePermissions } from "@/lib/server/permissions";
 import { mapProductError } from "@/lib/server/product-error-messages";
+import { isDetailEditOpen } from "@/lib/routing/modal-query";
 
 type ProductDetailPageProps = {
   params: {
@@ -20,6 +21,7 @@ type ProductDetailPageProps = {
     success?: string;
     error?: string;
     edit?: string;
+    view?: string;
   };
 };
 
@@ -110,7 +112,7 @@ export default async function ProductDetailPage({ params, searchParams }: Produc
         error,
         "Impossible de modifier le produit pour le moment.",
       );
-      redirect(`/vente/produits/${params.id}?edit=1&error=${encodeURIComponent(message)}`);
+      redirect(`/vente/produits/${params.id}?edit=${encodeURIComponent(params.id)}&error=${encodeURIComponent(message)}`);
     }
 
     redirect(
@@ -131,6 +133,7 @@ export default async function ProductDetailPage({ params, searchParams }: Produc
           {permissions.canUpdate && (
             <EditActionLink
               href={`/vente/produits/${product.id}`}
+              entityId={product.id}
               label="Modifier"
               className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-white"
             />
@@ -211,15 +214,13 @@ export default async function ProductDetailPage({ params, searchParams }: Produc
         </div>
       </dl>
 
-      {permissions.canDelete && (
+      {permissions.canDelete ? (
         <div className="mt-6">
-          <form action={deleteProductAction}>
-            <DeleteProductButton />
-          </form>
+          <DeleteProductButton deleteAction={deleteProductAction} />
         </div>
-      )}
+      ) : null}
 
-      {permissions.canUpdate && searchParams?.edit === "1" ? (
+      {permissions.canUpdate && isDetailEditOpen(searchParams?.edit, params.id) ? (
         <ProductForm
           title="Modifier le produit"
           submitLabel="Enregistrer"

@@ -2,14 +2,14 @@
 
 import { useState, useTransition } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { Eye, Trash2 } from "lucide-react";
+import { Eye, Trash } from "lucide-react";
 import type { Product } from "@/types/product";
 import { deleteProductFromListAction } from "@/app/(app)/vente/produits/actions";
-import { pushThenRefresh } from "@/lib/navigation/push-then-refresh";
+import { useAppMutationRefresh } from "@/hooks/use-app-mutation-refresh";
 import { EditActionLink } from "@/components/ui/edit-action-link";
 import { ConfirmDangerDialog } from "@/components/ui/confirm-danger-dialog";
 import { useToast } from "@/components/providers/ToastProvider";
+import { withViewModalQuery } from "@/lib/routing/modal-query";
 
 type ProductsRowActionsProps = {
   product: Product;
@@ -36,7 +36,7 @@ export function ProductsRowActions({
   canDelete,
   listQueryString,
 }: ProductsRowActionsProps) {
-  const router = useRouter();
+  const { pushThenRefresh } = useAppMutationRefresh();
   const { showSuccess, showError } = useToast();
   const [pending, startTransition] = useTransition();
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -47,46 +47,45 @@ export function ProductsRowActions({
       setConfirmOpen(false);
       if (result.success) {
         showSuccess("Le produit a bien été supprimé.");
-        pushThenRefresh(router, withListFlash(listQueryString, { success: "Le produit a bien été supprimé." }));
+        pushThenRefresh(withListFlash(listQueryString, { success: "Le produit a bien été supprimé." }));
       } else {
         showError(result.error);
-        pushThenRefresh(router, withListFlash(listQueryString, { error: result.error }));
+        pushThenRefresh(withListFlash(listQueryString, { error: result.error }));
       }
     });
   }
 
   return (
     <>
-      <div className="flex items-center justify-center gap-1">
-        {/* Voir */}
+      <div className="flex shrink-0 items-center justify-center gap-0.5">
         <Link
-          href={`/vente/produits/${product.id}`}
-          title="Voir le produit"
+          href={withViewModalQuery(`/vente/produits/${product.id}`, product.id)}
+          title="Voir"
+          aria-label="Voir"
           className="flex h-8 w-8 items-center justify-center rounded-xl text-gray-400 transition hover:bg-gray-100 hover:text-darktext"
         >
           <Eye size={15} />
         </Link>
 
-        {/* Modifier */}
         {canUpdate && (
           <EditActionLink
             href={`/vente/produits/${product.id}`}
-            label="Modifier le produit"
+            entityId={product.id}
+            label="Modifier"
             iconOnly
           />
         )}
 
-        {/* Supprimer */}
         {canDelete && (
           <button
             type="button"
             disabled={pending}
-            title={`Supprimer ${name}`}
+            title="Supprimer"
             aria-label={`Supprimer ${name}`}
             className="flex h-8 w-8 items-center justify-center rounded-xl text-danger transition hover:bg-danger/10 disabled:opacity-40"
             onClick={() => setConfirmOpen(true)}
           >
-            <Trash2 size={15} />
+            <Trash size={15} />
           </button>
         )}
       </div>

@@ -17,6 +17,7 @@ import {
   type SaleListParamsInput,
 } from "@/lib/validations/sale";
 import { logError, logInfo } from "@/lib/logger";
+import { getModulePermissions } from "@/lib/server/permissions";
 
 // ---------------------------------------------------------------------------
 // Types internes
@@ -84,6 +85,8 @@ type RequestContext = {
   ip?: string | null;
   userAgent?: string | null;
 };
+
+const SALES_MODULE_KEYS = ["vente", "produits"] as const;
 
 type SalesListQuery = {
   eq: (column: string, value: string) => SalesListQuery;
@@ -184,6 +187,10 @@ export async function createSale(
 ): Promise<SaleWithItems> {
   if (!userId?.trim()) {
     throw new Error("Utilisateur non authentifié");
+  }
+  const perms = await getModulePermissions(userId, [...SALES_MODULE_KEYS]);
+  if (!perms.canCreate) {
+    throw new Error("Accès refusé: vous n'avez pas la permission de créer une vente.");
   }
   logInfo("sales", "create sale started", { userId });
 
@@ -399,6 +406,10 @@ export async function updatePaymentStatus(
   userId: string,
   context?: RequestContext,
 ): Promise<SaleRow> {
+  const perms = await getModulePermissions(userId, [...SALES_MODULE_KEYS]);
+  if (!perms.canUpdate) {
+    throw new Error("Accès refusé: vous n'avez pas la permission de modifier une vente.");
+  }
   const validated = updatePaymentStatusSchema.parse({ saleId, newStatus, amountPaid });
 
   const supabase = getSupabaseServerClient();

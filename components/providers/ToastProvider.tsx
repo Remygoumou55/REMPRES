@@ -1,8 +1,8 @@
 "use client";
 
 import { CheckCircle2, AlertCircle, X } from "lucide-react";
-import { createContext, useCallback, useContext, useMemo, useRef, useState } from "react";
-import { FEEDBACK_MESSAGES } from "@/lib/messages";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { FEEDBACK_MESSAGES, resolveUnknownErrorMessage } from "@/lib/messages";
 
 type ToastKind = "success" | "error";
 
@@ -43,6 +43,22 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
     showSuccess: (message = DEFAULT_SUCCESS) => push("success", message),
     showError: (message = DEFAULT_ERROR) => push("error", message),
   }), [push]);
+
+  useEffect(() => {
+    const onUnhandledRejection = (event: PromiseRejectionEvent) => {
+      push("error", resolveUnknownErrorMessage(event.reason));
+    };
+    const onError = (event: ErrorEvent) => {
+      push("error", resolveUnknownErrorMessage(event.error ?? event.message));
+    };
+
+    window.addEventListener("unhandledrejection", onUnhandledRejection);
+    window.addEventListener("error", onError);
+    return () => {
+      window.removeEventListener("unhandledrejection", onUnhandledRejection);
+      window.removeEventListener("error", onError);
+    };
+  }, [push]);
 
   return (
     <ToastContext.Provider value={value}>

@@ -44,7 +44,7 @@ export const ERROR_CODES: Record<string, string> = {
   INVALID_AMOUNT:      "Le montant de la transaction doit être supérieur à 0.",
 
   // Générique
-  TRANSACTION_FAILED:  "Une erreur est survenue. Veuillez réessayer.",
+  TRANSACTION_FAILED:  "Impossible de finaliser l'action pour le moment. Veuillez réessayer.",
 
   // Client vente
   CLIENT_REQUIRED: "Veuillez sélectionner un client existant ou en créer un avant de valider la vente.",
@@ -67,11 +67,64 @@ export const SUCCESS_MESSAGES = {
 
 export const FEEDBACK_MESSAGES = {
   OPERATION_SUCCESS: "Opération réussie",
-  OPERATION_FAILED: "Échec de l’opération",
-  GENERIC_ERROR: "Une erreur est survenue",
+  OPERATION_FAILED: "Impossible d'executer l'action demandee.",
+  GENERIC_ERROR: "Une anomalie inattendue est detectee.",
   LOADING: "Traitement en cours...",
   NO_DATA: "Aucune donnée disponible",
 } as const;
+
+const ERROR_PATTERNS = {
+  network: [
+    "NETWORK",
+    "FETCH FAILED",
+    "FAILED TO FETCH",
+    "ETIMEDOUT",
+    "ECONNRESET",
+    "ECONNREFUSED",
+    "TIMEOUT",
+    "OFFLINE",
+  ],
+  auth: [
+    "AUTH",
+    "JWT",
+    "UNAUTHORIZED",
+    "FORBIDDEN",
+    "NON AUTHENTIFIE",
+    "SESSION",
+    "INVALID TOKEN",
+    "ACCESS DENIED",
+    "PERMISSION",
+  ],
+  db: [
+    "POSTGRES",
+    "SQLSTATE",
+    "DATABASE",
+    "VIOLATES",
+    "FOREIGN KEY",
+    "UNIQUE CONSTRAINT",
+    "DUPLICATE KEY",
+    "P0001",
+    "23505",
+    "23503",
+  ],
+} as const;
+
+function detectErrorKind(messageUpper: string): "network" | "auth" | "db" | null {
+  if (ERROR_PATTERNS.network.some((p) => messageUpper.includes(p))) return "network";
+  if (ERROR_PATTERNS.auth.some((p) => messageUpper.includes(p))) return "auth";
+  if (ERROR_PATTERNS.db.some((p) => messageUpper.includes(p))) return "db";
+  return null;
+}
+
+function contextualFallbackMessage(kind: "network" | "auth" | "db" | null, context?: string): string {
+  const ctx = context?.trim() ? ` (${context.trim()})` : "";
+  if (kind === "network") return `Connexion indisponible${ctx}. Verifiez internet puis reessayez.`;
+  if (kind === "auth") return `Session invalide ou droits insuffisants${ctx}. Reconnectez-vous puis reessayez.`;
+  if (kind === "db") return `Les donnees ne peuvent pas etre enregistrees${ctx}. Reessayez dans quelques instants.`;
+  return context?.trim()
+    ? `Action impossible${ctx}. Reessayez dans quelques instants.`
+    : ERROR_CODES.TRANSACTION_FAILED;
+}
 
 // ---------------------------------------------------------------------------
 // resolveErrorMessage — fonction principale
@@ -86,7 +139,7 @@ export const FEEDBACK_MESSAGES = {
  * 3. Sinon → message générique
  */
 export function resolveErrorMessage(error: string | undefined | null): string {
-  if (!error) return ERROR_CODES.TRANSACTION_FAILED;
+  if (!error) return contextualFallbackMessage(null);
 
   const upper = error.toUpperCase();
 
@@ -110,5 +163,29 @@ export function resolveErrorMessage(error: string | undefined | null): string {
   }
 
   // 3. Fallback générique
-  return ERROR_CODES.TRANSACTION_FAILED;
+  return contextualFallbackMessage(detectErrorKind(upper));
+}
+
+/**
+ * Variante contextuelle pour afficher des messages plus précis selon l'écran/action.
+ */
+export function resolveErrorMessageWithContext(
+  error: string | undefined | null,
+  context: string,
+): string {
+  if (error) {
+    const resolved = resolveErrorMessage(error);
+    if (resolved !== ERROR_CODES.TRANSACTION_FAILED) return resolved;
+  }
+  const upper = (error ?? "").toUpperCase();
+  return contextualFallbackMessage(detectErrorKind(upper), context);
+}
+
+/**
+ * Convertit une erreur inconnue (throw JS / Promise rejetée) en message utilisateur.
+ */
+export function resolveUnknownErrorMessage(error: unknown): string {
+  if (typeof error === "string") return resolveErrorMessage(error);
+  if (error instanceof Error) return resolveErrorMessage(error.message);
+  return contextualFallbackMessage(null);
 }

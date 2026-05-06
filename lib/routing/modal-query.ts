@@ -1,22 +1,78 @@
-function withQueryParam(href: string, key: string, value: string): string {
-  const [path, hash = ""] = href.split("#");
-  const separator = path.includes("?") ? "&" : "?";
-  const base = path.includes(`${key}=`) ? path : `${path}${separator}${key}=${value}`;
+/** Manipulation d’URL pour modales (création / lecture / édition) sans casser filtres ni flash. */
+
+function splitHref(href: string): { pathname: string; search: string; hash: string } {
+  const [pathPart, hash = ""] = href.split("#");
+  const [pathname, search = ""] = pathPart.split("?");
+  return { pathname, search: search.replace(/^\?/, ""), hash };
+}
+
+function joinHref(pathname: string, params: URLSearchParams, hash: string): string {
+  const qs = params.toString();
+  const base = qs ? `${pathname}?${qs}` : pathname;
   return hash ? `${base}#${hash}` : base;
 }
 
-export function withEditModalQuery(href: string): string {
-  return withQueryParam(href, "edit", "1");
+function mutateQuery(href: string, mut: (p: URLSearchParams) => void): string {
+  const { pathname, search, hash } = splitHref(href);
+  const p = new URLSearchParams(search);
+  mut(p);
+  return joinHref(pathname, p, hash);
 }
 
+/** Dernier segment de chemin (id ressource sur routes `/.../[id]`). */
+export function entityIdFromResourcePath(href: string): string | null {
+  try {
+    const pathOnly = href.trim().split("#")[0]?.split("?")[0] ?? "";
+    const parts = pathOnly.split("/").filter(Boolean);
+    return parts.length > 0 ? parts[parts.length - 1]! : null;
+  } catch {
+    return null;
+  }
+}
+
+/** Formulaire d’édition ouvert sur une page détail (`?edit=<id>` ; `edit=1` conservé pour anciennes URLs). */
+export function isDetailEditOpen(
+  edit: string | string[] | undefined,
+  resourceId: string,
+): boolean {
+  if (edit == null) return false;
+  const v = Array.isArray(edit) ? edit[0] : edit;
+  return v === resourceId || v === "1";
+}
+
+/**
+ * Édition : `edit=<entityId>`, retire `view` pour éviter deux modes actifs.
+ */
+export function withEditModalQuery(href: string, entityId: string): string {
+  return mutateQuery(href, (p) => {
+    p.set("edit", entityId);
+    p.delete("view");
+  });
+}
+
+/**
+ * Lecture / « Voir » : `view=<entityId>`, retire `edit`.
+ */
+export function withViewModalQuery(href: string, entityId: string): string {
+  return mutateQuery(href, (p) => {
+    p.set("view", entityId);
+    p.delete("edit");
+  });
+}
+
+/** Création depuis la liste : `create=1`, sans conflit avec edit/view. */
 export function withCreateModalQuery(href: string): string {
-  return withQueryParam(href, "create", "1");
+  return mutateQuery(href, (p) => {
+    p.set("create", "1");
+    p.delete("edit");
+    p.delete("view");
+  });
 }
 
-/** Paramètres d’URL qui ouvrent une modale (création / édition rapide). */
-export const MODAL_ACTION_PARAM_KEYS = ["create", "edit"] as const;
+/** Paramètres d’URL qui pilotent une modale ou un mode page. */
+export const MODAL_ACTION_PARAM_KEYS = ["create", "edit", "view"] as const;
 
-/** Copie des query params sans les clés d’ouverture de modale. */
+/** Copie des query params sans les clés d’ouverture de modale / mode. */
 export function cloneSearchParamsWithoutModalActions(source: URLSearchParams | string): URLSearchParams {
   const raw = typeof source === "string" ? source.replace(/^\?/, "") : source.toString();
   const p = new URLSearchParams(raw);

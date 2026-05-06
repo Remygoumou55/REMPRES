@@ -11,8 +11,8 @@ import {
   Loader2,
   CheckCircle,
   Pencil,
-  Trash2,
-  FileText,
+  Trash,
+  Eye,
   Paperclip,
   Receipt,
   Save,
@@ -37,6 +37,7 @@ import { useCurrencyStore } from "@/stores/currencyStore";
 import { convertCurrency } from "@/lib/services/currencyService";
 import { useCurrencyBatchConversion } from "@/hooks/useCurrencyConversion";
 import { useToast } from "@/components/providers/ToastProvider";
+import { useAppMutationRefresh } from "@/hooks/use-app-mutation-refresh";
 import { getSupabaseBrowserClient } from "@/lib/supabase";
 import {
   buildReceiptObjectPath,
@@ -102,6 +103,7 @@ export function DepensesClient({
   isSuperAdmin,
 }: Props) {
   const { showSuccess, showError } = useToast();
+  const { refreshAfterMutation } = useAppMutationRefresh();
   const router = useRouter();
   const sp = useSearchParams();
   const [pending, startTransition] = useTransition();
@@ -109,14 +111,18 @@ export function DepensesClient({
 
   // Devise sélectionnée par l'utilisateur
   const currency = useCurrencyStore((s) => s.selectedCurrency);
-  const { convertedByKey: summaryConverted } = useCurrencyBatchConversion(
-    [
+  const summaryItems = useMemo(
+    () => [
       { key: "totalRange", amount: stats.totalInRange },
       { key: "totalToday", amount: stats.totalToday },
       { key: "totalMonth", amount: stats.totalMonth },
       ...list.data.map((r) => ({ key: `row:${r.id}`, amount: r.amount_gnf })),
       ...stats.byCategory.map((b) => ({ key: `cat:${b.categoryId}`, amount: b.total })),
     ],
+    [list.data, stats.byCategory, stats.totalInRange, stats.totalMonth, stats.totalToday],
+  );
+  const { convertedByKey: summaryConverted } = useCurrencyBatchConversion(
+    summaryItems,
     "GNF",
     currency,
   );
@@ -251,7 +257,7 @@ export function DepensesClient({
     setDescription("");
     setAmount("");
     setReceiptFile(null);
-    router.refresh();
+    refreshAfterMutation();
     setTimeout(() => setToast(null), 3000);
   }
 
@@ -355,7 +361,7 @@ export function DepensesClient({
       setEditing(null);
       setEditReceipt(null);
       setEditRemoveReceipt(false);
-      router.refresh();
+      refreshAfterMutation();
       setTimeout(() => setToast(null), 3000);
     } else {
       setFormError(res.error);
@@ -370,7 +376,7 @@ export function DepensesClient({
     if (r.success) {
       setToast("Dépense supprimée.");
       showSuccess("Opération réussie");
-      router.refresh();
+      refreshAfterMutation();
       setTimeout(() => setToast(null), 3000);
     } else {
       setFormError(r.error);
@@ -658,10 +664,11 @@ export function DepensesClient({
                           href={receiptPublicUrl(row.receipt_url) ?? "#"}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+                          title="Voir la pièce"
+                          aria-label="Voir la pièce jointe"
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-xl text-primary transition hover:bg-primary/10"
                         >
-                          <FileText size={12} />
-                          Voir
+                          <Eye size={15} />
                         </a>
                       ) : (
                         <span className="text-xs text-gray-300">—</span>
@@ -676,31 +683,35 @@ export function DepensesClient({
                       </div>
                     </td>
                     <td className="px-2 py-3 text-right">
-                      {canEditRow(row) && (
-                        <button
-                          type="button"
-                          onClick={() => openEdit(row)}
-                          className="inline-flex items-center justify-center rounded-lg p-1.5 text-gray-400 transition hover:bg-primary/10 hover:text-primary"
-                          title="Modifier"
-                        >
-                          <Pencil size={14} />
-                        </button>
-                      )}
-                      {canDeleteRow(row) && (
-                        <button
-                          type="button"
-                          onClick={() => setConfirmDeleteId(row.id)}
-                          disabled={deleting === row.id}
-                          className="ml-0.5 inline-flex items-center justify-center rounded-lg p-1.5 text-gray-400 transition hover:bg-red-50 hover:text-red-500"
-                          title="Supprimer"
-                        >
-                          {deleting === row.id ? (
-                            <Loader2 size={14} className="animate-spin" />
-                          ) : (
-                            <Trash2 size={14} />
-                          )}
-                        </button>
-                      )}
+                      <div className="flex items-center justify-end gap-0.5">
+                        {canEditRow(row) && (
+                          <button
+                            type="button"
+                            onClick={() => openEdit(row)}
+                            className="flex h-8 w-8 items-center justify-center rounded-xl text-gray-400 transition hover:bg-primary/10 hover:text-primary"
+                            title="Modifier"
+                            aria-label="Modifier la dépense"
+                          >
+                            <Pencil size={15} />
+                          </button>
+                        )}
+                        {canDeleteRow(row) && (
+                          <button
+                            type="button"
+                            onClick={() => setConfirmDeleteId(row.id)}
+                            disabled={deleting === row.id}
+                            className="flex h-8 w-8 items-center justify-center rounded-xl text-danger transition hover:bg-red-50 hover:text-red-600 disabled:opacity-50"
+                            title="Supprimer"
+                            aria-label="Supprimer la dépense"
+                          >
+                            {deleting === row.id ? (
+                              <Loader2 size={15} className="animate-spin text-gray-400" />
+                            ) : (
+                              <Trash size={15} />
+                            )}
+                          </button>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 ))}

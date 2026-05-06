@@ -157,6 +157,7 @@ export function ProductForm({
       subtitle="Catalogue produits"
       icon={<Package size={18} />}
       size="lg"
+      cardClassName="max-h-[90vh] max-w-[min(500px,calc(100vw-2rem))]"
     >
       <form onSubmit={handleSubmit} className="space-y-4">
 

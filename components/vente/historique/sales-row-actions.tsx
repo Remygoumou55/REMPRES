@@ -2,12 +2,12 @@
 
 import { useState, useTransition } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { Trash2 } from "lucide-react";
+import { Eye, Trash } from "lucide-react";
 import { archiveAndDeleteSaleAction } from "@/app/(app)/vente/historique/actions";
-import { pushThenRefresh } from "@/lib/navigation/push-then-refresh";
+import { useAppMutationRefresh } from "@/hooks/use-app-mutation-refresh";
 import { MarkAsPaidButton } from "@/components/vente/historique/mark-as-paid-button";
 import { ConfirmDangerDialog } from "@/components/ui/confirm-danger-dialog";
+import { withViewModalQuery } from "@/lib/routing/modal-query";
 
 export type SaleRowForActions = {
   id: string;
@@ -40,7 +40,7 @@ export function SalesRowActions({
   listQueryString,
   showMarkPaid,
 }: SalesRowActionsProps) {
-  const router = useRouter();
+  const { pushThenRefresh } = useAppMutationRefresh();
   const [pending, startTransition] = useTransition();
   const [confirmOpen, setConfirmOpen] = useState(false);
 
@@ -50,23 +50,24 @@ export function SalesRowActions({
       setConfirmOpen(false);
       if (result.success) {
         pushThenRefresh(
-          router,
           withListFlash(listQueryString, { success: "Vente archivée et retirée de l'historique." }),
         );
       } else {
-        pushThenRefresh(router, withListFlash(listQueryString, { error: result.error }));
+        pushThenRefresh(withListFlash(listQueryString, { error: result.error }));
       }
     });
   }
 
   return (
     <>
-      <div className="flex flex-wrap items-center justify-end gap-1.5">
+      <div className="flex flex-wrap items-center justify-end gap-0.5">
         <Link
-          href={`/vente/historique/${sale.id}`}
-          className="inline-flex items-center gap-1 rounded-xl bg-gray-100 px-2.5 py-1.5 text-xs font-semibold text-gray-600 transition hover:bg-gray-200"
+          href={withViewModalQuery(`/vente/historique/${sale.id}`, sale.id)}
+          title="Voir"
+          aria-label="Voir le détail de la vente"
+          className="flex h-8 w-8 items-center justify-center rounded-xl text-gray-400 transition hover:bg-gray-100 hover:text-darktext"
         >
-          Détails
+          <Eye size={15} />
         </Link>
         {showMarkPaid ? (
           <MarkAsPaidButton saleId={sale.id} totalAmountGNF={sale.total_amount_gnf} />
@@ -75,12 +76,12 @@ export function SalesRowActions({
           <button
             type="button"
             disabled={pending}
-            className="inline-flex items-center gap-1 rounded-xl px-2.5 py-1.5 text-xs font-semibold text-danger transition hover:bg-danger/10 disabled:opacity-50"
-            onClick={() => setConfirmOpen(true)}
+            title="Supprimer"
             aria-label={`Supprimer la vente ${labelReference}`}
+            className="flex h-8 w-8 items-center justify-center rounded-xl text-danger transition hover:bg-danger/10 disabled:opacity-50"
+            onClick={() => setConfirmOpen(true)}
           >
-            <Trash2 size={13} />
-            <span className="hidden sm:inline">Supprimer</span>
+            <Trash size={15} />
           </button>
         ) : null}
       </div>

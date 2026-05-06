@@ -68,8 +68,21 @@ export default async function ActivityLogsPage({ searchParams }: ActivityLogsPag
   const result     = await listActivityLogs({ page, pageSize, filters });
   const monitoring = await getActivityLogsMonitoring({ moduleKey: "clients" });
 
-  // Résoudre les noms des acteurs (profiles)
-  const actorIds = Array.from(new Set(result.data.map((r) => r.actor_user_id).filter(Boolean)));
+  // Résoudre les noms des acteurs (profiles) + options de filtre utilisateur.
+  const { data: actorRows } = await supabase
+    .from("activity_logs")
+    .select("actor_user_id")
+    .not("actor_user_id", "is", null)
+    .order("created_at", { ascending: false })
+    .limit(300);
+  const actorIds = Array.from(
+    new Set(
+      [
+        ...result.data.map((r) => r.actor_user_id),
+        ...((actorRows ?? []).map((r) => r.actor_user_id) as string[]),
+      ].filter(Boolean),
+    ),
+  );
   const actorNames: Map<string, string> = new Map();
   if (actorIds.length > 0) {
     const { data: profiles } = await supabase
@@ -84,6 +97,9 @@ export default async function ActivityLogsPage({ searchParams }: ActivityLogsPag
       actorNames.set(p.id, label);
     });
   }
+  const actorOptions = actorIds
+    .map((id) => ({ id, label: actorNames.get(id) ?? shortId(id) }))
+    .sort((a, b) => a.label.localeCompare(b.label, "fr"));
 
   const buildUrl = (nextPage: number) => {
     const p = new URLSearchParams();
@@ -102,6 +118,7 @@ export default async function ActivityLogsPage({ searchParams }: ActivityLogsPag
   if (filters.moduleKey)   exportParams.set("moduleKey",   filters.moduleKey);
   if (filters.actionKey)   exportParams.set("actionKey",   filters.actionKey);
   if (filters.actorUserId) exportParams.set("actorUserId", filters.actorUserId);
+  if (filters.targetId)    exportParams.set("targetId",    filters.targetId);
   if (filters.from)        exportParams.set("from",        filters.from ?? "");
   if (filters.to)          exportParams.set("to",          filters.to   ?? "");
   const qs = exportParams.toString() ? `?${exportParams.toString()}` : "";
@@ -178,14 +195,48 @@ export default async function ActivityLogsPage({ searchParams }: ActivityLogsPag
               <option value="create">Ajout</option>
               <option value="update">Modification</option>
               <option value="delete">Suppression</option>
+              <option value="RESTORE">Restauration</option>
             </select>
           </div>
           <div>
-            <label className="mb-1 block text-xs text-gray-500">Date (jour)</label>
+            <label className="mb-1 block text-xs text-gray-500">Utilisateur</label>
+            <select
+              name="actorUserId"
+              defaultValue={filters.actorUserId ?? ""}
+              className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            >
+              <option value="">Tous les utilisateurs</option>
+              {actorOptions.map((actor) => (
+                <option key={actor.id} value={actor.id}>
+                  {actor.label}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="mb-1 block text-xs text-gray-500">Date début</label>
             <input
               type="date"
               name="from"
               defaultValue={filters.from ?? ""}
+              className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-xs text-gray-500">Date fin</label>
+            <input
+              type="date"
+              name="to"
+              defaultValue={filters.to ?? ""}
+              className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-xs text-gray-500">ID cible</label>
+            <input
+              name="targetId"
+              defaultValue={filters.targetId ?? ""}
+              placeholder="ID ressource (optionnel)"
               className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
             />
           </div>
@@ -198,7 +249,7 @@ export default async function ActivityLogsPage({ searchParams }: ActivityLogsPag
           >
             Appliquer
           </button>
-          {(filters.moduleKey || filters.actionKey || filters.from) && (
+          {(filters.moduleKey || filters.actionKey || filters.actorUserId || filters.targetId || filters.from || filters.to) && (
             <Link href="/admin/activity-logs" className="text-sm text-gray-400 hover:text-gray-600">
               Réinitialiser
             </Link>

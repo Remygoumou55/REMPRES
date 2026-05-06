@@ -2,14 +2,14 @@
 
 import { useState, useTransition } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { Eye, Trash2 } from "lucide-react";
+import { Eye, Trash } from "lucide-react";
 import type { Client } from "@/types/client";
 import { deleteClientFromListAction } from "@/app/(app)/vente/clients/actions";
-import { pushThenRefresh } from "@/lib/navigation/push-then-refresh";
+import { useAppMutationRefresh } from "@/hooks/use-app-mutation-refresh";
 import { EditActionLink } from "@/components/ui/edit-action-link";
 import { ConfirmDangerDialog } from "@/components/ui/confirm-danger-dialog";
 import { useToast } from "@/components/providers/ToastProvider";
+import { withViewModalQuery } from "@/lib/routing/modal-query";
 
 type ClientsRowActionsProps = {
   client: Client;
@@ -36,7 +36,7 @@ export function ClientsRowActions({
   canDelete,
   listQueryString,
 }: ClientsRowActionsProps) {
-  const router = useRouter();
+  const { pushThenRefresh } = useAppMutationRefresh();
   const { showSuccess, showError } = useToast();
   const [pending, startTransition] = useTransition();
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -47,37 +47,43 @@ export function ClientsRowActions({
       setConfirmOpen(false);
       if (result.success) {
         showSuccess("Le client a bien été supprimé.");
-        pushThenRefresh(router, withListFlash(listQueryString, { success: "Le client a bien été supprimé." }));
+        pushThenRefresh(withListFlash(listQueryString, { success: "Le client a bien été supprimé." }));
       } else {
         showError(result.error);
-        pushThenRefresh(router, withListFlash(listQueryString, { error: result.error }));
+        pushThenRefresh(withListFlash(listQueryString, { error: result.error }));
       }
     });
   }
 
   return (
     <>
-      <div className="flex items-center justify-end gap-1">
+      <div className="flex shrink-0 items-center justify-end gap-0.5">
         <Link
-          href={`/vente/clients/${client.id}`}
-          className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-gray-500 transition hover:bg-gray-100 hover:text-darktext"
+          href={withViewModalQuery(`/vente/clients/${client.id}`, client.id)}
+          title="Voir"
+          aria-label="Voir"
+          className="flex h-8 w-8 items-center justify-center rounded-xl text-gray-400 transition hover:bg-gray-100 hover:text-darktext"
         >
-          <Eye size={13} />
-          <span className="hidden sm:inline">Voir</span>
+          <Eye size={15} />
         </Link>
         {canUpdate ? (
-          <EditActionLink href={`/vente/clients/${client.id}`} />
+          <EditActionLink
+            href={`/vente/clients/${client.id}`}
+            entityId={client.id}
+            label="Modifier"
+            iconOnly
+          />
         ) : null}
         {canDelete ? (
           <button
             type="button"
             disabled={pending}
-            className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-danger transition hover:bg-danger/10 disabled:opacity-50"
-            onClick={() => setConfirmOpen(true)}
+            title="Supprimer"
             aria-label={`Supprimer ${name}`}
+            className="flex h-8 w-8 items-center justify-center rounded-xl text-danger transition hover:bg-danger/10 disabled:opacity-50"
+            onClick={() => setConfirmOpen(true)}
           >
-            <Trash2 size={13} />
-            <span className="hidden sm:inline">Supprimer</span>
+            <Trash size={15} />
           </button>
         ) : null}
       </div>

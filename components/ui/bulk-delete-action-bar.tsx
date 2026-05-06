@@ -1,6 +1,7 @@
 "use client";
 
 import { Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 type BulkDeleteActionBarProps = {
   selectedCount: number;
@@ -26,23 +27,26 @@ export function BulkDeleteActionBar({
         {selectedCount > 1 ? "s" : ""} sélectionné{selectedCount > 1 ? "s" : ""}
       </p>
       <div className="flex items-center gap-2">
-        <button
+        <Button
           type="button"
           onClick={onClear}
-          className="rounded-md border border-gray-300 px-3 py-1.5 text-xs font-medium text-darktext"
+          variant="outline"
+          size="sm"
           disabled={pending}
         >
           Annuler la sélection
-        </button>
-        <button
+        </Button>
+        <Button
           type="button"
           onClick={onDelete}
-          disabled={pending}
-          className="inline-flex items-center gap-1.5 rounded-md bg-danger px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-50"
+          variant="danger"
+          size="sm"
+          loading={pending}
+          loadingText="Suppression..."
         >
           <Trash2 size={13} />
-          {pending ? "Suppression…" : "Supprimer la sélection"}
-        </button>
+          Supprimer la sélection
+        </Button>
       </div>
     </div>
   );

@@ -219,7 +219,27 @@ export async function createExpense(userId: string, input: CreateExpenseFormInpu
     throw new Error(error.message || (error as { details?: string }).details || "Impossible d’enregistrer la dépense");
   }
 
-  return data as { id?: string; summary?: string } | null;
+  const created = data as { id?: string; summary?: string } | null;
+  const createdId = created?.id ?? null;
+  try {
+    await insertActivityLog({
+      actorUserId: userId,
+      moduleKey: "depenses",
+      actionKey: "create",
+      targetTable: "expenses",
+      targetId: createdId,
+      metadata: {
+        summary: created?.summary ?? "Depense creee",
+        amount_gnf: parsed.amountGnf,
+        category_id: parsed.categoryId,
+        action_at: new Date().toISOString(),
+      },
+    });
+  } catch (e) {
+    logError("EXPENSE_CREATE_ACTIVITY_LOG", e, { userId, expenseId: createdId });
+  }
+
+  return created;
 }
 
 // ---------------------------------------------------------------------------
@@ -281,7 +301,26 @@ export async function updateExpense(userId: string, input: UpdateExpenseFormInpu
   if (error) {
     throw new Error(error.message || "Impossible de modifier la dépense");
   }
-  return data as { id?: string; summary?: string } | null;
+  const updated = data as { id?: string; summary?: string } | null;
+  const updatedId = updated?.id ?? parsed.expenseId;
+  try {
+    await insertActivityLog({
+      actorUserId: userId,
+      moduleKey: "depenses",
+      actionKey: "update",
+      targetTable: "expenses",
+      targetId: updatedId,
+      metadata: {
+        summary: updated?.summary ?? "Depense mise a jour",
+        amount_gnf: parsed.amountGnf,
+        category_id: parsed.categoryId,
+        action_at: new Date().toISOString(),
+      },
+    });
+  } catch (e) {
+    logError("EXPENSE_UPDATE_ACTIVITY_LOG", e, { userId, expenseId: updatedId });
+  }
+  return updated;
 }
 
 export async function deleteExpense(userId: string, expenseId: string) {
@@ -293,7 +332,24 @@ export async function deleteExpense(userId: string, expenseId: string) {
   if (error) {
     throw new Error(error.message || "Impossible de supprimer la dépense");
   }
-  return data as { id?: string; summary?: string } | null;
+  const deleted = data as { id?: string; summary?: string } | null;
+  const deletedId = deleted?.id ?? expenseId;
+  try {
+    await insertActivityLog({
+      actorUserId: userId,
+      moduleKey: "depenses",
+      actionKey: "delete",
+      targetTable: "expenses",
+      targetId: deletedId,
+      metadata: {
+        summary: deleted?.summary ?? "Depense supprimee",
+        action_at: new Date().toISOString(),
+      },
+    });
+  } catch (e) {
+    logError("EXPENSE_DELETE_ACTIVITY_LOG", e, { userId, expenseId: deletedId });
+  }
+  return deleted;
 }
 
 export function formatExpenseError(err: unknown): string {

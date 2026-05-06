@@ -1,3 +1,6 @@
+"use client";
+
+import { memo, useEffect, useMemo, useRef, useState } from "react";
 import { ShoppingBag } from "lucide-react";
 import type { Client } from "@/types/client";
 import { Badge, type BadgeVariant } from "@/components/ui/badge";
@@ -5,6 +8,7 @@ import {
   SalesRowActions,
   type SaleRowForActions,
 } from "@/components/vente/historique/sales-row-actions";
+import { useRowSelection } from "@/lib/hooks/use-row-selection";
 
 // ---------------------------------------------------------------------------
 // Config statuts & paiements (inchangée vs page historique)
@@ -27,6 +31,11 @@ const PAYMENT_LABELS: Record<string, string> = {
   mixed: "Mixte",
 };
 
+const VIRTUALIZE_THRESHOLD = 80;
+const VIRTUAL_ROW_HEIGHT = 56;
+const VIRTUAL_VIEWPORT_HEIGHT = 560;
+const VIRTUAL_OVERSCAN = 8;
+
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
@@ -48,6 +57,8 @@ type SalesTableProps = {
   clientsById: Record<string, Client>;
   canDelete: boolean;
   listQueryString: string;
+  /** Appelé quand la sélection change (IDs courants en mémoire). */
+  onSelectionChange?: (selectedIds: string[]) => void;
 };
 
 function getClientLabel(client: Client): string {
@@ -55,17 +66,165 @@ function getClientLabel(client: Client): string {
   return [client.first_name, client.last_name].filter(Boolean).join(" ") || "Client";
 }
 
+type SaleDataRowProps = {
+  sale: SaleRow;
+  client?: Client;
+  checked: boolean;
+  canDelete: boolean;
+  listQueryString: string;
+  onToggle: (id: string) => void;
+};
+
+const SaleDataRow = memo(function SaleDataRow({
+  sale,
+  client,
+  checked,
+  canDelete,
+  listQueryString,
+  onToggle,
+}: SaleDataRowProps) {
+  const statut =
+    STATUT_CFG[sale.payment_status] ?? {
+      label: sale.payment_status,
+      variant: "gray" as BadgeVariant,
+    };
+  const isPending = sale.payment_status === "pending" || sale.payment_status === "partial";
+  const labelRef = sale.reference ?? sale.id.slice(0, 8).toUpperCase();
+  const saleForActions: SaleRowForActions = {
+    id: sale.id,
+    total_amount_gnf: sale.total_amount_gnf,
+    payment_status: sale.payment_status,
+  };
+
+  return (
+    <tr className="group transition-colors hover:bg-gray-50/60">
+      <td className="px-3 py-3.5">
+        <input
+          type="checkbox"
+          checked={checked}
+          onChange={() => onToggle(sale.id)}
+          aria-label={`Selectionner la vente ${labelRef}`}
+        />
+      </td>
+      <td className="px-5 py-3.5">
+        <span className="rounded-lg bg-primary/5 px-2 py-1 font-mono text-xs font-semibold text-primary">
+          {labelRef}
+        </span>
+      </td>
+
+      <td className="px-5 py-3.5 font-medium text-darktext">
+        {client ? (
+          getClientLabel(client)
+        ) : (
+          <span className="italic text-gray-400">Client de passage</span>
+        )}
+      </td>
+
+      <td className="px-5 py-3.5 text-right">
+        <span className="font-bold tabular-nums text-darktext">
+          {sale.total_amount_gnf.toLocaleString("fr-FR")}
+        </span>
+        <span className="ml-1 text-xs text-gray-400">{sale.display_currency}</span>
+      </td>
+
+      <td className="hidden px-5 py-3.5 text-gray-500 md:table-cell">
+        {sale.payment_method
+          ? PAYMENT_LABELS[sale.payment_method] ?? sale.payment_method
+          : "-"}
+      </td>
+
+      <td className="px-5 py-3.5 text-center">
+        <Badge label={statut.label} variant={statut.variant} dot />
+      </td>
+
+      <td className="hidden px-5 py-3.5 text-xs text-gray-400 lg:table-cell">
+        {new Date(sale.created_at).toLocaleDateString("fr-FR", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        })}
+      </td>
+
+      <td className="px-5 py-3.5 text-right">
+        <SalesRowActions
+          sale={saleForActions}
+          labelReference={labelRef}
+          canDelete={canDelete}
+          listQueryString={listQueryString}
+          showMarkPaid={isPending}
+        />
+      </td>
+    </tr>
+  );
+});
+
 // ---------------------------------------------------------------------------
 // Composant
 // ---------------------------------------------------------------------------
 
-export function SalesTable({ sales, clientsById, canDelete, listQueryString }: SalesTableProps) {
+export function SalesTable({
+  sales,
+  clientsById,
+  canDelete,
+  listQueryString,
+  onSelectionChange,
+}: SalesTableProps) {
+  const [scrollTop, setScrollTop] = useState(0);
+  const visibleIds = useMemo(() => sales.map((s) => s.id), [sales]);
+  const isVirtualized = sales.length > VIRTUALIZE_THRESHOLD;
+
+  const {
+    selectedIds,
+    selectedSet,
+    allVisibleSelected,
+    toggleOne,
+    toggleAllVisible,
+  } = useRowSelection(visibleIds);
+
+  const onSelectionChangeRef = useRef(onSelectionChange);
+  onSelectionChangeRef.current = onSelectionChange;
+
+  useEffect(() => {
+    onSelectionChangeRef.current?.(selectedIds);
+  }, [selectedIds]);
+
+  const startIndex = useMemo(() => {
+    if (!isVirtualized) return 0;
+    return Math.max(0, Math.floor(scrollTop / VIRTUAL_ROW_HEIGHT) - VIRTUAL_OVERSCAN);
+  }, [isVirtualized, scrollTop]);
+
+  const endIndex = useMemo(() => {
+    if (!isVirtualized) return sales.length;
+    const visibleCount =
+      Math.ceil(VIRTUAL_VIEWPORT_HEIGHT / VIRTUAL_ROW_HEIGHT) + VIRTUAL_OVERSCAN * 2;
+    return Math.min(sales.length, startIndex + visibleCount);
+  }, [isVirtualized, sales.length, startIndex]);
+
+  const topSpacer = isVirtualized ? startIndex * VIRTUAL_ROW_HEIGHT : 0;
+  const bottomSpacer = isVirtualized ? Math.max(0, (sales.length - endIndex) * VIRTUAL_ROW_HEIGHT) : 0;
+  const visibleSales = useMemo(
+    () => (isVirtualized ? sales.slice(startIndex, endIndex) : sales),
+    [endIndex, isVirtualized, sales, startIndex],
+  );
+
   return (
     <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-      <div className="overflow-x-auto">
+      <div
+        className={`overflow-x-auto ${isVirtualized ? "max-h-[560px] overflow-y-auto" : ""}`}
+        onScroll={isVirtualized ? (e) => setScrollTop(e.currentTarget.scrollTop) : undefined}
+      >
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-gray-100 bg-gray-50/60">
+              <th className="w-10 px-3 py-3 text-left">
+                <input
+                  type="checkbox"
+                  checked={allVisibleSelected}
+                  onChange={toggleAllVisible}
+                  disabled={sales.length === 0}
+                  aria-label="Tout sélectionner sur cette page"
+                />
+              </th>
               <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-400">
                 Référence
               </th>
@@ -92,7 +251,7 @@ export function SalesTable({ sales, clientsById, canDelete, listQueryString }: S
           <tbody className="divide-y divide-gray-50">
             {sales.length === 0 ? (
               <tr>
-                <td colSpan={7} className="py-16 text-center">
+                <td colSpan={8} className="py-16 text-center">
                   <div className="flex flex-col items-center gap-2">
                     <ShoppingBag size={28} className="text-gray-200" />
                     <p className="text-sm text-gray-400">Aucune vente pour ces critères</p>
@@ -100,75 +259,29 @@ export function SalesTable({ sales, clientsById, canDelete, listQueryString }: S
                 </td>
               </tr>
             ) : (
-              sales.map((sale) => {
-                const client = sale.client_id ? clientsById[sale.client_id] : undefined;
-                const statut =
-                  STATUT_CFG[sale.payment_status] ?? {
-                    label: sale.payment_status,
-                    variant: "gray" as BadgeVariant,
-                  };
-                const isPending =
-                  sale.payment_status === "pending" || sale.payment_status === "partial";
-                const labelRef = sale.reference ?? sale.id.slice(0, 8).toUpperCase();
-                const saleForActions: SaleRowForActions = {
-                  id: sale.id,
-                  total_amount_gnf: sale.total_amount_gnf,
-                  payment_status: sale.payment_status,
-                };
-
-                return (
-                  <tr key={sale.id} className="group transition-colors hover:bg-gray-50/60">
-                    <td className="px-5 py-3.5">
-                      <span className="rounded-lg bg-primary/5 px-2 py-1 font-mono text-xs font-semibold text-primary">
-                        {labelRef}
-                      </span>
-                    </td>
-
-                    <td className="px-5 py-3.5 font-medium text-darktext">
-                      {client ? (
-                        getClientLabel(client)
-                      ) : (
-                        <span className="italic text-gray-400">Client de passage</span>
-                      )}
-                    </td>
-
-                    <td className="px-5 py-3.5 text-right">
-                      <span className="font-bold tabular-nums text-darktext">
-                        {sale.total_amount_gnf.toLocaleString("fr-FR")}
-                      </span>
-                      <span className="ml-1 text-xs text-gray-400">{sale.display_currency}</span>
-                    </td>
-
-                    <td className="hidden px-5 py-3.5 text-gray-500 md:table-cell">
-                      {sale.payment_method
-                        ? PAYMENT_LABELS[sale.payment_method] ?? sale.payment_method
-                        : "—"}
-                    </td>
-
-                    <td className="px-5 py-3.5 text-center">
-                      <Badge label={statut.label} variant={statut.variant} dot />
-                    </td>
-
-                    <td className="hidden px-5 py-3.5 text-xs text-gray-400 lg:table-cell">
-                      {new Date(sale.created_at).toLocaleDateString("fr-FR", {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric",
-                      })}
-                    </td>
-
-                    <td className="px-5 py-3.5 text-right">
-                      <SalesRowActions
-                        sale={saleForActions}
-                        labelReference={labelRef}
-                        canDelete={canDelete}
-                        listQueryString={listQueryString}
-                        showMarkPaid={isPending}
-                      />
-                    </td>
+              <>
+                {isVirtualized && topSpacer > 0 ? (
+                  <tr aria-hidden="true">
+                    <td colSpan={8} style={{ height: `${topSpacer}px`, padding: 0 }} />
                   </tr>
-                );
-              })
+                ) : null}
+                {visibleSales.map((sale) => (
+                  <SaleDataRow
+                    key={sale.id}
+                    sale={sale}
+                    client={sale.client_id ? clientsById[sale.client_id] : undefined}
+                    checked={selectedSet.has(sale.id)}
+                    canDelete={canDelete}
+                    listQueryString={listQueryString}
+                    onToggle={toggleOne}
+                  />
+                ))}
+                {isVirtualized && bottomSpacer > 0 ? (
+                  <tr aria-hidden="true">
+                    <td colSpan={8} style={{ height: `${bottomSpacer}px`, padding: 0 }} />
+                  </tr>
+                ) : null}
+              </>
             )}
           </tbody>
         </table>

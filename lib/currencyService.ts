@@ -28,6 +28,73 @@ export const FALLBACK_RATES: CurrencyRates = {
 };
 
 // ---------------------------------------------------------------------------
+// Cache de facteurs GNF → devise (même signature de taux = même ligne mémoïsée)
+// ---------------------------------------------------------------------------
+
+const SUPPORTED: readonly Currency[] = ["GNF", "XOF", "USD", "EUR"];
+const MAX_RATE_CACHE = 32;
+
+/** Signature stable des taux (indépendante de l’identité d’objet). */
+function ratesSignature(rates: CurrencyRates): string {
+  return SUPPORTED.map((c) => String(rates[c] ?? "")).join("\u001f");
+}
+
+type MultiplierRow = Readonly<Record<Currency, number>>;
+
+const multiplierBySignature = new Map<string, MultiplierRow>();
+
+function buildMultiplierRow(rates: CurrencyRates): MultiplierRow {
+  const row = {} as Record<Currency, number>;
+  for (const c of SUPPORTED) {
+    if (c === "GNF") {
+      row[c] = 1;
+    } else {
+      const r = rates[c];
+      row[c] = r != null && Number.isFinite(r) ? r : Number.NaN;
+    }
+  }
+  return row;
+}
+
+/**
+ * Facteurs de conversion GNF → chaque devise pour une table de taux donnée.
+ * Mise en cache par **contenu** des taux : évite de recalculer / relire la map
+ * à chaque ligne de panier ou chaque `convertGnfWithRates`.
+ */
+export function getCachedGnfMultipliers(rates: CurrencyRates): MultiplierRow {
+  const sig = ratesSignature(rates);
+  let row = multiplierBySignature.get(sig);
+  if (row) return row;
+  row = buildMultiplierRow(rates);
+  multiplierBySignature.set(sig, row);
+  if (multiplierBySignature.size > MAX_RATE_CACHE) {
+    const first = multiplierBySignature.keys().next().value;
+    if (first !== undefined) multiplierBySignature.delete(first);
+  }
+  return row;
+}
+
+/**
+ * Conversion GNF → devise cible avec les taux locaux (Zustand / secours), sans appel réseau.
+ * Utilisé pour un affichage panier instantané et cohérent avec `rates` persistés.
+ */
+export function convertGnfWithRates(
+  amountGnf: number,
+  to: Currency,
+  rates: CurrencyRates,
+): number {
+  if (!Number.isFinite(amountGnf)) return Number.NaN;
+  if (to === "GNF") {
+    return Math.round(amountGnf * 100) / 100;
+  }
+  const r = getCachedGnfMultipliers(rates)[to];
+  if (r == null || !Number.isFinite(r)) {
+    return Number.NaN;
+  }
+  return amountGnf * r;
+}
+
+// ---------------------------------------------------------------------------
 // 1. Formater un montant pour l'affichage
 // ---------------------------------------------------------------------------
 

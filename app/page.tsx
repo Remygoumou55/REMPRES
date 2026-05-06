@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { appConfig, getLogoUrl } from "@/lib/config";
+import { getDestinationForRole } from "@/lib/roleRedirects";
 import {
   ArrowRight,
   BarChart3,
@@ -57,7 +58,7 @@ const FEATURES = [
   },
 ] as const;
 
-import { getDestinationForRole } from "@/lib/roleRedirects";
+
 
 // ---------------------------------------------------------------------------
 // Page

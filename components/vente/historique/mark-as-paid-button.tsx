@@ -1,36 +1,42 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { Loader2 } from "lucide-react";
+import { useState, useTransition } from "react";
+import { useAppMutationRefresh } from "@/hooks/use-app-mutation-refresh";
 import { markAsPaidAction } from "@/app/(app)/vente/nouvelle-vente/actions";
-import { resolveErrorMessage } from "@/lib/messages";
+import { resolveErrorMessage, resolveUnknownErrorMessage } from "@/lib/messages";
 import { formatGNF } from "@/lib/utils/formatCurrency";
+import { ConfirmActionDialog } from "@/components/ui/confirm-danger-dialog";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/providers/ToastProvider";
 
 type Props = { saleId: string; totalAmountGNF: number };
 
 export function MarkAsPaidButton({ saleId, totalAmountGNF }: Props) {
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const { refreshAfterMutation } = useAppMutationRefresh();
+  const { showError } = useToast();
+  const [pending, startTransition] = useTransition();
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function handleClick() {
-    const ok = window.confirm(
-      `Enregistrer le paiement complet pour un montant de ${formatGNF(totalAmountGNF)} ? Cette action mettra le statut sur « payé ».`,
-    );
-    if (!ok) return;
-
-    setLoading(true);
-    setError(null);
-    const result = await markAsPaidAction(saleId, totalAmountGNF);
-    setLoading(false);
-    if (result.success) {
-      setDone(true);
-      router.refresh();
-    } else {
-      setError(resolveErrorMessage(result.error));
-    }
+  function runMarkPaid() {
+    startTransition(async () => {
+      try {
+        setError(null);
+        const result = await markAsPaidAction(saleId, totalAmountGNF);
+        setConfirmOpen(false);
+        if (result.success) {
+          setDone(true);
+          refreshAfterMutation();
+        } else {
+          setError(resolveErrorMessage(result.error));
+        }
+      } catch (error) {
+        const message = resolveUnknownErrorMessage(error);
+        setError(message);
+        showError(message);
+      }
+    });
   }
 
   if (done) {
@@ -43,22 +49,30 @@ export function MarkAsPaidButton({ saleId, totalAmountGNF }: Props) {
 
   return (
     <div>
-      <button
+      <Button
         type="button"
-        onClick={handleClick}
-        disabled={loading}
-        className="inline-flex min-h-[2rem] items-center justify-center gap-1.5 rounded-lg bg-green-600 px-2.5 py-1 text-xs font-medium text-white transition hover:bg-green-700 hover:active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
+        onClick={() => setConfirmOpen(true)}
+        disabled={pending || confirmOpen}
+        size="sm"
+        className="min-h-[2rem] bg-green-600 text-white hover:bg-green-700"
+        loading={pending}
+        loadingText="En cours..."
       >
-        {loading ? (
-          <>
-            <Loader2 size={12} className="animate-spin" />
-            En cours…
-          </>
-        ) : (
-          "Marquer payé"
-        )}
-      </button>
+        Marquer paye
+      </Button>
       {error && <p className="mt-1 max-w-[12rem] text-xs text-red-500">{error}</p>}
+
+      <ConfirmActionDialog
+        open={confirmOpen}
+        title="Enregistrer le paiement complet ?"
+        message={`Le statut passera à « payé » pour un montant de ${formatGNF(totalAmountGNF)}. Cette opération est tracée.`}
+        confirmLabel="Confirmer le paiement"
+        loadingLabel="Enregistrement…"
+        loading={pending}
+        subtitle="Validation comptable"
+        onCancel={() => !pending && setConfirmOpen(false)}
+        onConfirm={runMarkPaid}
+      />
     </div>
   );
 }

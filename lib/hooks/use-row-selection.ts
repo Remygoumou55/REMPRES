@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 export function useRowSelection(visibleIds: string[]) {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -14,11 +14,11 @@ export function useRowSelection(visibleIds: string[]) {
   const selectedCount = selectedIds.length;
   const allVisibleSelected = visibleIds.length > 0 && visibleIds.every((id) => selectedSet.has(id));
 
-  function toggleOne(id: string) {
+  const toggleOne = useCallback((id: string) => {
     setSelectedIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
-  }
+  }, []);
 
-  function toggleAllVisible() {
+  const toggleAllVisible = useCallback(() => {
     if (allVisibleSelected) {
       setSelectedIds((prev) => prev.filter((id) => !visibleIds.includes(id)));
       return;
@@ -28,11 +28,11 @@ export function useRowSelection(visibleIds: string[]) {
       for (const id of visibleIds) merged.add(id);
       return Array.from(merged);
     });
-  }
+  }, [allVisibleSelected, visibleIds]);
 
-  function clearSelection() {
+  const clearSelection = useCallback(() => {
     setSelectedIds([]);
-  }
+  }, []);
 
   return {
     selectedIds,

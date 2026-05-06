@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -119,7 +119,7 @@ export function AppShell({
     activeModule !== "dashboard" ? (modules.find((m) => m.id === activeModule) ?? null) : null
   , [activeModule, modules]);
 
-  async function handleLogout() {
+  const handleLogout = useCallback(async () => {
     try {
       const supabase = getSupabaseBrowserClient();
       await supabase.auth.signOut();
@@ -129,7 +129,7 @@ export function AppShell({
     } catch (error) {
       logError("auth", "logout failed", { error, module: "app-shell" });
     }
-  }
+  }, [router]);
 
   const breadcrumbs = useMemo(() => generateBreadcrumb(pathname), [pathname]);
 

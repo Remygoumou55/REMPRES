@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, memo } from "react";
+import { useMemo, memo } from "react";
 import {
   Bar,
   CartesianGrid,
@@ -12,9 +12,9 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { BarChart3, LineChart } from "lucide-react";
+import { BarChart3 } from "lucide-react";
 import { formatAmount, type Currency } from "@/lib/currencyService";
-import type { FinanceDayPoint } from "@/lib/server/finance-overview";
+import type { FinanceDayPoint, FinanceCashflowPoint } from "@/lib/server/finance-overview";
 import {
   toRevenueExpenseChartRows,
   type FinanceProjectionDay,
@@ -214,7 +214,7 @@ export const CashflowChart = memo(function CashflowChart({
   points,
   currency,
 }: {
-  points: FinanceDayPoint[];
+  points: FinanceCashflowPoint[];
   currency: Currency;
 }) {
   const fmt = (v: number) => formatAmount(v, currency);

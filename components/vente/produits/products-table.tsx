@@ -233,7 +233,7 @@ export function ProductsTable({
   const searchFields = useMemo(() => ["name", "sku", "description", "unit"], []);
   const { query, setQuery, filteredData, suggestions } = useGlobalSearch<Product>({
     data: products,
-    searchFields: searchFields as any,
+    searchFields: searchFields as (keyof Product)[],
     delay: 200,
   });
 

@@ -66,7 +66,7 @@ function emit(payload: LogPayload): void {
   console.info(line, payload);
 }
 
-function persistServerLog(_payload: LogPayload): void {
+function persistServerLog(): void {
   // TODO: Réactiver quand une table `server_logs` sera créée dans Supabase.
   //
   // La table visée (`logs`) n'existe pas dans le schéma actuel (seule `activity_logs`
@@ -104,7 +104,7 @@ function write(
     runtime: detectRuntime(),
   };
   emit(payload);
-  persistServerLog(payload);
+  persistServerLog();
 }
 
 export function logInfo(

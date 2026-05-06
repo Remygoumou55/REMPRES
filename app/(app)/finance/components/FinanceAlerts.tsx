@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, memo } from "react";
-import { Settings2, AlertCircle } from "lucide-react";
+import { Settings2 } from "lucide-react";
 import type { FinanceAlertItem, FinanceAlertSettings } from "@/lib/finance-alerts";
 import { DEFAULT_ALERT_SETTINGS, saveAlertSettings } from "@/lib/finance-alerts";
 

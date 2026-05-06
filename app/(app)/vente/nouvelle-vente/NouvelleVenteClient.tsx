@@ -27,7 +27,6 @@ import { useAppMutationRefresh } from "@/hooks/use-app-mutation-refresh";
 import { useDebounce } from "@/hooks/useDebounce";
 
 // Sub-components
-import { PriceText } from "./components/PriceText";
 import { ProductCard } from "./components/ProductCard";
 import { CartRow } from "./components/CartRow";
 import { ClientSelector } from "./components/ClientSelector";

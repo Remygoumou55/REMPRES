@@ -5,17 +5,7 @@ import { Users, UserPlus } from "lucide-react";
 import type { Client } from "@/types/client";
 import { QuickClientModal } from "./QuickClientModal";
 
-/** Debounce filtre liste : frappe fluide, filtrage après pause — pas de blocage UI sur grosses listes. */
-const SEARCH_DEBOUNCE_MS = 300;
 
-function useDebouncedSearch<T>(value: T, delayMs: number): T {
-  const [debounced, setDebounced] = useState(value);
-  useMemo(() => {
-    const id = setTimeout(() => setDebounced(value), delayMs);
-    return () => clearTimeout(id);
-  }, [value, delayMs]);
-  return debounced;
-}
 
 function getClientLabel(client: Client): string {
   if (client.client_type === "company") return client.company_name ?? "Entreprise";

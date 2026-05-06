@@ -179,10 +179,17 @@ export function ClientsTable({
   const [pending, startTransition] = useTransition();
   const [confirmBulkOpen, setConfirmBulkOpen] = useState(false);
 
-  const searchFields = useMemo(() => [(c: Client) => getClientDisplayName(c), "email", "phone", "city", "company_name"], []);
+  const searchFields = useMemo(() => [
+    (c: Client) => getClientDisplayName(c),
+    "email",
+    "phone",
+    "city",
+    "company_name"
+  ], []);
+  
   const { query, setQuery, filteredData, suggestions } = useGlobalSearch<Client>({
     data: clients,
-    searchFields: searchFields as any,
+    searchFields: searchFields as Parameters<typeof useGlobalSearch<Client>>[0]["searchFields"],
     delay: 200,
   });
 

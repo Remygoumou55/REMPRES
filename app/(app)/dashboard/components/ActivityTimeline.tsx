@@ -1,10 +1,10 @@
 "use client";
 
 import { memo } from "react";
-import { Plus, Pencil, Trash2, Download, Activity } from "lucide-react";
+import { type LucideIcon, Plus, Pencil, Trash2, Download, Activity } from "lucide-react";
 import type { RecentActivityEntry } from "@/lib/server/dashboard-kpis";
 
-const ACTION_META: Record<string, { label: string; icon: any; color: string }> = {
+const ACTION_META: Record<string, { label: string; icon: LucideIcon; color: string }> = {
   create: { label: "Création",     icon: Plus,    color: "text-emerald-500 bg-emerald-50" },
   update: { label: "Modification", icon: Pencil,  color: "text-sky-500 bg-sky-50"       },
   delete: { label: "Suppression",  icon: Trash2,  color: "text-red-400 bg-red-50"        },

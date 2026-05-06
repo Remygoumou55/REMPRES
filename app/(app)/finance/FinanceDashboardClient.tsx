@@ -5,7 +5,6 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Calendar,
   Download,
-  FileText,
   Radio,
   RefreshCw,
   Wallet,
@@ -332,19 +331,19 @@ export function FinanceDashboardClient({
           title="Revenus"
           value={fmt("kpi:totalRevenue", data.totalRevenue)}
           accent="green"
-          sub={<DeltaText pct={data.revenueDeltaPct} kind="revenue" />}
+          sub={<DeltaText pct={data.delta.revenuePct} kind="revenue" />}
         />
         <FinanceKpiCard
           title="Dépenses"
           value={fmt("kpi:totalExpenses", data.totalExpenses)}
           accent="red"
-          sub={<DeltaText pct={data.expenseDeltaPct} kind="expenses" />}
+          sub={<DeltaText pct={data.delta.expensesPct} kind="expenses" />}
         />
         <FinanceKpiCard
           title="Résultat Net"
           value={fmt("kpi:profit", data.profit)}
           accent={data.profit >= 0 ? "blue" : "red"}
-          sub={<DeltaText pct={data.profitDeltaPct} kind="profit" />}
+          sub={<DeltaText pct={data.delta.profitPct} kind="profit" />}
         />
         <FinanceKpiCard
           title="Projection fin de mois"
@@ -361,8 +360,8 @@ export function FinanceDashboardClient({
             mode={chartMode}
             onModeChange={setChartMode}
             baseRange={data.chartInRange}
-            base7d={data.chartLast7Days}
-            forecastNextDays={projection.forecastNextDays}
+            base7d={data.chartLast7d}
+            forecastNextDays={projection.nextDays}
             currency={currency}
           />
         </div>

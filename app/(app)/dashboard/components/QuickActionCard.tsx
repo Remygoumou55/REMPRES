@@ -2,7 +2,7 @@
 
 import { memo } from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { type LucideIcon, ArrowRight } from "lucide-react";
 
 export const QuickActionCard = memo(function QuickActionCard({
   href,
@@ -12,7 +12,7 @@ export const QuickActionCard = memo(function QuickActionCard({
   color,
 }: {
   href: string;
-  icon: any;
+  icon: LucideIcon;
   label: string;
   description: string;
   color: string;

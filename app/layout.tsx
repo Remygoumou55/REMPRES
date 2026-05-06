@@ -1,7 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { cn } from "@/lib/utils";
 import { Providers } from "./providers";
 import { appConfig } from "@/lib/config";
 

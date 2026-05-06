@@ -1,14 +1,12 @@
 "use client";
 
 import { Search } from "lucide-react";
-import { 
-  ArchivedClientsSection, 
-  type AdminArchiveClientRow 
-} from "./archives/ArchivedClientsSection";
-import { 
-  ArchivedProductsSection, 
-  type AdminArchiveProductRow 
-} from "./archives/ArchivedProductsSection";
+import { type AdminArchiveClientRow } from "./archives/ArchivedClientsSection";
+import { type AdminArchiveProductRow } from "./archives/ArchivedProductsSection";
+import { ArchivedClientsSection } from "./archives/ArchivedClientsSection";
+import { ArchivedProductsSection } from "./archives/ArchivedProductsSection";
+
+export type { AdminArchiveClientRow, AdminArchiveProductRow };
 
 type AdminGlobalArchivesClientProps = {
   clients: AdminArchiveClientRow[];
@@ -28,7 +26,7 @@ export function AdminGlobalArchivesClient({ clients, products }: AdminGlobalArch
             <p className="text-sm font-semibold text-darktext">Recherche dans les archives</p>
             <p className="text-xs text-darktext/70 leading-relaxed">
               Chaque tableau possède son propre filtre instantané. Les actions groupées (restauration, suppression définitive) 
-              s'appliquent uniquement aux éléments visibles après filtrage.
+              s&apos;appliquent uniquement aux éléments visibles après filtrage.
             </p>
           </div>
         </div>

@@ -112,7 +112,7 @@ export default async function HistoriquePage({ searchParams }: PageProps) {
   if (clientIds.length > 0) {
     const { data: clientsData } = await supabase
       .from("clients")
-      .select("id,client_type,first_name,last_name,company_name,email,phone,address,city,country,notes,created_by,created_at,updated_at,deleted_at,deleted_by")
+      .select("id,client_type,first_name,last_name,company_name")
       .in("id", clientIds);
     for (const row of clientsData ?? []) {
       clientsById[row.id] = row as Client;

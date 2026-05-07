@@ -14,6 +14,9 @@ import { Badge, type BadgeVariant } from "@/components/ui/badge";
 import { DetailPageModal } from "@/components/ui/detail-page-modal";
 import type { Client } from "@/types/client";
 import { formatMoney, type SupportedCurrency } from "@/lib/utils/formatCurrency";
+import { statusTranslationKey } from "@/lib/i18n/statuses";
+import { getRequestLocale } from "@/lib/i18n/request-locale";
+import { loadLocaleMessages, translateFromDict } from "@/lib/i18n/load-messages";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -33,12 +36,12 @@ type SaleItemRow = {
 // Config
 // ---------------------------------------------------------------------------
 
-const STATUT_CFG: Record<string, { label: string; variant: BadgeVariant }> = {
-  pending:   { label: "En attente", variant: "warning" },
-  partial:   { label: "Partiel",    variant: "info"    },
-  paid:      { label: "Payé",       variant: "success" },
-  overdue:   { label: "En retard",  variant: "danger"  },
-  cancelled: { label: "Annulé",     variant: "gray"    },
+const STATUT_CFG: Record<string, { variant: BadgeVariant }> = {
+  pending:   { variant: "warning" },
+  partial:   { variant: "info"    },
+  paid:      { variant: "success" },
+  overdue:   { variant: "danger"  },
+  cancelled: { variant: "gray"    },
 };
 
 const PAYMENT_LABELS: Record<string, string> = {
@@ -63,7 +66,9 @@ type PageProps = { params: { id: string } };
 
 export default async function SaleDetailPage({ params }: PageProps) {
   const supabase = getSupabaseServerClient();
-  const { data: auth } = await supabase.auth.getUser();
+  const [{ data: auth }, locale] = await Promise.all([supabase.auth.getUser(), getRequestLocale()]);
+  const { messages } = await loadLocaleMessages(locale);
+  const t = (key: string) => translateFromDict(messages, key);
   if (!auth.user) redirect("/login");
 
   const permissions = await getModulePermissions(auth.user.id, ["vente"]);
@@ -100,7 +105,7 @@ export default async function SaleDetailPage({ params }: PageProps) {
     client = clientData as Client | null;
   }
 
-  const statut   = STATUT_CFG[sale.payment_status] ?? { label: sale.payment_status, variant: "gray" as BadgeVariant };
+  const statut   = STATUT_CFG[sale.payment_status] ?? { variant: "gray" as BadgeVariant };
   const currency = (sale.display_currency ?? "GNF") as SupportedCurrency;
   const rate     = Number(sale.exchange_rate) || 1;
   /** Formate un montant GNF dans la devise de la vente */
@@ -148,7 +153,7 @@ export default async function SaleDetailPage({ params }: PageProps) {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <Badge label={statut.label} variant={statut.variant} dot />
+            <Badge label={t(statusTranslationKey(sale.payment_status))} variant={statut.variant} dot />
             <a
               href={`/vente/recu/${sale.id}?print=1`}
               target="_blank"

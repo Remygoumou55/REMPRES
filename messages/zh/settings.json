@@ -1,0 +1,18 @@
+{
+  "settings.title": "Settings",
+  "settings.subtitle": "Global application configuration",
+  "settings.language.section": "Language",
+  "settings.language.selectLabel": "Choose language",
+  "settings.generalInfo": "General information",
+  "settings.info.app": "Application",
+  "settings.info.version": "Version",
+  "settings.info.description": "Description",
+  "settings.info.country": "Country",
+  "settings.info.address": "Address",
+  "settings.info.contact": "Contact",
+  "settings.configuration": "Configuration",
+  "settings.users.title": "Users",
+  "settings.users.description": "Manage accounts and invitations",
+  "settings.currency.title": "Exchange rates",
+  "settings.currency.description": "Review and force rate refresh"
+}

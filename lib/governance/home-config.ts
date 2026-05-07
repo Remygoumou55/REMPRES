@@ -102,7 +102,7 @@ export function getGovernanceHomeModel(context: HomeContext): GovernanceHomeMode
       ],
       securityNotices: BASE_SECURITY,
       supervisionNotes: [
-        "Ce centre est supervision-only: aucun traitement opérationnel direct.",
+        "Ce centre est en mode supervision uniquement: aucun traitement operationnel direct.",
         "Toute action critique doit rester explicable et traçable.",
       ],
     };

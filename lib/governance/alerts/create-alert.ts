@@ -1,4 +1,4 @@
-import { createGovernanceAlert } from "@/lib/governance/alerts/repository";
+import { emitGovernanceAlert, tryEmitGovernanceAlert } from "@/lib/governance/alert-engine";
 import type { GovernanceAlertSeverity } from "@/lib/governance/alerts/types";
 
 export async function createAlert(input: {
@@ -12,9 +12,8 @@ export async function createAlert(input: {
   triggeredBy?: string | null;
   metadata?: Record<string, unknown>;
 }): Promise<void> {
-  await createGovernanceAlert({
+  await emitGovernanceAlert({
     type: input.type,
-    severity: input.severity,
     departmentKey: input.departmentKey ?? null,
     title: input.title,
     description: input.description,
@@ -36,9 +35,14 @@ export async function tryCreateAlert(input: {
   triggeredBy?: string | null;
   metadata?: Record<string, unknown>;
 }): Promise<void> {
-  try {
-    await createAlert(input);
-  } catch {
-    // no-op: alerting must never break operational flow
-  }
+  await tryEmitGovernanceAlert({
+    type: input.type,
+    departmentKey: input.departmentKey ?? null,
+    title: input.title,
+    description: input.description,
+    entityType: input.entityType ?? null,
+    entityId: input.entityId ?? null,
+    triggeredBy: input.triggeredBy ?? null,
+    metadata: input.metadata ?? {},
+  });
 }

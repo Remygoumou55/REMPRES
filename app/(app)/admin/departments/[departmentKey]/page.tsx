@@ -8,9 +8,12 @@ import { isSuperAdmin } from "@/lib/server/permissions";
 import { parseDepartmentKeySlug } from "@/lib/governance/sidebar-config";
 import { DepartmentSwitcher } from "@/components/governance/layout/DepartmentSwitcher";
 import { DepartmentSupervisorCard } from "@/components/governance/dashboard/DepartmentSupervisorCard";
-import { GovernanceHomeCenter } from "@/components/governance/home/GovernanceHomeCenter";
-import { getGovernanceHomeModel } from "@/lib/governance/home-config";
-import { getCachedProfileDisplayName } from "@/lib/server/profile-display";
+import { loadGlobalGovernanceDashboard } from "@/lib/governance/dashboard/load-global-governance-dashboard";
+import { DepartmentOverviewSection } from "@/components/governance/dashboard/DepartmentOverviewSection";
+import { DepartmentActivitySection } from "@/components/governance/dashboard/DepartmentActivitySection";
+import { getRequestLocale } from "@/lib/i18n/request-locale";
+import { loadLocaleMessages, translateFromDict } from "@/lib/i18n/load-messages";
+import { mapModuleToDepartment } from "@/lib/governance/analytics/activity-summary";
 
 type PageProps = {
   params: { departmentKey: string };
@@ -34,29 +37,31 @@ export default async function DepartmentSupervisionPage({ params }: PageProps) {
     redirect("/admin/global-dashboard");
   }
 
-  const userDisplayName = await getCachedProfileDisplayName(data.user.id);
-  const model = getGovernanceHomeModel({
-    roleKey: "super_admin",
-    departmentKey,
-    supervisionScope: "global",
-  });
+  const [dashboard, locale] = await Promise.all([loadGlobalGovernanceDashboard(), getRequestLocale()]);
+  const { messages } = await loadLocaleMessages(locale);
+  const t = (key: string) => translateFromDict(messages, key);
+  const departmentMetrics = dashboard.departments.filter((d) => d.departmentKey === departmentKey);
+  const departmentActivity = dashboard.recentActivity.filter(
+    (event) => mapModuleToDepartment(event.module_key) === departmentKey,
+  );
 
   return (
     <div className="mx-auto max-w-6xl space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
         <div>
           <h1 className="text-xl font-semibold text-gray-900">
-            Supervision departement - {DEPARTMENT_NAVIGATION[departmentKey].label}
+            {t("governance.supervision.departmentTitle")} - {DEPARTMENT_NAVIGATION[departmentKey].label}
           </h1>
           <p className="text-sm text-gray-600">
-            Consultation gouvernance uniquement. Aucune operation CRUD metier.
+            {t("governance.supervision.departmentSubtitle")}
           </p>
         </div>
         <DepartmentSwitcher currentDepartmentKey={departmentKey} />
       </div>
 
       <DepartmentSupervisorCard departmentKey={departmentKey} />
-      <GovernanceHomeCenter model={model} userDisplayName={userDisplayName} />
+      <DepartmentOverviewSection departments={departmentMetrics} />
+      <DepartmentActivitySection recentActivity={departmentActivity} />
     </div>
   );
 }

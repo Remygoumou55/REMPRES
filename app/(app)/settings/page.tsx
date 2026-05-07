@@ -4,6 +4,9 @@ import Link from "next/link";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { isAdminRole } from "@/lib/server/permissions";
 import { appConfig } from "@/lib/config";
+import { loadLocaleMessages, translateFromDict } from "@/lib/i18n/load-messages";
+import { normalizeLocale } from "@/lib/i18n/config";
+import { updatePreferredLanguageAction } from "./actions";
 import {
   Settings2,
   Users,
@@ -80,6 +83,16 @@ export default async function SettingsPage() {
 
   if (!data.user) redirect("/login");
 
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("preferred_language")
+    .eq("id", data.user.id)
+    .is("deleted_at", null)
+    .maybeSingle();
+  const locale = normalizeLocale(profile?.preferred_language);
+  const { messages } = await loadLocaleMessages(locale);
+  const t = (key: string) => translateFromDict(messages, key);
+
   const isAdmin = await isAdminRole(data.user.id);
 
   return (
@@ -91,29 +104,54 @@ export default async function SettingsPage() {
           <Settings2 size={22} className="text-primary" />
         </div>
         <div>
-          <h1 className="text-2xl font-extrabold text-darktext">Paramètres</h1>
+          <h1 className="text-2xl font-extrabold text-darktext">{t("settings.title")}</h1>
           <p className="mt-1 text-sm text-gray-400">
-            Configuration globale de l&apos;application
+            {t("settings.subtitle")}
           </p>
         </div>
       </div>
+
+      <section className="space-y-3">
+        <h2 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400">
+          <Globe size={13} />
+          {t("settings.language.section")}
+        </h2>
+        <form action={updatePreferredLanguageAction} className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
+          <div className="flex flex-wrap items-center gap-2">
+            <select
+              name="preferredLanguage"
+              defaultValue={locale}
+              aria-label={t("settings.language.selectLabel")}
+              className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm"
+            >
+              <option value="fr">Francais</option>
+              <option value="en">English</option>
+              <option value="zh">Chinese</option>
+              <option value="pt">Portugues</option>
+            </select>
+            <button type="submit" className="rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white">
+              {t("common.apply")}
+            </button>
+          </div>
+        </form>
+      </section>
 
       {/* Informations de l'application */}
       <section className="space-y-4">
         <h2 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400">
           <Info size={13} />
-          Informations générales
+          {t("settings.generalInfo")}
         </h2>
 
         <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
           <div className="divide-y divide-gray-50">
             {[
-              { icon: Building2, label: "Application",  value: appConfig.name },
-              { icon: Tag,       label: "Version",       value: appConfig.version },
-              { icon: Info,      label: "Description",   value: appConfig.tagline },
-              { icon: MapPin,    label: "Pays",          value: appConfig.country },
-              { icon: MapPin,    label: "Adresse",       value: appConfig.address },
-              { icon: Mail,      label: "Contact",       value: appConfig.email },
+              { icon: Building2, label: t("settings.info.app"), value: appConfig.name },
+              { icon: Tag, label: t("settings.info.version"), value: appConfig.version },
+              { icon: Info, label: t("settings.info.description"), value: appConfig.tagline },
+              { icon: MapPin, label: t("settings.info.country"), value: appConfig.country },
+              { icon: MapPin, label: t("settings.info.address"), value: appConfig.address },
+              { icon: Mail, label: t("settings.info.contact"), value: appConfig.email },
             ].map(({ icon: Icon, label, value }) => (
               <div key={label} className="flex items-center gap-4 px-5 py-3.5">
                 <Icon size={15} className="shrink-0 text-gray-400" />
@@ -130,22 +168,22 @@ export default async function SettingsPage() {
         <section className="space-y-4">
           <h2 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400">
             <Settings2 size={13} />
-            Configuration
+            {t("settings.configuration")}
           </h2>
           <div className="grid gap-3 sm:grid-cols-2">
             <SettingsCard
               href="/admin/users"
               icon={Users}
-              title="Utilisateurs"
-              description="Gérer les comptes et les invitations"
-              badge="Admin"
+              title={t("settings.users.title")}
+              description={t("settings.users.description")}
+              badge={t("navigation.module.admin")}
             />
             <SettingsCard
               href="/admin/currency"
               icon={Globe}
-              title="Taux de change"
-              description="Consulter et forcer le rafraîchissement des taux"
-              badge="Admin"
+              title={t("settings.currency.title")}
+              description={t("settings.currency.description")}
+              badge={t("navigation.module.admin")}
             />
           </div>
         </section>

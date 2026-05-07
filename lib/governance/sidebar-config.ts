@@ -1,5 +1,6 @@
 import {
   DEPARTMENT_NAVIGATION,
+  listSupervisedDepartments,
   type DepartmentKey,
 } from "@/lib/departments/department-config";
 
@@ -74,12 +75,11 @@ export function getSuperAdminSidebarItems(): GovernanceSidebarItem[] {
     },
   ];
 
-  const departmentLinks: GovernanceSidebarItem[] = Object.entries(DEPARTMENT_NAVIGATION)
-    .filter(([, nav]) => !nav.supervisionOnly && nav.routePrefixes.length > 0)
-    .map(([key, nav]) => ({
+  const departmentLinks: GovernanceSidebarItem[] = listSupervisedDepartments()
+    .map((key) => ({
       href: `/admin/departments/${String(key).toLowerCase()}`,
-      label: `Dashboard ${nav.label}`,
-      iconKey: nav.icon,
+      label: `Supervision ${DEPARTMENT_NAVIGATION[key].label}`,
+      iconKey: DEPARTMENT_NAVIGATION[key].icon,
       section: "department_supervision" as const,
     }));
 

@@ -27,6 +27,8 @@ function pathnameMatchesAnyPrefix(pathname: string, prefixes: readonly string[])
   return prefixes.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 }
 
+const ADMIN_CONSOLE_ALLOWED_PREFIXES = ["/admin", "/settings", "/dashboard"] as const;
+
 /** Accès aux routes /console admin Next (équivalent ancien DG + super_admin). */
 export function hasAdminConsoleAccess(
   roleKey: string | null | undefined,
@@ -85,7 +87,7 @@ export function canAccessPathForProfile(
   }
 
   if (hasAdminConsoleAccess(roleKey, departmentKey)) {
-    return true;
+    return pathnameMatchesAnyPrefix(path, ADMIN_CONSOLE_ALLOWED_PREFIXES);
   }
 
   if (r === ROLE_KEYS.ACCOUNTANT) {

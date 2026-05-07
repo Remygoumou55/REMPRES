@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { isSuperAdmin } from "@/lib/server/permissions";
-import { updateGovernanceAlertStatus } from "@/lib/governance/alerts/repository";
+import { archiveGovernanceAlert, updateGovernanceAlertStatus } from "@/lib/governance/alerts/repository";
 import { tryLogGovernanceAuditEvent } from "@/lib/governance/audit/log-audit-event";
 
 async function assertSuperAdminActor(): Promise<string> {
@@ -43,6 +43,22 @@ export async function resolveAlertAction(alertId: string): Promise<void> {
     entityType: "governance_alerts",
     entityId: alertId,
     afterSnapshot: { status: "resolved" },
+  });
+  revalidatePath("/admin/alerts");
+}
+
+export async function archiveAlertAction(alertId: string): Promise<void> {
+  const actorUserId = await assertSuperAdminActor();
+  await archiveGovernanceAlert({ alertId, actorUserId });
+  await tryLogGovernanceAuditEvent({
+    category: "archive",
+    severity: "informational",
+    actorUserId,
+    actorRole: "super_admin",
+    actionType: "alert_archived",
+    entityType: "governance_alerts",
+    entityId: alertId,
+    afterSnapshot: { lifecycle: "archived" },
   });
   revalidatePath("/admin/alerts");
 }

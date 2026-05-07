@@ -3,6 +3,8 @@
 import { memo } from "react";
 import { type LucideIcon, Plus, Pencil, Trash2, Download, Activity } from "lucide-react";
 import type { RecentActivityEntry } from "@/lib/server/dashboard-kpis";
+import { useTranslation } from "@/hooks/use-translation";
+import { resolveGovernanceEvent } from "@/lib/audit/event-definitions";
 
 const ACTION_META: Record<string, { label: string; icon: LucideIcon; color: string }> = {
   create: { label: "Création",     icon: Plus,    color: "text-emerald-500 bg-emerald-50" },
@@ -32,11 +34,12 @@ function toRelativeTime(iso: string): string {
 }
 
 export const ActivityTimeline = memo(function ActivityTimeline({ events }: { events: RecentActivityEntry[] }) {
+  const { t } = useTranslation();
   if (events.length === 0) {
     return (
       <div className="flex flex-col items-center gap-2 py-6 text-center">
         <Activity size={22} className="text-gray-200" />
-        <p className="text-sm text-gray-400">Aucune activité récente</p>
+        <p className="text-sm text-gray-400">{t("governance.dashboard.activityFeed.empty")}</p>
       </div>
     );
   }
@@ -44,9 +47,11 @@ export const ActivityTimeline = memo(function ActivityTimeline({ events }: { eve
   return (
     <div className="space-y-0">
       {events.map((ev, idx) => {
-        const meta = ACTION_META[ev.action_key] ?? ACTION_META["update"];
+        const resolved = resolveGovernanceEvent(ev.module_key, ev.action_key);
+        const meta = ACTION_META[resolved.actionKey] ?? ACTION_META["update"];
         const Icon = meta.icon;
-        const moduleLabel = MODULE_LABELS[ev.module_key] ?? ev.module_key;
+        const moduleLabel = t(`governance.activity.module.${resolved.moduleKey}`, MODULE_LABELS[resolved.moduleKey] ?? resolved.moduleKey);
+        const actionLabel = t(resolved.labelKey, meta.label);
         return (
           <div key={ev.id} className="flex gap-3 group">
             <div className="flex flex-col items-center pt-1">
@@ -59,7 +64,7 @@ export const ActivityTimeline = memo(function ActivityTimeline({ events }: { eve
             </div>
             <div className="flex-1 pb-3 pt-0.5">
               <p className="text-sm text-darktext leading-snug">
-                <span className="font-semibold">{meta.label}</span>
+                <span className="font-semibold">{actionLabel}</span>
                 {" dans "}
                 <span className="font-semibold text-primary">{moduleLabel}</span>
               </p>

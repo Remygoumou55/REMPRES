@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslation } from "@/hooks/use-translation";
 import type { ApprovalRequestStatus } from "@/lib/governance/approvals/types";
 
 const STATUS_CLASS: Record<ApprovalRequestStatus, string> = {
@@ -8,9 +11,10 @@ const STATUS_CLASS: Record<ApprovalRequestStatus, string> = {
 };
 
 export function ApprovalStatusBadge({ status }: { status: ApprovalRequestStatus }) {
+  const { t } = useTranslation();
   return (
     <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_CLASS[status]}`}>
-      {status}
+      {t(`status.${status}`)}
     </span>
   );
 }

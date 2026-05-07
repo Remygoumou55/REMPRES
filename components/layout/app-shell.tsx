@@ -35,6 +35,7 @@ import { CurrencySwitcher } from "@/components/CurrencySwitcher";
 import { logError, logInfo } from "@/lib/logger";
 import { generateBreadcrumb } from "@/lib/utils/breadcrumb";
 import { getSuperAdminSidebarItems } from "@/lib/governance/sidebar-config";
+import { useTranslation } from "@/hooks/use-translation";
 
 // Sub-components & types
 import type { ModuleDef, ModuleId } from "./app-shell/types";
@@ -71,6 +72,23 @@ function detectModule(pathname: string): ModuleId {
   return "dashboard";
 }
 
+const BREADCRUMB_TRANSLATION_KEYS: Record<string, string> = {
+  Accueil: "navigation.breadcrumb.home",
+  "Tableau de bord": "navigation.breadcrumb.dashboard",
+  Administration: "navigation.module.admin",
+  Approbations: "navigation.item.approvals",
+  Alertes: "navigation.item.alerts",
+  Audit: "navigation.item.audit",
+  Intelligence: "navigation.item.intelligence",
+  Parametres: "navigation.module.settings",
+  Finance: "navigation.module.finance",
+  Clients: "navigation.item.clients",
+  Produits: "navigation.item.products",
+  Historique: "navigation.item.history",
+  Utilisateurs: "navigation.item.users",
+  Archives: "navigation.item.archives",
+};
+
 export function AppShell({
   userDisplayName,
   userAvatarInitial,
@@ -83,6 +101,7 @@ export function AppShell({
 }: AppShellProps) {
   const pathname = usePathname();
   const router   = useRouter();
+  const { t } = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSidebarOpen,    setIsSidebarOpen]    = useState(true);
 
@@ -111,99 +130,99 @@ export function AppShell({
 
       const configItems = getSuperAdminSidebarItems().map((item) => ({
         href: item.href,
-        label: item.label,
+        label: t(`navigation.superadmin.${item.href}`),
         icon: iconMap[item.iconKey as keyof typeof iconMap] ?? Building2,
         visible: true,
         section:
           item.section === "enterprise_governance"
-            ? "Entreprise gouvernance"
+            ? t("navigation.section.enterpriseGovernance")
             : item.section === "department_supervision"
-              ? "Supervision departements"
-              : "Administration",
+              ? t("navigation.section.departmentSupervision")
+              : t("navigation.section.administration"),
       }));
 
       return [
         {
           id: "governance",
-          label: "Gouvernance",
-          shortLabel: "Gov",
+          label: t("navigation.module.governance"),
+          shortLabel: t("navigation.short.governance"),
           icon: ClipboardList,
           href: "/admin/global-dashboard",
           visible: true,
-          items: configItems.filter((item) => item.section === "Entreprise gouvernance"),
+          items: configItems.filter((item) => item.section === t("navigation.section.enterpriseGovernance")),
         },
         {
           id: "departments",
-          label: "Supervision",
-          shortLabel: "Dept",
+          label: t("navigation.module.supervision"),
+          shortLabel: t("navigation.short.supervision"),
           icon: Building2,
           href: "/admin/departments/vente",
           visible: true,
-          items: configItems.filter((item) => item.section === "Supervision departements"),
+          items: configItems.filter((item) => item.section === t("navigation.section.departmentSupervision")),
         },
         {
           id: "admin",
-          label: "Administration",
-          shortLabel: "Admin",
+          label: t("navigation.module.admin"),
+          shortLabel: t("navigation.short.admin"),
           icon: UserCog,
           href: "/admin/users",
           visible: true,
-          items: configItems.filter((item) => item.section === "Administration"),
+          items: configItems.filter((item) => item.section === t("navigation.section.administration")),
         },
         {
           id: "settings",
-          label: "Parametres",
-          shortLabel: "Config",
+          label: t("navigation.module.settings"),
+          shortLabel: t("navigation.short.settings"),
           icon: Settings2,
           href: "/settings",
           visible: true,
-          items: [{ href: "/settings", label: "General", icon: Settings2, visible: true }],
+          items: [{ href: "/settings", label: t("navigation.item.settingsGeneral"), icon: Settings2, visible: true }],
         },
       ];
     }
 
     return [
       {
-        id: "commerce", label: "Commerce", shortLabel: "Vente",
+        id: "commerce", label: t("navigation.module.commerce"), shortLabel: t("navigation.short.commerce"),
         icon: ShoppingCart, href: "/vente/clients",
         visible: canReadProducts || canReadClients,
         items: [
-          { href: "/vente/clients", label: "Clients", icon: Users, visible: canReadClients },
-          { href: "/vente/produits", label: "Produits", icon: Package, visible: canReadProducts },
-          { href: "/vente/nouvelle-vente", label: "Nouvelle vente", icon: ShoppingCart, visible: canReadProducts },
-          { href: "/vente/historique", label: "Historique", icon: History, visible: canReadProducts },
+          { href: "/vente/clients", label: t("navigation.item.clients"), icon: Users, visible: canReadClients },
+          { href: "/vente/produits", label: t("navigation.item.products"), icon: Package, visible: canReadProducts },
+          { href: "/vente/nouvelle-vente", label: t("navigation.item.newSale"), icon: ShoppingCart, visible: canReadProducts },
+          { href: "/vente/historique", label: t("navigation.item.history"), icon: History, visible: canReadProducts },
         ],
       },
       {
-        id: "finance", label: "Finance", shortLabel: "Finance",
+        id: "finance", label: t("navigation.module.finance"), shortLabel: t("navigation.short.finance"),
         icon: BarChart3, href: "/finance",
         visible: canReadFinance,
         items: [
-          { href: "/finance", label: "Vue d'ensemble", icon: BarChart3, visible: canReadFinance },
-          { href: "/finance/depenses", label: "Depenses", icon: Wallet, visible: canReadFinance },
+          { href: "/finance", label: t("navigation.item.financeOverview"), icon: BarChart3, visible: canReadFinance },
+          { href: "/finance/depenses", label: t("navigation.item.expenses"), icon: Wallet, visible: canReadFinance },
         ],
       },
       {
-        id: "admin", label: "Administration", shortLabel: "Admin",
+        id: "admin", label: t("navigation.module.admin"), shortLabel: t("navigation.short.admin"),
         icon: ClipboardList, href: "/admin/activity-logs",
         visible: canReadActivityLogs,
         items: [
-          { href: "/admin/activity-logs", label: "Journal activite", icon: ClipboardList, visible: canReadActivityLogs },
-          { href: "/admin/archives", label: "Archives", icon: Archive, visible: false },
+          { href: "/admin/activity-logs", label: t("navigation.item.activityLog"), icon: ClipboardList, visible: canReadActivityLogs },
+          { href: "/admin/archives", label: t("navigation.item.archives"), icon: Archive, visible: false },
         ],
       },
       {
-        id: "settings", label: "Parametres", shortLabel: "Config",
+        id: "settings", label: t("navigation.module.settings"), shortLabel: t("navigation.short.settings"),
         icon: Settings2, href: "/settings",
         visible: true,
         items: [
-          { href: "/settings", label: "General", icon: Settings2, visible: true },
-          { href: "/admin/users", label: "Utilisateurs", icon: UserCog, visible: false },
-          { href: "/admin/currency", label: "Taux de change", icon: Globe, visible: false },
+          { href: "/settings", label: t("navigation.item.settingsGeneral"), icon: Settings2, visible: true },
+          { href: "/admin/users", label: t("navigation.item.users"), icon: UserCog, visible: false },
+          { href: "/admin/currency", label: t("navigation.item.currency"), icon: Globe, visible: false },
         ],
       },
     ];
-  }, [canReadProducts, canReadClients, canReadFinance, canReadActivityLogs, isSuperAdmin]);
+  }, [canReadProducts, canReadClients, canReadFinance, canReadActivityLogs, isSuperAdmin, t]);
 
   const activeModuleDef = useMemo(() => 
     activeModule !== "dashboard" ? (modules.find((m) => m.id === activeModule) ?? null) : null
@@ -215,13 +234,19 @@ export function AppShell({
       await supabase.auth.signOut();
       logInfo("auth", "logout success", { module: "app-shell" });
       router.replace("/login");
-      router.refresh();
     } catch (error) {
       logError("auth", "logout failed", { error, module: "app-shell" });
     }
   }, [router]);
 
-  const breadcrumbs = useMemo(() => generateBreadcrumb(pathname), [pathname]);
+  const breadcrumbs = useMemo(
+    () =>
+      generateBreadcrumb(pathname).map((crumb) => ({
+        ...crumb,
+        label: t(BREADCRUMB_TRANSLATION_KEYS[crumb.label] ?? crumb.label),
+      })),
+    [pathname, t],
+  );
 
   return (
     <div className="min-h-screen bg-graylight text-darktext">

@@ -5,6 +5,8 @@ import { Plus, Pencil, Trash2, X, Info, Download, RotateCcw } from "lucide-react
 import { Badge } from "@/components/ui/badge";
 import { formatDateTimeFullFr, formatDateDayFr } from "@/lib/utils/formatDate";
 import type { Json } from "@/types/database.types";
+import { useTranslation } from "@/hooks/use-translation";
+import { resolveGovernanceEvent } from "@/lib/audit/event-definitions";
 
 // ---------------------------------------------------------------------------
 // Icônes & labels (identiques à la page serveur)
@@ -72,11 +74,16 @@ export type ActivityLogRowProps = {
 };
 
 export function ActivityLogTimelineRow({ row, actorName, isLast }: ActivityLogRowProps) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  const actionCfg  = ACTION_LABELS[row.action_key] ?? ACTION_LABELS.update;
+  const resolved = resolveGovernanceEvent(row.module_key, row.action_key);
+  const actionCfg  = ACTION_LABELS[resolved.actionKey] ?? ACTION_LABELS.update;
   const ActionIcon = actionCfg.icon;
-  const phrase     = toHumanPhrase(row.module_key, row.action_key);
-  const displayActor = row.actor_user_id ? actorName : "Système";
+  const phrase = `${t(resolved.labelKey, toHumanPhrase(resolved.moduleKey, resolved.actionKey))} ${t(
+    `governance.activity.module.${resolved.moduleKey}`,
+    MODULE_LABELS[resolved.moduleKey] ?? resolved.moduleKey,
+  )}`;
+  const displayActor = row.actor_user_id ? actorName : t("governance.activity.systemActor");
 
   return (
     <>
@@ -105,7 +112,7 @@ export function ActivityLogTimelineRow({ row, actorName, isLast }: ActivityLogRo
                 className="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-2 py-1 text-xs font-medium text-primary transition hover:bg-primary/5"
               >
                 <Info size={12} />
-                Détails
+                {t("common.details")}
               </button>
             </div>
           </div>
@@ -126,12 +133,12 @@ export function ActivityLogTimelineRow({ row, actorName, isLast }: ActivityLogRo
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" role="dialog">
           <div className="max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white p-5 shadow-2xl">
             <div className="mb-4 flex items-center justify-between">
-              <h3 className="text-lg font-bold text-darktext">Détail de l&apos;événement</h3>
+              <h3 className="text-lg font-bold text-darktext">{t("governance.activity.modal.title")}</h3>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
                 className="rounded-lg p-1 text-gray-400 hover:bg-gray-100"
-                aria-label="Fermer"
+                aria-label={t("common.close")}
               >
                 <X size={20} />
               </button>
@@ -139,24 +146,24 @@ export function ActivityLogTimelineRow({ row, actorName, isLast }: ActivityLogRo
 
             <dl className="space-y-2 text-sm">
               <div className="flex justify-between gap-4">
-                <dt className="text-gray-500">Action</dt>
+                <dt className="text-gray-500">{t("common.action")}</dt>
                 <dd className="font-medium text-darktext">{row.action_key}</dd>
               </div>
               <div className="flex justify-between gap-4">
-                <dt className="text-gray-500">Module</dt>
+                <dt className="text-gray-500">{t("common.module")}</dt>
                 <dd className="font-medium text-darktext">{row.module_key}</dd>
               </div>
               <div className="flex justify-between gap-4">
-                <dt className="text-gray-500">Utilisateur</dt>
+                <dt className="text-gray-500">{t("common.user")}</dt>
                 <dd className="text-right break-all text-darktext">{actorName}</dd>
               </div>
               <div className="flex justify-between gap-4">
-                <dt className="text-gray-500">Date complète</dt>
+                <dt className="text-gray-500">{t("common.dateFull")}</dt>
                 <dd className="text-right text-darktext">{formatDateTimeFullFr(row.created_at)}</dd>
               </div>
               {row.target_table && (
                 <div className="flex justify-between gap-4">
-                  <dt className="text-gray-500">Cible</dt>
+                  <dt className="text-gray-500">{t("common.target")}</dt>
                   <dd className="text-right text-darktext">
                     {row.target_table} {row.target_id ? `#${shortId(row.target_id)}` : ""}
                   </dd>
@@ -164,11 +171,11 @@ export function ActivityLogTimelineRow({ row, actorName, isLast }: ActivityLogRo
               )}
             </dl>
 
-            <p className="mb-1 mt-4 text-xs font-semibold uppercase tracking-wide text-gray-400">Métadonnées</p>
+            <p className="mb-1 mt-4 text-xs font-semibold uppercase tracking-wide text-gray-400">{t("common.metadata")}</p>
             <pre className="max-h-48 overflow-auto rounded-xl bg-gray-50 p-3 text-xs text-gray-700">
               {row.metadata
                 ? JSON.stringify(row.metadata, null, 2)
-                : "—"}
+                : "-"}
             </pre>
 
             <button
@@ -176,7 +183,7 @@ export function ActivityLogTimelineRow({ row, actorName, isLast }: ActivityLogRo
               onClick={() => setOpen(false)}
               className="mt-4 w-full rounded-xl bg-primary py-2.5 text-sm font-semibold text-white"
             >
-              Fermer
+              {t("common.close")}
             </button>
           </div>
         </div>

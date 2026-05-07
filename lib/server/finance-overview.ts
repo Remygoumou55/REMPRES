@@ -290,31 +290,19 @@ function previousPeriodRange(from: string, to: string): { prevFrom: string; prev
 }
 
 async function buildExpenseCategorySlices(
-  supabase: SupabaseClient<Database>,
   expenseFtRows: FTRow[],
   categoryRows: ExpenseCategoryRow[],
+  expenseIdToCategory: Map<string, string>,
 ): Promise<FinanceCategorySlice[]> {
   const rows = expenseFtRows.filter((r) => r.source_type === "expense" && r.status !== "cancelled");
   if (rows.length === 0) {
     return [];
   }
-  const ids = rows.map((r) => r.source_id);
-  const { data: expRows, error: e2 } = await supabase
-    .from("expenses")
-    .select("id, category_id")
-    .in("id", ids)
-    .is("deleted_at", null);
-
-  if (e2) {
-    throw new Error(`Dépenses (join) : ${e2.message}`);
-  }
-
-  const idToCat = new Map((expRows ?? []).map((e) => [e.id, e.category_id] as const));
   const catMap = new Map(categoryRows.map((c) => [c.id, c] as const));
 
   const byCat = new Map<string, number>();
   for (const r of rows) {
-    const catId = idToCat.get(r.source_id);
+    const catId = expenseIdToCategory.get(r.source_id);
     if (!catId) continue;
     byCat.set(catId, (byCat.get(catId) ?? 0) + Number(r.amount_gnf));
   }
@@ -359,7 +347,7 @@ async function processWindow(
   const netSaleRevenue = saleBuckets.netSaleRevenue;
   const totalRevenue = netSaleRevenue;
   const totalExpenses = sumExpenseNet(ftFiltered);
-  const expensesByCategory = await buildExpenseCategorySlices(supabase, ftFiltered, categoryRows);
+  const expensesByCategory = await buildExpenseCategorySlices(ftFiltered, categoryRows, idToCat);
 
   return {
     totalRevenue,

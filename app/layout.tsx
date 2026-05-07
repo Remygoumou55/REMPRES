@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { appConfig } from "@/lib/config";
+import { getRequestLocale } from "@/lib/i18n/request-locale";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -67,8 +68,9 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const locale = getRequestLocale();
   return (
-    <html lang="fr" className="font-sans">
+    <html lang={locale} className="font-sans">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
       </body>

@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslation } from "@/hooks/use-translation";
 import { EnterpriseOverviewCard } from "./EnterpriseOverviewCard";
 
 type EnterpriseMetricsSectionProps = {
@@ -13,27 +16,28 @@ export function EnterpriseMetricsSection({
   salesMonth,
   netSaleAmountMonth,
 }: EnterpriseMetricsSectionProps) {
+  const { t, locale } = useTranslation();
   return (
     <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
       <EnterpriseOverviewCard
-        title="Clients actifs"
+        title={t("governance.dashboard.enterpriseMetrics.commercialPerformance")}
         value={String(clientsTotal)}
-        subtitle="Base entreprise consolidee"
+        subtitle={t("governance.dashboard.enterpriseMetrics.commercialPerformanceHint")}
       />
       <EnterpriseOverviewCard
-        title="Ventes du jour"
+        title={t("governance.dashboard.enterpriseMetrics.operationalFlow")}
         value={String(salesToday)}
-        subtitle="Flux operationnel journalier"
+        subtitle={t("governance.dashboard.enterpriseMetrics.operationalFlowHint")}
       />
       <EnterpriseOverviewCard
-        title="Transactions mois"
+        title={t("governance.dashboard.enterpriseMetrics.monthlyTransactions")}
         value={String(salesMonth)}
-        subtitle="Volume mensuel de ventes"
+        subtitle={t("governance.dashboard.enterpriseMetrics.monthlyTransactionsHint")}
       />
       <EnterpriseOverviewCard
-        title="Net mensuel"
-        value={new Intl.NumberFormat("fr-FR").format(netSaleAmountMonth)}
-        subtitle="Montant net consolide (GNF)"
+        title={t("governance.dashboard.enterpriseMetrics.monthlyNet")}
+        value={new Intl.NumberFormat(locale === "fr" ? "fr-FR" : "en-US").format(netSaleAmountMonth)}
+        subtitle={t("governance.dashboard.enterpriseMetrics.monthlyNetHint")}
       />
     </section>
   );

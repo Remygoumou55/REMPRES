@@ -20,14 +20,17 @@ const MODULE_TO_DEPARTMENT: Record<string, DepartmentKey> = {
   logistique: "LOGISTIQUE",
 };
 
+export function mapModuleToDepartment(moduleKey: string): DepartmentKey | undefined {
+  return MODULE_TO_DEPARTMENT[String(moduleKey ?? "").trim().toLowerCase()];
+}
+
 export function summarizeDepartmentActivity(
   rows: ActivityRow[],
   departments: DepartmentKey[],
 ): Record<DepartmentKey, number> {
   const counts = Object.fromEntries(departments.map((k) => [k, 0])) as Record<DepartmentKey, number>;
   for (const row of rows) {
-    const moduleKey = String(row.module_key ?? "").trim().toLowerCase();
-    const dept = MODULE_TO_DEPARTMENT[moduleKey];
+    const dept = mapModuleToDepartment(row.module_key);
     if (dept && dept in counts) {
       counts[dept] += 1;
     }

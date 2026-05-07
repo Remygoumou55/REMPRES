@@ -13,6 +13,7 @@ import {
   avatarInitialFromDisplayName,
   getCachedProfileDisplayName,
 } from "@/lib/server/profile-display";
+import { getSupabaseServerClient } from "@/lib/supabaseServer";
 
 export const getLayoutAccess = cache(async () => {
   const user = await getServerSessionUser();
@@ -32,6 +33,7 @@ export const getLayoutAccess = cache(async () => {
     isAdminRoleUser,
     isSuperAdminUser,
     userDisplayName,
+    preferredLanguageRes,
   ] = await Promise.all([
     isSuperAdminProfile ? Promise.resolve({ canRead: false, canCreate: false, canUpdate: false, canDelete: false }) : getClientsPermissions(userId),
     isSuperAdminProfile ? Promise.resolve({ canRead: false, canCreate: false, canUpdate: false, canDelete: false }) : getModulePermissions(userId, ["produits", "vente"]),
@@ -39,6 +41,12 @@ export const getLayoutAccess = cache(async () => {
     isAdminRole(userId),
     isSuperAdmin(userId),
     getCachedProfileDisplayName(userId),
+    getSupabaseServerClient()
+      .from("profiles")
+      .select("preferred_language")
+      .eq("id", userId)
+      .is("deleted_at", null)
+      .maybeSingle(),
   ]);
 
   return {
@@ -51,6 +59,10 @@ export const getLayoutAccess = cache(async () => {
     canUpdateFinance: financePermissions.canUpdate,
     canReadActivityLogs: isAdminRoleUser,
     isSuperAdmin: isSuperAdminUser,
+    preferredLanguage:
+      preferredLanguageRes.data?.preferred_language != null
+        ? String(preferredLanguageRes.data.preferred_language).trim().toLowerCase()
+        : null,
     canArchiveClients: permissions.canRead && permissions.canDelete,
     canArchiveProduits: productsPermissions.canRead && productsPermissions.canDelete,
   };

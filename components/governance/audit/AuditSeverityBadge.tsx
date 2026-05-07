@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslation } from "@/hooks/use-translation";
 import type { GovernanceAuditSeverity } from "@/lib/governance/audit/types";
 
 const STYLES: Record<GovernanceAuditSeverity, string> = {
@@ -8,5 +11,10 @@ const STYLES: Record<GovernanceAuditSeverity, string> = {
 };
 
 export function AuditSeverityBadge({ severity }: { severity: GovernanceAuditSeverity }) {
-  return <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${STYLES[severity]}`}>{severity}</span>;
+  const { t } = useTranslation();
+  return (
+    <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${STYLES[severity]}`}>
+      {t(`severity.${severity}`)}
+    </span>
+  );
 }

@@ -3,26 +3,27 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getSupabaseBrowserClient } from "@/lib/supabase";
+import { createRefreshScheduler } from "@/lib/realtime/schedule-refresh";
 
 export function AuditRealtimeBridge() {
   const router = useRouter();
 
   useEffect(() => {
     const supa = getSupabaseBrowserClient();
-    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+    const scheduler = createRefreshScheduler(() => router.refresh(), {
+      debounceMs: 400,
+      minIntervalMs: 1200,
+    });
     const channel = supa
       .channel("governance-audit")
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "governance_audit_events" },
-        () => {
-          if (timeoutId) clearTimeout(timeoutId);
-          timeoutId = setTimeout(() => router.refresh(), 400);
-        },
+        scheduler.schedule,
       )
       .subscribe();
     return () => {
-      if (timeoutId) clearTimeout(timeoutId);
+      scheduler.cancel();
       void supa.removeChannel(channel);
     };
   }, [router]);

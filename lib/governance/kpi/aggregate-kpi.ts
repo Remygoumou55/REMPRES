@@ -1,4 +1,4 @@
-import { DEPARTMENT_NAVIGATION, type DepartmentKey } from "@/lib/departments/department-config";
+import { DEPARTMENT_NAVIGATION, listSupervisedDepartments, type DepartmentKey } from "@/lib/departments/department-config";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getDashboardKpis } from "@/lib/server/dashboard-kpis";
 import { summarizeDepartmentActivity } from "@/lib/governance/analytics/activity-summary";
@@ -21,12 +21,19 @@ export type GovernanceSystemHealth = {
 
 export type GlobalGovernanceKpi = {
   enterprise: {
-    clientsTotal: number;
+    activeDepartments: number;
     salesToday: number;
     salesMonth: number;
     netSaleAmountMonth: number;
     activityEvents24h: number;
     activeUsers: number;
+    sensitiveActions24h: number;
+  };
+  governance: {
+    unresolvedAlerts: number;
+    pendingApprovals: number;
+    criticalAuditEvents7d: number;
+    securityAuditEvents7d: number;
   };
   departments: DepartmentKpi[];
   systemHealth: GovernanceSystemHealth;
@@ -45,7 +52,7 @@ export async function aggregateGlobalGovernanceKpi(): Promise<GlobalGovernanceKp
   const since24h = new Date(now - 24 * 60 * 60 * 1000).toISOString();
   const since7d = new Date(now - 7 * 24 * 60 * 60 * 1000).toISOString();
 
-  const [dashboardKpis, activity24hRes, profilesRes, activity7dRes] = await Promise.all([
+  const [dashboardKpis, activity24hRes, profilesRes, activity7dRes, unresolvedAlertsRes, pendingApprovalsRes, criticalAudit7dRes, securityAudit7dRes, sensitiveActionsRes] = await Promise.all([
     getDashboardKpis(),
     supabase
       .from("activity_logs")
@@ -60,11 +67,32 @@ export async function aggregateGlobalGovernanceKpi(): Promise<GlobalGovernanceKp
       .select("module_key,created_at")
       .gte("created_at", since7d)
       .limit(1500),
+    supabase
+      .from("governance_alerts")
+      .select("id", { count: "exact", head: true })
+      .in("status", ["unread", "acknowledged"]),
+    supabase
+      .from("approval_requests")
+      .select("id", { count: "exact", head: true })
+      .eq("status", "pending"),
+    supabase
+      .from("governance_audit_events")
+      .select("id", { count: "exact", head: true })
+      .eq("severity", "critical")
+      .gte("created_at", since7d),
+    supabase
+      .from("governance_audit_events")
+      .select("id", { count: "exact", head: true })
+      .eq("severity", "security")
+      .gte("created_at", since7d),
+    supabase
+      .from("activity_logs")
+      .select("id", { count: "exact", head: true })
+      .gte("created_at", since24h)
+      .in("action_key", ["delete", "archive", "restore", "invite", "permission_update", "role_update", "config_update"]),
   ]);
 
-  const supervisedDepartments = Object.entries(DEPARTMENT_NAVIGATION)
-    .filter(([, nav]) => !nav.supervisionOnly && nav.routePrefixes.length > 0)
-    .map(([k]) => k as DepartmentKey);
+  const supervisedDepartments = listSupervisedDepartments();
 
   const userRows = profilesRes.data ?? [];
   const usersByDept = Object.fromEntries(supervisedDepartments.map((k) => [k, 0])) as Record<
@@ -111,15 +139,26 @@ export async function aggregateGlobalGovernanceKpi(): Promise<GlobalGovernanceKp
 
   return {
     enterprise: {
-      clientsTotal: dashboardKpis.clientsTotal,
+      activeDepartments: supervisedDepartments.length,
       salesToday: dashboardKpis.salesToday,
       salesMonth: dashboardKpis.salesCountMonth,
       netSaleAmountMonth: dashboardKpis.netSaleAmountMonth,
       activityEvents24h: activity24hRes.count ?? 0,
       activeUsers: userRows.length,
+      sensitiveActions24h: sensitiveActionsRes.count ?? 0,
+    },
+    governance: {
+      unresolvedAlerts: unresolvedAlertsRes.count ?? 0,
+      pendingApprovals: pendingApprovalsRes.count ?? 0,
+      criticalAuditEvents7d: criticalAudit7dRes.count ?? 0,
+      securityAuditEvents7d: securityAudit7dRes.count ?? 0,
     },
     departments,
     systemHealth,
-    recentActivity: dashboardKpis.recentActivity,
+    recentActivity: dashboardKpis.recentActivity.filter((event) =>
+      ["delete", "archive", "restore", "invite", "permission_update", "role_update", "config_update", "update"].includes(
+        String(event.action_key ?? "").toLowerCase(),
+      ),
+    ),
   };
 }

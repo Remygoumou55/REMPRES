@@ -6,6 +6,7 @@ import {
   getModulePermissions,
   getProfileAuthBrief,
   isAdminRole,
+  isSuperAdmin,
 } from "@/lib/server/permissions";
 import { getDashboardKpis } from "@/lib/server/dashboard-kpis";
 import { getCachedProfileDisplayName } from "@/lib/server/profile-display";
@@ -21,11 +22,12 @@ export default async function DashboardPage() {
 
   const userId = user.id;
 
-  const [permissions, productsPermissions, adminRoleFlag, kpis, userDisplayName, authBrief] =
+  const [permissions, productsPermissions, adminRoleFlag, superAdminFlag, kpis, userDisplayName, authBrief] =
     await Promise.all([
       getClientsPermissions(userId),
       getModulePermissions(userId, ["produits", "vente"]),
       isAdminRole(userId),
+      isSuperAdmin(userId),
       getDashboardKpis(),
       getCachedProfileDisplayName(userId),
       getProfileAuthBrief(userId),
@@ -37,9 +39,12 @@ export default async function DashboardPage() {
     supervisionScope: authBrief.supervisionScope,
   });
 
+  if (superAdminFlag) {
+    return <GovernanceHomeCenter model={governanceModel} userDisplayName={userDisplayName} />;
+  }
+
   return (
     <div className="space-y-6">
-      <GovernanceHomeCenter model={governanceModel} userDisplayName={userDisplayName} />
       <DashboardClient
         userDisplayName={userDisplayName}
         canReadClients={permissions.canRead}

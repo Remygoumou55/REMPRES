@@ -13,6 +13,9 @@ import { AuditCategoryFilter } from "@/components/governance/audit/AuditCategory
 import { SecurityIncidentCard } from "@/components/governance/audit/SecurityIncidentCard";
 import { AuditRealtimeBridge } from "@/components/governance/audit/AuditRealtimeBridge";
 import type { GovernanceAuditCategory, GovernanceAuditSeverity } from "@/lib/governance/audit/types";
+import { AUDIT_SEVERITIES, severityTranslationKey } from "@/lib/i18n/statuses";
+import { getRequestLocale } from "@/lib/i18n/request-locale";
+import { loadLocaleMessages, translateFromDict } from "@/lib/i18n/load-messages";
 
 type PageProps = {
   searchParams?: {
@@ -41,7 +44,7 @@ export default async function AdminAuditPage({ searchParams }: PageProps) {
   const actorUserId = searchParams?.actorUserId ?? "";
   const q = searchParams?.q ?? "";
 
-  const [result, compliance] = await Promise.all([
+  const [result, compliance, locale] = await Promise.all([
     listGovernanceAuditEvents({
       page,
       pageSize: Number(pageSize) as 10 | 25 | 50,
@@ -52,7 +55,10 @@ export default async function AdminAuditPage({ searchParams }: PageProps) {
       query: q || undefined,
     }),
     getComplianceHealth(),
+    getRequestLocale(),
   ]);
+  const { messages } = await loadLocaleMessages(locale);
+  const t = (key: string) => translateFromDict(messages, key);
 
   const departmentOptions = Array.from(
     new Set(result.data.map((e) => e.departmentKey).filter((v): v is string => Boolean(v))),
@@ -100,23 +106,24 @@ export default async function AdminAuditPage({ searchParams }: PageProps) {
           defaultValue={severity}
           className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm"
         >
-          <option value="">Toutes severites</option>
-          <option value="informational">informational</option>
-          <option value="warning">warning</option>
-          <option value="critical">critical</option>
-          <option value="security">security</option>
+          <option value="">{t("governance.audit.filters.allSeverities")}</option>
+          {AUDIT_SEVERITIES.map((auditSeverity) => (
+            <option key={auditSeverity} value={auditSeverity}>
+              {t(severityTranslationKey(auditSeverity))}
+            </option>
+          ))}
         </select>
         <AuditDepartmentFilter options={departmentOptions} selected={department} />
         <input
           name="actorUserId"
           defaultValue={actorUserId}
-          placeholder="Actor user id"
+          placeholder={t("governance.audit.filters.actorUserId")}
           className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm"
         />
         <input
           name="q"
           defaultValue={q}
-          placeholder="Action search"
+          placeholder={t("governance.audit.filters.actionSearch")}
           className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm"
         />
         <button

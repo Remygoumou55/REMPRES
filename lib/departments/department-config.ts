@@ -40,6 +40,13 @@ export type DepartmentNavigationSpec = {
   /** Pas de mutations métier directes depuis cet axe (supervision / audit). */
   supervisionOnly: boolean;
   icon: DepartmentNavIcon;
+  supervision: {
+    kpi: boolean;
+    alerts: boolean;
+    history: boolean;
+    archives: boolean;
+    analytics: boolean;
+  };
 };
 
 /** Navigation canonique par département — base pour redirections et garde-fous middleware. */
@@ -51,6 +58,7 @@ export const DEPARTMENT_NAVIGATION: Record<DepartmentKey, DepartmentNavigationSp
     routePrefixes: ["/vente"],
     supervisionOnly: false,
     icon: "ShoppingCart",
+    supervision: { kpi: true, alerts: true, history: true, archives: true, analytics: true },
   },
   [DEPARTMENT_KEYS.FINANCE]: {
     label: "Finance",
@@ -59,6 +67,7 @@ export const DEPARTMENT_NAVIGATION: Record<DepartmentKey, DepartmentNavigationSp
     routePrefixes: ["/finance"],
     supervisionOnly: false,
     icon: "Wallet",
+    supervision: { kpi: true, alerts: true, history: true, archives: true, analytics: true },
   },
   [DEPARTMENT_KEYS.RH]: {
     label: "RH",
@@ -67,6 +76,7 @@ export const DEPARTMENT_NAVIGATION: Record<DepartmentKey, DepartmentNavigationSp
     routePrefixes: ["/rh"],
     supervisionOnly: false,
     icon: "Users",
+    supervision: { kpi: true, alerts: true, history: true, archives: true, analytics: true },
   },
   [DEPARTMENT_KEYS.FORMATION]: {
     label: "Formation",
@@ -75,6 +85,7 @@ export const DEPARTMENT_NAVIGATION: Record<DepartmentKey, DepartmentNavigationSp
     routePrefixes: ["/formation"],
     supervisionOnly: false,
     icon: "GraduationCap",
+    supervision: { kpi: true, alerts: true, history: true, archives: true, analytics: true },
   },
   [DEPARTMENT_KEYS.CONSULTATION]: {
     label: "Consultation",
@@ -83,6 +94,7 @@ export const DEPARTMENT_NAVIGATION: Record<DepartmentKey, DepartmentNavigationSp
     routePrefixes: ["/consultation"],
     supervisionOnly: false,
     icon: "Headphones",
+    supervision: { kpi: true, alerts: true, history: true, archives: true, analytics: true },
   },
   [DEPARTMENT_KEYS.MARKETING]: {
     label: "Marketing",
@@ -91,6 +103,7 @@ export const DEPARTMENT_NAVIGATION: Record<DepartmentKey, DepartmentNavigationSp
     routePrefixes: ["/marketing"],
     supervisionOnly: false,
     icon: "Megaphone",
+    supervision: { kpi: true, alerts: true, history: true, archives: true, analytics: true },
   },
   [DEPARTMENT_KEYS.LOGISTIQUE]: {
     label: "Logistique",
@@ -99,6 +112,7 @@ export const DEPARTMENT_NAVIGATION: Record<DepartmentKey, DepartmentNavigationSp
     routePrefixes: ["/logistique"],
     supervisionOnly: false,
     icon: "Truck",
+    supervision: { kpi: true, alerts: true, history: true, archives: true, analytics: true },
   },
   [DEPARTMENT_KEYS.ADMINISTRATION]: {
     label: "Administration",
@@ -107,6 +121,7 @@ export const DEPARTMENT_NAVIGATION: Record<DepartmentKey, DepartmentNavigationSp
     routePrefixes: [],
     supervisionOnly: true,
     icon: "Building2",
+    supervision: { kpi: false, alerts: true, history: true, archives: true, analytics: true },
   },
   [DEPARTMENT_KEYS.AUDIT]: {
     label: "Audit interne",
@@ -115,8 +130,15 @@ export const DEPARTMENT_NAVIGATION: Record<DepartmentKey, DepartmentNavigationSp
     routePrefixes: ["/admin/activity-logs"],
     supervisionOnly: true,
     icon: "ClipboardList",
+    supervision: { kpi: false, alerts: true, history: true, archives: true, analytics: true },
   },
 };
+
+export function listSupervisedDepartments(): DepartmentKey[] {
+  return Object.entries(DEPARTMENT_NAVIGATION)
+    .filter(([, nav]) => !nav.supervisionOnly && nav.routePrefixes.length > 0)
+    .map(([key]) => key as DepartmentKey);
+}
 
 /** Options formulaires invitation / édition (valeur = clé canonique). */
 export const DEPARTMENT_OPTIONS_UI: readonly { key: DepartmentKey; label: string }[] = [

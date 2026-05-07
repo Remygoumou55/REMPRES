@@ -7,8 +7,11 @@ import { AlertsRealtimeBridge } from "@/components/governance/alerts/AlertsRealt
 import { CriticalAlertBanner } from "@/components/governance/alerts/CriticalAlertBanner";
 import { GovernanceAlertTable } from "@/components/governance/alerts/GovernanceAlertTable";
 import { AlertDepartmentFilter } from "@/components/governance/alerts/AlertDepartmentFilter";
-import { acknowledgeAlertAction, resolveAlertAction } from "./actions";
+import { acknowledgeAlertAction, archiveAlertAction, resolveAlertAction } from "./actions";
 import type { GovernanceAlertSeverity, GovernanceAlertStatus } from "@/lib/governance/alerts/types";
+import { ALERT_SEVERITIES, ALERT_STATUSES, severityTranslationKey, statusTranslationKey } from "@/lib/i18n/statuses";
+import { getRequestLocale } from "@/lib/i18n/request-locale";
+import { loadLocaleMessages, translateFromDict } from "@/lib/i18n/load-messages";
 
 type PageProps = {
   searchParams?: {
@@ -29,12 +32,14 @@ export default async function AdminAlertsPage({ searchParams }: PageProps) {
   const status = (searchParams?.status ?? "") as GovernanceAlertStatus | "";
   const severity = (searchParams?.severity ?? "") as GovernanceAlertSeverity | "";
   const department = searchParams?.department ?? "";
-  const alerts = await listGovernanceAlerts({
+  const [alerts, locale] = await Promise.all([listGovernanceAlerts({
     status: status || undefined,
     severity: severity || undefined,
     departmentKey: department || undefined,
     limit: 150,
-  });
+  }), getRequestLocale()]);
+  const { messages } = await loadLocaleMessages(locale);
+  const t = (key: string) => translateFromDict(messages, key);
   const departmentOptions = Array.from(
     new Set(alerts.map((a) => a.departmentKey).filter((v): v is string => Boolean(v))),
   ).sort();
@@ -44,15 +49,15 @@ export default async function AdminAlertsPage({ searchParams }: PageProps) {
       <AlertsRealtimeBridge />
       <GovernanceBreadcrumb
         items={[
-          { href: "/dashboard", label: "Accueil" },
-          { href: "/admin/alerts", label: "Centre d'alertes" },
+          { href: "/dashboard", label: t("navigation.breadcrumb.home") },
+          { href: "/admin/alerts", label: t("governance.alerts.page.breadcrumb") },
         ]}
       />
 
       <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-        <h1 className="text-xl font-semibold text-gray-900">Centre d&apos;alertes gouvernance</h1>
+        <h1 className="text-xl font-semibold text-gray-900">{t("governance.alerts.page.title")}</h1>
         <p className="mt-1 text-sm text-gray-600">
-          Supervision realtime des incidents critiques, anomalies et signaux gouvernance.
+          {t("governance.alerts.page.subtitle")}
         </p>
       </section>
 
@@ -64,35 +69,37 @@ export default async function AdminAlertsPage({ searchParams }: PageProps) {
           defaultValue={status}
           className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm"
         >
-          <option value="">Tous les statuts</option>
-          <option value="unread">unread</option>
-          <option value="acknowledged">acknowledged</option>
-          <option value="resolved">resolved</option>
+          <option value="">{t("governance.alerts.filters.allStatuses")}</option>
+          {ALERT_STATUSES.map((alertStatus) => (
+            <option key={alertStatus} value={alertStatus}>
+              {t(statusTranslationKey(alertStatus))}
+            </option>
+          ))}
         </select>
         <select
           name="severity"
           defaultValue={severity}
           className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm"
         >
-          <option value="">Toutes severites</option>
-          <option value="low">low</option>
-          <option value="medium">medium</option>
-          <option value="high">high</option>
-          <option value="critical">critical</option>
+          <option value="">{t("governance.alerts.filters.allSeverities")}</option>
+          {ALERT_SEVERITIES.map((alertSeverity) => (
+            <option key={alertSeverity} value={alertSeverity}>
+              {t(severityTranslationKey(alertSeverity))}
+            </option>
+          ))}
         </select>
         <AlertDepartmentFilter options={departmentOptions} selected={department} />
         <button
           type="submit"
           className="rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white"
         >
-          Filtrer
+          {t("governance.alerts.filters.apply")}
         </button>
       </form>
 
       <GovernanceAlertTable
         alerts={alerts}
-        renderActions={(alert) =>
-          alert.status !== "resolved" ? (
+        renderActions={(alert) => (
             <form
               action={async (formData) => {
                 "use server";
@@ -102,30 +109,47 @@ export default async function AdminAlertsPage({ searchParams }: PageProps) {
                   await acknowledgeAlertAction(alertId);
                   return;
                 }
+                if (action === "archive") {
+                  await archiveAlertAction(alertId);
+                  return;
+                }
                 await resolveAlertAction(alertId);
               }}
               className="flex flex-wrap items-center gap-2"
             >
               <input type="hidden" name="alertId" value={alert.id} />
-              <button
-                type="submit"
-                name="decision"
-                value="ack"
-                className="rounded-lg bg-amber-600 px-2 py-1 text-xs text-white"
-              >
-                Acknowledge
-              </button>
-              <button
-                type="submit"
-                name="decision"
-                value="resolve"
-                className="rounded-lg bg-emerald-600 px-2 py-1 text-xs text-white"
-              >
-                Resolve
-              </button>
+              {alert.status !== "resolved" ? (
+                <>
+                  <button
+                    type="submit"
+                    name="decision"
+                    value="ack"
+                    className="rounded-lg bg-amber-600 px-2 py-1 text-xs text-white"
+                  >
+                    {t("governance.alerts.actions.acknowledge")}
+                  </button>
+                  <button
+                    type="submit"
+                    name="decision"
+                    value="resolve"
+                    className="rounded-lg bg-emerald-600 px-2 py-1 text-xs text-white"
+                  >
+                    {t("governance.alerts.actions.resolve")}
+                  </button>
+                </>
+              ) : null}
+              {alert.status === "resolved" ? (
+                <button
+                  type="submit"
+                  name="decision"
+                  value="archive"
+                  className="rounded-lg bg-slate-700 px-2 py-1 text-xs text-white"
+                >
+                  {t("governance.alerts.actions.archive")}
+                </button>
+              ) : null}
             </form>
-          ) : null
-        }
+        )}
       />
     </div>
   );

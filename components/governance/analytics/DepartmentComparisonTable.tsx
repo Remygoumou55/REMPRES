@@ -1,19 +1,23 @@
+"use client";
+
+import { useTranslation } from "@/hooks/use-translation";
 import type { DepartmentComparisonRow } from "@/lib/governance/analytics/aggregators/department-comparison";
 
 export function DepartmentComparisonTable({ rows }: { rows: DepartmentComparisonRow[] }) {
+  const { t } = useTranslation();
   return (
     <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-      <h2 className="text-base font-semibold text-gray-900">Department comparison</h2>
+      <h2 className="text-base font-semibold text-gray-900">{t("governance.analytics.departmentComparison.title")}</h2>
       <div className="mt-3 overflow-x-auto">
         <table className="min-w-full text-sm">
           <thead className="text-left text-gray-500">
             <tr>
-              <th className="py-2">Rank</th>
-              <th className="py-2">Department</th>
-              <th className="py-2">Productivity</th>
-              <th className="py-2">Act. 7j</th>
-              <th className="py-2">Users</th>
-              <th className="py-2">Managers</th>
+              <th className="py-2">{t("common.rank")}</th>
+              <th className="py-2">{t("common.department")}</th>
+              <th className="py-2">{t("common.productivity")}</th>
+              <th className="py-2">{t("common.activity7d")}</th>
+              <th className="py-2">{t("common.users")}</th>
+              <th className="py-2">{t("common.managers")}</th>
             </tr>
           </thead>
           <tbody>

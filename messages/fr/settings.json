@@ -1,0 +1,18 @@
+{
+  "settings.title": "Parametres",
+  "settings.subtitle": "Configuration globale de l'application",
+  "settings.language.section": "Langue",
+  "settings.language.selectLabel": "Choisir la langue",
+  "settings.generalInfo": "Informations generales",
+  "settings.info.app": "Application",
+  "settings.info.version": "Version",
+  "settings.info.description": "Description",
+  "settings.info.country": "Pays",
+  "settings.info.address": "Adresse",
+  "settings.info.contact": "Contact",
+  "settings.configuration": "Configuration",
+  "settings.users.title": "Utilisateurs",
+  "settings.users.description": "Gerer les comptes et les invitations",
+  "settings.currency.title": "Taux de change",
+  "settings.currency.description": "Consulter et forcer le rafraichissement des taux"
+}

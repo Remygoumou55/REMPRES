@@ -8,6 +8,9 @@ import { GovernanceApprovalTable } from "@/components/governance/approvals/Gover
 import { approveRequestAction, rejectRequestAction } from "./actions";
 import { ApprovalsRealtimeBridge } from "@/components/governance/approvals/ApprovalsRealtimeBridge";
 import type { ApprovalRequestStatus } from "@/lib/governance/approvals/types";
+import { APPROVAL_STATUSES, statusTranslationKey } from "@/lib/i18n/statuses";
+import { getRequestLocale } from "@/lib/i18n/request-locale";
+import { loadLocaleMessages, translateFromDict } from "@/lib/i18n/load-messages";
 
 type PageProps = {
   searchParams?: {
@@ -26,12 +29,14 @@ export default async function AdminApprovalsPage({ searchParams }: PageProps) {
   if (!allowed) redirect("/access-denied");
 
   const statusFilter = (searchParams?.status ?? "") as ApprovalRequestStatus | "";
-  const requests = await listApprovalRequests({
+  const [requests, locale] = await Promise.all([listApprovalRequests({
     status: statusFilter || undefined,
     departmentKey: searchParams?.department || undefined,
     actionType: searchParams?.action || undefined,
     limit: 120,
-  });
+  }), getRequestLocale()]);
+  const { messages } = await loadLocaleMessages(locale);
+  const t = (key: string) => translateFromDict(messages, key);
   const departmentOptions = Array.from(new Set(requests.map((r) => r.departmentKey))).sort();
   const status = statusFilter;
   const department = searchParams?.department ?? "";
@@ -60,10 +65,11 @@ export default async function AdminApprovalsPage({ searchParams }: PageProps) {
           className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm"
         >
           <option value="">Tous les statuts</option>
-          <option value="pending">pending</option>
-          <option value="approved">approved</option>
-          <option value="rejected">rejected</option>
-          <option value="expired">expired</option>
+          {APPROVAL_STATUSES.map((approvalStatus) => (
+            <option key={approvalStatus} value={approvalStatus}>
+              {t(statusTranslationKey(approvalStatus))}
+            </option>
+          ))}
         </select>
         <ApprovalDepartmentFilter options={departmentOptions} selected={department} />
         <button

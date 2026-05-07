@@ -134,6 +134,7 @@ export async function listActivityLogs(params?: {
   );
   const { data, count, error } = await query
     .order("created_at", { ascending: false })
+    .order("id", { ascending: false })
     .range(from, to);
 
   if (error) {
@@ -162,6 +163,7 @@ export async function exportActivityLogsCsv(filters?: ActivityLogsFilters): Prom
       .from("activity_logs")
       .select("id,actor_user_id,module_key,action_key,target_table,target_id,metadata,created_at")
       .order("created_at", { ascending: false })
+      .order("id", { ascending: false })
       .limit(1000),
     filters,
   );
@@ -237,6 +239,7 @@ export async function exportActivityLogsSignedJson(
       .from("activity_logs")
       .select("id,actor_user_id,module_key,action_key,target_table,target_id,metadata,created_at")
       .order("created_at", { ascending: false })
+      .order("id", { ascending: false })
       .limit(1000),
     filters,
   );

@@ -53,6 +53,7 @@ export async function listGovernanceAuditEvents(params?: {
     .from("governance_audit_events")
     .select("*", { count: "exact" })
     .order("created_at", { ascending: false })
+    .order("id", { ascending: false })
     .range(from, to);
   if (params?.category) query = query.eq("category", params.category);
   if (params?.severity) query = query.eq("severity", params.severity);

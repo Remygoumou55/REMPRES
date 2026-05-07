@@ -73,6 +73,7 @@ export async function listApprovalRequests(filters?: {
     .from("approval_requests")
     .select("*")
     .order("requested_at", { ascending: false })
+    .order("id", { ascending: false })
     .limit(filters?.limit ?? 100);
   if (filters?.status) query = query.eq("status", filters.status);
   if (filters?.departmentKey) query = query.eq("department_key", filters.departmentKey);

@@ -1,5 +1,8 @@
+"use client";
+
 import type { GovernanceAlert } from "@/lib/governance/alerts/types";
 import { GovernanceAlertCard } from "./GovernanceAlertCard";
+import { useTranslation } from "@/hooks/use-translation";
 
 export function GovernanceAlertTable({
   alerts,
@@ -8,10 +11,11 @@ export function GovernanceAlertTable({
   alerts: GovernanceAlert[];
   renderActions?: (alert: GovernanceAlert) => React.ReactNode;
 }) {
+  const { t } = useTranslation();
   if (alerts.length === 0) {
     return (
       <div className="rounded-2xl border border-gray-200 bg-white p-5 text-sm text-gray-600 shadow-sm">
-        Aucune alerte gouvernance.
+        {t("governance.alerts.empty")}
       </div>
     );
   }

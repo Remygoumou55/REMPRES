@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslation } from "@/hooks/use-translation";
 import type { DepartmentKpi } from "@/lib/governance/kpi/aggregate-kpi";
 
 type DepartmentKpiCardProps = {
@@ -11,6 +14,7 @@ const HEALTH_STYLES: Record<DepartmentKpi["health"], string> = {
 };
 
 export function DepartmentKpiCard({ department }: DepartmentKpiCardProps) {
+  const { t } = useTranslation();
   return (
     <article className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
       <div className="flex items-center justify-between gap-2">
@@ -18,20 +22,20 @@ export function DepartmentKpiCard({ department }: DepartmentKpiCardProps) {
         <span
           className={`rounded-full px-2 py-0.5 text-xs font-medium ${HEALTH_STYLES[department.health]}`}
         >
-          {department.health}
+          {t(`status.${department.health}`)}
         </span>
       </div>
       <div className="mt-3 grid grid-cols-3 gap-2 text-sm">
         <div>
-          <p className="text-gray-500">Users</p>
+          <p className="text-gray-500">{t("common.users")}</p>
           <p className="font-semibold text-gray-900">{department.usersCount}</p>
         </div>
         <div>
-          <p className="text-gray-500">Managers</p>
+          <p className="text-gray-500">{t("common.managers")}</p>
           <p className="font-semibold text-gray-900">{department.managersCount}</p>
         </div>
         <div>
-          <p className="text-gray-500">Act. 7j</p>
+          <p className="text-gray-500">{t("common.activity7d")}</p>
           <p className="font-semibold text-gray-900">{department.activityCount7d}</p>
         </div>
       </div>

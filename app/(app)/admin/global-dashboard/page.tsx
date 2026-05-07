@@ -4,13 +4,18 @@ import { isSuperAdmin } from "@/lib/server/permissions";
 import { GovernanceBreadcrumb } from "@/components/governance/layout/GovernanceBreadcrumb";
 import { loadGlobalGovernanceDashboard } from "@/lib/governance/dashboard/load-global-governance-dashboard";
 import { GovernanceDashboardGrid } from "@/components/governance/dashboard/GovernanceDashboardGrid";
-import { EnterpriseMetricsSection } from "@/components/governance/dashboard/EnterpriseMetricsSection";
 import { GovernanceInsightsSection } from "@/components/governance/dashboard/GovernanceInsightsSection";
 import { ActivitySummaryCard } from "@/components/governance/dashboard/ActivitySummaryCard";
 import { SystemHealthSection } from "@/components/governance/dashboard/SystemHealthSection";
 import { DepartmentHealthCard } from "@/components/governance/dashboard/DepartmentHealthCard";
 import { DepartmentOverviewSection } from "@/components/governance/dashboard/DepartmentOverviewSection";
 import { DepartmentActivitySection } from "@/components/governance/dashboard/DepartmentActivitySection";
+import { getRequestLocale } from "@/lib/i18n/request-locale";
+import { loadLocaleMessages, translateFromDict } from "@/lib/i18n/load-messages";
+import { ExecutiveGlobalHealthSection } from "@/components/governance/dashboard/sections/ExecutiveGlobalHealthSection";
+import { GovernanceRiskSection } from "@/components/governance/dashboard/sections/GovernanceRiskSection";
+import { ExecutiveWelcomeCenterSection } from "@/components/governance/dashboard/sections/ExecutiveWelcomeCenterSection";
+import { ExecutiveAnalyticsSection } from "@/components/governance/dashboard/sections/ExecutiveAnalyticsSection";
 
 export default async function AdminGlobalDashboardPage() {
   const supabase = getSupabaseServerClient();
@@ -20,28 +25,38 @@ export default async function AdminGlobalDashboardPage() {
   const allowed = await isSuperAdmin(data.user.id);
   if (!allowed) redirect("/access-denied");
 
-  const dashboard = await loadGlobalGovernanceDashboard();
+  const [dashboard, locale] = await Promise.all([loadGlobalGovernanceDashboard(), getRequestLocale()]);
+  const { messages } = await loadLocaleMessages(locale);
+  const t = (key: string) => translateFromDict(messages, key);
 
   return (
     <div className="mx-auto max-w-6xl space-y-5">
       <GovernanceBreadcrumb
         items={[
-          { href: "/dashboard", label: "Accueil" },
-          { href: "/admin/global-dashboard", label: "Tableau de bord global" },
+          { href: "/dashboard", label: t("navigation.breadcrumb.home") },
+          { href: "/admin/global-dashboard", label: t("navigation.superadmin./admin/global-dashboard") },
         ]}
       />
       <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-        <h1 className="text-xl font-semibold text-gray-900">Tableau de bord global</h1>
+        <h1 className="text-xl font-semibold text-gray-900">{t("governance.dashboard.global.title")}</h1>
         <p className="mt-1 text-sm text-gray-600">
-          Supervision entreprise: KPI consolides, activite departements et sante systeme.
+          {t("governance.dashboard.global.subtitle")}
         </p>
       </section>
 
-      <EnterpriseMetricsSection
-        clientsTotal={dashboard.enterprise.clientsTotal}
-        salesToday={dashboard.enterprise.salesToday}
-        salesMonth={dashboard.enterprise.salesMonth}
-        netSaleAmountMonth={dashboard.enterprise.netSaleAmountMonth}
+      <ExecutiveWelcomeCenterSection
+        t={t}
+        activeDepartments={dashboard.enterprise.activeDepartments}
+        unresolvedAlerts={dashboard.governance.unresolvedAlerts}
+        pendingApprovals={dashboard.governance.pendingApprovals}
+      />
+
+      <ExecutiveGlobalHealthSection
+        titleByKey={t}
+        activeDepartments={dashboard.enterprise.activeDepartments}
+        activeUsers={dashboard.enterprise.activeUsers}
+        sensitiveActions24h={dashboard.enterprise.sensitiveActions24h}
+        unresolvedAlerts={dashboard.governance.unresolvedAlerts}
       />
 
       <GovernanceDashboardGrid>
@@ -50,6 +65,14 @@ export default async function AdminGlobalDashboardPage() {
           <DepartmentActivitySection recentActivity={dashboard.recentActivity} />
         </div>
         <div className="space-y-4 lg:col-span-4">
+          <ExecutiveAnalyticsSection t={t} />
+          <GovernanceRiskSection
+            titleByKey={t}
+            unresolvedAlerts={dashboard.governance.unresolvedAlerts}
+            pendingApprovals={dashboard.governance.pendingApprovals}
+            criticalAuditEvents7d={dashboard.governance.criticalAuditEvents7d}
+            securityAuditEvents7d={dashboard.governance.securityAuditEvents7d}
+          />
           <GovernanceInsightsSection
             activityEvents24h={dashboard.enterprise.activityEvents24h}
             activeUsers={dashboard.enterprise.activeUsers}

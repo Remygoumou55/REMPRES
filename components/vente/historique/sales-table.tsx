@@ -4,6 +4,8 @@ import { memo, useEffect, useMemo, useRef, useState } from "react";
 import { ShoppingBag } from "lucide-react";
 import type { Client } from "@/types/client";
 import { Badge, type BadgeVariant } from "@/components/ui/badge";
+import { useTranslation } from "@/hooks/use-translation";
+import { statusTranslationKey } from "@/lib/i18n/statuses";
 import {
   SalesRowActions,
   type SaleRowForActions,
@@ -14,12 +16,12 @@ import { useRowSelection } from "@/lib/hooks/use-row-selection";
 // Config statuts & paiements (inchangée vs page historique)
 // ---------------------------------------------------------------------------
 
-const STATUT_CFG: Record<string, { label: string; variant: BadgeVariant }> = {
-  pending: { label: "En attente", variant: "warning" },
-  partial: { label: "Partiel", variant: "info" },
-  paid: { label: "Payé", variant: "success" },
-  overdue: { label: "En retard", variant: "danger" },
-  cancelled: { label: "Annulé", variant: "gray" },
+const STATUT_CFG: Record<string, { variant: BadgeVariant }> = {
+  pending: { variant: "warning" },
+  partial: { variant: "info" },
+  paid: { variant: "success" },
+  overdue: { variant: "danger" },
+  cancelled: { variant: "gray" },
 };
 
 const PAYMENT_LABELS: Record<string, string> = {
@@ -83,9 +85,9 @@ const SaleDataRow = memo(function SaleDataRow({
   listQueryString,
   onToggle,
 }: SaleDataRowProps) {
+  const { t, locale } = useTranslation();
   const statut =
     STATUT_CFG[sale.payment_status] ?? {
-      label: sale.payment_status,
       variant: "gray" as BadgeVariant,
     };
   const isPending = sale.payment_status === "pending" || sale.payment_status === "partial";
@@ -103,7 +105,7 @@ const SaleDataRow = memo(function SaleDataRow({
           type="checkbox"
           checked={checked}
           onChange={() => onToggle(sale.id)}
-          aria-label={`Selectionner la vente ${labelRef}`}
+          aria-label={`${t("sales.history.selectSale")} ${labelRef}`}
         />
       </td>
       <td className="px-5 py-3.5">
@@ -116,13 +118,13 @@ const SaleDataRow = memo(function SaleDataRow({
         {client ? (
           getClientLabel(client)
         ) : (
-          <span className="italic text-gray-400">Client de passage</span>
+          <span className="italic text-gray-400">{t("sales.history.walkInClient")}</span>
         )}
       </td>
 
       <td className="px-5 py-3.5 text-right">
         <span className="font-bold tabular-nums text-darktext">
-          {sale.total_amount_gnf.toLocaleString("fr-FR")}
+          {sale.total_amount_gnf.toLocaleString(locale === "fr" ? "fr-FR" : "en-US")}
         </span>
         <span className="ml-1 text-xs text-gray-400">{sale.display_currency}</span>
       </td>
@@ -134,11 +136,11 @@ const SaleDataRow = memo(function SaleDataRow({
       </td>
 
       <td className="px-5 py-3.5 text-center">
-        <Badge label={statut.label} variant={statut.variant} dot />
+        <Badge label={t(statusTranslationKey(sale.payment_status))} variant={statut.variant} dot />
       </td>
 
       <td className="hidden px-5 py-3.5 text-xs text-gray-400 lg:table-cell">
-        {new Date(sale.created_at).toLocaleDateString("fr-FR", {
+        {new Date(sale.created_at).toLocaleDateString(locale === "fr" ? "fr-FR" : "en-US", {
           day: "2-digit",
           month: "short",
           year: "numeric",
@@ -169,6 +171,7 @@ export function SalesTable({
   listQueryString,
   onSelectionChange,
 }: SalesTableProps) {
+  const { t } = useTranslation();
   const [scrollTop, setScrollTop] = useState(0);
   const visibleIds = useMemo(() => sales.map((s) => s.id), [sales]);
   const isVirtualized = sales.length > VIRTUALIZE_THRESHOLD;
@@ -222,29 +225,29 @@ export function SalesTable({
                   checked={allVisibleSelected}
                   onChange={toggleAllVisible}
                   disabled={sales.length === 0}
-                  aria-label="Tout sélectionner sur cette page"
+                  aria-label={t("sales.history.selectAllPage")}
                 />
               </th>
               <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-400">
-                Référence
+                {t("sales.history.reference")}
               </th>
               <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-400">
-                Client
+                {t("sales.history.client")}
               </th>
               <th className="px-5 py-3 text-right text-xs font-semibold uppercase tracking-wide text-gray-400">
-                Total
+                {t("sales.history.total")}
               </th>
               <th className="hidden px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-400 md:table-cell">
-                Paiement
+                {t("sales.history.payment")}
               </th>
               <th className="px-5 py-3 text-center text-xs font-semibold uppercase tracking-wide text-gray-400">
-                Statut
+                {t("sales.history.status")}
               </th>
               <th className="hidden px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-400 lg:table-cell">
-                Date
+                {t("sales.history.date")}
               </th>
               <th className="px-5 py-3 text-right text-xs font-semibold uppercase tracking-wide text-gray-400">
-                Actions
+                {t("sales.history.actions")}
               </th>
             </tr>
           </thead>
@@ -254,7 +257,7 @@ export function SalesTable({
                 <td colSpan={8} className="py-16 text-center">
                   <div className="flex flex-col items-center gap-2">
                     <ShoppingBag size={28} className="text-gray-200" />
-                    <p className="text-sm text-gray-400">Aucune vente pour ces critères</p>
+                    <p className="text-sm text-gray-400">{t("sales.history.empty")}</p>
                   </div>
                 </td>
               </tr>

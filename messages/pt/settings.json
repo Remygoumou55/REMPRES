@@ -1,0 +1,18 @@
+{
+  "settings.title": "Configuracoes",
+  "settings.subtitle": "Configuracao global do aplicativo",
+  "settings.language.section": "Idioma",
+  "settings.language.selectLabel": "Escolher idioma",
+  "settings.generalInfo": "Informacoes gerais",
+  "settings.info.app": "Aplicacao",
+  "settings.info.version": "Versao",
+  "settings.info.description": "Descricao",
+  "settings.info.country": "Pais",
+  "settings.info.address": "Endereco",
+  "settings.info.contact": "Contato",
+  "settings.configuration": "Configuracao",
+  "settings.users.title": "Usuarios",
+  "settings.users.description": "Gerenciar contas e convites",
+  "settings.currency.title": "Taxas de cambio",
+  "settings.currency.description": "Consultar e forcar atualizacao de taxas"
+}

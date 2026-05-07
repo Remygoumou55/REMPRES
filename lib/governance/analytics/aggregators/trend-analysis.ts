@@ -1,5 +1,5 @@
 export type TrendPoint = {
-  label: string;
+  labelKey: string;
   value: number;
 };
 
@@ -38,10 +38,10 @@ export function buildTrendAnalysis(input: {
     incidentTrend,
     approvalBottleneck,
     points: [
-      { label: "Sales today", value: input.salesToday },
-      { label: "Daily baseline", value: Math.round(monthlyDailyBaseline) },
-      { label: "Unresolved alerts", value: input.unresolvedAlerts },
-      { label: "Pending approvals", value: input.pendingApprovals },
+      { labelKey: "governance.analytics.trend.salesToday", value: input.salesToday },
+      { labelKey: "governance.analytics.trend.dailyBaseline", value: Math.round(monthlyDailyBaseline) },
+      { labelKey: "governance.analytics.trend.unresolvedAlerts", value: input.unresolvedAlerts },
+      { labelKey: "governance.analytics.trend.pendingApprovals", value: input.pendingApprovals },
     ],
   };
 }

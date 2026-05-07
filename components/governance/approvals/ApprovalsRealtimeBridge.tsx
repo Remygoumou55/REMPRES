@@ -3,27 +3,28 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getSupabaseBrowserClient } from "@/lib/supabase";
+import { createRefreshScheduler } from "@/lib/realtime/schedule-refresh";
 
 export function ApprovalsRealtimeBridge() {
   const router = useRouter();
 
   useEffect(() => {
     const supa = getSupabaseBrowserClient();
-    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+    const scheduler = createRefreshScheduler(() => router.refresh(), {
+      debounceMs: 300,
+      minIntervalMs: 1200,
+    });
     const channel = supa
       .channel("governance-approvals")
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "approval_requests" },
-        () => {
-          if (timeoutId) clearTimeout(timeoutId);
-          timeoutId = setTimeout(() => router.refresh(), 300);
-        },
+        scheduler.schedule,
       )
       .subscribe();
 
     return () => {
-      if (timeoutId) clearTimeout(timeoutId);
+      scheduler.cancel();
       void supa.removeChannel(channel);
     };
   }, [router]);

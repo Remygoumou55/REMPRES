@@ -1,13 +1,16 @@
 "use server";
 
 import { headers } from "next/headers";
-import { revalidatePath } from "next/cache";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { assertOperationalMutationAllowed } from "@/lib/server/auth-operational-guards";
 import { isAdminRole } from "@/lib/server/permissions";
 import { restoreClient } from "@/lib/server/clients";
 import { restoreProduct } from "@/lib/server/products";
 import { ok, err, type SafeResult } from "@/lib/server/safe-result";
+import { revalidateAdminArchivesScope } from "@/lib/server/revalidate-domains";
+import { AUDIT_EVENT_TYPES } from "@/lib/audit/audit-events";
+import { tryLogAuditEvent } from "@/lib/audit/audit-logger";
+import { assertApprovalOrThrow } from "@/lib/approvals/approval-engine";
 
 async function requireAdminSession(): Promise<{ userId: string } | null> {
   const supabase = getSupabaseServerClient();
@@ -29,14 +32,6 @@ function normalizeIds(raw: string[]): string[] {
   return Array.from(new Set((raw ?? []).map((id) => id.trim()).filter(Boolean)));
 }
 
-function revalidateArchives() {
-  revalidatePath("/admin/archives");
-  revalidatePath("/vente/clients/archives");
-  revalidatePath("/vente/produits/archives");
-  revalidatePath("/vente/clients");
-  revalidatePath("/vente/produits");
-}
-
 export async function adminBulkRestoreArchivedClientsAction(
   clientIds: string[],
 ): Promise<SafeResult<{ restored: number }>> {
@@ -51,6 +46,12 @@ export async function adminBulkRestoreArchivedClientsAction(
 
   const ids = normalizeIds(clientIds);
   if (ids.length === 0) return err("Aucun client sélectionné.");
+  const approval = assertApprovalOrThrow({
+    eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
+    actorUserId: session.userId,
+    actorRole: "super_admin",
+    metadata: { operation: "admin_bulk_restore_archived_clients", count: ids.length },
+  });
 
   let restored = 0;
   const ctx = auditContext();
@@ -65,7 +66,15 @@ export async function adminBulkRestoreArchivedClientsAction(
 
   if (restored === 0) return err("Aucun client n'a pu être restauré.");
 
-  revalidateArchives();
+  revalidateAdminArchivesScope();
+  await tryLogAuditEvent({
+    eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
+    severity: "high",
+    target: { table: "clients", id: null },
+    context: { actorUserId: session.userId, actorRole: "super_admin" },
+    details: { operation: "admin_bulk_restore_archived_clients", requested: ids.length, restored },
+    approval: { required: approval.required, status: "granted", policy: approval.policy },
+  });
   return ok({ restored });
 }
 
@@ -83,6 +92,12 @@ export async function adminBulkRestoreArchivedProductsAction(
 
   const ids = normalizeIds(productIds);
   if (ids.length === 0) return err("Aucun produit sélectionné.");
+  const approval = assertApprovalOrThrow({
+    eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
+    actorUserId: session.userId,
+    actorRole: "super_admin",
+    metadata: { operation: "admin_bulk_restore_archived_products", count: ids.length },
+  });
 
   let restored = 0;
   for (const id of ids) {
@@ -96,7 +111,15 @@ export async function adminBulkRestoreArchivedProductsAction(
 
   if (restored === 0) return err("Aucun produit n'a pu être restauré.");
 
-  revalidateArchives();
+  revalidateAdminArchivesScope();
+  await tryLogAuditEvent({
+    eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
+    severity: "high",
+    target: { table: "products", id: null },
+    context: { actorUserId: session.userId, actorRole: "super_admin" },
+    details: { operation: "admin_bulk_restore_archived_products", requested: ids.length, restored },
+    approval: { required: approval.required, status: "granted", policy: approval.policy },
+  });
   return ok({ restored });
 }
 
@@ -114,6 +137,12 @@ export async function adminPermanentDeleteArchivedClientsAction(
 
   const ids = normalizeIds(clientIds);
   if (ids.length === 0) return err("Aucun client sélectionné.");
+  const approval = assertApprovalOrThrow({
+    eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
+    actorUserId: session.userId,
+    actorRole: "super_admin",
+    metadata: { operation: "admin_permanent_delete_archived_clients", count: ids.length },
+  });
 
   const supabase = getSupabaseServerClient();
   let deleted = 0;
@@ -132,7 +161,15 @@ export async function adminPermanentDeleteArchivedClientsAction(
 
   if (deleted === 0) return err(lastError);
 
-  revalidateArchives();
+  revalidateAdminArchivesScope();
+  await tryLogAuditEvent({
+    eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
+    severity: "critical",
+    target: { table: "clients", id: null },
+    context: { actorUserId: session.userId, actorRole: "super_admin" },
+    details: { operation: "admin_permanent_delete_archived_clients", requested: ids.length, deleted },
+    approval: { required: approval.required, status: "granted", policy: approval.policy },
+  });
   return ok({ deleted });
 }
 
@@ -150,6 +187,12 @@ export async function adminPermanentDeleteArchivedProductsAction(
 
   const ids = normalizeIds(productIds);
   if (ids.length === 0) return err("Aucun produit sélectionné.");
+  const approval = assertApprovalOrThrow({
+    eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
+    actorUserId: session.userId,
+    actorRole: "super_admin",
+    metadata: { operation: "admin_permanent_delete_archived_products", count: ids.length },
+  });
 
   const supabase = getSupabaseServerClient();
   let deleted = 0;
@@ -168,6 +211,14 @@ export async function adminPermanentDeleteArchivedProductsAction(
 
   if (deleted === 0) return err(lastError);
 
-  revalidateArchives();
+  revalidateAdminArchivesScope();
+  await tryLogAuditEvent({
+    eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
+    severity: "critical",
+    target: { table: "products", id: null },
+    context: { actorUserId: session.userId, actorRole: "super_admin" },
+    details: { operation: "admin_permanent_delete_archived_products", requested: ids.length, deleted },
+    approval: { required: approval.required, status: "granted", policy: approval.policy },
+  });
   return ok({ deleted });
 }

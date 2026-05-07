@@ -14,6 +14,9 @@ import { insertActivityLog } from "@/lib/server/insert-activity-log";
 import { ok, err, type SafeResult } from "@/lib/server/safe-result";
 import type { Json } from "@/types/database.types";
 import { USERS_LIST_CONFIG_ERROR_CODE } from "@/lib/server/users-errors";
+import { AUDIT_EVENT_TYPES } from "@/lib/audit/audit-events";
+import { tryLogAuditEvent } from "@/lib/audit/audit-logger";
+import { assertApprovalOrThrow } from "@/lib/approvals/approval-engine";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -68,7 +71,7 @@ function isLocalOrLoopbackOrigin(url: string): boolean {
 
 /**
  * URL absolue pour `inviteUserByEmail(..., { redirectTo })` — mails jamais avec localhost.
- * `?type=invite` requis par `app/auth/callback/route.ts` pour `/auth/set-password`.
+ * `?type=invite` requis par `app/auth/callback/page.tsx` pour `/auth/set-password`.
  */
 function getInviteRedirectUrl(): string {
   let base =
@@ -545,6 +548,14 @@ export async function inviteUser(
         role_key: roleKey,
       },
     });
+    await tryLogAuditEvent({
+      eventType: AUDIT_EVENT_TYPES.USER_INVITED,
+      severity: "high",
+      target: { table: "profiles", id: userId },
+      context: { actorUserId: callerUserId, actorRole: "super_admin" },
+      details: { email, role_key: roleKey, department_key: departmentNormalized },
+      approval: { required: false, status: "not_required", policy: "soft_auto" },
+    });
 
     return ok({ userId });
   } catch (e) {
@@ -668,6 +679,12 @@ export async function updateUserRole(
     if (!roleResolved.ok) {
       return err(roleResolved.error);
     }
+    const approval = assertApprovalOrThrow({
+      eventType: AUDIT_EVENT_TYPES.USER_ROLE_CHANGED,
+      actorUserId: callerUserId,
+      actorRole: "super_admin",
+      metadata: { targetUserId: userId, newRole: roleResolved.roleKey },
+    });
 
     const { error } = await admin
       .from("profiles")
@@ -686,6 +703,14 @@ export async function updateUserRole(
       targetTable: "profiles",
       targetId: userId,
       metadata: { summary: "Rôle modifié", new_role: roleResolved.roleKey },
+    });
+    await tryLogAuditEvent({
+      eventType: AUDIT_EVENT_TYPES.USER_ROLE_CHANGED,
+      severity: "critical",
+      target: { table: "profiles", id: userId },
+      context: { actorUserId: callerUserId, actorRole: "super_admin" },
+      details: { new_role: roleResolved.roleKey },
+      approval: { required: approval.required, status: "granted", policy: approval.policy },
     });
     return ok(null);
   } catch (e) {
@@ -856,6 +881,18 @@ export async function updateUserAdmin(
         department_key: departmentNormalized,
       },
     });
+    await tryLogAuditEvent({
+      eventType: AUDIT_EVENT_TYPES.USER_ROLE_CHANGED,
+      severity: "high",
+      target: { table: "profiles", id: userId },
+      context: { actorUserId: callerUserId, actorRole: "super_admin" },
+      details: {
+        operation: "update_user_admin",
+        role_key: roleResolved.roleKey,
+        department_key: departmentNormalized,
+      },
+      approval: { required: false, status: "not_required", policy: "soft_auto" },
+    });
 
     return ok(null);
   } catch (e) {
@@ -894,6 +931,13 @@ export async function deleteUserAdmin(
       return err("Configuration serveur incomplète. Contactez l’administrateur.");
     }
 
+    const approval = assertApprovalOrThrow({
+      eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
+      actorUserId: callerUserId,
+      actorRole: "super_admin",
+      metadata: { operation: "delete_user_admin", targetUserId: userId },
+    });
+
     const { error: authErr } = await admin.auth.admin.deleteUser(userId);
     if (authErr) {
       logError("DELETE_USER_ADMIN", authErr, { userId, step: "auth.deleteUser" });
@@ -916,6 +960,14 @@ export async function deleteUserAdmin(
       targetTable: "profiles",
       targetId: userId,
       metadata: { summary: "Utilisateur supprimé" },
+    });
+    await tryLogAuditEvent({
+      eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
+      severity: "critical",
+      target: { table: "profiles", id: userId },
+      context: { actorUserId: callerUserId, actorRole: "super_admin" },
+      details: { operation: "delete_user_admin" },
+      approval: { required: approval.required, status: "granted", policy: approval.policy },
     });
 
     return ok(null);

@@ -1,11 +1,14 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
-import { getModulePermissions } from "@/lib/server/permissions";
+import { getModulePermissions, getUserRole } from "@/lib/server/permissions";
 import { softDeleteProduct, restoreProduct } from "@/lib/server/products";
 import { ok, err, type SafeResult } from "@/lib/server/safe-result";
 import { mapProductError } from "@/lib/server/product-error-messages";
+import { revalidateVenteProductsScope } from "@/lib/server/revalidate-domains";
+import { AUDIT_EVENT_TYPES } from "@/lib/audit/audit-events";
+import { tryLogAuditEvent } from "@/lib/audit/audit-logger";
+import { assertApprovalOrThrow } from "@/lib/approvals/approval-engine";
 
 const MODULE_KEYS = ["produits", "vente"] as const;
 
@@ -30,13 +33,26 @@ export async function deleteProductFromListAction(productId: string): Promise<Sa
   }
 
   try {
+    const actorRole = await getUserRole(data.user.id);
+    const approval = assertApprovalOrThrow({
+      eventType: AUDIT_EVENT_TYPES.PRODUCT_ARCHIVED,
+      actorUserId: data.user.id,
+      actorRole,
+    });
     await softDeleteProduct(id);
+    await tryLogAuditEvent({
+      eventType: AUDIT_EVENT_TYPES.PRODUCT_ARCHIVED,
+      severity: "high",
+      target: { table: "products", id },
+      context: { actorUserId: data.user.id, actorRole },
+      details: { operation: "delete_product" },
+      approval: { required: approval.required, status: "granted", policy: approval.policy },
+    });
   } catch (e) {
     return err(mapProductError(e, "Impossible de supprimer le produit pour le moment."));
   }
 
-  revalidatePath("/vente/produits");
-  revalidatePath(`/vente/produits/${id}`);
+  revalidateVenteProductsScope({ productId: id, includeDashboard: true });
   return ok(null);
 }
 
@@ -61,6 +77,13 @@ export async function deleteProductsFromListBulkAction(productIds: string[]): Pr
   }
 
   let deleted = 0;
+  const actorRole = await getUserRole(data.user.id);
+  const approval = assertApprovalOrThrow({
+    eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
+    actorUserId: data.user.id,
+    actorRole,
+    metadata: { operation: "bulk_delete_products", count: ids.length },
+  });
   for (const id of ids) {
     try {
       await softDeleteProduct(id);
@@ -74,7 +97,15 @@ export async function deleteProductsFromListBulkAction(productIds: string[]): Pr
     return err("Aucun produit n'a pu être supprimé.");
   }
 
-  revalidatePath("/vente/produits");
+  revalidateVenteProductsScope({ includeDashboard: true });
+  await tryLogAuditEvent({
+    eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
+    severity: "critical",
+    target: { table: "products", id: null },
+    context: { actorUserId: data.user.id, actorRole },
+    details: { operation: "bulk_delete_products", requested: ids.length, deleted },
+    approval: { required: approval.required, status: "granted", policy: approval.policy },
+  });
   return ok({ deleted });
 }
 
@@ -99,14 +130,30 @@ export async function restoreProductAction(productId: string): Promise<SafeResul
   }
 
   try {
+    const actorRole = await getUserRole(data.user.id);
+    const approval = assertApprovalOrThrow({
+      eventType: AUDIT_EVENT_TYPES.PRODUCT_ARCHIVED,
+      actorUserId: data.user.id,
+      actorRole,
+      metadata: { operation: "restore_product" },
+    });
     await restoreProduct(id);
+    await tryLogAuditEvent({
+      eventType: AUDIT_EVENT_TYPES.PRODUCT_ARCHIVED,
+      severity: "medium",
+      target: { table: "products", id },
+      context: { actorUserId: data.user.id, actorRole },
+      details: { operation: "restore_product" },
+      approval: { required: approval.required, status: "granted", policy: approval.policy },
+    });
   } catch (e) {
     return err(mapProductError(e, "Impossible de restaurer le produit pour le moment."));
   }
 
-  revalidatePath("/vente/produits/archives");
-  revalidatePath("/admin/archives");
-  revalidatePath("/vente/produits");
-  revalidatePath(`/vente/produits/${id}`);
+  revalidateVenteProductsScope({
+    productId: id,
+    includeArchives: true,
+    includeDashboard: true,
+  });
   return ok(null);
 }

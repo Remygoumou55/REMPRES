@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
 import {
   UserPlus,
   RefreshCw,
@@ -458,7 +457,6 @@ interface Props {
 }
 
 export function UsersClient({ initialUsers }: Props) {
-  const router = useRouter();
   const { showSuccess, showError } = useToast();
   const [users, setUsers]         = useState<UserListItem[]>(initialUsers);
   const [showModal, setShowModal] = useState(false);
@@ -510,7 +508,6 @@ export function UsersClient({ initialUsers }: Props) {
         if (Array.isArray(data)) {
           setUsers(data);
           setRefreshBanner(null);
-          router.refresh();
         } else {
           setRefreshBanner("Réponse invalide du serveur.");
           showError("Une erreur est survenue");

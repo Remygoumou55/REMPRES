@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { logError } from "@/lib/logger";
 import { RouteErrorFallback } from "@/components/ui/route-error-fallback";
+import { reportRouteError } from "@/lib/monitoring/error-monitor";
 
 type AppErrorProps = {
   error: Error & { digest?: string };
@@ -15,6 +16,7 @@ export default function AppError({ error, reset }: AppErrorProps) {
       error: error.message,
       digest: error.digest,
     });
+    reportRouteError("app", error, { digest: error.digest ?? null });
   }, [error]);
 
   return <RouteErrorFallback reset={reset} />;

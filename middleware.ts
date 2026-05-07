@@ -4,7 +4,6 @@ import type { Database } from "@/types/database.types";
 import {
   canAccessPathForProfile,
   hasAdminConsoleAccess,
-  isSupervisionOnlyDepartmentKey,
 } from "@/lib/auth/permissions";
 
 // ---------------------------------------------------------------------------
@@ -48,19 +47,6 @@ function isAdminConsoleRestrictedPath(pathname: string): boolean {
     return false;
   }
   return true;
-}
-
-function isVenteOperationalPath(pathname: string): boolean {
-  if (pathname === "/vente" || pathname.startsWith("/vente/")) {
-    if (
-      pathname.startsWith("/vente/historique") ||
-      pathname.startsWith("/vente/recu/")
-    ) {
-      return false;
-    }
-    return true;
-  }
-  return false;
 }
 
 // ---------------------------------------------------------------------------
@@ -138,15 +124,6 @@ export async function middleware(request: NextRequest) {
       const deniedUrl = request.nextUrl.clone();
       deniedUrl.pathname = "/access-denied";
       return NextResponse.redirect(deniedUrl);
-    }
-
-    if (
-      isSupervisionOnlyDepartmentKey(deptKey) &&
-      isVenteOperationalPath(pathname)
-    ) {
-      const dashUrl = request.nextUrl.clone();
-      dashUrl.pathname = "/dashboard";
-      return NextResponse.redirect(dashUrl);
     }
 
     if (!canAccessPathForProfile(pathname, roleKey, deptKey)) {

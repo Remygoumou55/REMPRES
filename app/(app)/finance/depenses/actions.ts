@@ -1,9 +1,8 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
-import { getModulePermissions } from "@/lib/server/permissions";
+import { getModulePermissions, getUserRole } from "@/lib/server/permissions";
 import {
   createExpense,
   deleteExpense,
@@ -12,6 +11,10 @@ import {
   updateExpense,
 } from "@/lib/server/expenses";
 import type { CreateExpenseFormInput, UpdateExpenseFormInput } from "@/lib/validations/expense";
+import { revalidateFinanceScope } from "@/lib/server/revalidate-domains";
+import { AUDIT_EVENT_TYPES } from "@/lib/audit/audit-events";
+import { tryLogAuditEvent } from "@/lib/audit/audit-logger";
+import { assertApprovalOrThrow } from "@/lib/approvals/approval-engine";
 
 export async function createExpenseAction(
   raw: CreateExpenseFormInput,
@@ -26,9 +29,27 @@ export async function createExpenseAction(
   }
 
   try {
+    const actorRole = await getUserRole(data.user.id);
+    const approval = assertApprovalOrThrow({
+      eventType: AUDIT_EVENT_TYPES.EXPENSE_UPDATED,
+      actorUserId: data.user.id,
+      actorRole,
+    });
     const result = await createExpense(data.user.id, raw);
     const rawId = (result as { id?: string } | null)?.id;
-    revalidatePath("/finance/depenses");
+    revalidateFinanceScope({ includeDashboard: true });
+    await tryLogAuditEvent({
+      eventType: AUDIT_EVENT_TYPES.EXPENSE_UPDATED,
+      severity: "high",
+      target: { table: "expenses", id: rawId ?? null },
+      context: { actorUserId: data.user.id, actorRole },
+      details: { operation: "create_expense" },
+      approval: {
+        required: approval.required,
+        status: "granted",
+        policy: approval.policy,
+      },
+    });
     return { success: true, expenseId: rawId };
   } catch (err) {
     return { success: false, error: formatExpenseError(err) };
@@ -49,8 +70,26 @@ export async function attachExpenseReceiptAction(
   }
 
   try {
+    const actorRole = await getUserRole(data.user.id);
+    const approval = assertApprovalOrThrow({
+      eventType: AUDIT_EVENT_TYPES.EXPENSE_UPDATED,
+      actorUserId: data.user.id,
+      actorRole,
+    });
     await setExpenseReceiptPath(data.user.id, expenseId, storagePath);
-    revalidatePath("/finance/depenses");
+    revalidateFinanceScope({ includeDashboard: false });
+    await tryLogAuditEvent({
+      eventType: AUDIT_EVENT_TYPES.EXPENSE_UPDATED,
+      severity: "medium",
+      target: { table: "expenses", id: expenseId },
+      context: { actorUserId: data.user.id, actorRole },
+      details: { operation: "attach_receipt" },
+      approval: {
+        required: approval.required,
+        status: "granted",
+        policy: approval.policy,
+      },
+    });
     return { success: true };
   } catch (err) {
     return { success: false, error: formatExpenseError(err) };
@@ -70,8 +109,26 @@ export async function updateExpenseAction(
   }
 
   try {
+    const actorRole = await getUserRole(data.user.id);
+    const approval = assertApprovalOrThrow({
+      eventType: AUDIT_EVENT_TYPES.EXPENSE_UPDATED,
+      actorUserId: data.user.id,
+      actorRole,
+    });
     await updateExpense(data.user.id, raw);
-    revalidatePath("/finance/depenses");
+    revalidateFinanceScope({ includeDashboard: true });
+    await tryLogAuditEvent({
+      eventType: AUDIT_EVENT_TYPES.EXPENSE_UPDATED,
+      severity: "high",
+      target: { table: "expenses", id: raw.expenseId },
+      context: { actorUserId: data.user.id, actorRole },
+      details: { operation: "update_expense" },
+      approval: {
+        required: approval.required,
+        status: "granted",
+        policy: approval.policy,
+      },
+    });
     return { success: true };
   } catch (err) {
     return { success: false, error: formatExpenseError(err) };
@@ -91,8 +148,26 @@ export async function deleteExpenseAction(
   }
 
   try {
+    const actorRole = await getUserRole(data.user.id);
+    const approval = assertApprovalOrThrow({
+      eventType: AUDIT_EVENT_TYPES.EXPENSE_UPDATED,
+      actorUserId: data.user.id,
+      actorRole,
+    });
     await deleteExpense(data.user.id, expenseId);
-    revalidatePath("/finance/depenses");
+    revalidateFinanceScope({ includeDashboard: true });
+    await tryLogAuditEvent({
+      eventType: AUDIT_EVENT_TYPES.EXPENSE_UPDATED,
+      severity: "critical",
+      target: { table: "expenses", id: expenseId },
+      context: { actorUserId: data.user.id, actorRole },
+      details: { operation: "delete_expense" },
+      approval: {
+        required: approval.required,
+        status: "granted",
+        policy: approval.policy,
+      },
+    });
     return { success: true };
   } catch (err) {
     return { success: false, error: formatExpenseError(err) };

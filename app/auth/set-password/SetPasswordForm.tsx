@@ -8,6 +8,7 @@ import { getSupabaseBrowserClient } from "@/lib/supabase";
 import { appConfig, getLogoUrl } from "@/lib/config";
 import { logError } from "@/lib/logger";
 import { getDestinationForRole } from "@/lib/roleRedirects";
+import { buildAuthErrorHref } from "@/lib/auth/callback-errors";
 
 // ---------------------------------------------------------------------------
 // Validation
@@ -53,6 +54,10 @@ const STRENGTH_CONFIG = [
   { label: "Très fort",   color: "bg-green-500"   },
 ];
 
+async function delay(ms: number): Promise<void> {
+  await new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 // ---------------------------------------------------------------------------
 // Composant
 // ---------------------------------------------------------------------------
@@ -68,15 +73,44 @@ export function SetPasswordForm() {
   const [loading,   setLoading]  = useState(false);
   const [success,   setSuccess]  = useState(false);
   const [error,     setError]    = useState<string | null>(null);
+  const [sessionReady, setSessionReady] = useState(false);
 
   // Vérifier que l'utilisateur a une session valide (arrivé via /auth/callback)
   useEffect(() => {
     const supabase = getSupabaseBrowserClient();
-    supabase.auth.getSession().then(({ data }) => {
-      if (!data.session) {
-        router.replace("/login?error=session_expired");
+    let mounted = true;
+    let done = false;
+    const maxAttempts = 10;
+
+    const sub = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session && !done && mounted) {
+        done = true;
+        setSessionReady(true);
       }
     });
+
+    async function hydrateSession() {
+      for (let i = 0; i < maxAttempts; i += 1) {
+        const { data } = await supabase.auth.getSession();
+        if (data.session) {
+          if (mounted) {
+            done = true;
+            setSessionReady(true);
+          }
+          return;
+        }
+        await delay(150);
+      }
+      if (mounted && !done) {
+        router.replace(buildAuthErrorHref("Lien invalide"));
+      }
+    }
+
+    void hydrateSession();
+    return () => {
+      mounted = false;
+      sub.data.subscription.unsubscribe();
+    };
   }, [router]);
 
   const rules   = checkRules(password, confirm);
@@ -119,16 +153,21 @@ export function SetPasswordForm() {
       } = await supabase.auth.getUser();
       let dest = "/dashboard";
       if (user?.id) {
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("role_key, department_key")
-          .eq("id", user.id)
-          .maybeSingle();
-        dest = getDestinationForRole(profile?.role_key ?? null, profile?.department_key ?? null);
+        for (let i = 0; i < 6; i += 1) {
+          const { data: profile } = await supabase
+            .from("profiles")
+            .select("role_key, department_key")
+            .eq("id", user.id)
+            .maybeSingle();
+          if (profile?.role_key) {
+            dest = getDestinationForRole(profile.role_key, profile.department_key ?? null);
+            break;
+          }
+          await delay(200);
+        }
       }
       setTimeout(() => {
         router.replace(dest);
-        router.refresh();
       }, 2500);
     } catch (err) {
       logError("SET_PASSWORD_UNEXPECTED", err);
@@ -297,9 +336,9 @@ export function SetPasswordForm() {
               {/* ── Bouton ── */}
               <button
                 type="submit"
-                disabled={loading || !valid}
+                disabled={loading || !valid || !sessionReady}
                 className={`flex w-full items-center justify-center gap-2 rounded-lg py-3 text-sm font-bold text-white transition ${
-                  valid && !loading
+                  valid && !loading && sessionReady
                     ? "bg-primary hover:bg-primary/90"
                     : "cursor-not-allowed bg-gray-300"
                 }`}
@@ -310,7 +349,7 @@ export function SetPasswordForm() {
                     Enregistrement…
                   </>
                 ) : (
-                  "Définir le mot de passe"
+                  sessionReady ? "Définir le mot de passe" : "Initialisation sécurisée..."
                 )}
               </button>
 

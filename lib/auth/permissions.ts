@@ -8,6 +8,10 @@ import {
   type DepartmentKey,
 } from "@/lib/departments/department-config";
 import { effectiveAuthRoleKey, resolveRoleKey, ROLE_KEYS } from "@/lib/auth/roles";
+import {
+  isSuperAdminGovernancePath,
+  isSuperAdminOperationalPath,
+} from "@/lib/auth/supervision";
 
 export type RoleDepartmentValidationResult =
   | { ok: true }
@@ -22,13 +26,6 @@ function normalizePathname(pathname: string): string {
 function pathnameMatchesAnyPrefix(pathname: string, prefixes: readonly string[]): boolean {
   return prefixes.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 }
-
-/** Préfixes métier interdits au super_admin (gouvernance uniquement — lecture vente via historique/recu OK). */
-const SUPER_ADMIN_BLOCKED_OPERATIONAL_PREFIXES: readonly string[] = [
-  "/vente/nouvelle-vente",
-  "/vente/clients",
-  "/vente/produits",
-];
 
 /** Accès aux routes /console admin Next (équivalent ancien DG + super_admin). */
 export function hasAdminConsoleAccess(
@@ -82,8 +79,9 @@ export function canAccessPathForProfile(
   const r = effectiveAuthRoleKey(roleKey);
 
   if (r === ROLE_KEYS.SUPER_ADMIN) {
-    if (pathnameMatchesAnyPrefix(path, SUPER_ADMIN_BLOCKED_OPERATIONAL_PREFIXES)) return false;
-    return true;
+    // Gouvernance stricte: supervision uniquement, jamais de routes opérationnelles.
+    if (isSuperAdminOperationalPath(path)) return false;
+    return isSuperAdminGovernancePath(path);
   }
 
   if (hasAdminConsoleAccess(roleKey, departmentKey)) {

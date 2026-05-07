@@ -1,11 +1,14 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { assertOperationalMutationAllowed } from "@/lib/server/auth-operational-guards";
-import { getModulePermissions } from "@/lib/server/permissions";
+import { getModulePermissions, getUserRole } from "@/lib/server/permissions";
 import { ok, err, type SafeResult } from "@/lib/server/safe-result";
 import { mapArchiveSaleError } from "@/lib/server/sale-error-messages";
+import { revalidateVenteSalesScope } from "@/lib/server/revalidate-domains";
+import { AUDIT_EVENT_TYPES } from "@/lib/audit/audit-events";
+import { tryLogAuditEvent } from "@/lib/audit/audit-logger";
+import { assertApprovalOrThrow } from "@/lib/approvals/approval-engine";
 
 const MODULE_KEYS = ["produits", "vente"] as const;
 
@@ -37,6 +40,13 @@ export async function archiveAndDeleteSaleAction(saleId: string): Promise<SafeRe
     return err(msg);
   }
 
+  const actorRole = await getUserRole(data.user.id);
+  const approval = assertApprovalOrThrow({
+    eventType: AUDIT_EVENT_TYPES.SALE_DELETED,
+    actorUserId: data.user.id,
+    actorRole,
+  });
+
   const { error } = await supabase.rpc("archive_and_soft_delete_sale", { p_sale_id: id });
 
   if (error) {
@@ -45,7 +55,15 @@ export async function archiveAndDeleteSaleAction(saleId: string): Promise<SafeRe
     );
   }
 
-  revalidatePath("/vente/historique");
-  revalidatePath(`/vente/historique/${id}`);
+  await tryLogAuditEvent({
+    eventType: AUDIT_EVENT_TYPES.SALE_DELETED,
+    severity: "critical",
+    target: { table: "sales", id },
+    context: { actorUserId: data.user.id, actorRole },
+    details: { operation: "archive_and_soft_delete_sale" },
+    approval: { required: approval.required, status: "granted", policy: approval.policy },
+  });
+
+  revalidateVenteSalesScope({ saleId: id, includeDashboard: true });
   return ok(null);
 }

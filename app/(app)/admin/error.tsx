@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { logError } from "@/lib/logger";
 import { RouteErrorFallback } from "@/components/ui/route-error-fallback";
+import { reportRouteError } from "@/lib/monitoring/error-monitor";
 
 type AdminErrorProps = {
   error: Error & { digest?: string };
@@ -15,6 +16,7 @@ export default function AdminError({ error, reset }: AdminErrorProps) {
       error: error.message,
       digest: error.digest,
     });
+    reportRouteError("admin", error, { digest: error.digest ?? null });
   }, [error]);
 
   return (

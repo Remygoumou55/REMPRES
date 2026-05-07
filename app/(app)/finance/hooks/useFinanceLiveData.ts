@@ -1,10 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { RealtimeChannel } from "@supabase/supabase-js";
 import { getSupabaseBrowserClient } from "@/lib/supabase";
 import { normalizeFinanceCfoData } from "@/lib/finance-cfo-normalize";
 import type { FinanceCfoData } from "@/lib/server/finance-overview";
+import { queryKeys } from "@/lib/query/query-keys";
+import { reportRealtimeError } from "@/lib/monitoring/error-monitor";
+import { nowMs, reportDuration, reportIfSlow } from "@/lib/monitoring/performance-monitor";
 
 const POLL_MS = 22_000;
 
@@ -105,18 +108,30 @@ export function useFinanceLiveData(params: Params) {
   const [data, setData] = useState<FinanceCfoData>(() => normalizeFinanceCfoData(initialData));
   const [updatedAt, setUpdatedAt] = useState(() => new Date());
   const [refreshing, setRefreshing] = useState(false);
+  const inFlightRef = useRef(false);
+  const queuedRef = useRef(false);
 
   const queryString = useMemo(
     () => buildQuery({ from, to, categoryIds, createdBy }),
     [from, to, categoryIds, createdBy],
   );
+  const snapshotKey = useMemo(
+    () => queryKeys.finance.snapshot({ from, to, categoryIds, createdBy }),
+    [from, to, categoryIds, createdBy],
+  );
 
   useEffect(() => {
     setData(normalizeFinanceCfoData(initialData));
-  }, [initialData, queryString]);
+  }, [initialData, snapshotKey, queryString]);
 
   const refetch = useCallback(async () => {
+    if (inFlightRef.current) {
+      queuedRef.current = true;
+      return;
+    }
+    inFlightRef.current = true;
     setRefreshing(true);
+    const startedAt = nowMs();
     try {
       const res = await fetch(`/api/finance/snapshot?${queryString}`, { cache: "no-store" });
       if (!res.ok) return;
@@ -126,44 +141,59 @@ export function useFinanceLiveData(params: Params) {
     } catch {
       /* réseau / JSON */
     } finally {
+      reportDuration("finance_snapshot_refetch", startedAt, { query: queryString });
+      reportIfSlow("finance_snapshot_refetch", startedAt, 1200, { query: queryString });
+      inFlightRef.current = false;
       setRefreshing(false);
+      if (queuedRef.current) {
+        queuedRef.current = false;
+        void refetch();
+      }
     }
   }, [queryString]);
 
   useEffect(() => {
     const id = window.setInterval(() => {
+      if (document.visibilityState === "hidden") return;
       void refetch();
     }, POLL_MS);
     return () => window.clearInterval(id);
-  }, [refetch]);
+  }, [refetch, snapshotKey, queryString]);
 
   useEffect(() => {
     let ch: RealtimeChannel | null = null;
+    let debounceId: number | null = null;
     try {
       const supa = getSupabaseBrowserClient();
       ch = supa
-        .channel("finance-ft")
+        .channel(`finance-ft:${snapshotKey.join("|")}`)
         .on(
           "postgres_changes",
           { event: "*", schema: "public", table: "financial_transactions" },
           () => {
-            void refetch();
+            if (debounceId) window.clearTimeout(debounceId);
+            debounceId = window.setTimeout(() => {
+              void refetch();
+            }, 250);
           },
         )
         .subscribe();
     } catch (e) {
-      console.warn("[finance] Realtime indisponible — données toujours rafraîchies par polling.", e);
+      reportRealtimeError("finance-ft", e, { query: queryString, fallback: "polling" });
       return;
     }
     return () => {
       try {
+        if (debounceId) {
+          window.clearTimeout(debounceId);
+        }
         const supa = getSupabaseBrowserClient();
         if (ch) void supa.removeChannel(ch);
       } catch {
         /* noop */
       }
     };
-  }, [refetch]);
+  }, [refetch, snapshotKey, queryString]);
 
   return { data, updatedAt, refreshing, refetch };
 }

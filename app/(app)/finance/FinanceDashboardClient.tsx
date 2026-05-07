@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Calendar,
@@ -25,7 +26,7 @@ import {
   type FinanceAlertSettings,
 } from "@/lib/finance-alerts";
 import { useFinanceLiveData } from "./hooks/useFinanceLiveData";
-import { FinanceExportModal, type PdfSections } from "@/components/finance/FinanceExportModal";
+import type { PdfSections } from "@/components/finance/FinanceExportModal";
 import { SearchInput } from "@/components/ui/search-input";
 import { useGlobalSearch } from "@/lib/hooks/use-global-search";
 import { useCurrencyBatchConversion } from "@/hooks/useCurrencyConversion";
@@ -33,9 +34,24 @@ import { useCurrencyStore } from "@/stores/currencyStore";
 
 // Sub-components
 import { DeltaText, FinanceKpiCard } from "./components/FinanceKpis";
-import { ChartBlockRevenueExpense, CashflowChart, type ChartMode } from "./components/FinanceCharts";
+import type { ChartMode } from "./components/FinanceCharts";
 import { AlertsSection } from "./components/FinanceAlerts";
 import { CategoryBar } from "./components/FinanceCategoryBreakdown";
+
+const FinanceExportModal = dynamic(
+  () => import("@/components/finance/FinanceExportModal").then((m) => m.FinanceExportModal),
+  { ssr: false },
+);
+
+const ChartBlockRevenueExpense = dynamic(
+  () => import("./components/FinanceCharts").then((m) => m.ChartBlockRevenueExpense),
+  { ssr: false },
+);
+
+const CashflowChart = dynamic(
+  () => import("./components/FinanceCharts").then((m) => m.CashflowChart),
+  { ssr: false },
+);
 
 // ---------------------------------------------------------------------------
 // Constants & Types

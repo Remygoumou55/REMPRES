@@ -1,7 +1,14 @@
 import { cache } from "react";
 import { redirect } from "next/navigation";
 import { getServerSessionUser } from "@/lib/server/auth-session";
-import { getClientsPermissions, getModulePermissions, isAdminRole } from "@/lib/server/permissions";
+import {
+  getClientsPermissions,
+  getModulePermissions,
+  getProfileAuthBrief,
+  isAdminRole,
+  isSuperAdmin,
+} from "@/lib/server/permissions";
+import { ROLE_KEYS } from "@/lib/auth/roles";
 import {
   avatarInitialFromDisplayName,
   getCachedProfileDisplayName,
@@ -15,18 +22,22 @@ export const getLayoutAccess = cache(async () => {
   }
 
   const userId = user.id;
+  const authBrief = await getProfileAuthBrief(userId);
+  const isSuperAdminProfile = authBrief.roleKey === ROLE_KEYS.SUPER_ADMIN;
 
   const [
     permissions,
     productsPermissions,
     financePermissions,
     isAdminRoleUser,
+    isSuperAdminUser,
     userDisplayName,
   ] = await Promise.all([
-    getClientsPermissions(userId),
-    getModulePermissions(userId, ["produits", "vente"]),
-    getModulePermissions(userId, ["finance"]),
+    isSuperAdminProfile ? Promise.resolve({ canRead: false, canCreate: false, canUpdate: false, canDelete: false }) : getClientsPermissions(userId),
+    isSuperAdminProfile ? Promise.resolve({ canRead: false, canCreate: false, canUpdate: false, canDelete: false }) : getModulePermissions(userId, ["produits", "vente"]),
+    isSuperAdminProfile ? Promise.resolve({ canRead: false, canCreate: false, canUpdate: false, canDelete: false }) : getModulePermissions(userId, ["finance"]),
     isAdminRole(userId),
+    isSuperAdmin(userId),
     getCachedProfileDisplayName(userId),
   ]);
 
@@ -39,7 +50,7 @@ export const getLayoutAccess = cache(async () => {
     canCreateFinance: financePermissions.canCreate,
     canUpdateFinance: financePermissions.canUpdate,
     canReadActivityLogs: isAdminRoleUser,
-    isSuperAdmin: isAdminRoleUser,
+    isSuperAdmin: isSuperAdminUser,
     canArchiveClients: permissions.canRead && permissions.canDelete,
     canArchiveProduits: productsPermissions.canRead && productsPermissions.canDelete,
   };

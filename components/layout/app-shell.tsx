@@ -77,21 +77,21 @@ export function AppShell({
     {
       id: "commerce", label: "Commerce", shortLabel: "Vente",
       icon: ShoppingCart, href: "/vente/clients",
-      visible: canReadProducts || canReadClients,
+      visible: !isSuperAdmin && (canReadProducts || canReadClients),
       items: [
-        { href: "/vente/clients",        label: "Clients",        icon: Users,        visible: canReadClients  },
-        { href: "/vente/produits",        label: "Produits",       icon: Package,      visible: canReadProducts },
-        { href: "/vente/nouvelle-vente", label: "Nouvelle vente", icon: ShoppingCart, visible: canReadProducts },
-        { href: "/vente/historique",     label: "Historique",     icon: History,      visible: canReadProducts },
+        { href: "/vente/clients",        label: "Clients",        icon: Users,        visible: !isSuperAdmin && canReadClients  },
+        { href: "/vente/produits",        label: "Produits",       icon: Package,      visible: !isSuperAdmin && canReadProducts },
+        { href: "/vente/nouvelle-vente", label: "Nouvelle vente", icon: ShoppingCart, visible: !isSuperAdmin && canReadProducts },
+        { href: "/vente/historique",     label: "Historique",     icon: History,      visible: !isSuperAdmin && canReadProducts },
       ],
     },
     {
       id: "finance", label: "Finance", shortLabel: "Finance",
       icon: BarChart3, href: "/finance",
-      visible: canReadFinance,
+      visible: !isSuperAdmin && canReadFinance,
       items: [
-        { href: "/finance",          label: "Vue d'ensemble", icon: BarChart3, visible: canReadFinance },
-        { href: "/finance/depenses", label: "Dépenses",       icon: Wallet,    visible: canReadFinance },
+        { href: "/finance",          label: "Vue d'ensemble", icon: BarChart3, visible: !isSuperAdmin && canReadFinance },
+        { href: "/finance/depenses", label: "Dépenses",       icon: Wallet,    visible: !isSuperAdmin && canReadFinance },
       ],
     },
     {

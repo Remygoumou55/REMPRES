@@ -3,6 +3,8 @@ import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getModulePermissions, isSuperAdmin } from "@/lib/server/permissions";
 import { getFinanceCfoData } from "@/lib/server/finance-overview";
 import { parseCategoryIds, parseCreatedBy, parseFinanceIsoDate } from "@/lib/finance-query-params";
+import { reportMutationError } from "@/lib/monitoring/error-monitor";
+import { nowMs, reportIfSlow } from "@/lib/monitoring/performance-monitor";
 
 function firstDayOfMonth(): string {
   const d = new Date();
@@ -22,6 +24,7 @@ function clampOrder(from: string, to: string): { from: string; to: string } {
  * Rafraîchissement JSON (même agrégation que la page /finance) — sans rechargement RSC.
  */
 export async function GET(request: Request) {
+  const startedAt = nowMs();
   const supabase = getSupabaseServerClient();
   const { data: auth } = await supabase.auth.getUser();
   if (!auth.user) {
@@ -47,15 +50,33 @@ export async function GET(request: Request) {
     superAdmin,
   );
 
-  const data = await getFinanceCfoData(supabase, {
-    from,
-    to,
-    categoryIds,
-    createdByUserId,
-  });
-
-  return NextResponse.json(
-    { data, updatedAt: new Date().toISOString() },
-    { headers: { "Cache-Control": "no-store" } },
-  );
+  try {
+    const data = await getFinanceCfoData(supabase, {
+      from,
+      to,
+      categoryIds,
+      createdByUserId,
+    });
+    reportIfSlow("api_finance_snapshot", startedAt, 900, {
+      from,
+      to,
+      categoryCount: categoryIds.length,
+      hasCreatedBy: !!createdByUserId,
+    });
+    return NextResponse.json(
+      { data, updatedAt: new Date().toISOString() },
+      { headers: { "Cache-Control": "no-store" } },
+    );
+  } catch (error) {
+    reportMutationError("api_finance_snapshot", error, {
+      from,
+      to,
+      categoryCount: categoryIds.length,
+      hasCreatedBy: !!createdByUserId,
+    });
+    return NextResponse.json(
+      { error: "Impossible de charger les données finance." },
+      { status: 500 },
+    );
+  }
 }

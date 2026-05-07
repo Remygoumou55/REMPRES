@@ -1,12 +1,15 @@
 "use server";
 
 import { headers } from "next/headers";
-import { revalidatePath } from "next/cache";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
-import { assertClientsPermission } from "@/lib/server/permissions";
+import { assertClientsPermission, getUserRole } from "@/lib/server/permissions";
 import { softDeleteClient, restoreClient } from "@/lib/server/clients";
 import { ok, err, type SafeResult } from "@/lib/server/safe-result";
 import { mapClientError } from "@/lib/server/client-error-messages";
+import { revalidateVenteClientsScope } from "@/lib/server/revalidate-domains";
+import { AUDIT_EVENT_TYPES } from "@/lib/audit/audit-events";
+import { tryLogAuditEvent } from "@/lib/audit/audit-logger";
+import { assertApprovalOrThrow } from "@/lib/approvals/approval-engine";
 
 /**
  * Suppression logique d'un client depuis la liste (/vente/clients).
@@ -30,17 +33,30 @@ export async function deleteClientFromListAction(clientId: string): Promise<Safe
   }
 
   try {
+    const actorRole = await getUserRole(userId);
+    const approval = assertApprovalOrThrow({
+      eventType: AUDIT_EVENT_TYPES.CLIENT_DELETED,
+      actorUserId: userId,
+      actorRole,
+    });
     const requestHeaders = headers();
     await softDeleteClient(id, userId, {
       ip: requestHeaders.get("x-forwarded-for") ?? requestHeaders.get("x-real-ip"),
       userAgent: requestHeaders.get("user-agent"),
     });
+    await tryLogAuditEvent({
+      eventType: AUDIT_EVENT_TYPES.CLIENT_DELETED,
+      severity: "high",
+      target: { table: "clients", id },
+      context: { actorUserId: userId, actorRole },
+      details: { operation: "delete_client" },
+      approval: { required: approval.required, status: "granted", policy: approval.policy },
+    });
   } catch (e) {
     return err(mapClientError(e, "Impossible de supprimer le client pour le moment."));
   }
 
-  revalidatePath("/vente/clients");
-  revalidatePath(`/vente/clients/${id}`);
+  revalidateVenteClientsScope({ clientId: id, includeDashboard: true });
   return ok(null);
 }
 
@@ -67,6 +83,13 @@ export async function deleteClientsFromListBulkAction(clientIds: string[]): Prom
 
   let deleted = 0;
   const requestHeaders = headers();
+  const actorRole = await getUserRole(userId);
+  const approval = assertApprovalOrThrow({
+    eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
+    actorUserId: userId,
+    actorRole,
+    metadata: { operation: "bulk_delete_clients", count: ids.length },
+  });
   for (const id of ids) {
     try {
       await softDeleteClient(id, userId, {
@@ -83,7 +106,15 @@ export async function deleteClientsFromListBulkAction(clientIds: string[]): Prom
     return err("Aucun client n'a pu être supprimé.");
   }
 
-  revalidatePath("/vente/clients");
+  revalidateVenteClientsScope({ includeDashboard: true });
+  await tryLogAuditEvent({
+    eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
+    severity: "critical",
+    target: { table: "clients", id: null },
+    context: { actorUserId: userId, actorRole },
+    details: { operation: "bulk_delete_clients", requested: ids.length, deleted },
+    approval: { required: approval.required, status: "granted", policy: approval.policy },
+  });
   return ok({ deleted });
 }
 
@@ -109,18 +140,34 @@ export async function restoreClientAction(clientId: string): Promise<SafeResult<
   }
 
   try {
+    const actorRole = await getUserRole(userId);
+    const approval = assertApprovalOrThrow({
+      eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
+      actorUserId: userId,
+      actorRole,
+      metadata: { operation: "restore_client" },
+    });
     const requestHeaders = headers();
     await restoreClient(id, userId, {
       ip: requestHeaders.get("x-forwarded-for") ?? requestHeaders.get("x-real-ip"),
       userAgent: requestHeaders.get("user-agent"),
     });
+    await tryLogAuditEvent({
+      eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
+      severity: "medium",
+      target: { table: "clients", id },
+      context: { actorUserId: userId, actorRole },
+      details: { operation: "restore_client" },
+      approval: { required: approval.required, status: "granted", policy: approval.policy },
+    });
   } catch (e) {
     return err(mapClientError(e, "Impossible de restaurer le client pour le moment."));
   }
 
-  revalidatePath("/vente/clients/archives");
-  revalidatePath("/admin/archives");
-  revalidatePath("/vente/clients");
-  revalidatePath(`/vente/clients/${id}`);
+  revalidateVenteClientsScope({
+    clientId: id,
+    includeArchives: true,
+    includeDashboard: true,
+  });
   return ok(null);
 }

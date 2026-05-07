@@ -33,7 +33,7 @@ describe("isSuperAdminOperationalBlocked", () => {
   });
 });
 
-describe("canAccessPathForProfile — cross-department & super_admin operational shell", () => {
+describe("canAccessPathForProfile — cross-department & super_admin governance isolation", () => {
   it("denies vente manager access to finance routes", () => {
     expect(
       canAccessPathForProfile("/finance", "manager", DEPARTMENT_KEYS.VENTE),
@@ -52,7 +52,7 @@ describe("canAccessPathForProfile — cross-department & super_admin operational
     ).toBe(true);
   });
 
-  it("blocks super_admin from core operational vente CRUD paths only", () => {
+  it("blocks super_admin from all operational department routes", () => {
     expect(
       canAccessPathForProfile("/vente/nouvelle-vente", "super_admin", null),
     ).toBe(false);
@@ -62,9 +62,9 @@ describe("canAccessPathForProfile — cross-department & super_admin operational
     expect(
       canAccessPathForProfile("/vente/produits/new", "super_admin", null),
     ).toBe(false);
-    expect(
-      canAccessPathForProfile("/vente/historique", "super_admin", null),
-    ).toBe(true);
+    expect(canAccessPathForProfile("/vente/historique", "super_admin", null)).toBe(false);
+    expect(canAccessPathForProfile("/finance", "super_admin", null)).toBe(false);
+    expect(canAccessPathForProfile("/rh", "super_admin", null)).toBe(false);
     expect(canAccessPathForProfile("/dashboard", "super_admin", null)).toBe(true);
     expect(canAccessPathForProfile("/admin/users", "super_admin", null)).toBe(true);
   });

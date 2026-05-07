@@ -85,7 +85,6 @@ export function LoginForm() {
 
       logInfo("auth", "login success", { userId: data.user.id, role: profile.role_key });
       router.replace(getDestinationForRole(profile.role_key, profile.department_key));
-      router.refresh();
     } catch (err) {
       logError("auth", "login profile fetch failed", { userId: data.user.id, error: err });
       setError("Une erreur est survenue lors de la connexion. Veuillez réessayer.");

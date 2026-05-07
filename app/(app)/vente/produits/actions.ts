@@ -9,6 +9,7 @@ import { revalidateVenteProductsScope } from "@/lib/server/revalidate-domains";
 import { AUDIT_EVENT_TYPES } from "@/lib/audit/audit-events";
 import { tryLogAuditEvent } from "@/lib/audit/audit-logger";
 import { assertApprovalOrThrow } from "@/lib/approvals/approval-engine";
+import { isApprovalRequiredError } from "@/lib/governance/approvals/workflow";
 
 const MODULE_KEYS = ["produits", "vente"] as const;
 
@@ -34,10 +35,12 @@ export async function deleteProductFromListAction(productId: string): Promise<Sa
 
   try {
     const actorRole = await getUserRole(data.user.id);
-    const approval = assertApprovalOrThrow({
+    const approval = await assertApprovalOrThrow({
       eventType: AUDIT_EVENT_TYPES.PRODUCT_ARCHIVED,
       actorUserId: data.user.id,
       actorRole,
+      departmentKey: "VENTE",
+      metadata: { entity_type: "products", entity_id: id, operation: "delete_product" },
     });
     await softDeleteProduct(id);
     await tryLogAuditEvent({
@@ -49,6 +52,7 @@ export async function deleteProductFromListAction(productId: string): Promise<Sa
       approval: { required: approval.required, status: "granted", policy: approval.policy },
     });
   } catch (e) {
+    if (isApprovalRequiredError(e)) return err(e.message);
     return err(mapProductError(e, "Impossible de supprimer le produit pour le moment."));
   }
 
@@ -78,12 +82,19 @@ export async function deleteProductsFromListBulkAction(productIds: string[]): Pr
 
   let deleted = 0;
   const actorRole = await getUserRole(data.user.id);
-  const approval = assertApprovalOrThrow({
-    eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
-    actorUserId: data.user.id,
-    actorRole,
-    metadata: { operation: "bulk_delete_products", count: ids.length },
-  });
+  let approval: Awaited<ReturnType<typeof assertApprovalOrThrow>>;
+  try {
+    approval = await assertApprovalOrThrow({
+      eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
+      actorUserId: data.user.id,
+      actorRole,
+      departmentKey: "VENTE",
+      metadata: { entity_type: "products", entity_id: "bulk", operation: "bulk_delete_products", count: ids.length },
+    });
+  } catch (e) {
+    if (isApprovalRequiredError(e)) return err(e.message);
+    return err("Impossible de lancer la suppression groupée.");
+  }
   for (const id of ids) {
     try {
       await softDeleteProduct(id);
@@ -131,11 +142,12 @@ export async function restoreProductAction(productId: string): Promise<SafeResul
 
   try {
     const actorRole = await getUserRole(data.user.id);
-    const approval = assertApprovalOrThrow({
+    const approval = await assertApprovalOrThrow({
       eventType: AUDIT_EVENT_TYPES.PRODUCT_ARCHIVED,
       actorUserId: data.user.id,
       actorRole,
-      metadata: { operation: "restore_product" },
+      departmentKey: "VENTE",
+      metadata: { entity_type: "products", entity_id: id, operation: "restore_product" },
     });
     await restoreProduct(id);
     await tryLogAuditEvent({
@@ -147,6 +159,7 @@ export async function restoreProductAction(productId: string): Promise<SafeResul
       approval: { required: approval.required, status: "granted", policy: approval.policy },
     });
   } catch (e) {
+    if (isApprovalRequiredError(e)) return err(e.message);
     return err(mapProductError(e, "Impossible de restaurer le produit pour le moment."));
   }
 

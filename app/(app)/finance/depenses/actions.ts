@@ -15,6 +15,7 @@ import { revalidateFinanceScope } from "@/lib/server/revalidate-domains";
 import { AUDIT_EVENT_TYPES } from "@/lib/audit/audit-events";
 import { tryLogAuditEvent } from "@/lib/audit/audit-logger";
 import { assertApprovalOrThrow } from "@/lib/approvals/approval-engine";
+import { isApprovalRequiredError } from "@/lib/governance/approvals/workflow";
 
 export async function createExpenseAction(
   raw: CreateExpenseFormInput,
@@ -30,10 +31,12 @@ export async function createExpenseAction(
 
   try {
     const actorRole = await getUserRole(data.user.id);
-    const approval = assertApprovalOrThrow({
+    const approval = await assertApprovalOrThrow({
       eventType: AUDIT_EVENT_TYPES.EXPENSE_UPDATED,
       actorUserId: data.user.id,
       actorRole,
+      departmentKey: "FINANCE",
+      metadata: { entity_type: "expenses", entity_id: "create", operation: "create_expense" },
     });
     const result = await createExpense(data.user.id, raw);
     const rawId = (result as { id?: string } | null)?.id;
@@ -52,6 +55,7 @@ export async function createExpenseAction(
     });
     return { success: true, expenseId: rawId };
   } catch (err) {
+    if (isApprovalRequiredError(err)) return { success: false, error: err.message };
     return { success: false, error: formatExpenseError(err) };
   }
 }
@@ -71,10 +75,12 @@ export async function attachExpenseReceiptAction(
 
   try {
     const actorRole = await getUserRole(data.user.id);
-    const approval = assertApprovalOrThrow({
+    const approval = await assertApprovalOrThrow({
       eventType: AUDIT_EVENT_TYPES.EXPENSE_UPDATED,
       actorUserId: data.user.id,
       actorRole,
+      departmentKey: "FINANCE",
+      metadata: { entity_type: "expenses", entity_id: expenseId, operation: "attach_receipt" },
     });
     await setExpenseReceiptPath(data.user.id, expenseId, storagePath);
     revalidateFinanceScope({ includeDashboard: false });
@@ -92,6 +98,7 @@ export async function attachExpenseReceiptAction(
     });
     return { success: true };
   } catch (err) {
+    if (isApprovalRequiredError(err)) return { success: false, error: err.message };
     return { success: false, error: formatExpenseError(err) };
   }
 }
@@ -110,10 +117,12 @@ export async function updateExpenseAction(
 
   try {
     const actorRole = await getUserRole(data.user.id);
-    const approval = assertApprovalOrThrow({
+    const approval = await assertApprovalOrThrow({
       eventType: AUDIT_EVENT_TYPES.EXPENSE_UPDATED,
       actorUserId: data.user.id,
       actorRole,
+      departmentKey: "FINANCE",
+      metadata: { entity_type: "expenses", entity_id: raw.expenseId, operation: "update_expense" },
     });
     await updateExpense(data.user.id, raw);
     revalidateFinanceScope({ includeDashboard: true });
@@ -131,6 +140,7 @@ export async function updateExpenseAction(
     });
     return { success: true };
   } catch (err) {
+    if (isApprovalRequiredError(err)) return { success: false, error: err.message };
     return { success: false, error: formatExpenseError(err) };
   }
 }
@@ -149,10 +159,12 @@ export async function deleteExpenseAction(
 
   try {
     const actorRole = await getUserRole(data.user.id);
-    const approval = assertApprovalOrThrow({
+    const approval = await assertApprovalOrThrow({
       eventType: AUDIT_EVENT_TYPES.EXPENSE_UPDATED,
       actorUserId: data.user.id,
       actorRole,
+      departmentKey: "FINANCE",
+      metadata: { entity_type: "expenses", entity_id: expenseId, operation: "delete_expense" },
     });
     await deleteExpense(data.user.id, expenseId);
     revalidateFinanceScope({ includeDashboard: true });
@@ -170,6 +182,7 @@ export async function deleteExpenseAction(
     });
     return { success: true };
   } catch (err) {
+    if (isApprovalRequiredError(err)) return { success: false, error: err.message };
     return { success: false, error: formatExpenseError(err) };
   }
 }

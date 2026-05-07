@@ -9,6 +9,7 @@ import { revalidateVenteSalesScope } from "@/lib/server/revalidate-domains";
 import { AUDIT_EVENT_TYPES } from "@/lib/audit/audit-events";
 import { tryLogAuditEvent } from "@/lib/audit/audit-logger";
 import { assertApprovalOrThrow } from "@/lib/approvals/approval-engine";
+import { isApprovalRequiredError } from "@/lib/governance/approvals/workflow";
 
 const MODULE_KEYS = ["produits", "vente"] as const;
 
@@ -41,11 +42,19 @@ export async function archiveAndDeleteSaleAction(saleId: string): Promise<SafeRe
   }
 
   const actorRole = await getUserRole(data.user.id);
-  const approval = assertApprovalOrThrow({
-    eventType: AUDIT_EVENT_TYPES.SALE_DELETED,
-    actorUserId: data.user.id,
-    actorRole,
-  });
+  let approval: Awaited<ReturnType<typeof assertApprovalOrThrow>>;
+  try {
+    approval = await assertApprovalOrThrow({
+      eventType: AUDIT_EVENT_TYPES.SALE_DELETED,
+      actorUserId: data.user.id,
+      actorRole,
+      departmentKey: "VENTE",
+      metadata: { entity_type: "sales", entity_id: id, operation: "archive_and_soft_delete_sale" },
+    });
+  } catch (e) {
+    if (isApprovalRequiredError(e)) return err(e.message);
+    return err("Action bloquee par la gouvernance d'approbation.");
+  }
 
   const { error } = await supabase.rpc("archive_and_soft_delete_sale", { p_sale_id: id });
 

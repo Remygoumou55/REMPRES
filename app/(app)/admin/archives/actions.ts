@@ -46,7 +46,7 @@ export async function adminBulkRestoreArchivedClientsAction(
 
   const ids = normalizeIds(clientIds);
   if (ids.length === 0) return err("Aucun client sélectionné.");
-  const approval = assertApprovalOrThrow({
+  const approval = await assertApprovalOrThrow({
     eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
     actorUserId: session.userId,
     actorRole: "super_admin",
@@ -92,7 +92,7 @@ export async function adminBulkRestoreArchivedProductsAction(
 
   const ids = normalizeIds(productIds);
   if (ids.length === 0) return err("Aucun produit sélectionné.");
-  const approval = assertApprovalOrThrow({
+  const approval = await assertApprovalOrThrow({
     eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
     actorUserId: session.userId,
     actorRole: "super_admin",
@@ -137,7 +137,7 @@ export async function adminPermanentDeleteArchivedClientsAction(
 
   const ids = normalizeIds(clientIds);
   if (ids.length === 0) return err("Aucun client sélectionné.");
-  const approval = assertApprovalOrThrow({
+  const approval = await assertApprovalOrThrow({
     eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
     actorUserId: session.userId,
     actorRole: "super_admin",
@@ -187,7 +187,7 @@ export async function adminPermanentDeleteArchivedProductsAction(
 
   const ids = normalizeIds(productIds);
   if (ids.length === 0) return err("Aucun produit sélectionné.");
-  const approval = assertApprovalOrThrow({
+  const approval = await assertApprovalOrThrow({
     eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
     actorUserId: session.userId,
     actorRole: "super_admin",

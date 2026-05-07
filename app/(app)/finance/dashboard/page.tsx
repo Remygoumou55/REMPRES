@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation";
+import { DepartmentDashboardPage } from "@/components/governance/home/DepartmentDashboardPage";
 
-export default function FinanceDashboardPage() {
-  redirect("/finance");
+export default async function FinanceDashboardPage() {
+  return <DepartmentDashboardPage departmentKey="FINANCE" />;
 }

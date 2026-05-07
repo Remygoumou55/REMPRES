@@ -159,6 +159,186 @@ export type Database = {
         };
         Relationships: [];
       };
+      approval_requests: {
+        Row: {
+          id: string;
+          department_key: string;
+          action_type: string;
+          entity_type: string;
+          entity_id: string;
+          requested_by: string;
+          requested_at: string;
+          payload_snapshot: Json;
+          reason: string | null;
+          status: "pending" | "approved" | "rejected" | "expired";
+          approved_by: string | null;
+          approved_at: string | null;
+          rejected_at: string | null;
+          rejection_reason: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          department_key: string;
+          action_type: string;
+          entity_type: string;
+          entity_id: string;
+          requested_by: string;
+          requested_at?: string;
+          payload_snapshot?: Json;
+          reason?: string | null;
+          status?: "pending" | "approved" | "rejected" | "expired";
+          approved_by?: string | null;
+          approved_at?: string | null;
+          rejected_at?: string | null;
+          rejection_reason?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          department_key?: string;
+          action_type?: string;
+          entity_type?: string;
+          entity_id?: string;
+          requested_by?: string;
+          requested_at?: string;
+          payload_snapshot?: Json;
+          reason?: string | null;
+          status?: "pending" | "approved" | "rejected" | "expired";
+          approved_by?: string | null;
+          approved_at?: string | null;
+          rejected_at?: string | null;
+          rejection_reason?: string | null;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      governance_alerts: {
+        Row: {
+          id: string;
+          type: string;
+          severity: "low" | "medium" | "high" | "critical";
+          department_key: string | null;
+          title: string;
+          description: string;
+          entity_type: string | null;
+          entity_id: string | null;
+          triggered_by: string | null;
+          status: "unread" | "acknowledged" | "resolved";
+          metadata: Json;
+          created_at: string;
+          resolved_at: string | null;
+        };
+        Insert: {
+          id?: string;
+          type: string;
+          severity: "low" | "medium" | "high" | "critical";
+          department_key?: string | null;
+          title: string;
+          description: string;
+          entity_type?: string | null;
+          entity_id?: string | null;
+          triggered_by?: string | null;
+          status?: "unread" | "acknowledged" | "resolved";
+          metadata?: Json;
+          created_at?: string;
+          resolved_at?: string | null;
+        };
+        Update: {
+          id?: string;
+          type?: string;
+          severity?: "low" | "medium" | "high" | "critical";
+          department_key?: string | null;
+          title?: string;
+          description?: string;
+          entity_type?: string | null;
+          entity_id?: string | null;
+          triggered_by?: string | null;
+          status?: "unread" | "acknowledged" | "resolved";
+          metadata?: Json;
+          created_at?: string;
+          resolved_at?: string | null;
+        };
+        Relationships: [];
+      };
+      governance_audit_events: {
+        Row: {
+          id: string;
+          category:
+            | "authentication"
+            | "approval"
+            | "mutation"
+            | "archive"
+            | "invitation"
+            | "governance"
+            | "security"
+            | "system";
+          severity: "informational" | "warning" | "critical" | "security";
+          department_key: string | null;
+          actor_user_id: string | null;
+          actor_role: string | null;
+          action_type: string;
+          entity_type: string | null;
+          entity_id: string | null;
+          before_snapshot: Json | null;
+          after_snapshot: Json | null;
+          metadata: Json;
+          ip_address: string | null;
+          user_agent: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          category:
+            | "authentication"
+            | "approval"
+            | "mutation"
+            | "archive"
+            | "invitation"
+            | "governance"
+            | "security"
+            | "system";
+          severity: "informational" | "warning" | "critical" | "security";
+          department_key?: string | null;
+          actor_user_id?: string | null;
+          actor_role?: string | null;
+          action_type: string;
+          entity_type?: string | null;
+          entity_id?: string | null;
+          before_snapshot?: Json | null;
+          after_snapshot?: Json | null;
+          metadata?: Json;
+          ip_address?: string | null;
+          user_agent?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          category?:
+            | "authentication"
+            | "approval"
+            | "mutation"
+            | "archive"
+            | "invitation"
+            | "governance"
+            | "security"
+            | "system";
+          severity?: "informational" | "warning" | "critical" | "security";
+          department_key?: string | null;
+          actor_user_id?: string | null;
+          actor_role?: string | null;
+          action_type?: string;
+          entity_type?: string | null;
+          entity_id?: string | null;
+          before_snapshot?: Json | null;
+          after_snapshot?: Json | null;
+          metadata?: Json;
+          ip_address?: string | null;
+          user_agent?: string | null;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
       clients: {
         Row: {
           id: string;

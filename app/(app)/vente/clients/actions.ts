@@ -10,6 +10,7 @@ import { revalidateVenteClientsScope } from "@/lib/server/revalidate-domains";
 import { AUDIT_EVENT_TYPES } from "@/lib/audit/audit-events";
 import { tryLogAuditEvent } from "@/lib/audit/audit-logger";
 import { assertApprovalOrThrow } from "@/lib/approvals/approval-engine";
+import { isApprovalRequiredError } from "@/lib/governance/approvals/workflow";
 
 /**
  * Suppression logique d'un client depuis la liste (/vente/clients).
@@ -34,10 +35,12 @@ export async function deleteClientFromListAction(clientId: string): Promise<Safe
 
   try {
     const actorRole = await getUserRole(userId);
-    const approval = assertApprovalOrThrow({
+    const approval = await assertApprovalOrThrow({
       eventType: AUDIT_EVENT_TYPES.CLIENT_DELETED,
       actorUserId: userId,
       actorRole,
+      departmentKey: "VENTE",
+      metadata: { entity_type: "clients", entity_id: id, operation: "delete_client" },
     });
     const requestHeaders = headers();
     await softDeleteClient(id, userId, {
@@ -53,6 +56,7 @@ export async function deleteClientFromListAction(clientId: string): Promise<Safe
       approval: { required: approval.required, status: "granted", policy: approval.policy },
     });
   } catch (e) {
+    if (isApprovalRequiredError(e)) return err(e.message);
     return err(mapClientError(e, "Impossible de supprimer le client pour le moment."));
   }
 
@@ -84,12 +88,19 @@ export async function deleteClientsFromListBulkAction(clientIds: string[]): Prom
   let deleted = 0;
   const requestHeaders = headers();
   const actorRole = await getUserRole(userId);
-  const approval = assertApprovalOrThrow({
-    eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
-    actorUserId: userId,
-    actorRole,
-    metadata: { operation: "bulk_delete_clients", count: ids.length },
-  });
+  let approval: Awaited<ReturnType<typeof assertApprovalOrThrow>>;
+  try {
+    approval = await assertApprovalOrThrow({
+      eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
+      actorUserId: userId,
+      actorRole,
+      departmentKey: "VENTE",
+      metadata: { entity_type: "clients", entity_id: "bulk", operation: "bulk_delete_clients", count: ids.length },
+    });
+  } catch (e) {
+    if (isApprovalRequiredError(e)) return err(e.message);
+    return err("Impossible de lancer la suppression groupée.");
+  }
   for (const id of ids) {
     try {
       await softDeleteClient(id, userId, {
@@ -141,11 +152,12 @@ export async function restoreClientAction(clientId: string): Promise<SafeResult<
 
   try {
     const actorRole = await getUserRole(userId);
-    const approval = assertApprovalOrThrow({
+    const approval = await assertApprovalOrThrow({
       eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
       actorUserId: userId,
       actorRole,
-      metadata: { operation: "restore_client" },
+      departmentKey: "VENTE",
+      metadata: { entity_type: "clients", entity_id: id, operation: "restore_client" },
     });
     const requestHeaders = headers();
     await restoreClient(id, userId, {
@@ -161,6 +173,7 @@ export async function restoreClientAction(clientId: string): Promise<SafeResult<
       approval: { required: approval.required, status: "granted", policy: approval.policy },
     });
   } catch (e) {
+    if (isApprovalRequiredError(e)) return err(e.message);
     return err(mapClientError(e, "Impossible de restaurer le client pour le moment."));
   }
 

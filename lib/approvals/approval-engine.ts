@@ -1,5 +1,6 @@
 import { APPROVAL_RULES } from "@/lib/approvals/approval-rules";
 import type { ApprovalContext, ApprovalDecision } from "@/lib/approvals/approval-types";
+import { enforceGovernanceApproval } from "@/lib/governance/approvals/workflow";
 
 function normalizeRole(role: string | null | undefined): string {
   return String(role ?? "").trim().toLowerCase();
@@ -50,10 +51,19 @@ export function evaluateApproval(ctx: ApprovalContext): ApprovalDecision {
   };
 }
 
-export function assertApprovalOrThrow(ctx: ApprovalContext): ApprovalDecision {
+export async function assertApprovalOrThrow(ctx: ApprovalContext): Promise<ApprovalDecision> {
   const decision = evaluateApproval(ctx);
   if (!decision.granted) {
     throw new Error("Action sensible bloquée par la gouvernance d'approbation.");
   }
-  return decision;
+  return enforceGovernanceApproval({
+    eventType: ctx.eventType,
+    actorUserId: ctx.actorUserId,
+    actorRole: ctx.actorRole,
+    departmentKey: ctx.departmentKey,
+    metadata: ctx.metadata,
+    entityType: String(ctx.metadata?.entity_type ?? "generic"),
+    entityId: String(ctx.metadata?.entity_id ?? "generic"),
+    reason: String(ctx.metadata?.reason ?? ""),
+  });
 }

@@ -8,6 +8,8 @@ import {
   ClipboardList,
   Menu,
   Package,
+  LayoutDashboard,
+  Bell,
   ShoppingCart,
   History,
   Users,
@@ -19,6 +21,12 @@ import {
   Archive,
   Globe,
   Settings2,
+  Building2,
+  CheckCircle2,
+  GraduationCap,
+  Headphones,
+  Megaphone,
+  Truck,
 } from "lucide-react";
 
 import { getSupabaseBrowserClient } from "@/lib/supabase";
@@ -26,6 +34,7 @@ import { appConfig, getLogoUrl } from "@/lib/config";
 import { CurrencySwitcher } from "@/components/CurrencySwitcher";
 import { logError, logInfo } from "@/lib/logger";
 import { generateBreadcrumb } from "@/lib/utils/breadcrumb";
+import { getSuperAdminSidebarItems } from "@/lib/governance/sidebar-config";
 
 // Sub-components & types
 import type { ModuleDef, ModuleId } from "./app-shell/types";
@@ -49,6 +58,12 @@ type AppShellProps = {
 };
 
 function detectModule(pathname: string): ModuleId {
+  if (pathname.startsWith("/admin/global-dashboard")) return "governance";
+  if (pathname.startsWith("/admin/intelligence")) return "governance";
+  if (pathname.startsWith("/admin/alerts")) return "governance";
+  if (pathname.startsWith("/admin/approvals")) return "governance";
+  if (pathname.startsWith("/admin/activity-logs")) return "governance";
+  if (pathname.startsWith("/admin/departments")) return "departments";
   if (pathname.startsWith("/vente"))    return "commerce";
   if (pathname.startsWith("/finance"))  return "finance";
   if (pathname.startsWith("/admin"))    return "admin";
@@ -73,47 +88,122 @@ export function AppShell({
 
   const activeModule = detectModule(pathname);
 
-  const modules: ModuleDef[] = useMemo(() => [
-    {
-      id: "commerce", label: "Commerce", shortLabel: "Vente",
-      icon: ShoppingCart, href: "/vente/clients",
-      visible: !isSuperAdmin && (canReadProducts || canReadClients),
-      items: [
-        { href: "/vente/clients",        label: "Clients",        icon: Users,        visible: !isSuperAdmin && canReadClients  },
-        { href: "/vente/produits",        label: "Produits",       icon: Package,      visible: !isSuperAdmin && canReadProducts },
-        { href: "/vente/nouvelle-vente", label: "Nouvelle vente", icon: ShoppingCart, visible: !isSuperAdmin && canReadProducts },
-        { href: "/vente/historique",     label: "Historique",     icon: History,      visible: !isSuperAdmin && canReadProducts },
-      ],
-    },
-    {
-      id: "finance", label: "Finance", shortLabel: "Finance",
-      icon: BarChart3, href: "/finance",
-      visible: !isSuperAdmin && canReadFinance,
-      items: [
-        { href: "/finance",          label: "Vue d'ensemble", icon: BarChart3, visible: !isSuperAdmin && canReadFinance },
-        { href: "/finance/depenses", label: "Dépenses",       icon: Wallet,    visible: !isSuperAdmin && canReadFinance },
-      ],
-    },
-    {
-      id: "admin", label: "Administration", shortLabel: "Admin",
-      icon: ClipboardList, href: "/admin/activity-logs",
-      visible: canReadActivityLogs,
-      items: [
-        { href: "/admin/activity-logs", label: "Journal activité", icon: ClipboardList, visible: canReadActivityLogs },
-        { href: "/admin/archives",      label: "Archives",         icon: Archive,       visible: isSuperAdmin       },
-      ],
-    },
-    {
-      id: "settings", label: "Paramètres", shortLabel: "Config",
-      icon: Settings2, href: "/settings",
-      visible: true,
-      items: [
-        { href: "/settings",       label: "Général",        icon: Settings2, visible: true         },
-        { href: "/admin/users",    label: "Utilisateurs",   icon: UserCog,   visible: isSuperAdmin },
-        { href: "/admin/currency", label: "Taux de change", icon: Globe,     visible: isSuperAdmin },
-      ],
-    },
-  ], [canReadProducts, canReadClients, canReadFinance, canReadActivityLogs, isSuperAdmin]);
+  const modules: ModuleDef[] = useMemo(() => {
+    if (isSuperAdmin) {
+      const iconMap = {
+        LayoutDashboard,
+        BarChart3,
+        ClipboardList,
+        UserCog,
+        Archive,
+        Settings2,
+        ShoppingCart,
+        Wallet,
+        Users,
+        GraduationCap,
+        Headphones,
+        Megaphone,
+        Truck,
+        Building2,
+        Bell,
+        CheckCircle2,
+      } as const;
+
+      const configItems = getSuperAdminSidebarItems().map((item) => ({
+        href: item.href,
+        label: item.label,
+        icon: iconMap[item.iconKey as keyof typeof iconMap] ?? Building2,
+        visible: true,
+        section:
+          item.section === "enterprise_governance"
+            ? "Entreprise gouvernance"
+            : item.section === "department_supervision"
+              ? "Supervision departements"
+              : "Administration",
+      }));
+
+      return [
+        {
+          id: "governance",
+          label: "Gouvernance",
+          shortLabel: "Gov",
+          icon: ClipboardList,
+          href: "/admin/global-dashboard",
+          visible: true,
+          items: configItems.filter((item) => item.section === "Entreprise gouvernance"),
+        },
+        {
+          id: "departments",
+          label: "Supervision",
+          shortLabel: "Dept",
+          icon: Building2,
+          href: "/admin/departments/vente",
+          visible: true,
+          items: configItems.filter((item) => item.section === "Supervision departements"),
+        },
+        {
+          id: "admin",
+          label: "Administration",
+          shortLabel: "Admin",
+          icon: UserCog,
+          href: "/admin/users",
+          visible: true,
+          items: configItems.filter((item) => item.section === "Administration"),
+        },
+        {
+          id: "settings",
+          label: "Parametres",
+          shortLabel: "Config",
+          icon: Settings2,
+          href: "/settings",
+          visible: true,
+          items: [{ href: "/settings", label: "General", icon: Settings2, visible: true }],
+        },
+      ];
+    }
+
+    return [
+      {
+        id: "commerce", label: "Commerce", shortLabel: "Vente",
+        icon: ShoppingCart, href: "/vente/clients",
+        visible: canReadProducts || canReadClients,
+        items: [
+          { href: "/vente/clients", label: "Clients", icon: Users, visible: canReadClients },
+          { href: "/vente/produits", label: "Produits", icon: Package, visible: canReadProducts },
+          { href: "/vente/nouvelle-vente", label: "Nouvelle vente", icon: ShoppingCart, visible: canReadProducts },
+          { href: "/vente/historique", label: "Historique", icon: History, visible: canReadProducts },
+        ],
+      },
+      {
+        id: "finance", label: "Finance", shortLabel: "Finance",
+        icon: BarChart3, href: "/finance",
+        visible: canReadFinance,
+        items: [
+          { href: "/finance", label: "Vue d'ensemble", icon: BarChart3, visible: canReadFinance },
+          { href: "/finance/depenses", label: "Depenses", icon: Wallet, visible: canReadFinance },
+        ],
+      },
+      {
+        id: "admin", label: "Administration", shortLabel: "Admin",
+        icon: ClipboardList, href: "/admin/activity-logs",
+        visible: canReadActivityLogs,
+        items: [
+          { href: "/admin/activity-logs", label: "Journal activite", icon: ClipboardList, visible: canReadActivityLogs },
+          { href: "/admin/archives", label: "Archives", icon: Archive, visible: false },
+        ],
+      },
+      {
+        id: "settings", label: "Parametres", shortLabel: "Config",
+        icon: Settings2, href: "/settings",
+        visible: true,
+        items: [
+          { href: "/settings", label: "General", icon: Settings2, visible: true },
+          { href: "/admin/users", label: "Utilisateurs", icon: UserCog, visible: false },
+          { href: "/admin/currency", label: "Taux de change", icon: Globe, visible: false },
+        ],
+      },
+    ];
+  }, [canReadProducts, canReadClients, canReadFinance, canReadActivityLogs, isSuperAdmin]);
 
   const activeModuleDef = useMemo(() => 
     activeModule !== "dashboard" ? (modules.find((m) => m.id === activeModule) ?? null) : null

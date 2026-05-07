@@ -1,12 +1,20 @@
 import type { LucideIcon } from "lucide-react";
 
-export type ModuleId = "dashboard" | "commerce" | "finance" | "admin" | "settings";
+export type ModuleId =
+  | "dashboard"
+  | "commerce"
+  | "finance"
+  | "governance"
+  | "departments"
+  | "admin"
+  | "settings";
 
 export type NavItem = {
   href: string;
   label: string;
   icon: LucideIcon;
   visible: boolean;
+  section?: string;
 };
 
 export type ModuleDef = {

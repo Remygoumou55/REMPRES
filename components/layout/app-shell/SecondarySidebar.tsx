@@ -1,14 +1,8 @@
 "use client";
 
 import { memo } from "react";
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
 import type { ModuleDef } from "./types";
-
-function isNavItemActive(href: string, pathname: string): boolean {
-  if (href === "/finance") return pathname === "/finance";
-  return pathname === href || pathname.startsWith(`${href}/`);
-}
+import { GovernanceSidebarSection } from "@/components/governance/sidebar/GovernanceSidebarSection";
 
 export const SecondarySidebarPanel = memo(function SecondarySidebarPanel({
   module,
@@ -40,32 +34,20 @@ export const SecondarySidebarPanel = memo(function SecondarySidebarPanel({
 
           {/* Liens */}
           <nav className="flex-1 overflow-y-auto p-2">
-            <div className="space-y-0.5">
-              {visibleItems.map((item) => {
-                const isActive = isNavItemActive(item.href, pathname);
-                const ItemIcon = item.icon;
+            <div className="space-y-3">
+              {Array.from(new Set(visibleItems.map((item) => item.section ?? "__default"))).map((sectionKey) => {
+                const sectionItems = visibleItems.filter((item) => (item.section ?? "__default") === sectionKey);
                 return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    prefetch
-                    className={`group flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm transition-all ${
-                      isActive
-                        ? "bg-primary text-white shadow-sm"
-                        : "text-gray-600 hover:bg-gray-50 hover:text-darktext"
-                    }`}
-                  >
-                    <ItemIcon
-                      size={15}
-                      className={`shrink-0 transition-transform group-hover:scale-105 ${
-                        isActive ? "text-white" : "text-gray-400 group-hover:text-primary"
-                      }`}
-                    />
-                    <span className="flex-1 truncate font-medium">{item.label}</span>
-                    {isActive && (
-                      <ChevronRight size={12} className="shrink-0 text-white/60" />
-                    )}
-                  </Link>
+                  <GovernanceSidebarSection
+                    key={sectionKey}
+                    title={sectionKey === "__default" ? module.label : sectionKey}
+                    items={sectionItems.map((item) => ({
+                      href: item.href,
+                      label: item.label,
+                      icon: item.icon,
+                    }))}
+                    pathname={pathname}
+                  />
                 );
               })}
             </div>

@@ -1,6 +1,5 @@
-import { redirect } from "next/navigation";
+import { DepartmentDashboardPage } from "@/components/governance/home/DepartmentDashboardPage";
 
-/** Vue synthèse département vente — historique comme tableau de bord sans nouvelle UI. */
-export default function VenteDashboardPage() {
-  redirect("/vente/historique");
+export default async function VenteDashboardPage() {
+  return <DepartmentDashboardPage departmentKey="VENTE" />;
 }

@@ -679,7 +679,7 @@ export async function updateUserRole(
     if (!roleResolved.ok) {
       return err(roleResolved.error);
     }
-    const approval = assertApprovalOrThrow({
+    const approval = await assertApprovalOrThrow({
       eventType: AUDIT_EVENT_TYPES.USER_ROLE_CHANGED,
       actorUserId: callerUserId,
       actorRole: "super_admin",
@@ -931,7 +931,7 @@ export async function deleteUserAdmin(
       return err("Configuration serveur incomplète. Contactez l’administrateur.");
     }
 
-    const approval = assertApprovalOrThrow({
+    const approval = await assertApprovalOrThrow({
       eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
       actorUserId: callerUserId,
       actorRole: "super_admin",

@@ -232,6 +232,61 @@ export function generateBreadcrumb(pathname: string): BreadcrumbItem[] {
       });
       return items;
     }
+    if (s1 === "approvals") {
+      items.push({
+        href: "/admin/approvals",
+        label: "Approbations",
+        icon: ClipboardList,
+      });
+      return items;
+    }
+    if (s1 === "alerts") {
+      items.push({
+        href: "/admin/alerts",
+        label: "Alertes",
+        icon: ClipboardList,
+      });
+      return items;
+    }
+    if (s1 === "audit") {
+      items.push({
+        href: "/admin/audit",
+        label: "Audit",
+        icon: ClipboardList,
+      });
+      return items;
+    }
+    if (s1 === "intelligence") {
+      items.push({
+        href: "/admin/intelligence",
+        label: "Intelligence",
+        icon: BarChart3,
+      });
+      return items;
+    }
+    if (s1 === "global-dashboard") {
+      items.push({
+        href: "/admin/global-dashboard",
+        label: "Tableau global",
+        icon: BarChart3,
+      });
+      return items;
+    }
+    if (s1 === "departments") {
+      items.push({
+        href: "/admin/departments",
+        label: "Supervision departements",
+        icon: Users,
+      });
+      if (s2) {
+        items.push({
+          href: `/admin/departments/${s2}`,
+          label: humanizeSegment(s2),
+          icon: FileText,
+        });
+      }
+      return items;
+    }
     if (s1 === "currency") {
       items.push({
         href: "/admin/currency",

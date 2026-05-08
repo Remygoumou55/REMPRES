@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { useTranslation } from "@/hooks/use-translation";
 import { GovernanceActivityFeed } from "./GovernanceActivityFeed";
 import type { GlobalGovernanceKpi } from "@/lib/governance/kpi/aggregate-kpi";
@@ -13,7 +14,9 @@ export function DepartmentActivitySection({ recentActivity }: DepartmentActivity
   return (
     <section className="space-y-3">
       <h2 className="text-base font-semibold text-gray-900">{t("governance.dashboard.departmentActivity.title")}</h2>
-      <GovernanceActivityFeed events={recentActivity} />
+      <MemoGovernanceActivityFeed events={recentActivity} />
     </section>
   );
 }
+
+const MemoGovernanceActivityFeed = memo(GovernanceActivityFeed);

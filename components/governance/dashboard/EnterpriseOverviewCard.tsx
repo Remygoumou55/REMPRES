@@ -1,3 +1,11 @@
+import {
+  EXEC_CARD,
+  EXEC_CARD_PAD,
+  EXEC_KPI_SUBTITLE,
+  EXEC_KPI_TITLE,
+  EXEC_KPI_VALUE,
+} from "@/components/executive/tokens";
+
 type EnterpriseOverviewCardProps = {
   title: string;
   value: string;
@@ -10,10 +18,10 @@ export function EnterpriseOverviewCard({
   subtitle,
 }: EnterpriseOverviewCardProps) {
   return (
-    <article className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-      <p className="text-xs uppercase tracking-wider text-gray-500">{title}</p>
-      <p className="mt-2 text-2xl font-semibold text-gray-900">{value}</p>
-      <p className="mt-1 text-sm text-gray-600">{subtitle}</p>
+    <article className={`${EXEC_CARD} ${EXEC_CARD_PAD}`}>
+      <p className={EXEC_KPI_TITLE}>{title}</p>
+      <p className={EXEC_KPI_VALUE}>{value}</p>
+      <p className={EXEC_KPI_SUBTITLE}>{subtitle}</p>
     </article>
   );
 }

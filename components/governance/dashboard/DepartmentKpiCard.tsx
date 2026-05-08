@@ -2,6 +2,8 @@
 
 import { useTranslation } from "@/hooks/use-translation";
 import type { DepartmentKpi } from "@/lib/governance/kpi/aggregate-kpi";
+import { ExecutiveMetricGrid } from "@/components/executive/ExecutiveMetricGrid";
+import { EXEC_CARD, EXEC_CARD_PAD } from "@/components/executive/tokens";
 
 type DepartmentKpiCardProps = {
   department: DepartmentKpi;
@@ -16,28 +18,26 @@ const HEALTH_STYLES: Record<DepartmentKpi["health"], string> = {
 export function DepartmentKpiCard({ department }: DepartmentKpiCardProps) {
   const { t } = useTranslation();
   return (
-    <article className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+    <article className={`${EXEC_CARD} ${EXEC_CARD_PAD}`}>
       <div className="flex items-center justify-between gap-2">
-        <h3 className="text-sm font-semibold text-gray-900">{department.departmentLabel}</h3>
+        <h3 className="min-w-0 text-sm font-semibold text-gray-900 truncate">
+          {department.departmentLabel}
+        </h3>
         <span
           className={`rounded-full px-2 py-0.5 text-xs font-medium ${HEALTH_STYLES[department.health]}`}
         >
           {t(`status.${department.health}`)}
         </span>
       </div>
-      <div className="mt-3 grid grid-cols-3 gap-2 text-sm">
-        <div>
-          <p className="text-gray-500">{t("common.users")}</p>
-          <p className="font-semibold text-gray-900">{department.usersCount}</p>
-        </div>
-        <div>
-          <p className="text-gray-500">{t("common.managers")}</p>
-          <p className="font-semibold text-gray-900">{department.managersCount}</p>
-        </div>
-        <div>
-          <p className="text-gray-500">{t("common.activity7d")}</p>
-          <p className="font-semibold text-gray-900">{department.activityCount7d}</p>
-        </div>
+      <div className="mt-4">
+        <ExecutiveMetricGrid
+          items={[
+            { label: t("common.users"), value: department.usersCount },
+            { label: t("common.managers"), value: department.managersCount },
+            { label: t("common.activity7d"), value: department.activityCount7d },
+          ]}
+          columns={3}
+        />
       </div>
     </article>
   );

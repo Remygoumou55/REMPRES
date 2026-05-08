@@ -4,23 +4,7 @@ import { useState, useMemo, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import {
-  Menu,
-  Package,
-  ShoppingCart,
-  TrendingUp,
-  History,
-  Users,
-  ChevronRight,
-  ChevronLeft,
-  BarChart3,
-  Settings2,
-  Building2,
-  Zap,
-  Archive,
-  Shield,
-  Receipt,
-} from "lucide-react";
+import { Menu, Package, ShoppingCart, History, Users, ChevronRight, ChevronLeft, BarChart3, Settings2, Building2, Zap, Archive, Shield, Receipt } from "lucide-react";
 
 import { getSupabaseBrowserClient } from "@/lib/supabase";
 import { appConfig, getLogoUrl } from "@/lib/config";
@@ -90,15 +74,6 @@ export function AppShell({
 
   const modules: ModuleDef[] = useMemo(() => {
     return [
-      {
-        id: "direction",
-        label: NAV_LABELS.direction,
-        shortLabel: "Dir",
-        icon: TrendingUp,
-        href: ROUTES.direction,
-        visible: true,
-        items: [{ href: ROUTES.direction, label: NAV_LABELS.direction, icon: TrendingUp, visible: true, section: "PRINCIPAL" }],
-      },
       {
         id: "dept",
         label: NAV_LABELS.dept,
@@ -269,7 +244,7 @@ export function AppShell({
                           <span className="truncate">{crumb.label}</span>
                         </span>
                       ) : (
-                <Link href={crumb.href} prefetch className="inline-flex max-w-[260px] items-center gap-1.5 rounded-md px-2 py-1 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900">
+                        <Link href={crumb.href} prefetch className="inline-flex max-w-[260px] items-center gap-1.5 rounded-md px-2 py-1 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900">
                           <Icon size={14} className="shrink-0 opacity-70" />
                           <span className="truncate">{crumb.label}</span>
                         </Link>

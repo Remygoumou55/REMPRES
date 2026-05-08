@@ -2,7 +2,6 @@ import type { LucideIcon } from "lucide-react";
 
 export type ModuleId =
   | "dashboard"
-  | "direction"
   | "dept"
   | "commerce"
   | "actions"

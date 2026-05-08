@@ -8,7 +8,6 @@ export function useActiveNav(): ModuleId {
   const pathname = usePathname();
 
   return useMemo<ModuleId>(() => {
-    if (pathname.startsWith("/direction")) return "direction";
     if (pathname.startsWith("/dept")) return "dept";
     if (pathname.startsWith("/actions")) return "actions";
     if (pathname.startsWith("/archives")) return "archives";

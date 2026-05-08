@@ -3,7 +3,8 @@ import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { isAdminRole, isSuperAdmin } from "@/lib/server/permissions";
 import { PageHeader } from "@/components/ui/page-header";
 import { NAV_LABELS } from "@/lib/constants/nav-labels";
-import { DeptSupervisionClient } from "./DeptSupervisionClient";
+import { DEPARTMENTS } from "@/lib/constants/departments";
+import { DeptCard } from "@/components/dept/dept-card";
 
 export default async function DeptPage() {
   const supabase = getSupabaseServerClient();
@@ -15,11 +16,12 @@ export default async function DeptPage() {
 
   return (
     <div className="page-wrapper">
-      <PageHeader
-        title={NAV_LABELS.dept}
-        subtitle="Vue de supervision opérationnelle en temps réel"
-      />
-      <DeptSupervisionClient />
+      <PageHeader title={NAV_LABELS.dept} subtitle="Sélectionnez un département" />
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        {DEPARTMENTS.map((department) => (
+          <DeptCard key={department.key} departmentKey={department.key} />
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 export const ROUTES = {
   home: "/dashboard",
+  // direction remains accessible via direct URL, but hidden from sidebar
   direction: "/direction",
   dept: "/dept",
   actions: "/actions",

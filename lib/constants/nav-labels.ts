@@ -1,6 +1,5 @@
 export const NAV_LABELS = {
   home: "Accueil",
-  direction: "Direction",
   dept: "Départements",
   actions: "Actions",
   archives: "Archives",

@@ -13,51 +13,59 @@ import {
   BarChart,
   Bar,
 } from "recharts";
-
-type ChartPoint = Record<string, string | number>;
+import type { DeptKpiChart as DeptKpiChartType } from "@/lib/dept/kpi-contract";
 
 export function DeptKpiChart({
-  deptKey,
-  data,
+  chart,
+  emptyMessage,
 }: {
-  deptKey: string;
-  data: ChartPoint[];
+  chart: DeptKpiChartType | null;
+  emptyMessage: string;
 }) {
-  if (!data.length) {
+  if (!chart || !chart.points.length) {
     return (
       <div className="card p-5 text-sm text-gray-500">
-        Graphiques disponibles dès l&apos;activation du module.
+        {emptyMessage}
       </div>
     );
   }
 
-  if (deptKey === "vente") {
+  if (chart.kind === "line") {
     return (
       <div className="card h-[300px] p-4">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={data}>
+          <LineChart data={chart.points}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
+            <XAxis dataKey={chart.xKey} />
             <YAxis />
             <Tooltip />
-            <Line type="monotone" dataKey="total" stroke="#2D7CC4" strokeWidth={2} />
+            {chart.series.map((series) => (
+              <Line key={series.key} type="monotone" dataKey={series.key} stroke="#2D7CC4" strokeWidth={2} />
+            ))}
           </LineChart>
         </ResponsiveContainer>
       </div>
     );
   }
 
-  if (deptKey === "finance") {
+  if (chart.kind === "area") {
     return (
       <div className="card h-[300px] p-4">
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={data}>
+          <AreaChart data={chart.points}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
+            <XAxis dataKey={chart.xKey} />
             <YAxis />
             <Tooltip />
-            <Area type="monotone" dataKey="revenue" stroke="#10B981" fill="#10B98133" />
-            <Area type="monotone" dataKey="expenses" stroke="#EF4444" fill="#EF444433" />
+            {chart.series.map((series, index) => (
+              <Area
+                key={series.key}
+                type="monotone"
+                dataKey={series.key}
+                stroke={index === 0 ? "#10B981" : "#EF4444"}
+                fill={index === 0 ? "#10B98133" : "#EF444433"}
+              />
+            ))}
           </AreaChart>
         </ResponsiveContainer>
       </div>
@@ -67,12 +75,14 @@ export function DeptKpiChart({
   return (
     <div className="card h-[300px] p-4">
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={data}>
+        <BarChart data={chart.points}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
+          <XAxis dataKey={chart.xKey} />
           <YAxis />
           <Tooltip />
-          <Bar dataKey="value" fill="#2D7CC4" />
+          {chart.series.map((series) => (
+            <Bar key={series.key} dataKey={series.key} fill="#2D7CC4" />
+          ))}
         </BarChart>
       </ResponsiveContainer>
     </div>

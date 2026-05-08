@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getSupabaseBrowserClient } from "@/lib/supabase";
 import { createRefreshScheduler } from "@/lib/realtime/schedule-refresh";
+import { REALTIME_CHANNELS } from "@/lib/realtime/channels";
 
 export function ApprovalsRealtimeBridge() {
   const router = useRouter();
@@ -15,7 +16,7 @@ export function ApprovalsRealtimeBridge() {
       minIntervalMs: 1200,
     });
     const channel = supa
-      .channel("governance-approvals")
+      .channel(REALTIME_CHANNELS.governance.approvals)
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "approval_requests" },

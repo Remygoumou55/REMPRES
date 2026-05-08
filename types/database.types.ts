@@ -342,6 +342,81 @@ export type Database = {
         };
         Relationships: [];
       };
+      rh_leave_requests: {
+        Row: {
+          id: string;
+          employee_id: string;
+          leave_type: "paid" | "sick" | "exceptional";
+          start_date: string;
+          end_date: string;
+          reason: string;
+          status: "pending" | "approved" | "rejected" | "cancelled";
+          approval_request_id: string | null;
+          requested_by: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          employee_id: string;
+          leave_type: "paid" | "sick" | "exceptional";
+          start_date: string;
+          end_date: string;
+          reason: string;
+          status?: "pending" | "approved" | "rejected" | "cancelled";
+          approval_request_id?: string | null;
+          requested_by: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          employee_id?: string;
+          leave_type?: "paid" | "sick" | "exceptional";
+          start_date?: string;
+          end_date?: string;
+          reason?: string;
+          status?: "pending" | "approved" | "rejected" | "cancelled";
+          approval_request_id?: string | null;
+          requested_by?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      rh_attendance_events: {
+        Row: {
+          id: string;
+          employee_id: string;
+          event_type: "check_in" | "check_out" | "manual";
+          event_at: string;
+          source: "erp" | "admin" | "import";
+          notes: string | null;
+          recorded_by: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          employee_id: string;
+          event_type: "check_in" | "check_out" | "manual";
+          event_at?: string;
+          source?: "erp" | "admin" | "import";
+          notes?: string | null;
+          recorded_by: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          employee_id?: string;
+          event_type?: "check_in" | "check_out" | "manual";
+          event_at?: string;
+          source?: "erp" | "admin" | "import";
+          notes?: string | null;
+          recorded_by?: string;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
       clients: {
         Row: {
           id: string;

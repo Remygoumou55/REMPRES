@@ -3,6 +3,7 @@ import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getModulePermissions, getProfileAuthBrief, isAdminRole, isSuperAdmin } from "@/lib/server/permissions";
 import { DEPARTMENTS, type DepartmentKey } from "@/lib/constants/departments";
+import type { DeptKpiPayload } from "@/lib/dept/kpi-contract";
 
 type RouteContext = { params: { deptKey: string } };
 
@@ -54,7 +55,14 @@ export async function GET(_request: Request, { params }: RouteContext) {
   const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
   const sevenDaysAgo = new Date(now.getTime() - 6 * 24 * 60 * 60 * 1000).toISOString();
 
-  let data: Record<string, unknown> = {};
+  let data: DeptKpiPayload = {
+    stats: [],
+    charts: [],
+    alerts: [],
+    activity: [],
+    health: { status: "ok" },
+    metadata: { source: "dept-kpi-api", generatedAt: now.toISOString() },
+  };
 
   switch (deptKey) {
     case "vente": {
@@ -89,14 +97,35 @@ export async function GET(_request: Request, { params }: RouteContext) {
       const salesLast7Days = Array.from(salesByDay.entries()).map(([date, total]) => ({ date, total }));
 
       data = {
-        clientsCount,
-        productsCount,
-        lowStockCount,
-        salesToday: salesTodayRows.length,
-        salesThisMonth,
-        salesLast7Days,
-        topProducts: topProductsRows.map((p) => ({ name: p.name, salesCount: 0 })),
-        recentActivity: recentActivityRows,
+        stats: [
+          { id: "clients", label: "dashboard.dept.kpi.clients", value: clientsCount, unit: "count" },
+          { id: "products", label: "dashboard.dept.kpi.products", value: productsCount, unit: "count" },
+          { id: "salesToday", label: "dashboard.dept.kpi.salesToday", value: salesTodayRows.length, unit: "count" },
+          { id: "salesThisMonth", label: "dashboard.dept.kpi.salesThisMonth", value: salesThisMonth, unit: "currency" },
+        ],
+        charts: [
+          {
+            id: "salesLast7Days",
+            title: "dashboard.dept.chart.salesLast7Days",
+            kind: "line",
+            xKey: "x",
+            series: [{ key: "total", label: "dashboard.dept.chart.totalSales" }],
+            points: salesLast7Days.map((item) => ({ x: item.date, total: item.total })),
+          },
+        ],
+        alerts: lowStockCount
+          ? [{ id: "lowStock", level: "warning", message: "dashboard.dept.alert.lowStock" }]
+          : [],
+        activity: recentActivityRows.map((entry) => ({
+          id: entry.id,
+          label: entry.action_key,
+          timestamp: entry.created_at,
+        })),
+        health: {
+          status: "ok",
+          notes: topProductsRows.length ? [] : ["dashboard.dept.health.partialTopProducts"],
+        },
+        metadata: { source: "sales", generatedAt: new Date().toISOString(), placeholder: false },
       };
       break;
     }
@@ -122,23 +151,47 @@ export async function GET(_request: Request, { params }: RouteContext) {
         current.expenses += Number(row.amount_gnf ?? 0);
         byDay.set(day, current);
       }
+      const points = Array.from(byDay.entries()).map(([date, value]) => ({
+        x: date,
+        revenue: value.revenue,
+        expenses: value.expenses,
+      }));
       data = {
-        totalRevenueMonth,
-        totalExpensesMonth,
-        netMargin: totalRevenueMonth - totalExpensesMonth,
-        transactionsCount: transactionsRows,
-        last7DaysRevenue: Array.from(byDay.entries()).map(([date, value]) => ({
-          date,
-          revenue: value.revenue,
-          expenses: value.expenses,
+        stats: [
+          { id: "revenue", label: "dashboard.dept.kpi.totalRevenueMonth", value: totalRevenueMonth, unit: "currency" },
+          { id: "expenses", label: "dashboard.dept.kpi.totalExpensesMonth", value: totalExpensesMonth, unit: "currency" },
+          { id: "margin", label: "dashboard.dept.kpi.netMargin", value: totalRevenueMonth - totalExpensesMonth, unit: "currency" },
+          { id: "transactions", label: "dashboard.dept.kpi.transactions", value: transactionsRows, unit: "count" },
+        ],
+        charts: [
+          {
+            id: "financeLast7Days",
+            title: "dashboard.dept.chart.financeLast7Days",
+            kind: "area",
+            xKey: "x",
+            series: [
+              { key: "revenue", label: "dashboard.dept.chart.revenue" },
+              { key: "expenses", label: "dashboard.dept.chart.expenses" },
+            ],
+            points,
+          },
+        ],
+        alerts: [],
+        activity: expensesRows.slice(-5).map((expense, index) => ({
+          id: `expense-${index}`,
+          label: "dashboard.dept.activity.expenseCreated",
+          timestamp: expense.created_at,
         })),
-        recentExpenses: expensesRows.slice(-5),
+        health: { status: "ok" },
+        metadata: { source: "finance", generatedAt: new Date().toISOString(), placeholder: false },
       };
       break;
     }
 
     case "rh": {
-      const [activeEmployees, recentHires] = await Promise.all([
+      const startOfDay = new Date();
+      startOfDay.setHours(0, 0, 0, 0);
+      const [activeEmployees, pendingLeaves, unreadAlerts, attendanceToday, recentHires] = await Promise.all([
         safeCount(
           supabase
             .from("profiles")
@@ -146,6 +199,25 @@ export async function GET(_request: Request, { params }: RouteContext) {
             .is("deleted_at", null)
             .neq("role_key", "super_admin")
             .neq("role_key", "directeur_general"),
+        ),
+        safeCount(
+          supabase
+            .from("rh_leave_requests")
+            .select("id", { count: "exact", head: true })
+            .eq("status", "pending"),
+        ),
+        safeCount(
+          supabase
+            .from("governance_alerts")
+            .select("id", { count: "exact", head: true })
+            .eq("department_key", "rh")
+            .eq("status", "unread"),
+        ),
+        safeCount(
+          supabase
+            .from("rh_attendance_events")
+            .select("id", { count: "exact", head: true })
+            .gte("event_at", startOfDay.toISOString()),
         ),
         safeData(
           supabase
@@ -158,45 +230,83 @@ export async function GET(_request: Request, { params }: RouteContext) {
         ),
       ]);
       data = {
-        activeEmployees,
-        presentToday: 0,
-        pendingLeaves: 0,
-        recentHires,
+        stats: [
+          { id: "activeEmployees", label: "dashboard.dept.kpi.activeEmployees", value: activeEmployees, unit: "count" },
+          { id: "presentToday", label: "dashboard.dept.kpi.presentToday", value: attendanceToday, unit: "count" },
+          { id: "pendingLeaves", label: "dashboard.dept.kpi.pendingLeaves", value: pendingLeaves, unit: "count" },
+          { id: "rhUnreadAlerts", label: "dashboard.rh.kpi.unreadAlerts", value: unreadAlerts, unit: "count" },
+        ],
+        charts: [],
+        alerts: [],
+        activity: recentHires.map((hire) => ({
+          id: hire.id,
+          label: [hire.first_name, hire.last_name].filter(Boolean).join(" ").trim() || "dashboard.dept.activity.newHire",
+          timestamp: hire.created_at ?? undefined,
+        })),
+        health: { status: "placeholder", notes: ["dashboard.dept.health.partialAttendance"] },
+        metadata: { source: "rh", generatedAt: new Date().toISOString(), placeholder: true },
       };
       break;
     }
 
     case "formation": {
       data = {
-        activeTrainings: 0,
-        totalTrainees: 0,
-        certificatesIssued: 0,
-        enrollmentsThisMonth: 0,
-        revenueThisMonth: 0,
+        stats: [
+          { id: "activeTrainings", label: "dashboard.dept.kpi.activeTrainings", value: 0, unit: "count" },
+          { id: "totalTrainees", label: "dashboard.dept.kpi.totalTrainees", value: 0, unit: "count" },
+          { id: "certificatesIssued", label: "dashboard.dept.kpi.certificatesIssued", value: 0, unit: "count" },
+          { id: "revenueThisMonth", label: "dashboard.dept.kpi.revenueThisMonth", value: 0, unit: "currency" },
+        ],
+        charts: [],
+        alerts: [],
+        activity: [],
+        health: { status: "placeholder", notes: ["dashboard.dept.health.placeholder"] },
+        metadata: { source: "formation", generatedAt: new Date().toISOString(), placeholder: true },
       };
       break;
     }
 
     case "consultation": {
       data = {
-        activeMissions: 0,
-        completedMissions: 0,
-        totalClients: 0,
-        revenueThisMonth: 0,
+        stats: [
+          { id: "activeMissions", label: "dashboard.dept.kpi.activeMissions", value: 0, unit: "count" },
+          { id: "completedMissions", label: "dashboard.dept.kpi.completedMissions", value: 0, unit: "count" },
+          { id: "totalClients", label: "dashboard.dept.kpi.totalClients", value: 0, unit: "count" },
+          { id: "revenueThisMonth", label: "dashboard.dept.kpi.revenueThisMonth", value: 0, unit: "currency" },
+        ],
+        charts: [],
+        alerts: [],
+        activity: [],
+        health: { status: "placeholder", notes: ["dashboard.dept.health.placeholder"] },
+        metadata: { source: "consultation", generatedAt: new Date().toISOString(), placeholder: true },
       };
       break;
     }
 
     case "marketing": {
-      data = { message: "Module en cours de développement", placeholder: true };
+      data = {
+        stats: [],
+        charts: [],
+        alerts: [{ id: "placeholder", level: "info", message: "dashboard.dept.health.placeholder" }],
+        activity: [],
+        health: { status: "placeholder", notes: ["dashboard.dept.health.placeholder"] },
+        metadata: { source: "marketing", generatedAt: new Date().toISOString(), placeholder: true },
+      };
       break;
     }
 
     case "logistique": {
       data = {
-        totalItems: 0,
-        lowStockItems: 0,
-        pendingOrders: 0,
+        stats: [
+          { id: "totalItems", label: "dashboard.dept.kpi.totalItems", value: 0, unit: "count" },
+          { id: "lowStockItems", label: "dashboard.dept.kpi.lowStockItems", value: 0, unit: "count" },
+          { id: "pendingOrders", label: "dashboard.dept.kpi.pendingOrders", value: 0, unit: "count" },
+        ],
+        charts: [],
+        alerts: [],
+        activity: [],
+        health: { status: "placeholder", notes: ["dashboard.dept.health.placeholder"] },
+        metadata: { source: "logistique", generatedAt: new Date().toISOString(), placeholder: true },
       };
       break;
     }

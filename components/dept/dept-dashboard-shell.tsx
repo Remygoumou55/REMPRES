@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { RefreshCw } from "lucide-react";
 import { PageHeader } from "@/components/ui/page-header";
+import { useTranslation } from "@/hooks/use-translation";
 
 type DeptDashboardShellProps = {
   title: string;
@@ -30,6 +31,7 @@ export function DeptDashboardShell({
   lastUpdated,
   children,
 }: DeptDashboardShellProps) {
+  const { t } = useTranslation();
   return (
     <div className="page-wrapper">
       <div className="flex items-center justify-between gap-3">
@@ -37,14 +39,18 @@ export function DeptDashboardShell({
           {backLabel}
         </Link>
         <div className="inline-flex items-center gap-2 text-xs text-gray-500">
-          <span>{lastUpdated ? `Mis à jour: ${lastUpdated}` : "Mis à jour: --"}</span>
+          <span>
+            {lastUpdated
+              ? `${t("dashboard.dept.lastUpdated", "Mis a jour")}: ${lastUpdated}`
+              : `${t("dashboard.dept.lastUpdated", "Mis a jour")}: --`}
+          </span>
           <button
             type="button"
             onClick={onRefresh}
             className="inline-flex items-center gap-1 rounded-xl border border-gray-200 px-2.5 py-1.5 text-xs text-gray-700 hover:bg-gray-50"
           >
             <RefreshCw size={14} className={isRefetching ? "animate-spin" : ""} />
-            Actualiser
+            {t("dashboard.dept.refresh", "Actualiser")}
           </button>
         </div>
       </div>

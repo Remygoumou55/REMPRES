@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getSupabaseBrowserClient } from "@/lib/supabase";
 import { createRefreshScheduler } from "@/lib/realtime/schedule-refresh";
+import { REALTIME_CHANNELS } from "@/lib/realtime/channels";
 
 export function IntelligenceRealtimeBridge() {
   const router = useRouter();
@@ -16,7 +17,7 @@ export function IntelligenceRealtimeBridge() {
     });
 
     const channel = supa
-      .channel("governance-intelligence")
+      .channel(REALTIME_CHANNELS.governance.intelligence)
       .on("postgres_changes", { event: "*", schema: "public", table: "governance_alerts" }, scheduler.schedule)
       .on("postgres_changes", { event: "*", schema: "public", table: "approval_requests" }, scheduler.schedule)
       .on("postgres_changes", { event: "INSERT", schema: "public", table: "governance_audit_events" }, scheduler.schedule)

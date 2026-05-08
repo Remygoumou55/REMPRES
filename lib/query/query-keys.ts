@@ -14,6 +14,10 @@ function sorted(values: readonly string[]): readonly string[] {
 }
 
 export const queryKeys = {
+  dept: {
+    root: ["dept"] as const,
+    kpis: (deptKey: string) => ["dept", "kpis", clean(deptKey)] as const,
+  },
   vente: {
     root: ["vente"] as const,
     clients: ["vente", "clients"] as const,
@@ -56,6 +60,11 @@ export const queryKeys = {
   rh: {
     root: ["rh"] as const,
     employees: ["rh", "employees"] as const,
+    dashboard: ["rh", "dashboard"] as const,
+    approvals: ["rh", "approvals"] as const,
+    alerts: ["rh", "alerts"] as const,
+    leaves: ["rh", "leaves"] as const,
+    attendance: ["rh", "attendance"] as const,
   },
   formation: {
     root: ["formation"] as const,

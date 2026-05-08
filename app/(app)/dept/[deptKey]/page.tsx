@@ -13,21 +13,19 @@ import { useSectionDashboard } from "@/hooks/useSectionDashboard";
 import { DeptDashboardShell } from "@/components/dept/dept-dashboard-shell";
 import { StatsCard } from "@/components/ui/stats-card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { queryKeys } from "@/lib/query/query-keys";
+import { useTranslation } from "@/hooks/use-translation";
+import type { DeptKpiApiResponse } from "@/lib/dept/kpi-contract";
 
 const DynamicDeptKpiChart = dynamic(() => import("./DeptKpiChart").then((m) => m.DeptKpiChart), {
   ssr: false,
   loading: () => <Skeleton className="h-[300px] w-full rounded-card" />,
 });
 
-type DeptApiResponse = {
-  dept: string;
-  data: Record<string, unknown>;
-  lastUpdated: string;
-};
-
 export default function DeptDashboardPage() {
   const params = useParams<{ deptKey: string }>();
   const router = useRouter();
+  const { t } = useTranslation();
   const deptKey = String(params.deptKey ?? "").toLowerCase() as DepartmentKey;
   const department = DEPARTMENTS.find((item) => item.key === deptKey);
 
@@ -35,45 +33,41 @@ export default function DeptDashboardPage() {
     if (!department) router.replace(ROUTES.dept);
   }, [department, router]);
 
-  const { data, isLoading, isRefetching, refetch } = useSectionDashboard<DeptApiResponse>(
+  const { data, isLoading, isRefetching, refetch } = useSectionDashboard<DeptKpiApiResponse>(
     `/api/dept/${deptKey}/kpis`,
-    ["dept-kpis", deptKey],
+    [...queryKeys.dept.kpis(deptKey)],
     { staleTime: 30_000, refetchInterval: 60_000, enabled: Boolean(department) },
   );
 
-  const chartData = useMemo(() => {
-    if (!data?.data) return [];
-    if (deptKey === "vente") return ((data.data.salesLast7Days as Array<Record<string, string | number>> | undefined) ?? []);
-    if (deptKey === "finance") return ((data.data.last7DaysRevenue as Array<Record<string, string | number>> | undefined) ?? []);
-    return [];
-  }, [data, deptKey]);
-
   const kpis = useMemo(() => {
-    const values = data?.data ?? {};
-    switch (deptKey) {
-      case "vente":
-        return [
-          { title: "Clients", value: Number(values.clientsCount ?? 0), icon: Users, color: "blue" as const },
-          { title: "Produits", value: Number(values.productsCount ?? 0), icon: Box, color: "green" as const },
-          { title: "Ventes du jour", value: Number(values.salesToday ?? 0), icon: ShoppingCart, color: "orange" as const },
-          { title: "CA mensuel", value: Number(values.salesThisMonth ?? 0), icon: Wallet, color: "purple" as const },
-        ];
-      case "finance":
-        return [
-          { title: "Revenus mois", value: Number(values.totalRevenueMonth ?? 0), icon: Wallet, color: "green" as const },
-          { title: "Dépenses mois", value: Number(values.totalExpensesMonth ?? 0), icon: ShoppingCart, color: "red" as const },
-          { title: "Marge nette", value: Number(values.netMargin ?? 0), icon: Activity, color: "blue" as const },
-          { title: "Transactions", value: Number(values.transactionsCount ?? 0), icon: Box, color: "orange" as const },
-        ];
-      default:
-        return [
-          { title: "Indicateur 1", value: 0, icon: Users, color: "blue" as const },
-          { title: "Indicateur 2", value: 0, icon: Box, color: "green" as const },
-          { title: "Indicateur 3", value: 0, icon: ShoppingCart, color: "orange" as const },
-          { title: "Indicateur 4", value: 0, icon: Wallet, color: "purple" as const },
-        ];
-    }
-  }, [data, deptKey]);
+    const stats = data?.data.stats ?? [];
+    const iconByStat: Record<string, typeof Users> = {
+      clients: Users,
+      products: Box,
+      salesToday: ShoppingCart,
+      salesThisMonth: Wallet,
+      revenue: Wallet,
+      expenses: ShoppingCart,
+      margin: Activity,
+      transactions: Box,
+    };
+    const colorByStat: Record<string, "blue" | "green" | "orange" | "purple" | "red"> = {
+      clients: "blue",
+      products: "green",
+      salesToday: "orange",
+      salesThisMonth: "purple",
+      revenue: "green",
+      expenses: "red",
+      margin: "blue",
+      transactions: "orange",
+    };
+    return stats.slice(0, 4).map((stat) => ({
+      title: t(stat.label, stat.id),
+      value: Number(stat.value ?? 0),
+      icon: iconByStat[stat.id] ?? Users,
+      color: colorByStat[stat.id] ?? "blue",
+    }));
+  }, [data?.data.stats, t]);
 
   if (isLoading) {
     return (
@@ -92,7 +86,8 @@ export default function DeptDashboardPage() {
   if (!department) return null;
 
   const Icon = department.icon;
-  const recentActivity = (data?.data.recentActivity as { id: string; action_key: string; created_at: string }[] | undefined) ?? [];
+  const recentActivity = data?.data.activity ?? [];
+  const chart = (data?.data.charts ?? [])[0] ?? null;
 
   return (
     <DeptDashboardShell
@@ -101,7 +96,7 @@ export default function DeptDashboardPage() {
       icon={<Icon size={16} />}
       color={department.color}
       backHref={ROUTES.dept}
-      backLabel="← Départements"
+      backLabel={t("dashboard.dept.backToDepartments", "← Départements")}
       isRefetching={isRefetching}
       onRefresh={() => void refetch()}
       lastUpdated={data?.lastUpdated ? formatDistanceToNow(new Date(data.lastUpdated), { addSuffix: true, locale: fr }) : null}
@@ -112,26 +107,26 @@ export default function DeptDashboardPage() {
         ))}
       </div>
 
-      <DynamicDeptKpiChart deptKey={deptKey} data={chartData} />
+      <DynamicDeptKpiChart chart={chart} emptyMessage={t("dashboard.dept.chart.empty", "Graphiques disponibles dès l'activation du module.")} />
 
       <section className="card p-5">
-        <h2 className="section-title">Activité récente</h2>
+        <h2 className="section-title">{t("dashboard.dept.activity.title", "Activité récente")}</h2>
         {recentActivity.length === 0 ? (
-          <p className="text-sm text-gray-500">Aucune activité récente.</p>
+          <p className="text-sm text-gray-500">{t("dashboard.dept.activity.empty", "Aucune activité récente.")}</p>
         ) : (
           <ul className="space-y-2">
             {recentActivity.slice(0, 5).map((entry) => (
               <li key={entry.id} className="flex items-center justify-between gap-2 rounded-xl border border-gray-200 px-3 py-2 text-sm">
-                <span className="text-gray-700">{entry.action_key}</span>
+                <span className="text-gray-700">{t(entry.label, entry.label)}</span>
                 <span className="text-xs text-gray-500">
-                  {formatDistanceToNow(new Date(entry.created_at), { addSuffix: true, locale: fr })}
+                  {entry.timestamp ? formatDistanceToNow(new Date(entry.timestamp), { addSuffix: true, locale: fr }) : "--"}
                 </span>
               </li>
             ))}
           </ul>
         )}
         <Link href="/admin/activity-logs" className="mt-3 inline-flex text-sm font-medium text-primary hover:underline">
-          Voir tout →
+          {t("dashboard.dept.activity.viewAll", "Voir tout")} →
         </Link>
       </section>
     </DeptDashboardShell>

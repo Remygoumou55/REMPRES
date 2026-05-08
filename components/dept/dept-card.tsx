@@ -2,12 +2,14 @@
 
 import Link from "next/link";
 import { DEPARTMENTS, type DepartmentKey } from "@/lib/constants/departments";
+import { useTranslation } from "@/hooks/use-translation";
 
 type DeptCardProps = {
   departmentKey: DepartmentKey;
 };
 
 export function DeptCard({ departmentKey }: DeptCardProps) {
+  const { t } = useTranslation();
   const department = DEPARTMENTS.find((d) => d.key === departmentKey);
   if (!department) return null;
 
@@ -27,7 +29,7 @@ export function DeptCard({ departmentKey }: DeptCardProps) {
       <h3 className="mt-4 text-xl font-bold text-darktext">{department.label}</h3>
       <p className="mt-1 text-sm text-gray-500">{department.description}</p>
       <p className="mt-4 text-sm font-medium" style={{ color: department.color }}>
-        Voir le tableau de bord →
+        {t("dashboard.dept.openDashboard", "Voir le tableau de bord")} →
       </p>
     </Link>
   );

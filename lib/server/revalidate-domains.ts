@@ -64,6 +64,17 @@ export function revalidateFinanceScope(params?: { includeDashboard?: boolean }) 
   revalidateMany(paths);
 }
 
+export function revalidateRhScope(params?: { includeDashboard?: boolean }) {
+  const paths = [
+    "/rh",
+    "/rh/presences",
+    "/rh/conges",
+    params?.includeDashboard ? "/dashboard" : "",
+    params?.includeDashboard ? "/dept/rh" : "",
+  ];
+  revalidateMany(paths);
+}
+
 export function revalidateAdminArchivesScope() {
   revalidateMany([
     "/admin/archives",

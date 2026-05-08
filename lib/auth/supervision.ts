@@ -5,6 +5,7 @@
 
 export const SUPER_ADMIN_GOVERNANCE_ALLOWED_PREFIXES: readonly string[] = [
   "/dashboard",
+  "/dept",
   "/admin",
   "/settings",
   "/access-denied",

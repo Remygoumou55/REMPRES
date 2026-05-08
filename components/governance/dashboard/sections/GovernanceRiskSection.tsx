@@ -1,4 +1,10 @@
 import { GovernanceMetricsCard } from "@/components/governance/dashboard/GovernanceMetricsCard";
+import {
+  EXEC_CARD,
+  EXEC_CARD_MIN_H,
+  EXEC_CARD_PAD,
+  EXEC_SECTION_TITLE,
+} from "@/components/executive/tokens";
 
 type GovernanceRiskSectionProps = {
   titleByKey: (key: string) => string;
@@ -16,8 +22,8 @@ export function GovernanceRiskSection({
   securityAuditEvents7d,
 }: GovernanceRiskSectionProps) {
   return (
-    <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-      <h2 className="text-base font-semibold text-gray-900">
+    <section className={`${EXEC_CARD} ${EXEC_CARD_PAD} ${EXEC_CARD_MIN_H}`}>
+      <h2 className={EXEC_SECTION_TITLE}>
         {titleByKey("governance.dashboard.risk.title")}
       </h2>
       <div className="mt-3 grid gap-3 sm:grid-cols-2">

@@ -2,6 +2,12 @@
 
 import { useTranslation } from "@/hooks/use-translation";
 import type { GovernanceSystemHealth } from "@/lib/governance/kpi/aggregate-kpi";
+import {
+  EXEC_CARD,
+  EXEC_CARD_MIN_H,
+  EXEC_CARD_PAD,
+  EXEC_SECTION_TITLE,
+} from "@/components/executive/tokens";
 
 type SystemHealthSectionProps = {
   health: GovernanceSystemHealth;
@@ -23,8 +29,8 @@ function HealthBadge({ label, value }: { label: string; value: "stable" | "degra
 export function SystemHealthSection({ health }: SystemHealthSectionProps) {
   const { t } = useTranslation();
   return (
-    <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-      <h2 className="text-base font-semibold text-gray-900">{t("governance.dashboard.systemHealth.title")}</h2>
+    <section className={`${EXEC_CARD} ${EXEC_CARD_PAD} ${EXEC_CARD_MIN_H}`}>
+      <h2 className={EXEC_SECTION_TITLE}>{t("governance.dashboard.systemHealth.title")}</h2>
       <div className="mt-3 grid gap-3 sm:grid-cols-2">
         <HealthBadge label={t("governance.dashboard.systemHealth.realtime")} value={health.realtime} />
         <HealthBadge label={t("governance.dashboard.systemHealth.sync")} value={health.sync} />

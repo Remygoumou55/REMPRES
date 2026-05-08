@@ -2,6 +2,7 @@
 
 import { useTranslation } from "@/hooks/use-translation";
 import { GovernanceMetricsCard } from "./GovernanceMetricsCard";
+import { EXEC_CARD, EXEC_CARD_MIN_H, EXEC_CARD_PAD, EXEC_SECTION_TITLE } from "@/components/executive/tokens";
 
 type GovernanceInsightsSectionProps = {
   activityEvents24h: number;
@@ -14,8 +15,8 @@ export function GovernanceInsightsSection({
 }: GovernanceInsightsSectionProps) {
   const { t } = useTranslation();
   return (
-    <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-      <h2 className="text-base font-semibold text-gray-900">{t("governance.dashboard.insights.title")}</h2>
+    <section className={`${EXEC_CARD} ${EXEC_CARD_PAD} ${EXEC_CARD_MIN_H}`}>
+      <h2 className={EXEC_SECTION_TITLE}>{t("governance.dashboard.insights.title")}</h2>
       <div className="mt-3 grid gap-3 sm:grid-cols-2">
         <GovernanceMetricsCard label={t("governance.dashboard.insights.sensitive24h")} value={String(activityEvents24h)} />
         <GovernanceMetricsCard label={t("governance.dashboard.insights.activeUsers")} value={String(activeUsers)} />

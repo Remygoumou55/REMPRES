@@ -3,6 +3,8 @@ export const EXEC_CARD =
 
 export const EXEC_CARD_PAD = "p-5";
 
+export const EXEC_CARD_MIN_H = "min-h-[132px]";
+
 export const EXEC_SECTION_TITLE = "text-base font-semibold text-gray-900";
 
 export const EXEC_SUBTLE = "text-sm text-gray-600";

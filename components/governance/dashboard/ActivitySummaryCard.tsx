@@ -1,6 +1,13 @@
 "use client";
 
 import { useTranslation } from "@/hooks/use-translation";
+import {
+  EXEC_CARD,
+  EXEC_CARD_MIN_H,
+  EXEC_CARD_PAD,
+  EXEC_SECTION_TITLE,
+  EXEC_SUBTLE,
+} from "@/components/executive/tokens";
 
 type ActivitySummaryCardProps = {
   activityEvents24h: number;
@@ -13,9 +20,9 @@ export function ActivitySummaryCard({
 }: ActivitySummaryCardProps) {
   const { t } = useTranslation();
   return (
-    <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-      <h2 className="text-base font-semibold text-gray-900">{t("governance.dashboard.activitySummary.title")}</h2>
-      <p className="mt-2 text-sm text-gray-600">
+    <section className={`${EXEC_CARD} ${EXEC_CARD_PAD} ${EXEC_CARD_MIN_H}`}>
+      <h2 className={EXEC_SECTION_TITLE}>{t("governance.dashboard.activitySummary.title")}</h2>
+      <p className={`mt-3 ${EXEC_SUBTLE}`}>
         {t("governance.dashboard.activitySummary.eventsPrefix")} {activityEvents24h} ·{" "}
         {activeUsers} {t("governance.dashboard.activitySummary.activeUsersSuffix")}
       </p>

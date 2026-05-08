@@ -14,6 +14,8 @@ export function GovernanceAlertCard({
     global: string;
     type: string;
     resolvedTitleByKey: (key: string, fallback: string) => string;
+    severityLabel: (severity: GovernanceAlert["severity"]) => string;
+    statusLabel: (status: GovernanceAlert["lifecycleStatus"]) => string;
   };
   actions?: React.ReactNode;
 }) {
@@ -30,8 +32,8 @@ export function GovernanceAlertCard({
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h3 className="text-sm font-semibold text-gray-900">{title}</h3>
         <div className="flex items-center gap-1">
-          <AlertSeverityBadge severity={alert.severity} />
-          <AlertStatusBadge status={alert.lifecycleStatus} />
+          <AlertSeverityBadge severity={alert.severity} label={labels.severityLabel(alert.severity)} />
+          <AlertStatusBadge status={alert.lifecycleStatus} label={labels.statusLabel(alert.lifecycleStatus)} />
         </div>
       </div>
       <p className="mt-1 text-sm text-gray-600">{description}</p>

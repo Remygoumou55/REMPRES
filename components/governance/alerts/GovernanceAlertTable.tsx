@@ -15,6 +15,8 @@ export function GovernanceAlertTable({
     global: string;
     type: string;
     resolvedTitleByKey: (key: string, fallback: string) => string;
+    severityLabel: (severity: GovernanceAlert["severity"]) => string;
+    statusLabel: (status: GovernanceAlert["lifecycleStatus"]) => string;
   };
 }) {
   if (alerts.length === 0) {

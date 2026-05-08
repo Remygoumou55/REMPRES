@@ -108,6 +108,8 @@ export default async function AdminAlertsPage({ searchParams }: PageProps) {
             const resolved = t(key);
             return resolved === key ? fallback : resolved;
           },
+          severityLabel: (severity) => t(severityTranslationKey(severity)),
+          statusLabel: (status) => t(`status.${status}`),
         }}
         renderActions={(alert) => (
             <form

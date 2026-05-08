@@ -1,6 +1,3 @@
-"use client";
-
-import { useTranslation } from "@/hooks/use-translation";
 import type { GovernanceAlertLifecycleStatus } from "@/lib/governance/alerts/types";
 
 const STATUS_STYLES: Record<GovernanceAlertLifecycleStatus, string> = {
@@ -10,11 +7,16 @@ const STATUS_STYLES: Record<GovernanceAlertLifecycleStatus, string> = {
   archived: "bg-slate-100 text-slate-700",
 };
 
-export function AlertStatusBadge({ status }: { status: GovernanceAlertLifecycleStatus }) {
-  const { t } = useTranslation();
+export function AlertStatusBadge({
+  status,
+  label,
+}: {
+  status: GovernanceAlertLifecycleStatus;
+  label: string;
+}) {
   return (
     <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[status]}`}>
-      {t(`status.${status}`)}
+      {label}
     </span>
   );
 }

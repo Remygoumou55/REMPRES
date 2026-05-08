@@ -1,6 +1,3 @@
-"use client";
-
-import { useTranslation } from "@/hooks/use-translation";
 import type { GovernanceAlertSeverity } from "@/lib/governance/alerts/types";
 
 const SEVERITY_STYLES: Record<GovernanceAlertSeverity, string> = {
@@ -10,11 +7,16 @@ const SEVERITY_STYLES: Record<GovernanceAlertSeverity, string> = {
   critical: "bg-red-50 text-red-700",
 };
 
-export function AlertSeverityBadge({ severity }: { severity: GovernanceAlertSeverity }) {
-  const { t } = useTranslation();
+export function AlertSeverityBadge({
+  severity,
+  label,
+}: {
+  severity: GovernanceAlertSeverity;
+  label: string;
+}) {
   return (
     <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${SEVERITY_STYLES[severity]}`}>
-      {t(`severity.${severity}`)}
+      {label}
     </span>
   );
 }

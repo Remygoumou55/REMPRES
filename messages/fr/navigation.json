@@ -30,7 +30,7 @@
   "navigation.section.departmentSupervision": "Supervision departements",
   "navigation.section.administration": "Administration",
   "navigation.breadcrumb.home": "Accueil",
-  "navigation.breadcrumb.dashboard": "Tableau de bord",
+  "navigation.breadcrumb.dashboard": "Accueil",
   "navigation.superadmin./dashboard": "Accueil",
   "navigation.superadmin./admin/global-dashboard": "Tableau de bord global",
   "navigation.superadmin./admin/activity-logs": "Activite sensible",
@@ -41,11 +41,11 @@
   "navigation.superadmin./admin/users": "Utilisateurs et invitations",
   "navigation.superadmin./admin/archives": "Archives globales",
   "navigation.superadmin./admin/currency": "Parametres",
-  "navigation.superadmin./admin/departments/vente": "Supervision Vente",
-  "navigation.superadmin./admin/departments/finance": "Supervision Finance",
-  "navigation.superadmin./admin/departments/rh": "Supervision RH",
-  "navigation.superadmin./admin/departments/formation": "Supervision Formation",
-  "navigation.superadmin./admin/departments/consultation": "Supervision Consultation",
-  "navigation.superadmin./admin/departments/marketing": "Supervision Marketing",
-  "navigation.superadmin./admin/departments/logistique": "Supervision Logistique"
+  "navigation.superadmin./admin/departments/vente": "Vente",
+  "navigation.superadmin./admin/departments/finance": "Finance",
+  "navigation.superadmin./admin/departments/rh": "RH",
+  "navigation.superadmin./admin/departments/formation": "Formation",
+  "navigation.superadmin./admin/departments/consultation": "Consultation",
+  "navigation.superadmin./admin/departments/marketing": "Marketing",
+  "navigation.superadmin./admin/departments/logistique": "Logistique"
 }

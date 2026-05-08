@@ -12,6 +12,11 @@ import { getDashboardKpis } from "@/lib/server/dashboard-kpis";
 import { getCachedProfileDisplayName } from "@/lib/server/profile-display";
 import { getGovernanceHomeModel } from "@/lib/governance/home-config";
 import { GovernanceHomeCenter } from "@/components/governance/home/GovernanceHomeCenter";
+import { NAV_LABELS } from "@/lib/constants/nav-labels";
+
+export const metadata = {
+  title: `${NAV_LABELS.home} — RemPres ERP`,
+};
 
 export default async function DashboardPage() {
   const user = await getServerSessionUser();

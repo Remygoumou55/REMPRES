@@ -7,6 +7,7 @@ import { LayoutDashboard, X, LogOut, ChevronRight } from "lucide-react";
 import { appConfig, getLogoUrl } from "@/lib/config";
 import type { ModuleDef, ModuleId } from "./types";
 import { UserAvatar } from "./UserAvatar";
+import { NAV_LABELS } from "@/lib/constants/nav-labels";
 
 function isNavItemActive(href: string, pathname: string): boolean {
   if (href === "/finance") return pathname === "/finance";
@@ -66,7 +67,7 @@ export const MobileSidebar = memo(function MobileSidebar({
           }`}
         >
           <LayoutDashboard size={16} className="shrink-0 text-white/60" />
-          <span>Tableau de bord</span>
+          <span>{NAV_LABELS.home}</span>
           {activeModule === "dashboard" && (
             <ChevronRight size={12} className="ml-auto text-white/40" />
           )}

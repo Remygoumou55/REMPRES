@@ -16,13 +16,16 @@ import {
   Activity,
   BarChart2,
 } from "lucide-react";
-import { KpiCard } from "@/components/ui/kpi-card";
+import { StatsCard } from "@/components/ui/stats-card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { PageHeader } from "@/components/ui/page-header";
 import { useCurrencyStore } from "@/stores/currencyStore";
 import { formatCurrency } from "@/utils/currency";
 import type { DashboardKpis } from "@/lib/server/dashboard-kpis";
 import { withCreateModalQuery } from "@/lib/routing/modal-query";
 import { useCurrencyConversion } from "@/hooks/useCurrencyConversion";
+import { NAV_LABELS } from "@/lib/constants/nav-labels";
+import { ROUTES } from "@/lib/constants/routes";
 
 // Sub-components
 import { ActivityTimeline } from "./components/ActivityTimeline";
@@ -74,6 +77,17 @@ export function DashboardClient({
 }: DashboardClientProps) {
   const greeting    = useMemo(() => getGreeting(), []);
   const displayName = userDisplayName.trim() || "Compte";
+  const firstName = displayName.split(" ")[0] || displayName;
+  const initials = displayName
+    .split(" ")
+    .map((part) => part.charAt(0))
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+  const frenchDate = useMemo(
+    () => new Date().toLocaleDateString("fr-FR", { dateStyle: "full" }),
+    [],
+  );
   const hasStockAlert = kpis.productsOutOfStock > 0 || kpis.productsLowStock > 0;
 
   // Currency logic
@@ -102,13 +116,24 @@ export function DashboardClient({
   );
 
   return (
-    <div className="mx-auto max-w-5xl space-y-6">
+    <div className="page-wrapper mx-auto max-w-6xl">
+      <PageHeader title={NAV_LABELS.home} subtitle="Vue globale de l'activité opérationnelle" />
 
       {/* Welcome banner */}
-      <div className="rounded-2xl bg-gradient-to-br from-primary to-primary-light p-6 text-white shadow-sm">
-        <p className="text-sm font-medium text-white/70">{greeting},</p>
-        <h1 className="mt-1 text-2xl font-bold">{displayName} 👋</h1>
-        <p className="mt-1 text-sm text-white/60">Voici un aperçu de votre activité du jour.</p>
+      <div className="rounded-card bg-[linear-gradient(135deg,#0E4A8A_0%,#2D7CC4_50%,#3FA9D6_100%)] p-8 text-white shadow-card">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h2 className="text-2xl font-bold">
+              {greeting} {firstName} 👋
+            </h2>
+            <p className="mt-2 text-sm text-white/85">
+              Voici votre tableau de bord — {frenchDate}
+            </p>
+          </div>
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-sm font-bold">
+            {initials}
+          </div>
+        </div>
       </div>
 
       {/* Stock Alert */}
@@ -130,16 +155,15 @@ export function DashboardClient({
 
       {/* KPI Grid */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <KpiCard label="Clients actifs" value={kpis.clientsTotal} icon={Users} iconColor="text-primary" iconBg="bg-primary/10" sub="Base clients totale" />
-        <KpiCard label="Ventes aujourd'hui" value={kpis.salesToday} icon={ShoppingCart} iconColor="text-emerald-600" iconBg="bg-emerald-50" sub={kpis.salesAmountToday > 0 ? salesTodayDisplay : "Aucune vente"} />
-        <KpiCard label="CA ce mois" value={salesMonthDisplay} icon={TrendingUp} iconColor="text-sky-600" iconBg="bg-sky-50" sub={`${kpis.salesCountMonth} transaction${kpis.salesCountMonth !== 1 ? "s" : ""}`} />
-        <KpiCard
-          label="Stock à surveiller"
+        <StatsCard title="Clients actifs" value={kpis.clientsTotal} icon={Users} color="blue" subtitle="Base clients totale" />
+        <StatsCard title="Ventes aujourd'hui" value={kpis.salesToday} icon={ShoppingCart} color="green" subtitle={kpis.salesAmountToday > 0 ? salesTodayDisplay : "Aucune vente"} />
+        <StatsCard title="CA ce mois" value={salesMonthDisplay} icon={TrendingUp} color="purple" subtitle={`${kpis.salesCountMonth} transaction${kpis.salesCountMonth !== 1 ? "s" : ""}`} />
+        <StatsCard
+          title="Stock à surveiller"
           value={kpis.productsLowStock + kpis.productsOutOfStock}
           icon={Package}
-          iconColor={hasStockAlert ? "text-amber-600" : "text-gray-400"}
-          iconBg={hasStockAlert ? "bg-amber-50" : "bg-gray-100"}
-          sub={kpis.productsOutOfStock > 0 ? `${kpis.productsOutOfStock} en rupture` : "Tout va bien"}
+          color={hasStockAlert ? "orange" : "blue"}
+          subtitle={kpis.productsOutOfStock > 0 ? `${kpis.productsOutOfStock} en rupture` : "Tout va bien"}
         />
       </div>
 
@@ -176,13 +200,13 @@ export function DashboardClient({
 
       {/* Quick Actions */}
       <div>
-        <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-gray-400">Actions rapides</h2>
+        <h2 className="section-title">Actions rapides</h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {canReadProducts && <QuickActionCard href="/vente/nouvelle-vente" icon={ShoppingCart} label="Nouvelle vente" description="Encaisser un client maintenant" color="bg-primary/10 text-primary" />}
-          {canReadClients && <QuickActionCard href={withCreateModalQuery("/vente/clients")} icon={UserPlus} label="Ajouter un client" description="Créer une fiche client" color="bg-emerald-50 text-emerald-600" />}
-          {canReadProducts && <QuickActionCard href={withCreateModalQuery("/vente/produits")} icon={PlusCircle} label="Ajouter un produit" description="Référencer un nouveau produit" color="bg-sky-50 text-sky-600" />}
+          {canReadProducts && <QuickActionCard href={ROUTES.newSale} icon={ShoppingCart} label="Nouvelle vente" description="Encaisser un client maintenant" color="bg-primary/10 text-primary" />}
+          {canReadClients && <QuickActionCard href={withCreateModalQuery(ROUTES.clients)} icon={UserPlus} label="Ajouter un client" description="Créer une fiche client" color="bg-emerald-50 text-emerald-600" />}
+          {canReadProducts && <QuickActionCard href={withCreateModalQuery(ROUTES.produits)} icon={PlusCircle} label="Ajouter un produit" description="Référencer un nouveau produit" color="bg-sky-50 text-sky-600" />}
           {canReadActivityLogs && <QuickActionCard href="/admin/activity-logs" icon={ClipboardList} label="Journal d'activité" description="Consulter les logs système" color="bg-violet-50 text-violet-600" />}
-          {canReadProducts && <QuickActionCard href="/vente/historique" icon={TrendingUp} label="Historique des ventes" description="Voir toutes les transactions" color="bg-orange-50 text-orange-600" />}
+          {canReadProducts && <QuickActionCard href={ROUTES.history} icon={TrendingUp} label="Historique des ventes" description="Voir toutes les transactions" color="bg-orange-50 text-orange-600" />}
           {isSuperAdmin && <QuickActionCard href="/admin/users" icon={UserCog} label="Gérer les utilisateurs" description="Inviter et configurer les accès" color="bg-pink-50 text-pink-600" />}
         </div>
       </div>

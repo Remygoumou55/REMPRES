@@ -2,12 +2,14 @@ import type { LucideIcon } from "lucide-react";
 
 export type ModuleId =
   | "dashboard"
+  | "direction"
+  | "dept"
   | "commerce"
+  | "actions"
+  | "archives"
   | "finance"
-  | "governance"
-  | "departments"
   | "admin"
-  | "settings";
+  | "config";
 
 export type NavItem = {
   href: string;

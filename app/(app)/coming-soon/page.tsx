@@ -11,6 +11,7 @@ import {
   Clock,
 } from "lucide-react";
 import { appConfig, getLogoUrl } from "@/lib/config";
+import { NAV_LABELS } from "@/lib/constants/nav-labels";
 
 // ---------------------------------------------------------------------------
 // Métadonnées
@@ -149,7 +150,7 @@ export default function ComingSoonPage({
             className="flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-bold text-white transition hover:bg-primary/90"
           >
             <LayoutDashboard size={15} />
-            Tableau de bord
+            {NAV_LABELS.home}
           </Link>
           <Link
             href="/login"

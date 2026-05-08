@@ -5,28 +5,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
-  ClipboardList,
   Menu,
   Package,
-  LayoutDashboard,
-  Bell,
   ShoppingCart,
+  TrendingUp,
   History,
   Users,
-  UserCog,
   ChevronRight,
   ChevronLeft,
-  Wallet,
   BarChart3,
-  Archive,
-  Globe,
   Settings2,
   Building2,
-  CheckCircle2,
-  GraduationCap,
-  Headphones,
-  Megaphone,
-  Truck,
+  Zap,
+  Archive,
+  Shield,
+  Receipt,
 } from "lucide-react";
 
 import { getSupabaseBrowserClient } from "@/lib/supabase";
@@ -34,11 +27,13 @@ import { appConfig, getLogoUrl } from "@/lib/config";
 import { CurrencySwitcher } from "@/components/CurrencySwitcher";
 import { logError, logInfo } from "@/lib/logger";
 import { generateBreadcrumb } from "@/lib/utils/breadcrumb";
-import { getSuperAdminSidebarItems } from "@/lib/governance/sidebar-config";
 import { useTranslation } from "@/hooks/use-translation";
+import { NAV_LABELS } from "@/lib/constants/nav-labels";
+import { ROUTES } from "@/lib/constants/routes";
+import { useActiveNav } from "./app-shell/useActiveNav";
 
 // Sub-components & types
-import type { ModuleDef, ModuleId } from "./app-shell/types";
+import type { ModuleDef } from "./app-shell/types";
 import { PrimarySidebar } from "./app-shell/PrimarySidebar";
 import { SecondarySidebarPanel } from "./app-shell/SecondarySidebar";
 import { MobileSidebar } from "./app-shell/MobileSidebar";
@@ -58,23 +53,9 @@ type AppShellProps = {
   children: React.ReactNode;
 };
 
-function detectModule(pathname: string): ModuleId {
-  if (pathname.startsWith("/admin/global-dashboard")) return "governance";
-  if (pathname.startsWith("/admin/intelligence")) return "governance";
-  if (pathname.startsWith("/admin/alerts")) return "governance";
-  if (pathname.startsWith("/admin/approvals")) return "governance";
-  if (pathname.startsWith("/admin/activity-logs")) return "governance";
-  if (pathname.startsWith("/admin/departments")) return "departments";
-  if (pathname.startsWith("/vente"))    return "commerce";
-  if (pathname.startsWith("/finance"))  return "finance";
-  if (pathname.startsWith("/admin"))    return "admin";
-  if (pathname.startsWith("/settings")) return "settings";
-  return "dashboard";
-}
-
 const BREADCRUMB_TRANSLATION_KEYS: Record<string, string> = {
   Accueil: "navigation.breadcrumb.home",
-  "Tableau de bord": "navigation.breadcrumb.dashboard",
+  "Tableau de bord": "navigation.breadcrumb.home",
   Administration: "navigation.module.admin",
   Approbations: "navigation.item.approvals",
   Alertes: "navigation.item.alerts",
@@ -105,120 +86,80 @@ export function AppShell({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSidebarOpen,    setIsSidebarOpen]    = useState(true);
 
-  const activeModule = detectModule(pathname);
+  const activeModule = useActiveNav();
 
   const modules: ModuleDef[] = useMemo(() => {
-    if (isSuperAdmin) {
-      const iconMap = {
-        LayoutDashboard,
-        BarChart3,
-        ClipboardList,
-        UserCog,
-        Archive,
-        Settings2,
-        ShoppingCart,
-        Wallet,
-        Users,
-        GraduationCap,
-        Headphones,
-        Megaphone,
-        Truck,
-        Building2,
-        Bell,
-        CheckCircle2,
-      } as const;
-
-      const configItems = getSuperAdminSidebarItems().map((item) => ({
-        href: item.href,
-        label: t(`navigation.superadmin.${item.href}`),
-        icon: iconMap[item.iconKey as keyof typeof iconMap] ?? Building2,
-        visible: true,
-        section:
-          item.section === "enterprise_governance"
-            ? t("navigation.section.enterpriseGovernance")
-            : item.section === "department_supervision"
-              ? t("navigation.section.departmentSupervision")
-              : t("navigation.section.administration"),
-      }));
-
-      return [
-        {
-          id: "governance",
-          label: t("navigation.module.governance"),
-          shortLabel: t("navigation.short.governance"),
-          icon: ClipboardList,
-          href: "/admin/global-dashboard",
-          visible: true,
-          items: configItems.filter((item) => item.section === t("navigation.section.enterpriseGovernance")),
-        },
-        {
-          id: "departments",
-          label: t("navigation.module.supervision"),
-          shortLabel: t("navigation.short.supervision"),
-          icon: Building2,
-          href: "/admin/departments/vente",
-          visible: true,
-          items: configItems.filter((item) => item.section === t("navigation.section.departmentSupervision")),
-        },
-        {
-          id: "admin",
-          label: t("navigation.module.admin"),
-          shortLabel: t("navigation.short.admin"),
-          icon: UserCog,
-          href: "/admin/users",
-          visible: true,
-          items: configItems.filter((item) => item.section === t("navigation.section.administration")),
-        },
-        {
-          id: "settings",
-          label: t("navigation.module.settings"),
-          shortLabel: t("navigation.short.settings"),
-          icon: Settings2,
-          href: "/settings",
-          visible: true,
-          items: [{ href: "/settings", label: t("navigation.item.settingsGeneral"), icon: Settings2, visible: true }],
-        },
-      ];
-    }
-
     return [
       {
+        id: "direction",
+        label: NAV_LABELS.direction,
+        shortLabel: "Dir",
+        icon: TrendingUp,
+        href: ROUTES.direction,
+        visible: true,
+        items: [{ href: ROUTES.direction, label: NAV_LABELS.direction, icon: TrendingUp, visible: true, section: "PRINCIPAL" }],
+      },
+      {
+        id: "dept",
+        label: NAV_LABELS.dept,
+        shortLabel: "Dept",
+        icon: Building2,
+        href: ROUTES.dept,
+        visible: true,
+        items: [{ href: ROUTES.dept, label: NAV_LABELS.dept, icon: Building2, visible: true, section: "PRINCIPAL" }],
+      },
+      {
         id: "commerce", label: t("navigation.module.commerce"), shortLabel: t("navigation.short.commerce"),
-        icon: ShoppingCart, href: "/vente/clients",
+        icon: ShoppingCart, href: ROUTES.clients,
         visible: canReadProducts || canReadClients,
         items: [
-          { href: "/vente/clients", label: t("navigation.item.clients"), icon: Users, visible: canReadClients },
-          { href: "/vente/produits", label: t("navigation.item.products"), icon: Package, visible: canReadProducts },
-          { href: "/vente/nouvelle-vente", label: t("navigation.item.newSale"), icon: ShoppingCart, visible: canReadProducts },
-          { href: "/vente/historique", label: t("navigation.item.history"), icon: History, visible: canReadProducts },
+          { href: ROUTES.clients, label: t("navigation.item.clients"), icon: Users, visible: canReadClients, section: "COMMERCE" },
+          { href: ROUTES.produits, label: t("navigation.item.products"), icon: Package, visible: canReadProducts, section: "COMMERCE" },
+          { href: ROUTES.newSale, label: t("navigation.item.newSale"), icon: ShoppingCart, visible: canReadProducts, section: "COMMERCE" },
+          { href: ROUTES.history, label: t("navigation.item.history"), icon: History, visible: canReadProducts, section: "COMMERCE" },
         ],
+      },
+      {
+        id: "actions",
+        label: NAV_LABELS.actions,
+        shortLabel: "Act",
+        icon: Zap,
+        href: ROUTES.actions,
+        visible: canReadActivityLogs || isSuperAdmin,
+        items: [{ href: ROUTES.actions, label: NAV_LABELS.actions, icon: Zap, visible: canReadActivityLogs || isSuperAdmin, section: "OPERATIONS" }],
+      },
+      {
+        id: "archives",
+        label: NAV_LABELS.archives,
+        shortLabel: "Arc",
+        icon: Archive,
+        href: ROUTES.archives,
+        visible: isSuperAdmin,
+        items: [{ href: ROUTES.archives, label: NAV_LABELS.archives, icon: Archive, visible: isSuperAdmin, section: "OPERATIONS" }],
       },
       {
         id: "finance", label: t("navigation.module.finance"), shortLabel: t("navigation.short.finance"),
-        icon: BarChart3, href: "/finance",
+        icon: BarChart3, href: ROUTES.finance,
         visible: canReadFinance,
         items: [
-          { href: "/finance", label: t("navigation.item.financeOverview"), icon: BarChart3, visible: canReadFinance },
-          { href: "/finance/depenses", label: t("navigation.item.expenses"), icon: Wallet, visible: canReadFinance },
+          { href: ROUTES.finance, label: t("navigation.item.financeOverview"), icon: BarChart3, visible: canReadFinance, section: "FINANCE" },
+          { href: ROUTES.depenses, label: t("navigation.item.expenses"), icon: Receipt, visible: canReadFinance, section: "FINANCE" },
         ],
       },
       {
-        id: "admin", label: t("navigation.module.admin"), shortLabel: t("navigation.short.admin"),
-        icon: ClipboardList, href: "/admin/activity-logs",
-        visible: canReadActivityLogs,
+        id: "admin", label: NAV_LABELS.admin, shortLabel: "Admin",
+        icon: Shield, href: ROUTES.admin,
+        visible: canReadActivityLogs || isSuperAdmin,
         items: [
-          { href: "/admin/activity-logs", label: t("navigation.item.activityLog"), icon: ClipboardList, visible: canReadActivityLogs },
-          { href: "/admin/archives", label: t("navigation.item.archives"), icon: Archive, visible: false },
+          { href: ROUTES.admin, label: NAV_LABELS.admin, icon: Shield, visible: canReadActivityLogs || isSuperAdmin, section: "ADMINISTRATION" },
         ],
       },
       {
-        id: "settings", label: t("navigation.module.settings"), shortLabel: t("navigation.short.settings"),
-        icon: Settings2, href: "/settings",
-        visible: true,
+        id: "config", label: NAV_LABELS.config, shortLabel: "Cfg",
+        icon: Settings2, href: ROUTES.config,
+        visible: canReadActivityLogs || isSuperAdmin,
         items: [
-          { href: "/settings", label: t("navigation.item.settingsGeneral"), icon: Settings2, visible: true },
-          { href: "/admin/users", label: t("navigation.item.users"), icon: UserCog, visible: false },
-          { href: "/admin/currency", label: t("navigation.item.currency"), icon: Globe, visible: false },
+          { href: ROUTES.config, label: NAV_LABELS.config, icon: Settings2, visible: canReadActivityLogs || isSuperAdmin, section: "ADMINISTRATION" },
         ],
       },
     ];
@@ -328,11 +269,7 @@ export function AppShell({
                           <span className="truncate">{crumb.label}</span>
                         </span>
                       ) : (
-                        <Link
-                          href={crumb.href}
-                          prefetch
-                          className="inline-flex max-w-[260px] items-center gap-1.5 rounded-md px-2 py-1 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900"
-                        >
+                <Link href={crumb.href} prefetch className="inline-flex max-w-[260px] items-center gap-1.5 rounded-md px-2 py-1 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900">
                           <Icon size={14} className="shrink-0 opacity-70" />
                           <span className="truncate">{crumb.label}</span>
                         </Link>

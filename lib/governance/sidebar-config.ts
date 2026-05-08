@@ -78,7 +78,7 @@ export function getSuperAdminSidebarItems(): GovernanceSidebarItem[] {
   const departmentLinks: GovernanceSidebarItem[] = listSupervisedDepartments()
     .map((key) => ({
       href: `/admin/departments/${String(key).toLowerCase()}`,
-      label: `Supervision ${DEPARTMENT_NAVIGATION[key].label}`,
+      label: DEPARTMENT_NAVIGATION[key].label,
       iconKey: DEPARTMENT_NAVIGATION[key].icon,
       section: "department_supervision" as const,
     }));

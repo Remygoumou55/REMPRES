@@ -17,6 +17,7 @@ import {
   Users,
   Wallet,
 } from "lucide-react";
+import { NAV_LABELS } from "@/lib/constants/nav-labels";
 
 export type BreadcrumbItem = {
   href: string;
@@ -39,7 +40,7 @@ function humanizeSegment(seg: string): string {
 
 const home: BreadcrumbItem = {
   href: "/dashboard",
-  label: "Accueil",
+  label: NAV_LABELS.home,
   icon: LayoutDashboard,
 };
 
@@ -50,7 +51,7 @@ export function generateBreadcrumb(pathname: string): BreadcrumbItem[] {
     return [
       {
         href: "/dashboard",
-        label: "Tableau de bord",
+        label: NAV_LABELS.home,
         icon: LayoutDashboard,
       },
     ];

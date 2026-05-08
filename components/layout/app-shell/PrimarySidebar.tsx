@@ -7,6 +7,7 @@ import { LayoutDashboard, LogOut } from "lucide-react";
 import { appConfig, getLogoUrl } from "@/lib/config";
 import type { ModuleDef, ModuleId } from "./types";
 import { UserAvatar } from "./UserAvatar";
+import { NAV_LABELS } from "@/lib/constants/nav-labels";
 
 export const PrimarySidebar = memo(function PrimarySidebar({
   modules,
@@ -38,7 +39,7 @@ export const PrimarySidebar = memo(function PrimarySidebar({
         <Link
           href="/dashboard"
           prefetch
-          title="Tableau de bord"
+          title={NAV_LABELS.home}
           className={`flex w-full flex-col items-center gap-1 rounded-xl px-1 py-2.5 transition-all ${
             activeModule === "dashboard"
               ? "bg-white/20 text-white shadow-sm"
@@ -46,7 +47,7 @@ export const PrimarySidebar = memo(function PrimarySidebar({
           }`}
         >
           <LayoutDashboard size={18} />
-          <span className="text-[8px] font-bold uppercase tracking-wide leading-none">Accueil</span>
+          <span className="text-[8px] font-bold uppercase tracking-wide leading-none">{NAV_LABELS.home}</span>
         </Link>
       </div>
 

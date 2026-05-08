@@ -35,6 +35,7 @@ import { CurrencySwitcher } from "@/components/CurrencySwitcher";
 import { logError, logInfo } from "@/lib/logger";
 import { generateBreadcrumb } from "@/lib/utils/breadcrumb";
 import { getSuperAdminSidebarItems } from "@/lib/governance/sidebar-config";
+import { scopeModulesToCurrentDepartment } from "@/lib/departments/sidebar-scope";
 import { useTranslation } from "@/hooks/use-translation";
 
 // Sub-components & types
@@ -107,7 +108,7 @@ export function AppShell({
 
   const activeModule = detectModule(pathname);
 
-  const modules: ModuleDef[] = useMemo(() => {
+  const modulesRaw: ModuleDef[] = useMemo(() => {
     if (isSuperAdmin) {
       const iconMap = {
         LayoutDashboard,
@@ -224,9 +225,15 @@ export function AppShell({
     ];
   }, [canReadProducts, canReadClients, canReadFinance, canReadActivityLogs, isSuperAdmin, t]);
 
-  const activeModuleDef = useMemo(() => 
-    activeModule !== "dashboard" ? (modules.find((m) => m.id === activeModule) ?? null) : null
-  , [activeModule, modules]);
+  const modules = useMemo(
+    () => scopeModulesToCurrentDepartment(modulesRaw, pathname, isSuperAdmin),
+    [modulesRaw, pathname, isSuperAdmin],
+  );
+
+  const activeModuleDef = useMemo(
+    () => (activeModule !== "dashboard" ? (modules.find((m) => m.id === activeModule) ?? null) : null),
+    [activeModule, modules],
+  );
 
   const handleLogout = useCallback(async () => {
     try {

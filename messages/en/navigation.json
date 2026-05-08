@@ -1,5 +1,5 @@
 {
-  "navigation.module.governance": "Governance",
+  "navigation.module.governance": "Direction",
   "navigation.module.supervision": "Supervision",
   "navigation.module.admin": "Administration",
   "navigation.module.settings": "Settings",
@@ -26,7 +26,7 @@
   "navigation.item.alerts": "Alerts",
   "navigation.item.audit": "Audit",
   "navigation.item.intelligence": "Intelligence",
-  "navigation.section.enterpriseGovernance": "Enterprise governance",
+  "navigation.section.enterpriseGovernance": "Enterprise direction",
   "navigation.section.departmentSupervision": "Department supervision",
   "navigation.section.administration": "Administration",
   "navigation.breadcrumb.home": "Home",

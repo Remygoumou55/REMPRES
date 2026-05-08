@@ -1,5 +1,5 @@
 {
-  "navigation.module.governance": "Governanca",
+  "navigation.module.governance": "Direcao",
   "navigation.module.supervision": "Supervisao",
   "navigation.module.admin": "Administracao",
   "navigation.module.settings": "Configuracoes",
@@ -26,7 +26,7 @@
   "navigation.item.alerts": "Alertas",
   "navigation.item.audit": "Auditoria",
   "navigation.item.intelligence": "Inteligencia",
-  "navigation.section.enterpriseGovernance": "Governanca empresarial",
+  "navigation.section.enterpriseGovernance": "Direcao empresarial",
   "navigation.section.departmentSupervision": "Supervisao de departamentos",
   "navigation.section.administration": "Administracao",
   "navigation.breadcrumb.home": "Inicio",

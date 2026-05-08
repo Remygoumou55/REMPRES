@@ -1,21 +1,26 @@
-"use client";
-
 import type { GovernanceAlert } from "@/lib/governance/alerts/types";
 import { GovernanceAlertCard } from "./GovernanceAlertCard";
-import { useTranslation } from "@/hooks/use-translation";
 
 export function GovernanceAlertTable({
   alerts,
   renderActions,
+  emptyLabel,
+  labels,
 }: {
   alerts: GovernanceAlert[];
   renderActions?: (alert: GovernanceAlert) => React.ReactNode;
+  emptyLabel: string;
+  labels: {
+    department: string;
+    global: string;
+    type: string;
+    resolvedTitleByKey: (key: string, fallback: string) => string;
+  };
 }) {
-  const { t } = useTranslation();
   if (alerts.length === 0) {
     return (
       <div className="rounded-2xl border border-gray-200 bg-white p-5 text-sm text-gray-600 shadow-sm">
-        {t("governance.alerts.empty")}
+        {emptyLabel}
       </div>
     );
   }
@@ -26,6 +31,7 @@ export function GovernanceAlertTable({
         <GovernanceAlertCard
           key={alert.id}
           alert={alert}
+          labels={labels}
           actions={renderActions ? renderActions(alert) : null}
         />
       ))}

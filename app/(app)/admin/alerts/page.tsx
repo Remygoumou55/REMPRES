@@ -99,6 +99,16 @@ export default async function AdminAlertsPage({ searchParams }: PageProps) {
 
       <GovernanceAlertTable
         alerts={alerts}
+        emptyLabel={t("governance.alerts.empty")}
+        labels={{
+          department: t("governance.alerts.labels.department"),
+          global: t("governance.alerts.labels.global"),
+          type: t("governance.alerts.labels.type"),
+          resolvedTitleByKey: (key: string, fallback: string) => {
+            const resolved = t(key);
+            return resolved === key ? fallback : resolved;
+          },
+        }}
         renderActions={(alert) => (
             <form
               action={async (formData) => {

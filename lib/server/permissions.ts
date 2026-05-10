@@ -1,6 +1,7 @@
 import { cache } from "react";
 import { getSupervisionScope, hasAdminConsoleAccess, type SupervisionScope } from "@/lib/auth/permissions";
 import { normalizeRoleKey } from "@/lib/auth/roles";
+import { DEPARTMENT_KEYS, normalizeDepartmentKey } from "@/lib/departments/department-config";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { logError } from "@/lib/logger";
 
@@ -229,6 +230,88 @@ export async function isAdminRole(userId: string): Promise<boolean> {
   const brief = await getProfileAuthBrief(userId);
   if (!brief.ok) return false;
   return hasAdminConsoleAccess(brief.roleKey, brief.departmentKey);
+}
+
+/** Aligné sur `public.is_automation_operator()` — exploitation fichiers / orchestrations automation. */
+export async function isAutomationOperator(userId: string): Promise<boolean> {
+  const brief = await getProfileAuthBrief(userId);
+  if (!brief.ok) return false;
+  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey)) return true;
+  return normalizeDepartmentKey(brief.departmentKey) === DEPARTMENT_KEYS.ADMINISTRATION;
+}
+
+/** Aligné sur `public.is_compliance_operator()` — FINANCE / ADMINISTRATION / console admin. */
+export async function isComplianceOperator(userId: string): Promise<boolean> {
+  const brief = await getProfileAuthBrief(userId);
+  if (!brief.ok) return false;
+  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey)) return true;
+  const dk = normalizeDepartmentKey(brief.departmentKey);
+  return dk === DEPARTMENT_KEYS.ADMINISTRATION || dk === DEPARTMENT_KEYS.FINANCE;
+}
+
+/** ADMINISTRATION / AUDIT / console admin — aligné SQL `is_observability_operator`. */
+export async function isObservabilityOperator(userId: string): Promise<boolean> {
+  const brief = await getProfileAuthBrief(userId);
+  if (!brief.ok) return false;
+  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey)) return true;
+  const dk = normalizeDepartmentKey(brief.departmentKey);
+  return dk === DEPARTMENT_KEYS.ADMINISTRATION || dk === DEPARTMENT_KEYS.AUDIT;
+}
+
+/** Aligné SQL `is_ai_operator` — console admin ou département ADMINISTRATION. */
+export async function isAiOperator(userId: string): Promise<boolean> {
+  const brief = await getProfileAuthBrief(userId);
+  if (!brief.ok) return false;
+  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey)) return true;
+  return normalizeDepartmentKey(brief.departmentKey) === DEPARTMENT_KEYS.ADMINISTRATION;
+}
+
+/** Aligné SQL `is_multitenant_operator` — console admin ou département ADMINISTRATION. */
+export async function isMultitenantOperator(userId: string): Promise<boolean> {
+  const brief = await getProfileAuthBrief(userId);
+  if (!brief.ok) return false;
+  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey)) return true;
+  return normalizeDepartmentKey(brief.departmentKey) === DEPARTMENT_KEYS.ADMINISTRATION;
+}
+
+/** Aligné SQL `is_cloud_operator` — console admin ou département ADMINISTRATION. */
+export async function isCloudOperator(userId: string): Promise<boolean> {
+  const brief = await getProfileAuthBrief(userId);
+  if (!brief.ok) return false;
+  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey)) return true;
+  return normalizeDepartmentKey(brief.departmentKey) === DEPARTMENT_KEYS.ADMINISTRATION;
+}
+
+/** Aligné SQL `is_platform_operator` — console admin ou département ADMINISTRATION. */
+export async function isPlatformOperator(userId: string): Promise<boolean> {
+  const brief = await getProfileAuthBrief(userId);
+  if (!brief.ok) return false;
+  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey)) return true;
+  return normalizeDepartmentKey(brief.departmentKey) === DEPARTMENT_KEYS.ADMINISTRATION;
+}
+
+/** Aligné SQL `is_ecosystem_operator` — console admin ou département ADMINISTRATION. */
+export async function isEcosystemOperator(userId: string): Promise<boolean> {
+  const brief = await getProfileAuthBrief(userId);
+  if (!brief.ok) return false;
+  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey)) return true;
+  return normalizeDepartmentKey(brief.departmentKey) === DEPARTMENT_KEYS.ADMINISTRATION;
+}
+
+/** Aligné SQL `is_governance_platform_operator` — console admin ou département ADMINISTRATION. */
+export async function isGovernancePlatformOperator(userId: string): Promise<boolean> {
+  const brief = await getProfileAuthBrief(userId);
+  if (!brief.ok) return false;
+  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey)) return true;
+  return normalizeDepartmentKey(brief.departmentKey) === DEPARTMENT_KEYS.ADMINISTRATION;
+}
+
+/** Aligné SQL `is_resilience_operator` — console admin ou département ADMINISTRATION. */
+export async function isResilienceOperator(userId: string): Promise<boolean> {
+  const brief = await getProfileAuthBrief(userId);
+  if (!brief.ok) return false;
+  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey)) return true;
+  return normalizeDepartmentKey(brief.departmentKey) === DEPARTMENT_KEYS.ADMINISTRATION;
 }
 
 /**

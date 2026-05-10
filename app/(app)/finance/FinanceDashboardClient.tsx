@@ -6,6 +6,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Calendar,
   Download,
+  Landmark,
   Radio,
   RefreshCw,
   Wallet,
@@ -269,6 +270,12 @@ export function FinanceDashboardClient({
               className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-darktext shadow-sm hover:bg-gray-50 transition"
             >
               <Wallet className="h-4 w-4" /> Dépenses
+            </Link>
+            <Link
+              href="/finance/enterprise"
+              className="inline-flex items-center gap-2 rounded-xl border border-primary/25 bg-primary/5 px-3 py-2 text-sm font-semibold text-primary shadow-sm hover:bg-primary/10 transition"
+            >
+              <Landmark className="h-4 w-4" /> Espace Enterprise
             </Link>
           </div>
         }

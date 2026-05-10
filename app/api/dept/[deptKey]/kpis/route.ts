@@ -4,6 +4,7 @@ import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getModulePermissions, getProfileAuthBrief, isAdminRole, isSuperAdmin } from "@/lib/server/permissions";
 import { DEPARTMENTS, type DepartmentKey } from "@/lib/constants/departments";
 import type { DeptKpiPayload } from "@/lib/dept/kpi-contract";
+import { resolveRhDeptKpisCached } from "@/modules/analytics/cache/rh-dept-kpis-resolver";
 
 type RouteContext = { params: { deptKey: string } };
 
@@ -74,7 +75,7 @@ export async function GET(_request: Request, { params }: RouteContext) {
           safeData(supabase.from("sales").select("total_amount_gnf,created_at").gte("created_at", monthStart), [] as { total_amount_gnf: number | null; created_at: string }[]),
           safeData(supabase.from("products").select("id,stock_quantity,stock_threshold").is("deleted_at", null), [] as { id: string; stock_quantity: number; stock_threshold: number }[]),
           safeData(supabase.from("sales").select("total_amount_gnf,created_at").gte("created_at", sevenDaysAgo).order("created_at", { ascending: true }), [] as { total_amount_gnf: number | null; created_at: string }[]),
-          safeData(supabase.from("products").select("id,name").limit(5), [] as { id: string; name: string }[]),
+          safeData(supabase.from("products").select("id,name").order("name", { ascending: true }).limit(5), [] as { id: string; name: string }[]),
           safeData(
             supabase
               .from("activity_logs")
@@ -131,21 +132,23 @@ export async function GET(_request: Request, { params }: RouteContext) {
     }
 
     case "finance": {
-      const [salesRows, expensesRows, transactionsRows] = await Promise.all([
+      const [salesRows, expensesRows, transactionsRows, salesWeekRows, expensesWeekRows] = await Promise.all([
         safeData(supabase.from("sales").select("total_amount_gnf,created_at").gte("created_at", monthStart), [] as { total_amount_gnf: number | null; created_at: string }[]),
         safeData(supabase.from("expenses").select("amount_gnf,created_at").gte("created_at", monthStart), [] as { amount_gnf: number; created_at: string }[]),
         safeCount(supabase.from("expenses").select("id", { count: "exact", head: true }).gte("created_at", monthStart)),
+        safeData(supabase.from("sales").select("total_amount_gnf,created_at").gte("created_at", sevenDaysAgo), [] as { total_amount_gnf: number | null; created_at: string }[]),
+        safeData(supabase.from("expenses").select("amount_gnf,created_at").gte("created_at", sevenDaysAgo), [] as { amount_gnf: number; created_at: string }[]),
       ]);
       const totalRevenueMonth = salesRows.reduce((sum, row) => sum + Number(row.total_amount_gnf ?? 0), 0);
       const totalExpensesMonth = expensesRows.reduce((sum, row) => sum + Number(row.amount_gnf ?? 0), 0);
       const byDay = new Map<string, { revenue: number; expenses: number }>();
-      for (const row of salesRows) {
+      for (const row of salesWeekRows) {
         const day = new Date(row.created_at).toISOString().slice(0, 10);
         const current = byDay.get(day) ?? { revenue: 0, expenses: 0 };
         current.revenue += Number(row.total_amount_gnf ?? 0);
         byDay.set(day, current);
       }
-      for (const row of expensesRows) {
+      for (const row of expensesWeekRows) {
         const day = new Date(row.created_at).toISOString().slice(0, 10);
         const current = byDay.get(day) ?? { revenue: 0, expenses: 0 };
         current.expenses += Number(row.amount_gnf ?? 0);
@@ -189,63 +192,16 @@ export async function GET(_request: Request, { params }: RouteContext) {
     }
 
     case "rh": {
-      const startOfDay = new Date();
-      startOfDay.setHours(0, 0, 0, 0);
-      const [activeEmployees, pendingLeaves, unreadAlerts, attendanceToday, recentHires] = await Promise.all([
-        safeCount(
-          supabase
-            .from("profiles")
-            .select("id", { count: "exact", head: true })
-            .is("deleted_at", null)
-            .neq("role_key", "super_admin")
-            .neq("role_key", "directeur_general"),
-        ),
-        safeCount(
-          supabase
-            .from("rh_leave_requests")
-            .select("id", { count: "exact", head: true })
-            .eq("status", "pending"),
-        ),
-        safeCount(
-          supabase
-            .from("governance_alerts")
-            .select("id", { count: "exact", head: true })
-            .eq("department_key", "rh")
-            .eq("status", "unread"),
-        ),
-        safeCount(
-          supabase
-            .from("rh_attendance_events")
-            .select("id", { count: "exact", head: true })
-            .gte("event_at", startOfDay.toISOString()),
-        ),
-        safeData(
-          supabase
-            .from("profiles")
-            .select("id,first_name,last_name,created_at")
-            .is("deleted_at", null)
-            .order("created_at", { ascending: false })
-            .limit(3),
-          [] as { id: string; first_name: string | null; last_name: string | null; created_at: string | null }[],
-        ),
-      ]);
-      data = {
-        stats: [
-          { id: "activeEmployees", label: "dashboard.dept.kpi.activeEmployees", value: activeEmployees, unit: "count" },
-          { id: "presentToday", label: "dashboard.dept.kpi.presentToday", value: attendanceToday, unit: "count" },
-          { id: "pendingLeaves", label: "dashboard.dept.kpi.pendingLeaves", value: pendingLeaves, unit: "count" },
-          { id: "rhUnreadAlerts", label: "dashboard.rh.kpi.unreadAlerts", value: unreadAlerts, unit: "count" },
-        ],
-        charts: [],
-        alerts: [],
-        activity: recentHires.map((hire) => ({
-          id: hire.id,
-          label: [hire.first_name, hire.last_name].filter(Boolean).join(" ").trim() || "dashboard.dept.activity.newHire",
-          timestamp: hire.created_at ?? undefined,
-        })),
-        health: { status: "placeholder", notes: ["dashboard.dept.health.partialAttendance"] },
-        metadata: { source: "rh", generatedAt: new Date().toISOString(), placeholder: true },
-      };
+      const rhDeptUpper = String(profileBrief.departmentKey ?? "").trim().toUpperCase();
+      const elevated =
+        superAdmin ||
+        adminRole ||
+        legacyDG ||
+        (deptPermission.canRead && rhDeptUpper === "RH");
+      data = await resolveRhDeptKpisCached({
+        viewerUserId: user.id,
+        elevated,
+      });
       break;
     }
 

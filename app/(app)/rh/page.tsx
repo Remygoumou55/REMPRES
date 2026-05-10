@@ -26,7 +26,7 @@ export default async function RHPage() {
 
   const [{ messages }, data] = await Promise.all([
     loadLocaleMessages(getRequestLocale()),
-    getRhFoundationData(),
+    getRhFoundationData(user.id),
   ]);
   const t = (key: string, fallback?: string) => translateFromDict(messages, key, fallback);
 
@@ -68,6 +68,20 @@ export default async function RHPage() {
         >
           <p className="text-sm font-semibold text-darktext">Conges</p>
           <p className="mt-1 text-xs text-gray-500">Demandes de conges et validation RH</p>
+        </Link>
+        <Link
+          href="/rh/contrats"
+          className="card block rounded-xl border border-gray-200 p-4 transition hover:border-primary/40"
+        >
+          <p className="text-sm font-semibold text-darktext">Contrats</p>
+          <p className="mt-1 text-xs text-gray-500">Gestion enterprise des contrats, renouvellements et alertes</p>
+        </Link>
+        <Link
+          href="/rh/recrutement"
+          className="card block rounded-xl border border-gray-200 p-4 transition hover:border-primary/40"
+        >
+          <p className="text-sm font-semibold text-darktext">Recrutement</p>
+          <p className="mt-1 text-xs text-gray-500">ATS candidats, pipeline, entretiens, onboarding et gouvernance</p>
         </Link>
         <a
           href="/api/rh/export?format=csv"

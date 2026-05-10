@@ -5,5 +5,9 @@ export const REALTIME_CHANNELS = {
     audit: "governance-audit",
     intelligence: "governance-intelligence",
   },
+  rh: {
+    contracts: "rh-contracts-feed",
+    recruitment: "rh-recruitment-feed",
+  },
 } as const;
 

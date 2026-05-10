@@ -16,7 +16,7 @@ export default async function RhPresencePage() {
   const perms = await getModulePermissions(user.id, ["rh"]);
   if (!perms.canRead) redirect("/access-denied");
 
-  const data = await getRhFoundationData();
+  const data = await getRhFoundationData(user.id);
   const supabase = getSupabaseServerClient();
   const [adminRole, actorBrief] = await Promise.all([isAdminRole(user.id), getProfileAuthBrief(user.id)]);
   const canReadAllAttendance =

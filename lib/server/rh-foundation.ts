@@ -1,4 +1,7 @@
+import { unstable_cache } from "next/cache";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import { ANALYTICS_CACHE_TAGS } from "@/modules/analytics/constants/cache-tags";
+import { RH_FOUNDATION_NEXT_CACHE_SEC } from "@/modules/analytics/constants";
 import { buildRhTimeline, type RhTimelineInputItem } from "@/lib/rh/timeline";
 import { computeRhReportingSummary, type RhReportingSummary } from "@/lib/rh/reporting";
 
@@ -58,7 +61,7 @@ function normalizeName(firstName: string | null, lastName: string | null, email:
   return "Compte";
 }
 
-export async function getRhFoundationData(): Promise<RhFoundationData> {
+async function computeRhFoundationDataUncached(): Promise<RhFoundationData> {
   const supabase = getSupabaseServerClient();
   const now = new Date();
   const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString();
@@ -229,5 +232,21 @@ export async function getRhFoundationData(): Promise<RhFoundationData> {
     ),
     generatedAt: now.toISOString(),
   };
+}
+
+export async function getRhFoundationData(viewerUserId: string): Promise<RhFoundationData> {
+  const uid = String(viewerUserId ?? "").trim();
+  if (!uid) {
+    throw new Error("getRhFoundationData: viewerUserId is required");
+  }
+
+  return unstable_cache(
+    async () => computeRhFoundationDataUncached(),
+    ["analytics", "rh", "foundation", uid],
+    {
+      revalidate: RH_FOUNDATION_NEXT_CACHE_SEC,
+      tags: [ANALYTICS_CACHE_TAGS.rhFoundation],
+    },
+  )();
 }
 

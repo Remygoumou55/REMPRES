@@ -55,6 +55,8 @@ export async function approveRequestAction(requestId: string): Promise<void> {
     metadata: { operation: "approve_request" },
   });
   revalidatePath("/admin/approvals");
+  revalidatePath("/rh/contrats");
+  revalidatePath("/rh/recrutement");
 }
 
 export async function rejectRequestAction(
@@ -98,4 +100,6 @@ export async function rejectRequestAction(
     metadata: { operation: "reject_request", rejectionReason: rejectionReason ?? null },
   });
   revalidatePath("/admin/approvals");
+  revalidatePath("/rh/contrats");
+  revalidatePath("/rh/recrutement");
 }

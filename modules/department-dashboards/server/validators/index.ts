@@ -1,0 +1,1 @@
+export { DEPARTMENT_DASHBOARD_VALIDATOR_PLACEHOLDER } from "./placeholder";

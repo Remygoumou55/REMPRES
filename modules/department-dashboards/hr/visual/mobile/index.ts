@@ -1,0 +1,1 @@
+export { WorkforceMobileStrip } from "./WorkforceMobileStrip";

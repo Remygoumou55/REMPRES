@@ -1,0 +1,1 @@
+export const HR_VISUAL_REPOSITORY_PLACEHOLDER = true;

@@ -16,6 +16,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { queryKeys } from "@/lib/query/query-keys";
 import { useTranslation } from "@/hooks/use-translation";
 import type { DeptKpiApiResponse } from "@/lib/dept/kpi-contract";
+import { DepartmentOperationsStrip } from "@/modules/department-dashboards/components/DepartmentOperationsStrip";
+import { HrVisualInsightsPanel } from "@/modules/department-dashboards/hr/components";
 
 const DynamicDeptKpiChart = dynamic(() => import("./DeptKpiChart").then((m) => m.DeptKpiChart), {
   ssr: false,
@@ -106,6 +108,10 @@ export default function DeptDashboardPage() {
           <StatsCard key={kpi.title} title={kpi.title} value={kpi.value} icon={kpi.icon} color={kpi.color} />
         ))}
       </div>
+
+      <DepartmentOperationsStrip deptKey={deptKey} />
+
+      {deptKey === "rh" ? <HrVisualInsightsPanel payload={data?.data ?? null} /> : null}
 
       <DynamicDeptKpiChart chart={chart} emptyMessage={t("dashboard.dept.chart.empty", "Graphiques disponibles dès l'activation du module.")} />
 

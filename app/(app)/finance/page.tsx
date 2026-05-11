@@ -7,6 +7,7 @@ import { getFinanceCfoData } from "@/lib/server/finance-overview";
 import { listExpenseCategories } from "@/lib/server/expenses";
 import { parseCategoryIds, parseCreatedBy, parseFinanceIsoDate } from "@/lib/finance-query-params";
 import { RouteLoadingShell } from "@/components/ui/route-loading-shell";
+import { ROUTES } from "@/lib/constants/routes";
 
 /** Code-split : Recharts et graphiques ne sont chargés qu’en ouvrant /finance. */
 const FinanceDashboardClient = dynamic(
@@ -71,15 +72,22 @@ export default async function FinancePage({ searchParams }: PageProps) {
   ]);
 
   return (
-    <FinanceDashboardClient
-      data={data}
-      from={from}
-      to={to}
-      categoryOptions={categoryOptions}
-      profileOptions={profileOptions}
-      canFilterByUser={superAdmin}
-      selectedCategoryIds={categoryIds}
-      selectedCreatedBy={createdByUserId}
-    />
+    <>
+      <div className="px-4 pb-2 pt-1 md:px-6">
+        <a href={ROUTES.financeVisual} className="inline-flex text-sm font-medium text-primary hover:underline">
+          Ouvrir Finance Visual Operations Center →
+        </a>
+      </div>
+      <FinanceDashboardClient
+        data={data}
+        from={from}
+        to={to}
+        categoryOptions={categoryOptions}
+        profileOptions={profileOptions}
+        canFilterByUser={superAdmin}
+        selectedCategoryIds={categoryIds}
+        selectedCreatedBy={createdByUserId}
+      />
+    </>
   );
 }

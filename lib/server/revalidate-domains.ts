@@ -11,6 +11,11 @@ import { MULTITENANT_CACHE_TAGS } from "@/modules/multitenant/constants/cache-ta
 import { OBSERVABILITY_CACHE_TAGS } from "@/modules/observability/constants/cache-tags";
 import { PLATFORM_CACHE_TAGS } from "@/modules/platform/constants/cache-tags";
 import { RESILIENCE_CACHE_TAGS } from "@/modules/resilience/constants/cache-tags";
+import { DASHBOARD_FOUNDATION_CACHE_TAGS } from "@/modules/dashboard-system/constants";
+import { EXECUTIVE_DASHBOARD_CACHE_TAGS } from "@/modules/executive-dashboard/constants";
+import { ADMIN_PLATFORM_DASHBOARD_CACHE_TAGS } from "@/modules/admin-platform-dashboard/constants";
+import { DEPARTMENT_DASHBOARDS_CACHE_TAGS } from "@/modules/department-dashboards/constants";
+import { HR_VISUAL_CACHE_TAGS } from "@/modules/department-dashboards/hr/constants";
 
 function uniq(paths: readonly string[]): string[] {
   return Array.from(new Set(paths.filter(Boolean)));
@@ -410,4 +415,90 @@ export function revalidateAdminArchivesScope() {
     "/vente/clients",
     "/vente/produits",
   ]);
+}
+
+export function revalidateDashboardFoundationScope(params?: { deptKeys?: readonly string[] }) {
+  const deptPaths = (params?.deptKeys ?? []).map((k) => `/dept/${String(k).trim().toLowerCase()}`);
+  revalidateMany(["/dashboard", "/dept", ...deptPaths]);
+  try {
+    revalidateTag(DASHBOARD_FOUNDATION_CACHE_TAGS.root);
+    for (const k of params?.deptKeys ?? []) {
+      revalidateTag(DASHBOARD_FOUNDATION_CACHE_TAGS.deptKpis(k));
+    }
+  } catch {
+    /* boundary Next */
+  }
+}
+
+export function revalidateExecutiveDashboardScope() {
+  revalidateMany(["/dashboard/executive", "/dashboard"]);
+  try {
+    revalidateTag(EXECUTIVE_DASHBOARD_CACHE_TAGS.root);
+    revalidateTag(EXECUTIVE_DASHBOARD_CACHE_TAGS.globalSnapshot);
+  } catch {
+    /* boundary Next */
+  }
+}
+
+export function revalidateAdminPlatformDashboardScope() {
+  revalidateMany(["/admin/platform-dashboard", "/admin"]);
+  try {
+    revalidateTag(ADMIN_PLATFORM_DASHBOARD_CACHE_TAGS.root);
+    revalidateTag(ADMIN_PLATFORM_DASHBOARD_CACHE_TAGS.hub);
+  } catch {
+    /* boundary Next */
+  }
+}
+
+export function revalidateDepartmentDashboardsScope(params: { deptKey: string }) {
+  const k = String(params.deptKey ?? "").trim().toLowerCase();
+  revalidateMany([`/dept/${k}`, "/dept", "/dashboard"]);
+  try {
+    revalidateTag(DEPARTMENT_DASHBOARDS_CACHE_TAGS.root);
+    revalidateTag(DEPARTMENT_DASHBOARDS_CACHE_TAGS.vertical(k));
+  } catch {
+    /* boundary Next */
+  }
+}
+
+export function revalidateHrVisualDashboardScope() {
+  revalidateMany(["/dept/rh", "/rh/dashboard", "/rh", "/dashboard"]);
+  try {
+    revalidateTag(DEPARTMENT_DASHBOARDS_CACHE_TAGS.root);
+    revalidateTag(DEPARTMENT_DASHBOARDS_CACHE_TAGS.vertical("rh"));
+    revalidateTag(HR_VISUAL_CACHE_TAGS.root);
+    revalidateTag(HR_VISUAL_CACHE_TAGS.snapshot);
+  } catch {
+    /* boundary Next */
+  }
+}
+
+export function revalidateFinanceVisualDashboardScope() {
+  revalidateMany(["/dept/finance", "/finance", "/finance/dashboard", "/finance/visual", "/dashboard"]);
+  try {
+    revalidateTag(DEPARTMENT_DASHBOARDS_CACHE_TAGS.root);
+    revalidateTag(DEPARTMENT_DASHBOARDS_CACHE_TAGS.vertical("finance"));
+  } catch {
+    /* boundary Next */
+  }
+}
+
+export function revalidateCrmVisualDashboardScope() {
+  revalidateMany(["/dept/vente", "/vente/crm", "/vente/crm/dashboard", "/vente/crm/visual", "/dashboard"]);
+  try {
+    revalidateTag(DEPARTMENT_DASHBOARDS_CACHE_TAGS.root);
+    revalidateTag(DEPARTMENT_DASHBOARDS_CACHE_TAGS.vertical("vente"));
+  } catch {
+    /* boundary Next */
+  }
+}
+
+export function revalidateLogisticsVisualDashboardScope() {
+  revalidateMany(["/dept/logistique", "/logistique", "/logistique/dashboard", "/logistique/visual", "/dashboard"]);
+  try {
+    revalidateTag(DEPARTMENT_DASHBOARDS_CACHE_TAGS.root);
+    revalidateTag(DEPARTMENT_DASHBOARDS_CACHE_TAGS.vertical("logistique"));
+  } catch {
+    /* boundary Next */
+  }
 }

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PageHeader } from "@/components/ui/page-header";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import { ROUTES } from "@/lib/constants/routes";
 import { CRM_NAV } from "@/modules/crm/constants/nav";
 import { getCrmOperationalOverview } from "@/modules/crm/server/services/crm-overview";
 import { CrmMetricCard } from "@/modules/crm/ui/cards/CrmMetricCard";
@@ -17,12 +18,20 @@ export default async function VenteCrmHubPage() {
         title="CRM / Sales Enterprise"
         subtitle="Pipeline commercial, devis, activités et prévisions — relié aux ventes (`sales`), clients (`clients`), finance et logistique."
         actions={
-          <Link
-            href="/vente/dashboard"
-            className="rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-darktext shadow-sm transition hover:bg-gray-50"
-          >
-            Accueil gouvernance département
-          </Link>
+          <div className="flex flex-wrap items-center gap-2">
+            <Link
+              href={ROUTES.crmVisual}
+              className="rounded-xl border border-indigo-200 bg-indigo-50 px-3 py-2 text-sm font-medium text-indigo-800 shadow-sm transition hover:bg-indigo-100"
+            >
+              Ouvrir Sales & Customer Operations Center
+            </Link>
+            <Link
+              href="/vente/dashboard"
+              className="rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-darktext shadow-sm transition hover:bg-gray-50"
+            >
+              Accueil gouvernance département
+            </Link>
+          </div>
         }
       />
 

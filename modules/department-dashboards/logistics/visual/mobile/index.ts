@@ -1,0 +1,1 @@
+export { LogisticsMobileStrip } from "./LogisticsMobileStrip";

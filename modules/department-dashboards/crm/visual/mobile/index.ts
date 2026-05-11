@@ -1,0 +1,1 @@
+export { SalesMobileStrip } from "./SalesMobileStrip";

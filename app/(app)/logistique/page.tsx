@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PageHeader } from "@/components/ui/page-header";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import { ROUTES } from "@/lib/constants/routes";
 import { LOGISTICS_NAV } from "@/modules/logistics/constants/nav";
 import { LogisticsMetricCard } from "@/modules/logistics/ui/cards/LogisticsMetricCard";
 import { LogisticsSectionPanel } from "@/modules/logistics/ui/panels/SectionPanel";
@@ -16,12 +17,20 @@ export default async function LogistiqueHubPage() {
         title="Logistique Enterprise"
         subtitle="Supply chain : entrepôts, stocks, achats, livraisons — aligné catalogue produits (`products`)."
         actions={
-          <Link
-            href="/logistique/dashboard"
-            className="rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-darktext shadow-sm transition hover:bg-gray-50"
-          >
-            Accueil gouvernance département
-          </Link>
+          <div className="flex flex-wrap items-center gap-2">
+            <Link
+              href={ROUTES.logisticsVisual}
+              className="rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-medium text-emerald-800 shadow-sm transition hover:bg-emerald-100"
+            >
+              Ouvrir Supply Chain Operations Center
+            </Link>
+            <Link
+              href="/logistique/dashboard"
+              className="rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-darktext shadow-sm transition hover:bg-gray-50"
+            >
+              Accueil gouvernance département
+            </Link>
+          </div>
         }
       />
 

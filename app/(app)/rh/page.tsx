@@ -83,6 +83,15 @@ export default async function RHPage() {
           <p className="text-sm font-semibold text-darktext">Recrutement</p>
           <p className="mt-1 text-xs text-gray-500">ATS candidats, pipeline, entretiens, onboarding et gouvernance</p>
         </Link>
+        <Link
+          href="/rh/visual"
+          className="card block rounded-xl border border-gray-200 p-4 transition hover:border-primary/40"
+        >
+          <p className="text-sm font-semibold text-darktext">RH Visual Enterprise</p>
+          <p className="mt-1 text-xs text-gray-500">
+            Workforce operations center : KPI temps reel, insights RH et visualisation organisationnelle.
+          </p>
+        </Link>
         <a
           href="/api/rh/export?format=csv"
           className="card block rounded-xl border border-gray-200 p-4 transition hover:border-primary/40"

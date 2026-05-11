@@ -111,6 +111,11 @@ export const queryKeys = {
   },
   dashboard: {
     global: ["dashboard", "global"] as const,
+    foundation: {
+      root: ["dashboard", "foundation"] as const,
+      dept: (deptKey: string) => ["dashboard", "foundation", "dept", clean(deptKey)] as const,
+      orchestration: (id: string) => ["dashboard", "foundation", "orchestration", clean(id)] as const,
+    },
   },
   analytics: {
     root: ["analytics"] as const,
@@ -189,6 +194,22 @@ export const queryKeys = {
     hub: ["resilience", "hub"] as const,
     chaos: ["resilience", "chaos"] as const,
     validation: ["resilience", "validation"] as const,
+  },
+  executive: {
+    root: ["executive"] as const,
+    globalSnapshot: ["executive", "global-snapshot"] as const,
+  },
+  adminPlatform: {
+    root: ["admin_platform"] as const,
+    hub: ["admin_platform", "hub"] as const,
+  },
+  departmentDashboards: {
+    root: ["department_dashboards"] as const,
+    dept: (deptKey: string) => ["department_dashboards", "dept", clean(deptKey)] as const,
+    hrVisual: ["department_dashboards", "hr", "visual"] as const,
+    financeVisual: ["department_dashboards", "finance", "visual"] as const,
+    crmVisual: ["department_dashboards", "crm", "visual"] as const,
+    logisticsVisual: ["department_dashboards", "logistics", "visual"] as const,
   },
 } as const;
 

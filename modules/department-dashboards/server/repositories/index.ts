@@ -1,0 +1,1 @@
+export { DEPARTMENT_DASHBOARD_REPOSITORY_PLACEHOLDER } from "./placeholder";

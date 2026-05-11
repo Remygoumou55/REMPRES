@@ -112,6 +112,19 @@ export default async function AdminIndexPage() {
           </Link>
         </section>
         <section className="card p-5">
+          <h2 className="text-sm font-semibold text-darktext">Centre de pilotage plateforme</h2>
+          <p className="mt-1 text-sm text-gray-600">
+            Observabilité, files, cloud, gouvernance et résilience — point d&apos;entrée unique vers les consoles admin
+            existantes.
+          </p>
+          <Link
+            href={ROUTES.adminPlatformDashboard}
+            className="mt-3 inline-flex text-sm font-medium text-primary hover:underline"
+          >
+            Ouvrir →
+          </Link>
+        </section>
+        <section className="card p-5">
           <h2 className="text-sm font-semibold text-darktext">Automation entreprise</h2>
           <p className="mt-1 text-sm text-gray-600">
             Workflows, orchestrations, planifications et bus événements.

@@ -1,5 +1,11 @@
 export const ROUTES = {
   home: "/dashboard",
+  executive: "/dashboard/executive",
+  adminPlatformDashboard: "/admin/platform-dashboard",
+  rhVisual: "/rh/visual",
+  financeVisual: "/finance/visual",
+  crmVisual: "/vente/crm/visual",
+  logisticsVisual: "/logistique/visual",
   // direction remains accessible via direct URL, but hidden from sidebar
   direction: "/direction",
   dept: "/dept",

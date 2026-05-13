@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { GovernanceBreadcrumb } from "@/components/governance/layout/GovernanceBreadcrumb";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getModulePermissions } from "@/lib/server/permissions";
 import { MULTITENANT_INFRA_JOB_TYPES } from "@/modules/multitenant/constants/infrastructure-bridge";
@@ -13,13 +12,6 @@ export default async function AdminMultitenantOrchestrationPage() {
 
   return (
     <>
-      <GovernanceBreadcrumb
-        items={[
-          { href: "/dashboard", label: "Accueil" },
-          { href: "/admin/multitenant", label: "Multi-tenant" },
-          { href: "/admin/multitenant/orchestration", label: "Orchestration" },
-        ]}
-      />
       <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
         <h1 className="text-xl font-semibold text-gray-900">Orchestration distribuée</h1>
         <p className="mt-1 text-sm text-gray-600">

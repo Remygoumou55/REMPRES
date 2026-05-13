@@ -4,6 +4,7 @@ import { parseFinanceIsoDate } from "@/lib/finance-query-params";
 import { listFinanceGeneralLedger } from "@/modules/finance/server/repositories/finance-ledger-repository";
 import { FinanceLedgerTable } from "@/modules/finance/components/ledger/FinanceLedgerTable";
 import { SectionPanel } from "@/modules/finance/ui/panels/SectionPanel";
+import { FilterPanelShell } from "@/components/ui/filter-panel-shell";
 
 function firstDayOfMonth(): string {
   const d = new Date();
@@ -33,16 +34,14 @@ export default async function FinanceEnterpriseLedgerPage({ searchParams }: Page
   const rows = await listFinanceGeneralLedger(supabase, from, to, 500);
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader
         title="Grand livre"
         subtitle="Écritures postées uniquement — filtre par période."
       />
 
-      <form
-        className="flex flex-wrap items-end gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm"
-        method="get"
-      >
+      <FilterPanelShell title="Période">
+      <form className="flex flex-wrap items-end gap-3" method="get">
         <div className="flex flex-col gap-1">
           <label className="text-xs font-semibold text-gray-500" htmlFor="gl-from">
             Du
@@ -74,6 +73,7 @@ export default async function FinanceEnterpriseLedgerPage({ searchParams }: Page
           Filtrer
         </button>
       </form>
+      </FilterPanelShell>
 
       <SectionPanel title={`Mouvements ${from} → ${to}`}>
         <FinanceLedgerTable rows={rows} />

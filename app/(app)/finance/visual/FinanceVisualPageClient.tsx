@@ -21,29 +21,35 @@ import { useFinanceVisualRefresh, useFinanceVisualSnapshot } from "@/modules/dep
 
 export function FinanceVisualPageClient() {
   const { t } = useTranslation();
-  const { data, isLoading, isError, error } = useFinanceVisualSnapshot();
+  const { data, isLoading, isError } = useFinanceVisualSnapshot();
   const refresh = useFinanceVisualRefresh();
 
   if (isLoading) {
     return (
-      <div className="page-wrapper space-y-4">
-        <div className="card h-20 animate-pulse" />
-        <div className="card h-56 animate-pulse" />
-        <div className="card h-72 animate-pulse" />
+      <div className="page-wrapper">
+        <div className="space-y-4">
+          <div className="card h-20 animate-pulse" />
+          <div className="card h-56 animate-pulse" />
+          <div className="card h-72 animate-pulse" />
+        </div>
       </div>
     );
   }
 
   if (isError || !data) {
     return (
-      <div className="page-wrapper space-y-4">
-        <PageHeader
-          title={t("finance.visual.title", "Finance Visual Operations Center")}
-          subtitle={t("finance.visual.subtitle", "Executive-grade financial operations and intelligence")}
-        />
-        <div className="card border border-red-200 bg-red-50 p-4 text-sm text-red-700">
-          {t("finance.visual.error", "Unable to load finance visual indicators.")}
-          {error instanceof Error ? ` (${error.message})` : ""}
+      <div className="page-wrapper">
+        <div className="space-y-4">
+          <PageHeader
+            title={t("finance.visual.title", "Pilotage visuel Finance")}
+            subtitle={t(
+              "finance.visual.subtitle",
+              "Indicateurs financiers consolidés, trésorerie et tendances pour la direction.",
+            )}
+          />
+          <div className="card border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+            {t("finance.visual.error", "Impossible de charger le pilotage visuel finance.")}
+          </div>
         </div>
       </div>
     );
@@ -52,10 +58,13 @@ export function FinanceVisualPageClient() {
   const model = buildFinanceVisualFinalizationModel(data);
 
   return (
-    <div className="page-wrapper space-y-6">
+    <div className="page-wrapper">
       <PageHeader
-        title={t("finance.visual.title", "Finance Visual Operations Center")}
-        subtitle={t("finance.visual.subtitle", "Executive-grade financial operations and intelligence")}
+        title={t("finance.visual.title", "Pilotage visuel Finance")}
+        subtitle={t(
+          "finance.visual.subtitle",
+          "Indicateurs financiers consolidés, trésorerie et tendances pour la direction.",
+        )}
         actions={
           <div className="flex items-center gap-2">
             <Button
@@ -63,13 +72,13 @@ export function FinanceVisualPageClient() {
               size="sm"
               onClick={() => refresh.mutate()}
               loading={refresh.isPending}
-              loadingText={t("finance.visual.refreshing", "Refreshing...")}
+              loadingText={t("finance.visual.refreshing", "Actualisation…")}
             >
               <RefreshCw className="mr-1 h-4 w-4" />
-              {t("finance.visual.refresh", "Refresh")}
+              {t("finance.visual.refresh", "Actualiser")}
             </Button>
             <Link href="/finance" className="text-sm font-medium text-primary hover:underline">
-              {t("finance.visual.backFinance", "Back to finance")}
+              {t("finance.visual.backFinance", "Retour Finance")}
             </Link>
           </div>
         }

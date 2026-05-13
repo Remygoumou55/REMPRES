@@ -6,6 +6,8 @@ import { createProduct, listProducts } from "@/lib/server/products";
 import { ProductsTable } from "@/components/vente/produits/products-table";
 import { getModulePermissions } from "@/lib/server/permissions";
 import { FlashMessage } from "@/components/ui/flash-message";
+import { PageHeader } from "@/components/ui/page-header";
+import { ModulePageStack } from "@/components/ui/module-page-stack";
 import { ProductForm } from "@/components/forms/product-form";
 import { mapProductError } from "@/lib/server/product-error-messages";
 import { withCreateModalQuery } from "@/lib/routing/modal-query";
@@ -37,23 +39,19 @@ function getNumberValue(formData: FormData, name: string) {
 export default async function ProductsPage({ searchParams }: ProductsPageProps) {
   const user = await getServerSessionUser();
 
-  // 🔐 Sécurité utilisateur
   if (!user) {
     redirect("/login");
   }
   const userId = user.id;
 
-  // 🔐 Permissions
   const permissions = await getModulePermissions(userId, ["produits", "vente"]);
 
   if (!permissions.canRead) {
     redirect("/access-denied");
   }
 
-  // 📦 Data
   const products = await listProducts();
 
-  // ✅ Sécurisation des params (ANTI CRASH)
   const successMessage =
     typeof searchParams?.success === "string"
       ? decodeURIComponent(searchParams.success)
@@ -95,53 +93,45 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
   }
 
   return (
-    <main className="min-h-screen bg-graylight p-6">
-      <div className="mx-auto max-w-6xl space-y-4">
+    <div className="page-wrapper">
+      <ModulePageStack>
+        <PageHeader
+          title="Produits"
+          subtitle={`${products?.length ?? 0} produit(s) catalogue.`}
+          actions={
+            permissions.canDelete || permissions.canCreate ? (
+              <div className="flex flex-wrap items-center gap-2">
+                {permissions.canDelete ? (
+                  <Link
+                    href="/vente/produits/archives"
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-darktext shadow-sm transition hover:bg-gray-50"
+                  >
+                    <Archive size={14} />
+                    Archives
+                  </Link>
+                ) : null}
+                {permissions.canCreate ? (
+                  <a
+                    href={withCreateModalQuery("/vente/produits")}
+                    className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-primary-dark"
+                  >
+                    + Nouveau produit
+                  </a>
+                ) : null}
+              </div>
+            ) : null
+          }
+        />
 
-        {/* Header */}
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg bg-white p-4 shadow-sm">
-          <div>
-            <h1 className="text-2xl font-semibold text-darktext">Produits</h1>
-            <p className="text-sm text-darktext/80">
-              {products?.length ?? 0} produit(s)
-            </p>
-          </div>
-
-          {permissions.canDelete || permissions.canCreate ? (
-            <div className="flex flex-wrap items-center gap-2">
-              {permissions.canDelete ? (
-                <Link
-                  href="/vente/produits/archives"
-                  className="inline-flex items-center gap-1.5 rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-600 transition hover:border-gray-400 hover:text-darktext"
-                >
-                  <Archive size={14} />
-                  Archives
-                </Link>
-              ) : null}
-              {permissions.canCreate ? (
-                <a
-                  href={withCreateModalQuery("/vente/produits")}
-                  className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-white transition hover:bg-primary-dark"
-                >
-                  + Nouveau produit
-                </a>
-              ) : null}
-            </div>
-          ) : null}
-        </div>
-
-        {/* Flash Messages SAFE */}
         <FlashMessage success={successMessage} error={errorMessage} />
 
-        {/* Table */}
         <ProductsTable
           products={products ?? []}
           canUpdate={permissions.canUpdate}
           canDelete={permissions.canDelete}
           listQueryString=""
         />
-
-      </div>
+      </ModulePageStack>
       {permissions.canCreate && createOpen ? (
         <ProductForm
           title="Nouveau produit"
@@ -151,6 +141,6 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
           errorMessage={errorMessage}
         />
       ) : null}
-    </main>
+    </div>
   );
 }

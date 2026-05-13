@@ -4,7 +4,9 @@ import { useCallback, useEffect, useMemo, useRef, useState, useTransition } from
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { SearchInput } from "@/components/ui/search-input";
+import { FilterPanelShell } from "@/components/ui/filter-panel-shell";
 import { MODAL_ACTION_PARAM_KEYS } from "@/lib/routing/modal-query";
+import { CLIENT_FILTER_URL_DEBOUNCE_MS } from "@/lib/data-listing";
 
 const FLASH_PARAM_KEYS = ["success", "error"] as const;
 
@@ -95,39 +97,44 @@ export function ClientsFilters({ initialQuery, initialType, initialPageSize }: P
         }
       }
       pushFilters({ q: query, type, pageSize });
-    }, 250);
+    }, CLIENT_FILTER_URL_DEBOUNCE_MS);
     return () => window.clearTimeout(timer);
   }, [pageSize, pushFilters, query, type]);
 
+  const filterControlClass =
+    "w-full rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20";
+
   return (
-    <div className="grid gap-3 rounded-lg bg-white p-4 shadow-sm sm:grid-cols-4">
-      <SearchInput
-        value={query}
-        onChange={setQuery}
-        placeholder="Rechercher (nom, email, téléphone)"
-        className="sm:col-span-2"
-      />
-      <select
-        value={type}
-        onChange={(e) => setType(e.target.value as Props["initialType"])}
-        className="rounded-md border border-gray-300 px-3 py-2"
-      >
-        <option value="all">Tous les types</option>
-        <option value="individual">Individuel</option>
-        <option value="company">Entreprise</option>
-      </select>
-      <div className="flex items-center gap-2">
+    <FilterPanelShell>
+      <div className="grid gap-3 sm:grid-cols-4">
+        <SearchInput
+          value={query}
+          onChange={setQuery}
+          placeholder="Rechercher (nom, email, téléphone)"
+          className="sm:col-span-2"
+        />
         <select
-          value={pageSize}
-          onChange={(e) => setPageSize(e.target.value as Props["initialPageSize"])}
-          className="w-full rounded-md border border-gray-300 px-3 py-2"
+          value={type}
+          onChange={(e) => setType(e.target.value as Props["initialType"])}
+          className={filterControlClass}
         >
-          <option value="10">10 / page</option>
-          <option value="25">25 / page</option>
-          <option value="50">50 / page</option>
+          <option value="all">Tous les types</option>
+          <option value="individual">Individuel</option>
+          <option value="company">Entreprise</option>
         </select>
-        {isPending ? <Loader2 size={16} className="shrink-0 animate-spin text-primary" /> : null}
+        <div className="flex items-center gap-2">
+          <select
+            value={pageSize}
+            onChange={(e) => setPageSize(e.target.value as Props["initialPageSize"])}
+            className={filterControlClass}
+          >
+            <option value="10">10 / page</option>
+            <option value="25">25 / page</option>
+            <option value="50">50 / page</option>
+          </select>
+          {isPending ? <Loader2 size={16} className="shrink-0 animate-spin text-primary" /> : null}
+        </div>
       </div>
-    </div>
+    </FilterPanelShell>
   );
 }

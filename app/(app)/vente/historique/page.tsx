@@ -6,6 +6,8 @@ import { getModulePermissions } from "@/lib/server/permissions";
 import type { Client } from "@/types/client";
 import { PageHeader } from "@/components/ui/page-header";
 import { FlashMessage } from "@/components/ui/flash-message";
+import { PaginationBar } from "@/components/ui/pagination-bar";
+import { SALES_HISTORY_PAGE_SIZE } from "@/lib/data-listing";
 import { SalesTable, type SaleRow } from "@/components/vente/historique/sales-table";
 import { HistoriqueSalesFiltersForm } from "@/components/vente/historique/historique-sales-filters-form";
 
@@ -55,7 +57,7 @@ export default async function HistoriquePage({ searchParams }: PageProps) {
   const successMessage = safeDecodeSearchParam(searchParams?.success);
   const errorMessage = safeDecodeSearchParam(searchParams?.error);
   const page = Math.max(1, Number(searchParams?.page ?? "1"));
-  const pageSize = 20;
+  const pageSize = SALES_HISTORY_PAGE_SIZE;
   const rangeFrom = (page - 1) * pageSize;
   const rangeTo = rangeFrom + pageSize - 1;
 
@@ -95,8 +97,12 @@ export default async function HistoriquePage({ searchParams }: PageProps) {
 
   if (error) {
     return (
-      <div className="rounded-2xl border border-red-200 bg-red-50 p-6 text-sm text-red-700">
-        Erreur : {error.message}
+      <div className="mx-auto max-w-6xl space-y-5">
+        <PageHeader title="Historique des ventes" subtitle="Liste des ventes" />
+        <div className="rounded-2xl border border-red-200 bg-red-50 p-6 text-sm text-red-800">
+          Impossible de charger l’historique des ventes pour le moment. Réessayez plus tard ou contactez le support
+          si le problème persiste.
+        </div>
       </div>
     );
   }
@@ -170,35 +176,16 @@ export default async function HistoriquePage({ searchParams }: PageProps) {
         listQueryString={listQueryString}
       />
 
-      <div className="flex items-center justify-between rounded-2xl border border-gray-100 bg-white px-5 py-3.5 shadow-sm">
-        <p className="text-sm text-gray-500">
-          Page <span className="font-semibold text-darktext">{page}</span> sur{" "}
-          <span className="font-semibold text-darktext">{totalPages}</span> — {total} vente
-          {total > 1 ? "s" : ""}
-        </p>
-        <div className="flex gap-2">
-          <Link
-            href={page > 1 ? buildUrl(page - 1) : "#"}
-            className={`rounded-xl px-4 py-2 text-sm font-medium transition ${
-              page > 1
-                ? "border border-gray-200 text-darktext hover:bg-gray-50"
-                : "cursor-not-allowed border border-gray-100 text-gray-300"
-            }`}
-          >
-            ← Précédent
-          </Link>
-          <Link
-            href={page < totalPages ? buildUrl(page + 1) : "#"}
-            className={`rounded-xl px-4 py-2 text-sm font-medium transition ${
-              page < totalPages
-                ? "border border-gray-200 text-darktext hover:bg-gray-50"
-                : "cursor-not-allowed border border-gray-100 text-gray-300"
-            }`}
-          >
-            Suivant →
-          </Link>
-        </div>
-      </div>
+      <PaginationBar
+        page={page}
+        totalPages={totalPages}
+        buildHref={buildUrl}
+        description={
+          <>
+            — {total} vente{total > 1 ? "s" : ""}
+          </>
+        }
+      />
     </div>
   );
 }

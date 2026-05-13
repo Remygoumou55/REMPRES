@@ -165,6 +165,18 @@ export function Modal({
 }
 
 // ---------------------------------------------------------------------------
+// ModalSectionHeading — sous-titres de section dans les formulaires modaux
+// ---------------------------------------------------------------------------
+
+export function ModalSectionHeading({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
+      {children}
+    </p>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // ModalField — label + input standardisé (DRY)
 // ---------------------------------------------------------------------------
 
@@ -257,12 +269,16 @@ export function ModalActions({
   loading,
   submitDisabled,
   submitIcon,
+  cancelLabel = "Annuler",
+  submitLoadingText = "Enregistrement…",
 }: {
   onCancel: () => void;
   submitLabel: string;
   loading?: boolean;
   submitDisabled?: boolean;
   submitIcon?: React.ReactNode;
+  cancelLabel?: string;
+  submitLoadingText?: string;
 }) {
   return (
     <div className="flex gap-2.5 pt-2">
@@ -272,17 +288,18 @@ export function ModalActions({
         variant="outline"
         className="flex-1 rounded-2xl py-3 text-sm font-semibold text-gray-600 transition hover:bg-gray-50"
       >
-        Annuler
+        {cancelLabel}
       </Button>
       <Button
         type="submit"
         variant="primary"
         loading={loading}
-        loadingText="Traitement en cours..."
+        loadingText={submitLoadingText}
         disabled={submitDisabled}
-        className="flex-1 rounded-2xl py-3 text-sm font-bold text-white shadow-md shadow-primary/25 transition hover:bg-primary/90"
+        className="flex flex-1 items-center justify-center gap-2 rounded-2xl py-3 text-sm font-bold text-white shadow-md shadow-primary/25 transition hover:bg-primary/90"
       >
-        <>{submitIcon}{submitLabel}</>
+        {submitIcon}
+        {submitLabel}
       </Button>
     </div>
   );

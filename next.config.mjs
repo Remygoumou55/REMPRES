@@ -11,7 +11,13 @@ const nextConfig = {
 
   // Tree-shake des paquets lourds côté client (navigation, graphiques)
   experimental: {
-    optimizePackageImports: ["lucide-react", "recharts"],
+    // Tree-shake des barrels lourds (moins de JS client sur les pages dashboard / listes).
+    optimizePackageImports: [
+      "lucide-react",
+      "recharts",
+      "@tanstack/react-query",
+      "date-fns",
+    ],
   },
 
   // ── Images ──────────────────────────────────────────────────────────────

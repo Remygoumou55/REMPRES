@@ -1,5 +1,6 @@
 export type {
   AdminPlatformCommandLink,
+  AdminPlatformMetric,
   AdminPlatformOverviewModel,
   AdminPlatformSurfaceKey,
 } from "./types";
@@ -30,6 +31,6 @@ export {
   refreshAdminPlatformDashboardAction,
   getAdminPlatformOverviewModel,
   ADMIN_PLATFORM_DASHBOARD_JOB_TYPES,
-  ADMIN_PLATFORM_READ_REPOSITORY_PLACEHOLDER,
+  getAdminPlatformAggregates,
   ADMIN_PLATFORM_ROUTE_VALIDATOR_PLACEHOLDER,
 } from "./server";

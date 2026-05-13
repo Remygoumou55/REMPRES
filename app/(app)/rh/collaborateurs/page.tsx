@@ -15,7 +15,7 @@ export default async function RhCollaborateursPage() {
   const employees = snapshot.profiles;
 
   return (
-    <div className="page-wrapper space-y-6">
+    <div className="page-wrapper">
       <PageHeader
         title="RH - Collaborateurs"
         subtitle="Annuaire collaborateurs, roles et departements"

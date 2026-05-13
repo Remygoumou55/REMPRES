@@ -9,7 +9,7 @@ export default async function LogistiqueEntrepotsPage() {
   const rows = await listLogisticsWarehouses(supabase);
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader title="Entrepôts" subtitle="Sites logistiques actifs — un siège peut être marqué par défaut." />
       <LogisticsSectionPanel title="Référentiel">
         <LogisticsScrollTable>

@@ -16,7 +16,7 @@ type SearchInputProps = {
 export function SearchInput({
   value,
   onChange,
-  placeholder = "Rechercher...",
+  placeholder = "Rechercher…",
   suggestions = [],
   onSuggestionSelect,
   className,

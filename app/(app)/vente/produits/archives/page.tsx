@@ -11,6 +11,7 @@ import { RestoreArchiveButton } from "@/components/shared/restore-archive-button
 import { formatGNF } from "@/lib/utils/formatCurrency";
 import { restoreProductAction } from "@/app/(app)/vente/produits/actions";
 import { PageHeader } from "@/components/ui/page-header";
+import { TableShell } from "@/components/ui/table-shell";
 
 const MODULE_KEYS = ["produits", "vente"] as const;
 
@@ -66,9 +67,8 @@ export default async function ProduitsArchivesPage({ searchParams }: PageProps) 
 
       <FlashMessage success={safeDecode(searchParams?.success)} error={safeDecode(searchParams?.error)} />
 
-      <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+      <TableShell>
+        <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-gray-100 bg-gray-50/60">
                 <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-400">
@@ -142,8 +142,7 @@ export default async function ProduitsArchivesPage({ searchParams }: PageProps) 
               )}
             </tbody>
           </table>
-        </div>
-      </div>
+      </TableShell>
     </div>
   );
 }

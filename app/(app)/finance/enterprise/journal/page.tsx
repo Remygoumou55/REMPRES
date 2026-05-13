@@ -9,10 +9,10 @@ export default async function FinanceEnterpriseJournalPage() {
   const batches = await listFinanceJournalBatches(supabase, 100);
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader
         title="Journal comptable"
-        subtitle="Lots d'écritures — création et validation progressive (post via RPC `post_finance_journal_batch`)."
+        subtitle="Lots d’écritures : saisie, contrôle et validation avant comptabilisation."
       />
       <SectionPanel title="Lots récents" description="Tri par date de pièce et création.">
         <FinanceJournalTable rows={batches} />

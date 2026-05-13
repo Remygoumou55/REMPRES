@@ -144,7 +144,11 @@ export function ProductForm({
       try {
         await action(fd);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Une erreur est survenue.");
+        setError(
+          err instanceof Error && err.message && !err.message.includes("NEXT_")
+            ? err.message
+            : "Impossible d'enregistrer le produit. Vérifiez les champs obligatoires et réessayez.",
+        );
       }
     });
   }
@@ -161,7 +165,8 @@ export function ProductForm({
     >
       <form onSubmit={handleSubmit} className="space-y-4">
 
-        {/* SKU + Unité */}
+        <div className="space-y-3">
+          <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">Identification</p>
         <div className="grid grid-cols-2 gap-3">
           <ModalField label="SKU" required>
             <div className="relative">
@@ -206,7 +211,7 @@ export function ProductForm({
         </ModalField>
 
         {/* Description */}
-        <ModalField label="Description">
+        <ModalField label="Description (facultatif)">
           <div className="relative">
             <FileText size={13} className="absolute left-3 top-3 text-gray-400" />
             <ModalTextarea
@@ -218,8 +223,10 @@ export function ProductForm({
             />
           </div>
         </ModalField>
+        </div>
 
-        {/* Prix + Stock */}
+        <div className="space-y-3 border-t border-gray-100 pt-4">
+          <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">Tarification & stocks</p>
         <div className="grid grid-cols-2 gap-3">
           <ModalField label="Prix (GNF)" required>
             <div className="relative">
@@ -297,13 +304,11 @@ export function ProductForm({
                   }}
                 />
               </label>
-              {/* Compat backend: on conserve l'URL existante jusqu'à la future implémentation upload */}
               <input type="hidden" name="image_url" value={initialValues?.image_url ?? ""} />
             </div>
           </ModalField>
         </div>
 
-        {/* Aperçu image */}
         {previewUrl && (
           <div className="flex items-center gap-3 rounded-xl border border-gray-200 bg-gray-50 p-3">
             <Image
@@ -317,6 +322,8 @@ export function ProductForm({
             <p className="text-xs text-gray-400">Aperçu de l&apos;image</p>
           </div>
         )}
+
+        </div>
 
         <ModalError message={error} />
 

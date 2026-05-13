@@ -20,7 +20,7 @@ export {
   assertExecutiveDashboardRead,
   refreshExecutiveDashboardAction,
   EXECUTIVE_DASHBOARD_JOB_TYPES,
-  EXECUTIVE_READ_REPOSITORY_PLACEHOLDER,
+  getExecutiveGlobalSnapshot,
   EXECUTIVE_ROUTE_VALIDATOR_PLACEHOLDER,
-  EXECUTIVE_OVERVIEW_SERVICE_PLACEHOLDER,
+  getExecutiveGlobalSnapshotService,
 } from "./server";

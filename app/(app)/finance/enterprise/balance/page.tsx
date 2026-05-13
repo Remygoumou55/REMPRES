@@ -9,7 +9,7 @@ export default async function FinanceEnterpriseTrialBalancePage() {
   const rows = await listFinanceTrialBalance(supabase, 500);
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader
         title="Balance générale"
         subtitle="Synthèse débits / crédits par compte (écritures postées)."

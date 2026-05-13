@@ -32,7 +32,7 @@ export default async function FinanceEnterpriseCashflowDashboardPage() {
   const sumOut = rows.reduce((s, r) => s + Number(r.outflow_gnf), 0);
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader
         title="Cashflow"
         subtitle="Lecture opérationnelle des snapshots — pour la vue CFO enrichie, utilisez le pilotage principal."

@@ -7,10 +7,12 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { SearchInput } from "@/components/ui/search-input";
 import { ProductsRowActions } from "@/components/vente/produits/products-row-actions";
 import { useGlobalSearch } from "@/lib/hooks/use-global-search";
+import { GLOBAL_LIST_SEARCH_DEBOUNCE_MS } from "@/lib/data-listing";
 import { withCreateModalQuery } from "@/lib/routing/modal-query";
 import { useRowSelection } from "@/lib/hooks/use-row-selection";
 import { ConfirmDangerDialog } from "@/components/ui/confirm-danger-dialog";
 import { BulkDeleteActionBar } from "@/components/ui/bulk-delete-action-bar";
+import { ListSearchToolbar } from "@/components/ui/list-search-toolbar";
 import { deleteProductsFromListBulkAction } from "@/app/(app)/vente/produits/actions";
 import { useAppMutationRefresh } from "@/hooks/use-app-mutation-refresh";
 import { useToast } from "@/components/providers/ToastProvider";
@@ -234,7 +236,7 @@ export function ProductsTable({
   const { query, setQuery, filteredData, suggestions } = useGlobalSearch<Product>({
     data: products,
     searchFields: searchFields as (keyof Product)[],
-    delay: 200,
+    delay: GLOBAL_LIST_SEARCH_DEBOUNCE_MS,
   });
 
   const rows = filteredData;
@@ -285,10 +287,15 @@ export function ProductsTable({
 
   return (
     <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-gray-100 px-5 py-3">
-        <p className="text-xs font-semibold uppercase text-gray-400">{rows.length} produits</p>
-        <SearchInput value={query} onChange={setQuery} suggestions={suggestions} placeholder="Recherche..." className="w-80" />
-      </div>
+      <ListSearchToolbar summary={`${rows.length} produit${rows.length === 1 ? "" : "s"}`}>
+        <SearchInput
+          value={query}
+          onChange={setQuery}
+          suggestions={suggestions}
+          placeholder="Rechercher…"
+          className="w-full"
+        />
+      </ListSearchToolbar>
 
       {canDelete && (
         <div className="border-b border-gray-100 px-5 py-3">
@@ -333,6 +340,13 @@ export function ProductsTable({
         formattedPrices={formattedPrices}
         canDeleteColCount={canDelete ? 7 : 6}
       />
+
+      {rows.length === 0 && products.length > 0 && (
+        <div className="border-t border-gray-100 px-5 py-10 text-center">
+          <p className="text-sm font-medium text-gray-600">Aucun résultat pour cette recherche</p>
+          <p className="mt-1 text-xs text-gray-400">Modifiez les critères ou effacez la recherche.</p>
+        </div>
+      )}
 
       {rows.length > 1 && (
         <div className="border-t-2 border-gray-100 bg-gray-50/60 px-5 py-3 flex justify-between text-xs font-bold">

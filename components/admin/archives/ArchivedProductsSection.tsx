@@ -15,7 +15,9 @@ import {
   adminPermanentDeleteArchivedProductsAction,
 } from "@/app/(app)/admin/archives/actions";
 import { useGlobalSearch } from "@/lib/hooks/use-global-search";
+import { GLOBAL_LIST_SEARCH_DEBOUNCE_MS } from "@/lib/data-listing";
 import { ArchiveSelectionBulkBar, PermanentDeleteArchivedRowButton, withAdminFlash } from "./ArchiveComponents";
+import { TableShell } from "@/components/ui/table-shell";
 
 export type AdminArchiveProductRow = {
   id: string;
@@ -39,7 +41,7 @@ export const ArchivedProductsSection = memo(function ArchivedProductsSection({
   const { query, setQuery, filteredData } = useGlobalSearch({
     data: rows,
     searchFields: ["searchIndex"],
-    delay: 200,
+    delay: GLOBAL_LIST_SEARCH_DEBOUNCE_MS,
   });
 
   const visibleIds = useMemo(() => filteredData.map((r) => r.id), [filteredData]);
@@ -132,9 +134,8 @@ export const ArchivedProductsSection = memo(function ArchivedProductsSection({
         onConfirm={runBulkPurge}
       />
 
-      <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+      <TableShell>
+        <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-gray-100 bg-gray-50/60">
                 <th className="w-12 px-4 py-2 text-left">
@@ -178,8 +179,7 @@ export const ArchivedProductsSection = memo(function ArchivedProductsSection({
               )}
             </tbody>
           </table>
-        </div>
-      </div>
+      </TableShell>
       <Link href="/vente/produits/archives" className="text-xs text-primary hover:underline">Page complète archives produits →</Link>
     </section>
   );

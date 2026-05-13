@@ -249,7 +249,8 @@ export function NouvelleVenteClient({ products, clients }: Props) {
     } catch (err) {
       if (!mountedRef.current) return;
       logError("SALE_SUBMIT_UNEXPECTED", err, { cartSize: cart.length });
-      const message = "Une erreur est survenue";
+      const message =
+        "La vente n’a pas pu être enregistrée. Réessayez ou contactez le support.";
       setSubmitError(message);
       showError(message);
     } finally {

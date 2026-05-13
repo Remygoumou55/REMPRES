@@ -10,10 +10,10 @@ export default async function VenteCrmForecastingPage() {
   const rows = await listCrmForecastSnapshotsRecent(supabase, 48);
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader
         title="Prévisions commerciales"
-        subtitle="Snapshots batch (`crm_forecast_snapshots`) — alimentés par jobs applicatifs ou RPC futures."
+        subtitle="Historique des indicateurs de prévision : pipeline, pondération et tendances récentes."
       />
       <CrmSectionPanel title="Derniers snapshots">
         <CrmScrollTable>

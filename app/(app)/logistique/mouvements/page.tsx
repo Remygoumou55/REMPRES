@@ -9,7 +9,7 @@ export default async function LogistiqueMouvementsPage() {
   const rows = await listRecentLogisticsMovements(supabase, 150);
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader title="Mouvements de stock" subtitle="Journal append-only — deltas signés par site." />
       <LogisticsSectionPanel title="Flux récents">
         <LogisticsScrollTable>

@@ -10,6 +10,9 @@ import { ClientsTable } from "@/components/vente/clients/clients-table";
 import { ClientsFilters } from "@/components/vente/clients/clients-filters";
 import { assertClientsPermission, getClientsPermissions } from "@/lib/server/permissions";
 import { FlashMessage } from "@/components/ui/flash-message";
+import { PageHeader } from "@/components/ui/page-header";
+import { ModulePageStack } from "@/components/ui/module-page-stack";
+import { PaginationBar } from "@/components/ui/pagination-bar";
 import { ClientForm, type ClientFormActionResult } from "@/components/forms/client-form";
 import type { ClientType } from "@/types/client";
 import { mapClientError } from "@/lib/server/client-error-messages";
@@ -113,33 +116,34 @@ export default async function ClientsPage({ searchParams }: ClientsPageProps) {
   }
 
   return (
-    <main className="min-h-screen bg-graylight p-6">
-      <div className="mx-auto max-w-6xl space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg bg-white p-4 shadow-sm">
-          <div>
-            <h1 className="text-2xl font-semibold text-darktext">Clients</h1>
-            <p className="text-sm text-darktext/80">{result.total} client(s) trouvé(s)</p>
-          </div>
-          <div className="flex flex-wrap items-center gap-2">
-            {permissions.canDelete ? (
-              <Link
-                href="/vente/clients/archives"
-                className="inline-flex items-center gap-1.5 rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-600 transition hover:border-gray-400 hover:text-darktext"
-              >
-                <Archive size={14} />
-                Archives
-              </Link>
-            ) : null}
-            {permissions.canCreate ? (
-              <a
-                href={withCreateModalQuery("/vente/clients")}
-                className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-white transition hover:bg-primary-dark"
-              >
-                + Nouveau client
-              </a>
-            ) : null}
-          </div>
-        </div>
+    <div className="page-wrapper">
+      <ModulePageStack>
+        <PageHeader
+          title="Clients"
+          subtitle={`${result.total} client(s) trouvé(s).`}
+          actions={
+            <div className="flex flex-wrap items-center gap-2">
+              {permissions.canDelete ? (
+                <Link
+                  href="/vente/clients/archives"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-darktext shadow-sm transition hover:bg-gray-50"
+                >
+                  <Archive size={14} />
+                  Archives
+                </Link>
+              ) : null}
+              {permissions.canCreate ? (
+                <a
+                  href={withCreateModalQuery("/vente/clients")}
+                  className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-primary-dark"
+                >
+                  + Nouveau client
+                </a>
+              ) : null}
+            </div>
+          }
+        />
+
         <FlashMessage success={successMessage} error={errorMessage} />
 
         <Suspense
@@ -161,34 +165,8 @@ export default async function ClientsPage({ searchParams }: ClientsPageProps) {
           listQueryString={listQueryString}
         />
 
-        <div className="flex items-center justify-between rounded-lg bg-white p-4 shadow-sm">
-          <p className="text-sm text-darktext/80">
-            Page {result.page} / {result.totalPages}
-          </p>
-          <div className="flex gap-2">
-            <Link
-              href={result.page > 1 ? buildUrl(result.page - 1) : "#"}
-              className={`rounded-md px-3 py-2 text-sm ${
-                result.page > 1
-                  ? "border border-gray-300 text-darktext"
-                  : "cursor-not-allowed border border-gray-200 text-gray-400"
-              }`}
-            >
-              Précédent
-            </Link>
-            <Link
-              href={result.page < result.totalPages ? buildUrl(result.page + 1) : "#"}
-              className={`rounded-md px-3 py-2 text-sm ${
-                result.page < result.totalPages
-                  ? "border border-gray-300 text-darktext"
-                  : "cursor-not-allowed border border-gray-200 text-gray-400"
-              }`}
-            >
-              Suivant
-            </Link>
-          </div>
-        </div>
-      </div>
+        <PaginationBar page={result.page} totalPages={result.totalPages} buildHref={buildUrl} />
+      </ModulePageStack>
       {permissions.canCreate && createOpen ? (
         <ClientForm
           title="Nouveau client"
@@ -198,6 +176,6 @@ export default async function ClientsPage({ searchParams }: ClientsPageProps) {
           errorMessage={errorMessage}
         />
       ) : null}
-    </main>
+    </div>
   );
 }

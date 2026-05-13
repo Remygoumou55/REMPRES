@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { GLOBAL_LIST_SEARCH_DEBOUNCE_MS } from "@/lib/data-listing";
 
 type Primitive = string | number | boolean | null | undefined | Date;
 
@@ -17,7 +18,7 @@ type UseGlobalSearchOptions<T> = {
 export function useGlobalSearch<T>({
   data,
   searchFields,
-  delay = 250,
+  delay = GLOBAL_LIST_SEARCH_DEBOUNCE_MS,
   minQueryLength = 0,
   maxSuggestions = 5,
 }: UseGlobalSearchOptions<T>) {

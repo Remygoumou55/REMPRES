@@ -10,8 +10,11 @@ export function GovernanceApprovalTable({
 }) {
   if (requests.length === 0) {
     return (
-      <div className="rounded-2xl border border-gray-200 bg-white p-5 text-sm text-gray-600 shadow-sm">
-        Aucune demande d&apos;approbation.
+      <div className="rounded-2xl border border-dashed border-gray-200 bg-gray-50/80 p-8 text-center shadow-sm">
+        <p className="text-sm font-medium text-darktext">Aucune demande à traiter</p>
+        <p className="mt-2 text-sm text-gray-500">
+          Modifiez les filtres ou revenez plus tard : les nouvelles demandes apparaissent ici automatiquement.
+        </p>
       </div>
     );
   }

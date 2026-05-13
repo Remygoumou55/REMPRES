@@ -27,7 +27,7 @@ export default async function FinanceEnterpriseAnalyticsPage() {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader
         title="Analytics finance"
         subtitle={`Pont analytics v${FINANCE_ANALYTICS_BRIDGE_VERSION} — KPI CFO du mois civil.`}

@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { isSuperAdmin } from "@/lib/server/permissions";
-import { GovernanceBreadcrumb } from "@/components/governance/layout/GovernanceBreadcrumb";
 import { loadGlobalGovernanceDashboard } from "@/lib/governance/dashboard/load-global-governance-dashboard";
 import { GovernanceInsightsSection } from "@/components/governance/dashboard/GovernanceInsightsSection";
 import { ActivitySummaryCard } from "@/components/governance/dashboard/ActivitySummaryCard";
@@ -34,15 +33,6 @@ export default async function AdminGlobalDashboardPage() {
     <ExecutiveDashboardLayout
       header={
         <>
-          <GovernanceBreadcrumb
-            items={[
-              { href: "/dashboard", label: t("navigation.breadcrumb.home") },
-              {
-                href: "/admin/global-dashboard",
-                label: t("navigation.superadmin./admin/global-dashboard"),
-              },
-            ]}
-          />
           <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
             <h1 className="text-xl font-semibold text-gray-900">{t("governance.dashboard.global.title")}</h1>
             <p className="mt-1 text-sm text-gray-600">{t("governance.dashboard.global.subtitle")}</p>

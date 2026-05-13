@@ -11,6 +11,7 @@ import {
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getModulePermissions } from "@/lib/server/permissions";
 import { Badge, type BadgeVariant } from "@/components/ui/badge";
+import { TableShell } from "@/components/ui/table-shell";
 import { DetailPageModal } from "@/components/ui/detail-page-modal";
 import type { Client } from "@/types/client";
 import { formatMoney, type SupportedCurrency } from "@/lib/utils/formatCurrency";
@@ -238,7 +239,7 @@ export default async function SaleDetailPage({ params }: PageProps) {
             Aucun article enregistré pour cette vente.
           </div>
         ) : (
-          <div className="overflow-x-auto">
+          <TableShell className="border-0 shadow-none rounded-none bg-transparent">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-gray-100 bg-gray-50/60">
@@ -270,7 +271,7 @@ export default async function SaleDetailPage({ params }: PageProps) {
                 ))}
               </tbody>
             </table>
-          </div>
+          </TableShell>
         )}
       </div>
 

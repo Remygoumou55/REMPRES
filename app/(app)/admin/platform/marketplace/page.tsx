@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { GovernanceBreadcrumb } from "@/components/governance/layout/GovernanceBreadcrumb";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getModulePermissions } from "@/lib/server/permissions";
 import { listListedCatalogPlugins } from "@/modules/platform/server/repositories/catalog-plugins-repository";
+import { TableShell } from "@/components/ui/table-shell";
 
 export default async function AdminPlatformMarketplacePage() {
   const user = await getServerSessionUser();
@@ -17,13 +17,6 @@ export default async function AdminPlatformMarketplacePage() {
 
   return (
     <>
-      <GovernanceBreadcrumb
-        items={[
-          { href: "/dashboard", label: "Accueil" },
-          { href: "/admin/platform", label: "Plateforme" },
-          { href: "/admin/platform/marketplace", label: "Marketplace" },
-        ]}
-      />
       <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
         <h1 className="text-xl font-semibold text-gray-900">Marketplace — catalogue</h1>
         <p className="mt-1 text-sm text-gray-600">
@@ -31,7 +24,7 @@ export default async function AdminPlatformMarketplacePage() {
           <span className="font-medium">erp_platform_plugin_installations</span>.
         </p>
 
-        <div className="mt-4 overflow-x-auto">
+        <TableShell className="mt-4">
           <table className="min-w-full border-collapse text-left text-sm">
             <thead>
               <tr className="border-b border-gray-200 text-xs uppercase tracking-wide text-gray-500">
@@ -61,7 +54,7 @@ export default async function AdminPlatformMarketplacePage() {
               ) : null}
             </tbody>
           </table>
-        </div>
+        </TableShell>
 
         <Link href="/admin/multitenant/tenants" className="mt-4 inline-flex text-sm font-medium text-cyan-800 hover:underline">
           Tenants →

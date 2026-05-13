@@ -5,9 +5,10 @@ import {
   getComplianceHealth,
   listGovernanceAuditEvents,
 } from "@/lib/governance/audit/repository";
-import { GovernanceBreadcrumb } from "@/components/governance/layout/GovernanceBreadcrumb";
 import { ComplianceHealthCard } from "@/components/governance/audit/ComplianceHealthCard";
 import { GovernanceAuditTable } from "@/components/governance/audit/GovernanceAuditTable";
+import { PaginationBar } from "@/components/ui/pagination-bar";
+import { FilterPanelShell } from "@/components/ui/filter-panel-shell";
 import { AuditDepartmentFilter } from "@/components/governance/audit/AuditDepartmentFilter";
 import { AuditCategoryFilter } from "@/components/governance/audit/AuditCategoryFilter";
 import { SecurityIncidentCard } from "@/components/governance/audit/SecurityIncidentCard";
@@ -80,12 +81,6 @@ export default async function AdminAuditPage({ searchParams }: PageProps) {
   return (
     <div className="mx-auto max-w-6xl space-y-5">
       <AuditRealtimeBridge />
-      <GovernanceBreadcrumb
-        items={[
-          { href: "/dashboard", label: "Accueil" },
-          { href: "/admin/audit", label: "Centre d'audit" },
-        ]}
-      />
       <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
         <h1 className="text-xl font-semibold text-gray-900">Centre d&apos;audit entreprise</h1>
         <p className="mt-1 text-sm text-gray-600">
@@ -99,7 +94,8 @@ export default async function AdminAuditPage({ searchParams }: PageProps) {
         unresolvedAlerts={compliance.unresolvedAlerts}
       />
 
-      <form className="flex flex-wrap items-center gap-2 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+      <FilterPanelShell>
+      <form className="flex flex-wrap items-center gap-2" method="get">
         <AuditCategoryFilter selected={category} />
         <select
           name="severity"
@@ -133,6 +129,7 @@ export default async function AdminAuditPage({ searchParams }: PageProps) {
           Filtrer
         </button>
       </form>
+      </FilterPanelShell>
 
       {securityIncidents.length > 0 ? (
         <section className="space-y-2">
@@ -147,29 +144,7 @@ export default async function AdminAuditPage({ searchParams }: PageProps) {
 
       <GovernanceAuditTable events={result.data} />
 
-      <div className="flex items-center justify-between rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm shadow-sm">
-        <p>
-          Page {result.page} / {result.totalPages}
-        </p>
-        <div className="flex items-center gap-2">
-          <a
-            href={result.page > 1 ? buildUrl(result.page - 1) : "#"}
-            className={`rounded-lg border px-3 py-1.5 ${
-              result.page > 1 ? "border-gray-300 text-gray-800" : "border-gray-100 text-gray-300"
-            }`}
-          >
-            Precedent
-          </a>
-          <a
-            href={result.page < result.totalPages ? buildUrl(result.page + 1) : "#"}
-            className={`rounded-lg border px-3 py-1.5 ${
-              result.page < result.totalPages ? "border-gray-300 text-gray-800" : "border-gray-100 text-gray-300"
-            }`}
-          >
-            Suivant
-          </a>
-        </div>
-      </div>
+      <PaginationBar page={result.page} totalPages={result.totalPages} buildHref={buildUrl} />
     </div>
   );
 }

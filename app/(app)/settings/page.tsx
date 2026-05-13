@@ -7,6 +7,8 @@ import { appConfig } from "@/lib/config";
 import { loadLocaleMessages, translateFromDict } from "@/lib/i18n/load-messages";
 import { normalizeLocale } from "@/lib/i18n/config";
 import { updatePreferredLanguageAction } from "./actions";
+import { PageHeader } from "@/components/ui/page-header";
+import { ModulePageStack } from "@/components/ui/module-page-stack";
 import {
   Settings2,
   Users,
@@ -96,20 +98,9 @@ export default async function SettingsPage() {
   const isAdmin = await isAdminRole(data.user.id);
 
   return (
-    <div className="mx-auto max-w-3xl space-y-8">
-
-      {/* Header */}
-      <div className="flex items-start gap-4">
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10">
-          <Settings2 size={22} className="text-primary" />
-        </div>
-        <div>
-          <h1 className="text-2xl font-extrabold text-darktext">{t("settings.title")}</h1>
-          <p className="mt-1 text-sm text-gray-400">
-            {t("settings.subtitle")}
-          </p>
-        </div>
-      </div>
+    <div className="page-wrapper">
+      <ModulePageStack className="max-w-3xl">
+        <PageHeader title={t("settings.title")} subtitle={t("settings.subtitle")} />
 
       <section className="space-y-3">
         <h2 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400">
@@ -124,10 +115,10 @@ export default async function SettingsPage() {
               aria-label={t("settings.language.selectLabel")}
               className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm"
             >
-              <option value="fr">Francais</option>
+              <option value="fr">Français</option>
               <option value="en">English</option>
-              <option value="zh">Chinese</option>
-              <option value="pt">Portugues</option>
+              <option value="zh">中文</option>
+              <option value="pt">Português</option>
             </select>
             <button type="submit" className="rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white">
               {t("common.apply")}
@@ -191,13 +182,13 @@ export default async function SettingsPage() {
 
       {/* Note version */}
       <div className="rounded-2xl border border-dashed border-gray-200 bg-gray-50/50 px-5 py-4">
-        <p className="text-xs text-gray-400">
-          <span className="font-semibold text-gray-500">RemPres ERP</span> — version{" "}
-          <span className="font-mono font-semibold text-primary">{appConfig.version}</span>.{" "}
-          D&apos;autres paramètres (préférences, rôles, intégrations) seront disponibles dans les prochaines mises à jour.
+        <p className="text-xs text-gray-500">
+          <span className="font-semibold text-darktext">RemPres ERP</span> — version {appConfig.version}. Les autres
+          préférences et intégrations sont gérées depuis les modules concernés ou l&apos;administration.
         </p>
       </div>
 
+      </ModulePageStack>
     </div>
   );
 }

@@ -9,7 +9,7 @@ export default async function FinanceEnterprisePaymentsPage() {
   const rows = await listFinancePaymentAllocations(supabase, 150);
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader
         title="Paiements"
         subtitle="Allocations enregistrées — lien optionnel vers factures, dépenses ou financial_transactions."

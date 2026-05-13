@@ -35,7 +35,7 @@ export default async function RHContractsPage() {
   );
 
   return (
-    <div className="page-wrapper space-y-6">
+    <div className="page-wrapper">
       <ContractRealtimeBridge />
       <PageHeader
         title={t("dashboard.rh.contracts.title", "Contrats RH Enterprise")}

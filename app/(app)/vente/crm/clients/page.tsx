@@ -5,7 +5,7 @@ import { CrmSectionPanel } from "@/modules/crm/ui/panels/SectionPanel";
 
 export default function VenteCrmClientsBridgePage() {
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader
         title="Clients CRM"
         subtitle="Le référentiel clients unique reste le module Vente — pas de duplication de données."

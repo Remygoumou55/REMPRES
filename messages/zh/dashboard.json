@@ -327,5 +327,8 @@
   "logistics.visual.exports.deliveries": "配送中心",
   "logistics.visual.exports.stock": "库存中心",
   "logistics.visual.chart.empty": "暂无可用物流序列。",
-  "deptDash.logistics.link.visual": "物流可视化中心"
+  "deptDash.logistics.link.visual": "物流可视化中心",
+  "executive.kpi.openIncidents": "未关闭事件",
+  "executive.kpi.activeTenants": "活跃租户",
+  "executive.kpi.tenantSnapshots": "租户快照"
 }

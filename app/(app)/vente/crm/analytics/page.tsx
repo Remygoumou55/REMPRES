@@ -11,7 +11,7 @@ export default async function VenteCrmAnalyticsPage() {
   const overview = await getCrmOperationalOverview(supabase);
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader title="Analytics CRM" subtitle="Indicateurs lecture-seule alignés sur les tables CRM — extension digest ERP possible." />
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <CrmMetricCard label="Leads ouverts" value={overview.activeLeads} />

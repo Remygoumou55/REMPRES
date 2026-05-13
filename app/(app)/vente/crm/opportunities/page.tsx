@@ -10,7 +10,7 @@ export default async function VenteCrmOpportunitiesPage() {
   const rows = await listCrmOpportunitiesWithStages(supabase, 250);
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader title="Opportunités" subtitle="Reliées aux étapes pipeline — probabilité pilotée par défaut d’étape." />
       <CrmSectionPanel title="Toutes opportunités actives">
         <CrmScrollTable>

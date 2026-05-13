@@ -13,145 +13,131 @@ export default async function AdminIndexPage() {
   const [admin, superAdmin] = await Promise.all([isAdminRole(data.user.id), isSuperAdmin(data.user.id)]);
   if (!admin && !superAdmin) redirect("/access-denied");
 
+  const linkClass = "mt-4 inline-flex text-sm font-semibold text-primary hover:underline";
+
   return (
     <div className="page-wrapper">
-      <PageHeader title="Admin" subtitle="Administration et gestion système" />
+      <PageHeader
+        title="Administration"
+        subtitle="Consoles opérateur : supervision plateforme, conformité, utilisateurs et configuration."
+      />
       <div className="grid gap-4 md:grid-cols-2">
         <section className="card p-5">
-          <h2 className="text-sm font-semibold text-darktext">AI & prédictif</h2>
-          <p className="mt-1 text-sm text-gray-600">
-            Insights, recommandations et forecasting branchés sur l&apos;observabilité.
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-500">Intelligence décisionnelle</h2>
+          <p className="mt-3 text-sm leading-relaxed text-gray-600">
+            Indicateurs prédictifs, recommandations et scénarios d&apos;aide à la décision.
           </p>
-          <Link href="/admin/ai" className="mt-3 inline-flex text-sm font-medium text-primary hover:underline">
-            Ouvrir →
+          <Link href="/admin/ai" className={linkClass}>
+            Accéder
           </Link>
         </section>
         <section className="card p-5">
-          <h2 className="text-sm font-semibold text-darktext">Gouvernance plateforme</h2>
-          <p className="mt-1 text-sm text-gray-600">
-            ADR, standards, dette technique et maturité — reliés tenants, conformité et observabilité sans refactor global.
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-500">Standards & gouvernance</h2>
+          <p className="mt-3 text-sm leading-relaxed text-gray-600">
+            Référentiels, politiques et contrôles transverses pour une exploitation homogène.
           </p>
-          <Link
-            href="/admin/governance-platform"
-            className="mt-3 inline-flex text-sm font-medium text-primary hover:underline"
-          >
-            Ouvrir →
+          <Link href="/admin/governance-platform" className={linkClass}>
+            Accéder
           </Link>
         </section>
         <section className="card p-5">
-          <h2 className="text-sm font-semibold text-darktext">Résilience & tests</h2>
-          <p className="mt-1 text-sm text-gray-600">
-            Chaos, charge, DR et validation SLA — branchés infra jobs, observabilité et cloud sans second orchestrateur.
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-500">Résilience & continuité</h2>
+          <p className="mt-3 text-sm leading-relaxed text-gray-600">
+            Plans de reprise, tests de charge et indicateurs de disponibilité.
           </p>
-          <Link href="/admin/resilience" className="mt-3 inline-flex text-sm font-medium text-primary hover:underline">
-            Ouvrir →
+          <Link href="/admin/resilience" className={linkClass}>
+            Accéder
           </Link>
         </section>
         <section className="card p-5">
-          <h2 className="text-sm font-semibold text-darktext">Cloud mondial</h2>
-          <p className="mt-1 text-sm text-gray-600">
-            Régions catalogue, edge, workloads et DR — branchés tenants, observabilité et IA sans refactor des moteurs
-            centraux.
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-500">Cloud & régions</h2>
+          <p className="mt-3 text-sm leading-relaxed text-gray-600">
+            Paramètres d&apos;hébergement, répartition géographique et stratégie de reprise.
           </p>
-          <Link href="/admin/cloud" className="mt-3 inline-flex text-sm font-medium text-primary hover:underline">
-            Ouvrir →
+          <Link href="/admin/cloud" className={linkClass}>
+            Accéder
           </Link>
         </section>
         <section className="card p-5">
-          <h2 className="text-sm font-semibold text-darktext">Multi-tenant SaaS</h2>
-          <p className="mt-1 text-sm text-gray-600">
-            Tenants, quotas, files orchestrées et isolation conformité — sans refactor métier.
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-500">Multi-tenant</h2>
+          <p className="mt-3 text-sm leading-relaxed text-gray-600">
+            Tenants, quotas et isolation des données entre organisations.
           </p>
-          <Link
-            href="/admin/multitenant"
-            className="mt-3 inline-flex text-sm font-medium text-primary hover:underline"
-          >
-            Ouvrir →
+          <Link href="/admin/multitenant" className={linkClass}>
+            Accéder
           </Link>
         </section>
         <section className="card p-5">
-          <h2 className="text-sm font-semibold text-darktext">Plateforme & marketplace</h2>
-          <p className="mt-1 text-sm text-gray-600">
-            Plugins, catalogue marketplace, intégrations partenaires et outbox événements — branché tenants.
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-500">Plateforme & intégrations</h2>
+          <p className="mt-3 text-sm leading-relaxed text-gray-600">
+            Extensions, catalogue d&apos;intégrations et connecteurs métiers.
           </p>
-          <Link href="/admin/platform" className="mt-3 inline-flex text-sm font-medium text-primary hover:underline">
-            Ouvrir →
+          <Link href="/admin/platform" className={linkClass}>
+            Accéder
           </Link>
         </section>
         <section className="card p-5">
-          <h2 className="text-sm font-semibold text-darktext">Écosystème partenaires</h2>
-          <p className="mt-1 text-sm text-gray-600">
-            Fédération partenaires, certifications, routes connecteurs et journal d&apos;événements — branché tenants et marketplace.
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-500">Écosystème partenaires</h2>
+          <p className="mt-3 text-sm leading-relaxed text-gray-600">
+            Partenaires certifiés, connexions supervisées et journal des échanges.
           </p>
-          <Link href="/admin/ecosystem" className="mt-3 inline-flex text-sm font-medium text-primary hover:underline">
-            Ouvrir →
+          <Link href="/admin/ecosystem" className={linkClass}>
+            Accéder
           </Link>
         </section>
         <section className="card p-5">
-          <h2 className="text-sm font-semibold text-darktext">Observabilité & risque</h2>
-          <p className="mt-1 text-sm text-gray-600">
-            Santé opérationnelle, anomalies, incidents et traces multi-domaines.
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-500">Observabilité & risques</h2>
+          <p className="mt-3 text-sm leading-relaxed text-gray-600">
+            Santé des services, anomalies, incidents et pistes d&apos;audit.
           </p>
-          <Link
-            href="/admin/observability"
-            className="mt-3 inline-flex text-sm font-medium text-primary hover:underline"
-          >
-            Ouvrir →
+          <Link href="/admin/observability" className={linkClass}>
+            Accéder
           </Link>
         </section>
         <section className="card p-5">
-          <h2 className="text-sm font-semibold text-darktext">Conformité entreprise</h2>
-          <p className="mt-1 text-sm text-gray-600">
-            Verrous fiscaux, périodes comptables, rétention légale et risques.
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-500">Conformité</h2>
+          <p className="mt-3 text-sm leading-relaxed text-gray-600">
+            Verrouillage fiscal, périodes comptables, rétention et contrôles légaux.
           </p>
-          <Link
-            href="/admin/compliance"
-            className="mt-3 inline-flex text-sm font-medium text-primary hover:underline"
-          >
-            Ouvrir →
+          <Link href="/admin/compliance" className={linkClass}>
+            Accéder
           </Link>
         </section>
         <section className="card p-5">
-          <h2 className="text-sm font-semibold text-darktext">Centre de pilotage plateforme</h2>
-          <p className="mt-1 text-sm text-gray-600">
-            Observabilité, files, cloud, gouvernance et résilience — point d&apos;entrée unique vers les consoles admin
-            existantes.
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-500">Centre de pilotage</h2>
+          <p className="mt-3 text-sm leading-relaxed text-gray-600">
+            Synthèse des files, observabilité, cloud et résilience pour les équipes IT.
           </p>
-          <Link
-            href={ROUTES.adminPlatformDashboard}
-            className="mt-3 inline-flex text-sm font-medium text-primary hover:underline"
-          >
-            Ouvrir →
+          <Link href={ROUTES.adminPlatformDashboard} className={linkClass}>
+            Accéder
           </Link>
         </section>
         <section className="card p-5">
-          <h2 className="text-sm font-semibold text-darktext">Automation entreprise</h2>
-          <p className="mt-1 text-sm text-gray-600">
-            Workflows, orchestrations, planifications et bus événements.
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-500">Automatisation</h2>
+          <p className="mt-3 text-sm leading-relaxed text-gray-600">
+            Workflows métiers, planifications et orchestrations supervisées.
           </p>
-          <Link
-            href="/admin/automation"
-            className="mt-3 inline-flex text-sm font-medium text-primary hover:underline"
-          >
-            Ouvrir →
+          <Link href="/admin/automation" className={linkClass}>
+            Accéder
           </Link>
         </section>
         <section className="card p-5">
-          <h2 className="text-sm font-semibold text-darktext">Utilisateurs</h2>
-          <p className="mt-1 text-sm text-gray-600">Invitations, rôles et permissions.</p>
-          <Link href="/admin/users" className="mt-3 inline-flex text-sm font-medium text-primary hover:underline">
-            Ouvrir →
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-500">Utilisateurs</h2>
+          <p className="mt-3 text-sm leading-relaxed text-gray-600">Invitations, rôles et droits d&apos;accès.</p>
+          <Link href="/admin/users" className={linkClass}>
+            Accéder
           </Link>
         </section>
         <section className="card p-5">
-          <h2 className="text-sm font-semibold text-darktext">Paramètres → Accéder à Config</h2>
-          <p className="mt-1 text-sm text-gray-600">Toutes les configurations sont centralisées dans Config.</p>
-          <Link href={ROUTES.config} className="mt-3 inline-flex text-sm font-medium text-primary hover:underline">
-            Accéder à Config →
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-500">Configuration système</h2>
+          <p className="mt-3 text-sm leading-relaxed text-gray-600">
+            Paramètres centraux de l&apos;application (module Configuration).
+          </p>
+          <Link href={ROUTES.config} className={linkClass}>
+            Accéder à la configuration
           </Link>
         </section>
       </div>
     </div>
   );
 }
-

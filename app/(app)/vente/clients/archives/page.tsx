@@ -9,6 +9,8 @@ import { FlashMessage } from "@/components/ui/flash-message";
 import { RestoreArchiveButton } from "@/components/shared/restore-archive-button";
 import { restoreClientAction } from "@/app/(app)/vente/clients/actions";
 import { PageHeader } from "@/components/ui/page-header";
+import { PaginationBar } from "@/components/ui/pagination-bar";
+import { TableShell } from "@/components/ui/table-shell";
 
 export const metadata = { title: "Clients archivés" };
 
@@ -73,9 +75,8 @@ export default async function ClientsArchivesPage({ searchParams }: PageProps) {
 
       <FlashMessage success={safeDecode(searchParams?.success)} error={safeDecode(searchParams?.error)} />
 
-      <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+      <TableShell>
+        <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-gray-100 bg-gray-50/60">
                 <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-400">
@@ -142,29 +143,13 @@ export default async function ClientsArchivesPage({ searchParams }: PageProps) {
               )}
             </tbody>
           </table>
-        </div>
-      </div>
+      </TableShell>
 
-      {result.totalPages > 1 ? (
-        <div className="flex justify-center gap-2">
-          {page > 1 ? (
-            <Link
-              href={`/vente/clients/archives?page=${page - 1}`}
-              className="rounded-xl border border-gray-200 px-4 py-2 text-sm"
-            >
-              Précédent
-            </Link>
-          ) : null}
-          {page < result.totalPages ? (
-            <Link
-              href={`/vente/clients/archives?page=${page + 1}`}
-              className="rounded-xl border border-gray-200 px-4 py-2 text-sm"
-            >
-              Suivant
-            </Link>
-          ) : null}
-        </div>
-      ) : null}
+      <PaginationBar
+        page={page}
+        totalPages={result.totalPages}
+        buildHref={(n) => `/vente/clients/archives?page=${n}`}
+      />
     </div>
   );
 }

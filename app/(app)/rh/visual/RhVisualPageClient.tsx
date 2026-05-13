@@ -21,29 +21,35 @@ import {
 
 export function RhVisualPageClient() {
   const { t } = useTranslation();
-  const { data, isLoading, isError, error } = useHrVisualSnapshot();
+  const { data, isLoading, isError } = useHrVisualSnapshot();
   const refresh = useHrVisualRefresh();
 
   if (isLoading) {
     return (
-      <div className="page-wrapper space-y-4">
-        <div className="card h-20 animate-pulse" />
-        <div className="card h-48 animate-pulse" />
-        <div className="card h-72 animate-pulse" />
+      <div className="page-wrapper">
+        <div className="space-y-4">
+          <div className="card h-20 animate-pulse" />
+          <div className="card h-48 animate-pulse" />
+          <div className="card h-72 animate-pulse" />
+        </div>
       </div>
     );
   }
 
   if (isError || !data) {
     return (
-      <div className="page-wrapper space-y-4">
-        <PageHeader
-          title={t("rh.visual.title", "RH Visual Enterprise")}
-          subtitle={t("rh.visual.subtitle", "Workforce operations center and analytics orchestration")}
-        />
-        <div className="card border border-red-200 bg-red-50 p-4 text-sm text-red-700">
-          {t("rh.visual.error", "Impossible de charger les indicateurs RH visuels.")}
-          {error instanceof Error ? ` (${error.message})` : ""}
+      <div className="page-wrapper">
+        <div className="space-y-4">
+          <PageHeader
+            title={t("rh.visual.title", "Pilotage visuel RH")}
+            subtitle={t(
+              "rh.visual.subtitle",
+              "Indicateurs consolidés, tendances et organisation pour le pilotage des équipes.",
+            )}
+          />
+          <div className="card border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+            {t("rh.visual.error", "Impossible de charger les indicateurs RH visuels.")}
+          </div>
         </div>
       </div>
     );
@@ -52,10 +58,13 @@ export function RhVisualPageClient() {
   const model = buildHrVisualFinalizationModel(data.payload);
 
   return (
-    <div className="page-wrapper space-y-6">
+    <div className="page-wrapper">
       <PageHeader
-        title={t("rh.visual.title", "RH Visual Enterprise")}
-        subtitle={t("rh.visual.subtitle", "Workforce operations center and analytics orchestration")}
+        title={t("rh.visual.title", "Pilotage visuel RH")}
+        subtitle={t(
+          "rh.visual.subtitle",
+          "Indicateurs consolidés, tendances et organisation pour le pilotage des équipes.",
+        )}
         actions={
           <div className="flex items-center gap-2">
             <Button
@@ -66,7 +75,7 @@ export function RhVisualPageClient() {
               loadingText={t("rh.visual.refreshing", "Actualisation...")}
             >
               <RefreshCw className="mr-1 h-4 w-4" />
-              {t("rh.visual.refresh", "Rafraichir")}
+              {t("rh.visual.refresh", "Actualiser")}
             </Button>
             <Link href="/rh" className="text-sm font-medium text-primary hover:underline">
               {t("rh.visual.backRh", "Retour RH")}
@@ -77,10 +86,7 @@ export function RhVisualPageClient() {
 
       <div className="flex flex-wrap items-center justify-between gap-2 rounded-card border border-gray-100 bg-white px-4 py-3 text-xs text-gray-600">
         <span>
-          {t("rh.visual.generatedAt", "Snapshot")}: {data.generatedAtIso}
-        </span>
-        <span className="font-mono text-[11px] text-gray-500">
-          {t("rh.visual.correlation", "Correlation")}: {data.correlationId}
+          {t("rh.visual.generatedAt", "Dernière mise à jour")} : {data.generatedAtIso}
         </span>
       </div>
 

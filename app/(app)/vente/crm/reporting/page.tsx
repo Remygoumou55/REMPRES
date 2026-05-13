@@ -5,14 +5,17 @@ import { CrmSectionPanel } from "@/modules/crm/ui/panels/SectionPanel";
 
 export default function VenteCrmReportingPage() {
   return (
-    <div className="space-y-6">
-      <PageHeader title="Reporting commercial" subtitle="Registre métier CRM — brancher exports enterprise existants sur ces sources." />
-      <CrmSectionPanel title="Jeux de données">
+    <div className="page-wrapper">
+      <PageHeader
+        title="Reporting commercial"
+        subtitle="Restitutions analytiques : pipeline, prévisions et liens vers les écrans opérationnels."
+      />
+      <CrmSectionPanel title="Rapports standard">
         <ul className="space-y-3">
           {CRM_REPORT_DEFINITIONS.map((r) => (
             <li key={r.key} className="rounded-xl border border-gray-100 bg-gray-50/80 px-4 py-3">
               <div className="font-semibold text-darktext">{r.label}</div>
-              <div className="mt-1 font-mono text-xs text-gray-600">{r.source}</div>
+              <div className="mt-1 text-sm text-gray-600">{r.description}</div>
             </li>
           ))}
         </ul>

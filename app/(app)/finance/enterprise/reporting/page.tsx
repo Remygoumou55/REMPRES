@@ -1,36 +1,42 @@
 import Link from "next/link";
 import { PageHeader } from "@/components/ui/page-header";
 import { SectionPanel } from "@/modules/finance/ui/panels/SectionPanel";
-import { FINANCE_REPORT_IDS } from "@/modules/finance/reporting/report-registry";
 
 export default function FinanceEnterpriseReportingPage() {
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader
         title="Reporting financier"
-        subtitle="Exports et restitutions — réutilise les pipelines existants sans duplication métier."
+        subtitle="Accès aux exports et restitutions : pilotage CFO, grand livre et trésorerie."
       />
 
       <SectionPanel
         title="Exports opérationnels"
-        description="Les exports CSV/PDF détaillés restent sur le pilotage CFO et l’API dédiée."
+        description="Les exports détaillés (CSV, PDF) sont disponibles depuis le pilotage CFO et les écrans comptables dédiés."
       >
-        <ul className="list-inside list-disc space-y-2 text-sm text-gray-700">
+        <ul className="space-y-3 text-sm text-gray-700">
           <li>
             <Link href="/finance" className="font-medium text-primary hover:underline">
-              Pilotage CFO — export avancé
+              Pilotage CFO — exports et analyses
             </Link>
           </li>
           <li>
-            <span className="font-mono text-xs text-gray-500">{FINANCE_REPORT_IDS.generalLedger}</span> — via grand
-            livre & balance (UI ci-dessus).
+            <span className="font-medium text-darktext">Grand livre & balance</span>
+            {" — "}
+            <Link href="/finance/enterprise/grand-livre" className="text-primary hover:underline">
+              Consulter le grand livre
+            </Link>
+            {" · "}
+            <Link href="/finance/enterprise/balance" className="text-primary hover:underline">
+              Balance
+            </Link>
           </li>
           <li>
-            <span className="font-mono text-xs text-gray-500">{FINANCE_REPORT_IDS.cashflowDaily}</span> — snapshots{" "}
+            <span className="font-medium text-darktext">Trésorerie</span>
+            {" — "}
             <Link href="/finance/enterprise/tresorerie" className="text-primary hover:underline">
-              Trésorerie
+              Suivi des soldes quotidiens
             </Link>
-            .
           </li>
         </ul>
       </SectionPanel>

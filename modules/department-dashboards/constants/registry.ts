@@ -1,14 +1,14 @@
 import type { DepartmentKey } from "@/lib/constants/departments";
 import type { DepartmentOperationalLink } from "../types/domain";
-import { AI_OPERATIONAL_LINKS } from "../ai";
-import { CLOUD_OPERATIONAL_LINKS } from "../cloud";
-import { CRM_OPERATIONAL_LINKS } from "../crm";
-import { FINANCE_OPERATIONAL_LINKS } from "../finance";
-import { GOVERNANCE_OPERATIONAL_LINKS } from "../governance";
-import { HR_OPERATIONAL_LINKS } from "../hr";
-import { LOGISTICS_OPERATIONAL_LINKS } from "../logistics";
-import { OBSERVABILITY_OPERATIONAL_LINKS } from "../observability";
-import { TENANTS_OPERATIONAL_LINKS } from "../tenants";
+import { AI_OPERATIONAL_LINKS } from "../ai/operational-links";
+import { CLOUD_OPERATIONAL_LINKS } from "../cloud/operational-links";
+import { CRM_OPERATIONAL_LINKS } from "../crm/operational-links";
+import { FINANCE_OPERATIONAL_LINKS } from "../finance/operational-links";
+import { GOVERNANCE_OPERATIONAL_LINKS } from "../governance/operational-links";
+import { HR_OPERATIONAL_LINKS } from "../hr/operational-links";
+import { LOGISTICS_OPERATIONAL_LINKS } from "../logistics/operational-links";
+import { OBSERVABILITY_OPERATIONAL_LINKS } from "../observability/operational-links";
+import { TENANTS_OPERATIONAL_LINKS } from "../tenants/operational-links";
 
 export const ALL_DEPARTMENT_OPERATIONAL_LINKS: readonly DepartmentOperationalLink[] = [
   ...HR_OPERATIONAL_LINKS,

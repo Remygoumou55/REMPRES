@@ -84,7 +84,11 @@ export function ClientForm({
           return;
         }
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Une erreur est survenue.");
+        setError(
+          err instanceof Error && err.message && !err.message.includes("NEXT_")
+            ? err.message
+            : "Impossible d'enregistrer le client. Vérifiez les champs obligatoires et réessayez.",
+        );
       }
     });
   }
@@ -125,7 +129,8 @@ export function ClientForm({
           <input type="hidden" name="client_type" value={clientType} />
         </div>
 
-        {/* Identité */}
+        <div className="space-y-3 border-t border-gray-100 pt-4">
+          <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">Identité</p>
         {isIndividual ? (
           <div className="grid grid-cols-2 gap-3">
             <ModalField label="Prénom" required>
@@ -156,8 +161,10 @@ export function ClientForm({
             />
           </ModalField>
         )}
+        </div>
 
-        {/* Téléphone + Email */}
+        <div className="space-y-3 border-t border-gray-100 pt-4">
+          <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">Coordonnées</p>
         <div className="grid grid-cols-2 gap-3">
           <ModalField label="Téléphone">
             <div className="relative">
@@ -184,8 +191,10 @@ export function ClientForm({
             </div>
           </ModalField>
         </div>
+        </div>
 
-        {/* Adresse + Ville + Pays */}
+        <div className="space-y-3 border-t border-gray-100 pt-4">
+          <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">Adresse</p>
         <div className="grid grid-cols-3 gap-3">
           <ModalField label="Adresse">
             <div className="relative">
@@ -217,9 +226,11 @@ export function ClientForm({
             </div>
           </ModalField>
         </div>
+        </div>
 
-        {/* Notes */}
-        <ModalField label="Notes">
+        <div className="space-y-2 border-t border-gray-100 pt-4">
+          <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">Notes</p>
+        <ModalField label="Notes (facultatif)">
           <div className="relative">
             <FileText size={13} className="absolute left-3 top-3 text-gray-400" />
             <ModalTextarea
@@ -231,6 +242,7 @@ export function ClientForm({
             />
           </div>
         </ModalField>
+        </div>
 
         <ModalError message={error} />
 

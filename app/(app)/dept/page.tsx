@@ -20,8 +20,8 @@ export default async function DeptPage() {
   return (
     <div className="page-wrapper">
       <PageHeader
-        title={t("navigation.short.supervision", "Departements")}
-        subtitle={t("dashboard.dept.selectDepartment", "Selectionnez un departement")}
+        title={t("navigation.short.supervision", "Départements")}
+        subtitle={t("dashboard.dept.selectDepartment", "Sélectionnez un département")}
       />
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {DEPARTMENTS.map((department) => (

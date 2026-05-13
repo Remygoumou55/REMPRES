@@ -2,7 +2,6 @@ import { redirect } from "next/navigation";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { isSuperAdmin } from "@/lib/server/permissions";
 import { listApprovalRequests } from "@/lib/governance/approvals/repository";
-import { GovernanceBreadcrumb } from "@/components/governance/layout/GovernanceBreadcrumb";
 import { ApprovalDepartmentFilter } from "@/components/governance/approvals/ApprovalDepartmentFilter";
 import { GovernanceApprovalTable } from "@/components/governance/approvals/GovernanceApprovalTable";
 import { approveRequestAction, rejectRequestAction } from "./actions";
@@ -11,6 +10,10 @@ import type { ApprovalRequestStatus } from "@/lib/governance/approvals/types";
 import { APPROVAL_STATUSES, statusTranslationKey } from "@/lib/i18n/statuses";
 import { getRequestLocale } from "@/lib/i18n/request-locale";
 import { loadLocaleMessages, translateFromDict } from "@/lib/i18n/load-messages";
+import { PageHeader } from "@/components/ui/page-header";
+import { ModulePageStack } from "@/components/ui/module-page-stack";
+import { ApprovalDecisionFields } from "@/components/governance/approvals/ApprovalDecisionFields";
+import { FilterPanelShell } from "@/components/ui/filter-panel-shell";
 
 type PageProps = {
   searchParams?: {
@@ -42,23 +45,17 @@ export default async function AdminApprovalsPage({ searchParams }: PageProps) {
   const department = searchParams?.department ?? "";
 
   return (
-    <div className="mx-auto max-w-6xl space-y-5">
-      <ApprovalsRealtimeBridge />
-      <GovernanceBreadcrumb
-        items={[
-          { href: "/dashboard", label: "Accueil" },
-          { href: "/admin/approvals", label: "Centre d'approbation" },
-        ]}
-      />
+    <div className="page-wrapper">
+      <ModulePageStack>
+        <ApprovalsRealtimeBridge />
 
-      <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-        <h1 className="text-xl font-semibold text-gray-900">Centre d&apos;approbation gouvernance</h1>
-        <p className="mt-1 text-sm text-gray-600">
-          Validation des actions sensibles, supervision des decisions et traçabilite.
-        </p>
-      </section>
+        <PageHeader
+          title="Centre d&apos;approbation"
+          subtitle="Validation des actions sensibles, supervision des décisions et traçabilité."
+        />
 
-      <form className="flex flex-wrap items-center gap-2 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+      <FilterPanelShell>
+      <form className="flex flex-wrap items-center gap-2" method="get">
         <select
           name="status"
           defaultValue={status}
@@ -79,49 +76,32 @@ export default async function AdminApprovalsPage({ searchParams }: PageProps) {
           Filtrer
         </button>
       </form>
+      </FilterPanelShell>
 
       <GovernanceApprovalTable
         requests={requests}
         renderActions={(request) =>
           request.status === "pending" ? (
-            <form action={async (formData) => {
-              "use server";
-              const action = String(formData.get("decision") ?? "");
-              const requestId = String(formData.get("requestId") ?? "");
-              const reason = String(formData.get("reason") ?? "");
-              if (action === "approve") {
-                await approveRequestAction(requestId);
-                return;
-              }
-              await rejectRequestAction(requestId, reason);
-            }} className="flex flex-wrap items-center gap-2">
-              <input type="hidden" name="requestId" value={request.id} />
-              <input
-                type="text"
-                name="reason"
-                placeholder="Raison rejet (optionnel)"
-                className="rounded-lg border border-gray-300 px-2 py-1 text-xs"
-              />
-              <button
-                type="submit"
-                name="decision"
-                value="approve"
-                className="rounded-lg bg-emerald-600 px-2 py-1 text-xs text-white"
-              >
-                Approuver
-              </button>
-              <button
-                type="submit"
-                name="decision"
-                value="reject"
-                className="rounded-lg bg-red-600 px-2 py-1 text-xs text-white"
-              >
-                Rejeter
-              </button>
+            <form
+              action={async (formData) => {
+                "use server";
+                const actionName = String(formData.get("decision") ?? "");
+                const requestId = String(formData.get("requestId") ?? "");
+                const reason = String(formData.get("reason") ?? "");
+                if (actionName === "approve") {
+                  await approveRequestAction(requestId);
+                  return;
+                }
+                await rejectRequestAction(requestId, reason);
+              }}
+              className="space-y-0"
+            >
+              <ApprovalDecisionFields requestId={request.id} />
             </form>
           ) : null
         }
       />
+      </ModulePageStack>
     </div>
   );
 }

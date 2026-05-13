@@ -40,7 +40,7 @@ export default async function RHRecruitmentPage() {
   }, {});
 
   return (
-    <div className="page-wrapper space-y-6">
+    <div className="page-wrapper">
       <RecruitmentRealtimeBridge />
       <PageHeader
         title={t("dashboard.rh.recruitment.title", "Recrutement RH Enterprise")}

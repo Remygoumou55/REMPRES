@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
+import { TableShell } from "@/components/ui/table-shell";
 
 export function CrmScrollTable({ children }: { children: ReactNode }) {
-  return <div className="overflow-x-auto rounded-xl border border-indigo-50">{children}</div>;
+  return <TableShell className="border-indigo-100/80">{children}</TableShell>;
 }

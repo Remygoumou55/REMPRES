@@ -40,7 +40,7 @@ export default async function RhPresencePage() {
   const checkOuts = attendance.filter((entry) => entry.event_type === "check_out").length;
 
   return (
-    <div className="page-wrapper space-y-6">
+    <div className="page-wrapper">
       <PageHeader
         title="RH - Presences"
         subtitle="Etat des effectifs et disponibilite equipe"

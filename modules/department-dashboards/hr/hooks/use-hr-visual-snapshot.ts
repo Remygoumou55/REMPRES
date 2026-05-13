@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import type { DeptKpiApiResponse } from "@/lib/dept/kpi-contract";
 import { queryKeys } from "@/lib/query/query-keys";
+import { ERP_QUERY_POLICY } from "@/lib/react-query-erp-policy";
 import { toHrVisualKpiSnapshot } from "@/modules/department-dashboards/hr/visual/kpi";
 
 export function useHrVisualSnapshot() {
@@ -16,5 +17,8 @@ export function useHrVisualSnapshot() {
     },
     staleTime: 45_000,
     refetchInterval: 120_000,
+    refetchOnWindowFocus: ERP_QUERY_POLICY.refetchOnWindowFocus,
+    refetchOnReconnect: ERP_QUERY_POLICY.refetchOnReconnect,
+    retry: ERP_QUERY_POLICY.retry,
   });
 }

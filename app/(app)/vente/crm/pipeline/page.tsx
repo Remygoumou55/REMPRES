@@ -19,12 +19,12 @@ export default async function VenteCrmPipelinePage() {
   );
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader
         title="Pipeline commercial"
         subtitle={`Vue pondérée agrégée — brut ${formatMoneyGnf(totals.raw)}, pondéré ${formatMoneyGnf(totals.weighted)}.`}
       />
-      <CrmSectionPanel title="Opportunités ouvertes (hors perdu)" description="Source : vue `v_crm_pipeline_weighted`.">
+      <CrmSectionPanel title="Opportunités ouvertes (hors perdu)" description="Synthèse pondérée du pipeline commercial en cours.">
         <CrmScrollTable>
           <table className="min-w-[920px] w-full border-collapse text-left text-sm">
             <thead className="bg-gray-50 text-xs uppercase tracking-wide text-gray-500">

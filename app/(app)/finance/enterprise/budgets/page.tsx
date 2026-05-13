@@ -19,7 +19,7 @@ export default async function FinanceEnterpriseBudgetsPage() {
   );
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader title="Budgets" subtitle="Enveloppes et lignes analytiques (catégories / comptes)." />
       <SectionPanel title="Budgets structurés">
         <FinanceBudgetsTable rows={rows} />

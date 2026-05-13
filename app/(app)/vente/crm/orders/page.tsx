@@ -5,14 +5,14 @@ import { CrmSectionPanel } from "@/modules/crm/ui/panels/SectionPanel";
 
 export default function VenteCrmOrdersPage() {
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader
         title="Commandes vente"
-        subtitle="Les commandes sont les enregistrements `sales` — champs CRM `crm_opportunity_id` et `crm_quote_id` pour traçabilité."
+        subtitle="Historique des commandes : création, encaissements et suivi du cycle de vente, avec lien vers le CRM."
       />
       <CrmSectionPanel title="Historique ventes">
         <p className="text-sm text-gray-700">
-          Utilisez le flux vente existant pour création, encaissements et cycle de vie (`lifecycle_status`).
+          Utilisez le flux vente pour enregistrer une commande, suivre les encaissements et les étapes jusqu’à la clôture.
         </p>
         <div className="mt-4 flex flex-wrap gap-3">
           <Link

@@ -16,10 +16,10 @@ export default async function FinanceEnterpriseHubPage() {
   ]);
 
   return (
-    <div className="space-y-8">
+    <div className="page-wrapper">
       <PageHeader
-        title="Finance Enterprise"
-        subtitle="Espace comptable et trésorerie — branché sur le socle finance, la gouvernance et l’audit."
+        title="Finance comptable & trésorerie"
+        subtitle="Grand livre, facturation, trésorerie et contrôles : accès structuré aux travées comptables et au pilotage CFO."
         actions={
           <Link
             href="/finance"
@@ -30,7 +30,7 @@ export default async function FinanceEnterpriseHubPage() {
         }
       />
 
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <FinanceStatCard label="Lots journal (brouillon)" value={overview.journalDraftCount} />
         <FinanceStatCard label="Lots comptabilisés" value={overview.journalPostedCount} />
         <FinanceStatCard label="Créances ouvertes (factures)" value={overview.arOpenCount} />
@@ -39,7 +39,7 @@ export default async function FinanceEnterpriseHubPage() {
 
       <FinanceAccountingOverview accountCount={accounts.length} />
 
-      <SectionPanel title="Accès métier" description="Navigation rapide vers les travées enterprise.">
+      <SectionPanel title="Accès métier" description="Raccourcis vers les écrans comptables, la trésorerie et les rapports.">
         <FinanceEnterpriseHubCards />
       </SectionPanel>
     </div>

@@ -13,16 +13,16 @@ export default async function FinanceEnterpriseWorkflowsPage() {
   const superAdmin = await isSuperAdmin(user.id);
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader
         title="Workflows & approbations"
-        subtitle="Alignement avec `approval_requests` — entités finance typées côté domaine."
+        subtitle="Circuit de validation des opérations sensibles : typologie métier finance et lien vers la gouvernance."
       />
 
-      <SectionPanel title="Entités finance (référence)">
-        <ul className="grid gap-2 font-mono text-xs text-gray-700 sm:grid-cols-2">
+      <SectionPanel title="Processus couverts (finance)">
+        <ul className="grid gap-2 text-sm text-gray-700 sm:grid-cols-2">
           {Object.values(FINANCE_APPROVAL_ENTITY_TYPES).map((id) => (
-            <li key={id} className="rounded-lg border border-gray-100 bg-gray-50 px-2 py-1">
+            <li key={id} className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 font-medium">
               {id}
             </li>
           ))}

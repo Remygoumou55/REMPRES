@@ -327,5 +327,8 @@
   "logistics.visual.exports.deliveries": "Centro de entregas",
   "logistics.visual.exports.stock": "Centro de stock",
   "logistics.visual.chart.empty": "Nenhuma serie logistica disponivel no momento.",
-  "deptDash.logistics.link.visual": "Centro visual logistico"
+  "deptDash.logistics.link.visual": "Centro visual logistico",
+  "executive.kpi.openIncidents": "Incidentes abertos",
+  "executive.kpi.activeTenants": "Tenants ativos",
+  "executive.kpi.tenantSnapshots": "Snapshots de tenant"
 }

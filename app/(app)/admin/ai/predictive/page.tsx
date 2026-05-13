@@ -1,6 +1,6 @@
 import Link from "next/link";
+import { TableShell } from "@/components/ui/table-shell";
 import { redirect } from "next/navigation";
-import { GovernanceBreadcrumb } from "@/components/governance/layout/GovernanceBreadcrumb";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getModulePermissions } from "@/lib/server/permissions";
@@ -17,13 +17,6 @@ export default async function AdminAiPredictivePage() {
 
   return (
     <>
-      <GovernanceBreadcrumb
-        items={[
-          { href: "/dashboard", label: "Accueil" },
-          { href: "/admin/ai", label: "AI" },
-          { href: "/admin/ai/predictive", label: "Prédictif" },
-        ]}
-      />
       <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
         <h1 className="text-xl font-semibold text-gray-900">Prédictif & pipelines</h1>
         <p className="mt-1 text-sm text-gray-600">
@@ -34,7 +27,7 @@ export default async function AdminAiPredictivePage() {
         </Link>
       </section>
 
-      <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm">
+      <TableShell>
         <table className="min-w-full divide-y divide-gray-200 text-sm">
           <thead className="bg-gray-50 text-left text-xs font-semibold uppercase tracking-wide text-gray-600">
             <tr>
@@ -64,7 +57,7 @@ export default async function AdminAiPredictivePage() {
             ) : null}
           </tbody>
         </table>
-      </div>
+      </TableShell>
     </>
   );
 }

@@ -17,7 +17,7 @@ export default async function FinanceEnterpriseAuditPage() {
   const posted = await listFinanceJournalBatchesByStatus(supabase, "posted", 60);
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader
         title="Audit finance"
         subtitle="Piste opérationnelle (lots comptabilisés) + lien vers l’audit gouvernance complet."

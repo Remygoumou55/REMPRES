@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { isSuperAdmin } from "@/lib/server/permissions";
-import { GovernanceBreadcrumb } from "@/components/governance/layout/GovernanceBreadcrumb";
 import { loadEnterpriseIntelligence } from "@/lib/governance/analytics/enterprise-intelligence";
 import { GovernanceSummaryGrid } from "@/components/governance/analytics/GovernanceSummaryGrid";
 import { DepartmentComparisonTable } from "@/components/governance/analytics/DepartmentComparisonTable";
@@ -11,6 +10,7 @@ import { EnterpriseHealthScore } from "@/components/governance/analytics/Enterpr
 import { AnalyticsPeriodFilter } from "@/components/governance/analytics/AnalyticsPeriodFilter";
 import { EnterpriseTrendChart } from "@/components/governance/analytics/EnterpriseTrendChart";
 import { IntelligenceRealtimeBridge } from "@/components/governance/analytics/IntelligenceRealtimeBridge";
+import { FilterPanelShell } from "@/components/ui/filter-panel-shell";
 
 type PageProps = {
   searchParams?: {
@@ -31,12 +31,6 @@ export default async function AdminIntelligencePage({ searchParams }: PageProps)
   return (
     <div className="mx-auto max-w-6xl space-y-5">
       <IntelligenceRealtimeBridge />
-      <GovernanceBreadcrumb
-        items={[
-          { href: "/dashboard", label: "Accueil" },
-          { href: "/admin/intelligence", label: "Intelligence entreprise" },
-        ]}
-      />
       <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
         <h1 className="text-xl font-semibold text-gray-900">Centre d&apos;intelligence entreprise</h1>
         <p className="mt-1 text-sm text-gray-600">
@@ -44,8 +38,9 @@ export default async function AdminIntelligencePage({ searchParams }: PageProps)
         </p>
       </section>
 
-      <form className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
-        <div className="flex items-center gap-2">
+      <FilterPanelShell title="Période d'analyse">
+      <form method="get">
+        <div className="flex flex-wrap items-center gap-2">
           <AnalyticsPeriodFilter selected={period} />
           <button
             type="submit"
@@ -55,6 +50,7 @@ export default async function AdminIntelligencePage({ searchParams }: PageProps)
           </button>
         </div>
       </form>
+      </FilterPanelShell>
 
       <GovernanceSummaryGrid
         salesToday={intelligence.enterprise.salesToday}

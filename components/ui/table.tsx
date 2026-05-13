@@ -1,14 +1,12 @@
 import { cn } from "@/lib/utils";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Skeleton } from "@/components/ui/skeleton";
+import { TableShell } from "@/components/ui/table-shell";
 import { Inbox } from "lucide-react";
 
+/** Conteneur liste métier — même enveloppe que `TableShell` (scroll horizontal contrôlé). */
 export function DataTable({ className, children }: { className?: string; children: React.ReactNode }) {
-  return (
-    <div className={cn("overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm", className)}>
-      <div className="overflow-x-auto">{children}</div>
-    </div>
-  );
+  return <TableShell className={className}>{children}</TableShell>;
 }
 
 export function DataTableHead({ children }: { children: React.ReactNode }) {

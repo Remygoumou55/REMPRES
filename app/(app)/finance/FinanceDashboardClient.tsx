@@ -30,8 +30,11 @@ import { useFinanceLiveData } from "./hooks/useFinanceLiveData";
 import type { PdfSections } from "@/components/finance/FinanceExportModal";
 import { SearchInput } from "@/components/ui/search-input";
 import { useGlobalSearch } from "@/lib/hooks/use-global-search";
+import { GLOBAL_LIST_SEARCH_DEBOUNCE_MS } from "@/lib/data-listing";
 import { useCurrencyBatchConversion } from "@/hooks/useCurrencyConversion";
 import { useCurrencyStore } from "@/stores/currencyStore";
+import { useToast } from "@/components/providers/ToastProvider";
+import { FilterPanelShell } from "@/components/ui/filter-panel-shell";
 
 // Sub-components
 import { DeltaText, FinanceKpiCard } from "./components/FinanceKpis";
@@ -85,6 +88,7 @@ export function FinanceDashboardClient({
   selectedCategoryIds,
   selectedCreatedBy,
 }: Props) {
+  const { showSuccess, showError } = useToast();
   const { data, updatedAt, refreshing, refetch } = useFinanceLiveData({
     initialData: initial,
     from,
@@ -183,7 +187,7 @@ export function FinanceDashboardClient({
   } = useGlobalSearch({
     data: categorySearchRows,
     searchFields: ["name", "searchBlob"],
-    delay: 180,
+    delay: GLOBAL_LIST_SEARCH_DEBOUNCE_MS,
     minQueryLength: 1,
   });
 
@@ -199,7 +203,11 @@ export function FinanceDashboardClient({
           format, csvSections: csv, pdfSections: pdf,
         }),
       });
-      if (!res.ok) return;
+      if (!res.ok) {
+        const detail = await res.text().catch(() => "");
+        showError(detail.trim() || "L'export n'a pas pu être généré. Réessayez dans un instant.");
+        return;
+      }
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -208,8 +216,9 @@ export function FinanceDashboardClient({
       a.click();
       URL.revokeObjectURL(url);
       setExportOpen(false);
+      showSuccess(format === "pdf" ? "PDF téléchargé." : "Fichier téléchargé.");
     } catch {
-      /* ignore error */
+      showError("Réseau indisponible ou export interrompu.");
     } finally {
       setExportBusy(false);
     }
@@ -218,11 +227,10 @@ export function FinanceDashboardClient({
   // ── Render ──────────────────────────────────────────────────────────────
 
   return (
-    <div className="space-y-6 p-4 md:p-6">
-      {/* Live Status Bar */}
+    <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-end gap-2 text-xs text-gray-500">
         <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-800">
-          <Radio className="h-3 w-3 animate-pulse text-emerald-600" /> Live
+          <Radio className="h-3 w-3 animate-pulse text-emerald-600" /> Temps réel
         </span>
         <span>MAJ {updatedAt.toLocaleTimeString("fr-FR")}</span>
         <button
@@ -284,8 +292,9 @@ export function FinanceDashboardClient({
       <AlertsSection alerts={alerts} settings={alertSettings} onChangeSettings={setAlertSettings} />
 
       {/* Filters */}
+      <FilterPanelShell title="Période & filtres">
       <form
-        className="space-y-4 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm"
+        className="space-y-4"
         action="/finance"
         method="get"
       >
@@ -347,6 +356,7 @@ export function FinanceDashboardClient({
         </div>
         <p className="text-[10px] text-gray-400">Maintenez Ctrl pour sélectionner plusieurs catégories.</p>
       </form>
+      </FilterPanelShell>
 
       {/* KPI Cards */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

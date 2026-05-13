@@ -21,29 +21,35 @@ import { useLogisticsVisualRefresh, useLogisticsVisualSnapshot } from "@/modules
 
 export function LogisticsVisualPageClient() {
   const { t } = useTranslation();
-  const { data, isLoading, isError, error } = useLogisticsVisualSnapshot();
+  const { data, isLoading, isError } = useLogisticsVisualSnapshot();
   const refresh = useLogisticsVisualRefresh();
 
   if (isLoading) {
     return (
-      <div className="page-wrapper space-y-4">
-        <div className="card h-20 animate-pulse" />
-        <div className="card h-56 animate-pulse" />
-        <div className="card h-72 animate-pulse" />
+      <div className="page-wrapper">
+        <div className="space-y-4">
+          <div className="card h-20 animate-pulse" />
+          <div className="card h-56 animate-pulse" />
+          <div className="card h-72 animate-pulse" />
+        </div>
       </div>
     );
   }
 
   if (isError || !data) {
     return (
-      <div className="page-wrapper space-y-4">
-        <PageHeader
-          title={t("logistics.visual.title", "Supply Chain Operations Center")}
-          subtitle={t("logistics.visual.subtitle", "Executive-grade logistics operations and intelligence")}
-        />
-        <div className="card border border-red-200 bg-red-50 p-4 text-sm text-red-700">
-          {t("logistics.visual.error", "Unable to load logistics visual indicators.")}
-          {error instanceof Error ? ` (${error.message})` : ""}
+      <div className="page-wrapper">
+        <div className="space-y-4">
+          <PageHeader
+            title={t("logistics.visual.title", "Pilotage visuel logistique")}
+            subtitle={t(
+              "logistics.visual.subtitle",
+              "Stocks, entrepôts, livraisons et tendances pour le pilotage supply chain.",
+            )}
+          />
+          <div className="card border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+            {t("logistics.visual.error", "Impossible de charger le pilotage visuel logistique.")}
+          </div>
         </div>
       </div>
     );
@@ -52,10 +58,13 @@ export function LogisticsVisualPageClient() {
   const model = buildLogisticsVisualFinalizationModel(data);
 
   return (
-    <div className="page-wrapper space-y-6">
+    <div className="page-wrapper">
       <PageHeader
-        title={t("logistics.visual.title", "Supply Chain Operations Center")}
-        subtitle={t("logistics.visual.subtitle", "Executive-grade logistics operations and intelligence")}
+        title={t("logistics.visual.title", "Pilotage visuel logistique")}
+        subtitle={t(
+          "logistics.visual.subtitle",
+          "Stocks, entrepôts, livraisons et tendances pour le pilotage supply chain.",
+        )}
         actions={
           <div className="flex items-center gap-2">
             <Button
@@ -63,13 +72,13 @@ export function LogisticsVisualPageClient() {
               size="sm"
               onClick={() => refresh.mutate()}
               loading={refresh.isPending}
-              loadingText={t("logistics.visual.refreshing", "Refreshing...")}
+              loadingText={t("logistics.visual.refreshing", "Actualisation…")}
             >
               <RefreshCw className="mr-1 h-4 w-4" />
-              {t("logistics.visual.refresh", "Refresh")}
+              {t("logistics.visual.refresh", "Actualiser")}
             </Button>
             <Link href="/logistique" className="text-sm font-medium text-primary hover:underline">
-              {t("logistics.visual.backLogistics", "Back to logistics")}
+              {t("logistics.visual.backLogistics", "Retour Logistique")}
             </Link>
           </div>
         }

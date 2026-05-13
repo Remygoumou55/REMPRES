@@ -26,5 +26,12 @@
   "admin.platformDashboard.link.ecosystem": "伙伴生态",
   "admin.platformDashboard.desc.ecosystem": "联邦、伙伴与连接器。",
   "admin.platformDashboard.link.compliance": "合规与安全态势",
-  "admin.platformDashboard.desc.compliance": "税务锁定、保留、风险与职责分离。"
+  "admin.platformDashboard.desc.compliance": "税务锁定、保留、风险与职责分离。",
+  "admin.platformDashboard.metric.jobsPending": "待处理任务",
+  "admin.platformDashboard.metric.jobsFailed24h": "失败任务（24小时）",
+  "admin.platformDashboard.metric.incidentsOpen": "未关闭事件",
+  "admin.platformDashboard.metric.anomaliesOpen": "未关闭异常",
+  "admin.platformDashboard.metric.riskSignalsOpen": "未关闭风险信号",
+  "admin.platformDashboard.metric.tenantsActive": "活跃租户",
+  "admin.platformDashboard.metric.tenantSnapshots": "租户快照"
 }

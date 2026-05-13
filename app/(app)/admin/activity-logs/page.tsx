@@ -1,16 +1,19 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { AlertTriangle, CheckCircle2, Download, FileJson, Filter } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Download, FileJson } from "lucide-react";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getActivityLogsMonitoring, listActivityLogs } from "@/lib/server/activity-logs";
 import { isAdminRole } from "@/lib/server/permissions";
 import { ActivityLogsVerifyUpload } from "@/components/admin/activity-logs-verify-upload";
 import { ActivityLogsSearchList } from "@/components/admin/activity-logs-search-list";
 import { PageHeader } from "@/components/ui/page-header";
+import { PaginationBar } from "@/components/ui/pagination-bar";
 import {
   formatProfileDisplayName,
   displayNameFromEmail,
 } from "@/lib/server/profile-display";
+import { DEFAULT_PAGE_SIZE } from "@/lib/data-listing";
+import { FilterPanelShell } from "@/components/ui/filter-panel-shell";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -55,7 +58,7 @@ export default async function ActivityLogsPage({ searchParams }: ActivityLogsPag
   }
 
   const page     = Number(searchParams?.page ?? "1");
-  const pageSize = Number(searchParams?.pageSize ?? "25") as 10 | 25 | 50;
+  const pageSize = Number(searchParams?.pageSize ?? String(DEFAULT_PAGE_SIZE)) as 10 | 25 | 50;
   const filters  = {
     moduleKey:   searchParams?.moduleKey?.trim()   || undefined,
     actionKey:   searchParams?.actionKey?.trim()   || undefined,
@@ -169,11 +172,8 @@ export default async function ActivityLogsPage({ searchParams }: ActivityLogsPag
       )}
 
       {/* ── Filtres ── */}
-      <form className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
-        <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
-          <Filter size={12} />
-          Filtres
-        </div>
+      <FilterPanelShell>
+        <form method="get" action="/admin/activity-logs">
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           <div>
             <label className="mb-1 block text-xs text-gray-500">Module</label>
@@ -255,7 +255,8 @@ export default async function ActivityLogsPage({ searchParams }: ActivityLogsPag
             </Link>
           )}
         </div>
-      </form>
+        </form>
+      </FilterPanelShell>
 
       <ActivityLogsSearchList
         resetHref="/admin/activity-logs"
@@ -267,35 +268,7 @@ export default async function ActivityLogsPage({ searchParams }: ActivityLogsPag
         }))}
       />
 
-      {/* ── Pagination ── */}
-      <div className="flex items-center justify-between rounded-2xl border border-gray-100 bg-white px-5 py-3.5 shadow-sm">
-        <p className="text-sm text-gray-500">
-          Page <span className="font-semibold text-darktext">{result.page}</span> sur{" "}
-          <span className="font-semibold text-darktext">{result.totalPages}</span>
-        </p>
-        <div className="flex gap-2">
-          <Link
-            href={result.page > 1 ? buildUrl(result.page - 1) : "#"}
-            className={`rounded-xl px-4 py-2 text-sm font-medium transition ${
-              result.page > 1
-                ? "border border-gray-200 text-darktext hover:bg-gray-50"
-                : "cursor-not-allowed border border-gray-100 text-gray-300"
-            }`}
-          >
-            ← Précédent
-          </Link>
-          <Link
-            href={result.page < result.totalPages ? buildUrl(result.page + 1) : "#"}
-            className={`rounded-xl px-4 py-2 text-sm font-medium transition ${
-              result.page < result.totalPages
-                ? "border border-gray-200 text-darktext hover:bg-gray-50"
-                : "cursor-not-allowed border border-gray-100 text-gray-300"
-            }`}
-          >
-            Suivant →
-          </Link>
-        </div>
-      </div>
+      <PaginationBar page={result.page} totalPages={result.totalPages} buildHref={buildUrl} />
 
       {/* ── Vérification d'intégrité ── */}
       <ActivityLogsVerifyUpload />

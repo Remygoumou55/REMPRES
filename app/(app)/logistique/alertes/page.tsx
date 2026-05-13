@@ -9,10 +9,10 @@ export default async function LogistiqueAlertesPage() {
   const rows = await listLogisticsStockAlerts(supabase, 200);
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader
         title="Alertes stock"
-        subtitle="Vue `v_logistics_stock_alerts` — positions au seuil catalogue (`products.stock_threshold`)."
+        subtitle="Articles au seuil ou en rupture : suivi par entrepôt et par rapport au stock catalogue."
       />
       <LogisticsSectionPanel title="SKU sous tension">
         {!rows.length ? (

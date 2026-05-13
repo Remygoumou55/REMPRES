@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { GovernanceBreadcrumb } from "@/components/governance/layout/GovernanceBreadcrumb";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getModulePermissions } from "@/lib/server/permissions";
 import { listPartnersForUi } from "@/modules/ecosystem/server/repositories/partners-repository";
+import { TableShell } from "@/components/ui/table-shell";
 
 export default async function AdminEcosystemPartnersPage() {
   const user = await getServerSessionUser();
@@ -17,18 +17,11 @@ export default async function AdminEcosystemPartnersPage() {
 
   return (
     <>
-      <GovernanceBreadcrumb
-        items={[
-          { href: "/dashboard", label: "Accueil" },
-          { href: "/admin/ecosystem", label: "Écosystème" },
-          { href: "/admin/ecosystem/partners", label: "Partenaires" },
-        ]}
-      />
       <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
         <h1 className="text-xl font-semibold text-gray-900">Registre partenaires</h1>
         <p className="mt-1 text-sm text-gray-600">Table native — sans duplication du catalogue marketplace plugins.</p>
 
-        <div className="mt-4 overflow-x-auto">
+        <TableShell className="mt-4">
           <table className="min-w-full border-collapse text-left text-sm">
             <thead>
               <tr className="border-b border-gray-200 text-xs uppercase tracking-wide text-gray-500">
@@ -58,7 +51,7 @@ export default async function AdminEcosystemPartnersPage() {
               ) : null}
             </tbody>
           </table>
-        </div>
+        </TableShell>
 
         <Link href="/admin/ecosystem/certifications" className="mt-4 inline-flex text-sm font-medium text-amber-800 hover:underline">
           Certifications →

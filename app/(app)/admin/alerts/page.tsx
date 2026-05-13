@@ -2,7 +2,6 @@ import { redirect } from "next/navigation";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { isSuperAdmin } from "@/lib/server/permissions";
 import { listGovernanceAlerts } from "@/lib/governance/alerts/repository";
-import { GovernanceBreadcrumb } from "@/components/governance/layout/GovernanceBreadcrumb";
 import { AlertsRealtimeBridge } from "@/components/governance/alerts/AlertsRealtimeBridge";
 import { CriticalAlertBanner } from "@/components/governance/alerts/CriticalAlertBanner";
 import { GovernanceAlertTable } from "@/components/governance/alerts/GovernanceAlertTable";
@@ -12,6 +11,7 @@ import type { GovernanceAlertSeverity, GovernanceAlertStatus } from "@/lib/gover
 import { ALERT_SEVERITIES, ALERT_STATUSES, severityTranslationKey, statusTranslationKey } from "@/lib/i18n/statuses";
 import { getRequestLocale } from "@/lib/i18n/request-locale";
 import { loadLocaleMessages, translateFromDict } from "@/lib/i18n/load-messages";
+import { FilterPanelShell } from "@/components/ui/filter-panel-shell";
 
 type PageProps = {
   searchParams?: {
@@ -47,12 +47,6 @@ export default async function AdminAlertsPage({ searchParams }: PageProps) {
   return (
     <div className="mx-auto max-w-6xl space-y-5">
       <AlertsRealtimeBridge />
-      <GovernanceBreadcrumb
-        items={[
-          { href: "/dashboard", label: t("navigation.breadcrumb.home") },
-          { href: "/admin/alerts", label: t("governance.alerts.page.breadcrumb") },
-        ]}
-      />
 
       <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
         <h1 className="text-xl font-semibold text-gray-900">{t("governance.alerts.page.title")}</h1>
@@ -63,7 +57,8 @@ export default async function AdminAlertsPage({ searchParams }: PageProps) {
 
       <CriticalAlertBanner alerts={alerts} />
 
-      <form className="flex flex-wrap items-center gap-2 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+      <FilterPanelShell>
+      <form className="flex flex-wrap items-center gap-2" method="get">
         <select
           name="status"
           defaultValue={status}
@@ -96,6 +91,7 @@ export default async function AdminAlertsPage({ searchParams }: PageProps) {
           {t("governance.alerts.filters.apply")}
         </button>
       </form>
+      </FilterPanelShell>
 
       <GovernanceAlertTable
         alerts={alerts}

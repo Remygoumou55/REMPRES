@@ -27,16 +27,31 @@ export default async function DashboardPage() {
 
   const userId = user.id;
 
-  const [permissions, productsPermissions, adminRoleFlag, superAdminFlag, kpis, userDisplayName, authBrief] =
-    await Promise.all([
-      getClientsPermissions(userId),
-      getModulePermissions(userId, ["produits", "vente"]),
-      isAdminRole(userId),
-      isSuperAdmin(userId),
-      getDashboardKpis(),
-      getCachedProfileDisplayName(userId),
-      getProfileAuthBrief(userId),
-    ]);
+  const [
+    permissions,
+    productsPermissions,
+    financePermissions,
+    logisticsPermissions,
+    crmPermissions,
+    rhPermissions,
+    adminRoleFlag,
+    superAdminFlag,
+    kpis,
+    userDisplayName,
+    authBrief,
+  ] = await Promise.all([
+    getClientsPermissions(userId),
+    getModulePermissions(userId, ["produits", "vente"]),
+    getModulePermissions(userId, ["finance"]),
+    getModulePermissions(userId, ["logistics"]),
+    getModulePermissions(userId, ["crm", "vente"]),
+    getModulePermissions(userId, ["rh"]),
+    isAdminRole(userId),
+    isSuperAdmin(userId),
+    getDashboardKpis(),
+    getCachedProfileDisplayName(userId),
+    getProfileAuthBrief(userId),
+  ]);
 
   const governanceModel = getGovernanceHomeModel({
     roleKey: authBrief.roleKey,
@@ -45,19 +60,26 @@ export default async function DashboardPage() {
   });
 
   if (superAdminFlag) {
-    return <GovernanceHomeCenter model={governanceModel} userDisplayName={userDisplayName} />;
+    return (
+      <div className="page-wrapper">
+        <GovernanceHomeCenter model={governanceModel} userDisplayName={userDisplayName} />
+      </div>
+    );
   }
 
   return (
-    <div className="space-y-6">
-      <DashboardClient
-        userDisplayName={userDisplayName}
-        canReadClients={permissions.canRead}
-        canReadProducts={productsPermissions.canRead}
-        canReadActivityLogs={adminRoleFlag}
-        isSuperAdmin={adminRoleFlag}
-        kpis={kpis}
-      />
-    </div>
+    <DashboardClient
+      userDisplayName={userDisplayName}
+      canReadClients={permissions.canRead}
+      canReadProducts={productsPermissions.canRead}
+      canReadFinance={financePermissions.canRead}
+      canReadLogistics={logisticsPermissions.canRead}
+      canReadCrm={crmPermissions.canRead}
+      canReadRh={rhPermissions.canRead}
+      canReadActivityLogs={adminRoleFlag}
+      isSuperAdmin={superAdminFlag}
+      showExecutiveLink={superAdminFlag || adminRoleFlag}
+      kpis={kpis}
+    />
   );
 }

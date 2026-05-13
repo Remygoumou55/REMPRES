@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { GovernanceBreadcrumb } from "@/components/governance/layout/GovernanceBreadcrumb";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getModulePermissions } from "@/lib/server/permissions";
@@ -20,12 +19,6 @@ export default async function AdminGovernancePlatformHubPage() {
 
   return (
     <>
-      <GovernanceBreadcrumb
-        items={[
-          { href: "/dashboard", label: "Accueil" },
-          { href: "/admin/governance-platform", label: "Gouvernance plateforme" },
-        ]}
-      />
 
       <section className="rounded-2xl border border-violet-100 bg-white p-5 shadow-sm">
         <h1 className="text-xl font-semibold text-gray-900">Gouvernance & maturité plateforme</h1>

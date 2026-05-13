@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState, useTransition } from "react";
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Wallet,
@@ -25,11 +24,16 @@ import {
   ModalSelect,
   ModalError,
   ModalActions,
+  ModalSectionHeading,
 } from "@/components/ui/modal";
+import { PaginationBar } from "@/components/ui/pagination-bar";
+import { TableShell } from "@/components/ui/table-shell";
+import { FilterPanelShell } from "@/components/ui/filter-panel-shell";
 import { SearchInput } from "@/components/ui/search-input";
 import { ConfirmDangerDialog } from "@/components/ui/confirm-danger-dialog";
 import { useGlobalSearch } from "@/lib/hooks/use-global-search";
 import { PageHeader } from "@/components/ui/page-header";
+import { ModulePageStack } from "@/components/ui/module-page-stack";
 import { KpiCard } from "@/components/ui/kpi-card";
 import { formatCurrency } from "@/utils/currency";
 import { formatDateDayFr } from "@/lib/utils/formatDate";
@@ -45,6 +49,7 @@ import {
   validateReceiptFile,
 } from "@/lib/expense-receipts";
 import type { ExpenseListRow, ExpenseListResult, ExpenseCategoryRow, ExpenseStats } from "@/lib/server/expenses";
+import { GLOBAL_LIST_SEARCH_DEBOUNCE_MS } from "@/lib/data-listing";
 import type { ExpensePaymentMethod } from "@/lib/validations/expense";
 import {
   attachExpenseReceiptAction,
@@ -171,7 +176,7 @@ export function DepensesClient({
   const { query, setQuery, filteredData: filteredRows, suggestions } = useGlobalSearch<ExpenseListRow>({
     data: list.data,
     searchFields,
-    delay: 220,
+    delay: GLOBAL_LIST_SEARCH_DEBOUNCE_MS,
   });
 
   const applyFilter = useCallback(
@@ -385,7 +390,7 @@ export function DepensesClient({
   }
 
   return (
-    <div className="mx-auto max-w-5xl space-y-5">
+    <ModulePageStack className="max-w-5xl">
       <PageHeader
         title="Dépenses"
         subtitle={`${list.total} dépense${list.total > 1 ? "s" : ""} sur la période`}
@@ -413,13 +418,19 @@ export function DepensesClient({
       {/* Modal — Nouvelle dépense */}
       <Modal
         open={formOpen && canCreate}
-        onClose={() => { setFormOpen(false); setFormError(null); }}
+        onClose={() => {
+          if (!saving) {
+            setFormOpen(false);
+            setFormError(null);
+          }
+        }}
         title="Nouvelle dépense"
-        subtitle="Saisie d'une dépense"
+        subtitle="Montant, catégorie et justificatif en une saisie"
         icon={<Receipt size={18} />}
         size="md"
       >
         <form onSubmit={onCreateSubmit} className="space-y-4">
+          <ModalSectionHeading>Montant &amp; catégorie</ModalSectionHeading>
           <div className="grid grid-cols-2 gap-3">
             <ModalField label="Montant (GNF)" required>
               <ModalInput
@@ -454,6 +465,7 @@ export function DepensesClient({
             </ModalField>
           </div>
 
+          <ModalSectionHeading>Détail</ModalSectionHeading>
           <ModalField label="Description" required>
             <ModalTextarea
               required
@@ -486,6 +498,7 @@ export function DepensesClient({
             </ModalField>
           </div>
 
+          <ModalSectionHeading>Justificatif</ModalSectionHeading>
           <ModalField label="Pièce justificative (PDF / image, max. 5 Mo)">
             <label className="flex cursor-pointer items-center gap-2 rounded-xl border border-dashed border-gray-200 px-3 py-3 text-sm text-gray-400 transition hover:border-primary/40 hover:text-primary/70">
               <Paperclip size={14} />
@@ -502,16 +515,22 @@ export function DepensesClient({
           <ModalError message={formError} />
 
           <ModalActions
-            onCancel={() => { setFormOpen(false); setFormError(null); }}
+            onCancel={() => {
+              if (!saving) {
+                setFormOpen(false);
+                setFormError(null);
+              }
+            }}
             submitLabel="Enregistrer"
             loading={saving}
+            submitLoadingText="Enregistrement…"
             submitDisabled={typedConvertUnavailable}
             submitIcon={<Plus size={14} />}
           />
         </form>
       </Modal>
 
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-3">
         <KpiCard
           label="Total (période filtrée)"
           value={fmtD(stats.totalInRange, "totalRange")}
@@ -563,44 +582,46 @@ export function DepensesClient({
         </div>
       )}
 
-      <form className="flex flex-col gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:flex-row sm:items-end">
-        <div className="grid flex-1 gap-2 sm:grid-cols-3">
-          <div>
-            <label className="mb-1 text-xs text-gray-500">Du</label>
-            <input
-              type="date"
-              defaultValue={filters.from}
-              onChange={(e) => applyFilter("from", e.target.value)}
-              className="w-full rounded-xl border border-gray-200 px-2 py-2 text-sm"
-            />
+      <FilterPanelShell title="Période & catégorie">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
+          <div className="grid flex-1 gap-2 sm:grid-cols-3">
+            <div>
+              <label className="mb-1 text-xs text-gray-500">Du</label>
+              <input
+                type="date"
+                defaultValue={filters.from}
+                onChange={(e) => applyFilter("from", e.target.value)}
+                className="w-full rounded-xl border border-gray-200 px-2 py-2 text-sm"
+              />
+            </div>
+            <div>
+              <label className="mb-1 text-xs text-gray-500">Au</label>
+              <input
+                type="date"
+                defaultValue={filters.to}
+                onChange={(e) => applyFilter("to", e.target.value)}
+                className="w-full rounded-xl border border-gray-200 px-2 py-2 text-sm"
+              />
+            </div>
+            <div>
+              <label className="mb-1 text-xs text-gray-500">Catégorie</label>
+              <select
+                value={filters.categoryId ?? ""}
+                onChange={(e) => applyFilter("categoryId", e.target.value)}
+                className="w-full rounded-xl border border-gray-200 px-2 py-2 text-sm"
+              >
+                <option value="">Toutes</option>
+                {categories.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
-          <div>
-            <label className="mb-1 text-xs text-gray-500">Au</label>
-            <input
-              type="date"
-              defaultValue={filters.to}
-              onChange={(e) => applyFilter("to", e.target.value)}
-              className="w-full rounded-xl border border-gray-200 px-2 py-2 text-sm"
-            />
-          </div>
-          <div>
-            <label className="mb-1 text-xs text-gray-500">Catégorie</label>
-            <select
-              value={filters.categoryId ?? ""}
-              onChange={(e) => applyFilter("categoryId", e.target.value)}
-              className="w-full rounded-xl border border-gray-200 px-2 py-2 text-sm"
-            >
-              <option value="">Toutes</option>
-              {categories.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {c.name}
-                </option>
-              ))}
-            </select>
-          </div>
+          {pending && <Loader2 className="h-5 w-5 shrink-0 animate-spin text-primary" aria-hidden />}
         </div>
-        {pending && <Loader2 className="h-5 w-5 animate-spin text-primary" aria-hidden />}
-      </form>
+      </FilterPanelShell>
 
       <SearchInput
         value={query}
@@ -611,8 +632,8 @@ export function DepensesClient({
         className="w-full sm:max-w-md"
       />
 
-      <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-        {filteredRows.length === 0 ? (
+      {filteredRows.length === 0 ? (
+        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
           <div className="flex flex-col items-center gap-3 py-16 text-center">
             <BarChart2 className="h-8 w-8 text-gray-200" />
             <p className="text-sm font-medium text-gray-500">
@@ -622,9 +643,10 @@ export function DepensesClient({
               {query ? "Essayez un autre mot-clé." : "Modifiez les filtres ou enregistrez une nouvelle dépense."}
             </p>
           </div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[780px] text-left text-sm">
+        </div>
+      ) : (
+        <TableShell>
+          <table className="w-full min-w-[780px] text-left text-sm">
               <thead>
                 <tr className="border-b border-gray-100 bg-gray-50/60">
                   <th className="px-3 py-3 font-semibold text-gray-500">Date</th>
@@ -717,23 +739,36 @@ export function DepensesClient({
                 ))}
               </tbody>
             </table>
-          </div>
-        )}
-      </div>
+        </TableShell>
+      )}
 
-      {list.totalPages > 1 && <Pagination list={list} sp={sp} />}
+      <PaginationBar
+        page={list.page}
+        totalPages={list.totalPages}
+        buildHref={(n) => {
+          const p = new URLSearchParams(sp.toString());
+          p.set("page", String(n));
+          return `/finance/depenses?${p.toString()}`;
+        }}
+      />
 
       {/* Modal — Modifier la dépense */}
       <Modal
         open={!!editing}
-        onClose={() => { setEditing(null); setFormError(null); }}
+        onClose={() => {
+          if (!saving) {
+            setEditing(null);
+            setFormError(null);
+          }
+        }}
         title="Modifier la dépense"
-        subtitle={editing ? `#${editing.id.slice(0, 8)}` : undefined}
+        subtitle={editing ? `Réf. ${editing.id.slice(0, 8)}` : undefined}
         icon={<Pencil size={18} />}
         size="md"
       >
         {editing && (
           <form onSubmit={onEditSave} className="space-y-4">
+            <ModalSectionHeading>Montant &amp; catégorie</ModalSectionHeading>
             <div className="grid grid-cols-2 gap-3">
               <ModalField label="Montant (GNF)" required>
                 <ModalInput
@@ -751,6 +786,7 @@ export function DepensesClient({
               </ModalField>
             </div>
 
+            <ModalSectionHeading>Détail</ModalSectionHeading>
             <ModalField label="Description" required>
               <ModalTextarea name="description" defaultValue={editing.description} rows={2} />
             </ModalField>
@@ -769,6 +805,7 @@ export function DepensesClient({
               </ModalField>
             </div>
 
+            <ModalSectionHeading>Justificatif</ModalSectionHeading>
             <ModalField label="Pièce justificative">
               {editing.receipt_url && !editRemoveReceipt && (
                 <p className="mb-1.5 text-xs text-gray-400">Une pièce est déjà enregistrée.</p>
@@ -798,9 +835,15 @@ export function DepensesClient({
             <ModalError message={formError} />
 
             <ModalActions
-              onCancel={() => { setEditing(null); setFormError(null); }}
+              onCancel={() => {
+                if (!saving) {
+                  setEditing(null);
+                  setFormError(null);
+                }
+              }}
               submitLabel="Enregistrer"
               loading={saving}
+              submitLoadingText="Enregistrement…"
               submitIcon={<Save size={14} />}
             />
           </form>
@@ -821,51 +864,6 @@ export function DepensesClient({
           void onDelete(id);
         }}
       />
-    </div>
+    </ModulePageStack>
   );
 }
-
-function Pagination({
-  list,
-  sp,
-}: {
-  list: ExpenseListResult;
-  sp: ReturnType<typeof useSearchParams>;
-}) {
-  const pBase = new URLSearchParams(sp.toString());
-  const href = (n: number) => {
-    const p = new URLSearchParams(pBase.toString());
-    p.set("page", String(n));
-    return `/finance/depenses?${p.toString()}`;
-  };
-  return (
-    <div className="flex items-center justify-between rounded-2xl border border-gray-100 bg-white px-4 py-3 text-sm text-gray-600">
-      <span>
-        Page {list.page} / {list.totalPages}
-      </span>
-      <div className="flex gap-2">
-        <Link
-          href={href(list.page - 1)}
-          className={`rounded-xl border px-3 py-1.5 font-medium ${
-            list.page <= 1
-              ? "pointer-events-none border-gray-100 text-gray-300"
-              : "border-gray-200 text-primary hover:bg-primary/5"
-          }`}
-        >
-          ← Précédent
-        </Link>
-        <Link
-          href={href(list.page + 1)}
-          className={`rounded-xl border px-3 py-1.5 font-medium ${
-            list.page >= list.totalPages
-              ? "pointer-events-none border-gray-100 text-gray-300"
-              : "border-gray-200 text-primary hover:bg-primary/5"
-          }`}
-        >
-          Suivant →
-        </Link>
-      </div>
-    </div>
-  );
-}
-

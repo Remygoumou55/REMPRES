@@ -1,1 +1,1 @@
-export { EXECUTIVE_OVERVIEW_SERVICE_PLACEHOLDER } from "./executive-overview-placeholder";
+export { getExecutiveGlobalSnapshotService } from "./executive-overview-placeholder";

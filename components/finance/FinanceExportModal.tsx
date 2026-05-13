@@ -38,7 +38,10 @@ export function FinanceExportModal({ open, onClose, onExport, busy }: Props) {
         onClick={onClose}
         aria-label="Fermer"
       />
-      <div className="relative max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl border border-gray-200 bg-white p-5 shadow-2xl">
+        <div
+          className="relative max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl border border-gray-200 bg-white p-5 shadow-2xl"
+          aria-busy={busy}
+        >
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-lg font-bold text-darktext">Export personnalisé</h2>
           <button
@@ -53,6 +56,11 @@ export function FinanceExportModal({ open, onClose, onExport, busy }: Props) {
         <p className="mb-4 text-sm text-gray-500">
           Choisissez les blocs à inclure. Les montants restent en GNF (comptabilité de base).
         </p>
+        {busy ? (
+          <p className="mb-4 text-sm font-medium text-primary" role="status">
+            Préparation du fichier…
+          </p>
+        ) : null}
         <div className="mb-3 text-xs font-semibold uppercase text-gray-400">CSV / Excel</div>
         <div className="mb-4 space-y-2">
           {(

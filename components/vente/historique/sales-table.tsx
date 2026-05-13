@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useEffect, useMemo, useRef, useState } from "react";
+import { memo, useMemo, useState } from "react";
 import { ShoppingBag } from "lucide-react";
 import type { Client } from "@/types/client";
 import { Badge, type BadgeVariant } from "@/components/ui/badge";
@@ -10,7 +10,6 @@ import {
   SalesRowActions,
   type SaleRowForActions,
 } from "@/components/vente/historique/sales-row-actions";
-import { useRowSelection } from "@/lib/hooks/use-row-selection";
 
 // ---------------------------------------------------------------------------
 // Config statuts & paiements (inchangée vs page historique)
@@ -59,8 +58,6 @@ type SalesTableProps = {
   clientsById: Record<string, Client>;
   canDelete: boolean;
   listQueryString: string;
-  /** Appelé quand la sélection change (IDs courants en mémoire). */
-  onSelectionChange?: (selectedIds: string[]) => void;
 };
 
 function getClientLabel(client: Client): string {
@@ -71,19 +68,15 @@ function getClientLabel(client: Client): string {
 type SaleDataRowProps = {
   sale: SaleRow;
   client?: Client;
-  checked: boolean;
   canDelete: boolean;
   listQueryString: string;
-  onToggle: (id: string) => void;
 };
 
 const SaleDataRow = memo(function SaleDataRow({
   sale,
   client,
-  checked,
   canDelete,
   listQueryString,
-  onToggle,
 }: SaleDataRowProps) {
   const { t, locale } = useTranslation();
   const statut =
@@ -100,14 +93,6 @@ const SaleDataRow = memo(function SaleDataRow({
 
   return (
     <tr className="group transition-colors hover:bg-gray-50/60">
-      <td className="px-3 py-3.5">
-        <input
-          type="checkbox"
-          checked={checked}
-          onChange={() => onToggle(sale.id)}
-          aria-label={`${t("sales.history.selectSale")} ${labelRef}`}
-        />
-      </td>
       <td className="px-5 py-3.5">
         <span className="rounded-lg bg-primary/5 px-2 py-1 font-mono text-xs font-semibold text-primary">
           {labelRef}
@@ -169,27 +154,10 @@ export function SalesTable({
   clientsById,
   canDelete,
   listQueryString,
-  onSelectionChange,
 }: SalesTableProps) {
   const { t } = useTranslation();
   const [scrollTop, setScrollTop] = useState(0);
-  const visibleIds = useMemo(() => sales.map((s) => s.id), [sales]);
   const isVirtualized = sales.length > VIRTUALIZE_THRESHOLD;
-
-  const {
-    selectedIds,
-    selectedSet,
-    allVisibleSelected,
-    toggleOne,
-    toggleAllVisible,
-  } = useRowSelection(visibleIds);
-
-  const onSelectionChangeRef = useRef(onSelectionChange);
-  onSelectionChangeRef.current = onSelectionChange;
-
-  useEffect(() => {
-    onSelectionChangeRef.current?.(selectedIds);
-  }, [selectedIds]);
 
   const startIndex = useMemo(() => {
     if (!isVirtualized) return 0;
@@ -219,15 +187,6 @@ export function SalesTable({
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-gray-100 bg-gray-50/60">
-              <th className="w-10 px-3 py-3 text-left">
-                <input
-                  type="checkbox"
-                  checked={allVisibleSelected}
-                  onChange={toggleAllVisible}
-                  disabled={sales.length === 0}
-                  aria-label={t("sales.history.selectAllPage")}
-                />
-              </th>
               <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-400">
                 {t("sales.history.reference")}
               </th>
@@ -254,7 +213,7 @@ export function SalesTable({
           <tbody className="divide-y divide-gray-50">
             {sales.length === 0 ? (
               <tr>
-                <td colSpan={8} className="py-16 text-center">
+                <td colSpan={7} className="py-16 text-center">
                   <div className="flex flex-col items-center gap-2">
                     <ShoppingBag size={28} className="text-gray-200" />
                     <p className="text-sm text-gray-400">{t("sales.history.empty")}</p>
@@ -265,7 +224,7 @@ export function SalesTable({
               <>
                 {isVirtualized && topSpacer > 0 ? (
                   <tr aria-hidden="true">
-                    <td colSpan={8} style={{ height: `${topSpacer}px`, padding: 0 }} />
+                    <td colSpan={7} style={{ height: `${topSpacer}px`, padding: 0 }} />
                   </tr>
                 ) : null}
                 {visibleSales.map((sale) => (
@@ -273,15 +232,13 @@ export function SalesTable({
                     key={sale.id}
                     sale={sale}
                     client={sale.client_id ? clientsById[sale.client_id] : undefined}
-                    checked={selectedSet.has(sale.id)}
                     canDelete={canDelete}
                     listQueryString={listQueryString}
-                    onToggle={toggleOne}
                   />
                 ))}
                 {isVirtualized && bottomSpacer > 0 ? (
                   <tr aria-hidden="true">
-                    <td colSpan={8} style={{ height: `${bottomSpacer}px`, padding: 0 }} />
+                    <td colSpan={7} style={{ height: `${bottomSpacer}px`, padding: 0 }} />
                   </tr>
                 ) : null}
               </>

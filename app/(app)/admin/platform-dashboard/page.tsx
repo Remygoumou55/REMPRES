@@ -16,6 +16,9 @@ export default async function AdminPlatformDashboardPage() {
   const [admin, superAdmin] = await Promise.all([isAdminRole(data.user.id), isSuperAdmin(data.user.id)]);
   if (!admin && !superAdmin) redirect("/access-denied");
 
-  const model = getAdminPlatformOverviewModel();
+  const model = await getAdminPlatformOverviewModel({
+    viewerUserId: data.user.id,
+    elevated: admin || superAdmin,
+  });
   return <PlatformCommandCenter model={model} />;
 }

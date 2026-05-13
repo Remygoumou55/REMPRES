@@ -9,7 +9,7 @@ export default async function VenteCrmActivitiesPage() {
   const rows = await listCrmActivitiesOpen(supabase, 200);
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader title="Activités commerciales" subtitle="Tâches ouvertes — rattachement polymorphe lead / opportunité / client / devis / vente." />
       <CrmSectionPanel title="À traiter">
         <CrmScrollTable>

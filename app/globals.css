@@ -12,8 +12,9 @@
   .card {
     @apply bg-white rounded-card shadow-card hover:shadow-card-hover transition-shadow;
   }
+  /* Rythme vertical + fond module ; le padding horizontal est porté par <main> (AppShell). */
   .page-wrapper {
-    @apply p-6 space-y-6 min-h-full bg-graylight;
+    @apply w-full min-w-0 space-y-6 min-h-full bg-graylight;
   }
 }
 

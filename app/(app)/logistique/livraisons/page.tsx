@@ -9,10 +9,10 @@ export default async function LogistiqueLivraisonsPage() {
   const rows = await listLogisticsDeliveryOrders(supabase, 100);
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader
         title="Livraisons"
-        subtitle="Expéditions sortantes — lien optionnel vente (`sale_id`) et mouvements `delivery_issue`."
+        subtitle="Expéditions sortantes : suivi des envois, lien avec les ventes et anomalies de livraison."
       />
       <LogisticsSectionPanel title="Ordres de livraison">
         <LogisticsScrollTable>

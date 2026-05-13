@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { ClipboardList, Filter } from "lucide-react";
+import { ClipboardList } from "lucide-react";
 import { SearchInput } from "@/components/ui/search-input";
+import { ListSearchToolbar } from "@/components/ui/list-search-toolbar";
 import { ActivityLogTimelineRow } from "@/components/admin/activity-log-timeline-row";
 import { useGlobalSearch } from "@/lib/hooks/use-global-search";
+import { GLOBAL_LIST_SEARCH_DEBOUNCE_MS } from "@/lib/data-listing";
 import type { Json } from "@/types/database.types";
 
 type ActivityItem = {
@@ -35,27 +37,28 @@ export function ActivityLogsSearchList({ items, resetHref }: Props) {
       "target_id",
       (r) => JSON.stringify(r.metadata ?? {}),
     ],
-    delay: 220,
+    delay: GLOBAL_LIST_SEARCH_DEBOUNCE_MS,
   });
+
+  const summary =
+    filteredData.length === items.length
+      ? `${items.length} événement${items.length === 1 ? "" : "s"} (page)`
+      : `${filteredData.length} / ${items.length} événement${items.length === 1 ? "" : "s"}`;
 
   return (
     <>
-      <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
-        <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
-          <Filter size={12} />
-          Recherche instantanée
-        </div>
-        <SearchInput
-          value={query}
-          onChange={setQuery}
-          onSuggestionSelect={setQuery}
-          suggestions={suggestions}
-          placeholder="Rechercher (acteur, module, action, cible...)"
-          className="w-full sm:max-w-md"
-        />
-      </div>
+      <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+        <ListSearchToolbar summary={summary}>
+          <SearchInput
+            value={query}
+            onChange={setQuery}
+            onSuggestionSelect={setQuery}
+            suggestions={suggestions}
+            placeholder="Rechercher (acteur, module, action, cible...)"
+            className="w-full"
+          />
+        </ListSearchToolbar>
 
-      <div className="rounded-2xl border border-gray-100 bg-white shadow-sm">
         {filteredData.length === 0 ? (
           <div className="flex flex-col items-center justify-center gap-3 py-16 text-center">
             <ClipboardList size={32} className="text-gray-300" />

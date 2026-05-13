@@ -1,10 +1,10 @@
 import { redirect } from "next/navigation";
-import { GovernanceBreadcrumb } from "@/components/governance/layout/GovernanceBreadcrumb";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getModulePermissions } from "@/lib/server/permissions";
 import { PLATFORM_DEFAULT_TENANT_ID } from "@/modules/multitenant/constants/module-keys";
 import { listTenantsVisibleForUi } from "@/modules/multitenant/server/repositories/tenants-table-repository";
+import { TableShell } from "@/components/ui/table-shell";
 
 export default async function AdminMultitenantTenantsPage() {
   const user = await getServerSessionUser();
@@ -17,13 +17,6 @@ export default async function AdminMultitenantTenantsPage() {
 
   return (
     <>
-      <GovernanceBreadcrumb
-        items={[
-          { href: "/dashboard", label: "Accueil" },
-          { href: "/admin/multitenant", label: "Multi-tenant" },
-          { href: "/admin/multitenant/tenants", label: "Tenants" },
-        ]}
-      />
       <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
         <h1 className="text-xl font-semibold text-gray-900">Tenants</h1>
         <p className="mt-1 text-sm text-gray-600">
@@ -32,7 +25,7 @@ export default async function AdminMultitenantTenantsPage() {
           <span className="font-medium">erp_tenant_memberships</span>.
         </p>
 
-        <div className="mt-4 overflow-x-auto">
+        <TableShell className="mt-4">
           <table className="min-w-full border-collapse text-left text-sm">
             <thead>
               <tr className="border-b border-gray-200 text-xs uppercase tracking-wide text-gray-500">
@@ -62,7 +55,7 @@ export default async function AdminMultitenantTenantsPage() {
               ) : null}
             </tbody>
           </table>
-        </div>
+        </TableShell>
       </section>
     </>
   );

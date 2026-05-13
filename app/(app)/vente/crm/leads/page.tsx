@@ -10,7 +10,7 @@ export default async function VenteCrmLeadsPage() {
   const rows = await listCrmLeadsRecent(supabase, 200);
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader title="Leads" subtitle="Prospects avant conversion client — statuts et valeur estimée." />
       <CrmSectionPanel title="Pipeline entrantes">
         <CrmScrollTable>

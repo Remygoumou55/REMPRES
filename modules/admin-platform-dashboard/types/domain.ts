@@ -18,8 +18,17 @@ export type AdminPlatformCommandLink = {
   descriptionKey: string;
 };
 
+export type AdminPlatformMetric = {
+  id: string;
+  labelKey: string;
+  value: number;
+  unit?: "count" | "percent";
+};
+
 export type AdminPlatformOverviewModel = {
   correlationId: string;
   generatedAtIso: string;
   links: readonly AdminPlatformCommandLink[];
+  metrics: readonly AdminPlatformMetric[];
+  tenantScope: "global" | "scoped";
 };

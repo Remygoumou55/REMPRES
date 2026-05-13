@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Filter } from "lucide-react";
+import { FilterPanelShell } from "@/components/ui/filter-panel-shell";
 
 type HistoriqueSalesFiltersFormProps = {
   initialClient: string;
@@ -51,57 +51,54 @@ export function HistoriqueSalesFiltersForm({
   const hasFilters = !!(status || from || to || client.trim());
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
-      <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
-        <Filter size={12} />
-        Filtres
-      </div>
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-        <input
-          type="text"
-          value={client}
-          onChange={(e) => setClient(e.target.value)}
-          placeholder="Nom du client…"
-          className="rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-          aria-label="Filtrer par nom de client"
-        />
+    <form onSubmit={handleSubmit}>
+      <FilterPanelShell>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          <input
+            type="text"
+            value={client}
+            onChange={(e) => setClient(e.target.value)}
+            placeholder="Nom du client…"
+            className="rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            aria-label="Filtrer par nom de client"
+          />
 
-        <select
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
-          className="rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-          aria-label="Statut de paiement"
-        >
-          <option value="">Tous les statuts</option>
-          <option value="pending">En attente</option>
-          <option value="partial">Partiel</option>
-          <option value="paid">Payé</option>
-          <option value="overdue">En retard</option>
-          <option value="cancelled">Annulé</option>
-        </select>
+          <select
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+            className="rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            aria-label="Statut de paiement"
+          >
+            <option value="">Tous les statuts</option>
+            <option value="pending">En attente</option>
+            <option value="partial">Partiel</option>
+            <option value="paid">Payé</option>
+            <option value="overdue">En retard</option>
+            <option value="cancelled">Annulé</option>
+          </select>
 
-        <input
-          type="date"
-          value={from}
-          onChange={(e) => setFrom(e.target.value)}
-          className="rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-          aria-label="Date de début"
-        />
-        <input
-          type="date"
-          value={to}
-          onChange={(e) => setTo(e.target.value)}
-          className="rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-          aria-label="Date de fin"
-        />
+          <input
+            type="date"
+            value={from}
+            onChange={(e) => setFrom(e.target.value)}
+            className="rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            aria-label="Date de début"
+          />
+          <input
+            type="date"
+            value={to}
+            onChange={(e) => setTo(e.target.value)}
+            className="rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            aria-label="Date de fin"
+          />
 
-        <button
-          type="submit"
-          className="rounded-xl bg-primary px-4 py-2 text-sm font-medium text-white transition hover:bg-primary/90"
-        >
-          Filtrer
-        </button>
-      </div>
+          <button
+            type="submit"
+            className="rounded-xl bg-primary px-4 py-2 text-sm font-medium text-white transition hover:bg-primary/90"
+          >
+            Filtrer
+          </button>
+        </div>
 
       {hasFilters ? (
         <div className="mt-2">
@@ -110,6 +107,7 @@ export function HistoriqueSalesFiltersForm({
           </Link>
         </div>
       ) : null}
+      </FilterPanelShell>
     </form>
   );
 }

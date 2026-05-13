@@ -327,5 +327,8 @@
   "logistics.visual.exports.deliveries": "Delivery center",
   "logistics.visual.exports.stock": "Stock center",
   "logistics.visual.chart.empty": "No logistics series available yet.",
-  "deptDash.logistics.link.visual": "Logistics visual center"
+  "deptDash.logistics.link.visual": "Logistics visual center",
+  "executive.kpi.openIncidents": "Open incidents",
+  "executive.kpi.activeTenants": "Active tenants",
+  "executive.kpi.tenantSnapshots": "Tenant snapshots"
 }

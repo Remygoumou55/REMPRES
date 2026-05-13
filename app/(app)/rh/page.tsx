@@ -6,6 +6,7 @@ import { AlertTriangle, ClipboardCheck, ShieldCheck, UserCheck, UserMinus, Users
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getModulePermissions } from "@/lib/server/permissions";
 import { getRhFoundationData } from "@/lib/server/rh-foundation";
+import { HubLinkCard } from "@/components/ui/hub-link-card";
 import { PageHeader } from "@/components/ui/page-header";
 import { StatsCard } from "@/components/ui/stats-card";
 import { loadLocaleMessages, translateFromDict } from "@/lib/i18n/load-messages";
@@ -31,7 +32,7 @@ export default async function RHPage() {
   const t = (key: string, fallback?: string) => translateFromDict(messages, key, fallback);
 
   return (
-    <div className="page-wrapper space-y-6">
+    <div className="page-wrapper">
       <PageHeader
         title={t("dashboard.rh.title", "Ressources Humaines")}
         subtitle={t(
@@ -48,57 +49,42 @@ export default async function RHPage() {
       />
 
       <div className="grid gap-3 sm:grid-cols-2">
-        <Link
+        <HubLinkCard
           href="/rh/collaborateurs"
-          className="card block rounded-xl border border-gray-200 p-4 transition hover:border-primary/40"
-        >
-          <p className="text-sm font-semibold text-darktext">Collaborateurs</p>
-          <p className="mt-1 text-xs text-gray-500">Annuaire RH et statut des profils</p>
-        </Link>
-        <Link
+          title="Collaborateurs"
+          description="Annuaire RH et statut des profils"
+        />
+        <HubLinkCard
           href="/rh/presences"
-          className="card block rounded-xl border border-gray-200 p-4 transition hover:border-primary/40"
-        >
-          <p className="text-sm font-semibold text-darktext">Presences</p>
-          <p className="mt-1 text-xs text-gray-500">Suivi des effectifs actifs et disponibilite equipe</p>
-        </Link>
-        <Link
+          title="Présences"
+          description="Suivi des effectifs actifs et disponibilité des équipes"
+        />
+        <HubLinkCard
           href="/rh/conges"
-          className="card block rounded-xl border border-gray-200 p-4 transition hover:border-primary/40"
-        >
-          <p className="text-sm font-semibold text-darktext">Conges</p>
-          <p className="mt-1 text-xs text-gray-500">Demandes de conges et validation RH</p>
-        </Link>
-        <Link
+          title="Congés"
+          description="Demandes de congés et validation RH"
+        />
+        <HubLinkCard
           href="/rh/contrats"
-          className="card block rounded-xl border border-gray-200 p-4 transition hover:border-primary/40"
-        >
-          <p className="text-sm font-semibold text-darktext">Contrats</p>
-          <p className="mt-1 text-xs text-gray-500">Gestion enterprise des contrats, renouvellements et alertes</p>
-        </Link>
-        <Link
+          title="Contrats"
+          description="Contrats, renouvellements, échéances et alertes"
+        />
+        <HubLinkCard
           href="/rh/recrutement"
-          className="card block rounded-xl border border-gray-200 p-4 transition hover:border-primary/40"
-        >
-          <p className="text-sm font-semibold text-darktext">Recrutement</p>
-          <p className="mt-1 text-xs text-gray-500">ATS candidats, pipeline, entretiens, onboarding et gouvernance</p>
-        </Link>
-        <Link
+          title="Recrutement"
+          description="Candidats, pipeline, entretiens et intégration"
+        />
+        <HubLinkCard
           href="/rh/visual"
-          className="card block rounded-xl border border-gray-200 p-4 transition hover:border-primary/40"
-        >
-          <p className="text-sm font-semibold text-darktext">RH Visual Enterprise</p>
-          <p className="mt-1 text-xs text-gray-500">
-            Workforce operations center : KPI temps reel, insights RH et visualisation organisationnelle.
-          </p>
-        </Link>
-        <a
+          title="Pilotage visuel RH"
+          description="Indicateurs consolidés, tendances et vue organisationnelle"
+        />
+        <HubLinkCard
           href="/api/rh/export?format=csv"
-          className="card block rounded-xl border border-gray-200 p-4 transition hover:border-primary/40"
-        >
-          <p className="text-sm font-semibold text-darktext">Export RH</p>
-          <p className="mt-1 text-xs text-gray-500">Export CSV conges + presences + indicateurs</p>
-        </a>
+          title="Export RH"
+          description="Export CSV : congés, présences et indicateurs clés"
+          nativeAnchor
+        />
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">

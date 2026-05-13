@@ -47,16 +47,18 @@ export default async function DepensesPage({ searchParams }: { searchParams: Sea
   ]);
 
   return (
-    <DepensesClient
-      list={list}
-      categories={categories}
-      stats={stats}
-      filters={{ from, to, categoryId }}
-      canCreate={perms.canCreate}
-      canUpdate={perms.canUpdate}
-      canDelete={perms.canDelete}
-      currentUserId={user.id}
-      isSuperAdmin={userIsSuper}
-    />
+    <div className="page-wrapper">
+      <DepensesClient
+        list={list}
+        categories={categories}
+        stats={stats}
+        filters={{ from, to, categoryId }}
+        canCreate={perms.canCreate}
+        canUpdate={perms.canUpdate}
+        canDelete={perms.canDelete}
+        currentUserId={user.id}
+        isSuperAdmin={userIsSuper}
+      />
+    </div>
   );
 }

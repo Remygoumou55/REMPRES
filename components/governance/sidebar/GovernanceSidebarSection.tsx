@@ -26,7 +26,7 @@ export function GovernanceSidebarSection({
 
   return (
     <div>
-      <p className="mb-1 px-2 text-[9px] font-bold uppercase tracking-widest text-gray-400">
+      <p className="mb-1.5 px-2 text-xs font-semibold capitalize tracking-normal text-gray-500">
         {title}
       </p>
       <div className="space-y-0.5">

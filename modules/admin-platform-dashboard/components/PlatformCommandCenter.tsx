@@ -53,6 +53,15 @@ export function PlatformCommandCenter({ model }: { model: AdminPlatformOverviewM
         </span>
       </div>
 
+      <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {model.metrics.map((metric) => (
+          <div key={metric.id} className="rounded-card border border-gray-200 bg-white px-4 py-3">
+            <p className="text-xs text-gray-500">{t(metric.labelKey, metric.id)}</p>
+            <p className="mt-1 text-lg font-semibold text-darktext">{Number(metric.value ?? 0)}</p>
+          </div>
+        ))}
+      </section>
+
       <div className="grid gap-4 md:grid-cols-2">
         {model.links.map((item) => (
           <DashboardWidgetShell

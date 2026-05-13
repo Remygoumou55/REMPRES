@@ -9,10 +9,10 @@ export default async function LogistiqueAchatsPage() {
   const rows = await listLogisticsPurchaseOrders(supabase, 100);
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader
         title="Achats"
-        subtitle="Commandes fournisseurs — rattachement optionnel aux workflows d’approbation (`approval_requests`)."
+        subtitle="Commandes fournisseurs : suivi des commandes et rattachement aux circuits d’approbation lorsqu’ils sont activés."
       />
       <LogisticsSectionPanel title="Commandes récentes">
         <LogisticsScrollTable>

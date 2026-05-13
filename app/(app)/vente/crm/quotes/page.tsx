@@ -20,7 +20,7 @@ export default async function VenteCrmQuotesPage() {
   const rows = await listCrmQuotesWithClients(supabase, 200);
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader title="Devis" subtitle="Références auto `DEV-YYYY-NNNN` — rattachement opportunité optionnel." />
       <CrmSectionPanel title="Devis récents">
         <CrmScrollTable>

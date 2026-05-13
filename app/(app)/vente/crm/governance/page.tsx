@@ -8,19 +8,21 @@ export default function VenteCrmGovernancePage() {
   const dept = CRM_GOVERNANCE_DEPARTMENT_KEY.toLowerCase();
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader
         title="Gouvernance CRM"
-        subtitle="Approvals (`approval_requests`) et audit (`governance_audit_events`) — département vente."
+        subtitle="Demandes d’approbation et journal d’audit liés aux opérations commerciales du périmètre vente."
       />
-      <CrmSectionPanel title="Types d’entités approval CRM">
-        <ul className="list-disc space-y-1 pl-5 font-mono text-xs text-gray-700">
+      <CrmSectionPanel title="Types de demandes supervisées">
+        <ul className="grid gap-2 text-sm text-gray-700 sm:grid-cols-2">
           {Object.values(CRM_APPROVAL_ENTITY_TYPES).map((t) => (
-            <li key={t}>{t}</li>
+            <li key={t} className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 font-medium">
+              {t}
+            </li>
           ))}
         </ul>
       </CrmSectionPanel>
-      <CrmSectionPanel title="Console super-admin">
+      <CrmSectionPanel title="Console administration">
         <div className="flex flex-wrap gap-3 text-sm">
           <Link
             href={`/admin/approvals?department=${encodeURIComponent(dept)}`}
@@ -36,7 +38,7 @@ export default function VenteCrmGovernancePage() {
           </Link>
         </div>
         <p className="mt-3 text-xs text-gray-500">
-          Filtre `department` selon conventions admin — ajuster si votre projet utilise une autre clé.
+          Les liens ouvrent la console avec le filtre département « vente » pour accélérer le traitement des dossiers.
         </p>
       </CrmSectionPanel>
     </div>

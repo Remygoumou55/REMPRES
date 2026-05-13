@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import { ERP_QUERY_POLICY } from "@/lib/react-query-erp-policy";
 
 export function useSectionDashboard<T>(
   apiRoute: string,
@@ -18,7 +19,9 @@ export function useSectionDashboard<T>(
     },
     staleTime: options?.staleTime ?? 30_000,
     refetchInterval: options?.refetchInterval ?? 60_000,
-    refetchOnWindowFocus: true,
+    refetchOnWindowFocus: ERP_QUERY_POLICY.refetchOnWindowFocus,
+    refetchOnReconnect: ERP_QUERY_POLICY.refetchOnReconnect,
+    retry: ERP_QUERY_POLICY.retry,
     enabled: options?.enabled ?? true,
   });
 }

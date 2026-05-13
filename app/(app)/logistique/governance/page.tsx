@@ -13,7 +13,7 @@ export default async function LogistiqueGovernancePage() {
   const superAdmin = await isSuperAdmin(user.id);
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader
         title="Gouvernance logistique"
         subtitle="Workflows sensibles et audit — alignés sur les systèmes governance existants."

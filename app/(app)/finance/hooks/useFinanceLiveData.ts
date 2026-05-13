@@ -8,6 +8,7 @@ import type { FinanceCfoData } from "@/lib/server/finance-overview";
 import { queryKeys } from "@/lib/query/query-keys";
 import { reportRealtimeError } from "@/lib/monitoring/error-monitor";
 import { nowMs, reportDuration, reportIfSlow } from "@/lib/monitoring/performance-monitor";
+import { ENTERPRISE_REALTIME_CLIENT_REFETCH_DEBOUNCE_MS } from "@/lib/realtime/refresh-policy";
 
 const POLL_MS = 22_000;
 
@@ -171,10 +172,11 @@ export function useFinanceLiveData(params: Params) {
           "postgres_changes",
           { event: "*", schema: "public", table: "financial_transactions" },
           () => {
+            if (typeof document !== "undefined" && document.visibilityState === "hidden") return;
             if (debounceId) window.clearTimeout(debounceId);
             debounceId = window.setTimeout(() => {
               void refetch();
-            }, 250);
+            }, ENTERPRISE_REALTIME_CLIENT_REFETCH_DEBOUNCE_MS);
           },
         )
         .subscribe();

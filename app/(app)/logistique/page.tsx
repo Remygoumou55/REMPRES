@@ -12,23 +12,23 @@ export default async function LogistiqueHubPage() {
   const overview = await getLogisticsOperationalOverview(supabase);
 
   return (
-    <div className="space-y-8">
+    <div className="page-wrapper">
       <PageHeader
-        title="Logistique Enterprise"
-        subtitle="Supply chain : entrepôts, stocks, achats, livraisons — aligné catalogue produits (`products`)."
+        title="Logistique"
+        subtitle="Entrepôts, stocks, achats et livraisons : pilotage opérationnel aligné avec le catalogue et la vente."
         actions={
           <div className="flex flex-wrap items-center gap-2">
             <Link
               href={ROUTES.logisticsVisual}
               className="rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-medium text-emerald-800 shadow-sm transition hover:bg-emerald-100"
             >
-              Ouvrir Supply Chain Operations Center
+              Vue analytique supply chain
             </Link>
             <Link
               href="/logistique/dashboard"
               className="rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-darktext shadow-sm transition hover:bg-gray-50"
             >
-              Accueil gouvernance département
+              Pilotage département
             </Link>
           </div>
         }
@@ -46,7 +46,7 @@ export default async function LogistiqueHubPage() {
         />
       </div>
 
-      <LogisticsSectionPanel title="Accès rapide" description="Modules opérationnels supply-chain.">
+      <LogisticsSectionPanel title="Accès rapide" description="Parcours logistiques : achats, stocks, entrepôts et livraisons.">
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {LOGISTICS_NAV.filter((x) => x.href !== "/logistique").map((item) => {
             const Icon = item.icon;
@@ -67,15 +67,15 @@ export default async function LogistiqueHubPage() {
       </LogisticsSectionPanel>
 
       <LogisticsSectionPanel
-        title="Intégrations"
-        description="Les ventes continuent de piloter `products.stock_quantity` ; les positions multi-entrepôt vivent dans `logistics_inventory_balances`."
+        title="Liens transverses"
+        description="Raccourcis vers les modules liés : catalogue produits, pilotage financier."
       >
         <div className="flex flex-wrap gap-3 text-sm">
           <Link href="/vente/produits" className="font-medium text-primary hover:underline">
             Catalogue produits
           </Link>
           <Link href="/finance/enterprise" className="font-medium text-primary hover:underline">
-            Finance Enterprise
+            Pilotage financier
           </Link>
         </div>
       </LogisticsSectionPanel>

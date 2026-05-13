@@ -19,6 +19,7 @@ import {
 import type { UserListItem } from "@/lib/server/users";
 import { SearchInput } from "@/components/ui/search-input";
 import { useGlobalSearch } from "@/lib/hooks/use-global-search";
+import { GLOBAL_LIST_SEARCH_DEBOUNCE_MS } from "@/lib/data-listing";
 import {
   inviteUserAction,
   resendInviteAction,
@@ -478,7 +479,7 @@ export function UsersClient({ initialUsers }: Props) {
   const { query, setQuery, filteredData: filtered, suggestions } = useGlobalSearch<UserListItem>({
     data: users,
     searchFields,
-    delay: 220,
+    delay: GLOBAL_LIST_SEARCH_DEBOUNCE_MS,
   });
 
   function handleRefresh() {

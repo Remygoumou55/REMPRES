@@ -26,5 +26,12 @@
   "admin.platformDashboard.link.ecosystem": "Ecosysteme partenaires",
   "admin.platformDashboard.desc.ecosystem": "Federation, partenaires et connecteurs.",
   "admin.platformDashboard.link.compliance": "Conformite et posture securite",
-  "admin.platformDashboard.desc.compliance": "Verrous fiscaux, retention, risques et SoD."
+  "admin.platformDashboard.desc.compliance": "Verrous fiscaux, retention, risques et SoD.",
+  "admin.platformDashboard.metric.jobsPending": "Jobs en attente",
+  "admin.platformDashboard.metric.jobsFailed24h": "Jobs echoues (24h)",
+  "admin.platformDashboard.metric.incidentsOpen": "Incidents ouverts",
+  "admin.platformDashboard.metric.anomaliesOpen": "Anomalies ouvertes",
+  "admin.platformDashboard.metric.riskSignalsOpen": "Signaux de risque ouverts",
+  "admin.platformDashboard.metric.tenantsActive": "Tenants actifs",
+  "admin.platformDashboard.metric.tenantSnapshots": "Snapshots tenants"
 }

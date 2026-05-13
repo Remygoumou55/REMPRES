@@ -13,23 +13,23 @@ export default async function VenteCrmHubPage() {
   const overview = await getCrmOperationalOverview(supabase);
 
   return (
-    <div className="space-y-8">
+    <div className="page-wrapper">
       <PageHeader
-        title="CRM / Sales Enterprise"
-        subtitle="Pipeline commercial, devis, activités et prévisions — relié aux ventes (`sales`), clients (`clients`), finance et logistique."
+        title="CRM & vente"
+        subtitle="Pipeline commercial, devis, activités et prévisions, en lien avec les clients, la vente et la logistique."
         actions={
           <div className="flex flex-wrap items-center gap-2">
             <Link
               href={ROUTES.crmVisual}
               className="rounded-xl border border-indigo-200 bg-indigo-50 px-3 py-2 text-sm font-medium text-indigo-800 shadow-sm transition hover:bg-indigo-100"
             >
-              Ouvrir Sales & Customer Operations Center
+              Vue analytique commerciale
             </Link>
             <Link
               href="/vente/dashboard"
               className="rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-darktext shadow-sm transition hover:bg-gray-50"
             >
-              Accueil gouvernance département
+              Pilotage département vente
             </Link>
           </div>
         }
@@ -43,7 +43,7 @@ export default async function VenteCrmHubPage() {
         <CrmMetricCard label="Pipeline pondéré" value={formatMoneyGnf(overview.weightedPipelineGnf)} />
       </div>
 
-      <CrmSectionPanel title="Accès rapide" description="Modules CRM sous `/vente/crm` — même périmètre sécurité que la vente.">
+      <CrmSectionPanel title="Accès rapide" description="Parcours CRM : leads, opportunités, devis et activités.">
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {CRM_NAV.filter((x) => x.href !== "/vente/crm").map((item) => {
             const Icon = item.icon;
@@ -64,18 +64,18 @@ export default async function VenteCrmHubPage() {
       </CrmSectionPanel>
 
       <CrmSectionPanel
-        title="Intégrations"
-        description="Les commandes vente restent dans `sales` ; les colonnes `crm_opportunity_id` et `crm_quote_id` rattachent le cycle CRM. Les livraisons logistiques référencent une vente via `logistics_delivery_orders.sale_id`."
+        title="Liens transverses"
+        description="Accès direct aux ventes, au pilotage financier et aux livraisons."
       >
         <div className="flex flex-wrap gap-3 text-sm">
           <Link href="/vente/nouvelle-vente" className="font-medium text-primary hover:underline">
             Nouvelle vente
           </Link>
           <Link href="/finance/enterprise" className="font-medium text-primary hover:underline">
-            Finance Enterprise
+            Pilotage financier
           </Link>
           <Link href="/logistique/livraisons" className="font-medium text-primary hover:underline">
-            Livraisons logistiques
+            Livraisons
           </Link>
         </div>
       </CrmSectionPanel>

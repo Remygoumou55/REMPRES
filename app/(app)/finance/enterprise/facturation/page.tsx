@@ -9,7 +9,7 @@ export default async function FinanceEnterpriseInvoicingPage() {
   const rows = await listFinanceArInvoices(supabase, 120);
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader
         title="Facturation (créances)"
         subtitle="Factures AR enterprise — rattachement clients et workflow d’approbation optionnel."

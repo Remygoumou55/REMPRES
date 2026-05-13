@@ -72,7 +72,7 @@ export default async function RhLeavesPage({ searchParams }: RhLeavesPageProps) 
   const requests = requestsResult.data ?? [];
 
   return (
-    <div className="page-wrapper space-y-6">
+    <div className="page-wrapper">
       <PageHeader
         title="RH - Conges"
         subtitle="Demandes de conges et suivi d'approbation"

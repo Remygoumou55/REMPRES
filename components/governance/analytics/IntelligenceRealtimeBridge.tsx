@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getSupabaseBrowserClient } from "@/lib/supabase";
 import { createRefreshScheduler } from "@/lib/realtime/schedule-refresh";
+import { ENTERPRISE_REALTIME_PAGE_REFRESH } from "@/lib/realtime/refresh-policy";
 import { REALTIME_CHANNELS } from "@/lib/realtime/channels";
 
 export function IntelligenceRealtimeBridge() {
@@ -12,8 +13,7 @@ export function IntelligenceRealtimeBridge() {
   useEffect(() => {
     const supa = getSupabaseBrowserClient();
     const scheduler = createRefreshScheduler(() => router.refresh(), {
-      debounceMs: 500,
-      minIntervalMs: 1500,
+      ...ENTERPRISE_REALTIME_PAGE_REFRESH,
     });
 
     const channel = supa

@@ -1,7 +1,6 @@
 /**
- * Boundary d'isolation du domaine Administration/Supervision.
- * Gardé minimal pour éviter tout impact UI/logic métier.
+ * Administration — espacement vertical unifié (sans fil d’Ariane dupliqué : le shell porte le contexte).
  */
 export default function AdminModuleLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return <div className="space-y-6">{children}</div>;
 }

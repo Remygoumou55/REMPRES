@@ -8,12 +8,14 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { SearchInput } from "@/components/ui/search-input";
 import { ClientsRowActions } from "@/components/vente/clients/clients-row-actions";
 import { useGlobalSearch } from "@/lib/hooks/use-global-search";
+import { GLOBAL_LIST_SEARCH_DEBOUNCE_MS } from "@/lib/data-listing";
 import { withCreateModalQuery } from "@/lib/routing/modal-query";
 import { useRowSelection } from "@/lib/hooks/use-row-selection";
 import { deleteClientsFromListBulkAction } from "@/app/(app)/vente/clients/actions";
 import { useAppMutationRefresh } from "@/hooks/use-app-mutation-refresh";
 import { ConfirmDangerDialog } from "@/components/ui/confirm-danger-dialog";
 import { BulkDeleteActionBar } from "@/components/ui/bulk-delete-action-bar";
+import { ListSearchToolbar } from "@/components/ui/list-search-toolbar";
 import { useToast } from "@/components/providers/ToastProvider";
 
 // ---------------------------------------------------------------------------
@@ -190,7 +192,7 @@ export function ClientsTable({
   const { query, setQuery, filteredData, suggestions } = useGlobalSearch<Client>({
     data: clients,
     searchFields: searchFields as Parameters<typeof useGlobalSearch<Client>>[0]["searchFields"],
-    delay: 200,
+    delay: GLOBAL_LIST_SEARCH_DEBOUNCE_MS,
   });
 
   const rows = filteredData;
@@ -219,10 +221,15 @@ export function ClientsTable({
 
   return (
     <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-gray-100 px-5 py-3">
-        <p className="text-xs font-semibold uppercase text-gray-400">{rows.length} clients</p>
-        <SearchInput value={query} onChange={setQuery} suggestions={suggestions} placeholder="Recherche..." className="w-80" />
-      </div>
+      <ListSearchToolbar summary={`${rows.length} client${rows.length === 1 ? "" : "s"}`}>
+        <SearchInput
+          value={query}
+          onChange={setQuery}
+          suggestions={suggestions}
+          placeholder="Rechercher…"
+          className="w-full"
+        />
+      </ListSearchToolbar>
 
       {canDelete && (
         <div className="border-b border-gray-100 px-5 py-3">
@@ -256,7 +263,12 @@ export function ClientsTable({
         canDeleteColCount={canDelete ? 6 : 5}
       />
 
-      {rows.length === 0 && <div className="px-5 py-8 text-center text-sm text-gray-400">Aucun résultat.</div>}
+      {rows.length === 0 && (
+        <div className="border-t border-gray-100 px-5 py-10 text-center">
+          <p className="text-sm font-medium text-gray-600">Aucun résultat pour cette recherche</p>
+          <p className="mt-1 text-xs text-gray-400">Modifiez les critères ou effacez la recherche.</p>
+        </div>
+      )}
       
       <ConfirmDangerDialog open={confirmBulkOpen} title="Supprimer ?" message={`Supprimer ${selectedCount} clients ?`} loading={pending} onCancel={() => setConfirmBulkOpen(false)} onConfirm={runBulkDelete} />
     </div>

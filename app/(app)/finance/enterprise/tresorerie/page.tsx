@@ -27,10 +27,10 @@ export default async function FinanceEnterpriseTreasuryPage() {
   }));
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader
         title="Trésorerie"
-        subtitle="Soldes journaliers matérialisés (`finance_cashflow_daily`) — alimentés par job service_role."
+        subtitle="Soldes de clôture quotidiens consolidés pour le pilotage de la trésorerie."
       />
 
       <SectionPanel title="Courbe de clôture (GNF)" description={`Période ${from} → ${to}`}>
@@ -40,7 +40,8 @@ export default async function FinanceEnterpriseTreasuryPage() {
       <SectionPanel title="Détail quotidien">
         {!rows.length ? (
           <p className="text-sm text-gray-500">
-            Pas encore de snapshots — exécutez `refresh_finance_cashflow_daily` via cron (service role).
+            Aucune donnée de trésorerie consolidée sur cette période. Les indicateurs seront disponibles après la
+            prochaine consolidation planifiée.
           </p>
         ) : (
           <FinanceScrollTable>

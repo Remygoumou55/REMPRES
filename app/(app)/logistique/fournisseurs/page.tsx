@@ -9,7 +9,7 @@ export default async function LogistiqueFournisseursPage() {
   const rows = await listLogisticsSuppliers(supabase, 120);
 
   return (
-    <div className="space-y-6">
+    <div className="page-wrapper">
       <PageHeader title="Fournisseurs" subtitle="Référentiel procurement — indépendant du CRM clients." />
       <LogisticsSectionPanel title="Partenaires actifs">
         <LogisticsScrollTable>

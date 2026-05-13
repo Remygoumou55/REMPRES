@@ -18,7 +18,7 @@ const FinanceDashboardClient = dynamic(
   {
     ssr: true,
     loading: () => (
-      <div className="space-y-6 p-4 md:p-6" aria-busy="true">
+      <div className="py-8" aria-busy="true">
         <RouteLoadingShell label="Chargement du pilotage financier…" />
       </div>
     ),
@@ -72,10 +72,10 @@ export default async function FinancePage({ searchParams }: PageProps) {
   ]);
 
   return (
-    <>
-      <div className="px-4 pb-2 pt-1 md:px-6">
+    <div className="page-wrapper">
+      <div className="-mt-2 pb-2">
         <a href={ROUTES.financeVisual} className="inline-flex text-sm font-medium text-primary hover:underline">
-          Ouvrir Finance Visual Operations Center →
+          Vue analytique Finance →
         </a>
       </div>
       <FinanceDashboardClient
@@ -88,6 +88,6 @@ export default async function FinancePage({ searchParams }: PageProps) {
         selectedCategoryIds={categoryIds}
         selectedCreatedBy={createdByUserId}
       />
-    </>
+    </div>
   );
 }

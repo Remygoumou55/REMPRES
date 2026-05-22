@@ -7,6 +7,7 @@ import { LayoutDashboard, X, LogOut, ChevronRight, Settings2 } from "lucide-reac
 import { appConfig, getLogoUrl } from "@/lib/config";
 import type { ModuleDef, ModuleId } from "./types";
 import { UserAvatar } from "./UserAvatar";
+import { SuperAdminMobileNav } from "./SuperAdminMobileNav";
 import { NAV_LABELS } from "@/lib/constants/nav-labels";
 import { ROUTES } from "@/lib/constants/routes";
 
@@ -23,6 +24,8 @@ export const MobileSidebar = memo(function MobileSidebar({
   pathname,
   onClose,
   onLogout,
+  isSuperAdmin = false,
+  showSettingsLink = false,
 }: {
   modules: ModuleDef[];
   activeModule: ModuleId;
@@ -31,7 +34,21 @@ export const MobileSidebar = memo(function MobileSidebar({
   pathname: string;
   onClose: () => void;
   onLogout: () => void;
+  isSuperAdmin?: boolean;
+  showSettingsLink?: boolean;
 }) {
+  if (isSuperAdmin) {
+    return (
+      <SuperAdminMobileNav
+        pathname={pathname}
+        userDisplayName={userDisplayName}
+        userAvatarInitial={userAvatarInitial}
+        onClose={onClose}
+        onLogout={onLogout}
+      />
+    );
+  }
+
   return (
     <div className="flex h-full flex-col">
       <div className="flex shrink-0 items-center justify-between px-4 py-4">
@@ -107,17 +124,19 @@ export const MobileSidebar = memo(function MobileSidebar({
       </nav>
 
       <div className="shrink-0 border-t border-white/10 p-3">
-        <Link
-          href={ROUTES.settings}
-          prefetch
-          onClick={onClose}
-          className={`mb-2 flex min-h-[44px] items-center gap-2.5 rounded-xl px-3 text-sm font-medium transition-all ${
-            activeModule === "settings" ? "bg-white/15 text-white" : "text-white/75 hover:bg-white/8 hover:text-white"
-          }`}
-        >
-          <Settings2 size={18} className="shrink-0 text-white/70" />
-          <span>{NAV_LABELS.settings}</span>
-        </Link>
+        {showSettingsLink ? (
+          <Link
+            href={ROUTES.settings}
+            prefetch
+            onClick={onClose}
+            className={`mb-2 flex min-h-[44px] items-center gap-2.5 rounded-xl px-3 text-sm font-medium transition-all ${
+              activeModule === "settings" ? "bg-white/15 text-white" : "text-white/75 hover:bg-white/8 hover:text-white"
+            }`}
+          >
+            <Settings2 size={18} className="shrink-0 text-white/70" />
+            <span>{NAV_LABELS.settings}</span>
+          </Link>
+        ) : null}
         <div className="flex items-center gap-2.5 rounded-xl p-2">
           <UserAvatar initial={userAvatarInitial} />
           <div className="min-w-0 flex-1">

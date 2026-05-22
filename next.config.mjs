@@ -62,9 +62,16 @@ const nextConfig = {
     ];
   },
 
-  // ── Redirects ─────────────────────────────────────────────────────────────
-  // Redirige la racine vers /login si l'utilisateur n'est pas connecté
-  // (géré par middleware.ts, pas besoin de redirect ici)
+  async redirects() {
+    return [
+      { source: "/config", destination: "/settings/permissions", permanent: true },
+      { source: "/config/:path*", destination: "/settings/permissions", permanent: true },
+      { source: "/admin/users", destination: "/settings/users", permanent: true },
+      { source: "/admin/users/:path*", destination: "/settings/users", permanent: true },
+      { source: "/admin/currency", destination: "/settings/rates", permanent: true },
+      { source: "/admin/currency/:path*", destination: "/settings/rates", permanent: true },
+    ];
+  },
 
   // Ne pas désactiver `config.cache` en dev : avec Next 14 cela provoque souvent des
   // chunks CSS/JS incohérents après HMR → page « nue » (liens violets, sans layout).

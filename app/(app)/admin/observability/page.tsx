@@ -36,7 +36,7 @@ export default async function AdminObservabilityHubPage() {
         <div className="font-medium text-gray-900">Liens utiles</div>
         <ul className="mt-2 list-inside list-disc space-y-1">
           <li>
-            <Link href="/admin/intelligence" className="text-sky-800 hover:underline">
+            <Link href="/admin/platform-dashboard" className="text-sky-800 hover:underline">
               Intelligence entreprise
             </Link>
           </li>

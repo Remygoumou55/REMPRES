@@ -1,28 +1,7 @@
-import { redirect } from "next/navigation";
-import type { Metadata } from "next";
-import { getSupabaseServerClient } from "@/lib/supabaseServer";
-import { isAdminRole } from "@/lib/server/permissions";
-import { CurrencyAdminClient } from "./CurrencyAdminClient";
+import { permanentRedirect } from "next/navigation";
+import { SETTINGS_OFFICIAL_ROUTES } from "@/lib/settings/official-routes";
 
-export const metadata: Metadata = { title: "Taux de change" };
-
-export default async function CurrencyAdminPage() {
-  const supabase = getSupabaseServerClient();
-  const { data: auth } = await supabase.auth.getUser();
-
-  if (!auth.user) redirect("/login");
-  if (!(await isAdminRole(auth.user.id))) redirect("/access-denied");
-
-  // Lire les taux actuels depuis la base
-  const { data: rows } = await supabase
-    .from("currency_rates")
-    .select("currency_code, rate_to_gnf, updated_at")
-    .order("currency_code");
-
-  return (
-    <CurrencyAdminClient
-      rows={rows ?? []}
-      isSuperAdmin
-    />
-  );
+/** Alias legacy — route officielle : /settings/rates */
+export default function AdminCurrencyLegacyRedirect() {
+  permanentRedirect(SETTINGS_OFFICIAL_ROUTES.rates);
 }

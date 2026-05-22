@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import { getPostLoginDestination } from "@/lib/roleRedirects";
 import { LoginForm } from "./LoginForm";
 import { appConfig, getLogoUrl } from "@/lib/config";
 
@@ -12,7 +13,12 @@ export default async function LoginPage() {
   const { data } = await supabase.auth.getUser();
 
   if (data.user) {
-    redirect("/dashboard");
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role_key, department_key")
+      .eq("id", data.user.id)
+      .maybeSingle();
+    redirect(getPostLoginDestination(profile?.role_key, profile?.department_key));
   }
 
   return (

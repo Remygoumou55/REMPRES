@@ -45,7 +45,7 @@ export default async function AdminAlertsPage({ searchParams }: PageProps) {
   ).sort();
 
   return (
-    <div className="mx-auto max-w-6xl space-y-5">
+    <div className="page-wrapper mx-auto max-w-6xl space-y-5">
       <AlertsRealtimeBridge />
 
       <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">

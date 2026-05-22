@@ -1,5 +1,7 @@
-import { DepartmentDashboardPage } from "@/components/governance/home/DepartmentDashboardPage";
+import { redirect } from "next/navigation";
+import { DEPARTMENT_NAVIGATION, DEPARTMENT_KEYS } from "@/lib/departments/department-config";
 
-export default async function ConsultationDashboardPage() {
-  return <DepartmentDashboardPage departmentKey="CONSULTATION" />;
+/** Consultation absorbée par Formation (M1.5) — cockpit canonique Formation. */
+export default function ConsultationDashboardPage() {
+  redirect(DEPARTMENT_NAVIGATION[DEPARTMENT_KEYS.FORMATION].dashboardRoute);
 }

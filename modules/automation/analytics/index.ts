@@ -1,2 +1,2 @@
-/** Métriques opérationnelles + lien analytics globaux via `/admin/intelligence`. */
+/** Métriques opérationnelles + lien pilotage plateforme via `/admin/platform-dashboard`. */
 export {};

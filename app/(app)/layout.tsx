@@ -17,11 +17,11 @@ export default async function AppRouteLayout({ children }: { children: React.Rea
       <AppShell
         userDisplayName={access.userDisplayName}
         userAvatarInitial={access.userAvatarInitial}
+        departmentKey={access.departmentKey}
         canReadClients={access.canReadClients}
         canReadProducts={access.canReadProducts}
-        canReadActivityLogs={access.canReadActivityLogs}
         isSuperAdmin={access.isSuperAdmin}
-        canReadFinance={access.canReadFinance}
+        shellRail={access.shellRail}
       >
         {children}
       </AppShell>

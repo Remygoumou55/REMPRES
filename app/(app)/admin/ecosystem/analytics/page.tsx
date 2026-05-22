@@ -16,7 +16,7 @@ export default async function AdminEcosystemAnalyticsPage() {
         <p className="mt-1 text-sm text-gray-600">
           Agrégations depuis tables natives + digest infra ; pas de entrepôt analytique parallèle dans cette phase.
         </p>
-        <Link href="/admin/intelligence" className="mt-3 inline-flex text-sm font-medium text-amber-800 hover:underline">
+        <Link href="/admin/platform-dashboard" className="mt-3 inline-flex text-sm font-medium text-amber-800 hover:underline">
           Intelligence →
         </Link>
       </section>

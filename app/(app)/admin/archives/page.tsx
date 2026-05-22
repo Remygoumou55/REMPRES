@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
-import { isAdminRole } from "@/lib/server/permissions";
+import { isAdminRole, isSuperAdmin } from "@/lib/server/permissions";
 import { listArchivedClients } from "@/lib/server/clients";
 import { listArchivedProducts } from "@/lib/server/products";
 import type { Client } from "@/types/client";
@@ -82,6 +82,8 @@ export default async function AdminArchivesPage({ searchParams }: PageProps) {
     redirect("/access-denied");
   }
 
+  const archivesReadOnlySupervision = await isSuperAdmin(data.user.id);
+
   let clients: Client[] = [];
   let products: Product[] = [];
   try {
@@ -132,7 +134,11 @@ export default async function AdminArchivesPage({ searchParams }: PageProps) {
     <div className="mx-auto max-w-6xl space-y-8">
       <PageHeader
         title="Archives — vue globale"
-        subtitle="Super-admin : clients et produits archivés (suppression logique)."
+        subtitle={
+          archivesReadOnlySupervision
+            ? "Super administrateur : consultation et audit des archives (lecture seule — aucune restauration ni suppression depuis cette console)."
+            : "Clients et produits archivés (suppression logique) — opérations de restauration réservées aux rôles opérationnels habilités."
+        }
         actions={
           <Link
             href="/dashboard"
@@ -145,7 +151,7 @@ export default async function AdminArchivesPage({ searchParams }: PageProps) {
 
       <FlashMessage success={safeDecode(searchParams?.success)} error={safeDecode(searchParams?.error)} />
 
-      <AdminGlobalArchivesClient clients={clientRows} products={productRows} />
+      <AdminGlobalArchivesClient clients={clientRows} products={productRows} readOnly={archivesReadOnlySupervision} />
     </div>
   );
 }

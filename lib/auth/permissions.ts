@@ -11,6 +11,7 @@ import { effectiveAuthRoleKey, resolveRoleKey, ROLE_KEYS } from "@/lib/auth/role
 import {
   isSuperAdminGovernancePath,
   isSuperAdminOperationalPath,
+  isSuperAdminReadOnlyVentePath,
 } from "@/lib/auth/supervision";
 
 export type RoleDepartmentValidationResult =
@@ -27,7 +28,21 @@ function pathnameMatchesAnyPrefix(pathname: string, prefixes: readonly string[])
   return prefixes.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 }
 
-const ADMIN_CONSOLE_ALLOWED_PREFIXES = ["/admin", "/settings", "/dashboard", "/dept"] as const;
+const ADMIN_CONSOLE_ALLOWED_PREFIXES = [
+  "/settings",
+  "/dashboard",
+  "/dept",
+  "/actions",
+  "/archives",
+  "/admin/approvals",
+  "/admin/alerts",
+  "/admin/audit",
+  "/admin/activity-logs",
+  "/admin/platform-dashboard",
+  "/admin/intelligence",
+  "/admin/global-dashboard",
+  "/admin/archives",
+] as const;
 
 /** Accès aux routes /console admin Next (équivalent ancien DG + super_admin). */
 export function hasAdminConsoleAccess(
@@ -81,9 +96,10 @@ export function canAccessPathForProfile(
   const r = effectiveAuthRoleKey(roleKey);
 
   if (r === ROLE_KEYS.SUPER_ADMIN) {
-    // Gouvernance stricte: supervision uniquement, jamais de routes opérationnelles.
     if (isSuperAdminOperationalPath(path)) return false;
-    return isSuperAdminGovernancePath(path);
+    if (isSuperAdminGovernancePath(path)) return true;
+    if (isSuperAdminReadOnlyVentePath(path)) return true;
+    return false;
   }
 
   if (hasAdminConsoleAccess(roleKey, departmentKey)) {

@@ -30,9 +30,11 @@ export type AdminArchiveClientRow = {
 export const ArchivedClientsSection = memo(function ArchivedClientsSection({
   rows,
   totalCount,
+  readOnly = false,
 }: {
   rows: AdminArchiveClientRow[];
   totalCount: number;
+  readOnly?: boolean;
 }) {
   const { pushThenRefresh } = useAppMutationRefresh();
   const { showSuccess, showError } = useToast();
@@ -101,75 +103,98 @@ export const ArchivedClientsSection = memo(function ArchivedClientsSection({
 
       <SearchInput value={query} onChange={setQuery} placeholder="Filtrer les clients..." className="max-w-xl" />
 
-      <ArchiveSelectionBulkBar
-        selectedCount={selectedCount}
-        pluralLabel="clients"
-        pending={pending}
-        onClear={clearSelection}
-        onOpenBulkRestore={() => setConfirmRestoreBulkOpen(true)}
-        onOpenBulkPurge={() => setConfirmPurgeOpen(true)}
-      />
+      {!readOnly ? (
+        <ArchiveSelectionBulkBar
+          selectedCount={selectedCount}
+          pluralLabel="clients"
+          pending={pending}
+          onClear={clearSelection}
+          onOpenBulkRestore={() => setConfirmRestoreBulkOpen(true)}
+          onOpenBulkPurge={() => setConfirmPurgeOpen(true)}
+        />
+      ) : null}
 
-      <ConfirmActionDialog
-        open={confirmRestoreBulkOpen}
-        title={`Restaurer ${selectedCount} client(s) ?`}
-        message="Les clients sélectionnés redeviendront visibles."
-        confirmLabel="Confirmer"
-        loadingLabel="Restauration…"
-        loading={pending}
-        icon={<RotateCcw size={18} className="text-primary" />}
-        onCancel={() => setConfirmRestoreBulkOpen(false)}
-        onConfirm={runBulkRestore}
-      />
+      {!readOnly ? (
+        <>
+          <ConfirmActionDialog
+            open={confirmRestoreBulkOpen}
+            title={`Restaurer ${selectedCount} client(s) ?`}
+            message="Les clients sélectionnés redeviendront visibles."
+            confirmLabel="Confirmer"
+            loadingLabel="Restauration…"
+            loading={pending}
+            icon={<RotateCcw size={18} className="text-primary" />}
+            onCancel={() => setConfirmRestoreBulkOpen(false)}
+            onConfirm={runBulkRestore}
+          />
 
-      <ConfirmDangerDialog
-        open={confirmPurgeOpen}
-        title="Supprimer définitivement ?"
-        message="Cette action est irréversible."
-        confirmLabel="Supprimer définitivement"
-        loadingLabel="Suppression…"
-        loading={pending}
-        onCancel={() => setConfirmPurgeOpen(false)}
-        onConfirm={runBulkPurge}
-      />
+          <ConfirmDangerDialog
+            open={confirmPurgeOpen}
+            title="Supprimer définitivement ?"
+            message="Cette action est irréversible."
+            confirmLabel="Supprimer définitivement"
+            loadingLabel="Suppression…"
+            loading={pending}
+            onCancel={() => setConfirmPurgeOpen(false)}
+            onConfirm={runBulkPurge}
+          />
+        </>
+      ) : null}
 
       <TableShell>
         <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-gray-100 bg-gray-50/60">
-                <th className="w-12 px-4 py-2 text-left">
-                  <input
-                    type="checkbox"
-                    checked={allVisibleSelected}
-                    disabled={filteredData.length === 0 || pending}
-                    onChange={() => toggleAllVisible()}
-                  />
-                </th>
+                {!readOnly ? (
+                  <th className="w-12 px-4 py-2 text-left">
+                    <input
+                      type="checkbox"
+                      checked={allVisibleSelected}
+                      disabled={filteredData.length === 0 || pending}
+                      onChange={() => toggleAllVisible()}
+                    />
+                  </th>
+                ) : null}
                 <th className="px-4 py-2 text-left text-xs font-semibold text-gray-400 uppercase">Client</th>
                 <th className="px-4 py-2 text-left text-xs font-semibold text-gray-400 uppercase">Supprimé</th>
                 <th className="px-4 py-2 text-left text-xs font-semibold text-gray-400 uppercase">Par</th>
-                <th className="px-4 py-2 text-right text-xs font-semibold text-gray-400 uppercase">Actions</th>
+                <th className="px-4 py-2 text-right text-xs font-semibold text-gray-400 uppercase">
+                  {readOnly ? "Supervision" : "Actions"}
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
               {filteredData.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="px-4 py-8 text-center text-gray-500 italic">Aucun client trouvé.</td>
+                  <td colSpan={readOnly ? 4 : 5} className="px-4 py-8 text-center text-gray-500 italic">
+                    Aucun client trouvé.
+                  </td>
                 </tr>
               ) : (
                 filteredData.map((row) => (
                   <tr key={row.id}>
-                    <td className="px-4 py-2">
-                      <input type="checkbox" checked={selectedSet.has(row.id)} onChange={() => toggleOne(row.id)} />
-                    </td>
+                    {!readOnly ? (
+                      <td className="px-4 py-2">
+                        <input type="checkbox" checked={selectedSet.has(row.id)} onChange={() => toggleOne(row.id)} />
+                      </td>
+                    ) : null}
                     <td className="px-4 py-2 font-medium">{row.label}</td>
                     <td className="px-4 py-2 text-gray-600">{row.deletedAtLabel}</td>
                     <td className="px-4 py-2 text-gray-500">{row.deletedByLabel}</td>
                     <td className="px-4 py-2 text-right">
-                      <div className="flex flex-wrap items-center justify-end gap-2">
-                        <RestoreArchiveButton entityId={row.id} entityLabel={row.label} restoreAction={restoreClientAction} redirectPath="/admin/archives" />
-                        <PermanentDeleteArchivedRowButton kind="client" id={row.id} label={row.label} />
-                      </div>
+                      {readOnly ? (
+                        <span className="text-xs font-medium text-gray-400">Lecture seule</span>
+                      ) : (
+                        <div className="flex flex-wrap items-center justify-end gap-2">
+                          <RestoreArchiveButton
+                            entityId={row.id}
+                            entityLabel={row.label}
+                            restoreAction={restoreClientAction}
+                            redirectPath="/admin/archives"
+                          />
+                          <PermanentDeleteArchivedRowButton kind="client" id={row.id} label={row.label} />
+                        </div>
+                      )}
                     </td>
                   </tr>
                 ))

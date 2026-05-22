@@ -37,7 +37,7 @@ export default async function AdminComplianceGovernancePage() {
             </Link>
           </li>
           <li>
-            <Link href="/admin/intelligence" className="text-emerald-800 hover:underline">
+            <Link href="/admin/platform-dashboard" className="text-emerald-800 hover:underline">
               Intelligence entreprise
             </Link>
           </li>

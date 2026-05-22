@@ -31,6 +31,7 @@ export const PrimarySidebar = memo(function PrimarySidebar({
   onLogout,
   isExpanded,
   onToggleExpanded,
+  showSettingsLink = false,
 }: {
   modules: ModuleDef[];
   activeModule: ModuleId;
@@ -38,6 +39,8 @@ export const PrimarySidebar = memo(function PrimarySidebar({
   onLogout: () => void;
   isExpanded: boolean;
   onToggleExpanded: () => void;
+  /** Alignement M2 — Paramètres réservés super_admin (pas de lien footer universel). */
+  showSettingsLink?: boolean;
 }) {
   return (
     <div className="flex h-full w-full flex-col border-r border-white/10">
@@ -104,18 +107,22 @@ export const PrimarySidebar = memo(function PrimarySidebar({
       </nav>
 
       <div className={`mt-auto shrink-0 border-t border-white/10 py-3 ${isExpanded ? "px-2" : "px-1.5"}`}>
-        <Link
-          href={ROUTES.settings}
-          prefetch
-          title={NAV_LABELS.settings}
-          className={itemClasses(activeModule === "settings", isExpanded)}
+        {showSettingsLink ? (
+          <Link
+            href={ROUTES.settings}
+            prefetch
+            title={NAV_LABELS.settings}
+            className={itemClasses(activeModule === "settings", isExpanded)}
+          >
+            <Settings2 size={20} className="shrink-0 opacity-90" />
+            {isExpanded ? (
+              <span className="truncate text-[13px] font-medium leading-tight">{NAV_LABELS.settings}</span>
+            ) : null}
+          </Link>
+        ) : null}
+        <div
+          className={`flex items-center ${isExpanded ? "justify-between gap-2 px-1" : "flex-col gap-2"} ${showSettingsLink ? "mt-2" : ""}`}
         >
-          <Settings2 size={20} className="shrink-0 opacity-90" />
-          {isExpanded ? (
-            <span className="truncate text-[13px] font-medium leading-tight">{NAV_LABELS.settings}</span>
-          ) : null}
-        </Link>
-        <div className={`mt-2 flex items-center ${isExpanded ? "justify-between gap-2 px-1" : "flex-col gap-2"}`}>
           <UserAvatar initial={userAvatarInitial} />
           <button
             type="button"

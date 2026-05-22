@@ -23,7 +23,7 @@ export default async function AdminAutomationAnalyticsPage() {
           Indicateurs opérationnels rapides ; pour la vue consolidée gouvernance, utilisez aussi le centre
           d&apos;intelligence.
         </p>
-        <Link href="/admin/intelligence" className="mt-3 inline-flex text-sm font-medium text-indigo-700 hover:underline">
+        <Link href="/admin/platform-dashboard" className="mt-3 inline-flex text-sm font-medium text-indigo-700 hover:underline">
           Intelligence entreprise →
         </Link>
       </section>

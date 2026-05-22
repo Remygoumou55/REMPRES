@@ -8,7 +8,8 @@ export type ModuleId =
   | "finance"
   | "rh"
   | "logistics"
-  | "admin"
+  | "formation"
+  | "marketing"
   | "settings";
 
 export type NavItem = {

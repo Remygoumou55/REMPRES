@@ -127,12 +127,12 @@ export default async function ActivityLogsPage({ searchParams }: ActivityLogsPag
   const qs = exportParams.toString() ? `?${exportParams.toString()}` : "";
 
   return (
-    <div className="mx-auto max-w-5xl space-y-5">
+    <div className="page-wrapper mx-auto max-w-5xl space-y-5">
 
       {/* ── Header ── */}
       <PageHeader
-        title="Journal d'activité"
-        subtitle={`${result.total} événement${result.total > 1 ? "s" : ""} enregistré${result.total > 1 ? "s" : ""}`}
+        title="Journaux applicatifs"
+        subtitle={`${result.total} entrée${result.total > 1 ? "s" : ""} — journal système / applicatif (hors audit métier).`}
         actions={
           <div className="flex gap-2">
             <a

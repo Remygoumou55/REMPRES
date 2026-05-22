@@ -7,10 +7,35 @@ import { getSupabaseBrowserClient } from "@/lib/supabase";
 import { logError } from "@/lib/logger";
 import { buildAuthErrorHref, mapAuthCallbackError } from "@/lib/auth/callback-errors";
 import { reportRouteError } from "@/lib/monitoring/error-monitor";
+import { resolvePostLoginRoute } from "@/lib/navigation/home-route";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
-function readSafeNext(raw: string | null): string {
-  if (!raw) return "/dashboard";
-  return raw.startsWith("/") ? raw : "/dashboard";
+function readExplicitNext(raw: string | null): string | null {
+  if (!raw?.trim()) return null;
+  return raw.startsWith("/") ? raw : null;
+}
+
+async function resolveAuthCallbackDestination(
+  supabase: SupabaseClient,
+  explicitNext: string | null,
+): Promise<string> {
+  if (explicitNext && explicitNext !== "/dashboard") {
+    return explicitNext;
+  }
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return "/login";
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role_key, department_key")
+    .eq("id", user.id)
+    .is("deleted_at", null)
+    .maybeSingle();
+
+  return resolvePostLoginRoute(profile?.role_key, profile?.department_key ?? null);
 }
 
 function readMode(type: string | null): "invite" | "recovery" | "default" {
@@ -45,7 +70,7 @@ export function CallbackClient() {
 
       const type = readMode(params.get("type"));
       const code = params.get("code");
-      const safeNext = readSafeNext(params.get("next"));
+      const explicitNext = readExplicitNext(params.get("next"));
 
       try {
         const hash = window.location.hash.replace(/^#/, "");
@@ -104,7 +129,8 @@ export function CallbackClient() {
         } else if (type === "recovery") {
           router.replace("/auth/set-password?mode=recovery");
         } else {
-          router.replace(safeNext);
+          const dest = await resolveAuthCallbackDestination(supabase, explicitNext);
+          router.replace(dest);
         }
       } catch (error) {
         logError("AUTH_CALLBACK_CLIENT", error, {

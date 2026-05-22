@@ -11,7 +11,7 @@ export function ExecutiveAnalyticsSection({ t }: ExecutiveAnalyticsSectionProps)
       <p className="mt-1 text-sm text-gray-600">{t("governance.dashboard.executiveAnalytics.subtitle")}</p>
       <div className="mt-3 flex flex-wrap gap-2">
         <Link
-          href="/admin/intelligence"
+          href="/admin/platform-dashboard"
           className="rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-800 hover:bg-gray-50"
         >
           {t("governance.dashboard.executiveAnalytics.openIntelligence")}

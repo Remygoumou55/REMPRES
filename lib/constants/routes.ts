@@ -14,7 +14,7 @@ export const ROUTES = {
   crm: "/vente/crm",
   actions: "/actions",
   archives: "/archives",
-  admin: "/admin",
+  /** @deprecated Utiliser SETTINGS_OFFICIAL_ROUTES.permissions — redirection middleware */
   config: "/config",
   settings: "/settings",
   clients: "/vente/clients",
@@ -25,3 +25,4 @@ export const ROUTES = {
   depenses: "/finance/depenses",
 } as const;
 
+export { SETTINGS_OFFICIAL_ROUTES } from "@/lib/settings/official-routes";

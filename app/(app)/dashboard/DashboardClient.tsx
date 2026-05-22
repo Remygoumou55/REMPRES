@@ -29,9 +29,11 @@ import { formatCurrency } from "@/utils/currency";
 import type { DashboardKpis } from "@/lib/server/dashboard-kpis";
 import { withCreateModalQuery } from "@/lib/routing/modal-query";
 import { useCurrencyConversion } from "@/hooks/useCurrencyConversion";
-import { ROUTES } from "@/lib/constants/routes";
+import { ROUTES, SETTINGS_OFFICIAL_ROUTES } from "@/lib/constants/routes";
 import { DEPARTMENTS } from "@/lib/constants/departments";
 import { DeptCard } from "@/components/dept/dept-card";
+import type { ShellRailVisibility } from "@/lib/navigation/shell-visibility";
+import { shouldShowDashboardModuleShortcut } from "@/lib/navigation/shell-visibility";
 
 import { ActivityTimeline } from "./components/ActivityTimeline";
 import { QuickActionCard } from "./components/QuickActionCard";
@@ -41,12 +43,10 @@ type DashboardClientProps = {
   canReadClients: boolean;
   canReadProducts: boolean;
   canReadFinance: boolean;
-  canReadLogistics: boolean;
-  canReadCrm: boolean;
-  canReadRh: boolean;
   canReadActivityLogs: boolean;
   isSuperAdmin?: boolean;
   showExecutiveLink?: boolean;
+  shellRail: ShellRailVisibility;
   kpis: DashboardKpis;
 };
 
@@ -70,12 +70,10 @@ export function DashboardClient({
   canReadClients,
   canReadProducts,
   canReadFinance,
-  canReadLogistics,
-  canReadCrm,
-  canReadRh,
   canReadActivityLogs,
   isSuperAdmin = false,
   showExecutiveLink = false,
+  shellRail,
   kpis,
 }: DashboardClientProps) {
   const greeting = useMemo(() => getGreeting(), []);
@@ -121,27 +119,28 @@ export function DashboardClient({
 
   const moduleShortcuts = useMemo(() => {
     const items: { href: string; label: string; description: string; icon: typeof Users }[] = [];
-    if (canReadRh) items.push({ href: ROUTES.rh, label: "RH", description: "Effectifs et temps", icon: Users });
-    if (canReadFinance)
+    if (shouldShowDashboardModuleShortcut("rh", shellRail))
+      items.push({ href: ROUTES.rh, label: "RH", description: "Effectifs et temps", icon: Users });
+    if (shouldShowDashboardModuleShortcut("finance", shellRail))
       items.push({ href: ROUTES.finance, label: "Finance", description: "Trésorerie et dépenses", icon: BarChart3 });
-    if (canReadCrm)
+    if (shouldShowDashboardModuleShortcut("crm", shellRail))
       items.push({
         href: ROUTES.crm,
         label: "CRM",
         description: "Pipeline et clients",
         icon: BriefcaseBusiness,
       });
-    if (canReadClients || canReadProducts)
+    if (shouldShowDashboardModuleShortcut("vente", shellRail))
       items.push({
         href: ROUTES.clients,
         label: "Vente",
         description: "Clients et commandes",
         icon: ShoppingCart,
       });
-    if (canReadLogistics)
+    if (shouldShowDashboardModuleShortcut("logistics", shellRail))
       items.push({ href: ROUTES.logistics, label: "Logistique", description: "Stock et livraisons", icon: Truck });
     return items;
-  }, [canReadRh, canReadFinance, canReadCrm, canReadClients, canReadProducts, canReadLogistics]);
+  }, [shellRail]);
 
   return (
     <div className="page-wrapper">
@@ -367,7 +366,7 @@ export function DashboardClient({
           ) : null}
           {isSuperAdmin ? (
             <QuickActionCard
-              href="/admin/users"
+              href={SETTINGS_OFFICIAL_ROUTES.users}
               icon={UserCog}
               label="Utilisateurs"
               description="Rôles et accès"

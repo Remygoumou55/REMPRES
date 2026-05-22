@@ -3,7 +3,7 @@
 import { headers } from "next/headers";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { assertOperationalMutationAllowed } from "@/lib/server/auth-operational-guards";
-import { isAdminRole } from "@/lib/server/permissions";
+import { isAdminRole, isSuperAdmin } from "@/lib/server/permissions";
 import { restoreClient } from "@/lib/server/clients";
 import { restoreProduct } from "@/lib/server/products";
 import { ok, err, type SafeResult } from "@/lib/server/safe-result";
@@ -18,6 +18,13 @@ async function requireAdminSession(): Promise<{ userId: string } | null> {
   if (!data?.user) return null;
   if (!(await isAdminRole(data.user.id))) return null;
   return { userId: data.user.id };
+}
+
+async function rejectSuperAdminArchiveMutation(userId: string): Promise<string | null> {
+  if (await isSuperAdmin(userId)) {
+    return "Le super administrateur consulte les archives en lecture seule : aucune modification n’est autorisée depuis cette console.";
+  }
+  return null;
 }
 
 function auditContext() {
@@ -37,6 +44,8 @@ export async function adminBulkRestoreArchivedClientsAction(
 ): Promise<SafeResult<{ restored: number }>> {
   const session = await requireAdminSession();
   if (!session) return err("Accès refusé.");
+  const roBlock = await rejectSuperAdminArchiveMutation(session.userId);
+  if (roBlock) return err(roBlock);
   try {
     await assertOperationalMutationAllowed(session.userId);
   } catch (e) {
@@ -83,6 +92,8 @@ export async function adminBulkRestoreArchivedProductsAction(
 ): Promise<SafeResult<{ restored: number }>> {
   const session = await requireAdminSession();
   if (!session) return err("Accès refusé.");
+  const roBlock = await rejectSuperAdminArchiveMutation(session.userId);
+  if (roBlock) return err(roBlock);
   try {
     await assertOperationalMutationAllowed(session.userId);
   } catch (e) {
@@ -128,6 +139,8 @@ export async function adminPermanentDeleteArchivedClientsAction(
 ): Promise<SafeResult<{ deleted: number }>> {
   const session = await requireAdminSession();
   if (!session) return err("Accès refusé.");
+  const roBlock = await rejectSuperAdminArchiveMutation(session.userId);
+  if (roBlock) return err(roBlock);
   try {
     await assertOperationalMutationAllowed(session.userId);
   } catch (e) {
@@ -178,6 +191,8 @@ export async function adminPermanentDeleteArchivedProductsAction(
 ): Promise<SafeResult<{ deleted: number }>> {
   const session = await requireAdminSession();
   if (!session) return err("Accès refusé.");
+  const roBlock = await rejectSuperAdminArchiveMutation(session.userId);
+  if (roBlock) return err(roBlock);
   try {
     await assertOperationalMutationAllowed(session.userId);
   } catch (e) {

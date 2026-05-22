@@ -51,7 +51,7 @@ export default async function AdminAiHubPage() {
             </Link>
           </li>
           <li>
-            <Link href="/admin/intelligence" className="text-violet-800 hover:underline">
+            <Link href="/admin/platform-dashboard" className="text-violet-800 hover:underline">
               Intelligence entreprise
             </Link>
           </li>

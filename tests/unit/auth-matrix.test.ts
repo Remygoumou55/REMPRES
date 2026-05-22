@@ -52,7 +52,7 @@ describe("canAccessPathForProfile — cross-department & super_admin governance 
     ).toBe(true);
   });
 
-  it("blocks super_admin from all operational department routes", () => {
+  it("blocks super_admin from operational vente routes but allows read-only supervision paths", () => {
     expect(
       canAccessPathForProfile("/vente/nouvelle-vente", "super_admin", null),
     ).toBe(false);
@@ -62,11 +62,18 @@ describe("canAccessPathForProfile — cross-department & super_admin governance 
     expect(
       canAccessPathForProfile("/vente/produits/new", "super_admin", null),
     ).toBe(false);
-    expect(canAccessPathForProfile("/vente/historique", "super_admin", null)).toBe(false);
+    expect(canAccessPathForProfile("/vente/historique", "super_admin", null)).toBe(true);
+    expect(canAccessPathForProfile("/vente/clients/archives", "super_admin", null)).toBe(true);
+    expect(canAccessPathForProfile("/vente/recu/x", "super_admin", null)).toBe(true);
     expect(canAccessPathForProfile("/finance", "super_admin", null)).toBe(false);
     expect(canAccessPathForProfile("/rh", "super_admin", null)).toBe(false);
     expect(canAccessPathForProfile("/dashboard", "super_admin", null)).toBe(true);
+    expect(canAccessPathForProfile("/settings/permissions", "super_admin", null)).toBe(true);
     expect(canAccessPathForProfile("/admin/users", "super_admin", null)).toBe(true);
+    expect(canAccessPathForProfile("/actions", "super_admin", null)).toBe(true);
+    expect(canAccessPathForProfile("/archives", "super_admin", null)).toBe(true);
+    expect(canAccessPathForProfile("/config", "super_admin", null)).toBe(true);
+    expect(canAccessPathForProfile("/admin/ai", "super_admin", null)).toBe(false);
   });
 
   it("restricts auditor to activity logs + dashboard shell", () => {

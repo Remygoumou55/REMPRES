@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/auth-helpers-nextjs";
 import type { Database } from "@/types/database.types";
+import { resolveSettingsGovernanceRedirect } from "@/lib/settings/legacy-route-lock";
 import {
   canAccessPathForProfile,
   hasAdminConsoleAccess,
@@ -23,6 +24,9 @@ const PROTECTED_PREFIXES = [
   "/consultation",
   "/marketing",
   "/logistique",
+  "/actions",
+  "/archives",
+  "/config",
 ];
 
 // ---------------------------------------------------------------------------
@@ -115,6 +119,14 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(blockedUrl);
     }
 
+    const governanceRedirect = resolveSettingsGovernanceRedirect(pathname);
+    if (governanceRedirect) {
+      const target = request.nextUrl.clone();
+      target.pathname = governanceRedirect;
+      target.search = "";
+      return NextResponse.redirect(target, 308);
+    }
+
     const roleKey = profile.role_key ?? null;
     const deptKey = profile.department_key ?? null;
 
@@ -162,6 +174,12 @@ export const config = {
     "/marketing/:path*",
     "/logistique",
     "/logistique/:path*",
+    "/actions",
+    "/actions/:path*",
+    "/archives",
+    "/archives/:path*",
+    "/config",
+    "/config/:path*",
     "/login",
   ],
 };

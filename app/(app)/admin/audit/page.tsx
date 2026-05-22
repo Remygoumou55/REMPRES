@@ -79,7 +79,7 @@ export default async function AdminAuditPage({ searchParams }: PageProps) {
   };
 
   return (
-    <div className="mx-auto max-w-6xl space-y-5">
+    <div className="page-wrapper mx-auto max-w-6xl space-y-5">
       <AuditRealtimeBridge />
       <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
         <h1 className="text-xl font-semibold text-gray-900">Centre d&apos;audit entreprise</h1>

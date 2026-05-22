@@ -11,6 +11,7 @@ import { PageHeader } from "@/components/ui/page-header";
 import { StatsCard } from "@/components/ui/stats-card";
 import { loadLocaleMessages, translateFromDict } from "@/lib/i18n/load-messages";
 import { getRequestLocale } from "@/lib/i18n/request-locale";
+import { SETTINGS_OFFICIAL_ROUTES } from "@/lib/settings/official-routes";
 
 function badgeTone(active: boolean): string {
   return active
@@ -172,7 +173,7 @@ export default async function RHPage() {
         <section className="card p-5">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="section-title">{t("dashboard.rh.recentEmployees", "Derniers collaborateurs")}</h2>
-            <Link href="/admin/users" className="text-xs font-medium text-primary hover:underline">
+            <Link href={SETTINGS_OFFICIAL_ROUTES.users} className="text-xs font-medium text-primary hover:underline">
               {t("dashboard.rh.manageUsers", "Gerer utilisateurs")} →
             </Link>
           </div>

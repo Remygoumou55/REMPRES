@@ -1,198 +1,56 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, Suspense } from "react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import {
-  BriefcaseBusiness,
-  Menu,
-  Package,
-  ShoppingCart,
-  History,
-  Users,
-  BarChart3,
-  Settings2,
-  Truck,
-  UsersRound,
-  Zap,
-  Shield,
-  Receipt,
-  LayoutDashboard,
-  FileText,
-  UserPlus,
-  Clock,
-  Calendar,
-  Archive,
-} from "lucide-react";
+import { Menu } from "lucide-react";
 
 import { getSupabaseBrowserClient } from "@/lib/supabase";
 import { appConfig, getLogoUrl } from "@/lib/config";
 import { CurrencySwitcher } from "@/components/CurrencySwitcher";
 import { logError, logInfo } from "@/lib/logger";
-import { useTranslation } from "@/hooks/use-translation";
-import { NAV_LABELS } from "@/lib/constants/nav-labels";
-import { ROUTES } from "@/lib/constants/routes";
-import { useActiveNav } from "./app-shell/useActiveNav";
-import { CRM_NAV } from "@/modules/crm/constants/nav";
-import { LOGISTICS_NAV } from "@/modules/logistics/constants/nav";
+import type { ShellRailVisibility } from "@/lib/navigation/shell-visibility";
 
-import type { ModuleDef } from "./app-shell/types";
-import { PrimarySidebar } from "./app-shell/PrimarySidebar";
-import { SecondarySidebarPanel } from "./app-shell/SecondarySidebar";
-import { MobileSidebar } from "./app-shell/MobileSidebar";
+import { SuperAdminPrimarySidebar } from "./app-shell/SuperAdminPrimarySidebar";
+import { SuperAdminMobileNav } from "./app-shell/SuperAdminMobileNav";
+import {
+  DepartmentBusinessSidebar,
+  getDepartmentNavContextLabel,
+} from "./app-shell/DepartmentBusinessSidebar";
+import { DepartmentBusinessMobileNav } from "./app-shell/DepartmentBusinessMobileNav";
+import { getSuperAdminNavSegment, SUPER_ADMIN_HEADER_LABELS } from "@/lib/navigation/super-admin-nav";
+import { SuperAdminNavContextLabel } from "./app-shell/SuperAdminNavContextLabel";
 
 type AppShellProps = {
   userDisplayName: string;
   userAvatarInitial: string;
+  departmentKey: string | null;
   canReadClients: boolean;
   canReadProducts: boolean;
-  canReadActivityLogs: boolean;
   isSuperAdmin?: boolean;
-  canReadFinance?: boolean;
+  shellRail: ShellRailVisibility;
   children: React.ReactNode;
 };
-
-const RH_NAV_ITEMS = [
-  { href: ROUTES.rh, label: "Pilotage RH", icon: LayoutDashboard },
-  { href: `${ROUTES.rh}/collaborateurs`, label: "Collaborateurs", icon: Users },
-  { href: `${ROUTES.rh}/contrats`, label: "Contrats", icon: FileText },
-  { href: `${ROUTES.rh}/recrutement`, label: "Recrutement", icon: UserPlus },
-  { href: `${ROUTES.rh}/presences`, label: "Présences", icon: Clock },
-  { href: `${ROUTES.rh}/conges`, label: "Congés", icon: Calendar },
-  { href: ROUTES.rhVisual, label: "Analytique", icon: BarChart3 },
-] as const;
 
 export function AppShell({
   userDisplayName,
   userAvatarInitial,
+  departmentKey,
   canReadClients,
   canReadProducts,
-  canReadActivityLogs,
   isSuperAdmin = false,
-  canReadFinance = false,
+  shellRail,
   children,
 }: AppShellProps) {
   const pathname = usePathname();
   const router = useRouter();
-  const { t } = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isPrimaryExpanded, setIsPrimaryExpanded] = useState(true);
 
-  const activeModule = useActiveNav();
-
-  const modules: ModuleDef[] = useMemo(() => {
-    const crmVisible = canReadClients || canReadProducts;
-    const commerceVisible = canReadClients || canReadProducts;
-
-    return [
-      {
-        id: "commerce",
-        label: NAV_LABELS.commerce,
-        shortLabel: NAV_LABELS.commerce,
-        icon: ShoppingCart,
-        href: ROUTES.clients,
-        visible: commerceVisible,
-        items: [
-          { href: ROUTES.clients, label: t("navigation.item.clients"), icon: Users, visible: canReadClients, section: "COMMERCE" },
-          { href: ROUTES.produits, label: t("navigation.item.products"), icon: Package, visible: canReadProducts, section: "COMMERCE" },
-          { href: ROUTES.newSale, label: t("navigation.item.newSale"), icon: ShoppingCart, visible: canReadProducts, section: "COMMERCE" },
-          { href: ROUTES.history, label: t("navigation.item.history"), icon: History, visible: canReadProducts, section: "COMMERCE" },
-        ],
-      },
-      {
-        id: "crm",
-        label: NAV_LABELS.crm,
-        shortLabel: NAV_LABELS.crm,
-        icon: BriefcaseBusiness,
-        href: ROUTES.crm,
-        visible: crmVisible,
-        items: CRM_NAV.map((item) => ({
-          href: item.href,
-          label: item.label,
-          icon: item.icon,
-          visible: true,
-          section: "CRM",
-        })),
-      },
-      {
-        id: "finance",
-        label: t("navigation.module.finance"),
-        shortLabel: t("navigation.short.finance"),
-        icon: BarChart3,
-        href: ROUTES.finance,
-        visible: canReadFinance,
-        items: [
-          { href: ROUTES.finance, label: t("navigation.item.financeOverview"), icon: BarChart3, visible: canReadFinance, section: "FINANCE" },
-          { href: ROUTES.depenses, label: t("navigation.item.expenses"), icon: Receipt, visible: canReadFinance, section: "FINANCE" },
-        ],
-      },
-      {
-        id: "rh",
-        label: NAV_LABELS.rh,
-        shortLabel: "RH",
-        icon: UsersRound,
-        href: ROUTES.rh,
-        visible: true,
-        items: RH_NAV_ITEMS.map((item) => ({
-          href: item.href,
-          label: item.label,
-          icon: item.icon,
-          visible: true,
-          section: "RH",
-        })),
-      },
-      {
-        id: "logistics",
-        label: NAV_LABELS.logistics,
-        shortLabel: "Logist.",
-        icon: Truck,
-        href: ROUTES.logistics,
-        visible: true,
-        items: LOGISTICS_NAV.map((item) => ({
-          href: item.href,
-          label: item.label,
-          icon: item.icon,
-          visible: true,
-          section: "LOGISTIQUE",
-        })),
-      },
-      {
-        id: "actions",
-        label: NAV_LABELS.actions,
-        shortLabel: NAV_LABELS.actions,
-        icon: Zap,
-        href: ROUTES.actions,
-        visible: canReadActivityLogs || isSuperAdmin,
-        items: [{ href: ROUTES.actions, label: NAV_LABELS.actions, icon: Zap, visible: canReadActivityLogs || isSuperAdmin, section: "OPERATIONS" }],
-      },
-      {
-        id: "admin",
-        label: NAV_LABELS.admin,
-        shortLabel: NAV_LABELS.admin,
-        icon: Shield,
-        href: ROUTES.admin,
-        visible: canReadActivityLogs || isSuperAdmin,
-        items: [
-          { href: ROUTES.admin, label: "Console administration", icon: Shield, visible: canReadActivityLogs || isSuperAdmin, section: "ADMINISTRATION" },
-          { href: ROUTES.archives, label: NAV_LABELS.archives, icon: Archive, visible: isSuperAdmin, section: "ADMINISTRATION" },
-          { href: ROUTES.config, label: NAV_LABELS.config, icon: Settings2, visible: canReadActivityLogs || isSuperAdmin, section: "ADMINISTRATION" },
-        ],
-      },
-    ];
-  }, [canReadProducts, canReadClients, canReadFinance, canReadActivityLogs, isSuperAdmin, t]);
-
-  const activeModuleDef = useMemo(
-    () => (activeModule !== "dashboard" && activeModule !== "settings" ? (modules.find((m) => m.id === activeModule) ?? null) : null),
-    [activeModule, modules],
-  );
-
   const navContextLabel = useMemo(() => {
-    if (pathname.startsWith("/settings")) return NAV_LABELS.settings;
-    if (pathname.startsWith("/dept")) return NAV_LABELS.dept;
-    if (activeModule === "dashboard") return NAV_LABELS.home;
-    const mod = modules.find((m) => m.id === activeModule && m.visible);
-    return mod?.label ?? "";
-  }, [pathname, activeModule, modules]);
+    if (isSuperAdmin) return null;
+    return getDepartmentNavContextLabel(pathname ?? "", departmentKey);
+  }, [pathname, departmentKey, isSuperAdmin]);
 
   const handleLogout = useCallback(async () => {
     try {
@@ -222,28 +80,53 @@ export function AppShell({
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <MobileSidebar
-          modules={modules}
-          activeModule={activeModule}
-          userDisplayName={userDisplayName}
-          userAvatarInitial={userAvatarInitial}
-          pathname={pathname}
-          onClose={() => setIsMobileMenuOpen(false)}
-          onLogout={handleLogout}
-        />
+        {isSuperAdmin ? (
+          <SuperAdminMobileNav
+            pathname={pathname ?? ""}
+            userDisplayName={userDisplayName}
+            userAvatarInitial={userAvatarInitial}
+            onClose={() => setIsMobileMenuOpen(false)}
+            onLogout={handleLogout}
+          />
+        ) : (
+          <DepartmentBusinessMobileNav
+            pathname={pathname ?? ""}
+            departmentKey={departmentKey}
+            shellRail={shellRail}
+            canReadClients={canReadClients}
+            canReadProducts={canReadProducts}
+            userDisplayName={userDisplayName}
+            userAvatarInitial={userAvatarInitial}
+            onClose={() => setIsMobileMenuOpen(false)}
+            onLogout={handleLogout}
+          />
+        )}
       </aside>
 
       <div className="flex min-h-screen">
         <aside className={`hidden shrink-0 bg-primary transition-[width] duration-300 ease-in-out md:block ${primaryWidthClass}`}>
           <div className={`sticky top-0 h-screen ${primaryWidthClass}`}>
-            <PrimarySidebar
-              modules={modules}
-              activeModule={activeModule}
-              userAvatarInitial={userAvatarInitial}
-              onLogout={handleLogout}
-              isExpanded={isPrimaryExpanded}
-              onToggleExpanded={() => setIsPrimaryExpanded((e) => !e)}
-            />
+            {isSuperAdmin ? (
+              <SuperAdminPrimarySidebar
+                pathname={pathname ?? ""}
+                userAvatarInitial={userAvatarInitial}
+                onLogout={handleLogout}
+                isExpanded={isPrimaryExpanded}
+                onToggleExpanded={() => setIsPrimaryExpanded((e) => !e)}
+              />
+            ) : (
+              <DepartmentBusinessSidebar
+                pathname={pathname ?? ""}
+                departmentKey={departmentKey}
+                shellRail={shellRail}
+                canReadClients={canReadClients}
+                canReadProducts={canReadProducts}
+                userAvatarInitial={userAvatarInitial}
+                onLogout={handleLogout}
+                isExpanded={isPrimaryExpanded}
+                onToggleExpanded={() => setIsPrimaryExpanded((e) => !e)}
+              />
+            )}
           </div>
         </aside>
 
@@ -258,7 +141,17 @@ export function AppShell({
               >
                 <Menu size={20} />
               </button>
-              <p className="hidden min-w-0 truncate text-sm font-medium text-gray-600 sm:block">{navContextLabel}</p>
+              <p className="hidden min-w-0 truncate text-sm font-medium text-gray-600 sm:block">
+                {isSuperAdmin ? (
+                  <Suspense
+                    fallback={SUPER_ADMIN_HEADER_LABELS[getSuperAdminNavSegment(pathname ?? "", null)]}
+                  >
+                    <SuperAdminNavContextLabel pathname={pathname ?? ""} />
+                  </Suspense>
+                ) : (
+                  navContextLabel
+                )}
+              </p>
             </div>
 
             <div className="flex shrink-0 items-center gap-2 md:hidden">
@@ -277,10 +170,7 @@ export function AppShell({
             </div>
           </header>
 
-          <div className="flex min-h-0 flex-1 overflow-hidden">
-            <SecondarySidebarPanel module={activeModuleDef} pathname={pathname} />
-            <main className="flex-1 overflow-y-auto p-4 md:p-6">{children}</main>
-          </div>
+          <main className="min-h-0 flex-1 overflow-y-auto p-4 md:p-6">{children}</main>
         </div>
       </div>
     </div>

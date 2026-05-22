@@ -18,7 +18,7 @@ export default async function AdminMultitenantAnalyticsPage() {
           <span className="font-medium">tenant_id + scope_key</span>) — le digest RH global reste dans{" "}
           <span className="font-medium">erp_analytics_snapshots</span>.
         </p>
-        <Link href="/admin/intelligence" className="mt-3 inline-flex text-sm font-medium text-emerald-800 hover:underline">
+        <Link href="/admin/platform-dashboard" className="mt-3 inline-flex text-sm font-medium text-emerald-800 hover:underline">
           Intelligence entreprise →
         </Link>
       </section>

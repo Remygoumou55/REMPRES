@@ -1,16 +1,21 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { PageHeader } from "@/components/ui/page-header";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { ROUTES } from "@/lib/constants/routes";
 import { CRM_NAV } from "@/modules/crm/constants/nav";
-import { getCrmOperationalOverview } from "@/modules/crm/server/services/crm-overview";
+import { getServerSessionUser } from "@/lib/server/auth-session";
+import { getCrmOperationalOverviewGuarded } from "@/modules/crm/server/services/crm-overview";
 import { CrmMetricCard } from "@/modules/crm/ui/cards/CrmMetricCard";
 import { CrmSectionPanel } from "@/modules/crm/ui/panels/SectionPanel";
 import { formatMoneyGnf } from "@/modules/crm/utils/format-money";
 
 export default async function VenteCrmHubPage() {
+  const user = await getServerSessionUser();
+  if (!user) redirect("/login");
+
   const supabase = getSupabaseServerClient();
-  const overview = await getCrmOperationalOverview(supabase);
+  const overview = await getCrmOperationalOverviewGuarded(supabase, user.id);
 
   return (
     <div className="page-wrapper">

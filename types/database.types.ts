@@ -5082,6 +5082,16 @@ export type Database = {
         };
         Returns: Json;
       };
+      convert_crm_quote_to_sale: {
+        Args: {
+          p_quote_id: string;
+          p_seller_id: string;
+          p_created_by: string;
+          p_payment_method?: string;
+          p_notes?: string | null;
+        };
+        Returns: Json;
+      };
       create_expense_transaction: {
         Args: {
           p_user_id: string;

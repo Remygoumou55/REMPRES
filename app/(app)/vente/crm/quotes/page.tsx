@@ -1,9 +1,13 @@
 import { PageHeader } from "@/components/ui/page-header";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import { CrmQuoteCreateForm } from "@/modules/crm/components/workflows/CrmQuoteCreateForm";
+import { CrmQuoteConvertButton } from "@/modules/crm/components/workflows/CrmQuoteConvertButton";
+import { CrmQuoteStatusSelect } from "@/modules/crm/components/workflows/CrmQuoteStatusSelect";
 import { listCrmQuotesWithClients } from "@/modules/crm/server/repositories/crm-quotes-repository";
 import { CrmScrollTable } from "@/modules/crm/ui/tables/CrmScrollTable";
 import { CrmSectionPanel } from "@/modules/crm/ui/panels/SectionPanel";
 import { formatMoneyGnf } from "@/modules/crm/utils/format-money";
+import type { CrmQuoteStatus } from "@/lib/vente/runtime/crm-state-machine";
 
 function clientLabel(c: {
   client_type: string;
@@ -17,11 +21,28 @@ function clientLabel(c: {
 
 export default async function VenteCrmQuotesPage() {
   const supabase = getSupabaseServerClient();
-  const rows = await listCrmQuotesWithClients(supabase, 200);
+  const [rows, clientsRes] = await Promise.all([
+    listCrmQuotesWithClients(supabase, 200),
+    supabase
+      .from("clients")
+      .select("id,client_type,company_name,first_name,last_name")
+      .is("deleted_at", null)
+      .order("created_at", { ascending: false })
+      .limit(100),
+  ]);
+
+  const clients = (clientsRes.data ?? []).map((c) => ({
+    id: c.id,
+    label:
+      c.client_type === "company"
+        ? c.company_name ?? c.id.slice(0, 8)
+        : [c.first_name, c.last_name].filter(Boolean).join(" ") || c.id.slice(0, 8),
+  }));
 
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper space-y-6">
       <PageHeader title="Devis" subtitle="Références auto `DEV-YYYY-NNNN` — rattachement opportunité optionnel." />
+      <CrmQuoteCreateForm clients={clients} />
       <CrmSectionPanel title="Devis récents">
         <CrmScrollTable>
           <table className="min-w-[960px] w-full border-collapse text-left text-sm">
@@ -29,7 +50,7 @@ export default async function VenteCrmQuotesPage() {
               <tr>
                 <th className="border-b px-3 py-2 font-medium">N°</th>
                 <th className="border-b px-3 py-2 font-medium">Client</th>
-                <th className="border-b px-3 py-2 font-medium">Statut</th>
+                <th className="border-b px-3 py-2 font-medium">Statut / action</th>
                 <th className="border-b px-3 py-2 font-medium text-right">Total</th>
                 <th className="border-b px-3 py-2 font-medium">Validité</th>
                 <th className="border-b px-3 py-2 font-medium">Vente liée</th>
@@ -42,7 +63,12 @@ export default async function VenteCrmQuotesPage() {
                   <td className="max-w-[240px] truncate px-3 py-2.5">
                     {r.clients ? clientLabel(r.clients) : "—"}
                   </td>
-                  <td className="px-3 py-2.5 capitalize text-gray-800">{r.status}</td>
+                  <td className="px-3 py-2.5">
+                    <div className="flex flex-col gap-2">
+                      <CrmQuoteStatusSelect quoteId={r.id} currentStatus={r.status as CrmQuoteStatus} />
+                      <CrmQuoteConvertButton quoteId={r.id} status={r.status} saleId={r.sale_id} />
+                    </div>
+                  </td>
                   <td className="px-3 py-2.5 text-right tabular-nums font-medium">
                     {formatMoneyGnf(r.total_amount_gnf)}
                   </td>

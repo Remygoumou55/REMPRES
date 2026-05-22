@@ -4,17 +4,14 @@ import {
   formatProfileDisplayName,
   displayNameFromEmail,
 } from "@/lib/server/profile-display";
+import { getVenteCommerceKpis } from "@/lib/vente/runtime/vente-commerce-kpis";
 
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
 
-export type DayStats = {
-  date:   string;   // ISO date "2026-04-15"
-  label:  string;   // "Lun", "Mar", …
-  amount: number;   // total GNF
-  count:  number;   // nombre de ventes
-};
+export type { DayStats } from "@/lib/vente/runtime/sale-kpi-aggregates";
+import type { DayStats } from "@/lib/vente/runtime/sale-kpi-aggregates";
 
 export type RecentActivityEntry = {
   id:         string;
@@ -47,95 +44,14 @@ export type DashboardKpis = {
 };
 
 // ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
-const DAY_LABELS = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
-
-type SaleKpiRow = {
-  total_amount_gnf: number | null;
-  payment_status: string | null;
-  created_at: string;
-};
-
-function summarizeSaleAmounts(rows: SaleKpiRow[] | null) {
-  const list = rows ?? [];
-  let gross = 0;
-  let cancelled = 0;
-  for (const r of list) {
-    const amt = Number(r.total_amount_gnf ?? 0);
-    gross += amt;
-    if (r.payment_status === "cancelled") {
-      cancelled += amt;
-    }
-  }
-  return {
-    count: list.length,
-    grossSaleAmount: gross,
-    cancelledSaleAmount: cancelled,
-    netSaleAmount: gross - cancelled,
-  };
-}
-
-function buildLast7Days(): { iso: string; label: string }[] {
-  const result: { iso: string; label: string }[] = [];
-  for (let i = 6; i >= 0; i--) {
-    const d = new Date();
-    d.setDate(d.getDate() - i);
-    const iso = d.toISOString().slice(0, 10);
-    result.push({ iso, label: DAY_LABELS[d.getDay()] });
-  }
-  return result;
-}
-
-// ---------------------------------------------------------------------------
-// Main function
+// Main function — commerce KPI via B2.0 getVenteCommerceKpis (lifecycle validated).
 // ---------------------------------------------------------------------------
 
 export async function getDashboardKpis(): Promise<DashboardKpis> {
   const supabase = getSupabaseServerClient();
 
-  const todayStart = new Date();
-  todayStart.setHours(0, 0, 0, 0);
-  const monthStart = new Date();
-  monthStart.setDate(1);
-  monthStart.setHours(0, 0, 0, 0);
-  const sevenDaysAgo = new Date();
-  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
-  sevenDaysAgo.setHours(0, 0, 0, 0);
-
-  const [
-    clientsRes,
-    todaySalesRes,
-    monthlySalesRes,
-    weekSalesRes,
-    allProductsRes,
-    recentLogsRes,
-    monitoring,
-  ] = await Promise.all([
-    supabase
-      .from("clients")
-      .select("id", { count: "exact", head: true })
-      .is("deleted_at", null),
-    supabase
-      .from("sales")
-      .select("total_amount_gnf,payment_status,created_at")
-      .is("deleted_at", null)
-      .gte("created_at", todayStart.toISOString()),
-    supabase
-      .from("sales")
-      .select("total_amount_gnf,payment_status,created_at")
-      .is("deleted_at", null)
-      .gte("created_at", monthStart.toISOString()),
-    supabase
-      .from("sales")
-      .select("created_at, total_amount_gnf, payment_status")
-      .is("deleted_at", null)
-      .gte("created_at", sevenDaysAgo.toISOString()),
-    supabase
-      .from("products")
-      .select("stock_quantity, stock_threshold")
-      .is("deleted_at", null),
+  const [commerce, recentLogsRes, monitoring] = await Promise.all([
+    getVenteCommerceKpis(supabase),
     supabase
       .from("activity_logs")
       .select("id, action_key, module_key, created_at, actor_user_id")
@@ -143,44 +59,6 @@ export async function getDashboardKpis(): Promise<DashboardKpis> {
       .limit(6),
     getActivityLogsMonitoring({ moduleKey: "clients" }),
   ]);
-
-  const clientsTotal = clientsRes.count ?? 0;
-  const todayAgg = summarizeSaleAmounts(todaySalesRes.data as SaleKpiRow[] | null);
-  const salesToday = todayAgg.count;
-  const grossSaleAmountToday = todayAgg.grossSaleAmount;
-  const cancelledSaleAmountToday = todayAgg.cancelledSaleAmount;
-  const netSaleAmountToday = todayAgg.netSaleAmount;
-  const salesAmountToday = netSaleAmountToday;
-
-  const monthAgg = summarizeSaleAmounts(monthlySalesRes.data as SaleKpiRow[] | null);
-  const salesCountMonth = monthAgg.count;
-  const grossSaleAmountMonth = monthAgg.grossSaleAmount;
-  const cancelledSaleAmountMonth = monthAgg.cancelledSaleAmount;
-  const netSaleAmountMonth = monthAgg.netSaleAmount;
-  const salesAmountMonth = netSaleAmountMonth;
-
-  const weekSales = weekSalesRes.data as SaleKpiRow[] | null;
-  const days = buildLast7Days();
-  const salesLast7Days: DayStats[] = days.map(({ iso, label }) => {
-    const dayRows = (weekSales ?? []).filter((r) => r.created_at.slice(0, 10) === iso);
-    const dayNet = summarizeSaleAmounts(dayRows).netSaleAmount;
-    return {
-      date:   iso,
-      label,
-      amount: dayNet,
-      count:  dayRows.length,
-    };
-  });
-
-  const allProducts = allProductsRes.data;
-  let productsLowStock   = 0;
-  let productsOutOfStock = 0;
-  for (const p of allProducts ?? []) {
-    const qty       = p.stock_quantity  ?? 0;
-    const threshold = p.stock_threshold ?? 5;
-    if (qty === 0)            productsOutOfStock++;
-    else if (qty <= threshold) productsLowStock++;
-  }
 
   const recentLogs = recentLogsRes.data;
 
@@ -211,21 +89,21 @@ export async function getDashboardKpis(): Promise<DashboardKpis> {
   }));
 
   return {
-    clientsTotal:          clientsTotal          ?? 0,
+    clientsTotal: commerce.clientsTotal,
     deletesClientsLast24h: monitoring.deleteCountLast24h,
-    salesToday,
-    salesAmountToday,
-    salesAmountMonth,
-    salesCountMonth,
-    grossSaleAmountToday,
-    grossSaleAmountMonth,
-    cancelledSaleAmountToday,
-    cancelledSaleAmountMonth,
-    netSaleAmountToday,
-    netSaleAmountMonth,
-    productsLowStock,
-    productsOutOfStock,
-    salesLast7Days,
+    salesToday: commerce.salesTodayCount,
+    salesAmountToday: commerce.netSaleAmountToday,
+    salesAmountMonth: commerce.netSaleAmountMonth,
+    salesCountMonth: commerce.salesCountMonth,
+    grossSaleAmountToday: commerce.grossSaleAmountToday,
+    grossSaleAmountMonth: commerce.grossSaleAmountMonth,
+    cancelledSaleAmountToday: commerce.cancelledSaleAmountToday,
+    cancelledSaleAmountMonth: commerce.cancelledSaleAmountMonth,
+    netSaleAmountToday: commerce.netSaleAmountToday,
+    netSaleAmountMonth: commerce.netSaleAmountMonth,
+    productsLowStock: commerce.productsLowStock,
+    productsOutOfStock: commerce.productsOutOfStock,
+    salesLast7Days: commerce.salesLast7Days,
     recentActivity,
   };
 }

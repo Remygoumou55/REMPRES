@@ -19,6 +19,7 @@ import {
 import { logError, logInfo } from "@/lib/logger";
 import { assertOperationalMutationAllowed } from "@/lib/server/auth-operational-guards";
 import { getModulePermissions } from "@/lib/server/permissions";
+import { SALES_OPERATIONAL_LIFECYCLE } from "@/lib/vente/runtime/sales-lifecycle";
 
 // ---------------------------------------------------------------------------
 // Types internes
@@ -321,8 +322,7 @@ export async function listSales(rawParams: SaleListParamsInput = {}): Promise<Sa
   let query = supabase
     .from("sales")
     .select(SALE_COLUMNS, { count: "exact" })
-    .is("deleted_at", null)
-    .neq("lifecycle_status", "archived")
+    .eq("lifecycle_status", SALES_OPERATIONAL_LIFECYCLE)
     .order("created_at", { ascending: false }) as unknown as SalesListQuery;
 
   if (params.paymentStatus) {
@@ -374,7 +374,7 @@ export async function getSaleById(id: string): Promise<SaleWithItems | null> {
     .from("sales")
     .select(SALE_COLUMNS)
     .eq("id", id)
-    .is("deleted_at", null)
+    .in("lifecycle_status", ["validated", "cancelled"])
     .maybeSingle();
 
   if (saleError) {
@@ -427,7 +427,7 @@ export async function updatePaymentStatus(
     .from("sales")
     .select(SALE_COLUMNS)
     .eq("id", validated.saleId)
-    .is("deleted_at", null)
+    .eq("lifecycle_status", SALES_OPERATIONAL_LIFECYCLE)
     .maybeSingle();
 
   if (fetchError) {
@@ -457,7 +457,7 @@ export async function updatePaymentStatus(
       amount_paid_gnf: validated.amountPaid,
     })
     .eq("id", validated.saleId)
-    .is("deleted_at", null)
+    .eq("lifecycle_status", SALES_OPERATIONAL_LIFECYCLE)
     .select(SALE_COLUMNS)
     .single();
 

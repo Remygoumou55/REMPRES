@@ -4,29 +4,13 @@ import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getModulePermissions, getProfileAuthBrief, isAdminRole, isSuperAdmin } from "@/lib/server/permissions";
 import { DEPARTMENTS, type DepartmentKey } from "@/lib/constants/departments";
 import type { DeptKpiPayload } from "@/lib/dept/kpi-contract";
+import { buildDeptFinanceKpiPayload } from "@/lib/finance/runtime/finance-kpi-runtime";
+import { buildDeptVenteKpiPayload } from "@/lib/vente/runtime/vente-kpi-runtime";
 import { resolveRhDeptKpisCached } from "@/modules/analytics/cache/rh-dept-kpis-resolver";
 
 type RouteContext = { params: { deptKey: string } };
 
 const VALID_KEYS = new Set(DEPARTMENTS.map((d) => d.key));
-
-async function safeCount(promise: PromiseLike<{ count: number | null }>): Promise<number> {
-  try {
-    const result = await promise;
-    return result.count ?? 0;
-  } catch {
-    return 0;
-  }
-}
-
-async function safeData<T>(promise: PromiseLike<{ data: T | null }>, fallback: T): Promise<T> {
-  try {
-    const result = await promise;
-    return result.data ?? fallback;
-  } catch {
-    return fallback;
-  }
-}
 
 export async function GET(_request: Request, { params }: RouteContext) {
   const user = await getServerSessionUser();
@@ -53,8 +37,6 @@ export async function GET(_request: Request, { params }: RouteContext) {
 
   const supabase = getSupabaseServerClient();
   const now = new Date();
-  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
-  const sevenDaysAgo = new Date(now.getTime() - 6 * 24 * 60 * 60 * 1000).toISOString();
 
   let data: DeptKpiPayload = {
     stats: [],
@@ -67,127 +49,12 @@ export async function GET(_request: Request, { params }: RouteContext) {
 
   switch (deptKey) {
     case "vente": {
-      const [clientsCount, productsCount, salesTodayRows, salesMonthRows, lowStockRows, salesLast7DaysRows, topProductsRows, recentActivityRows] =
-        await Promise.all([
-          safeCount(supabase.from("clients").select("id", { count: "exact", head: true }).is("deleted_at", null)),
-          safeCount(supabase.from("products").select("id", { count: "exact", head: true }).is("deleted_at", null)),
-          safeData(supabase.from("sales").select("id,created_at").gte("created_at", new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString()), [] as { id: string; created_at: string }[]),
-          safeData(supabase.from("sales").select("total_amount_gnf,created_at").gte("created_at", monthStart), [] as { total_amount_gnf: number | null; created_at: string }[]),
-          safeData(supabase.from("products").select("id,stock_quantity,stock_threshold").is("deleted_at", null), [] as { id: string; stock_quantity: number; stock_threshold: number }[]),
-          safeData(supabase.from("sales").select("total_amount_gnf,created_at").gte("created_at", sevenDaysAgo).order("created_at", { ascending: true }), [] as { total_amount_gnf: number | null; created_at: string }[]),
-          safeData(supabase.from("products").select("id,name").order("name", { ascending: true }).limit(5), [] as { id: string; name: string }[]),
-          safeData(
-            supabase
-              .from("activity_logs")
-              .select("id,module_key,action_key,created_at")
-              .in("module_key", ["clients", "produits", "vente", "sales", "products"])
-              .order("created_at", { ascending: false })
-              .limit(5),
-            [] as { id: string; module_key: string; action_key: string; created_at: string }[],
-          ),
-        ]);
-
-      const salesThisMonth = salesMonthRows.reduce((sum, row) => sum + Number(row.total_amount_gnf ?? 0), 0);
-      const lowStockCount = lowStockRows.filter((p) => Number(p.stock_quantity ?? 0) <= Number(p.stock_threshold ?? 0)).length;
-      const salesByDay = new Map<string, number>();
-      for (const row of salesLast7DaysRows) {
-        const key = new Date(row.created_at).toISOString().slice(0, 10);
-        salesByDay.set(key, (salesByDay.get(key) ?? 0) + Number(row.total_amount_gnf ?? 0));
-      }
-
-      const salesLast7Days = Array.from(salesByDay.entries()).map(([date, total]) => ({ date, total }));
-
-      data = {
-        stats: [
-          { id: "clients", label: "dashboard.dept.kpi.clients", value: clientsCount, unit: "count" },
-          { id: "products", label: "dashboard.dept.kpi.products", value: productsCount, unit: "count" },
-          { id: "salesToday", label: "dashboard.dept.kpi.salesToday", value: salesTodayRows.length, unit: "count" },
-          { id: "salesThisMonth", label: "dashboard.dept.kpi.salesThisMonth", value: salesThisMonth, unit: "currency" },
-        ],
-        charts: [
-          {
-            id: "salesLast7Days",
-            title: "dashboard.dept.chart.salesLast7Days",
-            kind: "line",
-            xKey: "x",
-            series: [{ key: "total", label: "dashboard.dept.chart.totalSales" }],
-            points: salesLast7Days.map((item) => ({ x: item.date, total: item.total })),
-          },
-        ],
-        alerts: lowStockCount
-          ? [{ id: "lowStock", level: "warning", message: "dashboard.dept.alert.lowStock" }]
-          : [],
-        activity: recentActivityRows.map((entry) => ({
-          id: entry.id,
-          label: entry.action_key,
-          timestamp: entry.created_at,
-        })),
-        health: {
-          status: "ok",
-          notes: topProductsRows.length ? [] : ["dashboard.dept.health.partialTopProducts"],
-        },
-        metadata: { source: "sales", generatedAt: new Date().toISOString(), placeholder: false },
-      };
+      data = await buildDeptVenteKpiPayload(supabase, now);
       break;
     }
 
     case "finance": {
-      const [salesRows, expensesRows, transactionsRows, salesWeekRows, expensesWeekRows] = await Promise.all([
-        safeData(supabase.from("sales").select("total_amount_gnf,created_at").gte("created_at", monthStart), [] as { total_amount_gnf: number | null; created_at: string }[]),
-        safeData(supabase.from("expenses").select("amount_gnf,created_at").gte("created_at", monthStart), [] as { amount_gnf: number; created_at: string }[]),
-        safeCount(supabase.from("expenses").select("id", { count: "exact", head: true }).gte("created_at", monthStart)),
-        safeData(supabase.from("sales").select("total_amount_gnf,created_at").gte("created_at", sevenDaysAgo), [] as { total_amount_gnf: number | null; created_at: string }[]),
-        safeData(supabase.from("expenses").select("amount_gnf,created_at").gte("created_at", sevenDaysAgo), [] as { amount_gnf: number; created_at: string }[]),
-      ]);
-      const totalRevenueMonth = salesRows.reduce((sum, row) => sum + Number(row.total_amount_gnf ?? 0), 0);
-      const totalExpensesMonth = expensesRows.reduce((sum, row) => sum + Number(row.amount_gnf ?? 0), 0);
-      const byDay = new Map<string, { revenue: number; expenses: number }>();
-      for (const row of salesWeekRows) {
-        const day = new Date(row.created_at).toISOString().slice(0, 10);
-        const current = byDay.get(day) ?? { revenue: 0, expenses: 0 };
-        current.revenue += Number(row.total_amount_gnf ?? 0);
-        byDay.set(day, current);
-      }
-      for (const row of expensesWeekRows) {
-        const day = new Date(row.created_at).toISOString().slice(0, 10);
-        const current = byDay.get(day) ?? { revenue: 0, expenses: 0 };
-        current.expenses += Number(row.amount_gnf ?? 0);
-        byDay.set(day, current);
-      }
-      const points = Array.from(byDay.entries()).map(([date, value]) => ({
-        x: date,
-        revenue: value.revenue,
-        expenses: value.expenses,
-      }));
-      data = {
-        stats: [
-          { id: "revenue", label: "dashboard.dept.kpi.totalRevenueMonth", value: totalRevenueMonth, unit: "currency" },
-          { id: "expenses", label: "dashboard.dept.kpi.totalExpensesMonth", value: totalExpensesMonth, unit: "currency" },
-          { id: "margin", label: "dashboard.dept.kpi.netMargin", value: totalRevenueMonth - totalExpensesMonth, unit: "currency" },
-          { id: "transactions", label: "dashboard.dept.kpi.transactions", value: transactionsRows, unit: "count" },
-        ],
-        charts: [
-          {
-            id: "financeLast7Days",
-            title: "dashboard.dept.chart.financeLast7Days",
-            kind: "area",
-            xKey: "x",
-            series: [
-              { key: "revenue", label: "dashboard.dept.chart.revenue" },
-              { key: "expenses", label: "dashboard.dept.chart.expenses" },
-            ],
-            points,
-          },
-        ],
-        alerts: [],
-        activity: expensesRows.slice(-5).map((expense, index) => ({
-          id: `expense-${index}`,
-          label: "dashboard.dept.activity.expenseCreated",
-          timestamp: expense.created_at,
-        })),
-        health: { status: "ok" },
-        metadata: { source: "finance", generatedAt: new Date().toISOString(), placeholder: false },
-      };
+      data = await buildDeptFinanceKpiPayload(supabase, user.id, now);
       break;
     }
 

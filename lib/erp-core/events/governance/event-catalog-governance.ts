@@ -8,7 +8,7 @@ import {
 } from "@/lib/erp-core/events/event-taxonomy";
 import type { ErpEventFamily } from "@/lib/erp-core/events/event-contracts";
 
-export const ERP_EVENT_CATALOG_VERSION = "erp-event-catalog-b3.2-plus-v1" as const;
+export const ERP_EVENT_CATALOG_VERSION = "erp-event-catalog-p1-v1" as const;
 
 export type ErpEventCatalogStatus =
   | "active"
@@ -110,6 +110,33 @@ export const ERP_EVENT_GOVERNANCE_MAP: readonly ErpEventCatalogEntry[] = [
     notes: "Échec RPC, payload invalide ou assert orchestration.",
   },
   {
+    type: OFFICIAL_ERP_EVENT_TYPES.CRM_LEAD_CREATED,
+    family: "domain",
+    status: "active",
+    owner: "vente-crm",
+    publisher: "integrations/crm-events.ts",
+    wiredAt: "modules/crm/server/services/crm-mutations.ts#createCrmLead",
+    notes: "P1.1 — post-insert, avant audit legacy.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.CRM_QUOTE_CREATED,
+    family: "domain",
+    status: "active",
+    owner: "vente-crm",
+    publisher: "integrations/crm-events.ts",
+    wiredAt: "modules/crm/server/services/crm-mutations.ts#createCrmQuote",
+    notes: "P1.1 — post-insert, avant audit legacy.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.CRM_QUOTE_STATUS_UPDATED,
+    family: "domain",
+    status: "active",
+    owner: "vente-crm",
+    publisher: "integrations/crm-events.ts",
+    wiredAt: "modules/crm/server/services/crm-mutations.ts#updateCrmQuoteStatus",
+    notes: "P1.1 — post-update, avant audit legacy.",
+  },
+  {
     type: OFFICIAL_ERP_EVENT_TYPES.FINANCE_TRANSACTION_RECORDED,
     family: "domain",
     status: "planned",
@@ -128,6 +155,10 @@ export const ERP_EVENT_GOVERNANCE_MAP: readonly ErpEventCatalogEntry[] = [
     notes: "Pont audit legacy → bus (phase ultérieure).",
   },
 ] as const;
+
+export function listCrmGovernanceEvents(): ErpEventCatalogEntry[] {
+  return ERP_EVENT_GOVERNANCE_MAP.filter((e) => e.type.startsWith("crm."));
+}
 
 export function listEventsByFamily(family: ErpEventFamily): ErpEventCatalogEntry[] {
   return ERP_EVENT_GOVERNANCE_MAP.filter((e) => e.family === family);

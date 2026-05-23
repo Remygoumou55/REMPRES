@@ -1,18 +1,84 @@
 /**
  * B3.2 — Publishers officiels — CRM / Vente (orchestration runtime).
+ * P1 — expansion publishers (gouvernés ; câblage mutations = phase P1.1).
  */
 
-import { publishOfficialErpEvent } from "@/lib/erp-core/events/event-bus";
+import { publishIntegrationOfficialEvent } from "@/lib/erp-core/events/integrations/integration-publish";
 import { OFFICIAL_ERP_EVENT_TYPES } from "@/lib/erp-core/events/event-taxonomy";
+
+const CRM_DEPARTMENT_KEY = "VENTE" as const;
+
+export async function emitCrmLeadCreated(params: {
+  actorUserId: string;
+  leadId: string;
+  status?: string | null;
+  companyName?: string | null;
+  estimatedValueGnf?: number | null;
+}): Promise<void> {
+  await publishIntegrationOfficialEvent(OFFICIAL_ERP_EVENT_TYPES.CRM_LEAD_CREATED, {
+    actorUserId: params.actorUserId,
+    departmentKey: CRM_DEPARTMENT_KEY,
+    entityType: "crm_leads",
+    entityId: params.leadId,
+    correlationId: params.leadId,
+    payload: {
+      status: params.status ?? "new",
+      company_name: params.companyName ?? null,
+      estimated_value_gnf: params.estimatedValueGnf ?? null,
+    },
+  });
+}
+
+export async function emitCrmQuoteCreated(params: {
+  actorUserId: string;
+  quoteId: string;
+  quoteNumber?: string | null;
+  clientId: string;
+  status?: string | null;
+}): Promise<void> {
+  await publishIntegrationOfficialEvent(OFFICIAL_ERP_EVENT_TYPES.CRM_QUOTE_CREATED, {
+    actorUserId: params.actorUserId,
+    departmentKey: CRM_DEPARTMENT_KEY,
+    entityType: "crm_quotes",
+    entityId: params.quoteId,
+    correlationId: params.quoteId,
+    payload: {
+      quote_number: params.quoteNumber ?? null,
+      client_id: params.clientId,
+      status: params.status ?? "draft",
+    },
+  });
+}
+
+export async function emitCrmQuoteStatusUpdated(params: {
+  actorUserId: string;
+  quoteId: string;
+  fromStatus: string;
+  toStatus: string;
+  quoteNumber?: string | null;
+}): Promise<void> {
+  await publishIntegrationOfficialEvent(OFFICIAL_ERP_EVENT_TYPES.CRM_QUOTE_STATUS_UPDATED, {
+    actorUserId: params.actorUserId,
+    departmentKey: CRM_DEPARTMENT_KEY,
+    entityType: "crm_quotes",
+    entityId: params.quoteId,
+    correlationId: params.quoteId,
+    payload: {
+      from_status: params.fromStatus,
+      to_status: params.toStatus,
+      quote_number: params.quoteNumber ?? null,
+    },
+  });
+}
 
 export async function emitCrmQuoteConvertRequested(params: {
   actorUserId: string;
   quoteId: string;
   amountGnf?: number | null;
 }): Promise<void> {
-  await publishOfficialErpEvent(OFFICIAL_ERP_EVENT_TYPES.CRM_QUOTE_CONVERT_REQUESTED, {
+  await publishIntegrationOfficialEvent(OFFICIAL_ERP_EVENT_TYPES.CRM_QUOTE_CONVERT_REQUESTED, {
     actorUserId: params.actorUserId,
-    departmentKey: "VENTE",
+    departmentKey: CRM_DEPARTMENT_KEY,
     entityType: "crm_quote",
     entityId: params.quoteId,
     correlationId: params.quoteId,
@@ -26,9 +92,9 @@ export async function emitCrmQuoteConverted(params: {
   saleId: string;
   saleReference?: string | null;
 }): Promise<void> {
-  await publishOfficialErpEvent(OFFICIAL_ERP_EVENT_TYPES.CRM_QUOTE_CONVERTED, {
+  await publishIntegrationOfficialEvent(OFFICIAL_ERP_EVENT_TYPES.CRM_QUOTE_CONVERTED, {
     actorUserId: params.actorUserId,
-    departmentKey: "VENTE",
+    departmentKey: CRM_DEPARTMENT_KEY,
     entityType: "crm_quote",
     entityId: params.quoteId,
     correlationId: params.quoteId,
@@ -39,9 +105,9 @@ export async function emitCrmQuoteConverted(params: {
     },
   });
 
-  await publishOfficialErpEvent(OFFICIAL_ERP_EVENT_TYPES.RUNTIME_ORCHESTRATION_COMPLETED, {
+  await publishIntegrationOfficialEvent(OFFICIAL_ERP_EVENT_TYPES.RUNTIME_ORCHESTRATION_COMPLETED, {
     actorUserId: params.actorUserId,
-    departmentKey: "VENTE",
+    departmentKey: CRM_DEPARTMENT_KEY,
     entityType: "sales",
     entityId: params.saleId,
     correlationId: params.quoteId,
@@ -59,9 +125,9 @@ export async function emitRuntimeOrchestrationFailed(params: {
   message?: string | null;
   orchestration?: string;
 }): Promise<void> {
-  await publishOfficialErpEvent(OFFICIAL_ERP_EVENT_TYPES.RUNTIME_ORCHESTRATION_FAILED, {
+  await publishIntegrationOfficialEvent(OFFICIAL_ERP_EVENT_TYPES.RUNTIME_ORCHESTRATION_FAILED, {
     actorUserId: params.actorUserId,
-    departmentKey: "VENTE",
+    departmentKey: CRM_DEPARTMENT_KEY,
     entityType: "crm_quote",
     entityId: params.quoteId,
     correlationId: params.quoteId,

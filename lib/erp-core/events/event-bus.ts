@@ -13,6 +13,7 @@ import {
 import { assertCanPublishEvent } from "@/lib/erp-core/events/event-security";
 import { dispatchErpEvent } from "@/lib/erp-core/events/event-dispatcher";
 import { appendEventTrace, persistEventBusAudit } from "@/lib/erp-core/events/event-traceability";
+import { ensureErpEventHandlersBootstrapped } from "@/lib/erp-core/events/bootstrap/register-default-handlers";
 
 export type PublishErpEventInput = {
   type: string;
@@ -26,6 +27,8 @@ export type PublishErpEventInput = {
   family?: ErpEventFamily;
   sensitivity?: ErpEventEnvelope["sensitivity"];
   persistAudit?: boolean;
+  /** false = handlers en arrière-plan (défaut intégration). true = tests / orchestration critique. */
+  awaitDispatch?: boolean;
 };
 
 export async function publishErpEvent(input: PublishErpEventInput): Promise<ErpEventEnvelope> {
@@ -66,7 +69,16 @@ export async function publishErpEvent(input: PublishErpEventInput): Promise<ErpE
     await persistEventBusAudit(event);
   }
 
-  await dispatchErpEvent(event);
+  ensureErpEventHandlersBootstrapped();
+
+  const dispatchWork = dispatchErpEvent(event);
+  if (input.awaitDispatch !== false) {
+    await dispatchWork;
+  } else {
+    void dispatchWork.catch((err) => {
+      console.warn("[erp-event-bus:dispatch]", err instanceof Error ? err.message : err);
+    });
+  }
 
   return event;
 }

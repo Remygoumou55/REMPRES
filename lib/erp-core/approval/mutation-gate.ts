@@ -10,7 +10,6 @@ import {
   ApprovalRequiredError,
   isApprovalRequiredError,
 } from "@/lib/governance/approvals/workflow";
-import { tryCreateAlert } from "@/lib/governance/alerts/create-alert";
 import type { ErpApprovalDecision } from "@/lib/erp-core/approval/domain-model";
 import { evaluateMutationApprovalPolicy } from "@/lib/erp-core/approval/policy-engine";
 import {
@@ -140,18 +139,6 @@ export async function assertErpMutationApprovalGate(
       engine: policy.version,
       logical_status: "submitted",
     },
-  });
-
-  await tryCreateAlert({
-    type: "approval_request_created",
-    severity: "high",
-    departmentKey: dept,
-    title: "Approbation mutation requise",
-    description: `${input.mutationAction} — ${entityType} ${entityId}`,
-    entityType,
-    entityId,
-    triggeredBy: input.userId,
-    metadata: { mutationAction: input.mutationAction, requestId: created.id },
   });
 
   await recordApprovalEngineAudit({

@@ -15,6 +15,11 @@ import {
 } from "@/lib/vente/runtime/crm-state-machine";
 import { CRM_WRITE_ACTIONS } from "@/lib/vente/runtime/crm-write-governance";
 import { assertCrmWriteActionAllowed } from "@/lib/vente/runtime/crm-write-governance";
+import {
+  emitCrmLeadCreated,
+  emitCrmQuoteCreated,
+  emitCrmQuoteStatusUpdated,
+} from "@/lib/erp-core/events/integrations/crm-events";
 import { recordCrmGovernanceAudit } from "@/modules/crm/server/services/crm-audit-hook";
 
 type Db = SupabaseClient<Database>;
@@ -96,12 +101,23 @@ export async function createCrmLead(userId: string, input: CreateCrmLeadInput) {
 
   if (error) throw new Error(error.message);
 
-  await recordCrmGovernanceAudit({
+  const eventPromise = emitCrmLeadCreated({
+    actorUserId: userId,
+    leadId: data.id,
+    status: data.status,
+    companyName: data.company_name,
+    estimatedValueGnf: Math.max(0, Number(input.estimatedValueGnf ?? 0)),
+  });
+
+  await Promise.all([
+    eventPromise,
+    recordCrmGovernanceAudit({
     actionType: CRM_WRITE_ACTIONS.LEAD_CREATE,
     entityType: "crm_leads",
     entityId: data.id,
     afterSnapshot: data,
-  });
+    }),
+  ]);
 
   return data;
 }
@@ -331,12 +347,21 @@ export async function createCrmQuote(userId: string, input: CreateCrmQuoteInput)
 
   if (error) throw new Error(error.message);
 
-  await recordCrmGovernanceAudit({
-    actionType: CRM_WRITE_ACTIONS.QUOTE_CREATE,
-    entityType: "crm_quotes",
-    entityId: data.id,
-    afterSnapshot: data,
-  });
+  await Promise.all([
+    emitCrmQuoteCreated({
+      actorUserId: userId,
+      quoteId: data.id,
+      quoteNumber: data.quote_number,
+      clientId: data.client_id,
+      status: data.status,
+    }),
+    recordCrmGovernanceAudit({
+      actionType: CRM_WRITE_ACTIONS.QUOTE_CREATE,
+      entityType: "crm_quotes",
+      entityId: data.id,
+      afterSnapshot: data,
+    }),
+  ]);
 
   return data;
 }
@@ -366,13 +391,22 @@ export async function updateCrmQuoteStatus(
 
   if (error) throw new Error(error.message);
 
-  await recordCrmGovernanceAudit({
-    actionType: CRM_WRITE_ACTIONS.QUOTE_UPDATE_STATUS,
-    entityType: "crm_quotes",
-    entityId: quoteId,
-    beforeSnapshot: { status: from },
-    afterSnapshot: data,
-  });
+  await Promise.all([
+    emitCrmQuoteStatusUpdated({
+      actorUserId: userId,
+      quoteId,
+      fromStatus: from,
+      toStatus: data.status,
+      quoteNumber: data.quote_number,
+    }),
+    recordCrmGovernanceAudit({
+      actionType: CRM_WRITE_ACTIONS.QUOTE_UPDATE_STATUS,
+      entityType: "crm_quotes",
+      entityId: quoteId,
+      beforeSnapshot: { status: from },
+      afterSnapshot: data,
+    }),
+  ]);
 
   return data;
 }

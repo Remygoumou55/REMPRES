@@ -6,7 +6,6 @@ import { isSuperAdmin } from "@/lib/server/permissions";
 import { decideApprovalRequest } from "@/lib/governance/approvals/repository";
 import { tryLogAuditEvent } from "@/lib/audit/audit-logger";
 import { AUDIT_EVENT_TYPES } from "@/lib/audit/audit-events";
-import { tryCreateAlert } from "@/lib/governance/alerts/create-alert";
 import { tryLogGovernanceAuditEvent } from "@/lib/governance/audit/log-audit-event";
 import {
   emitApprovalRequestApproved,
@@ -57,16 +56,6 @@ export async function approveRequestAction(requestId: string): Promise<void> {
     details: { operation: "approve_request" },
     approval: { required: false, status: "granted", policy: "governance_center" },
   });
-  await tryCreateAlert({
-    type: "approval_granted",
-    severity: "medium",
-    title: "Demande d'approbation validee",
-    description: "Une demande sensible a ete approuvee par la gouvernance.",
-    entityType: "approval_requests",
-    entityId: requestId,
-    triggeredBy: approverUserId,
-    metadata: { operation: "approve_request" },
-  });
   await tryLogGovernanceAuditEvent({
     category: "approval",
     severity: "informational",
@@ -108,16 +97,6 @@ export async function rejectRequestAction(
     context: { actorUserId: approverUserId, actorRole: "super_admin" },
     details: { operation: "reject_request", rejectionReason: rejectionReason ?? null },
     approval: { required: false, status: "granted", policy: "governance_center" },
-  });
-  await tryCreateAlert({
-    type: "approval_rejected",
-    severity: "high",
-    title: "Demande d'approbation rejetee",
-    description: "Une action sensible a ete rejetee par la gouvernance.",
-    entityType: "approval_requests",
-    entityId: requestId,
-    triggeredBy: approverUserId,
-    metadata: { operation: "reject_request", rejectionReason: rejectionReason ?? null },
   });
   await tryLogGovernanceAuditEvent({
     category: "approval",

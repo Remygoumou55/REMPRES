@@ -16,7 +16,7 @@ const CRM_ACTIONS = {
   ACTIVITY_COMPLETE: "crm.activity.complete",
 } as const;
 
-export const CRM_EVENT_MIGRATION_PLAN_VERSION = "crm-event-migration-b3.2-plus-v1" as const;
+export const CRM_EVENT_MIGRATION_PLAN_VERSION = "crm-event-migration-p1-v1" as const;
 
 export type CrmMigrationLegacyEffect = "audit_only" | "audit_and_gate" | "audit_gate_rpc_event";
 
@@ -28,7 +28,7 @@ export type CrmEventMigrationRow = {
   futurePublisher: string;
   futureDomainEvent: string | null;
   futureMutationEvent: string | null;
-  migrationPhase: "done" | "next" | "later";
+  migrationPhase: "done" | "publisher_ready" | "later";
   notes: string;
 };
 
@@ -49,11 +49,11 @@ export const CRM_EVENT_MIGRATION_TABLE: readonly CrmEventMigrationRow[] = [
     legacyEffects: "audit_only",
     legacyAudit: "recordCrmGovernanceAudit",
     legacyAlert: "none",
-    futurePublisher: "emitCrmLeadCreated (à créer)",
+    futurePublisher: "emitCrmLeadCreated",
     futureDomainEvent: "crm.lead.created",
     futureMutationEvent: null,
-    migrationPhase: "next",
-    notes: "Priorité 1 — volume élevé, faible risque.",
+    migrationPhase: "done",
+    notes: "P1.1 — emitCrmLeadCreated câblé.",
   },
   {
     mutationAction: CRM_ACTIONS.LEAD_UPDATE_STATUS,
@@ -63,8 +63,8 @@ export const CRM_EVENT_MIGRATION_TABLE: readonly CrmEventMigrationRow[] = [
     futurePublisher: "emitCrmLeadStatusUpdated",
     futureDomainEvent: "crm.lead.status_updated",
     futureMutationEvent: null,
-    migrationPhase: "next",
-    notes: "Catalogue à amendement taxonomy.",
+    migrationPhase: "later",
+    notes: "Taxonomy P2 — hors scope P1 minimum.",
   },
   {
     mutationAction: CRM_ACTIONS.LEAD_CONVERT,
@@ -107,8 +107,8 @@ export const CRM_EVENT_MIGRATION_TABLE: readonly CrmEventMigrationRow[] = [
     futurePublisher: "emitCrmQuoteCreated",
     futureDomainEvent: "crm.quote.created",
     futureMutationEvent: null,
-    migrationPhase: "next",
-    notes: "Prépare chaîne approval future sur gros montants.",
+    migrationPhase: "done",
+    notes: "P1.1 — emitCrmQuoteCreated câblé.",
   },
   {
     mutationAction: CRM_ACTIONS.QUOTE_UPDATE_STATUS,
@@ -118,8 +118,8 @@ export const CRM_EVENT_MIGRATION_TABLE: readonly CrmEventMigrationRow[] = [
     futurePublisher: "emitCrmQuoteStatusUpdated",
     futureDomainEvent: "crm.quote.status_updated",
     futureMutationEvent: null,
-    migrationPhase: "next",
-    notes: "accepted → peut alimenter convert_requested.",
+    migrationPhase: "done",
+    notes: "P1.1 — emitCrmQuoteStatusUpdated câblé.",
   },
   {
     mutationAction: CRM_ACTIONS.ACTIVITY_CREATE,

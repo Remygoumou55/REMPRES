@@ -2,7 +2,7 @@
  * B3.2 — Publishers officiels — famille approval (intégration B3.1).
  */
 
-import { publishOfficialErpEvent } from "@/lib/erp-core/events/event-bus";
+import { publishIntegrationOfficialEvent } from "@/lib/erp-core/events/integrations/integration-publish";
 import { OFFICIAL_ERP_EVENT_TYPES } from "@/lib/erp-core/events/event-taxonomy";
 
 export async function emitApprovalRequestCreated(params: {
@@ -14,7 +14,7 @@ export async function emitApprovalRequestCreated(params: {
   entityId: string;
   payload?: Record<string, unknown>;
 }): Promise<void> {
-  await publishOfficialErpEvent(OFFICIAL_ERP_EVENT_TYPES.APPROVAL_REQUEST_CREATED, {
+  await publishIntegrationOfficialEvent(OFFICIAL_ERP_EVENT_TYPES.APPROVAL_REQUEST_CREATED, {
     actorUserId: params.actorUserId,
     departmentKey: params.departmentKey,
     entityType: "approval_requests",
@@ -35,7 +35,7 @@ export async function emitApprovalGateGranted(params: {
   requestId: string;
   mutationAction: string;
 }): Promise<void> {
-  await publishOfficialErpEvent(OFFICIAL_ERP_EVENT_TYPES.APPROVAL_GATE_GRANTED, {
+  await publishIntegrationOfficialEvent(OFFICIAL_ERP_EVENT_TYPES.APPROVAL_GATE_GRANTED, {
     actorUserId: params.actorUserId,
     departmentKey: params.departmentKey,
     entityType: "approval_requests",
@@ -51,7 +51,7 @@ export async function emitMutationBlockedPending(params: {
   requestId: string;
   mutationAction: string;
 }): Promise<void> {
-  await publishOfficialErpEvent(OFFICIAL_ERP_EVENT_TYPES.MUTATION_BLOCKED_PENDING, {
+  await publishIntegrationOfficialEvent(OFFICIAL_ERP_EVENT_TYPES.MUTATION_BLOCKED_PENDING, {
     actorUserId: params.actorUserId,
     departmentKey: params.departmentKey,
     entityType: "approval_requests",
@@ -67,7 +67,7 @@ export async function emitApprovalRequestApproved(params: {
   requestId: string;
   mutationAction?: string | null;
 }): Promise<void> {
-  await publishOfficialErpEvent(OFFICIAL_ERP_EVENT_TYPES.APPROVAL_REQUEST_APPROVED, {
+  await publishIntegrationOfficialEvent(OFFICIAL_ERP_EVENT_TYPES.APPROVAL_REQUEST_APPROVED, {
     actorUserId: params.approverUserId,
     departmentKey: params.departmentKey,
     entityType: "approval_requests",
@@ -83,7 +83,7 @@ export async function emitApprovalRequestRejected(params: {
   requestId: string;
   rejectionReason?: string | null;
 }): Promise<void> {
-  await publishOfficialErpEvent(OFFICIAL_ERP_EVENT_TYPES.APPROVAL_REQUEST_REJECTED, {
+  await publishIntegrationOfficialEvent(OFFICIAL_ERP_EVENT_TYPES.APPROVAL_REQUEST_REJECTED, {
     actorUserId: params.approverUserId,
     departmentKey: params.departmentKey,
     entityType: "approval_requests",

@@ -84,9 +84,17 @@ export function SettingsGovernanceHub({ overview }: Props) {
       <div className="rounded-2xl border border-primary/15 bg-primary/5 px-4 py-3 text-sm text-darktext">
         <p className="font-semibold">Centre de configuration ERP</p>
         <p className="mt-1 text-xs leading-relaxed text-gray-600">
-          Utilisateurs, permissions, sécurité, devise, taux, notifications et paramètres système.
+          Sécurité, notifications, système, devise et taux — gestion des utilisateurs via Admin.
         </p>
       </div>
+
+      <Link
+        href="/admin/users"
+        className="flex items-center justify-between rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-primary shadow-sm transition hover:border-primary/30 hover:bg-gray-50"
+      >
+        <span>Gestion des utilisateurs</span>
+        <ArrowRight size={16} aria-hidden />
+      </Link>
 
       <section aria-label="Indicateurs — Paramètres" className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
         {metric("Utilisateurs", overview.totalUsers)}
@@ -97,45 +105,46 @@ export function SettingsGovernanceHub({ overview }: Props) {
         {metric("Alertes non lues", overview.unreadAlerts, overview.unreadAlerts > 0 ? "warn" : "default")}
       </section>
 
-      <section aria-label="Centres de configuration" className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <section aria-label="Centres de configuration" className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {SIDEBAR_PILLARS.map((item) => {
           let hint = "Configuration gouvernée — accès centralisé.";
           let count: number | null = null;
-          if (item.key === "utilisateurs") {
-            hint = "Création, suspension, réactivation et réinitialisation d'accès.";
-            count = overview.totalUsers;
-          } else if (item.key === "securite") {
+          if (item.key === "param-securite") {
             hint = "Sessions, connexions et politiques d'accès.";
             count = overview.securityEvents24h;
-          } else if (item.key === "notifications") {
+          } else if (item.key === "param-notifs") {
             hint = "Alertes système et validations critiques.";
             count = overview.unreadAlerts;
-          } else if (item.key === "systeme") {
+          } else if (item.key === "param-systeme") {
             hint = "Santé plateforme, version et maintenance.";
+          } else if (item.key === "param-devise") {
+            hint = "Devise de référence et taux de change.";
           }
           return renderCard(item.key, item.href, item.label, item.icon, hint, count);
         })}
       </section>
 
-      <section aria-label="Paramètres avancés" className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <section aria-label="Paramètres avancés" className="grid gap-4 sm:grid-cols-2">
         {HUB_EXTRA_CARDS.map((item) => {
           const locked = item.key === "langue";
           const hints: Record<string, string> = {
             permissions: "Rôles officiels ERP — un département, un rôle principal.",
-            devise: "Devise de référence et affichage multi-devises.",
-            taux: "Taux de change et conversions.",
             langue: "Français actif — autres langues verrouillées (gouvernance).",
           };
-          return renderCard(
-            item.key,
-            item.href,
-            item.label,
-            item.icon,
-            hints[item.key] ?? "",
-            null,
-            locked,
-          );
+          return renderCard(item.key, item.href, item.label, item.icon, hints[item.key] ?? "", null, locked);
         })}
+        <Link
+          href="/settings/rates"
+          className="group card flex flex-col border border-gray-100 p-4 transition hover:border-primary/25 hover:shadow-md sm:p-5"
+        >
+          <div className="flex items-center gap-2">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <NavIcon iconName="Coins" size={20} />
+            </div>
+            <p className="text-sm font-semibold text-darktext">Taux de change</p>
+          </div>
+          <p className="mt-2 text-xs text-gray-500">Complément Devise &amp; Taux — conversions.</p>
+        </Link>
       </section>
     </div>
   );

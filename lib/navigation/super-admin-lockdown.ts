@@ -7,11 +7,10 @@ import {
   SUPER_ADMIN_OFFICIAL_RAIL_GROUP_IDS,
   type SuperAdminNavGroupDef,
 } from "@/lib/navigation/super-admin-nav";
-import { NAV_CONFIG } from "@/lib/constants/nav-config";
+import { NAV_CONFIG, findNavItemByKey } from "@/lib/constants/nav-config";
 
 export const SUPER_ADMIN_HOME_ROUTE = ROUTES.home;
 
-/** Modules métier interdits dans le rail super_admin (groupes collapsibles). */
 export const SUPER_ADMIN_FORBIDDEN_RAIL_MODULE_IDS = [
   "commerce",
   "crm",
@@ -67,9 +66,25 @@ export function validateSuperAdminNavGroups(groups: readonly SuperAdminNavGroupD
     }
   }
 
-  const metierCount = NAV_CONFIG.find((s) => s.section === "Métier")?.items.length ?? 0;
-  if (metierCount !== 7) {
-    errors.push(`Métier section must have 7 modules, got ${metierCount}`);
+  const metierSection = NAV_CONFIG.find((s) => String(s.section) === "Métier");
+  if (metierSection && metierSection.items.length > 0) {
+    errors.push("Métier section must not exist in NAV_CONFIG");
+  }
+
+  const deptItem = findNavItemByKey("departements");
+  if (!deptItem?.children || deptItem.children.length !== 7) {
+    errors.push(`departements must have 7 children, got ${deptItem?.children?.length ?? 0}`);
+  }
+
+  const adminItem = findNavItemByKey("admin");
+  if (!adminItem?.children || adminItem.children.length !== 2) {
+    errors.push(`admin must have 2 children, got ${adminItem?.children?.length ?? 0}`);
+  }
+
+  const paramItem = findNavItemByKey("parametres");
+  const hasUsersInParam = paramItem?.children?.some((c) => c.label === "Utilisateurs");
+  if (hasUsersInParam) {
+    errors.push("Utilisateurs must not appear under Paramètres sidebar");
   }
 
   return { ok: errors.length === 0, errors };

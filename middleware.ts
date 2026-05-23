@@ -6,7 +6,7 @@ import {
   canAccessPathForProfile,
   hasAdminConsoleAccess,
 } from "@/lib/auth/permissions";
-import { resolveNavRouteAlias } from "@/lib/constants/nav-route-aliases";
+import { resolveNavRouteAlias, resolveNavRouteRewrite } from "@/lib/constants/nav-route-aliases";
 
 // ---------------------------------------------------------------------------
 // Routes protégées — authentification requise
@@ -62,6 +62,15 @@ function isAdminConsoleRestrictedPath(pathname: string): boolean {
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  const navRewrite = resolveNavRouteRewrite(pathname);
+  if (navRewrite) {
+    const target = request.nextUrl.clone();
+    const [rewritePath, rewriteQuery] = navRewrite.split("?");
+    target.pathname = rewritePath ?? navRewrite;
+    target.search = rewriteQuery ? `?${rewriteQuery}` : "";
+    return NextResponse.rewrite(target);
+  }
 
   const navAlias = resolveNavRouteAlias(pathname);
   if (navAlias) {

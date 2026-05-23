@@ -40,16 +40,8 @@ export const SUPER_ADMIN_OPERATIONAL_BLOCKED_PREFIXES: readonly string[] = [
   "/logistique",
 ] as const;
 
-/** Entrées cockpit module (racine uniquement) — accessibles au super_admin via le rail Métier. */
-export const SUPER_ADMIN_MODULE_ENTRY_PATHS: readonly string[] = [
-  "/vente/crm",
-  "/finance",
-  "/rh",
-  "/formation",
-  "/consultation",
-  "/marketing",
-  "/logistique",
-] as const;
+/** Entrées cockpit département (racine) — accessibles via Départements → /dept/[key]. */
+export const SUPER_ADMIN_DEPT_ENTRY_PREFIX = "/dept" as const;
 
 function pathnameMatchesPrefix(pathname: string, prefix: string): boolean {
   return pathname === prefix || pathname.startsWith(`${prefix}/`);
@@ -85,7 +77,9 @@ export function isSuperAdminGovernancePath(pathname: string): boolean {
 export function isSuperAdminOperationalPath(pathname: string): boolean {
   const normalized = normalizePathname(pathname);
   if (isSuperAdminReadOnlyVentePath(normalized)) return false;
-  if (SUPER_ADMIN_MODULE_ENTRY_PATHS.some((p) => normalized === p)) return false;
+  if (normalized === SUPER_ADMIN_DEPT_ENTRY_PREFIX || normalized.startsWith(`${SUPER_ADMIN_DEPT_ENTRY_PREFIX}/`)) {
+    return false;
+  }
   return SUPER_ADMIN_OPERATIONAL_BLOCKED_PREFIXES.some((prefix) =>
     pathnameMatchesPrefix(normalized, prefix),
   );

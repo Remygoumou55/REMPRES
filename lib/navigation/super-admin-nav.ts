@@ -82,25 +82,11 @@ const ARCHIVES_PREFIXES = [
 
 const SETTINGS_PREFIXES = [SETTINGS_OFFICIAL_ROUTES.hub] as const;
 
-const METIER_PREFIXES = [
-  ROUTES.vente,
-  ROUTES.finance,
-  ROUTES.rh,
-  ROUTES.formation,
-  ROUTES.consultation,
-  ROUTES.marketing,
-  ROUTES.logistics,
-] as const;
-
 function matchesPrefixes(pathname: string, prefixes: readonly string[]): boolean {
   return prefixes.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 }
 
-export type SuperAdminNavHighlight =
-  | "dashboard"
-  | SuperAdminNavSegment
-  | "metier"
-  | "unmapped";
+export type SuperAdminNavHighlight = "dashboard" | SuperAdminNavSegment | "departements" | "unmapped";
 
 export function getSuperAdminNavSegment(
   pathname: string,
@@ -113,9 +99,8 @@ export function getSuperAdminNavSegment(
   if (archivesMatch) return "archives";
 
   if (matchesPrefixes(pathname, ACTIONS_PREFIXES)) return "actions";
-  if (matchesPrefixes(pathname, METIER_PREFIXES)) return "metier";
+  if (pathname.startsWith("/dept")) return "departements";
   if (pathname.startsWith("/admin")) return "unmapped";
-  if (pathname.startsWith("/dept")) return "unmapped";
   return "unmapped";
 }
 
@@ -124,7 +109,7 @@ export const SUPER_ADMIN_HEADER_LABELS: Record<SuperAdminNavHighlight, string> =
   actions: "Actions",
   archives: "Archives",
   parametres: "Paramètres",
-  metier: "Métier",
+  departements: "Départements",
   unmapped: "Vue hors menu supervision",
 };
 

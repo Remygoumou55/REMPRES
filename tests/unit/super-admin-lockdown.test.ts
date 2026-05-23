@@ -43,6 +43,7 @@ describe("super admin final lockdown", () => {
     expect(getSuperAdminNavSegment("/admin/archives", null)).toBe("archives");
     expect(getSuperAdminNavSegment(SETTINGS_OFFICIAL_ROUTES.hub, null)).toBe("parametres");
     expect(getSuperAdminNavSegment(SETTINGS_OFFICIAL_ROUTES.users, null)).toBe("parametres");
+    expect(getSuperAdminNavSegment("/dept/vente", null)).toBe("departements");
   });
 
   it("marque les chemins admin legacy non gouvernés comme unmapped", () => {

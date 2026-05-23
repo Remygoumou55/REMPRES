@@ -79,7 +79,7 @@ export function isGovernanceActionsPath(pathname: string): boolean {
   if (pathname.startsWith("/admin/approvals")) return true;
   if (pathname.startsWith("/admin/alerts")) return true;
   if (pathname.startsWith("/admin/audit")) return true;
-  if (pathname.startsWith("/admin/activity-logs")) return true;
+  if (pathname === "/actions/journaux" || pathname.startsWith("/actions/journaux/")) return true;
   if (pathname === "/admin/platform-dashboard") return true;
   if (pathname === "/admin/intelligence" || pathname.startsWith("/admin/intelligence/")) return true;
   return false;
@@ -90,7 +90,7 @@ export function governanceNavActiveId(pathname: string): GovernanceActionsNavIte
   if (pathname.startsWith("/admin/approvals")) return "approvals";
   if (pathname.startsWith("/admin/alerts")) return "alerts";
   if (pathname.startsWith("/admin/audit")) return "audit";
-  if (pathname.startsWith("/admin/activity-logs")) return "journals";
+  if (pathname === "/actions/journaux" || pathname.startsWith("/actions/journaux/")) return "journals";
   if (pathname === "/admin/platform-dashboard") return "system";
   if (pathname === "/admin/intelligence" || pathname.startsWith("/admin/intelligence/")) return "system";
   return "hub";

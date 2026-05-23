@@ -7,9 +7,10 @@ import { Building2 } from "lucide-react";
 import { CheckCircle } from "lucide-react";
 import { ChevronDown } from "lucide-react";
 import { ClipboardList } from "lucide-react";
+import { Coins } from "lucide-react";
 import { Cpu } from "lucide-react";
 import { Download } from "lucide-react";
-import { FolderArchive } from "lucide-react";
+import { FolderOpen } from "lucide-react";
 import { GraduationCap } from "lucide-react";
 import { LayoutDashboard } from "lucide-react";
 import { Lock } from "lucide-react";
@@ -41,7 +42,7 @@ const ICON_MAP: Record<string, LucideIcon> = {
   CheckCircle,
   Bell,
   ClipboardList,
-  FolderArchive,
+  FolderOpen,
   Download,
   Trash2,
   UserCog,
@@ -49,6 +50,7 @@ const ICON_MAP: Record<string, LucideIcon> = {
   Cpu,
   ChevronDown,
   LogOut,
+  Coins,
 };
 
 type NavIconProps = {

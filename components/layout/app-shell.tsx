@@ -9,7 +9,6 @@ import { getSupabaseBrowserClient } from "@/lib/supabase";
 import { appConfig, getLogoUrl } from "@/lib/config";
 import { CurrencySwitcher } from "@/components/CurrencySwitcher";
 import { logError, logInfo } from "@/lib/logger";
-import type { ShellRailVisibility } from "@/lib/navigation/shell-visibility";
 import { ErpNavSidebar } from "./app-shell/ErpNavSidebar";
 import { getNavContextLabelFromPath } from "@/lib/constants/nav-context";
 
@@ -19,7 +18,6 @@ type AppShellProps = {
   userRole: string;
   departmentKey: string | null;
   isSuperAdmin?: boolean;
-  shellRail: ShellRailVisibility;
   pendingApprovalsCount?: number;
   children: React.ReactNode;
 };
@@ -30,7 +28,6 @@ export function AppShell({
   userRole,
   departmentKey,
   isSuperAdmin = false,
-  shellRail,
   pendingApprovalsCount = 0,
   children,
 }: AppShellProps) {
@@ -58,8 +55,6 @@ export function AppShell({
   const sidebarProps = {
     userDisplayName,
     userRole,
-    isSuperAdmin,
-    shellRail,
     pendingApprovalsCount,
     onLogout: handleLogout,
     onCollapsedChange: setSidebarCollapsed,

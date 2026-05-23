@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getActivityLogsMonitoring } from "@/lib/server/activity-logs";
 import {
@@ -47,7 +48,7 @@ export type DashboardKpis = {
 // Main function — commerce KPI via B2.0 getVenteCommerceKpis (lifecycle validated).
 // ---------------------------------------------------------------------------
 
-export async function getDashboardKpis(): Promise<DashboardKpis> {
+export const getDashboardKpis = cache(async (): Promise<DashboardKpis> => {
   const supabase = getSupabaseServerClient();
 
   const [commerce, recentLogsRes, monitoring] = await Promise.all([
@@ -106,4 +107,4 @@ export async function getDashboardKpis(): Promise<DashboardKpis> {
     salesLast7Days: commerce.salesLast7Days,
     recentActivity,
   };
-}
+});

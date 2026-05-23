@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { getServerSessionUser } from "@/lib/server/auth-session";
+import { getProfileShellSliceFromRow } from "@/lib/server/profile-row";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 
 // ---------------------------------------------------------------------------
@@ -90,56 +90,10 @@ export type ProfileShellSlice = {
   preferredLanguage: string | null;
 };
 
-function resolveProfileDisplayName(
-  data: { first_name: string | null; last_name: string | null; email: string | null } | null,
-  sessionEmail?: string | null,
-): string {
-  if (!data) {
-    const emailLabel = displayNameFromEmail(sessionEmail);
-    return emailLabel || "Compte";
-  }
-
-  const fullName = profileDisplayNameOrFallback(data.first_name, data.last_name).trim();
-  if (fullName) return fullName;
-
-  const emailLabel = displayNameFromEmail(data.email);
-  if (emailLabel) return emailLabel;
-
-  return "Compte";
-}
-
-/** Nom + langue préférée — une requête profiles (layout shell). */
-export const getCachedProfileShellSlice = cache(async (userId: string): Promise<ProfileShellSlice> => {
-  try {
-    const supabase = getSupabaseServerClient();
-    const { data, error } = await supabase
-      .from("profiles")
-      .select("first_name, last_name, email, preferred_language")
-      .eq("id", userId)
-      .is("deleted_at", null)
-      .maybeSingle();
-
-    if (error || !data) {
-      const sessionUser = await getServerSessionUser();
-      return {
-        displayName: resolveProfileDisplayName(null, sessionUser?.email),
-        preferredLanguage: null,
-      };
-    }
-
-    const preferredLanguage =
-      data.preferred_language != null
-        ? String(data.preferred_language).trim().toLowerCase() || null
-        : null;
-
-    return {
-      displayName: resolveProfileDisplayName(data),
-      preferredLanguage,
-    };
-  } catch {
-    return { displayName: "Compte", preferredLanguage: null };
-  }
-});
+/** Nom + langue préférée — délégué à getCachedProfileRow (layout shell). */
+export const getCachedProfileShellSlice = cache(
+  async (userId: string): Promise<ProfileShellSlice> => getProfileShellSliceFromRow(userId),
+);
 
 export const getCachedProfileDisplayName = cache(async (userId: string): Promise<string> => {
   const slice = await getCachedProfileShellSlice(userId);

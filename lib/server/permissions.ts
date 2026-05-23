@@ -1,9 +1,17 @@
 import { cache } from "react";
-import { getSupervisionScope, hasAdminConsoleAccess, type SupervisionScope } from "@/lib/auth/permissions";
+import { hasAdminConsoleAccess } from "@/lib/auth/permissions";
+import type { SupervisionScope } from "@/lib/auth/permissions";
 import { normalizeRoleKey } from "@/lib/auth/roles";
 import { DEPARTMENT_KEYS, normalizeDepartmentKey } from "@/lib/departments/department-config";
+import { getCachedProfileRow } from "@/lib/server/profile-row";
+import {
+  SHELL_LAYOUT_MODULE_KEYS,
+  aggregatePermissionsForModuleKeys,
+} from "@/lib/server/shell-permission-helpers";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { logError } from "@/lib/logger";
+
+export { SHELL_LAYOUT_MODULE_KEYS, aggregatePermissionsForModuleKeys } from "@/lib/server/shell-permission-helpers";
 
 export type ClientsPermissions = {
   canRead: boolean;
@@ -19,10 +27,22 @@ export type CanonicalRole = "admin" | "manager" | "agent";
 type PermissionAction = "read" | "create" | "update" | "delete";
 
 type PermissionRow = {
+  module_key?: string;
   can_read: boolean;
   can_create: boolean;
   can_update: boolean;
   can_delete: boolean;
+};
+
+export type ShellLayoutPermissions = {
+  clients: ModulePermissions;
+  products: ModulePermissions;
+  finance: ModulePermissions;
+  rh: ModulePermissions;
+  logistics: ModulePermissions;
+  formation: ModulePermissions;
+  marketing: ModulePermissions;
+  crm: ModulePermissions;
 };
 
 /** Default: deny all */
@@ -31,6 +51,17 @@ const DENY_ALL: ModulePermissions = {
   canCreate: false,
   canUpdate: false,
   canDelete: false,
+};
+
+const DENY_ALL_SHELL: ShellLayoutPermissions = {
+  clients: DENY_ALL,
+  products: DENY_ALL,
+  finance: DENY_ALL,
+  rh: DENY_ALL,
+  logistics: DENY_ALL,
+  formation: DENY_ALL,
+  marketing: DENY_ALL,
+  crm: DENY_ALL,
 };
 
 function canDoAction(
@@ -72,51 +103,56 @@ export type ProfileAuthBrief = {
  * Contexte d’autorisation profil (rôle générique + département) — une requête par cycle RSC.
  */
 export const getProfileAuthBrief = cache(async (userId: string): Promise<ProfileAuthBrief> => {
-  const supabase = getSupabaseServerClient();
-
-  const { data, error } = await supabase
-    .from("profiles")
-    .select("role_key, department_key, department_id")
-    .eq("id", userId)
-    .is("deleted_at", null)
-    .maybeSingle();
-
-  if (error) {
-    logError("auth", "getProfileAuthBrief error", { error: error.message, userId });
-    return {
-      roleKey: null,
-      departmentKey: null,
-      departmentId: null,
-      ok: false,
-      supervisionScope: "restricted",
-    };
-  }
-
-  if (!data?.role_key || !String(data.role_key).trim()) {
-    return {
-      roleKey: null,
-      departmentKey: null,
-      departmentId: null,
-      ok: true,
-      supervisionScope: getSupervisionScope(null, null),
-    };
-  }
-
-  const departmentId =
-    data.department_id != null ? String(data.department_id).trim() || null : null;
-
-  const roleKey = String(data.role_key).trim();
-  const departmentKey =
-    data.department_key != null ? String(data.department_key).trim() || null : null;
-
+  const row = await getCachedProfileRow(userId);
   return {
-    roleKey,
-    departmentKey,
-    departmentId,
-    ok: true,
-    supervisionScope: getSupervisionScope(roleKey, departmentKey),
+    roleKey: row.roleKey,
+    departmentKey: row.departmentKey,
+    departmentId: row.departmentId,
+    ok: row.ok,
+    supervisionScope: row.supervisionScope,
   };
 });
+
+/**
+ * Permissions shell — une requête `permissions` pour tous les modules navigation.
+ */
+export const getShellLayoutPermissions = cache(
+  async (userId: string): Promise<ShellLayoutPermissions> => {
+    if (!userId?.trim()) return DENY_ALL_SHELL;
+
+    const brief = await getProfileAuthBrief(userId);
+    if (!brief.ok || !brief.roleKey) return DENY_ALL_SHELL;
+
+    const supabase = getSupabaseServerClient();
+    const { data, error } = await supabase
+      .from("permissions")
+      .select("module_key,can_create,can_read,can_update,can_delete")
+      .eq("role_key", brief.roleKey)
+      .in("module_key", [...SHELL_LAYOUT_MODULE_KEYS])
+      .is("deleted_at", null);
+
+    if (error) {
+      logError("auth", "getShellLayoutPermissions error", {
+        error: error.message,
+        userId,
+      });
+      return DENY_ALL_SHELL;
+    }
+
+    const rows = (data ?? []) as PermissionRow[];
+
+    return {
+      clients: aggregatePermissionsForModuleKeys(rows, ["clients", "vente"]),
+      products: aggregatePermissionsForModuleKeys(rows, ["produits", "vente"]),
+      finance: aggregatePermissionsForModuleKeys(rows, ["finance"]),
+      rh: aggregatePermissionsForModuleKeys(rows, ["rh"]),
+      logistics: aggregatePermissionsForModuleKeys(rows, ["logistics"]),
+      formation: aggregatePermissionsForModuleKeys(rows, ["formation", "consultation"]),
+      marketing: aggregatePermissionsForModuleKeys(rows, ["marketing"]),
+      crm: aggregatePermissionsForModuleKeys(rows, ["crm"]),
+    };
+  },
+);
 
 const getModulePermissionsMemo = cache(
   async (userId: string, sortedModulesKey: string): Promise<ModulePermissions> => {

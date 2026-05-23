@@ -8,15 +8,9 @@ import {
   type ShellRailVisibility,
 } from "@/lib/navigation/shell-visibility";
 import { getServerSessionUser } from "@/lib/server/auth-session";
-import {
-  getClientsPermissions,
-  getModulePermissions,
-  getProfileAuthBrief,
-} from "@/lib/server/permissions";
-import {
-  avatarInitialFromDisplayName,
-  getCachedProfileShellSlice,
-} from "@/lib/server/profile-display";
+import { getShellLayoutPermissions } from "@/lib/server/permissions";
+import { getCachedProfileRow } from "@/lib/server/profile-row";
+import { avatarInitialFromDisplayName } from "@/lib/server/profile-display";
 
 export const getLayoutAccess = cache(async () => {
   const user = await getServerSessionUser();
@@ -26,53 +20,30 @@ export const getLayoutAccess = cache(async () => {
   }
 
   const userId = user.id;
+  const profile = await getCachedProfileRow(userId);
+  const isSuperAdminProfile = profile.roleKey === ROLE_KEYS.SUPER_ADMIN;
 
-  const [authBrief, profileShell] = await Promise.all([
-    getProfileAuthBrief(userId),
-    getCachedProfileShellSlice(userId),
-  ]);
-  const isSuperAdminProfile = authBrief.roleKey === ROLE_KEYS.SUPER_ADMIN;
-  const userDisplayName = profileShell.displayName;
+  const shellPerms = isSuperAdminProfile
+    ? null
+    : await getShellLayoutPermissions(userId);
 
-  const [
-    permissions,
-    productsPermissions,
-    financePermissions,
-    rhPermissions,
-    logisticsPermissions,
-    formationPermissions,
-    marketingPermissions,
-    crmPermissions,
-  ] = await Promise.all([
-    isSuperAdminProfile
-      ? Promise.resolve({ canRead: false, canCreate: false, canUpdate: false, canDelete: false })
-      : getClientsPermissions(userId),
-    isSuperAdminProfile
-      ? Promise.resolve({ canRead: false, canCreate: false, canUpdate: false, canDelete: false })
-      : getModulePermissions(userId, ["produits", "vente"]),
-    isSuperAdminProfile
-      ? Promise.resolve({ canRead: false, canCreate: false, canUpdate: false, canDelete: false })
-      : getModulePermissions(userId, ["finance"]),
-    isSuperAdminProfile
-      ? Promise.resolve({ canRead: false, canCreate: false, canUpdate: false, canDelete: false })
-      : getModulePermissions(userId, ["rh"]),
-    isSuperAdminProfile
-      ? Promise.resolve({ canRead: false, canCreate: false, canUpdate: false, canDelete: false })
-      : getModulePermissions(userId, ["logistics"]),
-    isSuperAdminProfile
-      ? Promise.resolve({ canRead: false, canCreate: false, canUpdate: false, canDelete: false })
-      : getModulePermissions(userId, ["formation", "consultation"]),
-    isSuperAdminProfile
-      ? Promise.resolve({ canRead: false, canCreate: false, canUpdate: false, canDelete: false })
-      : getModulePermissions(userId, ["marketing"]),
-    isSuperAdminProfile
-      ? Promise.resolve({ canRead: false, canCreate: false, canUpdate: false, canDelete: false })
-      : getModulePermissions(userId, ["crm"]),
-  ]);
+  const permissions = shellPerms?.clients ?? {
+    canRead: false,
+    canCreate: false,
+    canUpdate: false,
+    canDelete: false,
+  };
+  const productsPermissions = shellPerms?.products ?? permissions;
+  const financePermissions = shellPerms?.finance ?? permissions;
+  const rhPermissions = shellPerms?.rh ?? permissions;
+  const logisticsPermissions = shellPerms?.logistics ?? permissions;
+  const formationPermissions = shellPerms?.formation ?? permissions;
+  const marketingPermissions = shellPerms?.marketing ?? permissions;
+  const crmPermissions = shellPerms?.crm ?? permissions;
 
   const shellInput = {
-    roleKey: authBrief.roleKey,
-    departmentKey: authBrief.departmentKey,
+    roleKey: profile.roleKey,
+    departmentKey: profile.departmentKey,
     canReadClients: permissions.canRead,
     canReadProducts: productsPermissions.canRead,
     canReadFinance: financePermissions.canRead,
@@ -87,17 +58,17 @@ export const getLayoutAccess = cache(async () => {
   const rail: ShellRailVisibility = resolveShellRailVisibility(shellInput);
 
   const isSuperAdminUser =
-    effectiveAuthRoleKey(authBrief.roleKey) === ROLE_KEYS.SUPER_ADMIN;
+    effectiveAuthRoleKey(profile.roleKey) === ROLE_KEYS.SUPER_ADMIN;
 
   const canReadActivityLogs =
     isSuperAdminUser ||
-    hasAdminConsoleAccess(authBrief.roleKey, authBrief.departmentKey);
+    hasAdminConsoleAccess(profile.roleKey, profile.departmentKey);
 
   return {
-    userDisplayName,
-    userAvatarInitial: avatarInitialFromDisplayName(userDisplayName),
-    roleKey: authBrief.roleKey,
-    departmentKey: authBrief.departmentKey,
+    userDisplayName: profile.displayName,
+    userAvatarInitial: avatarInitialFromDisplayName(profile.displayName),
+    roleKey: profile.roleKey,
+    departmentKey: profile.departmentKey,
     canReadClients: permissions.canRead,
     canReadProducts: productsPermissions.canRead,
     canReadFinance: financePermissions.canRead,
@@ -112,7 +83,7 @@ export const getLayoutAccess = cache(async () => {
     isSuperAdmin: isSuperAdminUser,
     shellRail: rail,
     shell,
-    preferredLanguage: profileShell.preferredLanguage,
+    preferredLanguage: profile.preferredLanguage,
     canArchiveClients: permissions.canRead && permissions.canDelete,
     canArchiveProduits: productsPermissions.canRead && productsPermissions.canDelete,
   };

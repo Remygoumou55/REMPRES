@@ -14,6 +14,9 @@ const BUNDLES = [
   "settings",
 ] as const;
 
+/** Sous-ensemble pour le layout shell (moins de JSON à parser par navigation). */
+export const SHELL_I18N_BUNDLES = ["common", "navigation", "errors"] as const;
+
 const LOCALE_BUNDLE_LOADERS: Record<AppLocale, Record<(typeof BUNDLES)[number], () => Promise<{ default: MessageDict }>>> = {
   fr: {
     common: () => import("@/messages/fr/common.json"),
@@ -68,11 +71,22 @@ async function importBundle(locale: AppLocale, bundle: (typeof BUNDLES)[number])
   }
 }
 
+async function loadBundles(locale: AppLocale, bundles: readonly (typeof BUNDLES)[number][]) {
+  const all = await Promise.all(bundles.map((bundle) => importBundle(locale, bundle)));
+  return Object.assign({}, ...all) as MessageDict;
+}
+
+/** Layout ERP — 3 bundles au lieu de 8 (common + navigation + errors). */
+export const loadShellLocaleMessages = cache(async (inputLocale: string | null | undefined) => {
+  const locale = normalizeLocale(inputLocale);
+  const messages = await loadBundles(locale, SHELL_I18N_BUNDLES);
+  return { locale, messages };
+});
+
 export const loadLocaleMessages = cache(async (inputLocale: string | null | undefined) => {
   const locale = normalizeLocale(inputLocale);
-  const all = await Promise.all(BUNDLES.map((bundle) => importBundle(locale, bundle)));
-  const merged = Object.assign({}, ...all) as MessageDict;
-  return { locale, messages: merged };
+  const messages = await loadBundles(locale, BUNDLES);
+  return { locale, messages };
 });
 
 export function translateFromDict(messages: MessageDict, key: string, fallback?: string): string {

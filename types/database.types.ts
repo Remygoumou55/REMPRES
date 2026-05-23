@@ -292,6 +292,7 @@ export type Database = {
             | "archive"
             | "invitation"
             | "governance"
+            | "event"
             | "security"
             | "system";
           severity: "informational" | "warning" | "critical" | "security";
@@ -317,6 +318,7 @@ export type Database = {
             | "archive"
             | "invitation"
             | "governance"
+            | "event"
             | "security"
             | "system";
           severity: "informational" | "warning" | "critical" | "security";
@@ -342,6 +344,7 @@ export type Database = {
             | "archive"
             | "invitation"
             | "governance"
+            | "event"
             | "security"
             | "system";
           severity?: "informational" | "warning" | "critical" | "security";

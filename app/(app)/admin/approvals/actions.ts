@@ -8,6 +8,10 @@ import { tryLogAuditEvent } from "@/lib/audit/audit-logger";
 import { AUDIT_EVENT_TYPES } from "@/lib/audit/audit-events";
 import { tryCreateAlert } from "@/lib/governance/alerts/create-alert";
 import { tryLogGovernanceAuditEvent } from "@/lib/governance/audit/log-audit-event";
+import {
+  emitApprovalRequestApproved,
+  emitApprovalRequestRejected,
+} from "@/lib/erp-core/events/integrations/approval-events";
 
 async function assertSuperAdminActor(): Promise<string> {
   const supabase = getSupabaseServerClient();
@@ -18,12 +22,32 @@ async function assertSuperAdminActor(): Promise<string> {
   return data.user.id;
 }
 
+async function loadApprovalMeta(requestId: string) {
+  const supabase = getSupabaseServerClient();
+  const { data } = await supabase
+    .from("approval_requests")
+    .select("department_key, action_type")
+    .eq("id", requestId)
+    .maybeSingle();
+  return {
+    departmentKey: String(data?.department_key ?? "UNKNOWN"),
+    actionType: data?.action_type ?? null,
+  };
+}
+
 export async function approveRequestAction(requestId: string): Promise<void> {
   const approverUserId = await assertSuperAdminActor();
   await decideApprovalRequest({
     requestId,
     status: "approved",
     approverUserId,
+  });
+  const meta = await loadApprovalMeta(requestId);
+  await emitApprovalRequestApproved({
+    approverUserId,
+    departmentKey: meta.departmentKey,
+    requestId,
+    mutationAction: meta.actionType,
   });
   await tryLogAuditEvent({
     eventType: AUDIT_EVENT_TYPES.APPROVAL_GRANTED,
@@ -68,6 +92,13 @@ export async function rejectRequestAction(
     requestId,
     status: "rejected",
     approverUserId,
+    rejectionReason: rejectionReason ?? null,
+  });
+  const meta = await loadApprovalMeta(requestId);
+  await emitApprovalRequestRejected({
+    approverUserId,
+    departmentKey: meta.departmentKey,
+    requestId,
     rejectionReason: rejectionReason ?? null,
   });
   await tryLogAuditEvent({

@@ -2,6 +2,8 @@
  * B3 — Registre mutations Finance (contrat B2.4 ; implémentations métier = phases ultérieures).
  */
 
+import { assertErpMutationApprovalGate } from "@/lib/erp-core/approval/mutation-gate";
+import { FINANCE_DEPARTMENT_KEY } from "@/modules/finance/constants/module-keys";
 import { assertFinanceRuntimeWriteAccess } from "@/lib/finance/runtime/finance-runtime-security";
 
 export const FINANCE_WRITE_ACTIONS = {
@@ -45,14 +47,42 @@ export const FINANCE_WRITE_ACTION_REGISTRY: Record<
   },
 };
 
+export type FinanceWriteApprovalContext = {
+  entityType: string;
+  entityId: string;
+  amountGnf?: number | null;
+  reason?: string | null;
+  metadata?: Record<string, unknown>;
+};
+
 export async function assertFinanceWriteActionAllowed(
   userId: string,
   action: FinanceWriteAction,
   permission: "create" | "update" | "delete" = "update",
+  approvalContext?: FinanceWriteApprovalContext,
 ): Promise<void> {
   await assertFinanceRuntimeWriteAccess(userId, permission);
   const rule = FINANCE_WRITE_ACTION_REGISTRY[action];
   if (!rule.enabled) {
     throw new Error(`finance:write_not_enabled:${action}`);
+  }
+
+  if (rule.requiresApproval) {
+    if (!approvalContext?.entityId?.trim()) {
+      throw new Error("finance:approval_context_required");
+    }
+    await assertErpMutationApprovalGate({
+      userId,
+      departmentKey: FINANCE_DEPARTMENT_KEY,
+      mutationAction: action,
+      registryRequiresApproval: rule.requiresApproval,
+      approvalContext: {
+        entityType: approvalContext.entityType,
+        entityId: approvalContext.entityId,
+        amountGnf: approvalContext.amountGnf,
+        reason: approvalContext.reason,
+        metadata: approvalContext.metadata,
+      },
+    });
   }
 }

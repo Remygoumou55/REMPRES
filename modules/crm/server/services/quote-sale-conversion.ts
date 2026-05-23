@@ -11,7 +11,15 @@ import {
   assertQuoteSaleOrchestrationReady,
   type QuoteSaleOrchestrationInput,
 } from "@/lib/vente/runtime/quote-sale-orchestration";
+import { CRM_APPROVAL_ENTITY_TYPES } from "@/modules/crm/constants/approval-entities";
+import {
+  emitCrmQuoteConvertRequested,
+  emitCrmQuoteConverted,
+  emitRuntimeOrchestrationFailed,
+} from "@/lib/erp-core/events/integrations/crm-events";
 import { recordCrmGovernanceAudit } from "@/modules/crm/server/services/crm-audit-hook";
+
+const QUOTE_CONVERT_ORCHESTRATION = "crm.quote.convert_sale" as const;
 
 export type ConvertCrmQuoteToSaleInput = {
   quoteId: string;
@@ -29,8 +37,6 @@ export async function convertCrmQuoteToSale(
   userId: string,
   input: ConvertCrmQuoteToSaleInput,
 ): Promise<ConvertCrmQuoteToSaleResult> {
-  await assertCrmWriteActionAllowed(userId, CRM_WRITE_ACTIONS.QUOTE_CONVERT_SALE, "update");
-
   const quoteId = input.quoteId.trim();
   if (!quoteId) throw new Error("Devis invalide.");
 
@@ -38,13 +44,27 @@ export async function convertCrmQuoteToSale(
 
   const { data: beforeQuote, error: loadErr } = await supabase
     .from("crm_quotes")
-    .select("id,status,sale_id,client_id,opportunity_id")
+    .select("id,status,sale_id,client_id,opportunity_id,total_amount_gnf")
     .eq("id", quoteId)
     .is("deleted_at", null)
     .maybeSingle();
 
   if (loadErr) throw new Error(loadErr.message);
   if (!beforeQuote) throw new Error("Devis introuvable.");
+
+  await emitCrmQuoteConvertRequested({
+    actorUserId: userId,
+    quoteId,
+    amountGnf: Number(beforeQuote.total_amount_gnf ?? 0),
+  });
+
+  await assertCrmWriteActionAllowed(userId, CRM_WRITE_ACTIONS.QUOTE_CONVERT_SALE, "update", {
+    entityType: CRM_APPROVAL_ENTITY_TYPES.quote,
+    entityId: quoteId,
+    amountGnf: Number(beforeQuote.total_amount_gnf ?? 0),
+    reason: "Conversion devis accepté en vente",
+    metadata: { payment_method: input.paymentMethod ?? "cash" },
+  });
   if (beforeQuote.status !== "accepted") {
     throw new Error("Seuls les devis au statut « accepted » peuvent être convertis en vente.");
   }
@@ -63,7 +83,15 @@ export async function convertCrmQuoteToSale(
 
   if (rpcError) {
     const detail = (rpcError as { details?: string }).details ?? rpcError.message;
-    throw new Error(detail || rpcError.message);
+    const message = detail || rpcError.message;
+    await emitRuntimeOrchestrationFailed({
+      actorUserId: userId,
+      quoteId,
+      failureCode: "rpc_error",
+      message,
+      orchestration: QUOTE_CONVERT_ORCHESTRATION,
+    });
+    throw new Error(message);
   }
 
   const payload = rpcData as {
@@ -73,7 +101,16 @@ export async function convertCrmQuoteToSale(
   };
 
   const saleId = String(payload.sale_id ?? "");
-  if (!saleId) throw new Error("Réponse de conversion invalide.");
+  if (!saleId) {
+    await emitRuntimeOrchestrationFailed({
+      actorUserId: userId,
+      quoteId,
+      failureCode: "invalid_rpc_payload",
+      message: "Réponse de conversion invalide.",
+      orchestration: QUOTE_CONVERT_ORCHESTRATION,
+    });
+    throw new Error("Réponse de conversion invalide.");
+  }
 
   const orchestrationCheck: QuoteSaleOrchestrationInput = {
     quoteId,
@@ -83,7 +120,19 @@ export async function convertCrmQuoteToSale(
     saleCrmQuoteId: quoteId,
     saleLifecycleStatus: payload.sale?.lifecycle_status ?? "validated",
   };
-  assertQuoteSaleOrchestrationReady(orchestrationCheck);
+  try {
+    assertQuoteSaleOrchestrationReady(orchestrationCheck);
+  } catch (e) {
+    const message = e instanceof Error ? e.message : String(e);
+    await emitRuntimeOrchestrationFailed({
+      actorUserId: userId,
+      quoteId,
+      failureCode: "orchestration_assert_failed",
+      message,
+      orchestration: QUOTE_CONVERT_ORCHESTRATION,
+    });
+    throw e;
+  }
 
   await recordCrmGovernanceAudit({
     actionType: CRM_WRITE_ACTIONS.QUOTE_CONVERT_SALE,
@@ -92,6 +141,13 @@ export async function convertCrmQuoteToSale(
     beforeSnapshot: { status: beforeQuote.status, sale_id: beforeQuote.sale_id },
     afterSnapshot: { status: "converted", sale_id: saleId },
     metadata: { payment_method: paymentMethod },
+  });
+
+  await emitCrmQuoteConverted({
+    actorUserId: userId,
+    quoteId,
+    saleId,
+    saleReference: payload.sale?.reference ?? null,
   });
 
   return {

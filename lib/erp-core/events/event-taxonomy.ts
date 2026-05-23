@@ -1,0 +1,100 @@
+/**
+ * B3.2 — Taxonomie et naming lock (`domain.entity.action`).
+ */
+
+import type { ErpEventFamily, ErpEventSensitivity } from "@/lib/erp-core/events/event-contracts";
+
+export const ERP_EVENT_TYPE_PATTERN = /^[a-z][a-z0-9_]*\.[a-z][a-z0-9_]*\.[a-z][a-z0-9_]+$/;
+
+/** Catalogue officiel — extensions via amendement B3.2.x uniquement. */
+export const OFFICIAL_ERP_EVENT_TYPES = {
+  APPROVAL_REQUEST_CREATED: "approval.request.created",
+  APPROVAL_REQUEST_APPROVED: "approval.request.approved",
+  APPROVAL_REQUEST_REJECTED: "approval.request.rejected",
+  APPROVAL_GATE_GRANTED: "approval.gate.granted",
+  MUTATION_BLOCKED_PENDING: "mutation.blocked.pending",
+  CRM_QUOTE_CONVERTED: "crm.quote.converted",
+  CRM_QUOTE_CONVERT_REQUESTED: "crm.quote.convert_requested",
+  FINANCE_TRANSACTION_RECORDED: "finance.transaction.recorded",
+  SYSTEM_AUDIT_RECORDED: "system.audit.recorded",
+  RUNTIME_ORCHESTRATION_COMPLETED: "runtime.orchestration.completed",
+  RUNTIME_ORCHESTRATION_FAILED: "runtime.orchestration.failed",
+} as const;
+
+export type OfficialErpEventType =
+  (typeof OFFICIAL_ERP_EVENT_TYPES)[keyof typeof OFFICIAL_ERP_EVENT_TYPES];
+
+const EVENT_META: Record<
+  OfficialErpEventType,
+  { family: ErpEventFamily; sensitivity: ErpEventSensitivity; owner: string }
+> = {
+  [OFFICIAL_ERP_EVENT_TYPES.APPROVAL_REQUEST_CREATED]: {
+    family: "approval",
+    sensitivity: "internal",
+    owner: "approval-engine",
+  },
+  [OFFICIAL_ERP_EVENT_TYPES.APPROVAL_REQUEST_APPROVED]: {
+    family: "approval",
+    sensitivity: "internal",
+    owner: "approval-engine",
+  },
+  [OFFICIAL_ERP_EVENT_TYPES.APPROVAL_REQUEST_REJECTED]: {
+    family: "approval",
+    sensitivity: "internal",
+    owner: "approval-engine",
+  },
+  [OFFICIAL_ERP_EVENT_TYPES.APPROVAL_GATE_GRANTED]: {
+    family: "approval",
+    sensitivity: "internal",
+    owner: "approval-engine",
+  },
+  [OFFICIAL_ERP_EVENT_TYPES.MUTATION_BLOCKED_PENDING]: {
+    family: "mutation",
+    sensitivity: "internal",
+    owner: "mutation-gate",
+  },
+  [OFFICIAL_ERP_EVENT_TYPES.CRM_QUOTE_CONVERTED]: {
+    family: "domain",
+    sensitivity: "internal",
+    owner: "vente-crm",
+  },
+  [OFFICIAL_ERP_EVENT_TYPES.CRM_QUOTE_CONVERT_REQUESTED]: {
+    family: "mutation",
+    sensitivity: "internal",
+    owner: "vente-crm",
+  },
+  [OFFICIAL_ERP_EVENT_TYPES.FINANCE_TRANSACTION_RECORDED]: {
+    family: "domain",
+    sensitivity: "restricted",
+    owner: "finance",
+  },
+  [OFFICIAL_ERP_EVENT_TYPES.SYSTEM_AUDIT_RECORDED]: {
+    family: "audit",
+    sensitivity: "restricted",
+    owner: "governance",
+  },
+  [OFFICIAL_ERP_EVENT_TYPES.RUNTIME_ORCHESTRATION_COMPLETED]: {
+    family: "runtime",
+    sensitivity: "internal",
+    owner: "runtime",
+  },
+  [OFFICIAL_ERP_EVENT_TYPES.RUNTIME_ORCHESTRATION_FAILED]: {
+    family: "runtime",
+    sensitivity: "internal",
+    owner: "runtime",
+  },
+};
+
+export function assertValidEventType(type: string): void {
+  if (!ERP_EVENT_TYPE_PATTERN.test(type)) {
+    throw new Error(`erp_event:invalid_type_format:${type}`);
+  }
+}
+
+export function resolveOfficialEventMeta(type: OfficialErpEventType) {
+  return EVENT_META[type];
+}
+
+export function isOfficialEventType(type: string): type is OfficialErpEventType {
+  return Object.values(OFFICIAL_ERP_EVENT_TYPES).includes(type as OfficialErpEventType);
+}

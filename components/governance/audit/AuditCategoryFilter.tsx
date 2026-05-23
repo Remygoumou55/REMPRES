@@ -12,6 +12,7 @@ export function AuditCategoryFilter({
     "archive",
     "invitation",
     "governance",
+    "event",
     "security",
     "system",
   ];

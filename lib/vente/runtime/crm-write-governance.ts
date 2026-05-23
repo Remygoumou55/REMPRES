@@ -2,6 +2,8 @@
  * B2.0 — Gouvernance chemins d'écriture CRM (contrat B2.1, pas de build métier ici).
  */
 
+import { assertErpMutationApprovalGate } from "@/lib/erp-core/approval/mutation-gate";
+import { CRM_DEPARTMENT_KEY } from "@/modules/crm/constants/module-keys";
 import { assertCrmRuntimeWriteAccess } from "@/lib/vente/runtime/vente-runtime-security";
 
 export const CRM_WRITE_ACTIONS = {
@@ -76,11 +78,20 @@ export const CRM_WRITE_ACTION_REGISTRY: Record<
   },
 };
 
+export type CrmWriteApprovalContext = {
+  entityType: string;
+  entityId: string;
+  amountGnf?: number | null;
+  reason?: string | null;
+  metadata?: Record<string, unknown>;
+};
+
 export type CrmWriteGateResult = {
   action: CrmWriteAction;
   userId: string;
   allowed: boolean;
   requiresApproval: boolean;
+  approvalGranted: boolean;
 };
 
 /**
@@ -91,6 +102,7 @@ export async function assertCrmWriteActionAllowed(
   userId: string,
   action: CrmWriteAction,
   permission: "create" | "update" | "delete" = "update",
+  approvalContext?: CrmWriteApprovalContext,
 ): Promise<CrmWriteGateResult> {
   await assertCrmRuntimeWriteAccess(userId, permission);
 
@@ -99,10 +111,33 @@ export async function assertCrmWriteActionAllowed(
     throw new Error(`crm:write_not_enabled:${action}`);
   }
 
+  let approvalGranted = !rule.requiresApproval;
+
+  if (rule.requiresApproval) {
+    if (!approvalContext?.entityId?.trim()) {
+      throw new Error("crm:approval_context_required");
+    }
+    const decision = await assertErpMutationApprovalGate({
+      userId,
+      departmentKey: CRM_DEPARTMENT_KEY,
+      mutationAction: action,
+      registryRequiresApproval: rule.requiresApproval,
+      approvalContext: {
+        entityType: approvalContext.entityType,
+        entityId: approvalContext.entityId,
+        amountGnf: approvalContext.amountGnf,
+        reason: approvalContext.reason,
+        metadata: approvalContext.metadata,
+      },
+    });
+    approvalGranted = decision.granted;
+  }
+
   return {
     action,
     userId,
     allowed: true,
     requiresApproval: rule.requiresApproval,
+    approvalGranted,
   };
 }

@@ -5,6 +5,7 @@ export type GovernanceAuditCategory =
   | "archive"
   | "invitation"
   | "governance"
+  | "event"
   | "security"
   | "system";
 

@@ -12,3 +12,4 @@ export * from "@/lib/erp-core/governance/standard/orchestration-standard";
 export * from "@/lib/erp-core/governance/standard/cockpit-standard";
 export * from "@/lib/erp-core/governance/standard/vente-reference-implementation";
 export * from "@/lib/erp-core/governance/standard/finance-reference-implementation";
+export * from "@/lib/erp-core/governance/standard/event-bus-reference";

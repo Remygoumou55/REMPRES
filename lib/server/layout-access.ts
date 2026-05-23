@@ -15,9 +15,8 @@ import {
 } from "@/lib/server/permissions";
 import {
   avatarInitialFromDisplayName,
-  getCachedProfileDisplayName,
+  getCachedProfileShellSlice,
 } from "@/lib/server/profile-display";
-import { getSupabaseServerClient } from "@/lib/supabaseServer";
 
 export const getLayoutAccess = cache(async () => {
   const user = await getServerSessionUser();
@@ -27,8 +26,13 @@ export const getLayoutAccess = cache(async () => {
   }
 
   const userId = user.id;
-  const authBrief = await getProfileAuthBrief(userId);
+
+  const [authBrief, profileShell] = await Promise.all([
+    getProfileAuthBrief(userId),
+    getCachedProfileShellSlice(userId),
+  ]);
   const isSuperAdminProfile = authBrief.roleKey === ROLE_KEYS.SUPER_ADMIN;
+  const userDisplayName = profileShell.displayName;
 
   const [
     permissions,
@@ -39,8 +43,6 @@ export const getLayoutAccess = cache(async () => {
     formationPermissions,
     marketingPermissions,
     crmPermissions,
-    userDisplayName,
-    preferredLanguageRes,
   ] = await Promise.all([
     isSuperAdminProfile
       ? Promise.resolve({ canRead: false, canCreate: false, canUpdate: false, canDelete: false })
@@ -66,13 +68,6 @@ export const getLayoutAccess = cache(async () => {
     isSuperAdminProfile
       ? Promise.resolve({ canRead: false, canCreate: false, canUpdate: false, canDelete: false })
       : getModulePermissions(userId, ["crm"]),
-    getCachedProfileDisplayName(userId),
-    getSupabaseServerClient()
-      .from("profiles")
-      .select("preferred_language")
-      .eq("id", userId)
-      .is("deleted_at", null)
-      .maybeSingle(),
   ]);
 
   const shellInput = {
@@ -117,10 +112,7 @@ export const getLayoutAccess = cache(async () => {
     isSuperAdmin: isSuperAdminUser,
     shellRail: rail,
     shell,
-    preferredLanguage:
-      preferredLanguageRes.data?.preferred_language != null
-        ? String(preferredLanguageRes.data.preferred_language).trim().toLowerCase()
-        : null,
+    preferredLanguage: profileShell.preferredLanguage,
     canArchiveClients: permissions.canRead && permissions.canDelete,
     canArchiveProduits: productsPermissions.canRead && productsPermissions.canDelete,
   };

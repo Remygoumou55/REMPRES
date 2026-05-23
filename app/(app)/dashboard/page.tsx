@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getDashboardKpis } from "@/lib/server/dashboard-kpis";
-import { getCachedProfileDisplayName } from "@/lib/server/profile-display";
 import { getSuperAdminCockpitPayload } from "@/lib/server/super-admin-cockpit";
 import { SuperAdminCockpitClient } from "@/components/dashboard/super-admin-cockpit/SuperAdminCockpitClient";
 import { getLayoutAccess } from "@/lib/server/layout-access";
@@ -19,11 +18,7 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
-  const [access, kpis, userDisplayName] = await Promise.all([
-    getLayoutAccess(),
-    getDashboardKpis(),
-    getCachedProfileDisplayName(user.id),
-  ]);
+  const [access, kpis] = await Promise.all([getLayoutAccess(), getDashboardKpis()]);
 
   if (!access.isSuperAdmin) {
     redirect(resolvePostLoginRoute(access.roleKey, access.departmentKey));
@@ -32,7 +27,9 @@ export default async function DashboardPage() {
   const superAdminCockpit = await getSuperAdminCockpitPayload(user.id, { kpis });
 
   if (superAdminCockpit) {
-    return <SuperAdminCockpitClient userDisplayName={userDisplayName} payload={superAdminCockpit} />;
+    return (
+      <SuperAdminCockpitClient userDisplayName={access.userDisplayName} payload={superAdminCockpit} />
+    );
   }
 
   redirect("/login");

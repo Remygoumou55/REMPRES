@@ -85,37 +85,66 @@ export function avatarInitialFromDisplayName(
  *
  * Une seule requête DB par userId par rendu React (cache() dédoublonne).
  */
-export const getCachedProfileDisplayName = cache(
-  async (userId: string): Promise<string> => {
-    try {
-      const supabase = getSupabaseServerClient();
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("first_name, last_name, email")
-        .eq("id", userId)
-        .maybeSingle();
+export type ProfileShellSlice = {
+  displayName: string;
+  preferredLanguage: string | null;
+};
 
-      if (error || !data) {
-        const sessionUser = await getServerSessionUser();
-        const emailLabel = displayNameFromEmail(sessionUser?.email);
-        return emailLabel || "Compte";
-      }
+function resolveProfileDisplayName(
+  data: { first_name: string | null; last_name: string | null; email: string | null } | null,
+  sessionEmail?: string | null,
+): string {
+  if (!data) {
+    const emailLabel = displayNameFromEmail(sessionEmail);
+    return emailLabel || "Compte";
+  }
 
-      // 1. Nom complet
-      const fullName = profileDisplayNameOrFallback(data.first_name, data.last_name).trim();
-      if (fullName) return fullName;
+  const fullName = profileDisplayNameOrFallback(data.first_name, data.last_name).trim();
+  if (fullName) return fullName;
 
-      // 2. Email → nom lisible
-      const emailLabel = displayNameFromEmail(data.email);
-      if (emailLabel) return emailLabel;
+  const emailLabel = displayNameFromEmail(data.email);
+  if (emailLabel) return emailLabel;
 
-      // 3. Fallback ultime
-      return "Compte";
-    } catch {
-      return "Compte";
+  return "Compte";
+}
+
+/** Nom + langue préférée — une requête profiles (layout shell). */
+export const getCachedProfileShellSlice = cache(async (userId: string): Promise<ProfileShellSlice> => {
+  try {
+    const supabase = getSupabaseServerClient();
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("first_name, last_name, email, preferred_language")
+      .eq("id", userId)
+      .is("deleted_at", null)
+      .maybeSingle();
+
+    if (error || !data) {
+      const sessionUser = await getServerSessionUser();
+      return {
+        displayName: resolveProfileDisplayName(null, sessionUser?.email),
+        preferredLanguage: null,
+      };
     }
-  },
-);
+
+    const preferredLanguage =
+      data.preferred_language != null
+        ? String(data.preferred_language).trim().toLowerCase() || null
+        : null;
+
+    return {
+      displayName: resolveProfileDisplayName(data),
+      preferredLanguage,
+    };
+  } catch {
+    return { displayName: "Compte", preferredLanguage: null };
+  }
+});
+
+export const getCachedProfileDisplayName = cache(async (userId: string): Promise<string> => {
+  const slice = await getCachedProfileShellSlice(userId);
+  return slice.displayName;
+});
 
 // ---------------------------------------------------------------------------
 // Libellés en lot (archives, logs…)

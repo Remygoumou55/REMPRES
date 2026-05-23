@@ -18,9 +18,7 @@ export const NAV_ROUTE_ALIASES: Readonly<Record<string, string>> = {
 };
 
 /** Réécritures internes (URL navigateur inchangée). */
-export const NAV_ROUTE_REWRITES: Readonly<Record<string, string>> = {
-  "/actions/journaux": "/admin/activity-logs?surface=actions",
-};
+export const NAV_ROUTE_REWRITES: Readonly<Record<string, string>> = {};
 
 export function resolveNavRouteAlias(pathname: string): string | null {
   const normalized = pathname.startsWith("/") ? pathname : `/${pathname}`;

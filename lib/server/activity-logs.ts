@@ -23,6 +23,7 @@ export type ActivityLogsResult = {
 
 export type ActivityLogsFilters = {
   moduleKey?: string;
+  moduleKeysIn?: readonly string[];
   actionKey?: string;
   actorUserId?: string;
   targetId?: string;
@@ -64,6 +65,7 @@ const DAY = /^(\d{4}-\d{2}-\d{2})$/;
 
 type ActivityLogsQueryLike = {
   eq: (column: string, value: string) => ActivityLogsQueryLike;
+  in: (column: string, values: readonly string[]) => ActivityLogsQueryLike;
   ilike: (column: string, value: string) => ActivityLogsQueryLike;
   gte: (column: string, value: string) => ActivityLogsQueryLike;
   lte: (column: string, value: string) => ActivityLogsQueryLike;
@@ -79,7 +81,11 @@ function dayEndUtc(isoDay: string): string {
 
 function applyFilters<T extends ActivityLogsQueryLike>(query: T, filters?: ActivityLogsFilters): T {
   let nextQuery = query;
-  if (filters?.moduleKey) nextQuery = nextQuery.eq("module_key", filters.moduleKey) as unknown as T;
+  if (filters?.moduleKeysIn?.length) {
+    nextQuery = nextQuery.in("module_key", filters.moduleKeysIn) as unknown as T;
+  } else if (filters?.moduleKey) {
+    nextQuery = nextQuery.eq("module_key", filters.moduleKey) as unknown as T;
+  }
   if (filters?.actionKey) nextQuery = nextQuery.eq("action_key", filters.actionKey) as unknown as T;
   if (filters?.actorUserId) nextQuery = nextQuery.eq("actor_user_id", filters.actorUserId) as unknown as T;
   if (filters?.targetId) nextQuery = nextQuery.ilike("target_id", `%${filters.targetId}%`) as unknown as T;

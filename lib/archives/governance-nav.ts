@@ -53,7 +53,7 @@ const archivesItem = findNavItemByKey("archives");
 
 export const ARCHIVES_GOVERNANCE_NAV: readonly ArchivesGovernanceNavItem[] = [
   ...(archivesItem
-    ? [{ id: "hub" as const, href: archivesItem.href, label: archivesItem.label, icon: Archive }]
+    ? [{ id: "hub" as const, href: archivesItem.href ?? ROUTES.archives, label: archivesItem.label, icon: Archive }]
     : []),
   ...(archivesItem?.children ?? []).map((c) => ({
     id: (c.key === "archives-exports"

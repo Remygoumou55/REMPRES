@@ -73,14 +73,14 @@ const NavItemRow = memo(function NavItemRow({
   const children = (item.children ?? []) as NavChildItem[];
   const isOpen = openGroups[item.key] ?? false;
   const parentActive =
-    isActive(item.href) || children.some((c) => isActive(c.href));
-  const isDepartements = item.key === "departements";
+    children.some((c) => isActive(c.href)) ||
+    ("href" in item && item.href ? isActive(item.href) : false);
 
   if (!item.expandable) {
-    const active = isActive(item.href);
+    const active = isActive(item.href!);
     return (
       <Link
-        href={item.href}
+        href={item.href!}
         prefetch
         title={collapsed ? item.label : undefined}
         className={`${itemClasses(active)} ${collapsed ? "justify-center py-[7px] px-2" : "gap-2 py-[7px] px-2.5"}`}
@@ -104,55 +104,25 @@ const NavItemRow = memo(function NavItemRow({
 
   return (
     <div className="mb-px">
-      <div
-        className={`flex items-center rounded-lg ${parentActive ? "bg-[rgba(255,255,255,0.12)]" : ""}`}
+      <button
+        type="button"
+        onClick={toggle}
+        aria-expanded={isOpen}
+        title={collapsed ? item.label : undefined}
+        className={`${itemClasses(parentActive)} w-full ${collapsed ? "justify-center py-[7px] px-2" : "gap-2 py-[7px] px-2.5"}`}
       >
-        {isDepartements && !collapsed ? (
-          <Link
-            href={item.href}
-            prefetch
-            className={`${itemClasses(parentActive)} min-w-0 flex-1 gap-2 py-[7px] pl-2.5 pr-1`}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <NavIcon iconName={item.icon} size={18} className="shrink-0 opacity-90" />
-            <span className="truncate text-[12px] font-medium">{item.label}</span>
-          </Link>
-        ) : (
-          <button
-            type="button"
-            onClick={toggle}
-            title={collapsed ? item.label : undefined}
-            className={`${itemClasses(parentActive)} flex-1 ${collapsed ? "justify-center py-[7px] px-2" : "gap-2 py-[7px] px-2.5"}`}
-          >
-            <NavIcon iconName={item.icon} size={18} className="shrink-0 opacity-90" />
-            {!collapsed ? (
-              <span className="flex-1 truncate text-left text-[12px] font-medium">{item.label}</span>
-            ) : null}
-            {!collapsed && !isDepartements ? (
-              <NavIcon
-                iconName="ChevronDown"
-                size={14}
-                className={`shrink-0 text-white/60 transition-transform duration-200 ease-in-out ${isOpen ? "rotate-180" : ""}`}
-              />
-            ) : null}
-          </button>
-        )}
-        {isDepartements && !collapsed ? (
-          <button
-            type="button"
-            onClick={toggle}
-            aria-expanded={isOpen}
-            className="shrink-0 rounded-md p-1.5 text-white/60 hover:bg-white/10 hover:text-white"
-            title={isOpen ? "Replier" : "Déplier"}
-          >
+        <NavIcon iconName={item.icon} size={18} className="shrink-0 opacity-90" />
+        {!collapsed ? (
+          <>
+            <span className="flex-1 truncate text-left text-[12px] font-medium">{item.label}</span>
             <NavIcon
               iconName="ChevronDown"
               size={14}
-              className={`transition-transform duration-200 ease-in-out ${isOpen ? "rotate-180" : ""}`}
+              className={`shrink-0 text-white/60 transition-transform duration-200 ease-in-out ${isOpen ? "rotate-180" : ""}`}
             />
-          </button>
+          </>
         ) : null}
-      </div>
+      </button>
       {!collapsed ? (
         <div
           className="overflow-hidden transition-[max-height,opacity] duration-[250ms,200ms] ease-in-out"

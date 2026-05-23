@@ -38,7 +38,7 @@ export const GOVERNANCE_ACTIONS_NAV: readonly GovernanceActionsNavItem[] = [
     ? [
         {
           id: "hub" as const,
-          href: actionsItem.href,
+          href: actionsItem.href ?? ROUTES.actions,
           label: actionsItem.label,
           icon: Zap,
         },

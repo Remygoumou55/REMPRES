@@ -16,7 +16,8 @@ export type NavItem = {
   readonly key: string;
   readonly label: string;
   readonly icon: string;
-  readonly href: string;
+  readonly href?: string;
+  readonly headerClickable?: false;
   readonly roles: NavRoles;
   readonly expandable: boolean;
   readonly children?: readonly NavChildItem[];
@@ -51,9 +52,9 @@ export const NAV_CONFIG = [
         key: "departements",
         label: "Départements",
         icon: "Building2",
-        href: "/dept",
         roles: "all",
         expandable: true,
+        headerClickable: false,
         children: [
           {
             key: "dept-vente",
@@ -132,13 +133,6 @@ export const NAV_CONFIG = [
             label: "Alertes",
             icon: "Bell",
             href: "/actions/alertes",
-            roles: ["super_admin", "directeur_general", "manager"],
-          },
-          {
-            key: "journaux",
-            label: "Journaux",
-            icon: "ClipboardList",
-            href: "/actions/journaux",
             roles: ["super_admin", "directeur_general", "manager"],
           },
         ],

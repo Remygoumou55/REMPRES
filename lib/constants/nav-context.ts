@@ -4,7 +4,11 @@ import { resolveDepartmentNavContextLabel } from "@/lib/navigation/department-si
 function findNavLabel(pathname: string): string | null {
   for (const section of NAV_CONFIG) {
     for (const item of section.items) {
-      if (pathname === item.href || pathname.startsWith(`${item.href}/`)) {
+      if (
+        "href" in item &&
+        item.href &&
+        (pathname === item.href || pathname.startsWith(`${item.href}/`))
+      ) {
         return item.label;
       }
       if (item.expandable && item.children) {

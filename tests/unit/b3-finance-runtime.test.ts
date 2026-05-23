@@ -45,13 +45,23 @@ describe("B3 — Finance runtime (B2.4)", () => {
     expect(financeCase).not.toContain('from("sales")');
   });
 
-  it("registre mutation Finance désactivé (B3 cockpit only)", () => {
+  it("registre mutation Finance — expense P4.1 activé, reste off", () => {
     const reg = readSrc("lib/finance/runtime/finance-write-governance.ts");
     expect(reg).toContain("FINANCE_WRITE_ACTION_REGISTRY");
-    expect(reg).toMatch(/enabled:\s*false/);
+    expect(reg).toContain('EXPENSE_CREATE');
+    expect(reg).toMatch(/EXPENSE_CREATE[\s\S]*enabled:\s*true/);
+    expect(reg).toMatch(/JOURNAL_POST[\s\S]*enabled:\s*false/);
   });
 
   it("payload cockpit source officielle", () => {
     expect(FINANCE_REFERENCE_KPI_SOURCES.cockpit).toBe("finance-cockpit-runtime-v1");
+  });
+
+  it("P6.1 — threshold evaluator branché sur KPI bundle", () => {
+    const kpi = readSrc("lib/finance/runtime/finance-kpi-runtime.ts");
+    expect(kpi).toContain("finance-threshold-evaluator");
+    expect(readSrc("lib/finance/runtime/finance-threshold-rules.ts")).toContain(
+      "cfo_negative_profit_month",
+    );
   });
 });

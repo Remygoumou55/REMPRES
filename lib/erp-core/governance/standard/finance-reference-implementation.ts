@@ -10,6 +10,7 @@ export const FINANCE_ERP_STANDARD_SLOTS = {
   domain_kpi_facade: "lib/finance/runtime/finance-kpi-runtime.ts",
   security: "lib/finance/runtime/finance-runtime-security.ts",
   mutation_registry: "lib/finance/runtime/finance-write-governance.ts",
+  threshold_evaluator: "lib/finance/runtime/finance-threshold-evaluator.ts",
   cockpit_payload: "lib/finance/runtime/finance-cockpit-payload.ts",
   cockpit_ui: "modules/finance/components/cockpit/FinanceCockpitClient.tsx",
   audit_hook: "modules/finance/server/services/finance-audit-hook.ts",

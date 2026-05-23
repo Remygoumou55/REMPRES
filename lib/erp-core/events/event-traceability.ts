@@ -30,7 +30,13 @@ export function appendEventTrace(entry: Omit<ErpEventTraceEntry, "id" | "at">): 
 }
 
 export function getRecentEventTraces(limit = 50): readonly ErpEventTraceEntry[] {
+  if (limit <= 0) return [];
   return traceRing.slice(-limit);
+}
+
+/** Tests uniquement. */
+export function clearEventTracesForTests(): void {
+  traceRing.length = 0;
 }
 
 export async function persistEventBusAudit(event: ErpEventEnvelope): Promise<void> {

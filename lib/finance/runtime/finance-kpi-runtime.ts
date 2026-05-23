@@ -10,6 +10,7 @@ import {
   getFinanceEnterpriseKpisGuarded,
   FINANCE_ENTERPRISE_KPI_SOURCE,
 } from "@/lib/finance/runtime/finance-enterprise-kpis";
+import { evaluateAndEmitFinanceTreasuryThresholds } from "@/lib/finance/runtime/finance-threshold-evaluator";
 
 export const FINANCE_RUNTIME_KPI_BUNDLE_SOURCE = "finance-runtime-kpi-bundle-v1" as const;
 
@@ -29,6 +30,13 @@ export async function getFinanceRuntimeKpiBundle(
     getFinanceTreasuryKpis(supabase, now),
     getFinanceEnterpriseKpisGuarded(supabase, userId),
   ]);
+
+  void evaluateAndEmitFinanceTreasuryThresholds(treasury, { actorUserId: userId }).catch((err) => {
+    console.warn(
+      "[finance-threshold-evaluator]",
+      err instanceof Error ? err.message : err,
+    );
+  });
 
   return {
     source: FINANCE_RUNTIME_KPI_BUNDLE_SOURCE,

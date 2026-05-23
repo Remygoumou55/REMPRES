@@ -4,12 +4,14 @@ import { redirect } from "next/navigation";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getModulePermissions, getUserRole } from "@/lib/server/permissions";
 import {
-  createExpense,
   deleteExpense,
   formatExpenseError,
   setExpenseReceiptPath,
-  updateExpense,
 } from "@/lib/server/expenses";
+import {
+  createFinanceExpense,
+  updateFinanceExpense,
+} from "@/modules/finance/server/services/finance-expense-mutations";
 import type { CreateExpenseFormInput, UpdateExpenseFormInput } from "@/lib/validations/expense";
 import { revalidateFinanceScope } from "@/lib/server/revalidate-domains";
 import { AUDIT_EVENT_TYPES } from "@/lib/audit/audit-events";
@@ -38,7 +40,7 @@ export async function createExpenseAction(
       departmentKey: "FINANCE",
       metadata: { entity_type: "expenses", entity_id: "create", operation: "create_expense" },
     });
-    const result = await createExpense(data.user.id, raw);
+    const result = await createFinanceExpense(data.user.id, raw);
     const rawId = (result as { id?: string } | null)?.id;
     revalidateFinanceScope({ includeDashboard: true });
     await tryLogAuditEvent({
@@ -124,7 +126,7 @@ export async function updateExpenseAction(
       departmentKey: "FINANCE",
       metadata: { entity_type: "expenses", entity_id: raw.expenseId, operation: "update_expense" },
     });
-    await updateExpense(data.user.id, raw);
+    await updateFinanceExpense(data.user.id, raw);
     revalidateFinanceScope({ includeDashboard: true });
     await tryLogAuditEvent({
       eventType: AUDIT_EVENT_TYPES.EXPENSE_UPDATED,

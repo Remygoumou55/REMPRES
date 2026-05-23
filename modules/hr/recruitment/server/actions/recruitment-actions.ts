@@ -1,18 +1,16 @@
 "use server";
 
 import type { Database, Json } from "@/types/database.types";
-import { createApprovalRequest } from "@/lib/governance/approvals/repository";
-import { tryCreateAlert } from "@/lib/governance/alerts/create-alert";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { revalidateRhScope } from "@/lib/server/revalidate-domains";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
-import {
-  RECRUITMENT_HIRE_APPROVAL_ACTION,
-  RECRUITMENT_HIRE_ENTITY,
-} from "@/modules/hr/recruitment/constants";
 import { assertCanManageRecruitment } from "@/modules/hr/recruitment/server/security/access";
 import { getCandidateById } from "@/modules/hr/recruitment/server/repositories/candidates-repository";
 import { upsertOnboardingPatch } from "@/modules/hr/recruitment/server/repositories/onboarding-repository";
+import {
+  linkHrCandidateToEmployeeDomain,
+  submitHrRecruitmentHire,
+} from "@/modules/hr/server/services/hr-recruitment-mutations";
 import { isAllowedPipelineAdvance, isFrozenPipelineStage } from "@/modules/hr/recruitment/utils";
 import {
   isValidInterviewStatus,
@@ -165,87 +163,11 @@ export async function submitHireForApprovalAction(input: { candidateId: string; 
     return { success: false as const, error: "Reserve aux gestionnaires RH." };
   }
 
-  const candidate = await getCandidateById(input.candidateId);
-  if (!candidate) return { success: false as const, error: "Candidat introuvable." };
-  if (candidate.pipelineStage !== "offer") {
-    return { success: false as const, error: "Soumission embauche depuis l'etape offre uniquement." };
-  }
-
-  const supabase = getSupabaseServerClient();
-  const pendingDup = await supabase
-    .from("approval_requests")
-    .select("id")
-    .eq("entity_type", RECRUITMENT_HIRE_ENTITY)
-    .eq("entity_id", input.candidateId)
-    .eq("status", "pending")
-    .maybeSingle();
-  if (pendingDup.data?.id) {
-    return { success: false as const, error: "Demande d'embauche deja en cours." };
-  }
-
-  let approvalId: string;
-  try {
-    const approval = await createApprovalRequest({
-      departmentKey: "rh",
-      actionType: RECRUITMENT_HIRE_APPROVAL_ACTION,
-      entityType: RECRUITMENT_HIRE_ENTITY,
-      entityId: input.candidateId,
-      requestedBy: actor.id,
-      reason: String(input.reason ?? "").trim() || null,
-      payloadSnapshot: {
-        candidate_id: input.candidateId,
-        full_name: candidate.fullName,
-        job_title: candidate.jobTitle,
-        email: candidate.email,
-      },
-    });
-    approvalId = approval.id;
-  } catch {
-    return { success: false as const, error: "Creation demande d'approbation impossible." };
-  }
-
-  const upd = await supabase
-    .from("rh_recruitment_candidates")
-    .update({
-      pipeline_stage: "pending_hire_approval",
-      hire_approval_request_id: approvalId,
-      updated_by: actor.id,
-    })
-    .eq("id", input.candidateId)
-    .eq("pipeline_stage", "offer");
-
-  if (upd.error) {
-    await supabase.from("approval_requests").delete().eq("id", approvalId);
-    return { success: false as const, error: "Mise a jour candidat impossible." };
-  }
-
-  await insertHistory({
-    candidateId: input.candidateId,
-    eventType: "hire_submitted",
-    eventLabel: "Embauche soumise pour validation gouvernance",
-    payload: { approval_request_id: approvalId },
-    createdBy: actor.id,
-  });
-  await logRhRecruitment({
-    actorId: actor.id,
-    actionKey: "recruitment_hire_submitted",
-    candidateId: input.candidateId,
-    metadata: { approval_request_id: approvalId },
-  });
-  await tryCreateAlert({
-    type: "rh_recruitment_hire_pending",
-    severity: "high",
-    departmentKey: "rh",
-    title: "Embauche en attente super-admin",
-    description: "Une proposition d'embauche necessite une validation.",
-    entityType: RECRUITMENT_HIRE_ENTITY,
-    entityId: input.candidateId,
-    triggeredBy: actor.id,
-    metadata: { approval_request_id: approvalId },
-  });
+  const result = await submitHrRecruitmentHire(actor.id, input);
+  if (!result.success) return { success: false as const, error: result.error };
 
   revalidateRhScope({ includeDashboard: true });
-  return { success: true as const, approvalRequestId: approvalId };
+  return { success: true as const, approvalRequestId: result.approvalRequestId };
 }
 
 export async function scheduleInterviewAction(input: {
@@ -479,63 +401,8 @@ export async function linkCandidateToEmployeeDomainAction(input: {
     return { success: false as const, error: "Reserve aux gestionnaires RH." };
   }
 
-  const candidate = await getCandidateById(input.candidateId);
-  if (!candidate) return { success: false as const, error: "Candidat introuvable." };
-  if (candidate.pipelineStage !== "hired") {
-    return { success: false as const, error: "Lien reserve aux candidats embauches." };
-  }
-
-  const profileId = String(input.profileId ?? "").trim();
-  if (!profileId) return { success: false as const, error: "Profil requis." };
-
-  const supabase = getSupabaseServerClient();
-  const profile = await supabase.from("profiles").select("id,is_active,deleted_at").eq("id", profileId).maybeSingle();
-  if (profile.error || !profile.data || profile.data.deleted_at || !profile.data.is_active) {
-    return { success: false as const, error: "Profil invalide ou inactif." };
-  }
-
-  let contractId: string | null = input.contractId ? String(input.contractId).trim() : null;
-  if (contractId) {
-    const ctr = await supabase
-      .from("rh_employee_contracts")
-      .select("id,employee_id")
-      .eq("id", contractId)
-      .maybeSingle();
-    if (ctr.error || !ctr.data) return { success: false as const, error: "Contrat introuvable." };
-    if (ctr.data.employee_id !== profileId) {
-      return { success: false as const, error: "Le contrat ne correspond pas au collaborateur." };
-    }
-  }
-
-  const upd = await supabase
-    .from("rh_recruitment_candidates")
-    .update({
-      hired_profile_id: profileId,
-      hired_contract_id: contractId,
-      updated_by: actor.id,
-    })
-    .eq("id", input.candidateId);
-  if (upd.error) return { success: false as const, error: "Mise a jour candidat impossible." };
-
-  await upsertOnboardingPatch(input.candidateId, {
-    status: "in_progress",
-    linked_profile_id: profileId,
-    linked_contract_id: contractId,
-  });
-
-  await insertHistory({
-    candidateId: input.candidateId,
-    eventType: "domain_linked",
-    eventLabel: "Rattachement employe / contrat",
-    payload: { profile_id: profileId, contract_id: contractId },
-    createdBy: actor.id,
-  });
-  await logRhRecruitment({
-    actorId: actor.id,
-    actionKey: "recruitment_domain_linked",
-    candidateId: input.candidateId,
-    metadata: { profile_id: profileId, contract_id: contractId },
-  });
+  const result = await linkHrCandidateToEmployeeDomain(actor.id, input);
+  if (!result.success) return { success: false as const, error: result.error };
 
   revalidateRhScope({ includeDashboard: true });
   return { success: true as const };

@@ -5,6 +5,10 @@ import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { canManageEmployeeDomain } from "@/modules/hr/employees/server/security/access";
 import { getEmployeeDomainDetails } from "@/modules/hr/employees/server/services/employee-service";
 import { validateEmployeeDocumentType, validateEmployeeId } from "@/modules/hr/employees/server/validators/employee";
+import {
+  updateHrEmployeeManager,
+  updateHrEmployeeRole,
+} from "@/modules/hr/server/services/hr-employee-mutations";
 
 export async function loadEmployeeDomainDetailsAction(employeeId: string) {
   const actor = await getServerSessionUser();
@@ -32,28 +36,7 @@ export async function updateEmployeeRoleAssignmentAction(input: {
     return { success: false as const, error: "Action reservee aux gestionnaires RH." };
   }
 
-  const supabase = getSupabaseServerClient();
-  const update = await supabase
-    .from("profiles")
-    .update({
-      role_key: String(input.roleKey ?? "").trim(),
-      department_key: input.departmentKey,
-    })
-    .eq("id", input.employeeId)
-    .is("deleted_at", null);
-  if (update.error) {
-    return { success: false as const, error: "Mise a jour role/departement impossible." };
-  }
-
-  await supabase.from("rh_employee_history").insert({
-    employee_id: input.employeeId,
-    event_type: "role_changed",
-    event_label: "Role or department changed",
-    payload: { role_key: input.roleKey, department_key: input.departmentKey },
-    created_by: actor.id,
-  });
-
-  return { success: true as const };
+  return updateHrEmployeeRole(actor.id, input);
 }
 
 export async function updateEmployeeManagerAction(input: {
@@ -70,28 +53,7 @@ export async function updateEmployeeManagerAction(input: {
     return { success: false as const, error: "Action reservee aux gestionnaires RH." };
   }
 
-  const supabase = getSupabaseServerClient();
-  const upsert = await supabase.from("rh_employee_hierarchy").upsert(
-    {
-      employee_id: input.employeeId,
-      manager_id: input.managerId,
-      title: input.title,
-      department_key: input.departmentKey,
-      created_by: actor.id,
-      active: true,
-    },
-    { onConflict: "employee_id" },
-  );
-  if (upsert.error) return { success: false as const, error: "Mise a jour manager impossible." };
-
-  await supabase.from("rh_employee_history").insert({
-    employee_id: input.employeeId,
-    event_type: "manager_changed",
-    event_label: "Manager or hierarchy updated",
-    payload: { manager_id: input.managerId, title: input.title, department_key: input.departmentKey },
-    created_by: actor.id,
-  });
-  return { success: true as const };
+  return updateHrEmployeeManager(actor.id, input);
 }
 
 export async function createEmployeeDocumentAction(input: {

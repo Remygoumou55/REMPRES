@@ -25,6 +25,21 @@ const TEMPLATE_TO_ALERT_TYPE: Record<string, string> = {
   "crm.quote.status_updated": "crm_quote_status_updated",
   "crm.quote.convert_requested": "approval_request_created",
   "crm.quote.converted": "crm_quote_converted",
+  "finance.expense.created": "finance_expense_created",
+  "finance.expense.updated": "finance_expense_updated",
+  "finance.transaction.recorded": "finance_transaction_recorded",
+  "finance.transaction.failed": "finance_transaction_failed",
+  "finance.threshold.exceeded": "finance_threshold_exceeded",
+  "finance.payment.recorded": "finance_payment_recorded",
+  "hr.leave.requested": "hr_leave_requested",
+  "hr.leave.approved": "hr_leave_approved",
+  "hr.contract.expiring": "hr_contract_expiring",
+  "hr.contract.submitted": "hr_contract_submitted",
+  "hr.contract.expired": "hr_contract_expired",
+  "hr.contract.terminated": "hr_contract_terminated",
+  "hr.contract.renewed": "hr_contract_renewed",
+  "hr.recruitment.hire_submitted": "hr_recruitment_hire_submitted",
+  "hr.employee.created": "hr_employee_created",
 };
 
 export function mapPriorityToAlertSeverity(priority: ErpNotificationPriority): GovernanceAlertSeverity {

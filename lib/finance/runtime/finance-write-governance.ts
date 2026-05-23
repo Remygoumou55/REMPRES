@@ -21,14 +21,14 @@ export const FINANCE_WRITE_ACTION_REGISTRY: Record<
   { enabled: boolean; requiresApproval: boolean; description: string }
 > = {
   [FINANCE_WRITE_ACTIONS.EXPENSE_CREATE]: {
-    enabled: false,
+    enabled: true,
     requiresApproval: false,
-    description: "Création dépense — à activer phase Finance write",
+    description: "Création dépense — P4.1 bus + gate B3",
   },
   [FINANCE_WRITE_ACTIONS.EXPENSE_UPDATE]: {
-    enabled: false,
+    enabled: true,
     requiresApproval: false,
-    description: "Modification dépense — à activer phase Finance write",
+    description: "Modification dépense — P4.1 bus + gate B3",
   },
   [FINANCE_WRITE_ACTIONS.JOURNAL_POST]: {
     enabled: false,

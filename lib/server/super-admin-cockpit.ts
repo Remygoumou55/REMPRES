@@ -1,6 +1,7 @@
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
-import type { DashboardKpis } from "@/lib/server/dashboard-kpis";
+import type { AccueilDashboardBundle } from "@/lib/server/dashboard/load-accueil-metrics";
 import { getDashboardKpis } from "@/lib/server/dashboard-kpis";
+import { loadAccueilDashboard } from "@/lib/server/dashboard/load-accueil-metrics";
 import { getExecutiveGlobalSnapshotService } from "@/modules/executive-dashboard/server/services";
 import type { ExecutiveGlobalSnapshot } from "@/modules/executive-dashboard/types/domain";
 
@@ -15,7 +16,8 @@ export type SuperAdminGovernanceAlertRow = {
 
 export type SuperAdminCockpitPayload = {
   generatedAtIso: string;
-  kpis: DashboardKpis;
+  kpis: import("@/lib/server/dashboard-kpis").DashboardKpis;
+  accueil: AccueilDashboardBundle;
   executive: ExecutiveGlobalSnapshot | null;
   executiveLoadError: string | null;
   pendingApprovals: number;
@@ -24,11 +26,12 @@ export type SuperAdminCockpitPayload = {
 
 export async function getSuperAdminCockpitPayload(
   viewerUserId: string,
-  opts?: { kpis?: DashboardKpis },
+  opts?: { kpis?: import("@/lib/server/dashboard-kpis").DashboardKpis; accueil?: AccueilDashboardBundle },
 ): Promise<SuperAdminCockpitPayload> {
   const supabase = getSupabaseServerClient();
   const generatedAtIso = new Date().toISOString();
   const kpis = opts?.kpis ?? (await getDashboardKpis());
+  const accueil = opts?.accueil ?? (await loadAccueilDashboard(viewerUserId));
 
   const [executiveSnap, approvalsRes, alertsRes] = await Promise.all([
     getExecutiveGlobalSnapshotService({ viewerUserId, elevated: true }).catch((err: unknown) => ({
@@ -65,6 +68,7 @@ export async function getSuperAdminCockpitPayload(
   return {
     generatedAtIso,
     kpis,
+    accueil,
     executive,
     executiveLoadError,
     pendingApprovals: approvalsRes.count ?? 0,

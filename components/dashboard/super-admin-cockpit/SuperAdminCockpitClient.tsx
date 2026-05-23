@@ -8,10 +8,8 @@ import {
   AlertTriangle,
   Archive,
   BarChart3,
-  Bell,
   ClipboardCheck,
   FileSearch,
-  Gauge,
   Megaphone,
   Package,
   ShoppingCart,
@@ -26,16 +24,17 @@ import { useCurrencyStore } from "@/stores/currencyStore";
 import { formatCurrency } from "@/utils/currency";
 import { useCurrencyBatchConversion } from "@/hooks/useCurrencyConversion";
 import { ROUTES, SETTINGS_OFFICIAL_ROUTES } from "@/lib/constants/routes";
-import { ActivityTimeline } from "@/app/(app)/dashboard/components/ActivityTimeline";
-import { CockpitMetricCard } from "./CockpitMetricCard";
+import {
+  ActivityFeed,
+  DashboardBanner,
+  EmptyChart,
+  KpiCard,
+  SectionLabel,
+} from "@/components/dashboard";
+import { getGreeting } from "@/lib/utils/safe-query";
 import { DomainMixChart, type DomainMixPoint } from "./DomainMixChart";
 import { PlatformTrendLine } from "./PlatformTrendLine";
-import {
-  healthBadge,
-  normalizeSpark,
-  splitWindowTrendFromDays,
-  statValue,
-} from "./cockpit-helpers";
+import { splitWindowTrendFromDays, statValue } from "./cockpit-helpers";
 
 const SalesChart = dynamic(
   () => import("@/components/dashboard/sales-chart").then((m) => ({ default: m.SalesChart })),
@@ -46,7 +45,6 @@ const SalesChart = dynamic(
 );
 
 type Props = {
-  userDisplayName: string;
   payload: SuperAdminCockpitPayload;
 };
 
@@ -63,11 +61,8 @@ const SUPERVISION_DEPTS: {
   { key: "logistique", label: "Logistique", route: "/dept/logistique" },
 ];
 
-function getGreeting(): string {
-  const h = new Date().getHours();
-  if (h < 12) return "Bonjour";
-  if (h < 18) return "Bon après-midi";
-  return "Bonsoir";
+function getGreetingLocal(): string {
+  return getGreeting();
 }
 
 function severityRank(s: string): number {
@@ -97,8 +92,9 @@ function formatTs(iso: string): string {
   }
 }
 
-export function SuperAdminCockpitClient({ userDisplayName, payload }: Props) {
-  const { kpis, executive, executiveLoadError, pendingApprovals, governanceAlerts, generatedAtIso } = payload;
+export function SuperAdminCockpitClient({ payload }: Props) {
+  const { kpis, accueil, executive, pendingApprovals, governanceAlerts, generatedAtIso } = payload;
+  const metrics = accueil.metrics;
   const domains = executive?.domains;
 
   const [nowTick, setNowTick] = useState(() => Date.now());
@@ -107,15 +103,8 @@ export function SuperAdminCockpitClient({ userDisplayName, payload }: Props) {
     return () => window.clearInterval(id);
   }, []);
 
-  const greeting = useMemo(() => getGreeting(), []);
-  const displayName = userDisplayName.trim() || "Compte";
-  const firstName = displayName.split(" ")[0] || displayName;
-  const initials = displayName
-    .split(" ")
-    .map((p) => p.charAt(0))
-    .join("")
-    .slice(0, 2)
-    .toUpperCase();
+  const greeting = useMemo(() => getGreetingLocal(), []);
+  const firstName = accueil.userDisplay.firstName;
 
   const frenchDate = useMemo(
     () =>
@@ -132,19 +121,10 @@ export function SuperAdminCockpitClient({ userDisplayName, payload }: Props) {
     [nowTick],
   );
 
-  const revenueMonth = statValue(domains?.finance, "revenue");
-  const expensesMonth = statValue(domains?.finance, "expenses");
-  const marginMonth = statValue(domains?.finance, "margin");
-  const activeContracts = statValue(domains?.rh, "activeContracts");
-
-  const formationPh = domains?.formation?.metadata?.placeholder === true;
-  const marketingPh = domains?.marketing?.metadata?.placeholder === true;
-  const formationStatId = domains?.formation?.stats[0]?.id;
-  const marketingStatId = domains?.marketing?.stats[0]?.id;
-  const formationActive =
-    formationPh || !formationStatId ? null : statValue(domains?.formation, formationStatId);
-  const marketingActive =
-    marketingPh || !marketingStatId ? null : statValue(domains?.marketing, marketingStatId);
+  const revenueMonth = metrics.revenueMonth;
+  const expensesMonth = metrics.expensesMonth;
+  const marginMonth = metrics.profitMonth;
+  const activeContracts = metrics.activeEmployees;
 
   const currency = useCurrencyStore((s) => s.selectedCurrency);
   const batchAmounts = useMemo(
@@ -152,10 +132,10 @@ export function SuperAdminCockpitClient({ userDisplayName, payload }: Props) {
       { key: "revenue", amount: revenueMonth },
       { key: "expenses", amount: expensesMonth },
       { key: "margin", amount: marginMonth },
-      { key: "salesMonth", amount: kpis.netSaleAmountMonth },
+      { key: "salesMonth", amount: metrics.revenueMonth },
       { key: "venteMonth", amount: statValue(domains?.vente, "salesThisMonth") },
     ],
-    [revenueMonth, expensesMonth, marginMonth, kpis.netSaleAmountMonth, domains?.vente],
+    [revenueMonth, expensesMonth, marginMonth, metrics.revenueMonth, domains?.vente],
   );
   const { convertedByKey, loading: convLoading } = useCurrencyBatchConversion(batchAmounts, "GNF", currency);
 
@@ -167,23 +147,24 @@ export function SuperAdminCockpitClient({ userDisplayName, payload }: Props) {
     return formatCurrency(c, currency);
   };
 
-  const trendRevenue = useMemo(() => splitWindowTrendFromDays(kpis.salesLast7Days, "amount"), [kpis.salesLast7Days]);
-  const trendSalesCount = useMemo(() => splitWindowTrendFromDays(kpis.salesLast7Days, "count"), [kpis.salesLast7Days]);
-
-  const sparkRevenue = useMemo(
-    () => normalizeSpark(kpis.salesLast7Days.map((d) => d.amount)),
-    [kpis.salesLast7Days],
+  const trendRevenue = useMemo(
+    () => splitWindowTrendFromDays(metrics.salesLast7Days, "amount"),
+    [metrics.salesLast7Days],
+  );
+  const trendSalesCount = useMemo(
+    () => splitWindowTrendFromDays(metrics.salesLast7Days, "count"),
+    [metrics.salesLast7Days],
   );
 
-  const stockCritical = kpis.productsLowStock + kpis.productsOutOfStock;
-  const domainsFailed = executive?.executiveMeta.domainsFailed ?? 0;
-  const platformOk = !executiveLoadError && domainsFailed === 0;
+  const stockCritical = metrics.stockCritical;
 
   const criticalNotes =
     (governanceAlerts.filter((a) => a.severity === "critical" || a.severity === "high").length ?? 0) +
     (pendingApprovals > 0 ? 1 : 0) +
     (kpis.productsOutOfStock > 0 ? 1 : 0) +
     (kpis.deletesClientsLast24h > 0 ? 1 : 0);
+
+  const platformOk = criticalNotes === 0;
 
   const domainMix: DomainMixPoint[] = useMemo(() => {
     if (!domains) return [];
@@ -210,6 +191,8 @@ export function SuperAdminCockpitClient({ userDisplayName, payload }: Props) {
       { key: "logistique", label: "Logistique", value: statValue(domains.logistique, "jobsPending") },
     ];
   }, [domains]);
+
+  const showDomainMix = domainMix.some((d) => d.value > 0);
 
   const quickAlerts = useMemo(() => {
     type Row = {
@@ -261,150 +244,31 @@ export function SuperAdminCockpitClient({ userDisplayName, payload }: Props) {
     return rows.slice(0, 6);
   }, [governanceAlerts, kpis.deletesClientsLast24h, kpis.productsOutOfStock, pendingApprovals, generatedAtIso]);
 
-  const systemStrip = useMemo(() => {
-    const parts: string[] = [];
-    if (executiveLoadError) parts.push("Charge exécutive partielle ou indisponible");
-    if (domainsFailed > 0) parts.push(`${domainsFailed} domaine(s) en échec de chargement`);
-    const jobsFailed = statValue(domains?.logistique, "jobsFailed24h");
-    if (jobsFailed > 0) parts.push(`${jobsFailed} job(s) infrastructure en échec (7j)`);
-    return parts;
-  }, [executiveLoadError, domainsFailed, domains?.logistique]);
 
   return (
     <div className="page-wrapper space-y-6 pb-10">
-      <header className="rounded-card bg-[linear-gradient(135deg,#0E4A8A_0%,#1e5f9e_45%,#2D7CC4_100%)] p-5 text-white shadow-card sm:p-6">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-          <div className="min-w-0 space-y-2">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/70">Supervision globale</p>
-            <h1 className="text-xl font-bold tracking-tight sm:text-2xl">
-              {greeting}, {firstName}
-            </h1>
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-white/90">
-              <span className="capitalize">{frenchDate}</span>
-              <span className="text-white/50">·</span>
-              <span className="tabular-nums">{clock}</span>
-            </div>
-            <p className="text-xs text-white/75">
-              Cockpit central — corrélation {executive?.meta.correlationId?.slice(0, 8) ?? "—"} · MAJ{" "}
-              {formatTs(generatedAtIso)}
-            </p>
-          </div>
-          <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
-            <div className="flex items-center justify-between gap-3 rounded-xl bg-white/10 px-4 py-2.5 sm:min-w-[200px]">
-              <div className="flex items-center gap-2">
-                <Gauge size={18} className="text-white/90" />
-                <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-wider text-white/70">Plateforme</p>
-                  <p className="text-sm font-semibold">{platformOk ? "Opérationnelle" : "À surveiller"}</p>
-                </div>
-              </div>
-              <span
-                className={`rounded-full px-2 py-0.5 text-[11px] font-semibold ${
-                  platformOk ? "bg-emerald-400/20 text-emerald-100" : "bg-amber-300/25 text-amber-50"
-                }`}
-              >
-                {platformOk ? "OK" : "Alerte"}
-              </span>
-            </div>
-            <div className="flex items-center justify-between gap-3 rounded-xl bg-white/10 px-4 py-2.5 sm:min-w-[200px]">
-              <div className="flex items-center gap-2">
-                <Bell size={18} className="text-white/90" />
-                <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-wider text-white/70">Priorités</p>
-                  <p className="text-sm font-semibold">{criticalNotes} point(s)</p>
-                </div>
-              </div>
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-xs font-bold">
-                {initials}
-              </div>
-            </div>
-          </div>
-        </div>
-        {systemStrip.length > 0 ? (
-          <div className="mt-4 rounded-xl border border-white/20 bg-black/15 px-4 py-2 text-xs text-white/90">
-            {systemStrip.join(" · ")}
-          </div>
-        ) : null}
-      </header>
+      <DashboardBanner
+        greeting={greeting}
+        firstName={firstName}
+        date={frenchDate}
+        time={clock}
+        subtitle="Cockpit central"
+        platformOk={platformOk}
+        priorityCount={criticalNotes}
+      />
 
       <section aria-labelledby="kpi-heading" className="space-y-3">
-        <div className="flex flex-wrap items-end justify-between gap-2">
-          <h2 id="kpi-heading" className="section-title">
-            KPI globaux
-          </h2>
-          <p className="text-xs text-gray-500">Mois en cours (finance) · ventes agrégées ERP</p>
-        </div>
-        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3">
-          <CockpitMetricCard
-            title="Revenus globaux (mois)"
-            value={fmtMoney("revenue", revenueMonth)}
-            subtitle="Agrégat finance — ventes enregistrées"
-            icon={TrendingUp}
-            color="green"
-            trend={{ value: trendRevenue.label, up: trendRevenue.up }}
-            sparkline={sparkRevenue}
-          />
-          <CockpitMetricCard
-            title="Ventes globales (volume)"
-            value={kpis.salesCountMonth}
-            subtitle={`CA net mois : ${fmtMoney("salesMonth", kpis.netSaleAmountMonth)}`}
-            icon={ShoppingCart}
-            color="blue"
-            trend={{ value: trendSalesCount.label, up: trendSalesCount.up }}
-          />
-          <CockpitMetricCard
-            title="Dépenses globales (mois)"
-            value={fmtMoney("expenses", expensesMonth)}
-            subtitle="Somme des dépenses enregistrées"
-            icon={BarChart3}
-            color="orange"
-          />
-          <CockpitMetricCard
-            title="Bénéfice net (mois)"
-            value={fmtMoney("margin", marginMonth)}
-            subtitle="Revenus − dépenses (période)"
-            icon={Activity}
-            color={marginMonth < 0 ? "red" : "purple"}
-          />
-          <CockpitMetricCard
-            title="Employés actifs (contrats)"
-            value={activeContracts}
-            subtitle="Contrats actifs déclarés RH"
-            icon={Users}
-            color="blue"
-          />
-          <CockpitMetricCard
-            title="Formations actives"
-            value={formationPh ? "N/D" : formationActive ?? 0}
-            subtitle={formationPh ? "Agrégation domaine non câblée" : "Indicateur domaine formation"}
-            icon={GraduationCap}
-            color="purple"
-          />
-          <CockpitMetricCard
-            title="Campagnes actives"
-            value={marketingPh ? "N/D" : marketingActive ?? 0}
-            subtitle={marketingPh ? "Agrégation domaine non câblée" : "Indicateur domaine marketing"}
-            icon={Megaphone}
-            color="purple"
-          />
-          <CockpitMetricCard
-            title="Stock critique"
-            value={stockCritical}
-            subtitle={
-              kpis.productsOutOfStock > 0
-                ? `${kpis.productsOutOfStock} rupture(s), ${kpis.productsLowStock} faible(s)`
-                : "Seuils produits"
-            }
-            icon={Package}
-            color={stockCritical > 0 ? "orange" : "green"}
-          />
-          <CockpitMetricCard
-            title="Validations en attente"
-            value={pendingApprovals}
-            subtitle="Approbations gouvernance"
-            icon={ClipboardCheck}
-            color={pendingApprovals > 0 ? "orange" : "green"}
-          />
+        <SectionLabel label="KPI globaux" rightSlot="Mois en cours · ventes agrégées ERP" />
+        <div id="kpi-heading" className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+          <KpiCard title="Revenus du mois" value={fmtMoney("revenue", revenueMonth)} subtitle="Ventes enregistrées" icon={TrendingUp} color="green" trend={{ label: trendRevenue.label, direction: trendRevenue.up ? "up" : "down" }} />
+          <KpiCard title="Ventes du mois" value={metrics.salesCountMonth} subtitle={`CA net : ${fmtMoney("salesMonth", metrics.revenueMonth)}`} icon={ShoppingCart} color="blue" trend={{ label: trendSalesCount.label, direction: trendSalesCount.up ? "up" : "down" }} />
+          <KpiCard title="Dépenses du mois" value={fmtMoney("expenses", expensesMonth)} subtitle="Dépenses enregistrées" icon={BarChart3} color="orange" />
+          <KpiCard title="Bénéfice net" value={fmtMoney("margin", marginMonth)} subtitle="Revenus − dépenses" icon={Activity} color={marginMonth < 0 ? "red" : "purple"} />
+          <KpiCard title="Employés actifs" value={activeContracts} subtitle="Contrats actifs RH" icon={Users} color="blue" />
+          <KpiCard title="Formations en cours" value={metrics.formationActive ?? 0} icon={GraduationCap} color="purple" isEmpty={metrics.formationEmpty} />
+          <KpiCard title="Campagnes marketing" value={metrics.marketingActive ?? 0} icon={Megaphone} color="pink" isEmpty={metrics.marketingEmpty} />
+          <KpiCard title="Produits sous seuil" value={stockCritical} subtitle={kpis.productsOutOfStock > 0 ? `${kpis.productsOutOfStock} rupture(s), ${kpis.productsLowStock} faible(s)` : "Seuils produits"} icon={Package} color={stockCritical > 0 ? "orange" : "green"} />
+          <KpiCard title="En attente de validation" value={metrics.pendingApprovals} subtitle="Approbations gouvernance" icon={ClipboardCheck} color={metrics.pendingApprovals > 0 ? "orange" : "green"} />
         </div>
       </section>
 
@@ -419,7 +283,7 @@ export function SuperAdminCockpitClient({ userDisplayName, payload }: Props) {
               <BarChart3 size={16} className="shrink-0 text-primary" />
             </div>
             <p className="text-xs text-gray-500">CA net journalier — base ventes.</p>
-            <SalesChart data={kpis.salesLast7Days} />
+            {metrics.salesLast7Days.length === 0 ? <EmptyChart /> : <SalesChart data={metrics.salesLast7Days} />}
           </div>
           <div className="card space-y-2 p-4 sm:p-5">
             <div className="flex items-center justify-between gap-2">
@@ -427,16 +291,17 @@ export function SuperAdminCockpitClient({ userDisplayName, payload }: Props) {
               <TrendingUp size={16} className="shrink-0 text-primary" />
             </div>
             <p className="text-xs text-gray-500">Courbe consolidée — même périmètre que le strip ventes.</p>
-            <PlatformTrendLine data={kpis.salesLast7Days} />
+            {metrics.salesLast7Days.length === 0 ? <EmptyChart message="Courbe disponible dès les premières ventes" /> : <PlatformTrendLine data={metrics.salesLast7Days} />}
           </div>
-          <div className="card space-y-2 p-4 sm:p-5 lg:col-span-2">
-            <div className="flex items-center justify-between gap-2">
-              <p className="text-sm font-semibold text-darktext">Activité / charge par département</p>
-              <Activity size={16} className="shrink-0 text-primary" />
+          {showDomainMix ? (
+            <div className="card space-y-2 p-4 sm:p-5 lg:col-span-2">
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-sm font-semibold text-darktext">Activité / charge par département</p>
+                <Activity size={16} className="shrink-0 text-primary" />
+              </div>
+              <DomainMixChart data={domainMix} valueLabel="Valeur" />
             </div>
-            <p className="text-xs text-gray-500">Indicateurs principaux issus du snapshot exécutif (non opérationnel).</p>
-            <DomainMixChart data={domainMix} valueLabel="Valeur" />
-          </div>
+          ) : null}
         </div>
       </section>
 
@@ -477,17 +342,8 @@ export function SuperAdminCockpitClient({ userDisplayName, payload }: Props) {
           )}
         </section>
 
-        <section className="card flex flex-col p-4 sm:p-5" aria-labelledby="activity-heading">
-          <div className="mb-3 flex items-center justify-between gap-2">
-            <h2 id="activity-heading" className="text-sm font-semibold text-darktext">
-              Activité récente (globale)
-            </h2>
-            <Link href={ROUTES.actions} className="text-xs font-medium text-primary hover:underline">
-              Actions
-            </Link>
-          </div>
-          <p className="mb-3 text-xs text-gray-500">Journal applicatif synthétique — six derniers événements.</p>
-          <ActivityTimeline events={kpis.recentActivity} />
+        <section className="card flex flex-col p-4 sm:p-5">
+          <ActivityFeed items={accueil.activities} viewAllHref="/admin/activity-logs" />
         </section>
       </div>
 
@@ -498,27 +354,59 @@ export function SuperAdminCockpitClient({ userDisplayName, payload }: Props) {
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {SUPERVISION_DEPTS.map((d) => {
             const dom = domains?.[d.key];
-            const hb = healthBadge(dom?.health, dom?.metadata?.placeholder);
             const crit = (dom?.alerts ?? []).filter((x) => x.level === "critical").length;
+            let primaryNum = 0;
             let primary = "—";
             let primaryLabel = "Indicateur";
+            const isPlaceholder = Boolean(dom?.metadata?.placeholder);
             if (d.key === "vente") {
-              primary = fmtMoney("venteMonth", statValue(dom, "salesThisMonth"));
+              primaryNum = statValue(dom, "salesThisMonth");
+              primary = fmtMoney("venteMonth", primaryNum);
               primaryLabel = "CA mois";
             } else if (d.key === "finance") {
-              primary = fmtMoney("margin", statValue(dom, "margin"));
+              primaryNum = statValue(dom, "margin");
+              primary = fmtMoney("margin", primaryNum);
               primaryLabel = "Marge mois";
             } else if (d.key === "rh") {
-              primary = String(statValue(dom, "activeContracts"));
+              primaryNum = statValue(dom, "activeContracts");
+              primary = String(primaryNum);
               primaryLabel = "Contrats actifs";
             } else if (d.key === "logistique") {
-              primary = String(statValue(dom, "jobsPending"));
+              primaryNum = statValue(dom, "jobsPending");
+              primary = String(primaryNum);
               primaryLabel = "Jobs en file";
-            } else if (d.key === "formation" || d.key === "marketing") {
-              const sid = dom?.stats[0]?.id;
-              primary = dom?.metadata?.placeholder || !sid ? "N/D" : String(statValue(dom, sid));
-              primaryLabel = "Indicateur clé domaine";
+            } else if (d.key === "formation") {
+              primaryNum = metrics.formationEmpty ? 0 : (metrics.formationActive ?? 0);
+              primary = metrics.formationEmpty ? "—" : String(primaryNum);
+              primaryLabel = "Formations actives";
+            } else if (d.key === "marketing") {
+              primaryNum = metrics.marketingEmpty ? 0 : (metrics.marketingActive ?? 0);
+              primary = metrics.marketingEmpty ? "—" : String(primaryNum);
+              primaryLabel = "Campagnes actives";
             }
+
+            const moduleInactive =
+              d.key === "formation"
+                ? metrics.formationEmpty
+                : d.key === "marketing"
+                  ? metrics.marketingEmpty
+                  : d.key === "logistique"
+                    ? metrics.logistiqueEmpty
+                    : false;
+
+            const badgeLabel = moduleInactive
+              ? "À activer"
+              : primaryNum > 0
+                ? "Stable"
+                : isPlaceholder
+                  ? "À activer"
+                  : "En veille";
+            const badgeClass =
+              badgeLabel === "Stable"
+                ? "bg-emerald-50 text-emerald-800"
+                : badgeLabel === "À activer"
+                  ? "bg-amber-50 text-amber-900"
+                  : "bg-slate-100 text-slate-600";
             return (
               <Link
                 key={d.key}
@@ -531,12 +419,8 @@ export function SuperAdminCockpitClient({ userDisplayName, payload }: Props) {
                     <p className="mt-1 text-lg font-bold text-darktext">{primary}</p>
                     <p className="text-[11px] text-gray-500">{primaryLabel}</p>
                   </div>
-                  <span
-                    className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold ${
-                      hb.tone === "ok" ? "bg-emerald-50 text-emerald-800" : "bg-amber-50 text-amber-900"
-                    }`}
-                  >
-                    {hb.label}
+                  <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold ${badgeClass}`}>
+                    {badgeLabel}
                   </span>
                 </div>
                 <div className="mt-3 flex flex-wrap gap-2 text-[11px] text-gray-500">

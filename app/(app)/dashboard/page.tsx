@@ -3,10 +3,13 @@ import { redirect } from "next/navigation";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getDashboardKpis } from "@/lib/server/dashboard-kpis";
+import { loadAccueilDashboard } from "@/lib/server/dashboard/load-accueil-metrics";
 import { getSuperAdminCockpitPayload } from "@/lib/server/super-admin-cockpit";
 import { getLayoutAccess } from "@/lib/server/layout-access";
 import { NAV_LABELS } from "@/lib/constants/nav-labels";
 import { resolvePostLoginRoute } from "@/lib/navigation/home-route";
+import { Suspense } from "react";
+import { KpiGridSkeleton } from "@/components/dashboard/kpi-grid-skeleton";
 
 const SuperAdminCockpitClient = dynamic(
   () =>
@@ -40,15 +43,21 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
-  const [access, kpis] = await Promise.all([getLayoutAccess(), getDashboardKpis()]);
+  const [access, kpis, accueil] = await Promise.all([
+    getLayoutAccess(),
+    getDashboardKpis(),
+    loadAccueilDashboard(user.id, user.email ?? undefined),
+  ]);
 
   if (!access.isSuperAdmin) {
     redirect(resolvePostLoginRoute(access.roleKey, access.departmentKey));
   }
 
-  const superAdminCockpit = await getSuperAdminCockpitPayload(user.id, { kpis });
+  const superAdminCockpit = await getSuperAdminCockpitPayload(user.id, { kpis, accueil });
 
   return (
-    <SuperAdminCockpitClient userDisplayName={access.userDisplayName} payload={superAdminCockpit} />
+    <Suspense fallback={<KpiGridSkeleton />}>
+      <SuperAdminCockpitClient payload={superAdminCockpit} />
+    </Suspense>
   );
 }

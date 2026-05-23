@@ -1,3 +1,5 @@
+import type { ActivityItem } from "@/components/dashboard/activity-feed";
+
 export type DeptKpiStat = {
   id: string;
   label: string;
@@ -60,6 +62,7 @@ export type DeptKpiPayload = {
 export type DeptKpiApiResponse = {
   dept: string;
   data: DeptKpiPayload;
+  activities: ActivityItem[];
   lastUpdated: string;
 };
 

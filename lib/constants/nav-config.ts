@@ -201,9 +201,9 @@ export const NAV_CONFIG = [
         key: "parametres",
         label: "Paramètres",
         icon: "Settings",
-        href: "/parametres",
         roles: ["super_admin"],
         expandable: true,
+        headerClickable: false,
         children: [
           {
             key: "param-securite",

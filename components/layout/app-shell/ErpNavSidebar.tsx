@@ -72,9 +72,10 @@ const NavItemRow = memo(function NavItemRow({
   const { isActive } = activeNav;
   const children = (item.children ?? []) as NavChildItem[];
   const isOpen = openGroups[item.key] ?? false;
+  const headerIsAccordionOnly = item.headerClickable === false;
   const parentActive =
     children.some((c) => isActive(c.href)) ||
-    ("href" in item && item.href ? isActive(item.href) : false);
+    (!headerIsAccordionOnly && "href" in item && item.href ? isActive(item.href) : false);
 
   if (!item.expandable) {
     const active = isActive(item.href!);

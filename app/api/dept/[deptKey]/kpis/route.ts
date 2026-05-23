@@ -6,6 +6,8 @@ import { DEPARTMENTS, type DepartmentKey } from "@/lib/constants/departments";
 import type { DeptKpiPayload } from "@/lib/dept/kpi-contract";
 import { buildDeptFinanceKpiPayload } from "@/lib/finance/runtime/finance-kpi-runtime";
 import { buildDeptVenteKpiPayload } from "@/lib/vente/runtime/vente-kpi-runtime";
+import { getRecentActivity } from "@/lib/server/get-recent-activity";
+import { getDeptActivityModuleKeys } from "@/lib/dept/dashboard-module-keys";
 import { resolveRhDeptKpisCached } from "@/modules/analytics/cache/rh-dept-kpis-resolver";
 
 type RouteContext = { params: { deptKey: string } };
@@ -138,9 +140,17 @@ export async function GET(_request: Request, { params }: RouteContext) {
       return NextResponse.json({ error: "Department not found" }, { status: 404 });
   }
 
+  const activities = await getRecentActivity(supabase, {
+    moduleKeys: getDeptActivityModuleKeys(deptKey as DepartmentKey),
+    excludeModules: ["audit"],
+    excludeActions: ["read"],
+    limit: 4,
+  });
+
   return NextResponse.json({
     dept: deptKey,
     data,
+    activities,
     lastUpdated: new Date().toISOString(),
   });
 }

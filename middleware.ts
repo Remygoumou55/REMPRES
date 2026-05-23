@@ -6,6 +6,7 @@ import {
   canAccessPathForProfile,
   hasAdminConsoleAccess,
 } from "@/lib/auth/permissions";
+import { resolveNavRouteAlias } from "@/lib/constants/nav-route-aliases";
 
 // ---------------------------------------------------------------------------
 // Routes protégées — authentification requise
@@ -26,6 +27,7 @@ const PROTECTED_PREFIXES = [
   "/logistique",
   "/actions",
   "/archives",
+  "/parametres",
   "/config",
 ];
 
@@ -59,8 +61,18 @@ function isAdminConsoleRestrictedPath(pathname: string): boolean {
 // ---------------------------------------------------------------------------
 
 export async function middleware(request: NextRequest) {
-  const response = NextResponse.next();
   const { pathname } = request.nextUrl;
+
+  const navAlias = resolveNavRouteAlias(pathname);
+  if (navAlias) {
+    const target = request.nextUrl.clone();
+    target.pathname = navAlias.split("?")[0] ?? navAlias;
+    const query = navAlias.includes("?") ? navAlias.split("?")[1] : "";
+    target.search = query ? `?${query}` : "";
+    return NextResponse.redirect(target, 308);
+  }
+
+  const response = NextResponse.next();
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -180,6 +192,8 @@ export const config = {
     "/archives/:path*",
     "/config",
     "/config/:path*",
+    "/parametres",
+    "/parametres/:path*",
     "/login",
   ],
 };

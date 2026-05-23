@@ -4,12 +4,21 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { ActionsGovernanceOverview } from "@/lib/server/actions-governance-overview";
 import { GOVERNANCE_ACTIONS_NAV } from "@/lib/actions/governance-nav";
+import { NavIcon } from "@/components/ui/nav-icon";
 
 type Props = {
   overview: ActionsGovernanceOverview;
 };
 
 const PILLARS = GOVERNANCE_ACTIONS_NAV.filter((x) => x.id !== "hub");
+
+const PILLAR_ICON_NAMES: Record<string, string> = {
+  approvals: "CheckCircle",
+  alerts: "Bell",
+  journals: "ClipboardList",
+  audit: "Shield",
+  system: "Cpu",
+};
 
 export function ActionsGovernanceHub({ overview }: Props) {
   const metric = (label: string, value: number, tone: "default" | "warn" | "danger" = "default") => {
@@ -47,7 +56,7 @@ export function ActionsGovernanceHub({ overview }: Props) {
 
       <section aria-label="Centres de contrôle" className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {PILLARS.map((item) => {
-          const Icon = item.icon;
+          const iconName = PILLAR_ICON_NAMES[item.id] ?? "Zap";
           let hint = "";
           let count: number | null = null;
           if (item.id === "approvals") {
@@ -75,7 +84,7 @@ export function ActionsGovernanceHub({ overview }: Props) {
               <div className="flex items-start justify-between gap-2">
                 <div className="flex min-w-0 items-center gap-2">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                    <Icon size={20} aria-hidden />
+                    <NavIcon iconName={iconName} size={20} />
                   </div>
                   <div className="min-w-0">
                     <h2 className="text-sm font-bold text-darktext sm:text-base">{item.label}</h2>

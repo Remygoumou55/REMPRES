@@ -9,8 +9,8 @@ import {
   Trash2,
   Users,
 } from "lucide-react";
+import { findNavItemByKey, NAV_ARCHIVES_HUB_EXTRAS } from "@/lib/constants/nav-config";
 import { ROUTES } from "@/lib/constants/routes";
-import { NAV_LABELS } from "@/lib/constants/nav-labels";
 
 export type ArchivesGovernanceNavItem = {
   id:
@@ -27,22 +27,52 @@ export type ArchivesGovernanceNavItem = {
   icon: LucideIcon;
 };
 
-/**
- * Structure officielle module Archives (supervision historique, lecture / traçabilité).
- * Les entrées « finance / RH / formation » pointent vers l’audit filtré faute d’écrans d’archives métier dédiés.
- */
-export const ARCHIVES_GOVERNANCE_NAV: readonly ArchivesGovernanceNavItem[] = [
-  { id: "hub", href: ROUTES.archives, label: NAV_LABELS.archivesOverview, icon: Archive },
-  { id: "sales", href: "/vente/clients/archives", label: "Archives ventes", icon: ShoppingCart },
-  { id: "finance", href: "/admin/audit?department=finance", label: "Archives finance", icon: Receipt },
-  { id: "hr", href: "/admin/audit?department=rh", label: "Archives RH", icon: Users },
-  { id: "training", href: "/admin/audit?department=formation", label: "Archives formation", icon: GraduationCap },
-  { id: "exports", href: "/admin/activity-logs/export", label: "Exports", icon: FileJson },
-  { id: "deletions", href: "/admin/activity-logs?actionKey=delete", label: "Suppressions", icon: Trash2 },
-  { id: "systemHistory", href: "/admin/audit?category=system", label: "Historique système", icon: Shield },
-] as const;
+const SIDEBAR_ICONS: Record<string, LucideIcon> = {
+  "archives-globales": Archive,
+  "archives-exports": FileJson,
+  "archives-suppressions": Trash2,
+};
 
-/** Vues audit réservées au bandeau Archives (pas le hub Actions générique). */
+const HUB_EXTRA_ICONS: Record<string, LucideIcon> = {
+  "archives-ventes": ShoppingCart,
+  "archives-finance": Receipt,
+  "archives-rh": Users,
+  "archives-formation": GraduationCap,
+  "historique-systeme": Shield,
+};
+
+const HUB_EXTRA_IDS: Record<string, ArchivesGovernanceNavItem["id"]> = {
+  "archives-ventes": "sales",
+  "archives-finance": "finance",
+  "archives-rh": "hr",
+  "archives-formation": "training",
+  "historique-systeme": "systemHistory",
+};
+
+const archivesItem = findNavItemByKey("archives");
+
+export const ARCHIVES_GOVERNANCE_NAV: readonly ArchivesGovernanceNavItem[] = [
+  ...(archivesItem
+    ? [{ id: "hub" as const, href: archivesItem.href, label: archivesItem.label, icon: Archive }]
+    : []),
+  ...(archivesItem?.children ?? []).map((c) => ({
+    id: (c.key === "archives-exports"
+      ? "exports"
+      : c.key === "archives-suppressions"
+        ? "deletions"
+        : "hub") as ArchivesGovernanceNavItem["id"],
+    href: c.href,
+    label: c.label,
+    icon: SIDEBAR_ICONS[c.key] ?? Archive,
+  })),
+  ...NAV_ARCHIVES_HUB_EXTRAS.map((e) => ({
+    id: HUB_EXTRA_IDS[e.key] ?? "sales",
+    href: e.href,
+    label: e.label,
+    icon: HUB_EXTRA_ICONS[e.key] ?? Archive,
+  })),
+];
+
 export function isArchivesGovernanceAuditView(pathname: string, search: Pick<URLSearchParams, "get"> | null): boolean {
   if (!pathname.startsWith("/admin/audit")) return false;
   if (!search) return false;
@@ -67,7 +97,10 @@ export function isArchivesGovernancePath(pathname: string, search: Pick<URLSearc
   return false;
 }
 
-export function archivesNavActiveId(pathname: string, search: Pick<URLSearchParams, "get"> | null): ArchivesGovernanceNavItem["id"] {
+export function archivesNavActiveId(
+  pathname: string,
+  search: Pick<URLSearchParams, "get"> | null,
+): ArchivesGovernanceNavItem["id"] {
   if (pathname === ROUTES.archives || pathname.startsWith(`${ROUTES.archives}/`)) return "hub";
   if (pathname.startsWith("/vente/clients/archives") || pathname.startsWith("/vente/produits/archives")) return "sales";
   if (pathname === ROUTES.history || pathname.startsWith(`${ROUTES.history}/`)) return "sales";

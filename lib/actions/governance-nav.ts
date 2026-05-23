@@ -3,33 +3,64 @@ import {
   Bell,
   CheckSquare,
   ClipboardList,
-  LayoutDashboard,
   LineChart,
   Shield,
+  Zap,
 } from "lucide-react";
+import { findNavItemByKey, NAV_ACTIONS_HUB_EXTRAS } from "@/lib/constants/nav-config";
 import { ROUTES } from "@/lib/constants/routes";
-import { NAV_LABELS } from "@/lib/constants/nav-labels";
 
 export type GovernanceActionsNavItem = {
   href: string;
   label: string;
   icon: LucideIcon;
-  /** Segment clé pour surbrillance */
   id: "hub" | "approvals" | "alerts" | "audit" | "journals" | "system";
 };
 
+const HUB_EXTRA_ICONS: Record<string, LucideIcon> = {
+  audit: Shield,
+  system: LineChart,
+};
+
+const SIDEBAR_CHILD_ICONS: Record<string, LucideIcon> = {
+  approbations: CheckSquare,
+  alertes: Bell,
+  journaux: ClipboardList,
+};
+
+const actionsItem = findNavItemByKey("actions");
+
 /**
- * Structure officielle du module Actions (supervision / gouvernance).
- * Les URLs canoniques restent sous `/actions` (hub) et `/admin/*` (centres).
+ * Structure officielle du module Actions — dérivée de NAV_CONFIG (sidebar + hub).
  */
 export const GOVERNANCE_ACTIONS_NAV: readonly GovernanceActionsNavItem[] = [
-  { id: "hub", href: ROUTES.actions, label: NAV_LABELS.actionsOverview, icon: LayoutDashboard },
-  { id: "approvals", href: "/admin/approvals", label: "Approbations", icon: CheckSquare },
-  { id: "alerts", href: "/admin/alerts", label: "Alertes", icon: Bell },
-  { id: "audit", href: "/admin/audit", label: "Audit", icon: Shield },
-  { id: "journals", href: "/admin/activity-logs", label: "Journaux", icon: ClipboardList },
-  { id: "system", href: "/admin/platform-dashboard", label: "Activité système", icon: LineChart },
-] as const;
+  ...(actionsItem
+    ? [
+        {
+          id: "hub" as const,
+          href: actionsItem.href,
+          label: actionsItem.label,
+          icon: Zap,
+        },
+      ]
+    : []),
+  ...(actionsItem?.children ?? []).map((c) => ({
+    id: (c.key === "approbations"
+      ? "approvals"
+      : c.key === "alertes"
+        ? "alerts"
+        : "journals") as GovernanceActionsNavItem["id"],
+    href: c.href,
+    label: c.label,
+    icon: SIDEBAR_CHILD_ICONS[c.key] ?? CheckSquare,
+  })),
+  ...NAV_ACTIONS_HUB_EXTRAS.map((e) => ({
+    id: (e.key === "audit" ? "audit" : "system") as GovernanceActionsNavItem["id"],
+    href: e.href,
+    label: e.label,
+    icon: HUB_EXTRA_ICONS[e.key] ?? Shield,
+  })),
+];
 
 import { isSettingsOfficialPath, SETTINGS_LEGACY_ALIAS_REDIRECTS } from "@/lib/settings/official-routes";
 

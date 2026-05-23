@@ -7,13 +7,11 @@ import {
   SUPER_ADMIN_OFFICIAL_RAIL_GROUP_IDS,
   type SuperAdminNavGroupDef,
 } from "@/lib/navigation/super-admin-nav";
-import { GOVERNANCE_ACTIONS_NAV } from "@/lib/actions/governance-nav";
-import { ARCHIVES_GOVERNANCE_NAV } from "@/lib/archives/governance-nav";
-import { SETTINGS_GOVERNANCE_NAV } from "@/lib/settings/governance-nav";
+import { NAV_CONFIG } from "@/lib/constants/nav-config";
 
 export const SUPER_ADMIN_HOME_ROUTE = ROUTES.home;
 
-/** Modules métier interdits dans le rail super_admin. */
+/** Modules métier interdits dans le rail super_admin (groupes collapsibles). */
 export const SUPER_ADMIN_FORBIDDEN_RAIL_MODULE_IDS = [
   "commerce",
   "crm",
@@ -25,9 +23,6 @@ export const SUPER_ADMIN_FORBIDDEN_RAIL_MODULE_IDS = [
 
 export type GovernanceChromeBand = "settings" | "archives" | "actions" | null;
 
-/**
- * Bandeau horizontal unique (Actions / Archives / Paramètres) — logique extraite pour tests.
- */
 export function resolveGovernanceChromeBand(
   pathname: string,
   search: Pick<URLSearchParams, "get"> | null,
@@ -38,7 +33,12 @@ export function resolveGovernanceChromeBand(
   return null;
 }
 
-/** Vérifie que le rail officiel n’a pas dérivé (3 groupes, sources de nav alignées). */
+const SIDEBAR_CHILD_COUNTS: Record<(typeof SUPER_ADMIN_OFFICIAL_RAIL_GROUP_IDS)[number], number> = {
+  actions: 3,
+  archives: 3,
+  parametres: 4,
+};
+
 export function validateSuperAdminNavGroups(groups: readonly SuperAdminNavGroupDef[]): {
   ok: boolean;
   errors: string[];
@@ -60,25 +60,21 @@ export function validateSuperAdminNavGroups(groups: readonly SuperAdminNavGroupD
     }
   }
 
-  const actions = groups.find((g) => g.id === "actions");
-  if (actions && actions.links.length !== GOVERNANCE_ACTIONS_NAV.length) {
-    errors.push("actions links drift from GOVERNANCE_ACTIONS_NAV");
+  for (const group of groups) {
+    const expectedCount = SIDEBAR_CHILD_COUNTS[group.id];
+    if (group.links.length !== expectedCount) {
+      errors.push(`${group.id} must have ${expectedCount} sidebar links, got ${group.links.length}`);
+    }
   }
 
-  const archives = groups.find((g) => g.id === "archives");
-  if (archives && archives.links.length !== ARCHIVES_GOVERNANCE_NAV.length) {
-    errors.push("archives links drift from ARCHIVES_GOVERNANCE_NAV");
-  }
-
-  const settings = groups.find((g) => g.id === "settings");
-  if (settings && settings.links.length !== SETTINGS_GOVERNANCE_NAV.length) {
-    errors.push("settings links drift from SETTINGS_GOVERNANCE_NAV");
+  const metierCount = NAV_CONFIG.find((s) => s.section === "Métier")?.items.length ?? 0;
+  if (metierCount !== 7) {
+    errors.push(`Métier section must have 7 modules, got ${metierCount}`);
   }
 
   return { ok: errors.length === 0, errors };
 }
 
-/** Assertion runtime légère (tests + garde-fou import). */
 export function assertSuperAdminNavLockdown(): void {
   const { ok, errors } = validateSuperAdminNavGroups(SUPER_ADMIN_NAV_GROUPS);
   if (!ok) {

@@ -15,8 +15,8 @@ import {
 } from "@/lib/navigation/super-admin-lockdown";
 
 describe("super admin final lockdown", () => {
-  it("verrouille le rail officiel (Accueil + 3 groupes collapsibles)", () => {
-    expect(SUPER_ADMIN_OFFICIAL_RAIL_GROUP_IDS).toEqual(["actions", "archives", "settings"]);
+  it("verrouille le rail officiel (3 groupes collapsibles dérivés de NAV_CONFIG)", () => {
+    expect(SUPER_ADMIN_OFFICIAL_RAIL_GROUP_IDS).toEqual(["actions", "archives", "parametres"]);
     expect(SUPER_ADMIN_HOME_ROUTE).toBe(ROUTES.home);
     const { ok, errors } = validateSuperAdminNavGroups(SUPER_ADMIN_NAV_GROUPS);
     expect(errors).toEqual([]);
@@ -41,8 +41,8 @@ describe("super admin final lockdown", () => {
     expect(getSuperAdminNavSegment("/admin/approvals", null)).toBe("actions");
     expect(getSuperAdminNavSegment(ROUTES.archives, null)).toBe("archives");
     expect(getSuperAdminNavSegment("/admin/archives", null)).toBe("archives");
-    expect(getSuperAdminNavSegment(SETTINGS_OFFICIAL_ROUTES.hub, null)).toBe("settings");
-    expect(getSuperAdminNavSegment(SETTINGS_OFFICIAL_ROUTES.users, null)).toBe("settings");
+    expect(getSuperAdminNavSegment(SETTINGS_OFFICIAL_ROUTES.hub, null)).toBe("parametres");
+    expect(getSuperAdminNavSegment(SETTINGS_OFFICIAL_ROUTES.users, null)).toBe("parametres");
   });
 
   it("marque les chemins admin legacy non gouvernés comme unmapped", () => {

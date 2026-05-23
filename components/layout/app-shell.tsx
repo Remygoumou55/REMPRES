@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback, Suspense } from "react";
+import { useState, useMemo, useCallback } from "react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu } from "lucide-react";
@@ -10,47 +10,39 @@ import { appConfig, getLogoUrl } from "@/lib/config";
 import { CurrencySwitcher } from "@/components/CurrencySwitcher";
 import { logError, logInfo } from "@/lib/logger";
 import type { ShellRailVisibility } from "@/lib/navigation/shell-visibility";
-
-import { SuperAdminPrimarySidebar } from "./app-shell/SuperAdminPrimarySidebar";
-import { SuperAdminMobileNav } from "./app-shell/SuperAdminMobileNav";
-import {
-  DepartmentBusinessSidebar,
-  getDepartmentNavContextLabel,
-} from "./app-shell/DepartmentBusinessSidebar";
-import { DepartmentBusinessMobileNav } from "./app-shell/DepartmentBusinessMobileNav";
-import { getSuperAdminNavSegment, SUPER_ADMIN_HEADER_LABELS } from "@/lib/navigation/super-admin-nav";
-import { SuperAdminNavContextLabel } from "./app-shell/SuperAdminNavContextLabel";
+import { ErpNavSidebar } from "./app-shell/ErpNavSidebar";
+import { getNavContextLabelFromPath } from "@/lib/constants/nav-context";
 
 type AppShellProps = {
   userDisplayName: string;
   userAvatarInitial: string;
+  userRole: string;
   departmentKey: string | null;
-  canReadClients: boolean;
-  canReadProducts: boolean;
   isSuperAdmin?: boolean;
   shellRail: ShellRailVisibility;
+  pendingApprovalsCount?: number;
   children: React.ReactNode;
 };
 
 export function AppShell({
   userDisplayName,
   userAvatarInitial,
+  userRole,
   departmentKey,
-  canReadClients,
-  canReadProducts,
   isSuperAdmin = false,
   shellRail,
+  pendingApprovalsCount = 0,
   children,
 }: AppShellProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isPrimaryExpanded, setIsPrimaryExpanded] = useState(true);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
-  const navContextLabel = useMemo(() => {
-    if (isSuperAdmin) return null;
-    return getDepartmentNavContextLabel(pathname ?? "", departmentKey);
-  }, [pathname, departmentKey, isSuperAdmin]);
+  const navContextLabel = useMemo(
+    () => getNavContextLabelFromPath(pathname ?? "", departmentKey, isSuperAdmin),
+    [pathname, departmentKey, isSuperAdmin],
+  );
 
   const handleLogout = useCallback(async () => {
     try {
@@ -63,7 +55,17 @@ export function AppShell({
     }
   }, [router]);
 
-  const primaryWidthClass = isPrimaryExpanded ? "w-[268px]" : "w-[76px]";
+  const sidebarProps = {
+    userDisplayName,
+    userRole,
+    isSuperAdmin,
+    shellRail,
+    pendingApprovalsCount,
+    onLogout: handleLogout,
+    onCollapsedChange: setSidebarCollapsed,
+  };
+
+  const primaryWidthClass = sidebarCollapsed ? "w-[76px]" : "w-[268px]";
 
   return (
     <div className="min-h-screen bg-graylight text-darktext">
@@ -80,53 +82,15 @@ export function AppShell({
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        {isSuperAdmin ? (
-          <SuperAdminMobileNav
-            pathname={pathname ?? ""}
-            userDisplayName={userDisplayName}
-            userAvatarInitial={userAvatarInitial}
-            onClose={() => setIsMobileMenuOpen(false)}
-            onLogout={handleLogout}
-          />
-        ) : (
-          <DepartmentBusinessMobileNav
-            pathname={pathname ?? ""}
-            departmentKey={departmentKey}
-            shellRail={shellRail}
-            canReadClients={canReadClients}
-            canReadProducts={canReadProducts}
-            userDisplayName={userDisplayName}
-            userAvatarInitial={userAvatarInitial}
-            onClose={() => setIsMobileMenuOpen(false)}
-            onLogout={handleLogout}
-          />
-        )}
+        <ErpNavSidebar {...sidebarProps} />
       </aside>
 
       <div className="flex min-h-screen">
-        <aside className={`hidden shrink-0 bg-primary transition-[width] duration-300 ease-in-out md:block ${primaryWidthClass}`}>
+        <aside
+          className={`hidden shrink-0 bg-primary transition-[width] duration-300 ease-in-out md:block ${primaryWidthClass}`}
+        >
           <div className={`sticky top-0 h-screen ${primaryWidthClass}`}>
-            {isSuperAdmin ? (
-              <SuperAdminPrimarySidebar
-                pathname={pathname ?? ""}
-                userAvatarInitial={userAvatarInitial}
-                onLogout={handleLogout}
-                isExpanded={isPrimaryExpanded}
-                onToggleExpanded={() => setIsPrimaryExpanded((e) => !e)}
-              />
-            ) : (
-              <DepartmentBusinessSidebar
-                pathname={pathname ?? ""}
-                departmentKey={departmentKey}
-                shellRail={shellRail}
-                canReadClients={canReadClients}
-                canReadProducts={canReadProducts}
-                userAvatarInitial={userAvatarInitial}
-                onLogout={handleLogout}
-                isExpanded={isPrimaryExpanded}
-                onToggleExpanded={() => setIsPrimaryExpanded((e) => !e)}
-              />
-            )}
+            <ErpNavSidebar {...sidebarProps} />
           </div>
         </aside>
 
@@ -142,20 +106,19 @@ export function AppShell({
                 <Menu size={20} />
               </button>
               <p className="hidden min-w-0 truncate text-sm font-medium text-gray-600 sm:block">
-                {isSuperAdmin ? (
-                  <Suspense
-                    fallback={SUPER_ADMIN_HEADER_LABELS[getSuperAdminNavSegment(pathname ?? "", null)]}
-                  >
-                    <SuperAdminNavContextLabel pathname={pathname ?? ""} />
-                  </Suspense>
-                ) : (
-                  navContextLabel
-                )}
+                {navContextLabel}
               </p>
             </div>
 
             <div className="flex shrink-0 items-center gap-2 md:hidden">
-              <Image src={getLogoUrl()} alt={appConfig.name} width={24} height={24} className="rounded object-contain" unoptimized />
+              <Image
+                src={getLogoUrl()}
+                alt={appConfig.name}
+                width={24}
+                height={24}
+                className="rounded object-contain"
+                unoptimized
+              />
               <span className="max-w-[120px] truncate text-sm font-bold text-darktext">{appConfig.name}</span>
             </div>
 

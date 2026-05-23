@@ -3,14 +3,13 @@ import {
   Bell,
   Coins,
   Cog,
-  LayoutDashboard,
   Lock,
   Percent,
   Settings2,
   Shield,
   Users,
 } from "lucide-react";
-import { NAV_LABELS } from "@/lib/constants/nav-labels";
+import { findNavItemByKey, NAV_PARAMETRES_HUB_EXTRAS } from "@/lib/constants/nav-config";
 import { SETTINGS_OFFICIAL_ROUTES } from "@/lib/settings/official-routes";
 import { isSettingsGovernancePath } from "@/lib/settings/legacy-route-lock";
 
@@ -31,18 +30,53 @@ export type SettingsGovernanceNavItem = {
   locked?: boolean;
 };
 
-/** Structure officielle module Paramètres — URLs canoniques uniquement. */
+const CHILD_ICONS: Record<string, LucideIcon> = {
+  utilisateurs: Users,
+  securite: Shield,
+  notifications: Bell,
+  systeme: Cog,
+};
+
+const HUB_EXTRA_ICONS: Record<string, LucideIcon> = {
+  permissions: Settings2,
+  devise: Coins,
+  taux: Percent,
+  langue: Lock,
+};
+
+const HUB_EXTRA_IDS: Record<string, SettingsGovernanceNavItem["id"]> = {
+  permissions: "permissions",
+  devise: "currency",
+  taux: "rates",
+  langue: "language",
+};
+
+const parametresItem = findNavItemByKey("parametres");
+
 export const SETTINGS_GOVERNANCE_NAV: readonly SettingsGovernanceNavItem[] = [
-  { id: "hub", href: SETTINGS_OFFICIAL_ROUTES.hub, label: NAV_LABELS.settingsOverview, icon: LayoutDashboard },
-  { id: "users", href: SETTINGS_OFFICIAL_ROUTES.users, label: "Utilisateurs", icon: Users },
-  { id: "permissions", href: SETTINGS_OFFICIAL_ROUTES.permissions, label: "Permissions", icon: Settings2 },
-  { id: "security", href: SETTINGS_OFFICIAL_ROUTES.security, label: "Sécurité", icon: Shield },
-  { id: "currency", href: SETTINGS_OFFICIAL_ROUTES.currency, label: "Devise", icon: Coins },
-  { id: "rates", href: SETTINGS_OFFICIAL_ROUTES.rates, label: "Taux", icon: Percent },
-  { id: "notifications", href: SETTINGS_OFFICIAL_ROUTES.notifications, label: "Notifications", icon: Bell },
-  { id: "system", href: SETTINGS_OFFICIAL_ROUTES.system, label: "Système", icon: Cog },
-  { id: "language", href: SETTINGS_OFFICIAL_ROUTES.language, label: "Langue", icon: Lock, locked: true },
-] as const;
+  ...(parametresItem
+    ? [{ id: "hub" as const, href: parametresItem.href, label: parametresItem.label, icon: Cog }]
+    : []),
+  ...(parametresItem?.children ?? []).map((c) => ({
+    id: (c.key === "utilisateurs"
+      ? "users"
+      : c.key === "securite"
+        ? "security"
+        : c.key === "notifications"
+          ? "notifications"
+          : "system") as SettingsGovernanceNavItem["id"],
+    href: c.href,
+    label: c.label,
+    icon: CHILD_ICONS[c.key] ?? Cog,
+  })),
+  ...NAV_PARAMETRES_HUB_EXTRAS.map((e) => ({
+    id: HUB_EXTRA_IDS[e.key] ?? "permissions",
+    href: e.href,
+    label: e.label,
+    icon: HUB_EXTRA_ICONS[e.key] ?? Settings2,
+    locked: e.key === "langue",
+  })),
+];
 
 export { isSettingsGovernancePath };
 

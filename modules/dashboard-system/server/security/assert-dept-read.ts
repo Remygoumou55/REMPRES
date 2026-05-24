@@ -1,25 +1,12 @@
 import type { DepartmentKey } from "@/lib/constants/departments";
-import {
-  getModulePermissions,
-  getProfileAuthBrief,
-  isAdminRole,
-  isSuperAdmin,
-} from "@/lib/server/permissions";
+import { assertApiDeptKpiAccess } from "@/lib/server/api-route-guard";
 
 /**
- * Aligné sur `GET /api/dept/[deptKey]/kpis` — pour actions serveur / orchestrations futures
- * sans exposer de route parallèle.
+ * Aligné sur `GET /api/dept/[deptKey]/kpis` — authority path unique (Étape 5).
  */
 export async function assertDashboardDeptRead(userId: string, deptKey: DepartmentKey): Promise<void> {
-  const [superAdmin, adminRole, profileBrief, deptPermission] = await Promise.all([
-    isSuperAdmin(userId),
-    isAdminRole(userId),
-    getProfileAuthBrief(userId),
-    getModulePermissions(userId, [deptKey]),
-  ]);
-
-  const legacyDG = String(profileBrief.roleKey ?? "").trim().toLowerCase() === "directeur_general";
-  if (!superAdmin && !adminRole && !legacyDG && !deptPermission.canRead) {
+  const access = await assertApiDeptKpiAccess(userId, deptKey);
+  if (!access.ok) {
     throw new Error("Accès refusé au tableau de bord département.");
   }
 }

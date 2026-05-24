@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
-import { getModulePermissions, getProfileAuthBrief, isAdminRole, isSuperAdmin } from "@/lib/server/permissions";
+import { getModulePermissions, getProfileAuthBrief, isSuperAdmin } from "@/lib/server/permissions";
+import { assertApiDeptKpiAccess } from "@/lib/server/api-route-guard";
 import { DEPARTMENTS, type DepartmentKey } from "@/lib/constants/departments";
 import type { DeptKpiPayload } from "@/lib/dept/kpi-contract";
 import { buildDeptFinanceKpiPayload } from "@/lib/finance/runtime/finance-kpi-runtime";
@@ -25,17 +26,17 @@ export async function GET(_request: Request, { params }: RouteContext) {
     return NextResponse.json({ error: "Department not found" }, { status: 404 });
   }
 
-  const [superAdmin, adminRole, profileBrief, deptPermission] = await Promise.all([
-    isSuperAdmin(user.id),
-    isAdminRole(user.id),
+  const [profileBrief, deptPermission] = await Promise.all([
     getProfileAuthBrief(user.id),
     getModulePermissions(user.id, [deptKey]),
   ]);
 
-  const legacyDG = String(profileBrief.roleKey ?? "").trim().toLowerCase() === "directeur_general";
-  if (!superAdmin && !adminRole && !legacyDG && !deptPermission.canRead) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  const access = await assertApiDeptKpiAccess(user.id, deptKey, profileBrief);
+  if (!access.ok) {
+    return NextResponse.json({ error: access.message }, { status: access.status });
   }
+
+  const superAdmin = await isSuperAdmin(user.id);
 
   const supabase = getSupabaseServerClient();
   const now = new Date();
@@ -61,11 +62,11 @@ export async function GET(_request: Request, { params }: RouteContext) {
     }
 
     case "rh": {
-      const rhDeptUpper = String(profileBrief.departmentKey ?? "").trim().toUpperCase();
+      const rhDeptUpper = String(access.brief.authorityDepartmentKey ?? profileBrief.departmentKey ?? "")
+        .trim()
+        .toUpperCase();
       const elevated =
         superAdmin ||
-        adminRole ||
-        legacyDG ||
         (deptPermission.canRead && rhDeptUpper === "RH");
       data = await resolveRhDeptKpisCached({
         viewerUserId: user.id,

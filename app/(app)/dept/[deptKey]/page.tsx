@@ -1,24 +1,36 @@
-import { redirect } from "next/navigation";
-import { Suspense } from "react";
-import { KpiGridSkeleton } from "@/components/dashboard";
+import { notFound, redirect } from "next/navigation";
+import { DeptHomePage } from "@/components/dashboard/dept-home-page";
+import { DEPARTMENTS, type DepartmentKey } from "@/lib/constants/departments";
 import { getServerSessionUser } from "@/lib/server/auth-session";
+import { getDeptDashboardData, type DeptKey } from "@/lib/server/dept-dashboard";
 import { getUserDisplay } from "@/lib/server/get-user-display";
-import { DeptDashboardClient } from "./DeptDashboardClient";
+import { getSupabaseServerClient } from "@/lib/supabaseServer";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-export default async function DeptDashboardPage() {
+const VALID_KEYS = new Set(DEPARTMENTS.map((d) => d.key));
+
+type PageProps = {
+  params: { deptKey: string };
+};
+
+export default async function DeptDashboardPage({ params }: PageProps) {
   const user = await getServerSessionUser();
   if (!user) {
     redirect("/login");
   }
 
-  const { firstName } = await getUserDisplay(user.id, user.email ?? undefined);
+  const deptKey = String(params.deptKey ?? "").trim().toLowerCase() as DeptKey;
+  if (!VALID_KEYS.has(deptKey as DepartmentKey)) {
+    notFound();
+  }
 
-  return (
-    <Suspense fallback={<KpiGridSkeleton count={4} />}>
-      <DeptDashboardClient firstName={firstName} />
-    </Suspense>
-  );
+  const supabase = getSupabaseServerClient();
+  const [{ firstName }, data] = await Promise.all([
+    getUserDisplay(user.id, user.email ?? undefined),
+    getDeptDashboardData(supabase, deptKey, user.id),
+  ]);
+
+  return <DeptHomePage data={data} firstName={firstName} />;
 }

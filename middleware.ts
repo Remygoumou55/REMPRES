@@ -7,6 +7,7 @@ import {
   hasAdminConsoleAccess,
 } from "@/lib/auth/permissions";
 import { resolveNavRouteAlias, resolveNavRouteRewrite } from "@/lib/constants/nav-route-aliases";
+import { isDeptRouteAllowed } from "@/lib/constants/role-routes";
 
 // ---------------------------------------------------------------------------
 // Routes protégées — authentification requise
@@ -161,6 +162,21 @@ export async function middleware(request: NextRequest) {
     }
 
     if (!canAccessPathForProfile(pathname, roleKey, deptKey)) {
+      const deniedUrl = request.nextUrl.clone();
+      deniedUrl.pathname = "/access-denied";
+      return NextResponse.redirect(deniedUrl);
+    }
+
+    const normalizedRole = String(roleKey ?? request.cookies.get("rempres_role")?.value ?? "")
+      .trim()
+      .toLowerCase();
+
+    if (
+      normalizedRole &&
+      normalizedRole !== "super_admin" &&
+      normalizedRole !== "directeur_general" &&
+      !isDeptRouteAllowed(normalizedRole, pathname)
+    ) {
       const deniedUrl = request.nextUrl.clone();
       deniedUrl.pathname = "/access-denied";
       return NextResponse.redirect(deniedUrl);

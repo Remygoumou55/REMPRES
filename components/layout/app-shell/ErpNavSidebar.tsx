@@ -57,6 +57,7 @@ type NavItemRowProps = {
   onToggleGroup: (key: string) => void;
   activeNav: ActiveNavApi;
   pendingApprovalsCount: number;
+  userRole: string;
   onExpandSidebar: () => void;
 };
 
@@ -67,6 +68,7 @@ const NavItemRow = memo(function NavItemRow({
   onToggleGroup,
   activeNav,
   pendingApprovalsCount,
+  userRole,
   onExpandSidebar,
 }: NavItemRowProps) {
   const { isActive } = activeNav;
@@ -135,7 +137,10 @@ const NavItemRow = memo(function NavItemRow({
           <ul className="mb-px pt-px" role="list">
             {children.map((child) => {
               const active = isActive(child.href);
-              const showBadge = child.badge === "pendingCount" && pendingApprovalsCount > 0;
+              const showBadge =
+                child.badge === "pendingCount" &&
+                pendingApprovalsCount > 0 &&
+                userRole.trim().toLowerCase() === "super_admin";
               return (
                 <li key={child.key} className="mb-px">
                   <Link
@@ -287,6 +292,7 @@ export const ErpNavSidebar = memo(function ErpNavSidebar({
                     onToggleGroup={toggleGroup}
                     activeNav={activeNav}
                     pendingApprovalsCount={pendingApprovalsCount}
+                    userRole={userRole}
                     onExpandSidebar={expandSidebar}
                   />
                 ))}

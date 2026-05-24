@@ -9,9 +9,9 @@ import {
 } from "@/lib/navigation/shell-visibility";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getShellLayoutPermissions } from "@/lib/server/permissions";
+import { countPendingApprovals } from "@/lib/server/approvals";
 import { getCachedProfileRow } from "@/lib/server/profile-row";
 import { avatarInitialFromDisplayName } from "@/lib/server/profile-display";
-import { getSupabaseServerClient } from "@/lib/supabaseServer";
 
 export const getLayoutAccess = cache(async () => {
   const user = await getServerSessionUser();
@@ -66,13 +66,8 @@ export const getLayoutAccess = cache(async () => {
     hasAdminConsoleAccess(profile.roleKey, profile.departmentKey);
 
   let pendingApprovalsCount = 0;
-  if (isSuperAdminUser || rail.actions) {
-    const supabase = getSupabaseServerClient();
-    const { count } = await supabase
-      .from("approval_requests")
-      .select("id", { count: "exact", head: true })
-      .eq("status", "pending");
-    pendingApprovalsCount = count ?? 0;
+  if (isSuperAdminUser) {
+    pendingApprovalsCount = await countPendingApprovals();
   }
 
   return {

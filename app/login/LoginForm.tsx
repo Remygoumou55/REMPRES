@@ -83,6 +83,10 @@ export function LoginForm() {
         return;
       }
 
+      if (profile.role_key) {
+        document.cookie = `rempres_role=${encodeURIComponent(profile.role_key)}; path=/; SameSite=Lax`;
+      }
+
       logInfo("auth", "login success", { userId: data.user.id, role: profile.role_key });
       router.replace(getDestinationForRole(profile.role_key, profile.department_key));
     } catch (err) {

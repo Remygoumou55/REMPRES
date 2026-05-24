@@ -39,6 +39,16 @@ export const metadata = {
   title: `${NAV_LABELS.home} — RemPres ERP`,
 };
 
+const DEPT_REDIRECT: Record<string, string> = {
+  responsable_vente: "/dept/vente",
+  comptable: "/dept/finance",
+  responsable_rh: "/dept/rh",
+  responsable_formation: "/dept/formation",
+  responsable_consultation: "/dept/consultation",
+  responsable_marketing: "/dept/marketing",
+  responsable_logistique: "/dept/logistique",
+};
+
 export default async function DashboardPage() {
   const user = await getServerSessionUser();
 
@@ -46,8 +56,14 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
-  const [access, kpis, accueil] = await Promise.all([
-    getLayoutAccess(),
+  const access = await getLayoutAccess();
+  const roleKey = (access.roleKey ?? "").trim().toLowerCase();
+  const deptPath = DEPT_REDIRECT[roleKey];
+  if (deptPath) {
+    redirect(deptPath);
+  }
+
+  const [kpis, accueil] = await Promise.all([
     getDashboardKpis(),
     loadAccueilDashboard(user.id, user.email ?? undefined),
   ]);

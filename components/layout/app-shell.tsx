@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useCallback } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu } from "lucide-react";
@@ -9,8 +10,18 @@ import { getSupabaseBrowserClient } from "@/lib/supabase";
 import { appConfig, getLogoUrl } from "@/lib/config";
 import { CurrencySwitcher } from "@/components/CurrencySwitcher";
 import { logError, logInfo } from "@/lib/logger";
-import { ErpNavSidebar } from "./app-shell/ErpNavSidebar";
+import { isDeptRole, getDeptNavConfig } from "@/lib/constants/dept-nav-configs";
 import { getNavContextLabelFromPath } from "@/lib/constants/nav-context";
+
+const ErpNavSidebar = dynamic(
+  () => import("./app-shell/ErpNavSidebar").then((m) => ({ default: m.ErpNavSidebar })),
+  { loading: () => <div className="h-full w-full bg-primary" aria-hidden /> },
+);
+
+const DeptSidebarNav = dynamic(
+  () => import("./dept-sidebar-nav").then((m) => ({ default: m.DeptSidebarNav })),
+  { loading: () => <div className="h-full w-full bg-primary" aria-hidden /> },
+);
 
 type AppShellProps = {
   userDisplayName: string;
@@ -43,6 +54,7 @@ export function AppShell({
 
   const handleLogout = useCallback(async () => {
     try {
+      document.cookie = "rempres_role=; path=/; max-age=0; SameSite=Lax";
       const supabase = getSupabaseBrowserClient();
       await supabase.auth.signOut();
       logInfo("auth", "logout success", { module: "app-shell" });
@@ -58,6 +70,27 @@ export function AppShell({
     pendingApprovalsCount,
     onLogout: handleLogout,
     onCollapsedChange: setSidebarCollapsed,
+  };
+
+  const deptNavConfig = useMemo(
+    () => (isDeptRole(userRole) ? getDeptNavConfig(userRole) : null),
+    [userRole],
+  );
+
+  const renderSidebar = () => {
+    if (deptNavConfig) {
+      return (
+        <DeptSidebarNav
+          config={deptNavConfig}
+          userRole={userRole}
+          userDisplayName={userDisplayName}
+          onLogout={handleLogout}
+          onCollapsedChange={setSidebarCollapsed}
+        />
+      );
+    }
+
+    return <ErpNavSidebar {...sidebarProps} />;
   };
 
   const primaryWidthClass = sidebarCollapsed ? "w-[76px]" : "w-[268px]";
@@ -77,7 +110,7 @@ export function AppShell({
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <ErpNavSidebar {...sidebarProps} />
+        {renderSidebar()}
       </aside>
 
       <div className="flex min-h-screen">
@@ -85,7 +118,7 @@ export function AppShell({
           className={`hidden shrink-0 bg-primary transition-[width] duration-300 ease-in-out md:block ${primaryWidthClass}`}
         >
           <div className={`sticky top-0 h-screen ${primaryWidthClass}`}>
-            <ErpNavSidebar {...sidebarProps} />
+            {renderSidebar()}
           </div>
         </aside>
 

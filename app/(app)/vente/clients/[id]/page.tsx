@@ -2,7 +2,11 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { User } from "lucide-react";
-import { getClientById, softDeleteClient, updateClient } from "@/lib/server/clients";
+import { getClientById, updateClient } from "@/lib/server/clients";
+import { createApprovalRequest } from "@/lib/server/approvals";
+import { SENSITIVE_ACTIONS } from "@/lib/constants/sensitive-actions";
+import { getUserRole } from "@/lib/server/permissions";
+import { getCachedProfileRow } from "@/lib/server/profile-row";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import type { ClientType } from "@/types/client";
 import { assertClientsPermission, getClientsPermissions } from "@/lib/server/permissions";
@@ -67,17 +71,41 @@ export default async function ClientDetailPage({ params, searchParams }: ClientD
     "use server";
     try {
       await assertClientsPermission(userId, "delete");
-      const requestHeaders = headers();
-      await softDeleteClient(params.id, userId, {
-        ip: requestHeaders.get("x-forwarded-for") ?? requestHeaders.get("x-real-ip"),
-        userAgent: requestHeaders.get("user-agent"),
+      const [profile, roleKey, clientRow] = await Promise.all([
+        getCachedProfileRow(userId),
+        getUserRole(userId),
+        getClientById(params.id),
+      ]);
+
+      const clientLabel =
+        clientRow?.company_name ||
+        [clientRow?.first_name, clientRow?.last_name].filter(Boolean).join(" ") ||
+        params.id;
+
+      const result = await createApprovalRequest({
+        requestedBy: userId,
+        requesterName: profile.displayName || "Responsable",
+        requesterRole: roleKey || profile.roleKey || "",
+        requesterDept: "Vente",
+        actionType: SENSITIVE_ACTIONS.DELETE_CLIENT.type,
+        module: SENSITIVE_ACTIONS.DELETE_CLIENT.module,
+        targetId: params.id,
+        targetLabel: clientLabel,
+        description: SENSITIVE_ACTIONS.DELETE_CLIENT.description(clientLabel),
+        actionPayload: { id: params.id, table: "clients", operation: "soft_delete" },
+        priority: SENSITIVE_ACTIONS.DELETE_CLIENT.priority,
       });
-      await revalidateClients({ clientId: params.id });
+
+      if (!result.success) {
+        redirect(`/vente/clients/${params.id}?error=${encodeURIComponent("Erreur lors de la demande")}`);
+      }
     } catch (error) {
       const message = mapClientError(error, "Impossible de supprimer le client pour le moment.");
       redirect(`/vente/clients/${params.id}?error=${encodeURIComponent(message)}`);
     }
-    redirect(`/vente/clients?success=${encodeURIComponent("Client supprimé avec succès.")}`);
+    redirect(
+      `/vente/clients?success=${encodeURIComponent("Demande envoyée. En attente d'approbation du Super Admin.")}`,
+    );
   }
 
   async function updateClientAction(formData: FormData): Promise<ClientFormActionResult> {

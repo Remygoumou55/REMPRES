@@ -3,13 +3,16 @@ import { notFound, redirect } from "next/navigation";
 import { Package } from "lucide-react";
 
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
-import { getProductById, softDeleteProduct, updateProduct } from "@/lib/server/products";
+import { getProductById, updateProduct } from "@/lib/server/products";
+import { createApprovalRequest } from "@/lib/server/approvals";
+import { SENSITIVE_ACTIONS } from "@/lib/constants/sensitive-actions";
+import { getModulePermissions, getUserRole } from "@/lib/server/permissions";
+import { getCachedProfileRow } from "@/lib/server/profile-row";
 import { FlashMessage } from "@/components/ui/flash-message";
 import { DeleteProductButton } from "@/components/vente/produits/delete-product-button";
 import { ProductForm } from "@/components/forms/product-form";
 import { EditActionLink } from "@/components/ui/edit-action-link";
 import { DetailPageModal } from "@/components/ui/detail-page-modal";
-import { getModulePermissions } from "@/lib/server/permissions";
 import { mapProductError } from "@/lib/server/product-error-messages";
 import { isDetailEditOpen } from "@/lib/routing/modal-query";
 import { revalidateProduits } from "@/lib/cache/revalidation-map";
@@ -70,25 +73,49 @@ export default async function ProductDetailPage({ params, searchParams }: Produc
     "use server";
 
     try {
-      const permissions = await getModulePermissions(userId, ["produits", "vente"]);
+      const deletePerms = await getModulePermissions(userId, ["produits", "vente"]);
 
-      if (!permissions.canDelete) {
+      if (!deletePerms.canDelete) {
         throw new Error("Accès refusé");
       }
 
-      await softDeleteProduct(params.id);
-      await revalidateProduits({ productId: params.id });
+      const [profile, roleKey, productRow] = await Promise.all([
+        getCachedProfileRow(userId),
+        getUserRole(userId),
+        getProductById(params.id),
+      ]);
 
+      const productLabel = productRow?.name || params.id;
+
+      const result = await createApprovalRequest({
+        requestedBy: userId,
+        requesterName: profile.displayName || "Responsable",
+        requesterRole: roleKey || profile.roleKey || "",
+        requesterDept: "Vente",
+        actionType: SENSITIVE_ACTIONS.DELETE_PRODUCT.type,
+        module: SENSITIVE_ACTIONS.DELETE_PRODUCT.module,
+        targetId: params.id,
+        targetLabel: productLabel,
+        description: SENSITIVE_ACTIONS.DELETE_PRODUCT.description(productLabel),
+        actionPayload: { id: params.id, table: "products", operation: "soft_delete" },
+        priority: SENSITIVE_ACTIONS.DELETE_PRODUCT.priority,
+      });
+
+      if (!result.success) {
+        redirect(`/vente/produits/${params.id}?error=${encodeURIComponent("Erreur lors de la demande")}`);
+      }
     } catch (error) {
       const message = mapProductError(
         error,
-        "Impossible de supprimer le produit pour le moment."
+        "Impossible de supprimer le produit pour le moment.",
       );
 
       redirect(`/vente/produits/${params.id}?error=${encodeURIComponent(message)}`);
     }
 
-    redirect(`/vente/produits?success=${encodeURIComponent("Produit supprimé avec succès.")}`);
+    redirect(
+      `/vente/produits?success=${encodeURIComponent("Demande envoyée. En attente d'approbation du Super Admin.")}`,
+    );
   }
 
   async function updateProductAction(formData: FormData) {

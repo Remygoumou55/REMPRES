@@ -1,11 +1,9 @@
 /**
  * Routes cockpit département unifiées — DeptHomePage sur /dept/[slug].
  */
-import { DEPT_ALLOWED_ROUTES } from "@/lib/constants/role-routes";
 import { resolveAuthorityDepartmentKey } from "@/lib/auth/profile-authority";
 import {
   DEPARTMENT_KEYS,
-  getDepartmentRoutePrefixes,
   normalizeDepartmentKey,
   type DepartmentKey,
 } from "@/lib/departments/department-config";
@@ -19,16 +17,6 @@ const CANONICAL_TO_DEPT_SLUG: Partial<Record<DepartmentKey, DeptSlug>> = {
   [DEPARTMENT_KEYS.CONSULTATION]: "consultation",
   [DEPARTMENT_KEYS.MARKETING]: "marketing",
   [DEPARTMENT_KEYS.LOGISTIQUE]: "logistique",
-};
-
-const DEPT_SLUG_TO_ROUTE_PREFIX: Record<DeptSlug, string> = {
-  vente: "/vente",
-  finance: "/finance",
-  rh: "/rh",
-  formation: "/formation",
-  consultation: "/consultation",
-  marketing: "/marketing",
-  logistique: "/logistique",
 };
 
 function normalizeDeptPathname(pathname: string): string {
@@ -65,43 +53,26 @@ export function extractDeptSlugFromPath(pathname: string): DeptSlug | null {
   const path = normalizeDeptPathname(pathname);
   if (!path.startsWith("/dept/")) return null;
   const slug = path.slice("/dept/".length).split("/")[0] ?? "";
-  if (slug in DEPT_SLUG_TO_ROUTE_PREFIX) return slug as DeptSlug;
+  if (slug in CANONICAL_TO_DEPT_SLUG) return slug as DeptSlug;
   return null;
 }
 
 /**
- * Autorise /dept/[slug] pour le département du profil (manager/agent/comptable legacy)
- * sans ouvrir les autres slugs.
+ * Autorise /dept/[slug] — lock strict : uniquement le cockpit du département effectif.
+ * Legacy DEPT_ALLOWED_ROUTES retiré (Étape 4 — pas de fuite cross-slug).
  */
 export function canProfileAccessDeptPath(
   pathname: string,
   roleKey: string | null | undefined,
   departmentKey: string | null | undefined,
 ): boolean {
+  if (!isDeptCockpitPath(pathname)) return false;
+
   const path = normalizeDeptPathname(pathname);
   if (path === "/dept") return false;
-  if (!path.startsWith("/dept/")) return false;
-
-  const slug = extractDeptSlugFromPath(path);
-  if (!slug) return false;
 
   const profileCockpit = resolveDeptCockpitPathForProfile(roleKey, departmentKey);
-  if (profileCockpit && (path === profileCockpit || path.startsWith(`${profileCockpit}/`))) {
-    return true;
-  }
+  if (!profileCockpit) return false;
 
-  const operationalPrefix = DEPT_SLUG_TO_ROUTE_PREFIX[slug];
-  const prefixes = getDepartmentRoutePrefixes(departmentKey);
-  if (operationalPrefix && prefixes.includes(operationalPrefix)) {
-    return true;
-  }
-
-  const rawRole = String(roleKey ?? "").trim().toLowerCase();
-  const legacyRoutes = DEPT_ALLOWED_ROUTES[rawRole];
-  if (!legacyRoutes) return false;
-
-  return legacyRoutes.some((allowedPrefix) => {
-    if (allowedPrefix === "/dept") return path.startsWith("/dept/");
-    return path === allowedPrefix || path.startsWith(`${allowedPrefix}/`);
-  });
+  return path === profileCockpit || path.startsWith(`${profileCockpit}/`);
 }

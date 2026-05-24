@@ -1,7 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/auth-helpers-nextjs";
 import { resolveNavRouteAlias, resolveNavRouteRewrite } from "@/lib/constants/nav-route-aliases";
-import { isDeptRouteAllowed } from "@/lib/constants/role-routes";
 import {
   edgeCanAccessPathForProfile,
   edgeHasAdminConsoleAccess,
@@ -177,21 +176,7 @@ export async function middleware(request: NextRequest) {
     if (!edgeCanAccessPathForProfile(pathname, roleKey, deptKey)) {
       const deniedUrl = request.nextUrl.clone();
       deniedUrl.pathname = "/access-denied";
-      return NextResponse.redirect(deniedUrl);
-    }
-
-    const normalizedRole = String(roleKey ?? request.cookies.get("rempres_role")?.value ?? "")
-      .trim()
-      .toLowerCase();
-
-    if (
-      normalizedRole &&
-      normalizedRole !== "super_admin" &&
-      normalizedRole !== "directeur_general" &&
-      !isDeptRouteAllowed(normalizedRole, pathname)
-    ) {
-      const deniedUrl = request.nextUrl.clone();
-      deniedUrl.pathname = "/access-denied";
+      deniedUrl.search = "";
       return NextResponse.redirect(deniedUrl);
     }
   }
@@ -233,5 +218,7 @@ export const config = {
     "/parametres",
     "/parametres/:path*",
     "/login",
+    "/access-denied",
+    "/error-profile",
   ],
 };

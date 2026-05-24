@@ -5,7 +5,6 @@
 
 import {
   DEPARTMENT_KEYS,
-  getDepartmentRoutePrefixes,
   normalizeDepartmentKey,
 } from "@/lib/departments/department-config";
 import { effectiveAuthRoleKey, ROLE_KEYS } from "@/lib/auth/roles";
@@ -14,7 +13,11 @@ import {
   SETTINGS_OFFICIAL_ROUTES,
   isSettingsOfficialPath,
 } from "@/lib/settings/official-routes";
-import { canProfileAccessDeptPath } from "@/lib/navigation/dept-cockpit-route";
+import {
+  canAccessDepartmentOperationalPath,
+  canAccessDeptCockpitPathForProfile,
+  resolveAdminConsoleDepartmentKey,
+} from "@/lib/navigation/route-authority";
 
 const ROUTES_ARCHIVES = "/archives";
 const ROUTES_ACTIONS = "/actions";
@@ -194,7 +197,8 @@ export function edgeHasAdminConsoleAccess(
 ): boolean {
   const r = effectiveAuthRoleKey(roleKey);
   if (r === ROLE_KEYS.SUPER_ADMIN) return true;
-  if (r === ROLE_KEYS.MANAGER && normalizeDepartmentKey(departmentKey) === DEPARTMENT_KEYS.ADMINISTRATION) {
+  const adminDept = resolveAdminConsoleDepartmentKey(roleKey, departmentKey);
+  if (r === ROLE_KEYS.MANAGER && normalizeDepartmentKey(adminDept) === DEPARTMENT_KEYS.ADMINISTRATION) {
     return true;
   }
   return false;
@@ -218,7 +222,7 @@ export function edgeCanAccessPathForProfile(
     return true;
   }
 
-  if (canProfileAccessDeptPath(pathname, roleKey, departmentKey)) {
+  if (canAccessDeptCockpitPathForProfile(pathname, roleKey, departmentKey)) {
     return true;
   }
 
@@ -235,18 +239,5 @@ export function edgeCanAccessPathForProfile(
     return pathnameMatchesAnyPrefix(path, ADMIN_CONSOLE_ALLOWED_PREFIXES);
   }
 
-  if (r === ROLE_KEYS.ACCOUNTANT) {
-    return pathnameMatchesAnyPrefix(path, ["/finance"]);
-  }
-
-  if (r === ROLE_KEYS.AUDITOR) {
-    return pathnameMatchesAnyPrefix(path, ["/admin/activity-logs"]);
-  }
-
-  const prefixes = getDepartmentRoutePrefixes(departmentKey);
-  if (prefixes.length > 0 && pathnameMatchesAnyPrefix(path, prefixes)) {
-    return true;
-  }
-
-  return false;
+  return canAccessDepartmentOperationalPath(pathname, roleKey, departmentKey);
 }

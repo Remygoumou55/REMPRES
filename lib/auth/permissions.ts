@@ -3,7 +3,6 @@
  */
 import {
   DEPARTMENT_KEYS,
-  getDepartmentRoutePrefixes,
   normalizeDepartmentKey,
   type DepartmentKey,
 } from "@/lib/departments/department-config";
@@ -13,7 +12,11 @@ import {
   isSuperAdminOperationalPath,
   isSuperAdminReadOnlyVentePath,
 } from "@/lib/auth/supervision";
-import { canProfileAccessDeptPath } from "@/lib/navigation/dept-cockpit-route";
+import {
+  canAccessDepartmentOperationalPath,
+  canAccessDeptCockpitPathForProfile,
+  resolveAdminConsoleDepartmentKey,
+} from "@/lib/navigation/route-authority";
 
 export type RoleDepartmentValidationResult =
   | { ok: true }
@@ -53,9 +56,9 @@ export function hasAdminConsoleAccess(
   departmentKey: string | null | undefined,
 ): boolean {
   const r = effectiveAuthRoleKey(roleKey);
-  // GLOBAL — toujours autorisé pour la console admin / invitations / affectations.
   if (r === ROLE_KEYS.SUPER_ADMIN) return true;
-  if (r === ROLE_KEYS.MANAGER && normalizeDepartmentKey(departmentKey) === DEPARTMENT_KEYS.ADMINISTRATION) {
+  const adminDept = resolveAdminConsoleDepartmentKey(roleKey, departmentKey);
+  if (r === ROLE_KEYS.MANAGER && normalizeDepartmentKey(adminDept) === DEPARTMENT_KEYS.ADMINISTRATION) {
     return true;
   }
   return false;
@@ -96,7 +99,7 @@ export function canAccessPathForProfile(
     return true;
   }
 
-  if (canProfileAccessDeptPath(pathname, roleKey, departmentKey)) {
+  if (canAccessDeptCockpitPathForProfile(pathname, roleKey, departmentKey)) {
     return true;
   }
 
@@ -109,24 +112,12 @@ export function canAccessPathForProfile(
     return false;
   }
 
-  if (hasAdminConsoleAccess(roleKey, departmentKey)) {
+  const adminDept = resolveAdminConsoleDepartmentKey(roleKey, departmentKey);
+  if (hasAdminConsoleAccess(roleKey, adminDept)) {
     return pathnameMatchesAnyPrefix(path, ADMIN_CONSOLE_ALLOWED_PREFIXES);
   }
 
-  if (r === ROLE_KEYS.ACCOUNTANT) {
-    return pathnameMatchesAnyPrefix(path, ["/finance"]);
-  }
-
-  if (r === ROLE_KEYS.AUDITOR) {
-    return pathnameMatchesAnyPrefix(path, ["/admin/activity-logs"]);
-  }
-
-  const prefixes = getDepartmentRoutePrefixes(departmentKey);
-  if (prefixes.length > 0 && pathnameMatchesAnyPrefix(path, prefixes)) {
-    return true;
-  }
-
-  return false;
+  return canAccessDepartmentOperationalPath(pathname, roleKey, departmentKey);
 }
 
 /** Alias explicite — même implémentation que `canAccessPathForProfile`. */

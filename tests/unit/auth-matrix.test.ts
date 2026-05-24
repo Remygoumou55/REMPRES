@@ -19,6 +19,16 @@ describe("hasAdminConsoleAccess", () => {
 
   it("resolves legacy DG alias to manager for administration access", () => {
     expect(hasAdminConsoleAccess("directeur_general", DEPARTMENT_KEYS.ADMINISTRATION)).toBe(true);
+    expect(hasAdminConsoleAccess("directeur_general", null)).toBe(true);
+  });
+
+  it("denies legacy responsable_vente cross-dept cockpit paths", () => {
+    expect(
+      canAccessPathForProfile("/dept/finance", "responsable_vente", null),
+    ).toBe(false);
+    expect(
+      canAccessPathForProfile("/dept/rh", "responsable_vente", null),
+    ).toBe(false);
   });
 });
 

@@ -34,7 +34,7 @@ export function resolvePostLoginRoute(
 
   if (r === ROLE_KEYS.ACCOUNTANT) {
     return (
-      getDepartmentNavigationEntry(DEPARTMENT_KEYS.FINANCE)?.dashboardRoute ?? "/finance/dashboard"
+      getDepartmentNavigationEntry(DEPARTMENT_KEYS.FINANCE)?.dashboardRoute ?? "/dept/finance"
     );
   }
 

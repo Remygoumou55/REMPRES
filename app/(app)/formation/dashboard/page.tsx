@@ -1,5 +1,8 @@
-import { DepartmentDashboardPage } from "@/components/governance/home/DepartmentDashboardPage";
+import { redirect } from "next/navigation";
 
-export default async function FormationDashboardPage() {
-  return <DepartmentDashboardPage departmentKey="FORMATION" />;
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+export default function FormationDashboardPage() {
+  redirect("/dept/formation");
 }

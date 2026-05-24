@@ -12,7 +12,7 @@ export const FINANCE_OPERATIONAL_LINKS: readonly DepartmentOperationalLink[] = [
   {
     id: "finance-dashboard",
     vertical: "finance",
-    href: "/finance/dashboard",
+    href: "/dept/finance",
     labelKey: "deptDash.finance.link.dashboard",
     primaryDeptKey: "finance",
   },

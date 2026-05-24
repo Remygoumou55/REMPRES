@@ -14,7 +14,7 @@ describe("M3.5 UX P0 — home routes", () => {
   });
 
   it("manager vente → cockpit département", () => {
-    expect(resolvePostLoginRoute(ROLE_KEYS.MANAGER, DEPARTMENT_KEYS.VENTE)).toBe("/vente/dashboard");
+    expect(resolvePostLoginRoute(ROLE_KEYS.MANAGER, DEPARTMENT_KEYS.VENTE)).toBe("/dept/vente");
   });
 
   it("consultation profile → formation cockpit (M1.5)", () => {
@@ -27,7 +27,7 @@ describe("M3.5 UX P0 — home routes", () => {
   });
 
   it("accountant → finance cockpit", () => {
-    expect(resolvePostLoginRoute(ROLE_KEYS.ACCOUNTANT, null)).toBe("/finance/dashboard");
+    expect(resolvePostLoginRoute(ROLE_KEYS.ACCOUNTANT, null)).toBe("/dept/finance");
   });
 });
 

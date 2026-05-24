@@ -64,7 +64,7 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
 > = {
   [DEPARTMENT_KEYS.VENTE]: {
     departmentKey: DEPARTMENT_KEYS.VENTE,
-    cockpitRoute: "/vente/dashboard",
+    cockpitRoute: "/dept/vente",
     operationalRoot: "/vente/nouvelle-vente",
     navGroups: [
       {
@@ -92,7 +92,7 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
   },
   [DEPARTMENT_KEYS.FINANCE]: {
     departmentKey: DEPARTMENT_KEYS.FINANCE,
-    cockpitRoute: "/finance/dashboard",
+    cockpitRoute: "/dept/finance",
     operationalRoot: "/finance",
     navGroups: [
       {
@@ -107,7 +107,7 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
   },
   [DEPARTMENT_KEYS.RH]: {
     departmentKey: DEPARTMENT_KEYS.RH,
-    cockpitRoute: "/rh/dashboard",
+    cockpitRoute: "/dept/rh",
     operationalRoot: "/rh",
     navGroups: [
       {
@@ -126,16 +126,16 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
   },
   [DEPARTMENT_KEYS.FORMATION]: {
     departmentKey: DEPARTMENT_KEYS.FORMATION,
-    cockpitRoute: "/formation/dashboard",
+    cockpitRoute: "/dept/formation",
     operationalRoot: "/formation",
     navGroups: [
       {
         id: "formation",
         label: "Formation & Consultation",
         links: [
-          { href: "/formation/dashboard", label: "Pilotage" },
+          { href: "/dept/formation", label: "Pilotage" },
           { href: "/formation", label: "Formation" },
-          { href: "/consultation/dashboard", label: "Consultation" },
+          { href: "/dept/consultation", label: "Consultation" },
         ],
       },
     ],
@@ -149,7 +149,7 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
         id: "marketing",
         label: "Marketing",
         links: [
-          { href: "/marketing/dashboard", label: "Pilotage" },
+          { href: "/dept/marketing", label: "Pilotage" },
           { href: "/marketing", label: "Campagnes" },
         ],
       },
@@ -157,7 +157,7 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
   },
   [DEPARTMENT_KEYS.LOGISTIQUE]: {
     departmentKey: DEPARTMENT_KEYS.LOGISTIQUE,
-    cockpitRoute: "/logistique/dashboard",
+    cockpitRoute: "/dept/logistique",
     operationalRoot: "/logistique",
     navGroups: [
       {

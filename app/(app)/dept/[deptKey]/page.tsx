@@ -1,3 +1,4 @@
+// cache-bust: 24-05-2026
 import { notFound, redirect } from "next/navigation";
 import { DeptHomePage } from "@/components/dashboard/dept-home-page";
 import { DEPARTMENTS, type DepartmentKey } from "@/lib/constants/departments";

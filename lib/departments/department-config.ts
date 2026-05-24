@@ -53,7 +53,7 @@ export type DepartmentNavigationSpec = {
 export const DEPARTMENT_NAVIGATION: Record<DepartmentKey, DepartmentNavigationSpec> = {
   [DEPARTMENT_KEYS.VENTE]: {
     label: "Vente",
-    dashboardRoute: "/vente/dashboard",
+    dashboardRoute: "/dept/vente",
     operationalRootRoute: "/vente/nouvelle-vente",
     routePrefixes: ["/vente"],
     supervisionOnly: false,
@@ -62,7 +62,7 @@ export const DEPARTMENT_NAVIGATION: Record<DepartmentKey, DepartmentNavigationSp
   },
   [DEPARTMENT_KEYS.FINANCE]: {
     label: "Finance",
-    dashboardRoute: "/finance/dashboard",
+    dashboardRoute: "/dept/finance",
     operationalRootRoute: "/finance",
     routePrefixes: ["/finance"],
     supervisionOnly: false,
@@ -71,7 +71,7 @@ export const DEPARTMENT_NAVIGATION: Record<DepartmentKey, DepartmentNavigationSp
   },
   [DEPARTMENT_KEYS.RH]: {
     label: "RH",
-    dashboardRoute: "/rh/dashboard",
+    dashboardRoute: "/dept/rh",
     operationalRootRoute: "/rh",
     routePrefixes: ["/rh"],
     supervisionOnly: false,
@@ -80,7 +80,7 @@ export const DEPARTMENT_NAVIGATION: Record<DepartmentKey, DepartmentNavigationSp
   },
   [DEPARTMENT_KEYS.FORMATION]: {
     label: "Formation",
-    dashboardRoute: "/formation/dashboard",
+    dashboardRoute: "/dept/formation",
     operationalRootRoute: "/formation",
     routePrefixes: ["/formation"],
     supervisionOnly: false,
@@ -89,7 +89,7 @@ export const DEPARTMENT_NAVIGATION: Record<DepartmentKey, DepartmentNavigationSp
   },
   [DEPARTMENT_KEYS.CONSULTATION]: {
     label: "Consultation",
-    dashboardRoute: "/consultation/dashboard",
+    dashboardRoute: "/dept/consultation",
     operationalRootRoute: "/consultation",
     routePrefixes: ["/consultation"],
     supervisionOnly: false,
@@ -98,7 +98,7 @@ export const DEPARTMENT_NAVIGATION: Record<DepartmentKey, DepartmentNavigationSp
   },
   [DEPARTMENT_KEYS.MARKETING]: {
     label: "Marketing",
-    dashboardRoute: "/marketing/dashboard",
+    dashboardRoute: "/dept/marketing",
     operationalRootRoute: "/marketing",
     routePrefixes: ["/marketing"],
     supervisionOnly: false,
@@ -107,7 +107,7 @@ export const DEPARTMENT_NAVIGATION: Record<DepartmentKey, DepartmentNavigationSp
   },
   [DEPARTMENT_KEYS.LOGISTIQUE]: {
     label: "Logistique",
-    dashboardRoute: "/logistique/dashboard",
+    dashboardRoute: "/dept/logistique",
     operationalRootRoute: "/logistique",
     routePrefixes: ["/logistique"],
     supervisionOnly: false,

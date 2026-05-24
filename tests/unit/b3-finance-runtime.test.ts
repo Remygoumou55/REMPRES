@@ -31,11 +31,12 @@ describe("B3 — Finance runtime (B2.4)", () => {
     expect(src).not.toMatch(/from\("sales"\)/);
   });
 
-  it("cockpit /finance/dashboard live", () => {
+  it("cockpit /finance/dashboard redirige vers /dept/finance", () => {
     const page = readSrc("app/(app)/finance/dashboard/page.tsx");
-    expect(page).toContain("getFinanceCockpitPayload");
-    expect(page).toContain("FinanceCockpitClient");
-    expect(page).not.toContain("DepartmentDashboardPage");
+    expect(page).toContain('redirect("/dept/finance")');
+    const dept = readSrc("app/(app)/dept/[deptKey]/page.tsx");
+    expect(dept).toContain("DeptHomePage");
+    expect(dept).not.toContain("DepartmentDashboardPage");
   });
 
   it("API dept finance délègue buildDeptFinanceKpiPayload", () => {

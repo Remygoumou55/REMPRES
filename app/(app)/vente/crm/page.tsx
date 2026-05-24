@@ -31,7 +31,7 @@ export default async function VenteCrmHubPage() {
               Vue analytique commerciale
             </Link>
             <Link
-              href="/vente/dashboard"
+              href="/dept/vente"
               className="rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-darktext shadow-sm transition hover:bg-gray-50"
             >
               Pilotage département vente

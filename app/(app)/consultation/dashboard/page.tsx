@@ -1,7 +1,8 @@
 import { redirect } from "next/navigation";
-import { DEPARTMENT_NAVIGATION, DEPARTMENT_KEYS } from "@/lib/departments/department-config";
 
-/** Consultation absorbée par Formation (M1.5) — cockpit canonique Formation. */
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default function ConsultationDashboardPage() {
-  redirect(DEPARTMENT_NAVIGATION[DEPARTMENT_KEYS.FORMATION].dashboardRoute);
+  redirect("/dept/consultation");
 }

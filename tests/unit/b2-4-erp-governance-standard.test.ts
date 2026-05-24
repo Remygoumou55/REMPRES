@@ -47,21 +47,19 @@ describe("B2.4 — ERP Governance Standard", () => {
     }
   });
 
-  it("Vente cockpit live obéit au standard (pas placeholder)", () => {
-    const page = readSrc("app/(app)/vente/dashboard/page.tsx");
-    expect(page).toContain("getVenteCockpitPayload");
-    expect(page).not.toContain("DepartmentDashboardPage");
-    const payload = readSrc("lib/vente/runtime/vente-cockpit-payload.ts");
-    expect(payload).toContain(VENTE_REFERENCE_KPI_SOURCES.cockpit);
-    expect(payload).toContain("VENTE_COMMERCE_KPI_SOURCE");
-    expect(payload).toContain("CRM_OPERATIONAL_KPI_SOURCE");
+  it("Vente cockpit factorisé sur /dept/vente (DeptHomePage)", () => {
+    const legacy = readSrc("app/(app)/vente/dashboard/page.tsx");
+    expect(legacy).toContain('redirect("/dept/vente")');
+    const dept = readSrc("app/(app)/dept/[deptKey]/page.tsx");
+    expect(dept).toContain("DeptHomePage");
+    expect(dept).not.toContain("DepartmentDashboardPage");
   });
 
-  it("RH encore placeholder cockpit ; Finance live (B3)", () => {
+  it("RH et Finance legacy redirigent vers /dept/*", () => {
     const rh = readSrc("app/(app)/rh/dashboard/page.tsx");
-    expect(rh).toContain("DepartmentDashboardPage");
+    expect(rh).toContain('redirect("/dept/rh")');
     const finance = readSrc("app/(app)/finance/dashboard/page.tsx");
-    expect(finance).toContain("getFinanceCockpitPayload");
+    expect(finance).toContain('redirect("/dept/finance")');
   });
 
   it("API dept finance délègue runtime B3 (plus inline sales)", () => {

@@ -1,5 +1,8 @@
-import { DepartmentDashboardPage } from "@/components/governance/home/DepartmentDashboardPage";
+import { redirect } from "next/navigation";
 
-export default async function LogistiqueDashboardPage() {
-  return <DepartmentDashboardPage departmentKey="LOGISTIQUE" />;
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+export default function LogistiqueDashboardPage() {
+  redirect("/dept/logistique");
 }

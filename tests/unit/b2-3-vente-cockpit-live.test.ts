@@ -21,11 +21,12 @@ describe("B2.3 — Cockpit Vente live", () => {
     expect(src).toContain("CRM_OPERATIONAL_KPI_SOURCE");
   });
 
-  it("/vente/dashboard branche VenteCockpitClient", () => {
+  it("/vente/dashboard redirige vers /dept/vente (DeptHomePage)", () => {
     const page = readSrc("app/(app)/vente/dashboard/page.tsx");
-    expect(page).toContain("getVenteCockpitPayload");
-    expect(page).toContain("VenteCockpitClient");
-    expect(page).not.toContain("DepartmentDashboardPage");
+    expect(page).toContain('redirect("/dept/vente")');
+    const dept = readSrc("app/(app)/dept/[deptKey]/page.tsx");
+    expect(dept).toContain("DeptHomePage");
+    expect(dept).toContain("getDeptDashboardData");
   });
 
   it("cockpit client expose zones M3 + KPI cards", () => {

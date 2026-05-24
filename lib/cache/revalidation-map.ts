@@ -27,6 +27,7 @@ const REVALIDATION_MAP: Record<string, string[]> = {
     "/vente/historique",
     "/vente/nouvelle-vente",
     "/vente",
+    "/dept/vente",
     "/vente/dashboard",
     "/dashboard",
     "/dept/vente",
@@ -37,6 +38,7 @@ const REVALIDATION_MAP: Record<string, string[]> = {
   finance: [
     "/finance",
     "/finance/depenses",
+    "/dept/finance",
     "/finance/dashboard",
     "/finance/visual",
     "/dashboard",
@@ -50,6 +52,7 @@ const REVALIDATION_MAP: Record<string, string[]> = {
     "/rh/presences",
     "/rh/contrats",
     "/rh/recrutement",
+    "/dept/rh",
     "/rh/dashboard",
     "/dashboard",
     "/dept/rh",

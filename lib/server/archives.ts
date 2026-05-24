@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { unstable_cache } from "next/cache";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { isAdminRole, isSuperAdmin } from "@/lib/server/permissions";
 
@@ -137,7 +138,18 @@ function buildActivity(
     }));
 }
 
-export async function getArchiveGlobalesSummary(): Promise<ArchiveGlobalesDeptCard[]> {
+export type DeletionLogRow = {
+  id: string;
+  module: string;
+  element: string;
+  deletedBy: string;
+  deletedAt: string;
+};
+
+export const ARCHIVES_DATA_TAG = "archives-data";
+export const DELETION_LOGS_TAG = "deletion-activity-logs";
+
+async function fetchArchiveGlobalesSummary(): Promise<ArchiveGlobalesDeptCard[]> {
   const supabase = getSupabaseServerClient();
 
   const [clients, sales, products, expenses] = await Promise.all([
@@ -216,7 +228,17 @@ export async function getArchiveGlobalesSummary(): Promise<ArchiveGlobalesDeptCa
   ];
 }
 
-export async function getArchiveData(dept: ArchiveDeptKey): Promise<ArchivePageData> {
+const loadArchiveGlobalesSummary = unstable_cache(
+  fetchArchiveGlobalesSummary,
+  [ARCHIVES_DATA_TAG, "globales"],
+  { revalidate: 30, tags: [ARCHIVES_DATA_TAG] },
+);
+
+export async function getArchiveGlobalesSummary(): Promise<ArchiveGlobalesDeptCard[]> {
+  return loadArchiveGlobalesSummary();
+}
+
+async function fetchArchiveData(dept: ArchiveDeptKey): Promise<ArchivePageData> {
   const supabase = getSupabaseServerClient();
 
   switch (dept) {
@@ -371,15 +393,17 @@ export async function getArchiveData(dept: ArchiveDeptKey): Promise<ArchivePageD
   }
 }
 
-export type DeletionLogRow = {
-  id: string;
-  module: string;
-  element: string;
-  deletedBy: string;
-  deletedAt: string;
-};
+const loadArchiveData = unstable_cache(
+  async (dept: ArchiveDeptKey) => fetchArchiveData(dept),
+  [ARCHIVES_DATA_TAG, "dept"],
+  { revalidate: 30, tags: [ARCHIVES_DATA_TAG] },
+);
 
-export async function listDeletionActivityLogs(limit = 100): Promise<DeletionLogRow[]> {
+export async function getArchiveData(dept: ArchiveDeptKey): Promise<ArchivePageData> {
+  return loadArchiveData(dept);
+}
+
+async function fetchDeletionActivityLogs(limit: number): Promise<DeletionLogRow[]> {
   const supabase = getSupabaseServerClient();
 
   const { data: logs } = await supabase
@@ -427,4 +451,14 @@ export async function listDeletionActivityLogs(limit = 100): Promise<DeletionLog
       }),
     };
   });
+}
+
+const loadDeletionActivityLogs = unstable_cache(
+  async (limit: number) => fetchDeletionActivityLogs(limit),
+  [DELETION_LOGS_TAG],
+  { revalidate: 30, tags: [DELETION_LOGS_TAG] },
+);
+
+export async function listDeletionActivityLogs(limit = 100): Promise<DeletionLogRow[]> {
+  return loadDeletionActivityLogs(limit);
 }

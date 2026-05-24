@@ -1,7 +1,7 @@
 import { AppShell } from "@/components/layout/app-shell";
 import { getLayoutAccess } from "@/lib/server/layout-access";
 import { Providers } from "@/app/providers";
-import { loadLocaleMessages } from "@/lib/i18n/load-messages";
+import { loadShellLocaleMessages } from "@/lib/i18n/load-messages";
 
 /**
  * Coque ERP unique pour tout le périmètre métier : le layout ne se démonte plus
@@ -10,7 +10,7 @@ import { loadLocaleMessages } from "@/lib/i18n/load-messages";
  */
 export default async function AppRouteLayout({ children }: { children: React.ReactNode }) {
   const access = await getLayoutAccess();
-  const { locale, messages } = await loadLocaleMessages(access.preferredLanguage);
+  const { locale, messages } = await loadShellLocaleMessages(access.preferredLanguage);
 
   return (
     <Providers locale={locale} messages={messages}>

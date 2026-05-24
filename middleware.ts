@@ -1,13 +1,13 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/auth-helpers-nextjs";
-import type { Database } from "@/types/database.types";
-import { resolveSettingsGovernanceRedirect } from "@/lib/settings/legacy-route-lock";
-import {
-  canAccessPathForProfile,
-  hasAdminConsoleAccess,
-} from "@/lib/auth/permissions";
 import { resolveNavRouteAlias, resolveNavRouteRewrite } from "@/lib/constants/nav-route-aliases";
 import { isDeptRouteAllowed } from "@/lib/constants/role-routes";
+import {
+  edgeCanAccessPathForProfile,
+  edgeHasAdminConsoleAccess,
+  edgeResolveSettingsGovernanceRedirect,
+} from "@/lib/middleware/edge-route-guards";
+import { applyProfileHeaders } from "@/lib/middleware/profile-headers";
 
 // ---------------------------------------------------------------------------
 // Routes protégées — authentification requise
@@ -42,10 +42,6 @@ function isProtectedPath(pathname: string) {
   );
 }
 
-/**
- * Routes sous `/admin` réservées à la console (super_admin / DG administration).
- * Les journaux d’activité sont sous `/admin` mais accessibles aux auditeurs via `canAccessPathForProfile`.
- */
 function isAdminConsoleRestrictedPath(pathname: string): boolean {
   if (!(pathname === "/admin" || pathname.startsWith("/admin/"))) return false;
   if (
@@ -82,14 +78,17 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(target, 308);
   }
 
-  const response = NextResponse.next();
-
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-  if (!supabaseUrl || !supabaseAnon) return response;
+  if (!supabaseUrl || !supabaseAnon) {
+    return NextResponse.next();
+  }
 
-  const supabase = createServerClient<Database>(supabaseUrl, supabaseAnon, {
+  const requestHeaders = new Headers(request.headers);
+  let response = NextResponse.next({ request: { headers: requestHeaders } });
+
+  const supabase = createServerClient(supabaseUrl, supabaseAnon, {
     cookies: {
       getAll() {
         return request.cookies.getAll();
@@ -113,7 +112,6 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // Session active sur /login → la racine résout la destination via profil (évite destination figée /dashboard).
   if (pathname === "/login" && user) {
     const rootUrl = request.nextUrl.clone();
     rootUrl.pathname = "/";
@@ -123,7 +121,9 @@ export async function middleware(request: NextRequest) {
   if (user && isProtectedPath(pathname)) {
     const { data: profile, error: profileError } = await supabase
       .from("profiles")
-      .select("role_key, is_active, department_key, department_id")
+      .select(
+        "role_key, is_active, department_key, department_id, first_name, last_name, email, preferred_language",
+      )
       .eq("id", user.id)
       .is("deleted_at", null)
       .maybeSingle();
@@ -141,7 +141,20 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(blockedUrl);
     }
 
-    const governanceRedirect = resolveSettingsGovernanceRedirect(pathname);
+    applyProfileHeaders(requestHeaders, {
+      userId: user.id,
+      roleKey: profile.role_key ?? null,
+      departmentKey: profile.department_key ?? null,
+      departmentId: profile.department_id ?? null,
+      isActive: profile.is_active !== false,
+      firstName: profile.first_name ?? null,
+      lastName: profile.last_name ?? null,
+      email: profile.email ?? user.email ?? null,
+      preferredLanguage: profile.preferred_language ?? null,
+    });
+    response = NextResponse.next({ request: { headers: requestHeaders } });
+
+    const governanceRedirect = edgeResolveSettingsGovernanceRedirect(pathname);
     if (governanceRedirect) {
       const target = request.nextUrl.clone();
       target.pathname = governanceRedirect;
@@ -154,14 +167,14 @@ export async function middleware(request: NextRequest) {
 
     if (
       isAdminConsoleRestrictedPath(pathname) &&
-      !hasAdminConsoleAccess(roleKey, deptKey)
+      !edgeHasAdminConsoleAccess(roleKey, deptKey)
     ) {
       const deniedUrl = request.nextUrl.clone();
       deniedUrl.pathname = "/access-denied";
       return NextResponse.redirect(deniedUrl);
     }
 
-    if (!canAccessPathForProfile(pathname, roleKey, deptKey)) {
+    if (!edgeCanAccessPathForProfile(pathname, roleKey, deptKey)) {
       const deniedUrl = request.nextUrl.clone();
       deniedUrl.pathname = "/access-denied";
       return NextResponse.redirect(deniedUrl);

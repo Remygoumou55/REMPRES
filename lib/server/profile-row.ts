@@ -3,6 +3,7 @@
  */
 
 import { cache } from "react";
+import { headers } from "next/headers";
 import { getSupervisionScope } from "@/lib/auth/permissions";
 import type { SupervisionScope } from "@/lib/auth/permissions";
 import { getServerSessionUser } from "@/lib/server/auth-session";
@@ -13,6 +14,7 @@ import {
 } from "@/lib/server/profile-display";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { logError } from "@/lib/logger";
+import { readProfileHeaders } from "@/lib/middleware/profile-headers";
 
 export type CachedProfileRow = {
   roleKey: string | null;
@@ -37,6 +39,30 @@ function resolveDisplayName(data: {
 
 export const getCachedProfileRow = cache(async (userId: string): Promise<CachedProfileRow> => {
   try {
+    const headerSlice = readProfileHeaders(headers(), userId);
+    if (headerSlice) {
+      const displayName = resolveDisplayName({
+        first_name: headerSlice.firstName,
+        last_name: headerSlice.lastName,
+        email: headerSlice.email,
+      });
+      const preferredLanguage =
+        headerSlice.preferredLanguage != null
+          ? String(headerSlice.preferredLanguage).trim().toLowerCase() || null
+          : null;
+      const roleKey = headerSlice.roleKey;
+      const departmentKey = headerSlice.departmentKey;
+      return {
+        roleKey,
+        departmentKey,
+        departmentId: headerSlice.departmentId,
+        displayName,
+        preferredLanguage,
+        ok: true,
+        supervisionScope: getSupervisionScope(roleKey, departmentKey),
+      };
+    }
+
     const supabase = getSupabaseServerClient();
     const { data, error } = await supabase
       .from("profiles")

@@ -1,4 +1,6 @@
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
+import { ARCHIVES_DATA_TAG, DELETION_LOGS_TAG } from "@/lib/server/archives";
+import { SHELL_PERMISSIONS_TAG } from "@/lib/server/permissions";
 
 const REVALIDATION_MAP: Record<string, string[]> = {
   clients: [
@@ -360,6 +362,7 @@ export async function revalidateUtilisateurs(): Promise<void> {
 
 export async function revalidateSettings(): Promise<void> {
   await revalidateModules("settings");
+  revalidateShellPermissions();
 }
 
 export async function revalidateAdminAlerts(): Promise<void> {
@@ -375,7 +378,13 @@ export async function revalidateCrm(): Promise<void> {
 }
 
 export async function revalidateAdminArchives(): Promise<void> {
-  await revalidateModules("clients", "produits");
+  await revalidateModules("clients", "produits", "finance");
+  revalidateTag(ARCHIVES_DATA_TAG);
+  revalidateTag(DELETION_LOGS_TAG);
+}
+
+export function revalidateShellPermissions(): void {
+  revalidateTag(SHELL_PERMISSIONS_TAG);
 }
 
 export async function revalidateDashboardFoundation(deptKeys?: readonly string[]): Promise<void> {

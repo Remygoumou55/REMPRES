@@ -1,9 +1,23 @@
 import { redirect } from "next/navigation";
+import dynamic from "next/dynamic";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getCachedProfileDisplayName } from "@/lib/server/profile-display";
 import { getVenteCockpitPayload } from "@/lib/vente/runtime/vente-cockpit-payload";
-import { VenteCockpitClient } from "@/modules/vente/components/cockpit/VenteCockpitClient";
+
+const VenteCockpitClient = dynamic(
+  () =>
+    import("@/modules/vente/components/cockpit/VenteCockpitClient").then((m) => ({
+      default: m.VenteCockpitClient,
+    })),
+  {
+    loading: () => (
+      <div className="flex min-h-[320px] items-center justify-center text-sm text-gray-500">
+        Chargement du cockpit…
+      </div>
+    ),
+  },
+);
 
 /**
  * B2.3 — Cockpit manager Vente (données live via getVenteCockpitPayload, pas placeholder M3).

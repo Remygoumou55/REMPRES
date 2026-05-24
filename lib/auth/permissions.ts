@@ -42,6 +42,8 @@ const ADMIN_CONSOLE_ALLOWED_PREFIXES = [
   "/admin/intelligence",
   "/admin/global-dashboard",
   "/admin/archives",
+  "/admin/exports",
+  "/admin/suppressions",
 ] as const;
 
 /** Accès aux routes /console admin Next (équivalent ancien DG + super_admin). */

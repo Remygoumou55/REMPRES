@@ -1,4 +1,5 @@
 import { cache } from "react";
+import { unstable_cache } from "next/cache";
 import { hasAdminConsoleAccess } from "@/lib/auth/permissions";
 import type { SupervisionScope } from "@/lib/auth/permissions";
 import { normalizeRoleKey } from "@/lib/auth/roles";
@@ -113,9 +114,48 @@ export const getProfileAuthBrief = cache(async (userId: string): Promise<Profile
   };
 });
 
+export const SHELL_PERMISSIONS_TAG = "shell-permissions";
+
 /**
- * Permissions shell — une requête `permissions` pour tous les modules navigation.
+ * Permissions shell — une requête `permissions` pour tous les modules navigation (cache 60s par rôle).
  */
+async function fetchShellLayoutPermissionsByRole(roleKey: string): Promise<ShellLayoutPermissions> {
+  const supabase = getSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("permissions")
+    .select("module_key,can_create,can_read,can_update,can_delete")
+    .eq("role_key", roleKey)
+    .in("module_key", [...SHELL_LAYOUT_MODULE_KEYS])
+    .is("deleted_at", null);
+
+  if (error) {
+    logError("auth", "getShellLayoutPermissions error", {
+      error: error.message,
+      roleKey,
+    });
+    return DENY_ALL_SHELL;
+  }
+
+  const rows = (data ?? []) as PermissionRow[];
+
+  return {
+    clients: aggregatePermissionsForModuleKeys(rows, ["clients", "vente"]),
+    products: aggregatePermissionsForModuleKeys(rows, ["produits", "vente"]),
+    finance: aggregatePermissionsForModuleKeys(rows, ["finance"]),
+    rh: aggregatePermissionsForModuleKeys(rows, ["rh"]),
+    logistics: aggregatePermissionsForModuleKeys(rows, ["logistics"]),
+    formation: aggregatePermissionsForModuleKeys(rows, ["formation", "consultation"]),
+    marketing: aggregatePermissionsForModuleKeys(rows, ["marketing"]),
+    crm: aggregatePermissionsForModuleKeys(rows, ["crm"]),
+  };
+}
+
+const loadShellLayoutPermissionsByRole = unstable_cache(
+  async (roleKey: string) => fetchShellLayoutPermissionsByRole(roleKey),
+  [SHELL_PERMISSIONS_TAG],
+  { revalidate: 60, tags: [SHELL_PERMISSIONS_TAG] },
+);
+
 export const getShellLayoutPermissions = cache(
   async (userId: string): Promise<ShellLayoutPermissions> => {
     if (!userId?.trim()) return DENY_ALL_SHELL;
@@ -123,34 +163,7 @@ export const getShellLayoutPermissions = cache(
     const brief = await getProfileAuthBrief(userId);
     if (!brief.ok || !brief.roleKey) return DENY_ALL_SHELL;
 
-    const supabase = getSupabaseServerClient();
-    const { data, error } = await supabase
-      .from("permissions")
-      .select("module_key,can_create,can_read,can_update,can_delete")
-      .eq("role_key", brief.roleKey)
-      .in("module_key", [...SHELL_LAYOUT_MODULE_KEYS])
-      .is("deleted_at", null);
-
-    if (error) {
-      logError("auth", "getShellLayoutPermissions error", {
-        error: error.message,
-        userId,
-      });
-      return DENY_ALL_SHELL;
-    }
-
-    const rows = (data ?? []) as PermissionRow[];
-
-    return {
-      clients: aggregatePermissionsForModuleKeys(rows, ["clients", "vente"]),
-      products: aggregatePermissionsForModuleKeys(rows, ["produits", "vente"]),
-      finance: aggregatePermissionsForModuleKeys(rows, ["finance"]),
-      rh: aggregatePermissionsForModuleKeys(rows, ["rh"]),
-      logistics: aggregatePermissionsForModuleKeys(rows, ["logistics"]),
-      formation: aggregatePermissionsForModuleKeys(rows, ["formation", "consultation"]),
-      marketing: aggregatePermissionsForModuleKeys(rows, ["marketing"]),
-      crm: aggregatePermissionsForModuleKeys(rows, ["crm"]),
-    };
+    return loadShellLayoutPermissionsByRole(brief.roleKey);
   },
 );
 

@@ -52,6 +52,22 @@ describe("canAccessPathForProfile — cross-department & super_admin governance 
     ).toBe(true);
   });
 
+  it("allows dept cockpit paths for matching department profiles", () => {
+    expect(
+      canAccessPathForProfile("/dept/vente", "manager", DEPARTMENT_KEYS.VENTE),
+    ).toBe(true);
+    expect(
+      canAccessPathForProfile("/dept/finance", "manager", DEPARTMENT_KEYS.VENTE),
+    ).toBe(false);
+    expect(
+      canAccessPathForProfile("/dept/finance", "accountant", DEPARTMENT_KEYS.FINANCE),
+    ).toBe(true);
+    expect(
+      canAccessPathForProfile("/dept/vente", "responsable_vente", null),
+    ).toBe(true);
+    expect(canAccessPathForProfile("/dept/vente", "super_admin", null)).toBe(true);
+  });
+
   it("blocks super_admin from operational vente routes but allows read-only supervision paths", () => {
     expect(
       canAccessPathForProfile("/vente/nouvelle-vente", "super_admin", null),

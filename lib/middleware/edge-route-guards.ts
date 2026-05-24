@@ -14,6 +14,7 @@ import {
   SETTINGS_OFFICIAL_ROUTES,
   isSettingsOfficialPath,
 } from "@/lib/settings/official-routes";
+import { canProfileAccessDeptPath } from "@/lib/navigation/dept-cockpit-route";
 
 const ROUTES_ARCHIVES = "/archives";
 const ROUTES_ACTIONS = "/actions";
@@ -214,6 +215,10 @@ export function edgeCanAccessPathForProfile(
     path.startsWith("/auth/set-password") ||
     path.startsWith("/error-profile")
   ) {
+    return true;
+  }
+
+  if (canProfileAccessDeptPath(pathname, roleKey, departmentKey)) {
     return true;
   }
 

@@ -13,6 +13,7 @@ import {
   isSuperAdminOperationalPath,
   isSuperAdminReadOnlyVentePath,
 } from "@/lib/auth/supervision";
+import { canProfileAccessDeptPath } from "@/lib/navigation/dept-cockpit-route";
 
 export type RoleDepartmentValidationResult =
   | { ok: true }
@@ -92,6 +93,10 @@ export function canAccessPathForProfile(
     path.startsWith("/auth/set-password") ||
     path.startsWith("/error-profile")
   ) {
+    return true;
+  }
+
+  if (canProfileAccessDeptPath(pathname, roleKey, departmentKey)) {
     return true;
   }
 

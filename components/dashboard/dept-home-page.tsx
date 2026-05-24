@@ -29,6 +29,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { DashboardBanner } from "@/components/dashboard/dashboard-banner";
 import { KpiCard, type KpiCardColor } from "@/components/dashboard/kpi-card";
 import { ActivityFeed } from "@/components/dashboard/activity-feed";
+import { DeptQuickActionsSection } from "@/components/dashboard/dept-quick-actions-section";
 import { SectionLabel } from "@/components/dashboard/section-label";
 import { EmptyChart } from "@/components/dashboard/empty-chart";
 import type { DeptKpiData } from "@/lib/server/dept-dashboard";
@@ -215,6 +216,8 @@ export const DeptHomePage = memo(function DeptHomePage({ data, firstName }: Dept
           />
         </section>
       </div>
+
+      <DeptQuickActionsSection dept={data.dept} deptLabel={data.deptLabel} />
     </div>
   );
 });

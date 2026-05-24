@@ -4,7 +4,6 @@ import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { isAdminRole, isSuperAdmin } from "@/lib/server/permissions";
 
 export type ArchiveDept =
-  | "globales"
   | "vente"
   | "finance"
   | "rh"
@@ -26,7 +25,6 @@ export const ARCHIVE_DEPT_KEYS = [
 export type ArchiveDeptKey = (typeof ARCHIVE_DEPT_KEYS)[number];
 
 export const ARCHIVE_DEPT_LABELS: Record<ArchiveDept, string> = {
-  globales: "Globales",
   vente: "Vente",
   finance: "Finance",
   rh: "RH",
@@ -72,21 +70,11 @@ export interface ArchiveActivity {
 }
 
 export interface ArchivePageData {
-  dept: ArchiveDept;
+  dept: ArchiveDeptKey;
   kpis: ArchiveKpi[];
   tables: ArchiveTable[];
   recentActivity: ArchiveActivity[];
 }
-
-export type ArchiveGlobalesDeptCard = {
-  key: ArchiveDeptKey;
-  label: string;
-  icon: string;
-  borderColor: string;
-  iconColor: string;
-  count: number;
-  href: string;
-};
 
 export async function assertArchivesAccess(userId: string): Promise<void> {
   if (await isSuperAdmin(userId)) return;
@@ -148,95 +136,6 @@ export type DeletionLogRow = {
 
 export const ARCHIVES_DATA_TAG = "archives-data";
 export const DELETION_LOGS_TAG = "deletion-activity-logs";
-
-async function fetchArchiveGlobalesSummary(): Promise<ArchiveGlobalesDeptCard[]> {
-  const supabase = getSupabaseServerClient();
-
-  const [clients, sales, products, expenses] = await Promise.all([
-    supabase.from("clients").select("id", { count: "exact", head: true }).not("deleted_at", "is", null),
-    supabase.from("sales").select("id", { count: "exact", head: true }).not("deleted_at", "is", null),
-    supabase.from("products").select("id", { count: "exact", head: true }).not("deleted_at", "is", null),
-    supabase.from("expenses").select("id", { count: "exact", head: true }).not("deleted_at", "is", null),
-  ]);
-
-  const venteCount = (clients.count ?? 0) + (sales.count ?? 0) + (products.count ?? 0);
-
-  return [
-    {
-      key: "vente",
-      label: "Vente",
-      icon: "ShoppingCart",
-      borderColor: "#2D7CC4",
-      iconColor: "#2D7CC4",
-      count: venteCount,
-      href: "/archives/vente",
-    },
-    {
-      key: "finance",
-      label: "Finance",
-      icon: "BarChart3",
-      borderColor: "#F59E0B",
-      iconColor: "#F59E0B",
-      count: expenses.count ?? 0,
-      href: "/archives/finance",
-    },
-    {
-      key: "rh",
-      label: "RH",
-      icon: "Users",
-      borderColor: "#10B981",
-      iconColor: "#10B981",
-      count: 0,
-      href: "/archives/rh",
-    },
-    {
-      key: "formation",
-      label: "Formation",
-      icon: "GraduationCap",
-      borderColor: "#8B5CF6",
-      iconColor: "#8B5CF6",
-      count: 0,
-      href: "/archives/formation",
-    },
-    {
-      key: "consultation",
-      label: "Consultation",
-      icon: "Briefcase",
-      borderColor: "#6366F1",
-      iconColor: "#6366F1",
-      count: 0,
-      href: "/archives/consultation",
-    },
-    {
-      key: "marketing",
-      label: "Marketing",
-      icon: "Megaphone",
-      borderColor: "#EC4899",
-      iconColor: "#EC4899",
-      count: 0,
-      href: "/archives/marketing",
-    },
-    {
-      key: "logistique",
-      label: "Logistique",
-      icon: "Package",
-      borderColor: "#14B8A6",
-      iconColor: "#14B8A6",
-      count: 0,
-      href: "/archives/logistique",
-    },
-  ];
-}
-
-const loadArchiveGlobalesSummary = unstable_cache(
-  fetchArchiveGlobalesSummary,
-  [ARCHIVES_DATA_TAG, "globales"],
-  { revalidate: 30, tags: [ARCHIVES_DATA_TAG] },
-);
-
-export async function getArchiveGlobalesSummary(): Promise<ArchiveGlobalesDeptCard[]> {
-  return loadArchiveGlobalesSummary();
-}
 
 async function fetchArchiveData(dept: ArchiveDeptKey): Promise<ArchivePageData> {
   const supabase = getSupabaseServerClient();

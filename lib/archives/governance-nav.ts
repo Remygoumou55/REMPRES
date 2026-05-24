@@ -28,7 +28,6 @@ export type ArchivesGovernanceNavItem = {
 };
 
 const SIDEBAR_ICONS: Record<string, LucideIcon> = {
-  "archives-globales": Archive,
   "archives-exports": FileJson,
   "archives-suppressions": Trash2,
 };

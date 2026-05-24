@@ -1,10 +1,6 @@
-import { Suspense } from "react";
-import { GovernanceChrome } from "@/components/governance/GovernanceChrome";
-
+/**
+ * Archives — navigation sidebar uniquement (pas de bandeau horizontal GovernanceChrome).
+ */
 export default function ArchivesModuleLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <Suspense fallback={<div className="space-y-6">{children}</div>}>
-      <GovernanceChrome>{children}</GovernanceChrome>
-    </Suspense>
-  );
+  return <>{children}</>;
 }

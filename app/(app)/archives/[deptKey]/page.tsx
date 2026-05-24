@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function ArchiveDeptPage({ params }: PageProps) {
   const dept = parseDeptKey(params.deptKey);
-  if (!dept) redirect("/archives/globales");
+  if (!dept) redirect("/archives/vente");
 
   const supabase = getSupabaseServerClient();
   const {

@@ -14,6 +14,7 @@ export const NAV_ROUTE_ALIASES: Readonly<Record<string, string>> = {
   "/actions/alertes": "/admin/alerts",
   "/archives/exports": "/admin/exports",
   "/archives/suppressions": "/admin/suppressions",
+  "/archives/globales": "/archives/vente",
 };
 
 /** Réécritures internes (URL navigateur inchangée). */

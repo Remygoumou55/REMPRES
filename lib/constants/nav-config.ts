@@ -146,13 +146,6 @@ export const NAV_CONFIG = [
         expandable: true,
         children: [
           {
-            key: "archives-globales",
-            label: "Globales",
-            icon: "LayoutGrid",
-            href: "/archives/globales",
-            roles: ["super_admin", "directeur_general"],
-          },
-          {
             key: "archives-vente",
             label: "Vente",
             icon: "ShoppingCart",

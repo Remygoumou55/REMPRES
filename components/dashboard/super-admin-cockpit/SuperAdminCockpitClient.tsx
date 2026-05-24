@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, memo } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import {
@@ -92,7 +92,7 @@ function formatTs(iso: string): string {
   }
 }
 
-export function SuperAdminCockpitClient({ payload }: Props) {
+export const SuperAdminCockpitClient = memo(function SuperAdminCockpitClient({ payload }: Props) {
   const { kpis, accueil, executive, pendingApprovals, governanceAlerts, generatedAtIso } = payload;
   const metrics = accueil.metrics;
   const domains = executive?.domains;
@@ -507,4 +507,4 @@ export function SuperAdminCockpitClient({ payload }: Props) {
 
     </div>
   );
-}
+});

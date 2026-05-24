@@ -58,8 +58,9 @@ describe("M3.75 — Vente ownership M1.5 (domaine unique)", () => {
     expect(src).not.toContain("./app-shell/PrimarySidebar");
     expect(src).not.toContain("SecondarySidebarPanel");
     expect(src).not.toContain("./app-shell/MobileSidebar");
+    expect(src).not.toContain("SuperAdminPrimarySidebar");
     expect(src).toContain("DepartmentBusinessSidebar");
-    expect(src).toContain("SuperAdminPrimarySidebar");
+    expect(src).toContain("ErpNavSidebar");
   });
 
   it("legacy ModuleId commerce/crm interdit comme rails top-level actifs", () => {
@@ -103,9 +104,11 @@ describe("M3.75 — Responsive shell structure (audit code)", () => {
     expect(cockpitSrc()).toContain("lg:grid-cols-2");
   });
 
-  it("super admin: sidebar dédiée inchangée", () => {
-    expect(shellSrc()).toContain("SuperAdminPrimarySidebar");
-    expect(shellSrc()).toContain("SuperAdminMobileNav");
+  it("super admin: ErpNavSidebar gelé (pas de cluster legacy SuperAdminPrimarySidebar)", () => {
+    expect(shellSrc()).toContain("ErpNavSidebar");
+    expect(shellSrc()).toContain("usesErpGlobalSidebar");
+    expect(shellSrc()).not.toContain("SuperAdminPrimarySidebar");
+    expect(shellSrc()).not.toContain("SuperAdminMobileNav");
   });
 });
 

@@ -12,9 +12,8 @@ export const NAV_ROUTE_ALIASES: Readonly<Record<string, string>> = {
   "/parametres/langue": SETTINGS_OFFICIAL_ROUTES.language,
   "/actions/approbations": "/admin/approvals",
   "/actions/alertes": "/admin/alerts",
-  "/archives/globales": "/archives",
-  "/archives/exports": "/admin/activity-logs/export",
-  "/archives/suppressions": "/admin/activity-logs?actionKey=delete",
+  "/archives/exports": "/admin/exports",
+  "/archives/suppressions": "/admin/suppressions",
 };
 
 /** Réécritures internes (URL navigateur inchangée). */

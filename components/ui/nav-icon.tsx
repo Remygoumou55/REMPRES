@@ -13,6 +13,8 @@ import { Download } from "lucide-react";
 import { FolderOpen } from "lucide-react";
 import { GraduationCap } from "lucide-react";
 import { LayoutDashboard } from "lucide-react";
+import { LayoutGrid } from "lucide-react";
+import { Receipt } from "lucide-react";
 import { Lock } from "lucide-react";
 import { LogOut } from "lucide-react";
 import { Megaphone } from "lucide-react";
@@ -27,6 +29,8 @@ import { Zap } from "lucide-react";
 
 const ICON_MAP: Record<string, LucideIcon> = {
   LayoutDashboard,
+  LayoutGrid,
+  Receipt,
   Building2,
   ShoppingCart,
   BarChart3,

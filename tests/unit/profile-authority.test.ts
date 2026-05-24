@@ -39,5 +39,6 @@ describe("profile-authority (role source lock)", () => {
   it("LEGACY_ROLE_TO_DEPARTMENT couvre les alias sidebar historiques", () => {
     expect(LEGACY_ROLE_TO_DEPARTMENT.responsable_vente).toBe(DEPARTMENT_KEYS.VENTE);
     expect(LEGACY_ROLE_TO_DEPARTMENT.comptable).toBe(DEPARTMENT_KEYS.FINANCE);
+    expect(LEGACY_ROLE_TO_DEPARTMENT.directeur_general).toBe(DEPARTMENT_KEYS.ADMINISTRATION);
   });
 });

@@ -1,35 +1,27 @@
 /**
- * Résolution sidebar role-first — source unique pour AppShell (hors Super Admin).
- * Pattern : role + department → mode de rendu → nav filtrée.
+ * Résolution sidebar role-first — délègue à sidebar-authority (Étape 3).
+ * Super Admin : ErpNavSidebar inchangé. Tous les autres : DepartmentBusinessSidebar isolée.
  */
-import {
-  FULL_SIDEBAR_ROLES,
-  getDeptNavConfig,
-  isDeptRole,
-} from "@/lib/constants/dept-nav-configs";
-import type { DeptNavSection } from "@/lib/constants/dept-nav-configs";
 import { resolveAuthorityDepartmentKey } from "@/lib/auth/profile-authority";
-import { ROLE_KEYS, normalizeRoleKey } from "@/lib/auth/roles";
 import type { DepartmentKey } from "@/lib/departments/department-config";
+import {
+  resolveSidebarAuthority,
+  usesErpGlobalSidebarFromAuthority,
+  type SidebarAuthorityInput,
+  type SidebarAuthorityResult,
+  type SidebarRenderMode,
+} from "@/lib/navigation/sidebar-authority";
 
-/** Modes de rendu sidebar — Super Admin reste sur `super_admin_erp` inchangé. */
-export type SidebarRenderMode =
-  | "super_admin_erp"
-  | "director_erp"
-  | "department_business"
-  | "department_legacy";
+export type { SidebarRenderMode, SidebarAuthorityInput, SidebarAuthorityResult };
 
-export type SidebarForRoleInput = {
-  isSuperAdmin: boolean;
-  roleKey: string;
-  departmentKey: string | null | undefined;
+export type SidebarForRoleInput = SidebarAuthorityInput;
+
+export type SidebarForRoleResult = {
+  mode: SidebarRenderMode;
+  departmentKey: DepartmentKey | null;
 };
 
-/** Rôles métier historiques → département : voir `LEGACY_ROLE_TO_DEPARTMENT` (profile-authority). */
-
-/**
- * Département effectif pour la sidebar métier — délègue à la source autorité verrouillée.
- */
+/** @deprecated Utiliser resolveSidebarAuthority — alias compat AppShell */
 export function resolveSidebarDepartmentKey(
   roleKey: string,
   departmentKey: string | null | undefined,
@@ -37,47 +29,22 @@ export function resolveSidebarDepartmentKey(
   return resolveAuthorityDepartmentKey(roleKey, departmentKey);
 }
 
-/**
- * Choisit le mode de sidebar — Super Admin et DG conservent ErpNavSidebar.
- */
 export function resolveSidebarRenderMode(input: SidebarForRoleInput): SidebarRenderMode {
-  if (input.isSuperAdmin) return "super_admin_erp";
-
-  const role = normalizeRoleKey(input.roleKey);
-  if (role === ROLE_KEYS.SUPER_ADMIN) return "super_admin_erp";
-
-  if (FULL_SIDEBAR_ROLES.includes(role) && role !== ROLE_KEYS.SUPER_ADMIN) {
-    return "director_erp";
-  }
-
-  if (resolveSidebarDepartmentKey(input.roleKey, input.departmentKey)) {
-    return "department_business";
-  }
-
-  if (isDeptRole(input.roleKey) && getDeptNavConfig(input.roleKey)) {
-    return "department_legacy";
-  }
-
-  return "department_business";
+  return resolveSidebarAuthority(input).mode;
 }
 
-export type SidebarForRoleResult = {
-  mode: SidebarRenderMode;
-  departmentKey: DepartmentKey | null;
-  legacyDeptNav: DeptNavSection[] | null;
-};
-
-/** Résolution complète pour AppShell — une entrée, pas de fallback SA. */
+/** Résolution complète pour AppShell — authority path unique, pas de legacy DeptSidebarNav. */
 export function getSidebarForRole(input: SidebarForRoleInput): SidebarForRoleResult {
-  const mode = resolveSidebarRenderMode(input);
-  const departmentKey = resolveSidebarDepartmentKey(input.roleKey, input.departmentKey);
-  const legacyDeptNav =
-    mode === "department_legacy" ? getDeptNavConfig(input.roleKey) : null;
-
-  return { mode, departmentKey, legacyDeptNav };
+  const authority = resolveSidebarAuthority(input);
+  return {
+    mode: authority.mode,
+    departmentKey: authority.authorityDepartmentKey,
+  };
 }
 
-/** True si le rôle doit utiliser ErpNavSidebar (SA ou directeur général uniquement). */
+/** True uniquement pour super_admin (ErpNavSidebar gelé). */
 export function usesErpGlobalSidebar(mode: SidebarRenderMode): boolean {
-  return mode === "super_admin_erp" || mode === "director_erp";
+  return mode === "super_admin_erp";
 }
+
+export { resolveSidebarAuthority, usesErpGlobalSidebarFromAuthority };

@@ -172,6 +172,23 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
       },
     ],
   },
+  [DEPARTMENT_KEYS.ADMINISTRATION]: {
+    departmentKey: DEPARTMENT_KEYS.ADMINISTRATION,
+    cockpitRoute: "/dashboard",
+    operationalRoot: "/actions",
+    navGroups: [
+      {
+        id: "actions",
+        label: "Gouvernance",
+        links: [
+          { href: "/actions", label: "Centre d'actions" },
+          { href: "/admin/platform-dashboard", label: "Plateforme" },
+          { href: "/admin/approvals", label: "Approbations" },
+          { href: "/admin/activity-logs", label: "Journaux d'activité" },
+        ],
+      },
+    ],
+  },
 };
 
 /** Widgets / patterns interdits sur cockpits départementaux (M3). */

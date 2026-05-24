@@ -22,11 +22,6 @@ const ErpNavSidebar = dynamic(
   { loading: () => <div className="h-full w-full bg-primary" aria-hidden /> },
 );
 
-const DeptSidebarNav = dynamic(
-  () => import("./dept-sidebar-nav").then((m) => ({ default: m.DeptSidebarNav })),
-  { loading: () => <div className="h-full w-full bg-primary" aria-hidden /> },
-);
-
 const DepartmentBusinessSidebar = dynamic(
   () =>
     import("./app-shell/DepartmentBusinessSidebar").then((m) => ({
@@ -121,41 +116,10 @@ export function AppShell({
       return <ErpNavSidebar {...sidebarProps} />;
     }
 
-    if (
-      sidebarResolution.mode === "department_business" &&
-      sidebarResolution.departmentKey
-    ) {
-      return (
-        <DepartmentBusinessSidebar
-          pathname={pathname ?? ""}
-          departmentKey={sidebarResolution.departmentKey}
-          shellRail={railForDept}
-          canReadClients={canReadClients}
-          canReadProducts={canReadProducts}
-          userAvatarInitial={userAvatarInitial}
-          onLogout={handleLogout}
-          isExpanded={!sidebarCollapsed}
-          onToggleExpanded={toggleSidebarExpanded}
-        />
-      );
-    }
-
-    if (sidebarResolution.legacyDeptNav) {
-      return (
-        <DeptSidebarNav
-          config={sidebarResolution.legacyDeptNav}
-          userRole={userRole}
-          userDisplayName={userDisplayName}
-          onLogout={handleLogout}
-          onCollapsedChange={setSidebarCollapsed}
-        />
-      );
-    }
-
     return (
       <DepartmentBusinessSidebar
         pathname={pathname ?? ""}
-        departmentKey={departmentKey}
+        departmentKey={sidebarResolution.departmentKey ?? departmentKey}
         shellRail={railForDept}
         canReadClients={canReadClients}
         canReadProducts={canReadProducts}

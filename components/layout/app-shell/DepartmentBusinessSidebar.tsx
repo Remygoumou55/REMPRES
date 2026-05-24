@@ -10,12 +10,12 @@ import { CollapsibleNavGroup } from "./CollapsibleNavGroup";
 import { UserAvatar } from "./UserAvatar";
 import {
   buildDepartmentSidebarGroups,
-  filterDepartmentSidebarGroups,
+  lockDepartmentSidebarGroups,
   resolveDepartmentNavContextLabel,
   type DepartmentSidebarGroup,
 } from "@/lib/navigation/department-sidebar-nav";
 import { OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE } from "@/lib/navigation/erp-ux-architecture";
-import { resolveEffectiveDepartmentKey } from "@/lib/navigation/home-route";
+import { resolveEffectiveDepartmentKey } from "@/lib/auth/profile-authority";
 import type { ShellRailVisibility } from "@/lib/navigation/shell-visibility";
 import { DEPARTMENT_KEYS } from "@/lib/departments/department-config";
 
@@ -62,7 +62,7 @@ export const DepartmentBusinessSidebar = memo(function DepartmentBusinessSidebar
 
   const groups = useMemo(
     () =>
-      filterDepartmentSidebarGroups(
+      lockDepartmentSidebarGroups(
         buildDepartmentSidebarGroups(departmentKey, {
           includeActions: shellRail.actions,
           includeSettings: shellRail.settings,
@@ -71,12 +71,7 @@ export const DepartmentBusinessSidebar = memo(function DepartmentBusinessSidebar
         canReadClients,
         canReadProducts,
       ),
-    [
-      departmentKey,
-      shellRail,
-      canReadClients,
-      canReadProducts,
-    ],
+    [departmentKey, shellRail, canReadClients, canReadProducts],
   );
 
   const homeActive =

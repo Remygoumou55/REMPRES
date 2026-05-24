@@ -45,6 +45,8 @@ export const LEGACY_ROLE_TO_DEPARTMENT: Readonly<Record<string, DepartmentKey>> 
   responsable_consultation: DEPARTMENT_KEYS.CONSULTATION,
   responsable_marketing: DEPARTMENT_KEYS.MARKETING,
   responsable_logistique: DEPARTMENT_KEYS.LOGISTIQUE,
+  /** DG — périmètre Administration (sidebar isolée Étape 3, pas ERP global). */
+  directeur_general: DEPARTMENT_KEYS.ADMINISTRATION,
 };
 
 export type ProfileDriftFlag =

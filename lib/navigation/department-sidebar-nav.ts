@@ -29,7 +29,7 @@ import {
 import { CRM_NAV } from "@/modules/crm/constants/nav";
 import { LOGISTICS_NAV } from "@/modules/logistics/constants/nav";
 import type { CollapsibleNavLinkItem } from "@/components/layout/app-shell/CollapsibleNavGroup";
-import { resolveEffectiveDepartmentKey } from "@/lib/navigation/home-route";
+import { resolveEffectiveDepartmentKey } from "@/lib/auth/profile-authority";
 import type { ShellRailVisibility } from "@/lib/navigation/shell-visibility";
 
 const ICON_BY_HREF_PREFIX: { prefix: string; icon: LucideIcon }[] = [
@@ -139,6 +139,16 @@ export function buildDepartmentSidebarGroups(
   }
 
   return groups;
+}
+
+/** Verrouillage visibilité — aucun groupe hors shellRail ne doit être rendu. */
+export function lockDepartmentSidebarGroups(
+  groups: DepartmentSidebarGroup[],
+  shellRail: ShellRailVisibility,
+  canReadClients: boolean,
+  canReadProducts: boolean,
+): DepartmentSidebarGroup[] {
+  return filterDepartmentSidebarGroups(groups, shellRail, canReadClients, canReadProducts);
 }
 
 /** Filtre groupes selon visibilité rail M2.5 (partagé desktop + mobile). */

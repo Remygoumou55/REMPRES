@@ -18,14 +18,15 @@ describe("sidebar-for-role", () => {
     expect(usesErpGlobalSidebar(mode)).toBe(true);
   });
 
-  it("directeur_general → erp global", () => {
-    const mode = resolveSidebarRenderMode({
+  it("directeur_general → department_business ADMINISTRATION (isolé, pas ErpNavSidebar)", () => {
+    const result = getSidebarForRole({
       isSuperAdmin: false,
       roleKey: "directeur_general",
       departmentKey: null,
     });
-    expect(mode).toBe("director_erp");
-    expect(usesErpGlobalSidebar(mode)).toBe(true);
+    expect(result.mode).toBe("department_business");
+    expect(result.departmentKey).toBe(DEPARTMENT_KEYS.ADMINISTRATION);
+    expect(usesErpGlobalSidebar(result.mode)).toBe(false);
   });
 
   it("manager + VENTE → department_business (pas ErpNavSidebar)", () => {

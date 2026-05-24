@@ -9,7 +9,7 @@ import { NAV_LABELS } from "@/lib/constants/nav-labels";
 import { CollapsibleNavGroup } from "./CollapsibleNavGroup";
 import {
   buildDepartmentSidebarGroups,
-  filterDepartmentSidebarGroups,
+  lockDepartmentSidebarGroups,
 } from "@/lib/navigation/department-sidebar-nav";
 import { OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE } from "@/lib/navigation/erp-ux-architecture";
 import { resolveEffectiveDepartmentKey } from "@/lib/navigation/home-route";
@@ -44,7 +44,7 @@ export function DepartmentBusinessMobileNav({
 
   const groups = useMemo(
     () =>
-      filterDepartmentSidebarGroups(
+      lockDepartmentSidebarGroups(
         buildDepartmentSidebarGroups(departmentKey, {
           includeActions: shellRail.actions,
           includeSettings: shellRail.settings,

@@ -1,3 +1,8 @@
+/**
+ * Config navigation legacy par role_key historique.
+ * @deprecated Sidebar Étape 3 — rendu via DepartmentBusinessSidebar + profile-authority.
+ * Conservé pour référence / migrations ; ne plus brancher AppShell dessus.
+ */
 export type DeptNavItem = {
   key: string;
   label: string;
@@ -96,7 +101,7 @@ export const DEPT_NAV_CONFIGS: Record<string, DeptNavSection[]> = {
   ],
 };
 
-export const FULL_SIDEBAR_ROLES = ["super_admin", "directeur_general"];
+export const FULL_SIDEBAR_ROLES: readonly string[] = ["super_admin"];
 
 function normalizeRole(role: string): string {
   return String(role ?? "").trim().toLowerCase();

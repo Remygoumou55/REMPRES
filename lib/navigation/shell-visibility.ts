@@ -103,7 +103,10 @@ export function resolveShellRailVisibility(input: ShellVisibilityInput): ShellRa
   const venteModuleRead =
     input.canReadClients || input.canReadProducts || input.canReadCrm;
 
-  const canSeeActions = hasAdminConsoleAccess(input.roleKey, input.departmentKey);
+  const canSeeActions = hasAdminConsoleAccess(
+    input.roleKey,
+    userDept ?? input.departmentKey,
+  );
 
   return {
     commerce: venteDept && (input.canReadClients || input.canReadProducts),

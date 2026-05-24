@@ -1,29 +1,27 @@
-# PUSH REPORT — Étape 4 Runtime Performance Cleanup
+# PUSH REPORT — Étape 5 Architecture Certification
 
 | Field | Value |
 |-------|-------|
-| Commit | `eeb2a48` |
+| Commit | `a3e9630` |
 | Branch | `main` |
 | Remote | `origin/main` |
-| Build | PASS |
 | Lint | PASS |
-| Tests | 69 PASS (targeted suites) |
+| Build | PASS (135 pages, middleware 83.2 kB, shared JS 87.8 kB) |
+| Tests certification | 129 PASS |
 
-## Files changed (12)
+## Files changed (9)
 
-- `components/layout/app-shell.tsx` — shell render optimizations
-- `lib/performance/runtime-performance-registry.ts` — metrics registry
-- `lib/performance/provider-governance.ts` — provider stack doc
-- `tests/unit/runtime-performance-matrix.test.ts` — 11 automated checks
-- `docs/RUNTIME_PERFORMANCE_CLEANUP_REPORT.md` — master report
-- `docs/architecture-audit/*` — 7 phase sub-reports
+- `lib/architecture/architecture-certification-registry.ts`
+- `tests/unit/architecture-certification-matrix.test.ts` (24 checks)
+- `docs/ARCHITECTURE_CERTIFICATION_REPORT.md`
+- `docs/architecture-audit/` — 6 phase reports
 
 ## Super Admin lock
 
 - `ErpNavSidebar.tsx` — **unchanged**
 - `SuperAdminCockpitClient` — **unchanged**
-- `/dashboard` SA UX — **unchanged**
+- `/dashboard` — **unchanged**
 
-## Working tree
+## Verdict
 
-Clean after push.
+`CERTIFIED`

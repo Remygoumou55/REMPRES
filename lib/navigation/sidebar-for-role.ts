@@ -8,9 +8,9 @@ import {
   isDeptRole,
 } from "@/lib/constants/dept-nav-configs";
 import type { DeptNavSection } from "@/lib/constants/dept-nav-configs";
-import { DEPARTMENT_KEYS, type DepartmentKey } from "@/lib/departments/department-config";
-import { resolveEffectiveDepartmentKey } from "@/lib/navigation/home-route";
+import { resolveAuthorityDepartmentKey } from "@/lib/auth/profile-authority";
 import { ROLE_KEYS, normalizeRoleKey } from "@/lib/auth/roles";
+import type { DepartmentKey } from "@/lib/departments/department-config";
 
 /** Modes de rendu sidebar — Super Admin reste sur `super_admin_erp` inchangé. */
 export type SidebarRenderMode =
@@ -25,30 +25,16 @@ export type SidebarForRoleInput = {
   departmentKey: string | null | undefined;
 };
 
-/** Rôles métier historiques (profiles DB) → département quand `department_key` est absent. */
-const LEGACY_ROLE_TO_DEPARTMENT: Readonly<Record<string, DepartmentKey>> = {
-  responsable_vente: DEPARTMENT_KEYS.VENTE,
-  employe: DEPARTMENT_KEYS.VENTE,
-  comptable: DEPARTMENT_KEYS.FINANCE,
-  accountant: DEPARTMENT_KEYS.FINANCE,
-  responsable_rh: DEPARTMENT_KEYS.RH,
-  responsable_formation: DEPARTMENT_KEYS.FORMATION,
-  responsable_consultation: DEPARTMENT_KEYS.CONSULTATION,
-  responsable_marketing: DEPARTMENT_KEYS.MARKETING,
-  responsable_logistique: DEPARTMENT_KEYS.LOGISTIQUE,
-};
+/** Rôles métier historiques → département : voir `LEGACY_ROLE_TO_DEPARTMENT` (profile-authority). */
 
 /**
- * Département effectif pour la sidebar métier (profil DB ou alias legacy).
+ * Département effectif pour la sidebar métier — délègue à la source autorité verrouillée.
  */
 export function resolveSidebarDepartmentKey(
   roleKey: string,
   departmentKey: string | null | undefined,
 ): DepartmentKey | null {
-  const fromProfile = resolveEffectiveDepartmentKey(departmentKey);
-  if (fromProfile) return fromProfile;
-
-  return LEGACY_ROLE_TO_DEPARTMENT[normalizeRoleKey(roleKey)] ?? null;
+  return resolveAuthorityDepartmentKey(roleKey, departmentKey);
 }
 
 /**

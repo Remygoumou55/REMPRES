@@ -4,21 +4,12 @@
 import {
   DEPARTMENT_KEYS,
   getDepartmentNavigationEntry,
-  normalizeDepartmentKey,
-  type DepartmentKey,
 } from "@/lib/departments/department-config";
+import { resolveAuthorityDepartmentKey } from "@/lib/auth/profile-authority";
 import { SUPER_ADMIN_COCKPIT_ROUTE } from "@/lib/navigation/erp-ux-architecture";
 import { effectiveAuthRoleKey, ROLE_KEYS } from "@/lib/auth/roles";
 
-/** Consultation absorbée → cockpit Formation (M1.5). */
-export function resolveEffectiveDepartmentKey(
-  departmentKey: string | null | undefined,
-): DepartmentKey | null {
-  const k = normalizeDepartmentKey(departmentKey);
-  if (k === DEPARTMENT_KEYS.CONSULTATION) return DEPARTMENT_KEYS.FORMATION;
-  const nav = getDepartmentNavigationEntry(k);
-  return nav ? (k as DepartmentKey) : null;
-}
+export { resolveEffectiveDepartmentKey } from "@/lib/auth/profile-authority";
 
 /** Destination canonique après authentification. */
 export function resolvePostLoginRoute(
@@ -26,7 +17,7 @@ export function resolvePostLoginRoute(
   departmentKey?: string | null | undefined,
 ): string {
   const r = effectiveAuthRoleKey(roleKey);
-  const effectiveDept = resolveEffectiveDepartmentKey(departmentKey);
+  const effectiveDept = resolveAuthorityDepartmentKey(roleKey, departmentKey);
 
   if (r === ROLE_KEYS.SUPER_ADMIN) {
     return SUPER_ADMIN_COCKPIT_ROUTE;

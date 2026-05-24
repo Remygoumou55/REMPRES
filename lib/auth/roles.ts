@@ -11,7 +11,7 @@ export const ROLE_KEYS = {
 
 export type AppRoleKey = (typeof ROLE_KEYS)[keyof typeof ROLE_KEYS];
 
-/** Alias DB courants / compat lecture */
+/** Alias DB courants / compat lecture — département : `LEGACY_ROLE_TO_DEPARTMENT` (profile-authority). */
 export const LEGACY_ROLE_ALIASES: Record<string, AppRoleKey> = {
   employe: ROLE_KEYS.AGENT,
   directeur_general: ROLE_KEYS.MANAGER,

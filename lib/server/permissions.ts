@@ -1,8 +1,9 @@
 import { cache } from "react";
 import { hasAdminConsoleAccess } from "@/lib/auth/permissions";
 import type { SupervisionScope } from "@/lib/auth/permissions";
+import type { ProfileDriftFlag } from "@/lib/auth/profile-authority";
 import { normalizeRoleKey } from "@/lib/auth/roles";
-import { DEPARTMENT_KEYS, normalizeDepartmentKey } from "@/lib/departments/department-config";
+import { DEPARTMENT_KEYS, type DepartmentKey, normalizeDepartmentKey } from "@/lib/departments/department-config";
 import { getCachedProfileRow } from "@/lib/server/profile-row";
 import {
   SHELL_LAYOUT_MODULE_KEYS,
@@ -95,6 +96,9 @@ export type ProfileAuthBrief = {
   roleKey: string | null;
   departmentKey: string | null;
   departmentId: string | null;
+  /** Département effectif (source verrouillée Étape 2) */
+  authorityDepartmentKey: DepartmentKey | null;
+  authorityDriftFlags: readonly ProfileDriftFlag[];
   ok: boolean;
   supervisionScope: SupervisionScope;
 };
@@ -108,6 +112,8 @@ export const getProfileAuthBrief = cache(async (userId: string): Promise<Profile
     roleKey: row.roleKey,
     departmentKey: row.departmentKey,
     departmentId: row.departmentId,
+    authorityDepartmentKey: row.authorityDepartmentKey,
+    authorityDriftFlags: row.authorityDriftFlags,
     ok: row.ok,
     supervisionScope: row.supervisionScope,
   };

@@ -1,13 +1,12 @@
 /**
  * Visibilité shell ERP — alignement M2 (role_key + department_key).
- * Ne redéfinit pas la matrice RBAC : applique les règles de visibilité rail / homepage.
+ * Étape 2 : département effectif via resolveAuthorityDepartmentKey (aligné sidebar).
  */
 import { hasAdminConsoleAccess } from "@/lib/auth/permissions";
+import { resolveAuthorityDepartmentKey } from "@/lib/auth/profile-authority";
 import { effectiveAuthRoleKey, ROLE_KEYS } from "@/lib/auth/roles";
 import {
   DEPARTMENT_KEYS,
-  DEPARTMENT_NAVIGATION,
-  normalizeDepartmentKey,
   type DepartmentKey,
 } from "@/lib/departments/department-config";
 
@@ -50,21 +49,27 @@ export type ShellVisibility = ShellRailVisibility & {
   treatsConsultationAsFormation: boolean;
 };
 
-function resolveUserDepartment(departmentKey: string | null): DepartmentKey | null {
-  const k = normalizeDepartmentKey(departmentKey);
-  if (!k) return null;
-  if (k in DEPARTMENT_NAVIGATION) return k as DepartmentKey;
-  return null;
+function resolveUserDepartment(
+  roleKey: string | null,
+  departmentKey: string | null,
+): DepartmentKey | null {
+  return resolveAuthorityDepartmentKey(roleKey, departmentKey);
 }
 
 /** Département effectif pour le rail Formation & Consultation. */
-export function isFormationDepartmentKey(departmentKey: string | null | undefined): boolean {
-  const k = normalizeDepartmentKey(departmentKey);
+export function isFormationDepartmentKey(
+  roleKey: string | null | undefined,
+  departmentKey: string | null | undefined,
+): boolean {
+  const k = resolveAuthorityDepartmentKey(roleKey, departmentKey);
   return k === DEPARTMENT_KEYS.FORMATION || k === DEPARTMENT_KEYS.CONSULTATION;
 }
 
-export function isVenteDepartmentKey(departmentKey: string | null | undefined): boolean {
-  return normalizeDepartmentKey(departmentKey) === DEPARTMENT_KEYS.VENTE;
+export function isVenteDepartmentKey(
+  roleKey: string | null | undefined,
+  departmentKey: string | null | undefined,
+): boolean {
+  return resolveAuthorityDepartmentKey(roleKey, departmentKey) === DEPARTMENT_KEYS.VENTE;
 }
 
 function departmentMatches(userDept: DepartmentKey | null, expected: DepartmentKey): boolean {
@@ -77,7 +82,7 @@ function departmentMatches(userDept: DepartmentKey | null, expected: DepartmentK
  */
 export function resolveShellRailVisibility(input: ShellVisibilityInput): ShellRailVisibility {
   const role = effectiveAuthRoleKey(input.roleKey);
-  const userDept = resolveUserDepartment(input.departmentKey);
+  const userDept = resolveUserDepartment(input.roleKey, input.departmentKey);
   const isSuperAdmin = role === ROLE_KEYS.SUPER_ADMIN;
 
   if (isSuperAdmin) {
@@ -108,7 +113,7 @@ export function resolveShellRailVisibility(input: ShellVisibilityInput): ShellRa
     rh: departmentMatches(userDept, DEPARTMENT_KEYS.RH) && input.canReadRh,
     logistics:
       departmentMatches(userDept, DEPARTMENT_KEYS.LOGISTIQUE) && input.canReadLogistics,
-    formation: isFormationDepartmentKey(input.departmentKey) && input.canReadFormation,
+    formation: isFormationDepartmentKey(input.roleKey, input.departmentKey) && input.canReadFormation,
     marketing:
       departmentMatches(userDept, DEPARTMENT_KEYS.MARKETING) && input.canReadMarketing,
     actions: canSeeActions,
@@ -118,7 +123,7 @@ export function resolveShellRailVisibility(input: ShellVisibilityInput): ShellRa
 
 export function resolveShellVisibility(input: ShellVisibilityInput): ShellVisibility {
   const role = effectiveAuthRoleKey(input.roleKey);
-  const userDept = resolveUserDepartment(input.departmentKey);
+  const userDept = resolveUserDepartment(input.roleKey, input.departmentKey);
   const isSuperAdmin = role === ROLE_KEYS.SUPER_ADMIN;
   const rail = resolveShellRailVisibility(input);
 
@@ -126,7 +131,7 @@ export function resolveShellVisibility(input: ShellVisibilityInput): ShellVisibi
     ...rail,
     isSuperAdmin,
     userDepartment: userDept,
-    treatsConsultationAsFormation: isFormationDepartmentKey(input.departmentKey),
+    treatsConsultationAsFormation: isFormationDepartmentKey(input.roleKey, input.departmentKey),
   };
 }
 

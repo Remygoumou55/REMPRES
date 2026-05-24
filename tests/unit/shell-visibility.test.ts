@@ -102,9 +102,20 @@ describe("shell visibility M2 alignment", () => {
     ).toBe(false);
   });
 
+  it("responsable_vente legacy + department_key null aligne rail sur sidebar", () => {
+    const rail = resolveShellRailVisibility({
+      roleKey: "responsable_vente",
+      departmentKey: null,
+      ...venteRead,
+    });
+    expect(rail.commerce).toBe(true);
+    expect(rail.crm).toBe(true);
+    expect(rail.finance).toBe(false);
+  });
+
   it("expose Formation pour FORMATION et legacy CONSULTATION", () => {
-    expect(isFormationDepartmentKey(DEPARTMENT_KEYS.FORMATION)).toBe(true);
-    expect(isFormationDepartmentKey(DEPARTMENT_KEYS.CONSULTATION)).toBe(true);
+    expect(isFormationDepartmentKey("manager", DEPARTMENT_KEYS.FORMATION)).toBe(true);
+    expect(isFormationDepartmentKey("manager", DEPARTMENT_KEYS.CONSULTATION)).toBe(true);
     const rail = resolveShellRailVisibility({
       roleKey: "manager",
       departmentKey: DEPARTMENT_KEYS.CONSULTATION,
@@ -143,7 +154,7 @@ describe("shell visibility M2 alignment", () => {
   });
 
   it("CRM requiert département Vente", () => {
-    expect(isVenteDepartmentKey(DEPARTMENT_KEYS.VENTE)).toBe(true);
+    expect(isVenteDepartmentKey("manager", DEPARTMENT_KEYS.VENTE)).toBe(true);
     expect(
       resolveShellRailVisibility({
         roleKey: "manager",

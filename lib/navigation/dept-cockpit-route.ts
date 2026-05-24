@@ -2,6 +2,7 @@
  * Routes cockpit département unifiées — DeptHomePage sur /dept/[slug].
  */
 import { DEPT_ALLOWED_ROUTES } from "@/lib/constants/role-routes";
+import { resolveAuthorityDepartmentKey } from "@/lib/auth/profile-authority";
 import {
   DEPARTMENT_KEYS,
   getDepartmentRoutePrefixes,
@@ -30,16 +31,6 @@ const DEPT_SLUG_TO_ROUTE_PREFIX: Record<DeptSlug, string> = {
   logistique: "/logistique",
 };
 
-const LEGACY_ROLE_TO_DEPT_SLUG: Record<string, DeptSlug> = {
-  responsable_vente: "vente",
-  comptable: "finance",
-  responsable_rh: "rh",
-  responsable_formation: "formation",
-  responsable_consultation: "consultation",
-  responsable_marketing: "marketing",
-  responsable_logistique: "logistique",
-};
-
 function normalizeDeptPathname(pathname: string): string {
   if (!pathname || pathname === "/") return "/";
   const base = pathname.startsWith("/") ? pathname : `/${pathname}`;
@@ -57,17 +48,12 @@ export function resolveDeptCockpitPath(
   return slug ? `/dept/${slug}` : null;
 }
 
-/** Cockpit département dérivé du profil (department_key ou rôle legacy). */
+/** Cockpit département dérivé du profil (department_key ou rôle legacy gouverné). */
 export function resolveDeptCockpitPathForProfile(
   roleKey: string | null | undefined,
   departmentKey: string | null | undefined,
 ): string | null {
-  const fromDept = resolveDeptCockpitPath(departmentKey);
-  if (fromDept) return fromDept;
-
-  const rawRole = String(roleKey ?? "").trim().toLowerCase();
-  const slug = LEGACY_ROLE_TO_DEPT_SLUG[rawRole];
-  return slug ? `/dept/${slug}` : null;
+  return resolveDeptCockpitPath(resolveAuthorityDepartmentKey(roleKey, departmentKey));
 }
 
 export function isDeptCockpitPath(pathname: string): boolean {

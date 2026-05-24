@@ -4,8 +4,13 @@
 
 import { cache } from "react";
 import { headers } from "next/headers";
+import {
+  buildProfileAuthoritySlice,
+  type ProfileDriftFlag,
+} from "@/lib/auth/profile-authority";
 import { getSupervisionScope } from "@/lib/auth/permissions";
 import type { SupervisionScope } from "@/lib/auth/permissions";
+import type { DepartmentKey } from "@/lib/departments/department-config";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import {
   displayNameFromEmail,
@@ -20,11 +25,25 @@ export type CachedProfileRow = {
   roleKey: string | null;
   departmentKey: string | null;
   departmentId: string | null;
+  /** Département effectif gouverné (profil + legacy) — une résolution par requête */
+  authorityDepartmentKey: DepartmentKey | null;
+  authorityDriftFlags: readonly ProfileDriftFlag[];
   displayName: string;
   preferredLanguage: string | null;
   ok: boolean;
   supervisionScope: SupervisionScope;
 };
+
+function withAuthorityFields(
+  base: Omit<CachedProfileRow, "authorityDepartmentKey" | "authorityDriftFlags">,
+): CachedProfileRow {
+  const slice = buildProfileAuthoritySlice(base.roleKey, base.departmentKey);
+  return {
+    ...base,
+    authorityDepartmentKey: slice.authorityDepartmentKey,
+    authorityDriftFlags: slice.driftFlags,
+  };
+}
 
 function resolveDisplayName(data: {
   first_name: string | null;
@@ -57,7 +76,7 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
           : null;
       const roleKey = headerSlice.roleKey;
       const departmentKey = headerSlice.departmentKey;
-      return {
+      return withAuthorityFields({
         roleKey,
         departmentKey,
         departmentId: headerSlice.departmentId,
@@ -65,7 +84,7 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
         preferredLanguage,
         ok: true,
         supervisionScope: getSupervisionScope(roleKey, departmentKey),
-      };
+      });
     }
 
     const supabase = getSupabaseServerClient();
@@ -80,7 +99,7 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
 
     if (error) {
       logError("auth", "getCachedProfileRow error", { error: error.message, userId });
-      return {
+      return withAuthorityFields({
         roleKey: null,
         departmentKey: null,
         departmentId: null,
@@ -88,7 +107,7 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
         preferredLanguage: null,
         ok: false,
         supervisionScope: "restricted",
-      };
+      });
     }
 
     if (!data?.role_key || !String(data.role_key).trim()) {
@@ -106,7 +125,7 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
         data?.preferred_language != null
           ? String(data.preferred_language).trim().toLowerCase() || null
           : null;
-      return {
+      return withAuthorityFields({
         roleKey: null,
         departmentKey: null,
         departmentId: null,
@@ -114,7 +133,7 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
         preferredLanguage,
         ok: true,
         supervisionScope: getSupervisionScope(null, null),
-      };
+      });
     }
 
     const roleKey = String(data.role_key).trim();
@@ -127,7 +146,7 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
         ? String(data.preferred_language).trim().toLowerCase() || null
         : null;
 
-    return {
+    return withAuthorityFields({
       roleKey,
       departmentKey,
       departmentId,
@@ -135,9 +154,9 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
       preferredLanguage,
       ok: true,
       supervisionScope: getSupervisionScope(roleKey, departmentKey),
-    };
+    });
   } catch {
-    return {
+    return withAuthorityFields({
       roleKey: null,
       departmentKey: null,
       departmentId: null,
@@ -145,7 +164,7 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
       preferredLanguage: null,
       ok: false,
       supervisionScope: "restricted",
-    };
+    });
   }
 });
 

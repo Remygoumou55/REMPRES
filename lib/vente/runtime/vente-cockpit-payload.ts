@@ -1,5 +1,6 @@
 /**
- * B2.3 — Payload cockpit manager `/vente/dashboard` (commerce + CRM SoT B2.0).
+ * B2.3 — Contrat payload B2.4 (référence tests / gouvernance).
+ * Runtime cockpit dept = DeptHomePage + getDeptDashboardData sur `/dept/vente`.
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";

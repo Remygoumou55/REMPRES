@@ -5,7 +5,7 @@ import {
   SUPER_ADMIN_NAV_GROUPS,
   SUPER_ADMIN_OFFICIAL_RAIL_GROUP_IDS,
   type SuperAdminNavGroupDef,
-} from "@/lib/navigation/super-admin-nav";
+} from "@/lib/navigation/navigation-authority";
 import { NAV_CONFIG, findNavItemByKey } from "@/lib/constants/nav-config";
 
 export const SUPER_ADMIN_HOME_ROUTE = ROUTES.home;

@@ -44,6 +44,7 @@ function sidebarChildrenFromNav(key: string): SuperAdminNavLink[] {
 
 /**
  * Groupes dérivés de NAV_CONFIG (sidebar uniquement — sans hub extras).
+ * OWNERSHIP : source unique = nav-config.ts ; ce module = validation lockdown SA (pas de rendu parallèle).
  */
 export const SUPER_ADMIN_NAV_GROUPS: SuperAdminNavGroupDef[] = SUPER_ADMIN_OFFICIAL_RAIL_GROUP_IDS.map(
   (id) => {

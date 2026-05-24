@@ -1,5 +1,7 @@
 /**
- * B3 — Payload cockpit manager `/finance/dashboard` (B2.4 standard).
+ * B3 — Contrat payload B2.4 (référence tests / gouvernance).
+ * Runtime cockpit dept = DeptHomePage + getDeptDashboardData sur `/dept/finance`.
+ * Surface opérationnelle CFO = FinanceDashboardClient sur `/finance` (cockpit-authority).
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";

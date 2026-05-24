@@ -5,7 +5,7 @@ import {
   SUPER_ADMIN_NAV_GROUPS,
   SUPER_ADMIN_OFFICIAL_RAIL_GROUP_IDS,
   getSuperAdminNavSegment,
-} from "@/lib/navigation/super-admin-nav";
+} from "@/lib/navigation/navigation-authority";
 import {
   SUPER_ADMIN_FORBIDDEN_RAIL_MODULE_IDS,
   SUPER_ADMIN_HOME_ROUTE,

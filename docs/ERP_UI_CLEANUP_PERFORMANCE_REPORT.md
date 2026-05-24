@@ -70,4 +70,11 @@ Code mort retiré : `components/archives/archive-globales-view.tsx`, `getArchive
 
 ## PUSH_REPORT
 
-*(Rempli après commit/push)*
+| Champ | Valeur |
+|-------|--------|
+| Commit | `7101225` |
+| Branche | `main` |
+| Remote | `origin/main` |
+| Build | PASS |
+| Lint | PASS |
+| Working tree | clean (hors `scripts/patch-cockpit.mjs` non suivi) |

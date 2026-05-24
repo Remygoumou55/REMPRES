@@ -1,10 +1,8 @@
-import { unstable_cache } from "next/cache";
+import { cache } from "react";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
-import { ADMIN_PLATFORM_DASHBOARD_CACHE_TAGS } from "@/modules/admin-platform-dashboard/constants";
 
 const ADMIN_SCOPE_KEY = "admin_platform_v1";
 const SNAPSHOT_MAX_AGE_SEC = 10 * 60;
-const CACHE_REVALIDATE_SEC = 60;
 
 type TenantScope = { tenantIds: string[] | null; scoped: boolean; scopeHash: string };
 
@@ -156,17 +154,14 @@ export async function getAdminPlatformAggregates(args: {
   viewerUserId: string;
   elevated: boolean;
 }): Promise<AdminPlatformAggregates> {
-  const scope = await resolveTenantScope(args.viewerUserId, args.elevated);
-  return unstable_cache(
-    async () => {
-      const fromSnapshot = await readStoredSnapshot(scope);
-      if (fromSnapshot) return fromSnapshot;
-      return computeLiveAggregates(scope);
-    },
-    ["admin-platform", "aggregates", args.viewerUserId, scope.scopeHash, args.elevated ? "elevated" : "standard"],
-    {
-      revalidate: CACHE_REVALIDATE_SEC,
-      tags: [ADMIN_PLATFORM_DASHBOARD_CACHE_TAGS.root, ADMIN_PLATFORM_DASHBOARD_CACHE_TAGS.hub],
-    },
-  )();
+  return loadAdminPlatformAggregates(args.viewerUserId, args.elevated);
 }
+
+const loadAdminPlatformAggregates = cache(
+  async (viewerUserId: string, elevated: boolean): Promise<AdminPlatformAggregates> => {
+    const scope = await resolveTenantScope(viewerUserId, elevated);
+    const fromSnapshot = await readStoredSnapshot(scope);
+    if (fromSnapshot) return fromSnapshot;
+    return computeLiveAggregates(scope);
+  },
+);

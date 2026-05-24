@@ -39,7 +39,12 @@ function resolveDisplayName(data: {
 
 export const getCachedProfileRow = cache(async (userId: string): Promise<CachedProfileRow> => {
   try {
-    const headerSlice = readProfileHeaders(headers(), userId);
+    let headerSlice = null;
+    try {
+      headerSlice = readProfileHeaders(headers(), userId);
+    } catch {
+      headerSlice = null;
+    }
     if (headerSlice) {
       const displayName = resolveDisplayName({
         first_name: headerSlice.firstName,

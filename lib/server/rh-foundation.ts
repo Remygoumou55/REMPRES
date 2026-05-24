@@ -1,7 +1,5 @@
-import { unstable_cache } from "next/cache";
+import { cache } from "react";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
-import { ANALYTICS_CACHE_TAGS } from "@/modules/analytics/constants/cache-tags";
-import { RH_FOUNDATION_NEXT_CACHE_SEC } from "@/modules/analytics/constants";
 import { buildRhTimeline, type RhTimelineInputItem } from "@/lib/rh/timeline";
 import { computeRhReportingSummary, type RhReportingSummary } from "@/lib/rh/reporting";
 
@@ -239,14 +237,11 @@ export async function getRhFoundationData(viewerUserId: string): Promise<RhFound
   if (!uid) {
     throw new Error("getRhFoundationData: viewerUserId is required");
   }
-
-  return unstable_cache(
-    async () => computeRhFoundationDataUncached(),
-    ["analytics", "rh", "foundation", uid],
-    {
-      revalidate: RH_FOUNDATION_NEXT_CACHE_SEC,
-      tags: [ANALYTICS_CACHE_TAGS.rhFoundation],
-    },
-  )();
+  return loadRhFoundationData(uid);
 }
+
+const loadRhFoundationData = cache(async (viewerUserId: string): Promise<RhFoundationData> => {
+  void viewerUserId;
+  return computeRhFoundationDataUncached();
+});
 

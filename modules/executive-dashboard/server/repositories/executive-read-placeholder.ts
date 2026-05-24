@@ -1,13 +1,11 @@
-import { unstable_cache } from "next/cache";
+import { cache } from "react";
 import type { DeptKpiPayload } from "@/lib/dept/kpi-contract";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
-import { EXECUTIVE_DASHBOARD_CACHE_TAGS } from "@/modules/executive-dashboard/constants";
 import type { ExecutiveGlobalSnapshot } from "@/modules/executive-dashboard/types/domain";
 import { createExecutiveCorrelationId } from "@/modules/executive-dashboard/utils/correlation";
 
 const EXECUTIVE_SCOPE_KEY = "executive_global_v1";
 const SNAPSHOT_MAX_AGE_SEC = 10 * 60;
-const CACHE_REVALIDATE_SEC = 60;
 
 type TenantScope = { tenantIds: string[] | null; scopeHash: string };
 
@@ -265,17 +263,14 @@ export async function getExecutiveGlobalSnapshot(args: {
   viewerUserId: string;
   elevated: boolean;
 }): Promise<ExecutiveGlobalSnapshot> {
-  const scope = await resolveTenantScope(args.viewerUserId, args.elevated);
-  return unstable_cache(
-    async () => {
-      const fromSnapshot = await loadExecutiveSnapshotFromStore(scope);
-      if (fromSnapshot) return fromSnapshot;
-      return buildLiveExecutiveSnapshot(scope);
-    },
-    ["executive", "global-snapshot", args.viewerUserId, scope.scopeHash, args.elevated ? "elevated" : "standard"],
-    {
-      revalidate: CACHE_REVALIDATE_SEC,
-      tags: [EXECUTIVE_DASHBOARD_CACHE_TAGS.root, EXECUTIVE_DASHBOARD_CACHE_TAGS.globalSnapshot],
-    },
-  )();
+  return loadExecutiveGlobalSnapshot(args.viewerUserId, args.elevated);
 }
+
+const loadExecutiveGlobalSnapshot = cache(
+  async (viewerUserId: string, elevated: boolean): Promise<ExecutiveGlobalSnapshot> => {
+    const scope = await resolveTenantScope(viewerUserId, elevated);
+    const fromSnapshot = await loadExecutiveSnapshotFromStore(scope);
+    if (fromSnapshot) return fromSnapshot;
+    return buildLiveExecutiveSnapshot(scope);
+  },
+);

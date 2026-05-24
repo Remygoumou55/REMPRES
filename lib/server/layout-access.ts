@@ -67,7 +67,11 @@ export const getLayoutAccess = cache(async () => {
 
   let pendingApprovalsCount = 0;
   if (isSuperAdminUser) {
-    pendingApprovalsCount = await countPendingApprovals();
+    try {
+      pendingApprovalsCount = await countPendingApprovals();
+    } catch {
+      pendingApprovalsCount = 0;
+    }
   }
 
   return {

@@ -1,5 +1,4 @@
 import { cache } from "react";
-import { unstable_cache } from "next/cache";
 import { hasAdminConsoleAccess } from "@/lib/auth/permissions";
 import type { SupervisionScope } from "@/lib/auth/permissions";
 import { normalizeRoleKey } from "@/lib/auth/roles";
@@ -150,10 +149,8 @@ async function fetchShellLayoutPermissionsByRole(roleKey: string): Promise<Shell
   };
 }
 
-const loadShellLayoutPermissionsByRole = unstable_cache(
+const loadShellLayoutPermissionsByRole = cache(
   async (roleKey: string) => fetchShellLayoutPermissionsByRole(roleKey),
-  [SHELL_PERMISSIONS_TAG],
-  { revalidate: 60, tags: [SHELL_PERMISSIONS_TAG] },
 );
 
 export const getShellLayoutPermissions = cache(

@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
-import { unstable_cache } from "next/cache";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { isAdminRole, isSuperAdmin } from "@/lib/server/permissions";
+import { logError } from "@/lib/logger";
 
 export type ArchiveDept =
   | "vente"
@@ -292,14 +292,21 @@ async function fetchArchiveData(dept: ArchiveDeptKey): Promise<ArchivePageData> 
   }
 }
 
-const loadArchiveData = unstable_cache(
-  async (dept: ArchiveDeptKey) => fetchArchiveData(dept),
-  [ARCHIVES_DATA_TAG, "dept"],
-  { revalidate: 30, tags: [ARCHIVES_DATA_TAG] },
-);
-
 export async function getArchiveData(dept: ArchiveDeptKey): Promise<ArchivePageData> {
-  return loadArchiveData(dept);
+  try {
+    return await fetchArchiveData(dept);
+  } catch (error) {
+    logError("archives", "getArchiveData failed", {
+      dept,
+      error: error instanceof Error ? error.message : String(error),
+    });
+    return {
+      dept,
+      kpis: [],
+      tables: [],
+      recentActivity: [],
+    };
+  }
 }
 
 async function fetchDeletionActivityLogs(limit: number): Promise<DeletionLogRow[]> {
@@ -352,12 +359,13 @@ async function fetchDeletionActivityLogs(limit: number): Promise<DeletionLogRow[
   });
 }
 
-const loadDeletionActivityLogs = unstable_cache(
-  async (limit: number) => fetchDeletionActivityLogs(limit),
-  [DELETION_LOGS_TAG],
-  { revalidate: 30, tags: [DELETION_LOGS_TAG] },
-);
-
 export async function listDeletionActivityLogs(limit = 100): Promise<DeletionLogRow[]> {
-  return loadDeletionActivityLogs(limit);
+  try {
+    return await fetchDeletionActivityLogs(limit);
+  } catch (error) {
+    logError("archives", "listDeletionActivityLogs failed", {
+      error: error instanceof Error ? error.message : String(error),
+    });
+    return [];
+  }
 }

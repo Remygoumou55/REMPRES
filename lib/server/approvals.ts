@@ -4,7 +4,7 @@ import type { Json } from "@/types/database.types";
 import type { Database } from "@/types/database.types";
 import { tryEmitGovernanceAlert } from "@/lib/governance/alert-engine";
 import { cache } from "react";
-import { revalidateTag, unstable_cache } from "next/cache";
+import { revalidateTag } from "next/cache";
 
 export const PENDING_APPROVALS_COUNT_TAG = "pending-approvals-count";
 
@@ -150,25 +150,21 @@ async function notifySuperAdmins(requestId: string, input: CreateApprovalInput):
   }
 }
 
-const loadPendingApprovalsCount = unstable_cache(
-  async (): Promise<number> => {
-    try {
-      const supabase = getSupabaseServerClient();
-      const { count, error } = await supabase
-        .from("approval_requests")
-        .select("id", { count: "exact", head: true })
-        .eq("status", "pending");
-      if (error) return 0;
-      return count ?? 0;
-    } catch {
-      return 0;
-    }
-  },
-  [PENDING_APPROVALS_COUNT_TAG],
-  { revalidate: 30, tags: [PENDING_APPROVALS_COUNT_TAG] },
-);
+const loadPendingApprovalsCount = cache(async (): Promise<number> => {
+  try {
+    const supabase = getSupabaseServerClient();
+    const { count, error } = await supabase
+      .from("approval_requests")
+      .select("id", { count: "exact", head: true })
+      .eq("status", "pending");
+    if (error) return 0;
+    return count ?? 0;
+  } catch {
+    return 0;
+  }
+});
 
-export const countPendingApprovals = cache(async (): Promise<number> => loadPendingApprovalsCount());
+export const countPendingApprovals = loadPendingApprovalsCount;
 
 export function invalidatePendingApprovalsCount(): void {
   try {

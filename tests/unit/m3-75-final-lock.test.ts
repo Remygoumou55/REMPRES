@@ -17,16 +17,19 @@ function readSrc(relativePath: string): string {
   return readFileSync(join(ROOT, relativePath), "utf8");
 }
 
-describe("M3.75 — TypeScript / DepartmentDashboard contract", () => {
-  it("DepartmentDashboardPage passe departmentKey: string (pas nullable) au cockpit", () => {
-    const src = readSrc("components/governance/home/DepartmentDashboardPage.tsx");
-    expect(src).toContain("departmentKey={departmentKey}");
-    expect(src).not.toMatch(/departmentKey=\{context\.departmentKey\}/);
+describe("M3.75 — DeptHomePage cockpit contract", () => {
+  it("dept route utilise DeptHomePage + getDeptDashboardData", () => {
+    const dept = readSrc("app/(app)/dept/[deptKey]/page.tsx");
+    expect(dept).toContain("DeptHomePage");
+    expect(dept).toContain("getDeptDashboardData");
+    expect(dept).not.toContain("DepartmentDashboardPage");
+    expect(dept).not.toContain("DepartmentCockpitPlaceholder");
   });
 
-  it("DepartmentCockpitPlaceholder exige departmentKey: string", () => {
-    const src = readSrc("components/cockpit/DepartmentCockpitPlaceholder.tsx");
-    expect(src).toMatch(/departmentKey:\s*string/);
+  it("DeptHomePage exige data DeptKpiData", () => {
+    const src = readSrc("components/dashboard/dept-home-page.tsx");
+    expect(src).toContain("DeptKpiData");
+    expect(src).toMatch(/firstName:\s*string/);
   });
 });
 
@@ -75,7 +78,7 @@ describe("M3.75 — Vente ownership M1.5 (domaine unique)", () => {
 describe("M3.75 — Responsive shell structure (audit code)", () => {
   const shellSrc = () => readSrc("components/layout/app-shell.tsx");
   const sidebarSrc = () => readSrc("components/layout/app-shell/DepartmentBusinessSidebar.tsx");
-  const cockpitSrc = () => readSrc("components/cockpit/DepartmentCockpitPlaceholder.tsx");
+  const cockpitSrc = () => readSrc("components/dashboard/dept-home-page.tsx");
 
   it("desktop: rail md:block + largeur repliable", () => {
     expect(shellSrc()).toContain("md:block");
@@ -100,7 +103,7 @@ describe("M3.75 — Responsive shell structure (audit code)", () => {
 
   it("cockpit: grilles responsive sm/xl/lg", () => {
     expect(cockpitSrc()).toContain("sm:grid-cols-2");
-    expect(cockpitSrc()).toContain("xl:grid-cols-4");
+    expect(cockpitSrc()).toMatch(/xl:grid-cols-\d/);
     expect(cockpitSrc()).toContain("lg:grid-cols-2");
   });
 

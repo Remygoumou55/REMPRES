@@ -12,7 +12,8 @@ export const FINANCE_ERP_STANDARD_SLOTS = {
   mutation_registry: "lib/finance/runtime/finance-write-governance.ts",
   threshold_evaluator: "lib/finance/runtime/finance-threshold-evaluator.ts",
   cockpit_payload: "lib/finance/runtime/finance-cockpit-payload.ts",
-  cockpit_ui: "modules/finance/components/cockpit/FinanceCockpitClient.tsx",
+  cockpit_ui: "components/dashboard/dept-home-page.tsx",
+  cockpit_route: "/dept/finance",
   audit_hook: "modules/finance/server/services/finance-audit-hook.ts",
   cfo_data_legacy: "lib/server/finance-overview.ts",
 } as const;

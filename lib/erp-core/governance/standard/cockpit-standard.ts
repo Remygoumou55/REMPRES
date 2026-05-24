@@ -19,9 +19,9 @@ export type ErpCockpitPayloadContract = {
 };
 
 export const ERP_COCKPIT_SURFACES = {
-  manager: "app/(app)/{dept}/dashboard → get{Dept}CockpitPayload",
+  manager: "app/(app)/dept/{dept} → DeptHomePage + getDeptDashboardData",
   supervision: "app/(app)/dept/{dept} + /api/dept/{dept}/kpis",
-  super_admin: "/dashboard + governance aggregates",
+  super_admin: "/dashboard + SuperAdminCockpitClient (gelé)",
 } as const;
 
 export const ERP_COCKPIT_FORBIDDEN_PATTERNS = [
@@ -44,10 +44,12 @@ export const ERP_COCKPIT_QUICK_ACTION_RULES = {
   permission_filtered: true,
 };
 
-/** Référence Vente live (B2.3). */
+/** Référence Vente live — runtime dept unifié (Bloc 2). */
 export const VENTE_REFERENCE_COCKPIT = {
-  payload: "lib/vente/runtime/vente-cockpit-payload.ts",
-  ui: "modules/vente/components/cockpit/VenteCockpitClient.tsx",
-  route: "/vente/dashboard",
+  payload: "lib/server/dept-dashboard.ts",
+  ui: "components/dashboard/dept-home-page.tsx",
+  route: "/dept/vente",
+  legacy_redirect: "/vente/dashboard",
+  payload_contract: "lib/vente/runtime/vente-cockpit-payload.ts",
   source: "vente-cockpit-runtime-v1",
 } as const;

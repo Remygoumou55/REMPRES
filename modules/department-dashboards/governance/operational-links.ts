@@ -4,19 +4,19 @@ export const GOVERNANCE_OPERATIONAL_LINKS: readonly DepartmentOperationalLink[] 
   {
     id: "gov-platform",
     vertical: "governance",
-    href: "/admin/governance-platform",
+    href: "/admin/platform-dashboard",
     labelKey: "deptDash.governance.link.platform",
   },
   {
-    id: "compliance-hub",
+    id: "gov-audit",
     vertical: "governance",
-    href: "/admin/compliance",
-    labelKey: "deptDash.governance.link.compliance",
+    href: "/admin/audit",
+    labelKey: "deptDash.governance.link.audit",
   },
   {
-    id: "resilience-hub",
+    id: "gov-approvals",
     vertical: "governance",
-    href: "/admin/resilience",
-    labelKey: "deptDash.governance.link.resilience",
+    href: "/admin/approvals",
+    labelKey: "deptDash.governance.link.approvals",
   },
 ];

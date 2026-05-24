@@ -17,12 +17,12 @@ import { EXECUTIVE_GLOBAL_KPI_DEPT_KEYS } from "../kpi/executive-kpi-scope";
 import { useExecutiveGlobalSnapshot } from "../hooks/use-executive-global-snapshot";
 
 const COMMAND_LINKS = [
-  { href: "/admin/observability", labelKey: "executive.global.link.observability" },
-  { href: "/admin/ai", labelKey: "executive.global.link.ai" },
-  { href: "/admin/governance-platform", labelKey: "executive.global.link.governance" },
-  { href: "/admin/cloud", labelKey: "executive.global.link.cloud" },
-  { href: "/admin/resilience", labelKey: "executive.global.link.resilience" },
-  { href: "/admin/multitenant", labelKey: "executive.global.link.multitenant" },
+  { href: "/admin/platform-dashboard", labelKey: "executive.global.link.platform" },
+  { href: "/admin/approvals", labelKey: "executive.global.link.approvals" },
+  { href: "/admin/alerts", labelKey: "executive.global.link.alerts" },
+  { href: "/admin/audit", labelKey: "executive.global.link.audit" },
+  { href: "/admin/activity-logs", labelKey: "executive.global.link.activity" },
+  { href: "/admin/intelligence", labelKey: "executive.global.link.intelligence" },
 ] as const;
 
 export function ExecutiveGlobalDashboard() {

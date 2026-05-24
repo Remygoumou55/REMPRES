@@ -29,12 +29,12 @@ describe("B2.3 — Cockpit Vente live", () => {
     expect(dept).toContain("getDeptDashboardData");
   });
 
-  it("cockpit client expose zones M3 + KPI cards", () => {
-    const ui = readSrc("modules/vente/components/cockpit/VenteCockpitClient.tsx");
-    expect(ui).toContain("CockpitMetricCard");
-    expect(ui).toContain("COCKPIT_ZONE_ORDER");
-    expect(ui).toContain("SalesChart");
-    expect(ui).toContain("CA net du jour");
+  it("DeptHomePage expose KPI cards + charts (cockpit unifié)", () => {
+    const ui = readSrc("components/dashboard/dept-home-page.tsx");
+    expect(ui).toContain("KpiCard");
+    expect(ui).toContain("DeptHomeCharts");
+    expect(ui).toContain("DeptQuickActionsSection");
+    expect(ui).not.toContain("VenteCockpitClient");
   });
 
   it("quick actions officielles (max 6, libellés)", () => {

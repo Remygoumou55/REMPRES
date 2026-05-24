@@ -25,8 +25,8 @@ export type ErpRuntimeLayerId = (typeof ERP_RUNTIME_LAYER_IDS)[number];
  */
 export const ERP_RUNTIME_FORBIDDEN_IMPORTS = [
   "app/(app)",
-  "components/cockpit/DepartmentCockpitPlaceholder",
-  "modules/*/components",
+  "components/dashboard/dept-home-page",
+  "modules/*/components/cockpit",
 ] as const;
 
 /**

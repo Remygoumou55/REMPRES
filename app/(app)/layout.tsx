@@ -21,6 +21,9 @@ export default async function AppRouteLayout({ children }: { children: React.Rea
         departmentKey={access.departmentKey}
         isSuperAdmin={access.isSuperAdmin}
         pendingApprovalsCount={access.pendingApprovalsCount}
+        shellRail={access.shellRail}
+        canReadClients={access.canReadClients}
+        canReadProducts={access.canReadProducts}
       >
         {children}
       </AppShell>

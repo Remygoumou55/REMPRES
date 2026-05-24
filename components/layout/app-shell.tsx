@@ -10,8 +10,12 @@ import { getSupabaseBrowserClient } from "@/lib/supabase";
 import { appConfig, getLogoUrl } from "@/lib/config";
 import { CurrencySwitcher } from "@/components/CurrencySwitcher";
 import { logError, logInfo } from "@/lib/logger";
-import { isDeptRole, getDeptNavConfig } from "@/lib/constants/dept-nav-configs";
 import { getNavContextLabelFromPath } from "@/lib/constants/nav-context";
+import {
+  getSidebarForRole,
+  usesErpGlobalSidebar,
+} from "@/lib/navigation/sidebar-for-role";
+import type { ShellRailVisibility } from "@/lib/navigation/shell-visibility";
 
 const ErpNavSidebar = dynamic(
   () => import("./app-shell/ErpNavSidebar").then((m) => ({ default: m.ErpNavSidebar })),
@@ -23,6 +27,14 @@ const DeptSidebarNav = dynamic(
   { loading: () => <div className="h-full w-full bg-primary" aria-hidden /> },
 );
 
+const DepartmentBusinessSidebar = dynamic(
+  () =>
+    import("./app-shell/DepartmentBusinessSidebar").then((m) => ({
+      default: m.DepartmentBusinessSidebar,
+    })),
+  { loading: () => <div className="h-full w-full bg-primary" aria-hidden /> },
+);
+
 type AppShellProps = {
   userDisplayName: string;
   userAvatarInitial: string;
@@ -30,6 +42,9 @@ type AppShellProps = {
   departmentKey: string | null;
   isSuperAdmin?: boolean;
   pendingApprovalsCount?: number;
+  shellRail?: ShellRailVisibility;
+  canReadClients?: boolean;
+  canReadProducts?: boolean;
   children: React.ReactNode;
 };
 
@@ -40,6 +55,9 @@ export function AppShell({
   departmentKey,
   isSuperAdmin = false,
   pendingApprovalsCount = 0,
+  shellRail,
+  canReadClients = false,
+  canReadProducts = false,
   children,
 }: AppShellProps) {
   const pathname = usePathname();
@@ -72,16 +90,60 @@ export function AppShell({
     onCollapsedChange: setSidebarCollapsed,
   };
 
-  const deptNavConfig = useMemo(
-    () => (isDeptRole(userRole) ? getDeptNavConfig(userRole) : null),
-    [userRole],
+  const sidebarResolution = useMemo(
+    () =>
+      getSidebarForRole({
+        isSuperAdmin,
+        roleKey: userRole,
+        departmentKey,
+      }),
+    [isSuperAdmin, userRole, departmentKey],
   );
 
+  const railForDept = shellRail ?? {
+    commerce: false,
+    crm: false,
+    finance: false,
+    rh: false,
+    logistics: false,
+    formation: false,
+    marketing: false,
+    actions: false,
+    settings: false,
+  };
+
+  const toggleSidebarExpanded = useCallback(() => {
+    setSidebarCollapsed((prev) => !prev);
+  }, []);
+
   const renderSidebar = () => {
-    if (deptNavConfig) {
+    if (usesErpGlobalSidebar(sidebarResolution.mode)) {
+      return <ErpNavSidebar {...sidebarProps} />;
+    }
+
+    if (
+      sidebarResolution.mode === "department_business" &&
+      sidebarResolution.departmentKey
+    ) {
+      return (
+        <DepartmentBusinessSidebar
+          pathname={pathname ?? ""}
+          departmentKey={sidebarResolution.departmentKey}
+          shellRail={railForDept}
+          canReadClients={canReadClients}
+          canReadProducts={canReadProducts}
+          userAvatarInitial={userAvatarInitial}
+          onLogout={handleLogout}
+          isExpanded={!sidebarCollapsed}
+          onToggleExpanded={toggleSidebarExpanded}
+        />
+      );
+    }
+
+    if (sidebarResolution.legacyDeptNav) {
       return (
         <DeptSidebarNav
-          config={deptNavConfig}
+          config={sidebarResolution.legacyDeptNav}
           userRole={userRole}
           userDisplayName={userDisplayName}
           onLogout={handleLogout}
@@ -90,7 +152,19 @@ export function AppShell({
       );
     }
 
-    return <ErpNavSidebar {...sidebarProps} />;
+    return (
+      <DepartmentBusinessSidebar
+        pathname={pathname ?? ""}
+        departmentKey={departmentKey}
+        shellRail={railForDept}
+        canReadClients={canReadClients}
+        canReadProducts={canReadProducts}
+        userAvatarInitial={userAvatarInitial}
+        onLogout={handleLogout}
+        isExpanded={!sidebarCollapsed}
+        onToggleExpanded={toggleSidebarExpanded}
+      />
+    );
   };
 
   const primaryWidthClass = sidebarCollapsed ? "w-[76px]" : "w-[268px]";

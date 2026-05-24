@@ -8,7 +8,6 @@ import { Menu } from "lucide-react";
 
 import { getSupabaseBrowserClient } from "@/lib/supabase";
 import { appConfig, getLogoUrl } from "@/lib/config";
-import { CurrencySwitcher } from "@/components/CurrencySwitcher";
 import { logError, logInfo } from "@/lib/logger";
 import { getNavContextLabelFromPath } from "@/lib/constants/nav-context";
 import {
@@ -17,9 +16,25 @@ import {
 } from "@/lib/navigation/sidebar-for-role";
 import type { ShellRailVisibility } from "@/lib/navigation/shell-visibility";
 
+const EMPTY_SHELL_RAIL: ShellRailVisibility = {
+  commerce: false,
+  crm: false,
+  finance: false,
+  rh: false,
+  logistics: false,
+  formation: false,
+  marketing: false,
+  actions: false,
+  settings: false,
+};
+
+function SidebarLoadingPlaceholder() {
+  return <div className="h-full w-full bg-primary" aria-hidden />;
+}
+
 const ErpNavSidebar = dynamic(
   () => import("./app-shell/ErpNavSidebar").then((m) => ({ default: m.ErpNavSidebar })),
-  { loading: () => <div className="h-full w-full bg-primary" aria-hidden /> },
+  { loading: SidebarLoadingPlaceholder },
 );
 
 const DepartmentBusinessSidebar = dynamic(
@@ -27,7 +42,15 @@ const DepartmentBusinessSidebar = dynamic(
     import("./app-shell/DepartmentBusinessSidebar").then((m) => ({
       default: m.DepartmentBusinessSidebar,
     })),
-  { loading: () => <div className="h-full w-full bg-primary" aria-hidden /> },
+  { loading: SidebarLoadingPlaceholder },
+);
+
+const CurrencySwitcher = dynamic(
+  () => import("@/components/CurrencySwitcher").then((m) => ({ default: m.CurrencySwitcher })),
+  {
+    ssr: false,
+    loading: () => <div className="h-8 w-24 rounded-full bg-gray-100" aria-hidden />,
+  },
 );
 
 type AppShellProps = {
@@ -77,13 +100,20 @@ export function AppShell({
     }
   }, [router]);
 
-  const sidebarProps = {
-    userDisplayName,
-    userRole,
-    pendingApprovalsCount,
-    onLogout: handleLogout,
-    onCollapsedChange: setSidebarCollapsed,
-  };
+  const closeMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen(false);
+  }, []);
+
+  const sidebarProps = useMemo(
+    () => ({
+      userDisplayName,
+      userRole,
+      pendingApprovalsCount,
+      onLogout: handleLogout,
+      onCollapsedChange: setSidebarCollapsed,
+    }),
+    [userDisplayName, userRole, pendingApprovalsCount, handleLogout],
+  );
 
   const sidebarResolution = useMemo(
     () =>
@@ -95,23 +125,13 @@ export function AppShell({
     [isSuperAdmin, userRole, departmentKey],
   );
 
-  const railForDept = shellRail ?? {
-    commerce: false,
-    crm: false,
-    finance: false,
-    rh: false,
-    logistics: false,
-    formation: false,
-    marketing: false,
-    actions: false,
-    settings: false,
-  };
+  const railForDept = useMemo(() => shellRail ?? EMPTY_SHELL_RAIL, [shellRail]);
 
   const toggleSidebarExpanded = useCallback(() => {
     setSidebarCollapsed((prev) => !prev);
   }, []);
 
-  const renderSidebar = () => {
+  const sidebarContent = useMemo(() => {
     if (usesErpGlobalSidebar(sidebarResolution.mode)) {
       return <ErpNavSidebar {...sidebarProps} />;
     }
@@ -129,7 +149,19 @@ export function AppShell({
         onToggleExpanded={toggleSidebarExpanded}
       />
     );
-  };
+  }, [
+    sidebarResolution,
+    sidebarProps,
+    pathname,
+    departmentKey,
+    railForDept,
+    canReadClients,
+    canReadProducts,
+    userAvatarInitial,
+    handleLogout,
+    sidebarCollapsed,
+    toggleSidebarExpanded,
+  ]);
 
   const primaryWidthClass = sidebarCollapsed ? "w-[76px]" : "w-[268px]";
 
@@ -138,7 +170,7 @@ export function AppShell({
       {isMobileMenuOpen && (
         <div
           className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden"
-          onClick={() => setIsMobileMenuOpen(false)}
+          onClick={closeMobileMenu}
           aria-hidden="true"
         />
       )}
@@ -148,7 +180,7 @@ export function AppShell({
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        {renderSidebar()}
+        {isMobileMenuOpen ? sidebarContent : null}
       </aside>
 
       <div className="flex min-h-screen">
@@ -156,7 +188,7 @@ export function AppShell({
           className={`hidden shrink-0 bg-primary transition-[width] duration-300 ease-in-out md:block ${primaryWidthClass}`}
         >
           <div className={`sticky top-0 h-screen ${primaryWidthClass}`}>
-            {renderSidebar()}
+            {sidebarContent}
           </div>
         </aside>
 

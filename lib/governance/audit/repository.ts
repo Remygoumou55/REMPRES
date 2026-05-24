@@ -1,4 +1,5 @@
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import { logError } from "@/lib/logger";
 import type { Database } from "@/types/database.types";
 import type {
   GovernanceAuditCategory,
@@ -61,16 +62,39 @@ export async function listGovernanceAuditEvents(params?: {
   if (params?.actorUserId) query = query.eq("actor_user_id", params.actorUserId);
   if (params?.query) query = query.ilike("action_type", `%${params.query}%`);
 
-  const { data, error, count } = await query;
-  if (error) throw new Error(`Impossible de charger les evenements audit: ${error.message}`);
-  const total = count ?? 0;
-  return {
-    data: (data ?? []).map(toModel),
-    total,
-    page,
-    pageSize,
-    totalPages: total === 0 ? 1 : Math.ceil(total / pageSize),
-  };
+  try {
+    const { data, error, count } = await query;
+    if (error) {
+      logError("governance", "listGovernanceAuditEvents failed", { error: error.message, params });
+      return {
+        data: [],
+        total: 0,
+        page,
+        pageSize,
+        totalPages: 1,
+      };
+    }
+    const total = count ?? 0;
+    return {
+      data: (data ?? []).map(toModel),
+      total,
+      page,
+      pageSize,
+      totalPages: total === 0 ? 1 : Math.ceil(total / pageSize),
+    };
+  } catch (error) {
+    logError("governance", "listGovernanceAuditEvents crashed", {
+      error: error instanceof Error ? error.message : String(error),
+      params,
+    });
+    return {
+      data: [],
+      total: 0,
+      page,
+      pageSize,
+      totalPages: 1,
+    };
+  }
 }
 
 export async function getComplianceHealth() {

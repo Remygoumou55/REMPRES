@@ -1,4 +1,5 @@
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import { logError } from "@/lib/logger";
 import type { Json } from "@/types/database.types";
 import type {
   GovernanceAlertCategory,
@@ -80,22 +81,31 @@ export async function listGovernanceAlerts(filters?: {
   departmentKey?: string;
   limit?: number;
 }): Promise<GovernanceAlert[]> {
-  const supabase = getSupabaseServerClient();
-  let query = supabase
-    .from("governance_alerts")
-    .select("*")
-    .order("created_at", { ascending: false })
-    .order("id", { ascending: false })
-    .limit(filters?.limit ?? 120);
-  if (filters?.status) query = query.eq("status", filters.status);
-  if (filters?.severity) query = query.eq("severity", filters.severity);
-  if (filters?.departmentKey) query = query.eq("department_key", filters.departmentKey);
-  const { data, error } = await query;
-  if (error) {
-    throw new Error(`Impossible de charger les alertes gouvernance: ${error.message}`);
+  try {
+    const supabase = getSupabaseServerClient();
+    let query = supabase
+      .from("governance_alerts")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .order("id", { ascending: false })
+      .limit(filters?.limit ?? 120);
+    if (filters?.status) query = query.eq("status", filters.status);
+    if (filters?.severity) query = query.eq("severity", filters.severity);
+    if (filters?.departmentKey) query = query.eq("department_key", filters.departmentKey);
+    const { data, error } = await query;
+    if (error) {
+      logError("governance", "listGovernanceAlerts failed", { error: error.message, filters });
+      return [];
+    }
+    const mapped = (data ?? []).map(toModel);
+    return mapped.filter((row) => row.lifecycleStatus !== "archived");
+  } catch (error) {
+    logError("governance", "listGovernanceAlerts crashed", {
+      error: error instanceof Error ? error.message : String(error),
+      filters,
+    });
+    return [];
   }
-  const mapped = (data ?? []).map(toModel);
-  return mapped.filter((row) => row.lifecycleStatus !== "archived");
 }
 
 export async function findRecentSimilarAlert(input: {

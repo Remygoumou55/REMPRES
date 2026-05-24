@@ -26,7 +26,12 @@ export default async function AdminAlertsPage({ searchParams }: PageProps) {
   const { data } = await supabase.auth.getUser();
   if (!data.user) redirect("/login");
 
-  const allowed = await isSuperAdmin(data.user.id);
+  let allowed = false;
+  try {
+    allowed = await isSuperAdmin(data.user.id);
+  } catch {
+    allowed = false;
+  }
   if (!allowed) redirect("/access-denied");
 
   const status = (searchParams?.status ?? "") as GovernanceAlertStatus | "";

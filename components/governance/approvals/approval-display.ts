@@ -27,7 +27,7 @@ function shortRef(id: string): string {
 
 /** Titre principal lisible pour les opérateurs (sans jargon technique brut). */
 export function getApprovalCardTitle(request: GovernanceApprovalRequest): string {
-  const action = request.actionType.toLowerCase();
+  const action = String(request.actionType ?? "").toLowerCase();
   if (action.includes("delete") || action.includes("remove")) {
     return "Demande de suppression";
   }
@@ -45,15 +45,17 @@ export function getApprovalCardTitle(request: GovernanceApprovalRequest): string
 
 /** Sous-titre : périmètre métier + référence courte. */
 export function getApprovalCardScope(request: GovernanceApprovalRequest): string {
-  const entity = humanizeKey(request.entityType);
-  return `Objet : ${entity} · Réf. ${shortRef(request.entityId)}`;
+  const entity = humanizeKey(String(request.entityType ?? ""));
+  const entityId = String(request.entityId ?? "").trim();
+  return `Objet : ${entity} · Réf. ${shortRef(entityId || "unknown")}`;
 }
 
 /** Ligne méta : département + demandeur. */
 export function getApprovalCardMeta(request: GovernanceApprovalRequest): string {
+  const departmentKey = String(request.departmentKey ?? "").trim();
   const dept =
-    DEPARTMENT_LABELS[request.departmentKey.toLowerCase()] ??
-    humanizeKey(request.departmentKey);
+    DEPARTMENT_LABELS[departmentKey.toLowerCase()] ??
+    humanizeKey(departmentKey);
   const who = request.requestedBy?.trim() ? request.requestedBy : "—";
   return `Département : ${dept} · Demandé par : ${who}`;
 }

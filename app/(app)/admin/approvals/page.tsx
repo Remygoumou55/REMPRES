@@ -28,7 +28,12 @@ export default async function AdminApprovalsPage({ searchParams }: PageProps) {
   const { data } = await supabase.auth.getUser();
   if (!data.user) redirect("/login");
 
-  const allowed = await isSuperAdmin(data.user.id);
+  let allowed = false;
+  try {
+    allowed = await isSuperAdmin(data.user.id);
+  } catch {
+    allowed = false;
+  }
   if (!allowed) redirect("/access-denied");
 
   const statusFilter = (searchParams?.status ?? "") as ApprovalRequestStatus | "";

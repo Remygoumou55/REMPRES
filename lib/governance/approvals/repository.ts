@@ -1,4 +1,5 @@
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import { logError } from "@/lib/logger";
 import type { Database } from "@/types/database.types";
 import type { Json } from "@/types/database.types";
 import type {
@@ -9,26 +10,54 @@ import type {
 
 type ApprovalRow = Database["public"]["Tables"]["approval_requests"]["Row"];
 
-function toModel(row: ApprovalRow): GovernanceApprovalRequest {
+type ApprovalRowLike = ApprovalRow & {
+  module?: string | null;
+  target_id?: string | null;
+  requester_dept?: string | null;
+  description?: string | null;
+  action_payload?: Json | null;
+  deleted_at?: string | null;
+};
+
+function asRecord(value: unknown): Record<string, unknown> {
+  return value && typeof value === "object" && !Array.isArray(value)
+    ? (value as Record<string, unknown>)
+    : {};
+}
+
+function asText(value: unknown, fallback = "unknown"): string {
+  const text = String(value ?? "").trim();
+  return text || fallback;
+}
+
+function normalizeApprovalStatus(value: unknown): ApprovalRequestStatus {
+  const status = String(value ?? "pending").trim().toLowerCase();
+  if (status === "approved" || status === "rejected" || status === "expired") {
+    return status;
+  }
+  return "pending";
+}
+
+function toModel(row: ApprovalRowLike): GovernanceApprovalRequest {
+  const payloadSnapshot = asRecord(row.payload_snapshot ?? row.action_payload);
+  const createdAt = row.created_at ?? row.requested_at ?? new Date().toISOString();
+
   return {
     id: row.id,
-    departmentKey: row.department_key,
-    actionType: row.action_type,
-    entityType: row.entity_type,
-    entityId: row.entity_id,
-    requestedBy: row.requested_by,
-    requestedAt: row.requested_at,
-    payloadSnapshot:
-      row.payload_snapshot && typeof row.payload_snapshot === "object"
-        ? (row.payload_snapshot as Record<string, unknown>)
-        : {},
-    reason: row.reason,
-    status: row.status,
+    departmentKey: asText(row.department_key ?? row.requester_dept ?? row.module),
+    actionType: asText(row.action_type),
+    entityType: asText(row.entity_type ?? row.module),
+    entityId: asText(row.entity_id ?? row.target_id),
+    requestedBy: asText(row.requested_by, "unknown"),
+    requestedAt: row.requested_at ?? createdAt,
+    payloadSnapshot,
+    reason: row.reason ?? row.description ?? null,
+    status: normalizeApprovalStatus(row.status),
     approvedBy: row.approved_by,
     approvedAt: row.approved_at,
     rejectedAt: row.rejected_at,
     rejectionReason: row.rejection_reason,
-    createdAt: row.created_at,
+    createdAt,
   };
 }
 
@@ -68,22 +97,34 @@ export async function listApprovalRequests(filters?: {
   actionType?: string;
   limit?: number;
 }): Promise<GovernanceApprovalRequest[]> {
-  const supabase = getSupabaseServerClient();
-  let query = supabase
-    .from("approval_requests")
-    .select("*")
-    .order("requested_at", { ascending: false })
-    .order("id", { ascending: false })
-    .limit(filters?.limit ?? 100);
-  if (filters?.status) query = query.eq("status", filters.status);
-  if (filters?.departmentKey) query = query.eq("department_key", filters.departmentKey);
-  if (filters?.actionType) query = query.eq("action_type", filters.actionType);
+  try {
+    const supabase = getSupabaseServerClient();
+    let query = supabase
+      .from("approval_requests")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .order("id", { ascending: false })
+      .limit(filters?.limit ?? 100);
+    if (filters?.status) query = query.eq("status", filters.status);
+    if (filters?.departmentKey) query = query.eq("department_key", filters.departmentKey);
+    if (filters?.actionType) query = query.eq("action_type", filters.actionType);
 
-  const { data, error } = await query;
-  if (error) {
-    throw new Error(`Impossible de lister les approbations: ${error.message}`);
+    const { data, error } = await query;
+    if (error) {
+      logError("governance", "listApprovalRequests failed", { error: error.message, filters });
+      return [];
+    }
+
+    return (data ?? [])
+      .filter((row) => !(row as ApprovalRowLike).deleted_at)
+      .map((row) => toModel(row as ApprovalRowLike));
+  } catch (error) {
+    logError("governance", "listApprovalRequests crashed", {
+      error: error instanceof Error ? error.message : String(error),
+      filters,
+    });
+    return [];
   }
-  return (data ?? []).map(toModel);
 }
 
 export async function getActiveApprovalForAction(input: {

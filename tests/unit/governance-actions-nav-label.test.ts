@@ -7,29 +7,26 @@ describe("actions hub navigation (NAV_CONFIG source)", () => {
     expect(NAV_CONFIG.some((s) => s.section === "Métier")).toBe(false);
   });
 
-  it("departements has 7 children and actions has 3 without Vue d'ensemble", () => {
+  it("departements has 7 children and actions has 2 without Vue d'ensemble", () => {
     const dept = NAV_CONFIG.flatMap((s) => s.items).find((i) => i.key === "departements");
     expect(dept?.children?.length).toBe(7);
     const actions = NAV_CONFIG.flatMap((s) => s.items).find((i) => i.key === "actions");
-    expect(actions?.children?.length).toBe(3);
+    expect(actions?.children?.length).toBe(2);
     expect(actions?.children?.some((c) => c.label.includes("Vue d"))).toBe(false);
   });
 
-  it("journaux points to /actions/journaux (distinct from admin journal)", () => {
-    const journals = NAV_CONFIG.flatMap((s) => s.items)
-      .find((i) => i.key === "actions")
-      ?.children?.find((c) => c.key === "journaux");
-    expect(journals?.href).toBe("/actions/journaux");
+  it("admin journal points to activity logs", () => {
     const adminJournal = NAV_CONFIG.flatMap((s) => s.items)
       .find((i) => i.key === "admin")
       ?.children?.find((c) => c.key === "admin-journal");
     expect(adminJournal?.href).toBe("/admin/activity-logs");
-    expect(journals?.href).not.toBe(adminJournal?.href);
   });
 
-  it("parametres has no Utilisateurs child", () => {
-    const param = NAV_CONFIG.flatMap((s) => s.items).find((i) => i.key === "parametres");
-    expect(param?.children?.some((c) => c.label === "Utilisateurs")).toBe(false);
+  it("admin consolidates settings and has Utilisateurs once", () => {
+    expect(NAV_CONFIG.flatMap((s) => s.items).find((i) => i.key === "parametres")).toBeUndefined();
+    const admin = NAV_CONFIG.flatMap((s) => s.items).find((i) => i.key === "admin");
+    expect(admin?.children?.length).toBe(8);
+    expect(admin?.children?.filter((c) => c.label === "Utilisateurs").length).toBe(1);
   });
 
   it("actions hub route is /actions", () => {

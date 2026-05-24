@@ -10,7 +10,8 @@ type Props = {
   overview: SettingsGovernanceOverview;
 };
 
-const SIDEBAR_PILLARS = findNavItemByKey("parametres")?.children ?? [];
+const SIDEBAR_PILLARS =
+  findNavItemByKey("admin")?.children?.filter((c) => c.href.startsWith("/settings")) ?? [];
 const HUB_EXTRA_CARDS = NAV_PARAMETRES_HUB_EXTRAS;
 
 export function SettingsGovernanceHub({ overview }: Props) {
@@ -109,15 +110,15 @@ export function SettingsGovernanceHub({ overview }: Props) {
         {SIDEBAR_PILLARS.map((item) => {
           let hint = "Configuration gouvernée — accès centralisé.";
           let count: number | null = null;
-          if (item.key === "param-securite") {
+          if (item.key === "admin-securite") {
             hint = "Sessions, connexions et politiques d'accès.";
             count = overview.securityEvents24h;
-          } else if (item.key === "param-notifs") {
+          } else if (item.key === "admin-notifs") {
             hint = "Alertes système et validations critiques.";
             count = overview.unreadAlerts;
-          } else if (item.key === "param-systeme") {
+          } else if (item.key === "admin-systeme") {
             hint = "Santé plateforme, version et maintenance.";
-          } else if (item.key === "param-devise") {
+          } else if (item.key === "admin-devise") {
             hint = "Devise de référence et taux de change.";
           }
           return renderCard(item.key, item.href, item.label, item.icon, hint, count);

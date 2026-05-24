@@ -1,5 +1,4 @@
 import { ROUTES } from "@/lib/constants/routes";
-import { isArchivesGovernancePath } from "@/lib/archives/governance-nav";
 import { isGovernanceActionsPath } from "@/lib/actions/governance-nav";
 import { isSettingsGovernancePath } from "@/lib/settings/legacy-route-lock";
 import {
@@ -17,7 +16,6 @@ export const SUPER_ADMIN_FORBIDDEN_RAIL_MODULE_IDS = [
   "finance",
   "rh",
   "logistics",
-  "admin",
 ] as const;
 
 export type GovernanceChromeBand = "settings" | "archives" | "actions" | null;
@@ -26,16 +24,16 @@ export function resolveGovernanceChromeBand(
   pathname: string,
   search: Pick<URLSearchParams, "get"> | null,
 ): GovernanceChromeBand {
+  void search;
   if (isSettingsGovernancePath(pathname)) return "settings";
-  if (isArchivesGovernancePath(pathname, search)) return "archives";
   if (isGovernanceActionsPath(pathname)) return "actions";
   return null;
 }
 
 const SIDEBAR_CHILD_COUNTS: Record<(typeof SUPER_ADMIN_OFFICIAL_RAIL_GROUP_IDS)[number], number> = {
-  actions: 3,
-  archives: 3,
-  parametres: 4,
+  actions: 2,
+  archives: 7,
+  admin: 8,
 };
 
 export function validateSuperAdminNavGroups(groups: readonly SuperAdminNavGroupDef[]): {
@@ -77,14 +75,13 @@ export function validateSuperAdminNavGroups(groups: readonly SuperAdminNavGroupD
   }
 
   const adminItem = findNavItemByKey("admin");
-  if (!adminItem?.children || adminItem.children.length !== 2) {
-    errors.push(`admin must have 2 children, got ${adminItem?.children?.length ?? 0}`);
+  if (!adminItem?.children || adminItem.children.length !== 8) {
+    errors.push(`admin must have 8 children, got ${adminItem?.children?.length ?? 0}`);
   }
 
   const paramItem = findNavItemByKey("parametres");
-  const hasUsersInParam = paramItem?.children?.some((c) => c.label === "Utilisateurs");
-  if (hasUsersInParam) {
-    errors.push("Utilisateurs must not appear under Paramètres sidebar");
+  if (paramItem) {
+    errors.push("parametres sidebar group must not exist after admin consolidation");
   }
 
   return { ok: errors.length === 0, errors };

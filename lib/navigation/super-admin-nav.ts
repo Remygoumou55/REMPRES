@@ -9,7 +9,7 @@ import { isSettingsGovernancePath } from "@/lib/settings/legacy-route-lock";
 import { ROUTES } from "@/lib/constants/routes";
 
 /** Segments collapsibles du rail (hors Accueil). */
-export const SUPER_ADMIN_OFFICIAL_RAIL_GROUP_IDS = ["actions", "archives", "parametres"] as const;
+export const SUPER_ADMIN_OFFICIAL_RAIL_GROUP_IDS = ["actions", "archives", "admin"] as const;
 
 export type SuperAdminNavSegment = (typeof SUPER_ADMIN_OFFICIAL_RAIL_GROUP_IDS)[number] | "unmapped";
 
@@ -29,7 +29,7 @@ export type SuperAdminNavGroupDef = {
 const GROUP_ICONS: Record<string, LucideIcon> = {
   actions: Zap,
   archives: Archive,
-  parametres: Settings2,
+  admin: Settings2,
 };
 
 function sidebarChildrenFromNav(key: string): SuperAdminNavLink[] {
@@ -93,7 +93,7 @@ export function getSuperAdminNavSegment(
   search: Pick<URLSearchParams, "get"> | null = null,
 ): SuperAdminNavHighlight {
   if (pathname === ROUTES.home || pathname.startsWith(`${ROUTES.home}/`)) return "dashboard";
-  if (matchesPrefixes(pathname, SETTINGS_PREFIXES) || isSettingsGovernancePath(pathname)) return "parametres";
+  if (matchesPrefixes(pathname, SETTINGS_PREFIXES) || isSettingsGovernancePath(pathname)) return "admin";
 
   const archivesMatch = search ? isArchivesGovernancePath(pathname, search) : matchesPrefixes(pathname, ARCHIVES_PREFIXES);
   if (archivesMatch) return "archives";
@@ -108,7 +108,7 @@ export const SUPER_ADMIN_HEADER_LABELS: Record<SuperAdminNavHighlight, string> =
   dashboard: "Accueil",
   actions: "Actions",
   archives: "Archives",
-  parametres: "Paramètres",
+  admin: "Admin",
   departements: "Départements",
   unmapped: "Vue hors menu supervision",
 };

@@ -16,7 +16,7 @@ import {
 
 describe("super admin final lockdown", () => {
   it("verrouille le rail officiel (3 groupes collapsibles dérivés de NAV_CONFIG)", () => {
-    expect(SUPER_ADMIN_OFFICIAL_RAIL_GROUP_IDS).toEqual(["actions", "archives", "parametres"]);
+    expect(SUPER_ADMIN_OFFICIAL_RAIL_GROUP_IDS).toEqual(["actions", "archives", "admin"]);
     expect(SUPER_ADMIN_HOME_ROUTE).toBe(ROUTES.home);
     const { ok, errors } = validateSuperAdminNavGroups(SUPER_ADMIN_NAV_GROUPS);
     expect(errors).toEqual([]);
@@ -36,13 +36,13 @@ describe("super admin final lockdown", () => {
     expect(getSuperAdminNavSegment(`${ROUTES.home}/executive`, null)).toBe("dashboard");
   });
 
-  it("sépare Actions, Archives et Paramètres (segments distincts)", () => {
+  it("sépare Actions, Archives et Admin (segments distincts)", () => {
     expect(getSuperAdminNavSegment(ROUTES.actions, null)).toBe("actions");
     expect(getSuperAdminNavSegment("/admin/approvals", null)).toBe("actions");
     expect(getSuperAdminNavSegment(ROUTES.archives, null)).toBe("archives");
     expect(getSuperAdminNavSegment("/admin/archives", null)).toBe("archives");
-    expect(getSuperAdminNavSegment(SETTINGS_OFFICIAL_ROUTES.hub, null)).toBe("parametres");
-    expect(getSuperAdminNavSegment(SETTINGS_OFFICIAL_ROUTES.users, null)).toBe("parametres");
+    expect(getSuperAdminNavSegment(SETTINGS_OFFICIAL_ROUTES.hub, null)).toBe("admin");
+    expect(getSuperAdminNavSegment(SETTINGS_OFFICIAL_ROUTES.users, null)).toBe("admin");
     expect(getSuperAdminNavSegment("/dept/vente", null)).toBe("departements");
   });
 
@@ -53,8 +53,8 @@ describe("super admin final lockdown", () => {
 
   it("résout un bandeau GovernanceChrome exclusif par priorité settings > archives > actions", () => {
     expect(resolveGovernanceChromeBand(SETTINGS_OFFICIAL_ROUTES.security, null)).toBe("settings");
-    expect(resolveGovernanceChromeBand(ROUTES.archives, null)).toBe("archives");
-    expect(resolveGovernanceChromeBand("/admin/archives", null)).toBe("archives");
+    expect(resolveGovernanceChromeBand(ROUTES.archives, null)).toBe(null);
+    expect(resolveGovernanceChromeBand("/admin/archives", null)).toBe(null);
     expect(resolveGovernanceChromeBand(ROUTES.actions, null)).toBe("actions");
     expect(resolveGovernanceChromeBand("/admin/approvals", null)).toBe("actions");
     expect(resolveGovernanceChromeBand(ROUTES.home, null)).toBe(null);

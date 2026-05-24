@@ -22,10 +22,10 @@ export type SettingsGovernanceNavItem = {
 };
 
 const CHILD_ICONS: Record<string, LucideIcon> = {
-  "param-securite": Shield,
-  "param-notifs": Bell,
-  "param-systeme": Cog,
-  "param-devise": Coins,
+  "admin-securite": Shield,
+  "admin-notifs": Bell,
+  "admin-systeme": Cog,
+  "admin-devise": Coins,
 };
 
 const HUB_EXTRA_ICONS: Record<string, LucideIcon> = {
@@ -38,26 +38,24 @@ const HUB_EXTRA_IDS: Record<string, SettingsGovernanceNavItem["id"]> = {
   langue: "language",
 };
 
-const parametresItem = findNavItemByKey("parametres");
+const adminItem = findNavItemByKey("admin");
+
+const adminSettingsChildren =
+  adminItem?.children?.filter((c) => c.href.startsWith(SETTINGS_OFFICIAL_ROUTES.hub)) ?? [];
 
 export const SETTINGS_GOVERNANCE_NAV: readonly SettingsGovernanceNavItem[] = [
-  ...(parametresItem
-    ? [{ id: "hub" as const, href: SETTINGS_OFFICIAL_ROUTES.hub, label: parametresItem.label, icon: Cog }]
+  ...(adminItem
+    ? [{ id: "hub" as const, href: SETTINGS_OFFICIAL_ROUTES.hub, label: "Paramètres", icon: Cog }]
     : []),
-  ...(parametresItem?.children ?? []).map((c) => ({
-    id: (c.key === "param-securite"
+  ...adminSettingsChildren.map((c) => ({
+    id: (c.key === "admin-securite"
       ? "security"
-      : c.key === "param-notifs"
+      : c.key === "admin-notifs"
         ? "notifications"
-        : c.key === "param-systeme"
+        : c.key === "admin-systeme"
           ? "system"
           : "currency") as SettingsGovernanceNavItem["id"],
-    href: c.href.startsWith("/parametres")
-      ? c.href.replace("/parametres/securite", SETTINGS_OFFICIAL_ROUTES.security)
-          .replace("/parametres/notifications", SETTINGS_OFFICIAL_ROUTES.notifications)
-          .replace("/parametres/systeme", SETTINGS_OFFICIAL_ROUTES.system)
-          .replace("/parametres/devise", SETTINGS_OFFICIAL_ROUTES.currency)
-      : c.href,
+    href: c.href,
     label: c.label,
     icon: CHILD_ICONS[c.key] ?? Cog,
   })),

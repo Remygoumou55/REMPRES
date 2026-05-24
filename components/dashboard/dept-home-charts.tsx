@@ -1,6 +1,7 @@
 "use client";
 
 import { memo, useMemo } from "react";
+import type { ComponentProps } from "react";
 import {
   Bar,
   BarChart,
@@ -25,6 +26,14 @@ function formatAxis(value: number): string {
   return value >= 1_000_000 ? `${(value / 1_000_000).toFixed(1)}M` : value.toLocaleString("fr-FR");
 }
 
+type TooltipFormatterProp = NonNullable<ComponentProps<typeof Tooltip>["formatter"]>;
+
+const tooltipFormatter = (value: number | string) =>
+  [`${Number(value ?? 0).toLocaleString("fr-FR")} GNF`, "Montant"] as [string, string];
+
+const tooltipFormatterProp: TooltipFormatterProp = ((value) =>
+  tooltipFormatter((value ?? 0) as number | string)) as TooltipFormatterProp;
+
 export const DeptHomeCharts = memo(function DeptHomeCharts({
   chart7Days,
   deptColor,
@@ -43,9 +52,7 @@ export const DeptHomeCharts = memo(function DeptHomeCharts({
           <CartesianGrid strokeDasharray="3 3" className="stroke-gray-100" />
           <XAxis dataKey="label" tick={{ fontSize: 11 }} />
           <YAxis tick={{ fontSize: 11 }} width={48} tickFormatter={formatAxis} />
-          <Tooltip
-            formatter={(v) => [`${Number(v ?? 0).toLocaleString("fr-FR")} GNF`, "Montant"]}
-          />
+          <Tooltip formatter={tooltipFormatterProp} />
           <Bar dataKey="value" fill={deptColor} radius={[6, 6, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
@@ -59,9 +66,7 @@ export const DeptHomeCharts = memo(function DeptHomeCharts({
           <CartesianGrid strokeDasharray="3 3" className="stroke-gray-100" />
           <XAxis dataKey="label" tick={{ fontSize: 11 }} />
           <YAxis tick={{ fontSize: 11 }} width={48} tickFormatter={formatAxis} />
-          <Tooltip
-            formatter={(v) => [`${Number(v ?? 0).toLocaleString("fr-FR")} GNF`, "Montant"]}
-          />
+          <Tooltip formatter={tooltipFormatterProp} />
           <Line type="monotone" dataKey="value" stroke={deptColor} strokeWidth={2} dot={{ r: 3 }} />
         </LineChart>
       </ResponsiveContainer>

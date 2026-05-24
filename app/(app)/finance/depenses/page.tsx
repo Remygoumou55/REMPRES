@@ -8,6 +8,9 @@ import {
 } from "@/lib/server/expenses";
 import { DepensesClient } from "./DepensesClient";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 function firstDayOfMonth(): string {
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-01`;

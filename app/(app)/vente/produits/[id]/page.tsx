@@ -12,6 +12,10 @@ import { DetailPageModal } from "@/components/ui/detail-page-modal";
 import { getModulePermissions } from "@/lib/server/permissions";
 import { mapProductError } from "@/lib/server/product-error-messages";
 import { isDetailEditOpen } from "@/lib/routing/modal-query";
+import { revalidateProduits } from "@/lib/cache/revalidation-map";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 type ProductDetailPageProps = {
   params: {
@@ -73,6 +77,7 @@ export default async function ProductDetailPage({ params, searchParams }: Produc
       }
 
       await softDeleteProduct(params.id);
+      await revalidateProduits({ productId: params.id });
 
     } catch (error) {
       const message = mapProductError(
@@ -107,6 +112,7 @@ export default async function ProductDetailPage({ params, searchParams }: Produc
       };
 
       await updateProduct(params.id, payload);
+      await revalidateProduits({ productId: params.id });
     } catch (error) {
       const message = mapProductError(
         error,

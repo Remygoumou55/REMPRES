@@ -5,7 +5,7 @@ import { getModulePermissions, getUserRole } from "@/lib/server/permissions";
 import { softDeleteProduct, restoreProduct } from "@/lib/server/products";
 import { ok, err, type SafeResult } from "@/lib/server/safe-result";
 import { mapProductError } from "@/lib/server/product-error-messages";
-import { revalidateVenteProductsScope } from "@/lib/server/revalidate-domains";
+import { revalidateProduits } from "@/lib/cache/revalidation-map";
 import { AUDIT_EVENT_TYPES } from "@/lib/audit/audit-events";
 import { tryLogAuditEvent } from "@/lib/audit/audit-logger";
 import { assertApprovalOrThrow } from "@/lib/approvals/approval-engine";
@@ -56,7 +56,7 @@ export async function deleteProductFromListAction(productId: string): Promise<Sa
     return err(mapProductError(e, "Impossible de supprimer le produit pour le moment."));
   }
 
-  revalidateVenteProductsScope({ productId: id, includeDashboard: true });
+  await revalidateProduits({ productId: id });
   return ok(null);
 }
 
@@ -108,7 +108,7 @@ export async function deleteProductsFromListBulkAction(productIds: string[]): Pr
     return err("Aucun produit n'a pu être supprimé.");
   }
 
-  revalidateVenteProductsScope({ includeDashboard: true });
+  await revalidateProduits();
   await tryLogAuditEvent({
     eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
     severity: "critical",
@@ -163,10 +163,6 @@ export async function restoreProductAction(productId: string): Promise<SafeResul
     return err(mapProductError(e, "Impossible de restaurer le produit pour le moment."));
   }
 
-  revalidateVenteProductsScope({
-    productId: id,
-    includeArchives: true,
-    includeDashboard: true,
-  });
+  await revalidateProduits({ productId: id });
   return ok(null);
 }

@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
-import { revalidateCrmScope, revalidateVenteSalesScope } from "@/lib/server/revalidate-domains";
+import { revalidateCrm, revalidateVente } from "@/lib/cache/revalidation-map";
 import { ok, err, type SafeResult } from "@/lib/server/safe-result";
 import type { CrmLeadStatus, CrmQuoteStatus } from "@/lib/vente/runtime/crm-state-machine";
 import {
@@ -36,7 +36,7 @@ async function requireUserId(): Promise<string | SafeResult<never>> {
 }
 
 function afterCrmMutation() {
-  revalidateCrmScope({ includeDashboard: true });
+  void revalidateCrm();
 }
 
 export async function createCrmLeadAction(input: {
@@ -89,7 +89,6 @@ export async function convertCrmLeadAction(
   try {
     const { client } = await convertCrmLeadToClient(userId, leadId, input);
     afterCrmMutation();
-    revalidateCrmScope();
     return ok({ clientId: client.id });
   } catch (e) {
     return err(mapCrmActionError(e));
@@ -171,7 +170,7 @@ export async function convertCrmQuoteToSaleAction(
   try {
     const result = await convertCrmQuoteToSale(userId, { quoteId, paymentMethod });
     afterCrmMutation();
-    revalidateVenteSalesScope({ saleId: result.saleId, includeDashboard: true });
+    await revalidateVente({ saleId: result.saleId });
     return ok({ saleId: result.saleId, saleReference: result.saleReference });
   } catch (e) {
     return err(mapCrmActionError(e));

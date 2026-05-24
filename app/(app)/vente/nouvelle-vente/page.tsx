@@ -6,6 +6,9 @@ import type { Product } from "@/types/product";
 import type { Client } from "@/types/client";
 import { NouvelleVenteClient } from "./NouvelleVenteClient";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export const metadata = { title: "Nouvelle vente" };
 
 export default async function NouvelleVentePage() {

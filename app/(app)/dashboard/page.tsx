@@ -1,4 +1,4 @@
-import dynamic from "next/dynamic";
+import nextDynamic from "next/dynamic";
 import { redirect } from "next/navigation";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getServerSessionUser } from "@/lib/server/auth-session";
@@ -11,7 +11,10 @@ import { resolvePostLoginRoute } from "@/lib/navigation/home-route";
 import { Suspense } from "react";
 import { KpiGridSkeleton } from "@/components/dashboard/kpi-grid-skeleton";
 
-const SuperAdminCockpitClient = dynamic(
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+const SuperAdminCockpitClient = nextDynamic(
   () =>
     import("@/components/dashboard/super-admin-cockpit/SuperAdminCockpitClient").then(
       (m) => m.SuperAdminCockpitClient,

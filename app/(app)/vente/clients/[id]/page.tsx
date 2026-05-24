@@ -13,6 +13,10 @@ import { EditActionLink } from "@/components/ui/edit-action-link";
 import { DetailPageModal } from "@/components/ui/detail-page-modal";
 import { mapClientError } from "@/lib/server/client-error-messages";
 import { isDetailEditOpen } from "@/lib/routing/modal-query";
+import { revalidateClients } from "@/lib/cache/revalidation-map";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 type ClientDetailPageProps = {
   params: {
@@ -68,6 +72,7 @@ export default async function ClientDetailPage({ params, searchParams }: ClientD
         ip: requestHeaders.get("x-forwarded-for") ?? requestHeaders.get("x-real-ip"),
         userAgent: requestHeaders.get("user-agent"),
       });
+      await revalidateClients({ clientId: params.id });
     } catch (error) {
       const message = mapClientError(error, "Impossible de supprimer le client pour le moment.");
       redirect(`/vente/clients/${params.id}?error=${encodeURIComponent(message)}`);
@@ -98,6 +103,7 @@ export default async function ClientDetailPage({ params, searchParams }: ClientD
         ip: requestHeaders.get("x-forwarded-for") ?? requestHeaders.get("x-real-ip"),
         userAgent: requestHeaders.get("user-agent"),
       });
+      await revalidateClients({ clientId: params.id });
     } catch (error) {
       const message = mapClientError(error, "Impossible de modifier le client pour le moment.");
       return { ok: false, message };

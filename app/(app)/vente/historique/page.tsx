@@ -13,6 +13,9 @@ import { HistoriqueSalesFiltersForm } from "@/components/vente/historique/histor
 
 export const metadata = { title: "Historique des ventes" };
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 type PageProps = {
   searchParams?: {
     status?: string;
@@ -77,7 +80,7 @@ export default async function HistoriquePage({ searchParams }: PageProps) {
     .from("sales")
     .select(
       "id,reference,client_id,total_amount_gnf,display_currency,payment_method,payment_status,amount_paid_gnf,created_at,lifecycle_status",
-      { count: "planned" },
+      { count: "exact" },
     )
     .is("deleted_at", null)
     .order("created_at", { ascending: false });

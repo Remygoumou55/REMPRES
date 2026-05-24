@@ -106,8 +106,8 @@ export async function listClients(params: ClientListParams = {}): Promise<Client
   const to = from + safePageSize - 1;
 
   let query = getClientsTable()
-    // "planned" avoids full exact count scans that can block navigation.
-    .select(CLIENT_COLUMNS, { count: "planned" })
+    // Exact count so subtitle matches filtered rows (planned estimates caused mismatches).
+    .select(CLIENT_COLUMNS, { count: "exact", head: false })
     .is("deleted_at", null)
     .order("created_at", { ascending: false });
 

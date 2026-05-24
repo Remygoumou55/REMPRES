@@ -8,6 +8,9 @@ import {
   type ActivityLogsFilters,
 } from "@/lib/server/activity-logs";
 import { isAdminRole } from "@/lib/server/permissions";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 import { ActivityLogsVerifyUpload } from "@/components/admin/activity-logs-verify-upload";
 import { ActivityLogsSearchList } from "@/components/admin/activity-logs-search-list";
 import { PageHeader } from "@/components/ui/page-header";

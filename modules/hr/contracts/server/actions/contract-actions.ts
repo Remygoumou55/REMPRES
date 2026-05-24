@@ -2,7 +2,7 @@
 
 import type { Json } from "@/types/database.types";
 import { getServerSessionUser } from "@/lib/server/auth-session";
-import { revalidateRhScope } from "@/lib/server/revalidate-domains";
+import { revalidateRH } from "@/lib/cache/revalidation-map";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { assertCanManageContracts } from "@/modules/hr/contracts/server/security/access";
 import { createHrContract } from "@/modules/hr/server/services/hr-contract-mutations";
@@ -48,7 +48,7 @@ export async function createContractAction(input: {
     return { success: false as const, error: result.error };
   }
 
-  revalidateRhScope({ includeDashboard: true });
+  await revalidateRH();
   return { success: true as const, contractId: result.contractId };
 }
 
@@ -62,7 +62,7 @@ export async function submitContractForApprovalAction(input: { contractId: strin
   const result = await submitHrContractForApproval(actor.id, input);
   if (!result.success) return { success: false as const, error: result.error };
 
-  revalidateRhScope({ includeDashboard: true });
+  await revalidateRH();
   return { success: true as const, approvalRequestId: result.approvalRequestId };
 }
 
@@ -80,7 +80,7 @@ export async function transitionContractStatusAction(input: {
   const result = await transitionHrContractStatus(actor.id, input);
   if (!result.success) return { success: false as const, error: result.error };
 
-  revalidateRhScope({ includeDashboard: true });
+  await revalidateRH();
   return { success: true as const };
 }
 
@@ -94,7 +94,7 @@ export async function renewContractAction(input: { contractId: string; newEndDat
   const result = await renewHrContract(actor.id, input);
   if (!result.success) return { success: false as const, error: result.error };
 
-  revalidateRhScope({ includeDashboard: true });
+  await revalidateRH();
   return { success: true as const };
 }
 
@@ -135,6 +135,6 @@ export async function addContractDocumentAction(input: {
     metadata: { document_type: input.documentType, file_name: input.fileName },
   });
 
-  revalidateRhScope({ includeDashboard: true });
+  await revalidateRH();
   return { success: true as const };
 }

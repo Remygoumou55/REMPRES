@@ -1,10 +1,6 @@
-/**
- * lib/server/users.ts — Gestion utilisateurs (super_admin uniquement).
- * IMPORTANT : importer uniquement côté serveur.
- */
-
 "use server";
 
+import { revalidateUtilisateurs } from "@/lib/cache/revalidation-map";
 import { validateInviteRoleDepartment } from "@/lib/auth/permissions";
 import { normalizeDepartmentKey } from "@/lib/departments/department-config";
 import { getSupabaseAdmin, getSupabaseAdminConfigErrorMessage } from "@/lib/supabaseAdmin";
@@ -17,6 +13,10 @@ import { USERS_LIST_CONFIG_ERROR_CODE } from "@/lib/server/users-errors";
 import { AUDIT_EVENT_TYPES } from "@/lib/audit/audit-events";
 import { tryLogAuditEvent } from "@/lib/audit/audit-logger";
 import { assertApprovalOrThrow } from "@/lib/approvals/approval-engine";
+
+async function revalidateUsersAfterMutation() {
+  await revalidateUtilisateurs();
+}
 
 // ---------------------------------------------------------------------------
 // Types
@@ -557,6 +557,7 @@ export async function inviteUser(
       approval: { required: false, status: "not_required", policy: "soft_auto" },
     });
 
+    await revalidateUsersAfterMutation();
     return ok({ userId });
   } catch (e) {
     logError("INVITE_USER", e, { email: normalizeInviteEmail(input?.email), step: "catch:top" });
@@ -636,6 +637,7 @@ export async function resendInvite(
       targetId: userId,
       metadata: { summary: "Invitation renvoyée" },
     });
+    await revalidateUsersAfterMutation();
     return ok(null);
   } catch (e) {
     logError("RESEND_INVITE", e, { userId });
@@ -712,6 +714,7 @@ export async function updateUserRole(
       details: { new_role: roleResolved.roleKey },
       approval: { required: approval.required, status: "granted", policy: approval.policy },
     });
+    await revalidateUsersAfterMutation();
     return ok(null);
   } catch (e) {
     logError("UPDATE_USER_ROLE", e, { userId, newRoleKey });
@@ -757,6 +760,7 @@ export async function deactivateUser(
       targetId: userId,
       metadata: { summary: "Compte désactivé", op: "deactivate" },
     });
+    await revalidateUsersAfterMutation();
     return { success: true };
   } catch (e) {
     logError("DEACTIVATE_USER", e, { userId });
@@ -798,6 +802,7 @@ export async function reactivateUser(
       targetId: userId,
       metadata: { summary: "Compte réactivé", op: "reactivate" },
     });
+    await revalidateUsersAfterMutation();
     return { success: true };
   } catch (e) {
     logError("REACTIVATE_USER", e, { userId });
@@ -894,6 +899,7 @@ export async function updateUserAdmin(
       approval: { required: false, status: "not_required", policy: "soft_auto" },
     });
 
+    await revalidateUsersAfterMutation();
     return ok(null);
   } catch (e) {
     logError("UPDATE_USER_ADMIN", e, { userId });
@@ -970,6 +976,7 @@ export async function deleteUserAdmin(
       approval: { required: approval.required, status: "granted", policy: approval.policy },
     });
 
+    await revalidateUsersAfterMutation();
     return ok(null);
   } catch (e) {
     logError("DELETE_USER_ADMIN", e, { userId });

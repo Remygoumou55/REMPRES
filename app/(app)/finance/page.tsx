@@ -1,4 +1,4 @@
-import dynamic from "next/dynamic";
+import nextDynamic from "next/dynamic";
 import { redirect } from "next/navigation";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
@@ -9,8 +9,11 @@ import { parseCategoryIds, parseCreatedBy, parseFinanceIsoDate } from "@/lib/fin
 import { RouteLoadingShell } from "@/components/ui/route-loading-shell";
 import { ROUTES } from "@/lib/constants/routes";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 /** Code-split : Recharts et graphiques ne sont chargés qu’en ouvrant /finance. */
-const FinanceDashboardClient = dynamic(
+const FinanceDashboardClient = nextDynamic(
   () =>
     import("./FinanceDashboardClient").then((mod) => ({
       default: mod.FinanceDashboardClient,

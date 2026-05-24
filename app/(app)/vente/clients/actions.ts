@@ -6,7 +6,7 @@ import { assertClientsPermission, getUserRole } from "@/lib/server/permissions";
 import { softDeleteClient, restoreClient } from "@/lib/server/clients";
 import { ok, err, type SafeResult } from "@/lib/server/safe-result";
 import { mapClientError } from "@/lib/server/client-error-messages";
-import { revalidateVenteClientsScope } from "@/lib/server/revalidate-domains";
+import { revalidateClients } from "@/lib/cache/revalidation-map";
 import { AUDIT_EVENT_TYPES } from "@/lib/audit/audit-events";
 import { tryLogAuditEvent } from "@/lib/audit/audit-logger";
 import { assertApprovalOrThrow } from "@/lib/approvals/approval-engine";
@@ -60,7 +60,7 @@ export async function deleteClientFromListAction(clientId: string): Promise<Safe
     return err(mapClientError(e, "Impossible de supprimer le client pour le moment."));
   }
 
-  revalidateVenteClientsScope({ clientId: id, includeDashboard: true });
+  await revalidateClients({ clientId: id });
   return ok(null);
 }
 
@@ -117,7 +117,7 @@ export async function deleteClientsFromListBulkAction(clientIds: string[]): Prom
     return err("Aucun client n'a pu être supprimé.");
   }
 
-  revalidateVenteClientsScope({ includeDashboard: true });
+  await revalidateClients();
   await tryLogAuditEvent({
     eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
     severity: "critical",
@@ -177,10 +177,6 @@ export async function restoreClientAction(clientId: string): Promise<SafeResult<
     return err(mapClientError(e, "Impossible de restaurer le client pour le moment."));
   }
 
-  revalidateVenteClientsScope({
-    clientId: id,
-    includeArchives: true,
-    includeDashboard: true,
-  });
+  await revalidateClients({ clientId: id });
   return ok(null);
 }

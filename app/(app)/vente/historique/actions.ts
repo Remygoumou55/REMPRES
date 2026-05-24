@@ -5,7 +5,7 @@ import { assertOperationalMutationAllowed } from "@/lib/server/auth-operational-
 import { getModulePermissions, getUserRole } from "@/lib/server/permissions";
 import { ok, err, type SafeResult } from "@/lib/server/safe-result";
 import { mapArchiveSaleError } from "@/lib/server/sale-error-messages";
-import { revalidateVenteSalesScope } from "@/lib/server/revalidate-domains";
+import { revalidateVente } from "@/lib/cache/revalidation-map";
 import { AUDIT_EVENT_TYPES } from "@/lib/audit/audit-events";
 import { tryLogAuditEvent } from "@/lib/audit/audit-logger";
 import { assertApprovalOrThrow } from "@/lib/approvals/approval-engine";
@@ -73,6 +73,6 @@ export async function archiveAndDeleteSaleAction(saleId: string): Promise<SafeRe
     approval: { required: approval.required, status: "granted", policy: approval.policy },
   });
 
-  revalidateVenteSalesScope({ saleId: id, includeDashboard: true });
+  await revalidateVente({ saleId: id });
   return ok(null);
 }

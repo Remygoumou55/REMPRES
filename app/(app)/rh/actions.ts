@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getModulePermissions } from "@/lib/server/permissions";
-import { revalidateRhScope } from "@/lib/server/revalidate-domains";
+import { revalidateRH } from "@/lib/cache/revalidation-map";
 import {
   submitHrLeaveRequest,
   updateHrLeaveStatus,
@@ -24,7 +24,7 @@ export async function submitRhLeaveRequestAction(
 
   const result = await submitHrLeaveRequest(data.user.id, input);
   if (result.success) {
-    revalidateRhScope({ includeDashboard: true });
+    await revalidateRH();
   }
   return result;
 }
@@ -85,7 +85,7 @@ export async function submitRhAttendanceAction(
     metadata: { event_type: input.eventType, source: "erp" },
   });
 
-  revalidateRhScope({ includeDashboard: true });
+  await revalidateRH();
   return { success: true };
 }
 
@@ -98,7 +98,7 @@ export async function updateRhLeaveStatusAction(
 
   const result = await updateHrLeaveStatus(data.user.id, input);
   if (result.success) {
-    revalidateRhScope({ includeDashboard: true });
+    await revalidateRH();
   }
   return result;
 }

@@ -2,7 +2,7 @@
 
 import type { Database, Json } from "@/types/database.types";
 import { getServerSessionUser } from "@/lib/server/auth-session";
-import { revalidateRhScope } from "@/lib/server/revalidate-domains";
+import { revalidateRH } from "@/lib/cache/revalidation-map";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { assertCanManageRecruitment } from "@/modules/hr/recruitment/server/security/access";
 import { getCandidateById } from "@/modules/hr/recruitment/server/repositories/candidates-repository";
@@ -106,7 +106,7 @@ export async function createCandidateAction(input: {
     metadata: { email: input.email },
   });
 
-  revalidateRhScope({ includeDashboard: true });
+  await revalidateRH();
   return { success: true as const, candidateId };
 }
 
@@ -152,7 +152,7 @@ export async function advanceCandidatePipelineAction(input: { candidateId: strin
     metadata: { from: current.pipelineStage, to: next },
   });
 
-  revalidateRhScope({ includeDashboard: true });
+  await revalidateRH();
   return { success: true as const };
 }
 
@@ -166,7 +166,7 @@ export async function submitHireForApprovalAction(input: { candidateId: string; 
   const result = await submitHrRecruitmentHire(actor.id, input);
   if (!result.success) return { success: false as const, error: result.error };
 
-  revalidateRhScope({ includeDashboard: true });
+  await revalidateRH();
   return { success: true as const, approvalRequestId: result.approvalRequestId };
 }
 
@@ -212,7 +212,7 @@ export async function scheduleInterviewAction(input: {
     metadata: { scheduled_at: input.scheduledAt },
   });
 
-  revalidateRhScope({ includeDashboard: true });
+  await revalidateRH();
   return { success: true as const };
 }
 
@@ -251,7 +251,7 @@ export async function updateInterviewStatusAction(input: {
     createdBy: actor.id,
   });
 
-  revalidateRhScope({ includeDashboard: true });
+  await revalidateRH();
   return { success: true as const };
 }
 
@@ -300,7 +300,7 @@ export async function addEvaluationAction(input: {
     metadata: { recommendation: rec, score },
   });
 
-  revalidateRhScope({ includeDashboard: true });
+  await revalidateRH();
   return { success: true as const };
 }
 
@@ -340,7 +340,7 @@ export async function addCandidateDocumentAction(input: {
     metadata: { document_type: input.documentType },
   });
 
-  revalidateRhScope({ includeDashboard: true });
+  await revalidateRH();
   return { success: true as const };
 }
 
@@ -385,7 +385,7 @@ export async function updateOnboardingAction(input: {
     metadata: {},
   });
 
-  revalidateRhScope({ includeDashboard: true });
+  await revalidateRH();
   return { success: true as const };
 }
 
@@ -404,6 +404,6 @@ export async function linkCandidateToEmployeeDomainAction(input: {
   const result = await linkHrCandidateToEmployeeDomain(actor.id, input);
   if (!result.success) return { success: false as const, error: result.error };
 
-  revalidateRhScope({ includeDashboard: true });
+  await revalidateRH();
   return { success: true as const };
 }

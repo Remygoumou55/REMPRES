@@ -17,6 +17,10 @@ import { ClientForm, type ClientFormActionResult } from "@/components/forms/clie
 import type { ClientType } from "@/types/client";
 import { mapClientError } from "@/lib/server/client-error-messages";
 import { withCreateModalQuery } from "@/lib/routing/modal-query";
+import { revalidateClients } from "@/lib/cache/revalidation-map";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 type ClientsPageProps = {
   searchParams?: {
@@ -105,6 +109,7 @@ export default async function ClientsPage({ searchParams }: ClientsPageProps) {
         ip: requestHeaders.get("x-forwarded-for") ?? requestHeaders.get("x-real-ip"),
         userAgent: requestHeaders.get("user-agent"),
       });
+      await revalidateClients();
     } catch (error) {
       const message = mapClientError(error, "Impossible de créer le client pour le moment.");
       return { ok: false, message };

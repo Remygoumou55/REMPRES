@@ -1,7 +1,7 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import { revalidateAdminApprovals } from "@/lib/cache/revalidation-map";
 import { isSuperAdmin } from "@/lib/server/permissions";
 import { decideApprovalRequest } from "@/lib/governance/approvals/repository";
 import { tryLogAuditEvent } from "@/lib/audit/audit-logger";
@@ -67,9 +67,7 @@ export async function approveRequestAction(requestId: string): Promise<void> {
     afterSnapshot: { status: "approved" },
     metadata: { operation: "approve_request" },
   });
-  revalidatePath("/admin/approvals");
-  revalidatePath("/rh/contrats");
-  revalidatePath("/rh/recrutement");
+  await revalidateAdminApprovals();
 }
 
 export async function rejectRequestAction(
@@ -109,7 +107,5 @@ export async function rejectRequestAction(
     afterSnapshot: { status: "rejected" },
     metadata: { operation: "reject_request", rejectionReason: rejectionReason ?? null },
   });
-  revalidatePath("/admin/approvals");
-  revalidatePath("/rh/contrats");
-  revalidatePath("/rh/recrutement");
+  await revalidateAdminApprovals();
 }

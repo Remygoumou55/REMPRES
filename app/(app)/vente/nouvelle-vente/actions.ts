@@ -12,6 +12,7 @@ import { insertActivityLog } from "@/lib/server/insert-activity-log";
 import { logError } from "@/lib/logger";
 import { assertOperationalMutationAllowed } from "@/lib/server/auth-operational-guards";
 import { getClientsPermissions } from "@/lib/server/permissions";
+import { revalidateClients, revalidateVente } from "@/lib/cache/revalidation-map";
 
 // ---------------------------------------------------------------------------
 // createSaleAction — appelée depuis NouvelleVenteClient
@@ -42,6 +43,7 @@ export async function createSaleAction(
       data.user.id,
       context,
     );
+    await revalidateVente({ saleId: sale.id });
     return {
       success: true,
       sale: { id: sale.id, reference: sale.reference, total_amount_gnf: sale.total_amount_gnf },
@@ -139,6 +141,8 @@ export async function createQuickClientAction(input: {
     });
   }
 
+  await revalidateClients();
+
   return { success: true, client: data as Client };
 }
 
@@ -162,6 +166,7 @@ export async function markAsPaidAction(
 
   try {
     await updatePaymentStatus(saleId, "paid", totalAmountGNF, data.user.id, context);
+    await revalidateVente({ saleId });
     return { success: true };
   } catch (err) {
     return {

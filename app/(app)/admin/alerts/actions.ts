@@ -1,7 +1,7 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import { revalidateAdminAlerts } from "@/lib/cache/revalidation-map";
 import { isSuperAdmin } from "@/lib/server/permissions";
 import { archiveGovernanceAlert, updateGovernanceAlertStatus } from "@/lib/governance/alerts/repository";
 import { tryLogGovernanceAuditEvent } from "@/lib/governance/audit/log-audit-event";
@@ -28,7 +28,7 @@ export async function acknowledgeAlertAction(alertId: string): Promise<void> {
     entityId: alertId,
     afterSnapshot: { status: "acknowledged" },
   });
-  revalidatePath("/admin/alerts");
+  await revalidateAdminAlerts();
 }
 
 export async function resolveAlertAction(alertId: string): Promise<void> {
@@ -44,7 +44,7 @@ export async function resolveAlertAction(alertId: string): Promise<void> {
     entityId: alertId,
     afterSnapshot: { status: "resolved" },
   });
-  revalidatePath("/admin/alerts");
+  await revalidateAdminAlerts();
 }
 
 export async function archiveAlertAction(alertId: string): Promise<void> {
@@ -60,5 +60,5 @@ export async function archiveAlertAction(alertId: string): Promise<void> {
     entityId: alertId,
     afterSnapshot: { lifecycle: "archived" },
   });
-  revalidatePath("/admin/alerts");
+  await revalidateAdminAlerts();
 }

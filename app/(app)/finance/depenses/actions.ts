@@ -13,7 +13,7 @@ import {
   updateFinanceExpense,
 } from "@/modules/finance/server/services/finance-expense-mutations";
 import type { CreateExpenseFormInput, UpdateExpenseFormInput } from "@/lib/validations/expense";
-import { revalidateFinanceScope } from "@/lib/server/revalidate-domains";
+import { revalidateFinance } from "@/lib/cache/revalidation-map";
 import { AUDIT_EVENT_TYPES } from "@/lib/audit/audit-events";
 import { tryLogAuditEvent } from "@/lib/audit/audit-logger";
 import { assertApprovalOrThrow } from "@/lib/approvals/approval-engine";
@@ -42,7 +42,7 @@ export async function createExpenseAction(
     });
     const result = await createFinanceExpense(data.user.id, raw);
     const rawId = (result as { id?: string } | null)?.id;
-    revalidateFinanceScope({ includeDashboard: true });
+    await revalidateFinance();
     await tryLogAuditEvent({
       eventType: AUDIT_EVENT_TYPES.EXPENSE_UPDATED,
       severity: "high",
@@ -85,7 +85,7 @@ export async function attachExpenseReceiptAction(
       metadata: { entity_type: "expenses", entity_id: expenseId, operation: "attach_receipt" },
     });
     await setExpenseReceiptPath(data.user.id, expenseId, storagePath);
-    revalidateFinanceScope({ includeDashboard: false });
+    await revalidateFinance();
     await tryLogAuditEvent({
       eventType: AUDIT_EVENT_TYPES.EXPENSE_UPDATED,
       severity: "medium",
@@ -127,7 +127,7 @@ export async function updateExpenseAction(
       metadata: { entity_type: "expenses", entity_id: raw.expenseId, operation: "update_expense" },
     });
     await updateFinanceExpense(data.user.id, raw);
-    revalidateFinanceScope({ includeDashboard: true });
+    await revalidateFinance();
     await tryLogAuditEvent({
       eventType: AUDIT_EVENT_TYPES.EXPENSE_UPDATED,
       severity: "high",
@@ -169,7 +169,7 @@ export async function deleteExpenseAction(
       metadata: { entity_type: "expenses", entity_id: expenseId, operation: "delete_expense" },
     });
     await deleteExpense(data.user.id, expenseId);
-    revalidateFinanceScope({ includeDashboard: true });
+    await revalidateFinance();
     await tryLogAuditEvent({
       eventType: AUDIT_EVENT_TYPES.EXPENSE_UPDATED,
       severity: "critical",

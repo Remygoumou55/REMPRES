@@ -7,7 +7,7 @@ import { isAdminRole, isSuperAdmin } from "@/lib/server/permissions";
 import { restoreClient } from "@/lib/server/clients";
 import { restoreProduct } from "@/lib/server/products";
 import { ok, err, type SafeResult } from "@/lib/server/safe-result";
-import { revalidateAdminArchivesScope } from "@/lib/server/revalidate-domains";
+import { revalidateAdminArchives } from "@/lib/cache/revalidation-map";
 import { AUDIT_EVENT_TYPES } from "@/lib/audit/audit-events";
 import { tryLogAuditEvent } from "@/lib/audit/audit-logger";
 import { assertApprovalOrThrow } from "@/lib/approvals/approval-engine";
@@ -75,7 +75,7 @@ export async function adminBulkRestoreArchivedClientsAction(
 
   if (restored === 0) return err("Aucun client n'a pu être restauré.");
 
-  revalidateAdminArchivesScope();
+  await revalidateAdminArchives();
   await tryLogAuditEvent({
     eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
     severity: "high",
@@ -122,7 +122,7 @@ export async function adminBulkRestoreArchivedProductsAction(
 
   if (restored === 0) return err("Aucun produit n'a pu être restauré.");
 
-  revalidateAdminArchivesScope();
+  await revalidateAdminArchives();
   await tryLogAuditEvent({
     eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
     severity: "high",
@@ -174,7 +174,7 @@ export async function adminPermanentDeleteArchivedClientsAction(
 
   if (deleted === 0) return err(lastError);
 
-  revalidateAdminArchivesScope();
+  await revalidateAdminArchives();
   await tryLogAuditEvent({
     eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
     severity: "critical",
@@ -226,7 +226,7 @@ export async function adminPermanentDeleteArchivedProductsAction(
 
   if (deleted === 0) return err(lastError);
 
-  revalidateAdminArchivesScope();
+  await revalidateAdminArchives();
   await tryLogAuditEvent({
     eventType: AUDIT_EVENT_TYPES.BULK_OPERATION,
     severity: "critical",

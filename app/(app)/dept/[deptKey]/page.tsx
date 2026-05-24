@@ -5,6 +5,9 @@ import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getUserDisplay } from "@/lib/server/get-user-display";
 import { DeptDashboardClient } from "./DeptDashboardClient";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function DeptDashboardPage() {
   const user = await getServerSessionUser();
   if (!user) {

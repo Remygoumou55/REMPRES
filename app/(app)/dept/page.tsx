@@ -7,6 +7,9 @@ import { DeptCard } from "@/components/dept/dept-card";
 import { loadLocaleMessages, translateFromDict } from "@/lib/i18n/load-messages";
 import { getRequestLocale } from "@/lib/i18n/request-locale";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function DeptPage() {
   const supabase = getSupabaseServerClient();
   const { data } = await supabase.auth.getUser();

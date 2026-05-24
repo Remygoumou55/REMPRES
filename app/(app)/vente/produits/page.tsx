@@ -11,6 +11,10 @@ import { ModulePageStack } from "@/components/ui/module-page-stack";
 import { ProductForm } from "@/components/forms/product-form";
 import { mapProductError } from "@/lib/server/product-error-messages";
 import { withCreateModalQuery } from "@/lib/routing/modal-query";
+import { revalidateProduits } from "@/lib/cache/revalidation-map";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 type ProductsPageProps = {
   searchParams?: {
@@ -84,6 +88,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
       };
 
       await createProduct(input);
+      await revalidateProduits();
     } catch (error) {
       const message = mapProductError(error, "Impossible de créer le produit pour le moment.");
       redirect(`/vente/produits?create=1&error=${encodeURIComponent(message)}`);

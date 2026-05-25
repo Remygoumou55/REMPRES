@@ -8,7 +8,6 @@ import type { DepartmentKey } from "@/lib/constants/departments";
 import { getDeptActivityModuleKeys } from "@/lib/dept/dashboard-module-keys";
 import { getFinanceTreasuryKpis } from "@/lib/finance/runtime/finance-treasury-kpis";
 import { getVenteCommerceKpis } from "@/lib/vente/runtime/vente-commerce-kpis";
-import { computeRhDeptKpisLive } from "@/modules/analytics/aggregation/rh-dept-kpi-live";
 import { getRecentActivity } from "@/lib/server/get-recent-activity";
 import { safeCount, safeRows } from "@/lib/utils/safe-query";
 
@@ -244,16 +243,9 @@ async function getFinanceDashboard(supabase: SupabaseClient<Database>): Promise<
 }
 
 async function getRhDashboard(supabase: SupabaseClient<Database>): Promise<DeptKpiData> {
-  const [rhPayload, activity] = await Promise.all([
-    computeRhDeptKpisLive(supabase),
-    getRecentActivity(supabase, { moduleKeys: getDeptActivityModuleKeys("rh"), limit: 6 }),
-  ]);
-
-  const stat = (id: string) => rhPayload.stats.find((s) => s.id === id)?.value ?? 0;
-  const employees = Number(stat("activeEmployees"));
-  const leaves = Number(stat("pendingLeaves"));
-  const attendance = Number(stat("presentToday"));
-  const hasData = employees > 0 || leaves > 0 || attendance > 0;
+  void supabase;
+  const { getRhDashboardKpis } = await import("@/lib/server/rh");
+  const kpis = await getRhDashboardKpis();
 
   return {
     dept: "rh",
@@ -261,40 +253,36 @@ async function getRhDashboard(supabase: SupabaseClient<Database>): Promise<DeptK
     deptColor: DEPT_META.rh.color,
     kpis: [
       {
-        title: "Employés actifs",
+        title: "Collaborateurs actifs",
         icon: "Users",
         color: "purple",
-        value: employees,
-        isEmpty: !hasData,
-        subtitle: "Profils actifs",
+        value: kpis.activeEmployees,
+        subtitle: `${kpis.totalEmployees} au total`,
       },
       {
         title: "Congés en attente",
         icon: "Calendar",
         color: "orange",
-        value: leaves,
-        isEmpty: !hasData,
-        subtitle: "À valider",
+        value: kpis.pendingLeaveRequests,
+        subtitle: "À valider par RH",
       },
       {
-        title: "Présences aujourd'hui",
+        title: "Présents aujourd'hui",
         icon: "Clock",
         color: "green",
-        value: attendance,
-        isEmpty: attendance === 0,
-        subtitle: attendance > 0 ? "Événements du jour" : "Module en cours d'activation",
+        value: kpis.presentToday,
+        subtitle: `${kpis.absentToday} absents · ${kpis.lateToday} en retard`,
       },
       {
         title: "Nouveaux ce mois",
         icon: "UserPlus",
         color: "blue",
-        value: "—",
-        isEmpty: true,
-        subtitle: "Module en cours d'activation",
+        value: kpis.newHiresThisMonth,
+        subtitle: "Recrutements du mois en cours",
       },
     ],
-    chart7Days: [],
-    recentActivity: activity,
+    chart7Days: kpis.chart7Days,
+    recentActivity: kpis.recentActivity,
     alerts: [],
   };
 }

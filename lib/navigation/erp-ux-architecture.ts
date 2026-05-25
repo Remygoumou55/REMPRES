@@ -111,15 +111,19 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
     operationalRoot: "/rh",
     navGroups: [
       {
+        id: "accueil",
+        label: "Accueil",
+        links: [{ href: "/dashboard", label: "Tableau de bord" }],
+      },
+      {
         id: "rh",
-        label: "Ressources humaines",
+        label: "Ressources Humaines",
         links: [
-          { href: "/rh", label: "Pilotage RH" },
           { href: "/rh/collaborateurs", label: "Collaborateurs" },
+          { href: "/rh/conges", label: "Congés" },
+          { href: "/rh/presences", label: "Présences" },
           { href: "/rh/contrats", label: "Contrats" },
           { href: "/rh/recrutement", label: "Recrutement" },
-          { href: "/rh/presences", label: "Présences" },
-          { href: "/rh/conges", label: "Congés" },
         ],
       },
     ],

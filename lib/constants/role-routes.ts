@@ -8,7 +8,18 @@ const ALWAYS_ALLOWED_PREFIXES = ["/access-denied", "/error-profile", "/login", "
 export const DEPT_ALLOWED_ROUTES: Record<string, string[]> = {
   responsable_vente: ["/dashboard", "/dept", "/vente"],
   comptable: ["/dashboard", "/dept", "/finance"],
-  responsable_rh: ["/dashboard", "/dept", "/rh"],
+  responsable_rh: [
+    "/dashboard",
+    "/dept",
+    "/dept/rh",
+    "/rh",
+    "/rh/collaborateurs",
+    "/rh/collaborateurs/new",
+    "/rh/conges",
+    "/rh/conges/new",
+    "/rh/presences",
+    "/rh/presences/new",
+  ],
   responsable_formation: [
     "/dashboard",
     "/dept/formation",

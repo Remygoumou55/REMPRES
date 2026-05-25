@@ -1,166 +1,184 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
-import { formatDistanceToNow } from "date-fns";
-import { fr } from "date-fns/locale";
-import { CalendarClock } from "lucide-react";
+import { CalendarPlus, Inbox } from "lucide-react";
 import { getServerSessionUser } from "@/lib/server/auth-session";
-import { getModulePermissions, getProfileAuthBrief, isAdminRole } from "@/lib/server/permissions";
-import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import { assertRhRead, canRhManageLeaves } from "@/lib/server/rh-access";
+import { countPendingLeaveRequests, listLeaveRequests } from "@/lib/server/rh";
 import { PageHeader } from "@/components/ui/page-header";
-import { HR_LEAVE_TYPE_LABELS, HR_LEAVE_TYPES } from "@/lib/hr/constants/hr-leave-types";
-import { RhLeavesClient } from "./RhLeavesClient";
-import { RhLeaveStatusActions } from "./RhLeaveStatusActions";
+import { FlashMessage } from "@/components/ui/flash-message";
+import {
+  LeaveStatusBadge,
+  LeaveTypeBadge,
+} from "@/components/rh/rh-badges";
+import { approveLeaveAction, rejectLeaveAction } from "./actions";
 
-type RhLeavesPageProps = {
-  searchParams?: { status?: string; leaveType?: string };
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+type Props = {
+  searchParams?: { status?: string; success?: string; error?: string };
 };
 
-export default async function RhLeavesPage({ searchParams }: RhLeavesPageProps) {
+const TABS: { id: string; label: string }[] = [
+  { id: "all", label: "Toutes" },
+  { id: "pending", label: "En attente" },
+  { id: "approved", label: "Approuvées" },
+  { id: "rejected", label: "Refusées" },
+];
+
+function durationDays(start: string, end: string): number {
+  const s = new Date(start);
+  const e = new Date(end);
+  if (Number.isNaN(s.getTime()) || Number.isNaN(e.getTime())) return 0;
+  return Math.floor((e.getTime() - s.getTime()) / (24 * 60 * 60 * 1000)) + 1;
+}
+
+export default async function CongesPage({ searchParams }: Props) {
   const user = await getServerSessionUser();
   if (!user) redirect("/login");
+  await assertRhRead(user.id);
 
-  const perms = await getModulePermissions(user.id, ["rh"]);
-  if (!perms.canRead) redirect("/access-denied");
+  const tab = TABS.some((t) => t.id === searchParams?.status)
+    ? searchParams!.status!
+    : "all";
 
-  const supabase = getSupabaseServerClient();
-  const [adminRole, actorBrief] = await Promise.all([isAdminRole(user.id), getProfileAuthBrief(user.id)]);
-  const canReadAllLeaves =
-    adminRole ||
-    (String(actorBrief.departmentKey ?? "").trim().toUpperCase() === "RH" &&
-      (String(actorBrief.roleKey ?? "").trim().toLowerCase() === "manager" || perms.canUpdate));
-  const canManageLeaves = canReadAllLeaves && perms.canUpdate;
-
-  const statusFilter = String(searchParams?.status ?? "").trim().toLowerCase();
-  const leaveTypeFilter = String(searchParams?.leaveType ?? "").trim().toLowerCase();
-  const allowedStatus = ["pending", "approved", "rejected", "cancelled"] as const;
-  const allowedLeaveType = HR_LEAVE_TYPES;
-  const isAllowedStatus = (value: string): value is (typeof allowedStatus)[number] =>
-    (allowedStatus as readonly string[]).includes(value);
-  const isAllowedLeaveType = (value: string): value is (typeof allowedLeaveType)[number] =>
-    (allowedLeaveType as readonly string[]).includes(value);
-
-  const requestsQuery = supabase
-    .from("rh_leave_requests")
-    .select("id,leave_type,start_date,end_date,status,reason,created_at,requested_by")
-    .order("created_at", { ascending: false })
-    .limit(20);
-  if (isAllowedStatus(statusFilter)) {
-    requestsQuery.eq("status", statusFilter);
-  }
-  if (isAllowedLeaveType(leaveTypeFilter)) {
-    requestsQuery.eq("leave_type", leaveTypeFilter);
-  }
-  if (!canReadAllLeaves) {
-    requestsQuery.eq("requested_by", user.id);
-  }
-
-  const employeesPromise = perms.canCreate
-    ? supabase
-        .from("profiles")
-        .select("id,first_name,last_name,email")
-        .is("deleted_at", null)
-        .neq("role_key", "super_admin")
-        .order("last_name", { ascending: true })
-        .limit(300)
-    : Promise.resolve({ data: [] as { id: string; first_name: string | null; last_name: string | null; email: string | null }[] });
-
-  const [employeesResult, requestsResult] = await Promise.all([employeesPromise, requestsQuery]);
-
-  const employees =
-    employeesResult.data?.map((row) => ({
-      id: row.id,
-      label: [row.first_name, row.last_name].filter(Boolean).join(" ").trim() || row.email || row.id.slice(0, 8),
-    })) ?? [];
-  const requests = requestsResult.data ?? [];
+  const [{ data, total }, pendingCount, canManage] = await Promise.all([
+    listLeaveRequests({ status: tab }),
+    countPendingLeaveRequests(),
+    canRhManageLeaves(user.id),
+  ]);
 
   return (
     <div className="page-wrapper">
       <PageHeader
-        title="RH - Conges"
-        subtitle="Demandes de conges et suivi d'approbation"
+        title="Congés"
+        subtitle={`${total} demande${total > 1 ? "s" : ""} · ${pendingCount} en attente`}
         actions={
-          <div className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs text-gray-600">
-            <CalendarClock className="h-4 w-4 text-primary" />
-            Cycle RH
-          </div>
+          <Link
+            href="/rh/conges/new"
+            className="btn-primary inline-flex items-center gap-2 text-sm"
+          >
+            <CalendarPlus className="h-4 w-4" />
+            Nouvelle demande
+          </Link>
         }
       />
+      <FlashMessage success={searchParams?.success} error={searchParams?.error} />
 
-      {perms.canCreate ? (
-        <section className="card p-5">
-          <h2 className="section-title mb-3">Nouvelle demande de conge</h2>
-          <RhLeavesClient employees={employees} />
+      <nav className="mb-6 flex flex-wrap border-b border-gray-200">
+        {TABS.map((t) => {
+          const active = tab === t.id;
+          const params = new URLSearchParams();
+          if (t.id !== "all") params.set("status", t.id);
+          const href = params.toString() ? `/rh/conges?${params}` : "/rh/conges";
+          return (
+            <Link
+              key={t.id}
+              href={href}
+              className={`border-b-2 px-4 py-3 text-sm font-medium ${
+                active
+                  ? "border-primary text-primary"
+                  : "border-transparent text-gray-500 hover:text-darktext"
+              }`}
+            >
+              {t.label}
+              {t.id === "pending" && pendingCount > 0 ? (
+                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold text-amber-800">
+                  {pendingCount}
+                </span>
+              ) : null}
+            </Link>
+          );
+        })}
+      </nav>
+
+      {data.length === 0 ? (
+        <section className="card flex flex-col items-center gap-3 p-12 text-center text-gray-500">
+          <Inbox className="h-12 w-12 text-gray-300" />
+          <p className="font-medium">Aucune demande</p>
+          <p className="text-xs">
+            Les demandes de congés des collaborateurs apparaîtront ici.
+          </p>
         </section>
-      ) : null}
-
-      <section className="card p-5">
-        <form className="mb-4 grid gap-3 md:grid-cols-3" method="get" action="/rh/conges">
-          <div>
-            <label className="mb-1 block text-xs font-medium text-gray-500">Statut</label>
-            <select
-              name="status"
-              defaultValue={isAllowedStatus(statusFilter) ? statusFilter : ""}
-              className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm"
-            >
-              <option value="">Tous</option>
-              <option value="pending">En attente</option>
-              <option value="approved">Approuve</option>
-              <option value="rejected">Rejete</option>
-              <option value="cancelled">Annule</option>
-            </select>
-          </div>
-          <div>
-            <label className="mb-1 block text-xs font-medium text-gray-500">Type de conge</label>
-            <select
-              name="leaveType"
-              defaultValue={isAllowedLeaveType(leaveTypeFilter) ? leaveTypeFilter : ""}
-              className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm"
-            >
-              <option value="">Tous</option>
-              {HR_LEAVE_TYPES.map((type) => (
-                <option key={type} value={type}>
-                  {HR_LEAVE_TYPE_LABELS[type]}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="flex items-end">
-            <button type="submit" className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary/90">
-              Filtrer
-            </button>
-          </div>
-        </form>
-        <h2 className="section-title mb-3">Demandes recentes</h2>
-        {requests.length === 0 ? (
-          <p className="text-sm text-gray-500">Aucune demande enregistree.</p>
-        ) : (
-          <ul className="space-y-2">
-            {requests.map((request) => (
-              <li key={request.id} className="rounded-xl border border-gray-200 px-3 py-2">
-                <div className="flex items-center justify-between gap-2">
-                  <div>
-                    <p className="text-sm font-medium text-darktext">
-                      {request.leave_type} · {request.status}
-                    </p>
-                    <p className="text-xs text-gray-500">{request.reason || "Sans motif detaille"}</p>
-                    <p className="text-xs text-gray-400">
-                      {request.start_date} → {request.end_date}
-                    </p>
-                    <RhLeaveStatusActions
-                      leaveRequestId={request.id}
-                      currentStatus={request.status}
-                      canManage={canManageLeaves}
-                    />
-                  </div>
-                  <span className="text-xs text-gray-500">
-                    {formatDistanceToNow(new Date(request.created_at), { addSuffix: true, locale: fr })}
-                  </span>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
+      ) : (
+        <div className="card overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b text-left text-gray-500">
+                <th className="p-3">Collaborateur</th>
+                <th className="p-3">Type</th>
+                <th className="p-3">Du</th>
+                <th className="p-3">Au</th>
+                <th className="p-3">Durée</th>
+                <th className="p-3">Motif</th>
+                <th className="p-3">Statut</th>
+                <th className="p-3 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((l) => {
+                const emp = l.employee;
+                const empName = emp
+                  ? `${emp.first_name} ${emp.last_name}`
+                  : l.employee_id.slice(0, 8);
+                return (
+                  <tr key={l.id} className="border-b border-gray-100 hover:bg-gray-50">
+                    <td className="p-3">
+                      <Link
+                        href={`/rh/collaborateurs/${l.employee_id}`}
+                        className="font-medium text-primary hover:underline"
+                      >
+                        {empName}
+                      </Link>
+                      {emp?.department ? (
+                        <div className="text-xs text-gray-500">{emp.department}</div>
+                      ) : null}
+                    </td>
+                    <td className="p-3">
+                      <LeaveTypeBadge type={l.leave_type} />
+                    </td>
+                    <td className="p-3">{l.start_date}</td>
+                    <td className="p-3">{l.end_date}</td>
+                    <td className="p-3">
+                      {durationDays(l.start_date, l.end_date)} j
+                    </td>
+                    <td className="p-3 max-w-xs truncate" title={l.reason ?? ""}>
+                      {l.reason ?? "—"}
+                    </td>
+                    <td className="p-3">
+                      <LeaveStatusBadge status={l.status} />
+                    </td>
+                    <td className="p-3">
+                      {canManage && l.status === "pending" ? (
+                        <div className="flex flex-wrap justify-end gap-2">
+                          <form action={approveLeaveAction.bind(null, l.id)}>
+                            <button
+                              type="submit"
+                              className="rounded-md bg-emerald-600 px-2.5 py-1 text-xs font-semibold text-white hover:bg-emerald-700"
+                              aria-label="Approuver"
+                            >
+                              ✓ Approuver
+                            </button>
+                          </form>
+                          <form action={rejectLeaveAction.bind(null, l.id)}>
+                            <button
+                              type="submit"
+                              className="rounded-md bg-red-600 px-2.5 py-1 text-xs font-semibold text-white hover:bg-red-700"
+                              aria-label="Rejeter"
+                            >
+                              ✗ Rejeter
+                            </button>
+                          </form>
+                        </div>
+                      ) : null}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }
-

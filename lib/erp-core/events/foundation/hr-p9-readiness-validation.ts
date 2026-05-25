@@ -23,8 +23,8 @@ export const HR_P9_READINESS_CHECKS: readonly HrP9ReadinessCheck[] = [
   {
     id: "P9-R1",
     label: "Catalogue P9",
-    passed: ERP_EVENT_CATALOG_VERSION === "erp-event-catalog-bloc3-crm-v1",
-    notes: "47 types officiels (Bloc 3 CRM)",
+    passed: ERP_EVENT_CATALOG_VERSION === "erp-event-catalog-bloc3-supply-v1",
+    notes: "55 types officiels (Bloc 3 Supply)",
   },
   {
     id: "P9-R2",

@@ -8,7 +8,7 @@ import {
 } from "@/lib/erp-core/events/event-taxonomy";
 import type { ErpEventFamily } from "@/lib/erp-core/events/event-contracts";
 
-export const ERP_EVENT_CATALOG_VERSION = "erp-event-catalog-bloc3-crm-v1" as const;
+export const ERP_EVENT_CATALOG_VERSION = "erp-event-catalog-bloc3-supply-v1" as const;
 
 export type ErpEventCatalogStatus =
   | "active"
@@ -443,6 +443,78 @@ export const ERP_EVENT_GOVERNANCE_MAP: readonly ErpEventCatalogEntry[] = [
     notes: "Bloc 3 — statut employé.",
   },
   {
+    type: OFFICIAL_ERP_EVENT_TYPES.SUPPLY_SUPPLIER_CREATED,
+    family: "domain",
+    status: "active",
+    owner: "logistics",
+    publisher: "integrations/supply-events.ts",
+    wiredAt: "modules/logistics/server/services/logistics-mutations.ts#createLogisticsSupplier",
+    notes: "Bloc 3 — fournisseur créé.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.SUPPLY_PURCHASE_REQUESTED,
+    family: "domain",
+    status: "active",
+    owner: "logistics",
+    publisher: "integrations/supply-events.ts",
+    wiredAt: "modules/logistics/server/services/logistics-mutations.ts#submitLogisticsPurchaseOrder",
+    notes: "Bloc 3 — PO soumis.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.SUPPLY_PURCHASE_APPROVED,
+    family: "domain",
+    status: "active",
+    owner: "logistics",
+    publisher: "integrations/supply-events.ts",
+    wiredAt: "modules/logistics/server/services/logistics-mutations.ts#approveLogisticsPurchaseOrder",
+    notes: "Bloc 3 — PO approuvé.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.SUPPLY_PO_CREATED,
+    family: "domain",
+    status: "active",
+    owner: "logistics",
+    publisher: "integrations/supply-events.ts",
+    wiredAt: "modules/logistics/server/services/logistics-mutations.ts#createLogisticsPurchaseOrder",
+    notes: "Bloc 3 — commande achat brouillon.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.SUPPLY_INVENTORY_RECEIVED,
+    family: "domain",
+    status: "active",
+    owner: "logistics",
+    publisher: "integrations/supply-events.ts",
+    wiredAt: "modules/logistics/server/services/logistics-mutations.ts#createLogisticsGoodsReceipt",
+    notes: "Bloc 3 — réception marchandises.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.SUPPLY_STOCK_ADJUSTED,
+    family: "domain",
+    status: "active",
+    owner: "logistics",
+    publisher: "integrations/supply-events.ts",
+    wiredAt: "modules/logistics/server/services/logistics-mutations.ts#adjustLogisticsStock",
+    notes: "Bloc 3 — ajustement stock.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.SUPPLY_INVENTORY_MOVED,
+    family: "domain",
+    status: "active",
+    owner: "logistics",
+    publisher: "integrations/supply-events.ts",
+    wiredAt: "modules/logistics/server/services/logistics-mutations.ts#transferLogisticsStock",
+    notes: "Bloc 3 — transfert inter-entrepôts.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.SUPPLY_REPORT_GENERATED,
+    family: "domain",
+    status: "active",
+    owner: "logistics",
+    publisher: "integrations/supply-events.ts",
+    wiredAt: "modules/logistics/server/services/logistics-analytics-service.ts",
+    notes: "Bloc 3 — rapport supply opérationnel.",
+  },
+  {
     type: OFFICIAL_ERP_EVENT_TYPES.SYSTEM_AUDIT_RECORDED,
     family: "audit",
     status: "planned",
@@ -455,6 +527,10 @@ export const ERP_EVENT_GOVERNANCE_MAP: readonly ErpEventCatalogEntry[] = [
 
 export function listCrmGovernanceEvents(): ErpEventCatalogEntry[] {
   return ERP_EVENT_GOVERNANCE_MAP.filter((e) => e.type.startsWith("crm."));
+}
+
+export function listSupplyGovernanceEvents(): ErpEventCatalogEntry[] {
+  return ERP_EVENT_GOVERNANCE_MAP.filter((e) => e.type.startsWith("supply."));
 }
 
 export function listFinanceGovernanceEvents(): ErpEventCatalogEntry[] {

@@ -16,9 +16,9 @@ import {
 import { OFFICIAL_ERP_EVENT_TYPES } from "@/lib/erp-core/events/event-taxonomy";
 
 describe("P4 — Finance Event Activation (governance)", () => {
-  it("catalogue Bloc3 — 47 types dont 11 finance", () => {
-    expect(ERP_EVENT_CATALOG_VERSION).toBe("erp-event-catalog-bloc3-crm-v1");
-    expect(ERP_EVENT_GOVERNANCE_MAP.length).toBe(47);
+  it("catalogue Bloc3 — 55 types dont 11 finance", () => {
+    expect(ERP_EVENT_CATALOG_VERSION).toBe("erp-event-catalog-bloc3-supply-v1");
+    expect(ERP_EVENT_GOVERNANCE_MAP.length).toBe(55);
     const finance = listFinanceGovernanceEvents();
     expect(finance).toHaveLength(11);
     expect(finance.filter((e) => e.status === "active").length).toBeGreaterThanOrEqual(10);

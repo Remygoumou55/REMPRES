@@ -20,6 +20,10 @@ import {
   registerNotificationHrBridgeHandler,
 } from "@/lib/erp-core/events/handlers/notification-hr-bridge";
 import {
+  NOTIFICATION_SUPPLY_BRIDGE_CONSUMER_KEY,
+  registerNotificationSupplyBridgeHandler,
+} from "@/lib/erp-core/events/handlers/notification-supply-bridge";
+import {
   ERP_AUTOMATION_ENGINE_CONSUMER_KEY,
   registerErpAutomationEngineHandler,
 } from "@/lib/erp-core/events/handlers/automation-engine-handler";
@@ -46,6 +50,9 @@ export function ensureErpEventHandlersBootstrapped(): void {
   }
   if (!hasHandler(NOTIFICATION_HR_BRIDGE_CONSUMER_KEY)) {
     registerNotificationHrBridgeHandler();
+  }
+  if (!hasHandler(NOTIFICATION_SUPPLY_BRIDGE_CONSUMER_KEY)) {
+    registerNotificationSupplyBridgeHandler();
   }
   if (!hasHandler(ERP_AUTOMATION_ENGINE_CONSUMER_KEY)) {
     registerErpAutomationEngineHandler();

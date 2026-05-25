@@ -1,16 +1,25 @@
 import { PageHeader } from "@/components/ui/page-header";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { listRecentLogisticsMovements } from "@/modules/logistics/server/repositories/logistics-movements-repository";
+import { getLogisticsFormOptions } from "@/modules/logistics/server/services/logistics-form-options";
+import { LogisticsStockOpsPanel } from "@/modules/logistics/components/workflows/LogisticsStockOpsPanel";
 import { LogisticsSectionPanel } from "@/modules/logistics/ui/panels/SectionPanel";
 import { LogisticsScrollTable } from "@/modules/logistics/ui/tables/LogisticsScrollTable";
 
 export default async function LogistiqueMouvementsPage() {
   const supabase = getSupabaseServerClient();
-  const rows = await listRecentLogisticsMovements(supabase, 150);
+  const [rows, options] = await Promise.all([
+    listRecentLogisticsMovements(supabase, 150),
+    getLogisticsFormOptions(supabase),
+  ]);
 
   return (
-    <div className="page-wrapper">
-      <PageHeader title="Mouvements de stock" subtitle="Journal append-only — deltas signés par site." />
+    <div className="page-wrapper space-y-6">
+      <PageHeader
+        title="Mouvements de stock"
+        subtitle="Réceptions, ajustements et journal append-only — traçabilité complète."
+      />
+      <LogisticsStockOpsPanel warehouses={options.warehouses} products={options.products} />
       <LogisticsSectionPanel title="Flux récents">
         <LogisticsScrollTable>
           <table className="min-w-[920px] w-full border-collapse text-left text-sm">
@@ -29,7 +38,9 @@ export default async function LogistiqueMouvementsPage() {
                     {new Date(m.created_at).toLocaleString("fr-FR")}
                   </td>
                   <td className="px-3 py-2.5 text-xs capitalize text-gray-800">{m.movement_type}</td>
-                  <td className="px-3 py-2.5 text-right tabular-nums font-semibold text-darktext">{m.qty_signed}</td>
+                  <td className="px-3 py-2.5 text-right tabular-nums font-semibold text-darktext">
+                    {m.qty_signed}
+                  </td>
                   <td className="px-3 py-2.5 font-mono text-xs text-gray-600">
                     {m.reference_type}:{m.reference_id.slice(0, 12)}
                     {m.reference_id.length > 12 ? "…" : ""}

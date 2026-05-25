@@ -43,4 +43,18 @@ export const LOGISTICS_OPERATIONAL_LINKS: readonly DepartmentOperationalLink[] =
     labelKey: "deptDash.logistics.link.visual",
     primaryDeptKey: "logistique",
   },
+  {
+    id: "logistics-achats",
+    vertical: "logistics",
+    href: "/logistique/achats",
+    labelKey: "deptDash.logistics.link.achats",
+    primaryDeptKey: "logistique",
+  },
+  {
+    id: "logistics-fournisseurs",
+    vertical: "logistics",
+    href: "/logistique/fournisseurs",
+    labelKey: "deptDash.logistics.link.fournisseurs",
+    primaryDeptKey: "logistique",
+  },
 ];

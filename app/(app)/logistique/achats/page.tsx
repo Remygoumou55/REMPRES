@@ -1,28 +1,40 @@
 import { PageHeader } from "@/components/ui/page-header";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { listLogisticsPurchaseOrders } from "@/modules/logistics/server/repositories/logistics-purchase-orders-repository";
+import { getLogisticsFormOptions } from "@/modules/logistics/server/services/logistics-form-options";
+import { LogisticsPurchaseOrderCreateForm } from "@/modules/logistics/components/workflows/LogisticsPurchaseOrderCreateForm";
+import { LogisticsPurchaseOrderRowActions } from "@/modules/logistics/components/workflows/LogisticsPurchaseOrderRowActions";
 import { LogisticsSectionPanel } from "@/modules/logistics/ui/panels/SectionPanel";
 import { LogisticsScrollTable } from "@/modules/logistics/ui/tables/LogisticsScrollTable";
 
 export default async function LogistiqueAchatsPage() {
   const supabase = getSupabaseServerClient();
-  const rows = await listLogisticsPurchaseOrders(supabase, 100);
+  const [rows, options] = await Promise.all([
+    listLogisticsPurchaseOrders(supabase, 100),
+    getLogisticsFormOptions(supabase),
+  ]);
 
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper space-y-6">
       <PageHeader
         title="Achats"
-        subtitle="Commandes fournisseurs : suivi des commandes et rattachement aux circuits d’approbation lorsqu’ils sont activés."
+        subtitle="Commandes fournisseurs — brouillon, soumission, approbation et bus supply."
+      />
+      <LogisticsPurchaseOrderCreateForm
+        suppliers={options.suppliers}
+        warehouses={options.warehouses}
+        products={options.products}
       />
       <LogisticsSectionPanel title="Commandes récentes">
         <LogisticsScrollTable>
-          <table className="min-w-[840px] w-full border-collapse text-left text-sm">
+          <table className="min-w-[960px] w-full border-collapse text-left text-sm">
             <thead className="bg-gray-50 text-xs uppercase tracking-wide text-gray-500">
               <tr>
                 <th className="border-b px-3 py-2 font-medium">N° PO</th>
                 <th className="border-b px-3 py-2 font-medium">Statut</th>
                 <th className="border-b px-3 py-2 font-medium text-right">Estimé GNF</th>
                 <th className="border-b px-3 py-2 font-medium">Créée</th>
+                <th className="border-b px-3 py-2 font-medium">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -30,8 +42,15 @@ export default async function LogistiqueAchatsPage() {
                 <tr key={po.id} className="border-b border-gray-100 hover:bg-gray-50/80">
                   <td className="px-3 py-2.5 font-mono text-xs font-semibold">{po.po_number}</td>
                   <td className="px-3 py-2.5 text-xs capitalize text-gray-800">{po.status}</td>
-                  <td className="px-3 py-2.5 text-right tabular-nums">{po.total_estimated_gnf.toLocaleString("fr-FR")}</td>
-                  <td className="px-3 py-2.5 text-xs text-gray-600">{new Date(po.created_at).toLocaleDateString("fr-FR")}</td>
+                  <td className="px-3 py-2.5 text-right tabular-nums">
+                    {po.total_estimated_gnf.toLocaleString("fr-FR")}
+                  </td>
+                  <td className="px-3 py-2.5 text-xs text-gray-600">
+                    {new Date(po.created_at).toLocaleDateString("fr-FR")}
+                  </td>
+                  <td className="px-3 py-2.5">
+                    <LogisticsPurchaseOrderRowActions purchaseOrderId={po.id} status={po.status} />
+                  </td>
                 </tr>
               ))}
             </tbody>

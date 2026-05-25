@@ -6,6 +6,7 @@ import { assertApiDeptKpiAccess } from "@/lib/server/api-route-guard";
 import { DEPARTMENTS, type DepartmentKey } from "@/lib/constants/departments";
 import type { DeptKpiPayload } from "@/lib/dept/kpi-contract";
 import { buildDeptFinanceKpiPayload } from "@/lib/finance/runtime/finance-kpi-runtime";
+import { buildDeptLogistiqueKpiPayload } from "@/lib/logistics/runtime/logistics-kpi-runtime";
 import { buildDeptVenteKpiPayload } from "@/lib/vente/runtime/vente-kpi-runtime";
 import { getRecentActivity } from "@/lib/server/get-recent-activity";
 import { getDeptActivityModuleKeys } from "@/lib/dept/dashboard-module-keys";
@@ -122,18 +123,7 @@ export async function GET(_request: Request, { params }: RouteContext) {
     }
 
     case "logistique": {
-      data = {
-        stats: [
-          { id: "totalItems", label: "dashboard.dept.kpi.totalItems", value: 0, unit: "count" },
-          { id: "lowStockItems", label: "dashboard.dept.kpi.lowStockItems", value: 0, unit: "count" },
-          { id: "pendingOrders", label: "dashboard.dept.kpi.pendingOrders", value: 0, unit: "count" },
-        ],
-        charts: [],
-        alerts: [],
-        activity: [],
-        health: { status: "placeholder", notes: ["dashboard.dept.health.placeholder"] },
-        metadata: { source: "logistique", generatedAt: new Date().toISOString(), placeholder: true },
-      };
+      data = await buildDeptLogistiqueKpiPayload(supabase, user.id, now);
       break;
     }
 

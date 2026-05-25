@@ -89,6 +89,18 @@ const REVALIDATION_MAP: Record<string, string[]> = {
     "/dept/logistique",
     "/dept",
   ],
+  operations: [
+    "/operations",
+    "/operations/tasks",
+    "/operations/projects",
+    "/operations/workflows",
+    "/operations/delivery",
+    "/operations/reporting",
+    "/operations/dashboard",
+    "/dashboard",
+    "/dept/consultation",
+    "/dept",
+  ],
   utilisateurs: [
     "/settings/users",
     "/settings",
@@ -190,6 +202,7 @@ const REVALIDATION_MAP: Record<string, string[]> = {
     "/admin/platform/plugins",
     "/admin/platform/extensions",
     "/admin/platform/integrations",
+    "/admin/platform/connectors",
     "/admin/platform/marketplace",
     "/admin/platform/workflows",
     "/admin/platform/events",
@@ -357,6 +370,10 @@ export async function revalidateMarketing(): Promise<void> {
 
 export async function revalidateLogistique(): Promise<void> {
   await revalidateModules("logistique", "activity_logs");
+}
+
+export async function revalidateOperations(): Promise<void> {
+  await revalidateModules("operations", "consultation", "activity_logs");
 }
 
 export async function revalidateUtilisateurs(): Promise<void> {

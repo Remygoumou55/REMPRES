@@ -15,6 +15,7 @@ export const ROUTES = {
   consultation: "/consultation",
   marketing: "/marketing",
   logistics: "/logistique",
+  operations: "/operations",
   crm: "/vente/crm",
   actions: "/actions",
   archives: "/archives",

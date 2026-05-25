@@ -7,6 +7,7 @@ import { DEPARTMENTS, type DepartmentKey } from "@/lib/constants/departments";
 import type { DeptKpiPayload } from "@/lib/dept/kpi-contract";
 import { buildDeptFinanceKpiPayload } from "@/lib/finance/runtime/finance-kpi-runtime";
 import { buildDeptLogistiqueKpiPayload } from "@/lib/logistics/runtime/logistics-kpi-runtime";
+import { buildDeptConsultationKpiPayload } from "@/lib/operations/runtime/operations-kpi-runtime";
 import { buildDeptVenteKpiPayload } from "@/lib/vente/runtime/vente-kpi-runtime";
 import { getRecentActivity } from "@/lib/server/get-recent-activity";
 import { getDeptActivityModuleKeys } from "@/lib/dept/dashboard-module-keys";
@@ -94,19 +95,7 @@ export async function GET(_request: Request, { params }: RouteContext) {
     }
 
     case "consultation": {
-      data = {
-        stats: [
-          { id: "activeMissions", label: "dashboard.dept.kpi.activeMissions", value: 0, unit: "count" },
-          { id: "completedMissions", label: "dashboard.dept.kpi.completedMissions", value: 0, unit: "count" },
-          { id: "totalClients", label: "dashboard.dept.kpi.totalClients", value: 0, unit: "count" },
-          { id: "revenueThisMonth", label: "dashboard.dept.kpi.revenueThisMonth", value: 0, unit: "currency" },
-        ],
-        charts: [],
-        alerts: [],
-        activity: [],
-        health: { status: "placeholder", notes: ["dashboard.dept.health.placeholder"] },
-        metadata: { source: "consultation", generatedAt: new Date().toISOString(), placeholder: true },
-      };
+      data = await buildDeptConsultationKpiPayload(supabase, user.id, now);
       break;
     }
 

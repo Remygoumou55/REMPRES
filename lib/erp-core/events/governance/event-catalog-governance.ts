@@ -8,7 +8,7 @@ import {
 } from "@/lib/erp-core/events/event-taxonomy";
 import type { ErpEventFamily } from "@/lib/erp-core/events/event-contracts";
 
-export const ERP_EVENT_CATALOG_VERSION = "erp-event-catalog-bloc3-supply-v1" as const;
+export const ERP_EVENT_CATALOG_VERSION = "erp-event-catalog-bloc3-platform-v1" as const;
 
 export type ErpEventCatalogStatus =
   | "active"
@@ -515,6 +515,168 @@ export const ERP_EVENT_GOVERNANCE_MAP: readonly ErpEventCatalogEntry[] = [
     notes: "Bloc 3 — rapport supply opérationnel.",
   },
   {
+    type: OFFICIAL_ERP_EVENT_TYPES.OPS_TASK_CREATED,
+    family: "domain",
+    status: "active",
+    owner: "operations",
+    publisher: "integrations/ops-events.ts",
+    wiredAt: "modules/operations/server/services/ops-mutations.ts#createOpsTask",
+    notes: "Bloc 3 Étape 5 — tâche créée.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.OPS_TASK_ASSIGNED,
+    family: "domain",
+    status: "active",
+    owner: "operations",
+    publisher: "integrations/ops-events.ts",
+    wiredAt: "modules/operations/server/services/ops-mutations.ts#assignOpsTask",
+    notes: "Bloc 3 Étape 5 — assignation exécutant.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.OPS_TASK_COMPLETED,
+    family: "domain",
+    status: "active",
+    owner: "operations",
+    publisher: "integrations/ops-events.ts",
+    wiredAt: "modules/operations/server/services/ops-mutations.ts#completeOpsTask",
+    notes: "Bloc 3 Étape 5 — clôture tâche.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.OPS_WORKFLOW_STARTED,
+    family: "domain",
+    status: "active",
+    owner: "operations",
+    publisher: "integrations/ops-events.ts",
+    wiredAt: "modules/operations/server/services/ops-mutations.ts#startOpsWorkflow",
+    notes: "Bloc 3 Étape 5 — workflow démarré.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.OPS_WORKFLOW_APPROVED,
+    family: "domain",
+    status: "active",
+    owner: "operations",
+    publisher: "integrations/ops-events.ts",
+    wiredAt: "modules/operations/server/services/ops-mutations.ts#transitionOpsWorkflow",
+    notes: "Bloc 3 Étape 5 — workflow approuvé.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.OPS_PROJECT_CREATED,
+    family: "domain",
+    status: "active",
+    owner: "operations",
+    publisher: "integrations/ops-events.ts",
+    wiredAt: "modules/operations/server/services/ops-mutations.ts#createOpsProject",
+    notes: "Bloc 3 Étape 5 — projet gouverné.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.OPS_DELIVERY_COMPLETED,
+    family: "domain",
+    status: "active",
+    owner: "operations",
+    publisher: "integrations/ops-events.ts",
+    wiredAt: "modules/operations/server/services/ops-mutations.ts#completeOpsDelivery",
+    notes: "Bloc 3 Étape 5 — jalon livré.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.OPS_EXECUTION_DELAYED,
+    family: "domain",
+    status: "active",
+    owner: "operations",
+    publisher: "integrations/ops-events.ts",
+    wiredAt: "modules/operations/server/services/ops-mutations.ts#reportOpsDeliveryDelay",
+    notes: "Bloc 3 Étape 5 — retard exécution.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.OPS_REPORT_GENERATED,
+    family: "domain",
+    status: "active",
+    owner: "operations",
+    publisher: "integrations/ops-events.ts",
+    wiredAt: "modules/operations/server/services/ops-analytics-service.ts",
+    notes: "Bloc 3 Étape 5 — rapport operations.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.EXECUTIVE_SNAPSHOT_REFRESHED,
+    family: "domain",
+    status: "active",
+    owner: "executive",
+    publisher: "integrations/executive-events.ts",
+    wiredAt: "modules/executive-dashboard/server/repositories/executive-read-placeholder.ts",
+    notes: "Bloc 3 Étape 6 — snapshot global rafraîchi.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.EXECUTIVE_KPI_THRESHOLD_EXCEEDED,
+    family: "domain",
+    status: "active",
+    owner: "executive",
+    publisher: "integrations/executive-events.ts",
+    wiredAt: "modules/executive-dashboard/server/services/executive-alerting-service.ts",
+    notes: "Bloc 3 Étape 6 — seuil KPI BI.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.EXECUTIVE_FORECAST_GENERATED,
+    family: "domain",
+    status: "active",
+    owner: "executive",
+    publisher: "integrations/executive-events.ts",
+    wiredAt: "modules/executive-dashboard/server/services/executive-forecast-service.ts",
+    notes: "Bloc 3 Étape 6 — forecast persisté.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.EXECUTIVE_SIGNAL_RAISED,
+    family: "domain",
+    status: "active",
+    owner: "executive",
+    publisher: "integrations/executive-events.ts",
+    wiredAt: "modules/executive-dashboard/server/services/executive-alerting-service.ts",
+    notes: "Bloc 3 Étape 6 — signal exécutif.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.ANALYTICS_SNAPSHOT_COMPUTED,
+    family: "domain",
+    status: "active",
+    owner: "executive",
+    publisher: "integrations/executive-events.ts",
+    wiredAt: "modules/executive-dashboard/server/services/executive-bi-engine.ts",
+    notes: "Bloc 3 Étape 6 — KPI snapshots BI.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.ANALYTICS_REPORT_GENERATED,
+    family: "domain",
+    status: "catalog_only",
+    owner: "executive",
+    publisher: "integrations/executive-events.ts",
+    wiredAt: null,
+    notes: "Rapport analytics consolidé — émission via actions dédiées.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.OBSERVABILITY_HUB_REFRESHED,
+    family: "domain",
+    status: "active",
+    owner: "observability",
+    publisher: "integrations/executive-events.ts",
+    wiredAt: "modules/observability/server/services/observability-hub-digest.ts",
+    notes: "Bloc 3 Étape 6 — hub observability rafraîchi.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.OBSERVABILITY_HEALTH_DEGRADED,
+    family: "domain",
+    status: "active",
+    owner: "observability",
+    publisher: "integrations/executive-events.ts",
+    wiredAt: "modules/observability/server/services/observability-hub-digest.ts",
+    notes: "Bloc 3 Étape 6 — score santé dégradé.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.OBSERVABILITY_INCIDENT_ESCALATED,
+    family: "domain",
+    status: "catalog_only",
+    owner: "observability",
+    publisher: "integrations/executive-events.ts",
+    wiredAt: null,
+    notes: "Escalade incident — wiring mutation incidents phase ultérieure.",
+  },
+  {
     type: OFFICIAL_ERP_EVENT_TYPES.SYSTEM_AUDIT_RECORDED,
     family: "audit",
     status: "planned",
@@ -523,7 +685,177 @@ export const ERP_EVENT_GOVERNANCE_MAP: readonly ErpEventCatalogEntry[] = [
     wiredAt: null,
     notes: "Pont audit legacy → bus (phase ultérieure).",
   },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.AUTOMATION_RULE_TRIGGERED,
+    family: "domain",
+    status: "active",
+    owner: "automation",
+    publisher: "integrations/automation-events.ts",
+    wiredAt: "lib/erp-core/events/automation/automation-rule-engine.ts",
+    notes: "Bloc 3 Étape 7 — règle matchée avant exécution handler.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.AUTOMATION_RULE_EXECUTED,
+    family: "domain",
+    status: "active",
+    owner: "automation",
+    publisher: "integrations/automation-events.ts",
+    wiredAt: "lib/erp-core/events/automation/automation-rule-engine.ts",
+    notes: "Bloc 3 Étape 7 — handler exécuté avec succès.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.AUTOMATION_RULE_FAILED,
+    family: "domain",
+    status: "active",
+    owner: "automation",
+    publisher: "integrations/automation-events.ts",
+    wiredAt: "lib/erp-core/events/automation/automation-rule-engine.ts",
+    notes: "Bloc 3 Étape 7 — échec handler ou safety gate.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.AUTOMATION_WORKFLOW_STARTED,
+    family: "domain",
+    status: "active",
+    owner: "automation",
+    publisher: "integrations/automation-events.ts",
+    wiredAt: "modules/automation/server/services/automation-workflow-run-tick.ts",
+    notes: "Run workflow démarré.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.AUTOMATION_WORKFLOW_COMPLETED,
+    family: "domain",
+    status: "active",
+    owner: "automation",
+    publisher: "integrations/automation-events.ts",
+    wiredAt: "modules/automation/server/services/automation-workflow-run-tick.ts",
+    notes: "Run workflow terminé.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.AUTOMATION_CROSS_DOMAIN_ORCHESTRATED,
+    family: "domain",
+    status: "active",
+    owner: "automation",
+    publisher: "integrations/automation-events.ts",
+    wiredAt: "lib/erp-core/events/handlers/automation-orchestration-bridge.ts",
+    notes: "Bloc 3 Étape 7 — chaîne multi-domaines tracée.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.AUTOMATION_AI_RECOMMENDATION_GENERATED,
+    family: "domain",
+    status: "active",
+    owner: "automation",
+    publisher: "integrations/automation-events.ts",
+    wiredAt: "modules/ai/server/services/ai-decision-support-orchestration.ts",
+    notes: "Recommandation structurée persistée erp_ai_recommendations.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.AUTOMATION_AI_DECISION_SUPPORT_EMITTED,
+    family: "domain",
+    status: "active",
+    owner: "automation",
+    publisher: "integrations/automation-events.ts",
+    wiredAt: "lib/erp-core/events/handlers/ai-orchestration-bridge.ts",
+    notes: "Decision support gouverné (confiance + source).",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.AUTOMATION_REPORT_GENERATED,
+    family: "domain",
+    status: "active",
+    owner: "automation",
+    publisher: "integrations/automation-events.ts",
+    wiredAt: "modules/automation/server/services/automation-cockpit-digest.ts",
+    notes: "Rapport cockpit automation publié.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.PLATFORM_API_REGISTERED,
+    family: "domain",
+    status: "active",
+    owner: "platform",
+    publisher: "integrations/platform-events.ts",
+    wiredAt: "lib/platform/governance/api-governance-registry.ts",
+    notes: "Bloc 3 Étape 8 — API enregistrée au registry.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.PLATFORM_API_INVOKED,
+    family: "domain",
+    status: "active",
+    owner: "platform",
+    publisher: "integrations/platform-events.ts",
+    wiredAt: "lib/platform/runtime/api-invocation-guard.ts",
+    notes: "Invocation API auditée (rate limit + log).",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.PLATFORM_INTEGRATION_CONNECTED,
+    family: "domain",
+    status: "active",
+    owner: "platform",
+    publisher: "integrations/platform-events.ts",
+    wiredAt: "modules/platform/server/services/integration-framework-service.ts",
+    notes: "Intégration connectée tenant-scoped.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.PLATFORM_CONNECTOR_HEALTH_DEGRADED,
+    family: "domain",
+    status: "active",
+    owner: "platform",
+    publisher: "integrations/platform-events.ts",
+    wiredAt: "modules/platform/server/services/connector-engine-service.ts",
+    notes: "Santé connecteur dégradée.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.PLATFORM_CONNECTOR_SYNC_COMPLETED,
+    family: "domain",
+    status: "active",
+    owner: "platform",
+    publisher: "integrations/platform-events.ts",
+    wiredAt: "modules/platform/server/services/connector-engine-service.ts",
+    notes: "Sync connecteur terminée.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.PLATFORM_PLUGIN_INSTALLED,
+    family: "domain",
+    status: "active",
+    owner: "platform",
+    publisher: "integrations/platform-events.ts",
+    wiredAt: "modules/platform/server/services/plugin-lifecycle-service.ts",
+    notes: "Plugin installé / activé.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.PLATFORM_MARKETPLACE_LISTING_PUBLISHED,
+    family: "domain",
+    status: "active",
+    owner: "platform",
+    publisher: "integrations/platform-events.ts",
+    wiredAt: "modules/platform/server/services/marketplace-catalog-service.ts",
+    notes: "Listing marketplace publié.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.PLATFORM_DEVELOPER_SANDBOX_READY,
+    family: "domain",
+    status: "active",
+    owner: "platform",
+    publisher: "integrations/platform-events.ts",
+    wiredAt: "lib/platform/runtime/developer-ecosystem-registry.ts",
+    notes: "Sandbox développeur prêt.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.PLATFORM_REPORT_GENERATED,
+    family: "domain",
+    status: "active",
+    owner: "platform",
+    publisher: "integrations/platform-events.ts",
+    wiredAt: "modules/platform/server/services/platform-cockpit-digest.ts",
+    notes: "Rapport cockpit plateforme.",
+  },
 ] as const;
+
+export function listAutomationGovernanceEvents(): ErpEventCatalogEntry[] {
+  return ERP_EVENT_GOVERNANCE_MAP.filter((e) => e.type.startsWith("automation."));
+}
+
+export function listPlatformGovernanceEvents(): ErpEventCatalogEntry[] {
+  return ERP_EVENT_GOVERNANCE_MAP.filter((e) => e.type.startsWith("platform."));
+}
 
 export function listCrmGovernanceEvents(): ErpEventCatalogEntry[] {
   return ERP_EVENT_GOVERNANCE_MAP.filter((e) => e.type.startsWith("crm."));
@@ -531,6 +863,19 @@ export function listCrmGovernanceEvents(): ErpEventCatalogEntry[] {
 
 export function listSupplyGovernanceEvents(): ErpEventCatalogEntry[] {
   return ERP_EVENT_GOVERNANCE_MAP.filter((e) => e.type.startsWith("supply."));
+}
+
+export function listOpsGovernanceEvents(): ErpEventCatalogEntry[] {
+  return ERP_EVENT_GOVERNANCE_MAP.filter((e) => e.type.startsWith("ops."));
+}
+
+export function listExecutiveGovernanceEvents(): ErpEventCatalogEntry[] {
+  return ERP_EVENT_GOVERNANCE_MAP.filter(
+    (e) =>
+      e.type.startsWith("executive.") ||
+      e.type.startsWith("analytics.") ||
+      e.type.startsWith("observability."),
+  );
 }
 
 export function listFinanceGovernanceEvents(): ErpEventCatalogEntry[] {

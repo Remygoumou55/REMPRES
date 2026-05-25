@@ -24,11 +24,27 @@ import {
   registerNotificationSupplyBridgeHandler,
 } from "@/lib/erp-core/events/handlers/notification-supply-bridge";
 import {
+  NOTIFICATION_OPS_BRIDGE_CONSUMER_KEY,
+  registerNotificationOpsBridgeHandler,
+} from "@/lib/erp-core/events/handlers/notification-ops-bridge";
+import {
+  OPS_ORCHESTRATION_BRIDGE_CONSUMER_KEY,
+  registerOpsOrchestrationBridgeHandler,
+} from "@/lib/erp-core/events/handlers/ops-orchestration-bridge";
+import {
   ERP_AUTOMATION_ENGINE_CONSUMER_KEY,
   registerErpAutomationEngineHandler,
 } from "@/lib/erp-core/events/handlers/automation-engine-handler";
+import {
+  AUTOMATION_ORCHESTRATION_BRIDGE_CONSUMER_KEY,
+  registerAutomationOrchestrationBridgeHandler,
+} from "@/lib/erp-core/events/handlers/automation-orchestration-bridge";
+import {
+  AI_ORCHESTRATION_BRIDGE_CONSUMER_KEY,
+  registerAiOrchestrationBridgeHandler,
+} from "@/lib/erp-core/events/handlers/ai-orchestration-bridge";
 
-export const ERP_EVENT_HANDLERS_BOOTSTRAP_VERSION = "erp-event-handlers-bootstrap-p7-2-v1" as const;
+export const ERP_EVENT_HANDLERS_BOOTSTRAP_VERSION = "erp-event-handlers-bootstrap-bloc3-automation-v1" as const;
 
 let bootstrapped = false;
 
@@ -54,8 +70,20 @@ export function ensureErpEventHandlersBootstrapped(): void {
   if (!hasHandler(NOTIFICATION_SUPPLY_BRIDGE_CONSUMER_KEY)) {
     registerNotificationSupplyBridgeHandler();
   }
+  if (!hasHandler(NOTIFICATION_OPS_BRIDGE_CONSUMER_KEY)) {
+    registerNotificationOpsBridgeHandler();
+  }
+  if (!hasHandler(OPS_ORCHESTRATION_BRIDGE_CONSUMER_KEY)) {
+    registerOpsOrchestrationBridgeHandler();
+  }
   if (!hasHandler(ERP_AUTOMATION_ENGINE_CONSUMER_KEY)) {
     registerErpAutomationEngineHandler();
+  }
+  if (!hasHandler(AUTOMATION_ORCHESTRATION_BRIDGE_CONSUMER_KEY)) {
+    registerAutomationOrchestrationBridgeHandler();
+  }
+  if (!hasHandler(AI_ORCHESTRATION_BRIDGE_CONSUMER_KEY)) {
+    registerAiOrchestrationBridgeHandler();
   }
 
   bootstrapped = true;

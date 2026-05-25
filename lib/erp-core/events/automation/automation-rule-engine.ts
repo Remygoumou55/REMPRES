@@ -15,7 +15,17 @@ import {
 } from "@/lib/erp-core/events/automation/automation-safety";
 import { appendAutomationTrace } from "@/lib/erp-core/events/automation/automation-trace-log";
 
-export const ERP_AUTOMATION_ENGINE_VERSION = "erp-automation-engine-p6-v1" as const;
+export const ERP_AUTOMATION_ENGINE_VERSION = "erp-automation-engine-bloc3-v1" as const;
+
+const AUTOMATION_EVENT_PREFIX = "automation.";
+
+function isAutomationBusEvent(type: string): boolean {
+  return type.startsWith(AUTOMATION_EVENT_PREFIX);
+}
+
+function resolveAutomationActorId(event: ErpEventEnvelope): string {
+  return event.actorUserId ?? "00000000-0000-0000-0000-000000000001";
+}
 
 function matchPattern(pattern: string, eventType: string): boolean {
   if (pattern === "*") return true;
@@ -45,6 +55,7 @@ function resolveGovernanceBlocked(ruleKey: string): boolean {
 }
 
 export function matchAutomationRules(event: ErpEventEnvelope): ErpAutomationRule[] {
+  if (isAutomationBusEvent(event.type)) return [];
   return ERP_AUTOMATION_RULES.filter((rule) => {
     if (rule.status !== "active") return false;
     if (resolveGovernanceBlocked(rule.key)) return false;
@@ -114,11 +125,30 @@ export async function executeAutomationRule(
     triggeredAt: new Date().toISOString(),
   };
 
+  const actorId = resolveAutomationActorId(event);
+  void import("@/lib/erp-core/events/integrations/automation-events").then(({ emitAutomationRuleTriggered }) =>
+    emitAutomationRuleTriggered({
+      actorUserId: actorId,
+      ruleKey: rule.key,
+      eventId: event.id,
+      eventType: event.type,
+    }),
+  );
+
   try {
     await handler(ctx);
     markAutomationCooldown(rule.key, event.entityId, cooldownMs);
     executionsPerEvent.set(execKey, execCount + 1);
+    void import("@/lib/erp-core/events/integrations/automation-events").then(({ emitAutomationRuleExecuted }) =>
+      emitAutomationRuleExecuted({
+        actorUserId: actorId,
+        ruleKey: rule.key,
+        actionKey: rule.actionKey,
+        eventId: event.id,
+      }),
+    );
   } catch (e) {
+    const reason = e instanceof Error ? e.message : String(e);
     appendAutomationTrace({
       ruleKey: rule.key,
       actionKey: rule.actionKey,
@@ -127,8 +157,16 @@ export async function executeAutomationRule(
       entityType: event.entityType,
       entityId: event.entityId,
       outcome: "error",
-      detail: e instanceof Error ? e.message : String(e),
+      detail: reason,
     });
+    void import("@/lib/erp-core/events/integrations/automation-events").then(({ emitAutomationRuleFailed }) =>
+      emitAutomationRuleFailed({
+        actorUserId: actorId,
+        ruleKey: rule.key,
+        eventId: event.id,
+        reason,
+      }),
+    );
     throw e;
   }
 }

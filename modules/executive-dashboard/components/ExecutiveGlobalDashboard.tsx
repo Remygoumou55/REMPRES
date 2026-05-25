@@ -23,6 +23,9 @@ const COMMAND_LINKS = [
   { href: "/admin/audit", labelKey: "executive.global.link.audit" },
   { href: "/admin/activity-logs", labelKey: "executive.global.link.activity" },
   { href: "/admin/intelligence", labelKey: "executive.global.link.intelligence" },
+  { href: "/dashboard/executive/intelligence", labelKey: "executive.global.link.biIntelligence" },
+  { href: "/dashboard/executive/forecast", labelKey: "executive.global.link.forecast" },
+  { href: "/admin/observability", labelKey: "executive.global.link.observabilityHub" },
 ] as const;
 
 export function ExecutiveGlobalDashboard() {

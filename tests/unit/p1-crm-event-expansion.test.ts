@@ -14,14 +14,14 @@ describe("P1 — CRM Event Expansion", () => {
     expect(OFFICIAL_ERP_EVENT_TYPES.CRM_LEAD_CREATED).toBe("crm.lead.created");
     expect(OFFICIAL_ERP_EVENT_TYPES.CRM_QUOTE_CREATED).toBe("crm.quote.created");
     expect(OFFICIAL_ERP_EVENT_TYPES.CRM_QUOTE_STATUS_UPDATED).toBe("crm.quote.status_updated");
-    expect(Object.values(OFFICIAL_ERP_EVENT_TYPES)).toHaveLength(55);
+    expect(Object.values(OFFICIAL_ERP_EVENT_TYPES)).toHaveLength(91);
   });
 
   it("catalogue — 14 événements CRM (prefix crm.)", () => {
     const crm = listCrmGovernanceEvents();
     expect(crm).toHaveLength(14);
     expect(crm.filter((e) => e.status === "active").length).toBeGreaterThanOrEqual(13);
-    expect(ERP_EVENT_GOVERNANCE_MAP).toHaveLength(55);
+    expect(ERP_EVENT_GOVERNANCE_MAP).toHaveLength(91);
   });
 
   it("publisher design — publishers Bloc 3 actifs", () => {

@@ -1,8 +1,11 @@
 import { cache } from "react";
-import type { DeptKpiPayload } from "@/lib/dept/kpi-contract";
+import { format, startOfMonth, subMonths } from "date-fns";
+import type { DeptKpiChart, DeptKpiPayload } from "@/lib/dept/kpi-contract";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import { emitExecutiveSnapshotRefreshed } from "@/lib/erp-core/events/integrations/executive-events";
 import type { ExecutiveGlobalSnapshot } from "@/modules/executive-dashboard/types/domain";
 import { createExecutiveCorrelationId } from "@/modules/executive-dashboard/utils/correlation";
+import { getOperationsOperationalOverview } from "@/modules/operations/server/services/ops-overview";
 
 const EXECUTIVE_SCOPE_KEY = "executive_global_v1";
 const SNAPSHOT_MAX_AGE_SEC = 10 * 60;
@@ -41,28 +44,65 @@ async function resolveTenantScope(userId: string, elevated: boolean): Promise<Te
   return { tenantIds, scopeHash: tenantIds.slice().sort().join(",") };
 }
 
-function buildPlaceholderDomain(source: string): DeptKpiPayload {
+async function buildRevenueTrendChart(
+  supabase: ReturnType<typeof getSupabaseServerClient>,
+): Promise<DeptKpiChart> {
+  const points: DeptKpiChart["points"] = [];
+  const now = new Date();
+  for (let i = 5; i >= 0; i--) {
+    const start = startOfMonth(subMonths(now, i));
+    const end = startOfMonth(subMonths(now, i - 1));
+    const { data } = await supabase
+      .from("sales")
+      .select("total_amount_gnf")
+      .gte("created_at", start.toISOString())
+      .lt("created_at", end.toISOString());
+    const total = (data ?? []).reduce((s, r) => s + toCurrency(r.total_amount_gnf), 0);
+    points.push({ x: format(start, "yyyy-MM"), revenue: Math.round(total) });
+  }
   return {
-    stats: [],
-    charts: [],
-    alerts: [],
-    activity: [],
-    health: { status: "placeholder", notes: ["dashboard.dept.health.placeholder"] },
-    metadata: { source, generatedAt: isoNow(), placeholder: true },
+    id: "revenue_trend_6m",
+    title: "executive.chart.revenueTrend",
+    kind: "area",
+    xKey: "x",
+    series: [{ key: "revenue", label: "Revenus GNF" }],
+    points,
   };
 }
 
 async function buildLiveExecutiveSnapshot(args: {
   tenantIds: string[] | null;
   scopeHash: string;
+  viewerUserId: string;
 }): Promise<ExecutiveGlobalSnapshot> {
   const supabase = getSupabaseServerClient();
   const now = new Date();
   const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
   const weekStart = new Date(now.getTime() - 6 * 24 * 60 * 60 * 1000).toISOString();
 
-  const [salesMonth, expensesMonth, clientsCount, productsCount, rhContractsActive, rhRecruitmentOpen, crmLeadsOpen, crmOppOpen, whCount, inventoryRows, poOpen, suppliersActive, incidentOpen, jobsPending, jobsFailed, tenantActive, tenantSnapshots] =
-    await Promise.all([
+  const [
+    salesMonth,
+    expensesMonth,
+    clientsCount,
+    productsCount,
+    rhContractsActive,
+    rhRecruitmentOpen,
+    crmLeadsOpen,
+    crmOppOpen,
+    whCount,
+    inventoryRows,
+    poOpen,
+    suppliersActive,
+    incidentOpen,
+    jobsPending,
+    jobsFailed,
+    tenantActive,
+    tenantSnapshots,
+    approvalsPending,
+    formationProfiles,
+    opsOverview,
+    revenueChart,
+  ] = await Promise.all([
       supabase.from("sales").select("total_amount_gnf", { count: "exact" }).gte("created_at", monthStart),
       supabase.from("expenses").select("amount_gnf", { count: "exact" }).gte("created_at", monthStart),
       supabase.from("clients").select("id", { count: "exact", head: true }).is("deleted_at", null),
@@ -113,10 +153,22 @@ async function buildLiveExecutiveSnapshot(args: {
             .select("tenant_id", { count: "exact", head: true })
             .in("tenant_id", args.tenantIds)
         : supabase.from("erp_tenant_analytics_snapshots").select("tenant_id", { count: "exact", head: true })),
-    ]);
+    supabase
+      .from("approval_requests")
+      .select("id", { count: "exact", head: true })
+      .eq("status", "pending"),
+    supabase
+      .from("profiles")
+      .select("id", { count: "exact", head: true })
+      .eq("department_key", "FORMATION")
+      .is("deleted_at", null),
+    getOperationsOperationalOverview(supabase),
+    buildRevenueTrendChart(supabase),
+  ]);
 
   const revenue = (salesMonth.data ?? []).reduce((sum, x) => sum + toCurrency(x.total_amount_gnf), 0);
   const expenses = (expensesMonth.data ?? []).reduce((sum, x) => sum + toCurrency(x.amount_gnf), 0);
+  const margin = revenue - expenses;
   const inventoryTotal = (inventoryRows.data ?? []).reduce((sum, x) => sum + toCount(x.qty_on_hand), 0);
   const correlationId = createExecutiveCorrelationId();
 
@@ -127,8 +179,11 @@ async function buildLiveExecutiveSnapshot(args: {
       { id: "margin", label: "dashboard.dept.kpi.netMargin", value: revenue - expenses, unit: "currency" },
       { id: "transactions", label: "dashboard.dept.kpi.transactions", value: toCount(salesMonth.count) + toCount(expensesMonth.count), unit: "count" },
     ],
-    charts: [],
-    alerts: [],
+    charts: [revenueChart],
+    alerts:
+      margin < 0
+        ? [{ id: "margin_negative", level: "warning" as const, message: "executive.alert.marginNegative" }]
+        : [],
     activity: [],
     health: { status: "ok" },
     metadata: { source: "finance_sql_aggregates", generatedAt: isoNow(), placeholder: false },
@@ -172,12 +227,68 @@ async function buildLiveExecutiveSnapshot(args: {
       { id: "openOpportunities", label: "crm.dashboard.kpi.opportunities", value: toCount(crmOppOpen.count), unit: "count" },
       { id: "jobsPending", label: "admin.platformDashboard.metric.jobsPending", value: toCount(jobsPending.count), unit: "count" },
       { id: "jobsFailed24h", label: "admin.platformDashboard.metric.jobsFailed24h", value: toCount(jobsFailed.count), unit: "count" },
+      {
+        id: "approvalsPending",
+        label: "executive.kpi.approvalsPending",
+        value: toCount(approvalsPending.count),
+        unit: "count",
+      },
+    ],
+    charts: [],
+    alerts:
+      toCount(approvalsPending.count) > 5
+        ? [{ id: "approval_backlog", level: "warning", message: "executive.alert.approvalBacklog" }]
+        : [],
+    activity: [],
+    health: { status: "ok" },
+    metadata: { source: "logistics_sql_aggregates", generatedAt: isoNow(), placeholder: false },
+  };
+
+  const consultation: DeptKpiPayload = {
+    stats: [
+      { id: "openTasks", label: "dashboard.dept.kpi.openTasks", value: opsOverview.openTasks, unit: "count" },
+      { id: "activeProjects", label: "dashboard.dept.kpi.activeProjects", value: opsOverview.activeProjects, unit: "count" },
+      { id: "deliveryRate", label: "dashboard.dept.kpi.deliveryRate", value: opsOverview.completionRatePct, unit: "percent" },
+      { id: "delayedDeliveries", label: "executive.kpi.delayedDeliveries", value: opsOverview.delayedDeliveries, unit: "count" },
+    ],
+    charts: [],
+    alerts:
+      opsOverview.delayedDeliveries > 0
+        ? [{ id: "ops_delay", level: "warning", message: "executive.alert.deliveryDelayed" }]
+        : [],
+    activity: [],
+    health: { status: "ok" },
+    metadata: { source: "operations_sql_aggregates", generatedAt: isoNow(), placeholder: false },
+  };
+
+  const marketing: DeptKpiPayload = {
+    stats: [
+      { id: "openLeads", label: "crm.dashboard.kpi.leads", value: toCount(crmLeadsOpen.count), unit: "count" },
+      { id: "openOpportunities", label: "crm.dashboard.kpi.opportunities", value: toCount(crmOppOpen.count), unit: "count" },
+      { id: "pipelineRevenue", label: "executive.kpi.pipelineValue", value: revenue, unit: "currency" },
     ],
     charts: [],
     alerts: [],
     activity: [],
     health: { status: "ok" },
-    metadata: { source: "logistics_sql_aggregates", generatedAt: isoNow(), placeholder: false },
+    metadata: { source: "crm_marketing_proxy", generatedAt: isoNow(), placeholder: false },
+  };
+
+  const formation: DeptKpiPayload = {
+    stats: [
+      {
+        id: "formationStaff",
+        label: "executive.kpi.formationStaff",
+        value: toCount(formationProfiles.count),
+        unit: "count",
+      },
+      { id: "activeContracts", label: "rh.dashboard.kpi.activeContracts", value: toCount(rhContractsActive.count), unit: "count" },
+    ],
+    charts: [],
+    alerts: [],
+    activity: [],
+    health: { status: formationProfiles.count ? "ok" : "degraded" },
+    metadata: { source: "formation_profiles_proxy", generatedAt: isoNow(), placeholder: false },
   };
 
   const domains: ExecutiveGlobalSnapshot["domains"] = {
@@ -185,25 +296,33 @@ async function buildLiveExecutiveSnapshot(args: {
     finance,
     rh,
     logistique,
-    formation: buildPlaceholderDomain("formation"),
-    consultation: buildPlaceholderDomain("consultation"),
-    marketing: buildPlaceholderDomain("marketing"),
+    formation,
+    consultation,
+    marketing,
   };
+
+  const liveDomainCount = 7;
 
   const snapshot: ExecutiveGlobalSnapshot = {
     id: "executive_global_v1",
     domains,
     meta: {
-      engineVersion: "1.1.0",
+      engineVersion: "1.2.0",
       correlationId,
       generatedAtIso: isoNow(),
     },
     executiveMeta: {
       correlationId,
-      domainsLoaded: 4,
+      domainsLoaded: liveDomainCount,
       domainsFailed: 0,
     },
   };
+
+  void emitExecutiveSnapshotRefreshed({
+    actorUserId: args.viewerUserId,
+    snapshotId: snapshot.id,
+    domainsLoaded: liveDomainCount,
+  }).catch((e) => console.warn("[executive-snapshot]", e));
 
   const payload = {
     ...snapshot,
@@ -271,6 +390,6 @@ const loadExecutiveGlobalSnapshot = cache(
     const scope = await resolveTenantScope(viewerUserId, elevated);
     const fromSnapshot = await loadExecutiveSnapshotFromStore(scope);
     if (fromSnapshot) return fromSnapshot;
-    return buildLiveExecutiveSnapshot(scope);
+    return buildLiveExecutiveSnapshot({ ...scope, viewerUserId });
   },
 );

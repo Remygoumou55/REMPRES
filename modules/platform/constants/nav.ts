@@ -24,10 +24,11 @@ export type PlatformNavItem = { href: string; label: string; icon: LucideIcon };
 
 export const PLATFORM_NAV: PlatformNavItem[] = [
   { href: BASE, label: "Pilotage", icon: LayoutDashboard },
-  { href: `${BASE}/plugins`, label: "Plugins", icon: Plug },
-  { href: `${BASE}/extensions`, label: "Extensions", icon: Blocks },
+  { href: `${BASE}/plugins`, label: "Plugins", icon: Blocks },
+  { href: `${BASE}/extensions`, label: "Extensions", icon: AppWindow },
   { href: `${BASE}/sdk`, label: "SDK", icon: Code2 },
   { href: `${BASE}/integrations`, label: "Intégrations", icon: Link2 },
+  { href: `${BASE}/connectors`, label: "Connecteurs", icon: Plug },
   { href: `${BASE}/marketplace`, label: "Marketplace", icon: Store },
   { href: `${BASE}/workflows`, label: "Workflows", icon: Workflow },
   { href: `${BASE}/events`, label: "Événements", icon: Radio },

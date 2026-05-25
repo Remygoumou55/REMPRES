@@ -1290,6 +1290,218 @@ export type Database = {
         };
         Relationships: [];
       };
+      erp_platform_api_audit_log: {
+        Row: {
+          id: string;
+          api_key: string;
+          actor_user_id: string | null;
+          http_method: string;
+          route_pattern: string;
+          status_code: number;
+          latency_ms: number | null;
+          metadata: Json;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          api_key: string;
+          actor_user_id?: string | null;
+          http_method?: string;
+          route_pattern: string;
+          status_code?: number;
+          latency_ms?: number | null;
+          metadata?: Json;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          api_key?: string;
+          actor_user_id?: string | null;
+          http_method?: string;
+          route_pattern?: string;
+          status_code?: number;
+          latency_ms?: number | null;
+          metadata?: Json;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      erp_platform_api_registry: {
+        Row: {
+          api_key: string;
+          display_name: string;
+          version: string;
+          auth_method: "session" | "api_key" | "oauth2" | "mutual_tls";
+          rate_limit_per_minute: number;
+          lifecycle_status: "draft" | "active" | "deprecated" | "retired";
+          owner_module: string;
+          exposure_scope: "internal" | "partner" | "public";
+          metadata: Json;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          api_key: string;
+          display_name: string;
+          version?: string;
+          auth_method?: "session" | "api_key" | "oauth2" | "mutual_tls";
+          rate_limit_per_minute?: number;
+          lifecycle_status?: "draft" | "active" | "deprecated" | "retired";
+          owner_module?: string;
+          exposure_scope?: "internal" | "partner" | "public";
+          metadata?: Json;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          api_key?: string;
+          display_name?: string;
+          version?: string;
+          auth_method?: "session" | "api_key" | "oauth2" | "mutual_tls";
+          rate_limit_per_minute?: number;
+          lifecycle_status?: "draft" | "active" | "deprecated" | "retired";
+          owner_module?: string;
+          exposure_scope?: "internal" | "partner" | "public";
+          metadata?: Json;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      erp_platform_connector_instances: {
+        Row: {
+          id: string;
+          tenant_id: string;
+          connector_key: string;
+          integration_key: string;
+          connection_state: "disconnected" | "connecting" | "connected" | "degraded" | "failed";
+          health_score: number | null;
+          last_sync_at: string | null;
+          retry_count: number;
+          credential_ref: string | null;
+          metadata: Json;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          tenant_id: string;
+          connector_key: string;
+          integration_key: string;
+          connection_state?: "disconnected" | "connecting" | "connected" | "degraded" | "failed";
+          health_score?: number | null;
+          last_sync_at?: string | null;
+          retry_count?: number;
+          credential_ref?: string | null;
+          metadata?: Json;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          tenant_id?: string;
+          connector_key?: string;
+          integration_key?: string;
+          connection_state?: "disconnected" | "connecting" | "connected" | "degraded" | "failed";
+          health_score?: number | null;
+          last_sync_at?: string | null;
+          retry_count?: number;
+          credential_ref?: string | null;
+          metadata?: Json;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "erp_platform_connector_instances_integration_key_fkey";
+            columns: ["integration_key"];
+            isOneToOne: false;
+            referencedRelation: "erp_platform_integration_definitions";
+            referencedColumns: ["integration_key"];
+          },
+          {
+            foreignKeyName: "erp_platform_connector_instances_tenant_id_fkey";
+            columns: ["tenant_id"];
+            isOneToOne: false;
+            referencedRelation: "erp_tenants";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      erp_platform_connector_logs: {
+        Row: {
+          id: string;
+          connector_instance_id: string;
+          outcome: "success" | "retry" | "failure" | "health_probe";
+          latency_ms: number | null;
+          detail: string | null;
+          metadata: Json;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          connector_instance_id: string;
+          outcome: "success" | "retry" | "failure" | "health_probe";
+          latency_ms?: number | null;
+          detail?: string | null;
+          metadata?: Json;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          connector_instance_id?: string;
+          outcome?: "success" | "retry" | "failure" | "health_probe";
+          latency_ms?: number | null;
+          detail?: string | null;
+          metadata?: Json;
+          created_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "erp_platform_connector_logs_connector_instance_id_fkey";
+            columns: ["connector_instance_id"];
+            isOneToOne: false;
+            referencedRelation: "erp_platform_connector_instances";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      erp_platform_integration_definitions: {
+        Row: {
+          integration_key: string;
+          display_name: string;
+          category: "banking" | "payment" | "email" | "calendar" | "cloud" | "third_party";
+          connector_plugin_key: string | null;
+          manifest: Json;
+          is_active: boolean;
+          metadata: Json;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          integration_key: string;
+          display_name: string;
+          category: "banking" | "payment" | "email" | "calendar" | "cloud" | "third_party";
+          connector_plugin_key?: string | null;
+          manifest?: Json;
+          is_active?: boolean;
+          metadata?: Json;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          integration_key?: string;
+          display_name?: string;
+          category?: "banking" | "payment" | "email" | "calendar" | "cloud" | "third_party";
+          connector_plugin_key?: string | null;
+          manifest?: Json;
+          is_active?: boolean;
+          metadata?: Json;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       erp_platform_catalog_plugins: {
         Row: {
           id: string;
@@ -1657,6 +1869,506 @@ export type Database = {
         };
         Relationships: [];
       };
+      erp_ops_deliveries: {
+        Row: {
+          id: string;
+          delivery_code: string;
+          project_id: string;
+          milestone_key: string;
+          milestone_label: string;
+          progress_pct: number;
+          status: "planned" | "in_progress" | "completed" | "delayed" | "blocked";
+          executed_by: string | null;
+          due_at: string | null;
+          completed_at: string | null;
+          issue_notes: string | null;
+          delay_reason: string | null;
+          created_by: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          delivery_code: string;
+          project_id: string;
+          milestone_key: string;
+          milestone_label: string;
+          progress_pct?: number;
+          status?: "planned" | "in_progress" | "completed" | "delayed" | "blocked";
+          executed_by?: string | null;
+          due_at?: string | null;
+          completed_at?: string | null;
+          issue_notes?: string | null;
+          delay_reason?: string | null;
+          created_by: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          delivery_code?: string;
+          project_id?: string;
+          milestone_key?: string;
+          milestone_label?: string;
+          progress_pct?: number;
+          status?: "planned" | "in_progress" | "completed" | "delayed" | "blocked";
+          executed_by?: string | null;
+          due_at?: string | null;
+          completed_at?: string | null;
+          issue_notes?: string | null;
+          delay_reason?: string | null;
+          created_by?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "erp_ops_deliveries_project_id_fkey";
+            columns: ["project_id"];
+            isOneToOne: false;
+            referencedRelation: "erp_ops_projects";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      erp_ops_projects: {
+        Row: {
+          id: string;
+          project_code: string;
+          title: string;
+          description: string | null;
+          owner_user_id: string;
+          status: "draft" | "active" | "on_hold" | "completed" | "archived";
+          budget_reference: string | null;
+          team_members: Json;
+          department_key: string;
+          approval_request_id: string | null;
+          created_by: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          project_code: string;
+          title: string;
+          description?: string | null;
+          owner_user_id: string;
+          status?: "draft" | "active" | "on_hold" | "completed" | "archived";
+          budget_reference?: string | null;
+          team_members?: Json;
+          department_key?: string;
+          approval_request_id?: string | null;
+          created_by: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          project_code?: string;
+          title?: string;
+          description?: string | null;
+          owner_user_id?: string;
+          status?: "draft" | "active" | "on_hold" | "completed" | "archived";
+          budget_reference?: string | null;
+          team_members?: Json;
+          department_key?: string;
+          approval_request_id?: string | null;
+          created_by?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "erp_ops_projects_approval_request_id_fkey";
+            columns: ["approval_request_id"];
+            isOneToOne: false;
+            referencedRelation: "approval_requests";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      erp_ops_task_history: {
+        Row: {
+          id: string;
+          task_id: string;
+          field_name: string;
+          old_value: string | null;
+          new_value: string | null;
+          changed_by: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          task_id: string;
+          field_name: string;
+          old_value?: string | null;
+          new_value?: string | null;
+          changed_by: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          task_id?: string;
+          field_name?: string;
+          old_value?: string | null;
+          new_value?: string | null;
+          changed_by?: string;
+          created_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "erp_ops_task_history_task_id_fkey";
+            columns: ["task_id"];
+            isOneToOne: false;
+            referencedRelation: "erp_ops_tasks";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      erp_ops_tasks: {
+        Row: {
+          id: string;
+          task_code: string;
+          title: string;
+          description: string | null;
+          project_id: string | null;
+          status: "todo" | "in_progress" | "blocked" | "done" | "cancelled";
+          priority: "low" | "normal" | "high" | "urgent";
+          owner_user_id: string;
+          assignee_user_id: string | null;
+          due_at: string | null;
+          completed_at: string | null;
+          completed_by: string | null;
+          depends_on_task_id: string | null;
+          source_event_type: string | null;
+          source_entity_type: string | null;
+          source_entity_id: string | null;
+          created_by: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          task_code: string;
+          title: string;
+          description?: string | null;
+          project_id?: string | null;
+          status?: "todo" | "in_progress" | "blocked" | "done" | "cancelled";
+          priority?: "low" | "normal" | "high" | "urgent";
+          owner_user_id: string;
+          assignee_user_id?: string | null;
+          due_at?: string | null;
+          completed_at?: string | null;
+          completed_by?: string | null;
+          depends_on_task_id?: string | null;
+          source_event_type?: string | null;
+          source_entity_type?: string | null;
+          source_entity_id?: string | null;
+          created_by: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          task_code?: string;
+          title?: string;
+          description?: string | null;
+          project_id?: string | null;
+          status?: "todo" | "in_progress" | "blocked" | "done" | "cancelled";
+          priority?: "low" | "normal" | "high" | "urgent";
+          owner_user_id?: string;
+          assignee_user_id?: string | null;
+          due_at?: string | null;
+          completed_at?: string | null;
+          completed_by?: string | null;
+          depends_on_task_id?: string | null;
+          source_event_type?: string | null;
+          source_entity_type?: string | null;
+          source_entity_id?: string | null;
+          created_by?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "erp_ops_tasks_project_id_fkey";
+            columns: ["project_id"];
+            isOneToOne: false;
+            referencedRelation: "erp_ops_projects";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      erp_ops_workflow_steps: {
+        Row: {
+          id: string;
+          workflow_id: string;
+          step_key: string;
+          step_order: number;
+          label: string;
+          status: "pending" | "active" | "done" | "skipped";
+          completed_at: string | null;
+          completed_by: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          workflow_id: string;
+          step_key: string;
+          step_order?: number;
+          label: string;
+          status?: "pending" | "active" | "done" | "skipped";
+          completed_at?: string | null;
+          completed_by?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          workflow_id?: string;
+          step_key?: string;
+          step_order?: number;
+          label?: string;
+          status?: "pending" | "active" | "done" | "skipped";
+          completed_at?: string | null;
+          completed_by?: string | null;
+          created_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "erp_ops_workflow_steps_workflow_id_fkey";
+            columns: ["workflow_id"];
+            isOneToOne: false;
+            referencedRelation: "erp_ops_workflows";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      erp_ops_workflows: {
+        Row: {
+          id: string;
+          workflow_code: string;
+          subject_type: "project" | "task" | "delivery";
+          subject_id: string;
+          status: "pending" | "active" | "review" | "approved" | "closed";
+          current_step_key: string | null;
+          owner_user_id: string;
+          approval_request_id: string | null;
+          metadata: Json;
+          created_by: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          workflow_code: string;
+          subject_type: "project" | "task" | "delivery";
+          subject_id: string;
+          status?: "pending" | "active" | "review" | "approved" | "closed";
+          current_step_key?: string | null;
+          owner_user_id: string;
+          approval_request_id?: string | null;
+          metadata?: Json;
+          created_by: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          workflow_code?: string;
+          subject_type?: "project" | "task" | "delivery";
+          subject_id?: string;
+          status?: "pending" | "active" | "review" | "approved" | "closed";
+          current_step_key?: string | null;
+          owner_user_id?: string;
+          approval_request_id?: string | null;
+          metadata?: Json;
+          created_by?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "erp_ops_workflows_approval_request_id_fkey";
+            columns: ["approval_request_id"];
+            isOneToOne: false;
+            referencedRelation: "approval_requests";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      erp_bi_kpi_definitions: {
+        Row: {
+          id: string;
+          kpi_key: string;
+          label: string;
+          domain_key: string;
+          source_entity: string;
+          source_metric: string;
+          unit: string;
+          owner_role: string;
+          warning_threshold: number | null;
+          critical_threshold: number | null;
+          is_active: boolean;
+          metadata: Json;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          kpi_key: string;
+          label: string;
+          domain_key: string;
+          source_entity: string;
+          source_metric: string;
+          unit?: string;
+          owner_role?: string;
+          warning_threshold?: number | null;
+          critical_threshold?: number | null;
+          is_active?: boolean;
+          metadata?: Json;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          kpi_key?: string;
+          label?: string;
+          domain_key?: string;
+          source_entity?: string;
+          source_metric?: string;
+          unit?: string;
+          owner_role?: string;
+          warning_threshold?: number | null;
+          critical_threshold?: number | null;
+          is_active?: boolean;
+          metadata?: Json;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      erp_bi_kpi_snapshots: {
+        Row: {
+          id: string;
+          kpi_key: string;
+          period_start: string;
+          value_numeric: number;
+          source_hash: string;
+          computed_at: string;
+        };
+        Insert: {
+          id?: string;
+          kpi_key: string;
+          period_start: string;
+          value_numeric: number;
+          source_hash: string;
+          computed_at?: string;
+        };
+        Update: {
+          id?: string;
+          kpi_key?: string;
+          period_start?: string;
+          value_numeric?: number;
+          source_hash?: string;
+          computed_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "erp_bi_kpi_snapshots_kpi_key_fkey";
+            columns: ["kpi_key"];
+            isOneToOne: false;
+            referencedRelation: "erp_bi_kpi_definitions";
+            referencedColumns: ["kpi_key"];
+          },
+        ];
+      };
+      erp_executive_forecasts: {
+        Row: {
+          id: string;
+          forecast_key: string;
+          metric_key: string;
+          horizon: string;
+          baseline_value: number;
+          projected_value: number;
+          variance_pct: number;
+          confidence: number;
+          assumptions: Json;
+          created_by: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          forecast_key: string;
+          metric_key: string;
+          horizon: string;
+          baseline_value?: number;
+          projected_value?: number;
+          variance_pct?: number;
+          confidence?: number;
+          assumptions?: Json;
+          created_by: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          forecast_key?: string;
+          metric_key?: string;
+          horizon?: string;
+          baseline_value?: number;
+          projected_value?: number;
+          variance_pct?: number;
+          confidence?: number;
+          assumptions?: Json;
+          created_by?: string;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      erp_executive_signals: {
+        Row: {
+          id: string;
+          signal_key: string;
+          severity: string;
+          title: string;
+          body: string;
+          source_domain: string;
+          status: string;
+          entity_type: string | null;
+          entity_id: string | null;
+          metadata: Json;
+          created_at: string;
+          resolved_at: string | null;
+        };
+        Insert: {
+          id?: string;
+          signal_key: string;
+          severity: string;
+          title: string;
+          body: string;
+          source_domain: string;
+          status?: string;
+          entity_type?: string | null;
+          entity_id?: string | null;
+          metadata?: Json;
+          created_at?: string;
+          resolved_at?: string | null;
+        };
+        Update: {
+          id?: string;
+          signal_key?: string;
+          severity?: string;
+          title?: string;
+          body?: string;
+          source_domain?: string;
+          status?: string;
+          entity_type?: string | null;
+          entity_id?: string | null;
+          metadata?: Json;
+          created_at?: string;
+          resolved_at?: string | null;
+        };
+        Relationships: [];
+      };
       erp_automation_escalations: {
         Row: {
           id: string;
@@ -1737,6 +2449,48 @@ export type Database = {
           correlation_id?: string | null;
           payload?: Json;
           created_by?: string | null;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      erp_automation_rule_executions: {
+        Row: {
+          id: string;
+          rule_key: string;
+          action_key: string;
+          event_id: string;
+          event_type: string;
+          entity_type: string | null;
+          entity_id: string | null;
+          outcome: "executed" | "skipped_cooldown" | "skipped_no_match" | "error";
+          detail: string | null;
+          metadata: Json;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          rule_key: string;
+          action_key: string;
+          event_id: string;
+          event_type: string;
+          entity_type?: string | null;
+          entity_id?: string | null;
+          outcome: "executed" | "skipped_cooldown" | "skipped_no_match" | "error";
+          detail?: string | null;
+          metadata?: Json;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          rule_key?: string;
+          action_key?: string;
+          event_id?: string;
+          event_type?: string;
+          entity_type?: string | null;
+          entity_id?: string | null;
+          outcome?: "executed" | "skipped_cooldown" | "skipped_no_match" | "error";
+          detail?: string | null;
+          metadata?: Json;
           created_at?: string;
         };
         Relationships: [];

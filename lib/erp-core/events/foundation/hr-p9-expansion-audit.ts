@@ -52,8 +52,8 @@ export const HR_P9_EXPANSION_AUDIT_FINDINGS: readonly HrP9AuditFinding[] = [
 
 export const HR_P9_EXPANSION_AUDIT_SUMMARY = {
   auditVersion: HR_P9_EXPANSION_AUDIT_VERSION,
-  catalogVersion: "erp-event-catalog-bloc3-supply-v1",
-  officialTypeCount: 38,
+  catalogVersion: "erp-event-catalog-bloc3-platform-v1",
+  officialTypeCount: 91,
   activeHrCatalogEvents: 14,
   legacyTryCreateAlertRetired: 4,
 } as const;

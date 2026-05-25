@@ -94,6 +94,8 @@ const GROUP_ICONS: Record<string, LucideIcon> = {
   finance: Wallet,
   rh: Users,
   formation: GraduationCap,
+  consultation: Briefcase,
+  accueil: LayoutDashboard,
   marketing: Megaphone,
   logistique: Truck,
   actions: Zap,
@@ -165,6 +167,8 @@ export function filterDepartmentSidebarGroups(
     if (id === "rh") return shellRail.rh;
     if (id === "logistique") return shellRail.logistics;
     if (id === "formation") return shellRail.formation;
+    if (id === "consultation") return shellRail.formation;
+    if (id === "accueil") return shellRail.formation;
     if (id === "marketing") return shellRail.marketing;
     if (id === "actions") return shellRail.actions;
     if (id === "settings") return shellRail.settings;

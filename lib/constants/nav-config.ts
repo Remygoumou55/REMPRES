@@ -82,14 +82,13 @@ export const NAV_CONFIG = [
             label: "Formation",
             icon: "GraduationCap",
             href: "/dept/formation",
-            roles: ["super_admin", "directeur_general", "responsable_formation", "manager"],
-          },
-          {
-            key: "dept-consultation",
-            label: "Consultation",
-            icon: "Briefcase",
-            href: "/dept/consultation",
-            roles: ["super_admin", "directeur_general", "responsable_consultation", "manager"],
+            roles: [
+              "super_admin",
+              "directeur_general",
+              "responsable_formation",
+              "responsable_consultation",
+              "manager",
+            ],
           },
           {
             key: "dept-marketing",

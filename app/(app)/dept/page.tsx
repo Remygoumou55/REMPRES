@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { isAdminRole, isSuperAdmin } from "@/lib/server/permissions";
 import { PageHeader } from "@/components/ui/page-header";
-import { DEPARTMENTS } from "@/lib/constants/departments";
+import { VISIBLE_DEPARTMENTS } from "@/lib/constants/departments";
 import { DeptCard } from "@/components/dept/dept-card";
 import { loadLocaleMessages, translateFromDict } from "@/lib/i18n/load-messages";
 import { getRequestLocale } from "@/lib/i18n/request-locale";
@@ -27,7 +27,7 @@ export default async function DeptPage() {
         subtitle={t("dashboard.dept.selectDepartment", "Sélectionnez un département")}
       />
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        {DEPARTMENTS.map((department) => (
+        {VISIBLE_DEPARTMENTS.map((department) => (
           <DeptCard key={department.key} departmentKey={department.key} />
         ))}
       </div>

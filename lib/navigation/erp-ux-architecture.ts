@@ -130,28 +130,24 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
     operationalRoot: "/formation",
     navGroups: [
       {
+        id: "accueil",
+        label: "Accueil",
+        links: [{ href: "/dashboard", label: "Tableau de bord" }],
+      },
+      {
         id: "formation",
         label: "Formation",
         links: [
-          { href: "/dashboard", label: "Accueil" },
           { href: "/formation/formations", label: "Formations" },
           { href: "/formation/apprenants", label: "Apprenants" },
           { href: "/formation/inscriptions", label: "Inscriptions" },
           { href: "/formation/certificats", label: "Certificats" },
         ],
       },
-    ],
-  },
-  [DEPARTMENT_KEYS.CONSULTATION]: {
-    departmentKey: DEPARTMENT_KEYS.CONSULTATION,
-    cockpitRoute: "/dept/consultation",
-    operationalRoot: "/consultation",
-    navGroups: [
       {
         id: "consultation",
         label: "Consultation",
         links: [
-          { href: "/dashboard", label: "Accueil" },
           { href: "/consultation/missions", label: "Missions" },
           { href: "/consultation/agenda", label: "Agenda" },
           { href: "/consultation/clients", label: "Clients" },

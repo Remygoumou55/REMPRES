@@ -52,12 +52,13 @@ const RH_ACTIONS: DeptQuickAction[] = [
   },
 ];
 
+/** Formation + Consultation — département unifié. */
 const FORMATION_ACTIONS: DeptQuickAction[] = [
   {
-    id: "formation_hub",
-    label: "Pilotage formation",
-    description: "Programmes et sessions",
-    href: "/formation",
+    id: "dept_formation",
+    label: "Tableau de bord",
+    description: "KPIs formation et consultation",
+    href: "/dept/formation",
   },
   {
     id: "formations",
@@ -72,36 +73,9 @@ const FORMATION_ACTIONS: DeptQuickAction[] = [
     href: "/formation/apprenants",
   },
   {
-    id: "inscriptions",
-    label: "Inscriptions",
-    description: "Suivi des inscriptions",
-    href: "/formation/inscriptions",
-  },
-  {
-    id: "certificats",
-    label: "Certificats",
-    description: "Certificats délivrés",
-    href: "/formation/certificats",
-  },
-  {
-    id: "consultation",
-    label: "Consultation",
-    description: "Missions et clients conseil",
-    href: "/consultation",
-  },
-];
-
-const CONSULTATION_ACTIONS: DeptQuickAction[] = [
-  {
-    id: "consultation_hub",
-    label: "Pilotage consultation",
-    description: "Missions et livrables",
-    href: "/consultation",
-  },
-  {
     id: "missions",
     label: "Missions",
-    description: "Missions actives et clôturées",
+    description: "Missions de conseil actives",
     href: "/consultation/missions",
   },
   {
@@ -111,22 +85,10 @@ const CONSULTATION_ACTIONS: DeptQuickAction[] = [
     href: "/consultation/agenda",
   },
   {
-    id: "clients",
-    label: "Clients",
-    description: "Comptes entreprises",
-    href: "/consultation/clients",
-  },
-  {
-    id: "formation_link",
-    label: "Formation",
-    description: "Accès au pôle formation",
-    href: "/formation",
-  },
-  {
-    id: "dept_formation",
-    label: "Cockpit formation",
-    description: "Indicateurs formation",
-    href: "/dept/formation",
+    id: "certificats",
+    label: "Certificats",
+    description: "Certificats délivrés",
+    href: "/formation/certificats",
   },
 ];
 
@@ -193,7 +155,7 @@ const ACTIONS_BY_DEPT: Record<DepartmentKey, DeptQuickAction[]> = {
   finance: FINANCE_ACTIONS.slice(0, MAX_QUICK_ACTIONS),
   rh: RH_ACTIONS,
   formation: FORMATION_ACTIONS,
-  consultation: CONSULTATION_ACTIONS,
+  consultation: FORMATION_ACTIONS,
   marketing: MARKETING_ACTIONS,
   logistique: LOGISTIQUE_ACTIONS,
 };

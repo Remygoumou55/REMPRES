@@ -3,7 +3,6 @@ import {
   BarChart3,
   Users,
   GraduationCap,
-  Briefcase,
   Megaphone,
   Package,
   type LucideIcon,
@@ -43,17 +42,18 @@ export const DEPARTMENTS = [
     icon: GraduationCap,
     color: "#F59E0B",
     bgColor: "#FFFBEB",
-    description: "Formations, apprenants et certificats",
+    description: "Formations, apprenants, certificats et missions conseil",
     route: "/dept/formation",
   },
+  /** Slug legacy — redirige vers le cockpit Formation unifié (non listé Super Admin). */
   {
     key: "consultation",
-    label: "Consultation",
-    icon: Briefcase,
-    color: "#0E4A8A",
-    bgColor: "#EFF6FF",
-    description: "Missions, clients et livrables",
-    route: "/dept/consultation",
+    label: "Formation",
+    icon: GraduationCap,
+    color: "#F59E0B",
+    bgColor: "#FFFBEB",
+    description: "Missions et consultation (pôle Formation)",
+    route: "/dept/formation",
   },
   {
     key: "marketing",
@@ -76,6 +76,9 @@ export const DEPARTMENTS = [
 ] as const;
 
 export type DepartmentKey = (typeof DEPARTMENTS)[number]["key"];
+
+/** Départements affichés dans les listes Super Admin / sélection. */
+export const VISIBLE_DEPARTMENTS = DEPARTMENTS.filter((d) => d.key !== "consultation");
 
 export type DepartmentRegistryItem = {
   key: DepartmentKey;

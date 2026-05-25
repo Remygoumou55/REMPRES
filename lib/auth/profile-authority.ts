@@ -42,7 +42,8 @@ export const LEGACY_ROLE_TO_DEPARTMENT: Readonly<Record<string, DepartmentKey>> 
   accountant: DEPARTMENT_KEYS.FINANCE,
   responsable_rh: DEPARTMENT_KEYS.RH,
   responsable_formation: DEPARTMENT_KEYS.FORMATION,
-  responsable_consultation: DEPARTMENT_KEYS.CONSULTATION,
+  /** Legacy — consultation absorbée par le département Formation. */
+  responsable_consultation: DEPARTMENT_KEYS.FORMATION,
   responsable_marketing: DEPARTMENT_KEYS.MARKETING,
   responsable_logistique: DEPARTMENT_KEYS.LOGISTIQUE,
   /** DG — périmètre Administration (sidebar isolée Étape 3, pas ERP global). */

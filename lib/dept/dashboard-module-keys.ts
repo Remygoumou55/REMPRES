@@ -4,7 +4,7 @@ const DEPT_MODULE_KEYS: Record<DepartmentKey, string[]> = {
   vente: ["clients", "produits", "vente"],
   finance: ["finance", "depenses"],
   rh: ["rh"],
-  formation: ["formation"],
+  formation: ["formation", "consultation"],
   consultation: ["consultation", "operations"],
   marketing: ["marketing"],
   logistique: ["logistique"],

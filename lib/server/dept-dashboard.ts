@@ -10,8 +10,6 @@ import { getFinanceTreasuryKpis } from "@/lib/finance/runtime/finance-treasury-k
 import { getVenteCommerceKpis } from "@/lib/vente/runtime/vente-commerce-kpis";
 import { computeRhDeptKpisLive } from "@/modules/analytics/aggregation/rh-dept-kpi-live";
 import { getRecentActivity } from "@/lib/server/get-recent-activity";
-import { getFormationDashboardKpis } from "@/lib/server/formation";
-import { getConsultationDashboardKpis } from "@/lib/server/consultation";
 import { safeCount, safeRows } from "@/lib/utils/safe-query";
 
 export type DeptKey = DepartmentKey;
@@ -77,7 +75,7 @@ export async function getDeptDashboardData(
     case "formation":
       return getFormationDashboard(supabase);
     case "consultation":
-      return getConsultationDashboard(supabase);
+      return getFormationDashboard(supabase);
     case "marketing":
       return getMarketingDashboard(supabase);
     case "logistique":
@@ -301,72 +299,203 @@ async function getRhDashboard(supabase: SupabaseClient<Database>): Promise<DeptK
   };
 }
 
-async function getFormationDashboard(supabase: SupabaseClient<Database>): Promise<DeptKpiData> {
-  void supabase;
-  const kpis = await getFormationDashboardKpis();
-
-  return {
-    dept: "formation",
-    deptLabel: DEPT_META.formation.label,
-    deptColor: DEPT_META.formation.color,
-    kpis: [
-      { title: "Formations actives", icon: "GraduationCap", color: "orange", value: kpis.activeTrainings },
-      { title: "Apprenants inscrits", icon: "Users", color: "blue", value: kpis.totalTrainees },
-      { title: "Certificats émis", icon: "Award", color: "green", value: kpis.certificatesIssued },
-      {
-        title: "Revenus formation",
-        icon: "TrendingUp",
-        color: "teal",
-        value: kpis.revenueFormatted,
-        subtitle: `${kpis.enrollmentsThisMonth} inscription(s) ce mois`,
-      },
-    ],
-    chart7Days: kpis.chart7Days,
-    recentActivity: kpis.recentActivity,
-    alerts: [],
-  };
+function monthStartIso(): string {
+  const d = new Date();
+  return new Date(d.getFullYear(), d.getMonth(), 1).toISOString();
 }
 
-async function getConsultationDashboard(supabase: SupabaseClient<Database>): Promise<DeptKpiData> {
-  void supabase;
-  const kpis = await getConsultationDashboardKpis();
+function todayDateIso(): string {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function weekEndDateIso(): string {
+  const d = new Date();
+  d.setDate(d.getDate() + 7);
+  return d.toISOString().slice(0, 10);
+}
+
+function sevenDaysAgoIso(): string {
+  return new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+}
+
+function mergeRevenueChart7Days(
+  enrollmentRows: { enrolled_at: string; amount_paid_gnf: number }[],
+  missionRows: { updated_at: string; amount_paid_gnf: number }[],
+): ChartPoint[] {
+  const map = new Map<string, number>();
+  enrollmentRows.forEach((r) => {
+    const d = new Date(r.enrolled_at).toLocaleDateString("fr-FR", { day: "2-digit", month: "short" });
+    map.set(d, (map.get(d) ?? 0) + Number(r.amount_paid_gnf ?? 0));
+  });
+  missionRows.forEach((r) => {
+    const d = new Date(r.updated_at).toLocaleDateString("fr-FR", { day: "2-digit", month: "short" });
+    map.set(d, (map.get(d) ?? 0) + Number(r.amount_paid_gnf ?? 0));
+  });
+  return Array.from(map.entries())
+    .map(([date, value]) => ({ date, value }))
+    .slice(-7);
+}
+
+async function getFormationDashboard(supabase: SupabaseClient<Database>): Promise<DeptKpiData> {
+  const monthStart = monthStartIso();
+  const sevenDaysAgo = sevenDaysAgoIso();
+  const today = todayDateIso();
+  const weekEnd = weekEndDateIso();
+
+  const [
+    activeTrainings,
+    totalTrainees,
+    certificatesIssued,
+    enrollmentsThisMonth,
+    revenueFormationThisMonth,
+    formationChart7Rows,
+    activeMissions,
+    pendingDeliverables,
+    appointmentsThisWeek,
+    revenueConsultationThisMonth,
+    consultationChart7Rows,
+    activityFormation,
+    activityConsultation,
+  ] = await Promise.all([
+    safeCount(
+      supabase
+        .from("trainings" as never)
+        .select("*", { count: "exact", head: true })
+        .eq("status", "active")
+        .is("deleted_at", null),
+    ),
+    safeCount(
+      supabase.from("trainees" as never).select("*", { count: "exact", head: true }).is("deleted_at", null),
+    ),
+    safeCount(
+      supabase.from("certificates" as never).select("*", { count: "exact", head: true }).is("deleted_at", null),
+    ),
+    safeCount(
+      supabase
+        .from("enrollments" as never)
+        .select("*", { count: "exact", head: true })
+        .gte("created_at", monthStart)
+        .is("deleted_at", null),
+    ),
+    safeRows<{ amount_paid_gnf: number }>(
+      supabase
+        .from("enrollments" as never)
+        .select("amount_paid_gnf")
+        .gte("enrolled_at", monthStart)
+        .is("deleted_at", null),
+    ),
+    safeRows<{ enrolled_at: string; amount_paid_gnf: number }>(
+      supabase
+        .from("enrollments" as never)
+        .select("enrolled_at, amount_paid_gnf")
+        .gte("enrolled_at", sevenDaysAgo)
+        .is("deleted_at", null),
+    ),
+    safeCount(
+      supabase
+        .from("missions" as never)
+        .select("*", { count: "exact", head: true })
+        .eq("status", "active")
+        .is("deleted_at", null),
+    ),
+    safeCount(
+      supabase
+        .from("deliverables" as never)
+        .select("*", { count: "exact", head: true })
+        .eq("status", "pending")
+        .is("deleted_at", null),
+    ),
+    safeCount(
+      supabase
+        .from("appointments" as never)
+        .select("*", { count: "exact", head: true })
+        .gte("appointment_date", today)
+        .lte("appointment_date", weekEnd)
+        .is("deleted_at", null),
+    ),
+    safeRows<{ amount_paid_gnf: number }>(
+      supabase
+        .from("missions" as never)
+        .select("amount_paid_gnf")
+        .gte("updated_at", monthStart)
+        .is("deleted_at", null),
+    ),
+    safeRows<{ updated_at: string; amount_paid_gnf: number }>(
+      supabase
+        .from("missions" as never)
+        .select("updated_at, amount_paid_gnf")
+        .gte("updated_at", sevenDaysAgo)
+        .is("deleted_at", null),
+    ),
+    getRecentActivity(supabase, { moduleKeys: ["formation"], limit: 6 }),
+    getRecentActivity(supabase, { moduleKeys: ["consultation"], limit: 6 }),
+  ]);
+
+  const revenueFormationThisMonthTotal = revenueFormationThisMonth.reduce(
+    (s, r) => s + Number(r.amount_paid_gnf ?? 0),
+    0,
+  );
+  const revenueConsultationThisMonthTotal = revenueConsultationThisMonth.reduce(
+    (s, r) => s + Number(r.amount_paid_gnf ?? 0),
+    0,
+  );
+
+  const chart7Days = mergeRevenueChart7Days(formationChart7Rows, consultationChart7Rows);
+
+  const recentActivity = [...activityFormation, ...activityConsultation].slice(0, 6);
 
   const alerts: AlertItem[] =
-    kpis.pendingDeliverables > 0
+    pendingDeliverables > 0
       ? [
           {
             id: "pending-deliverables",
             level: "MEDIUM",
-            title: `${kpis.pendingDeliverables} livrable(s) en attente`,
-            description: "Des livrables nécessitent un suivi.",
+            title: `${pendingDeliverables} livrable(s) en attente`,
+            description: "Consultation — suivi des livrables requis.",
             time: "Maintenant",
           },
         ]
       : [];
 
   return {
-    dept: "consultation",
-    deptLabel: DEPT_META.consultation.label,
-    deptColor: DEPT_META.consultation.color,
+    dept: "formation",
+    deptLabel: DEPT_META.formation.label,
+    deptColor: DEPT_META.formation.color,
     kpis: [
-      { title: "Missions actives", icon: "Briefcase", color: "blue", value: kpis.activeMissions },
-      { title: "Missions terminées", icon: "CheckCircle", color: "green", value: kpis.completedMissions },
+      { title: "Formations actives", icon: "GraduationCap", color: "orange", value: activeTrainings },
+      { title: "Apprenants inscrits", icon: "Users", color: "blue", value: totalTrainees },
+      { title: "Certificats émis", icon: "Award", color: "green", value: certificatesIssued },
+      {
+        title: "Inscriptions ce mois",
+        icon: "ClipboardList",
+        color: "purple",
+        value: enrollmentsThisMonth,
+        subtitle: formatGNF(revenueFormationThisMonthTotal),
+      },
+      { title: "Missions actives", icon: "Briefcase", color: "blue", value: activeMissions },
       {
         title: "Livrables en attente",
         icon: "FileText",
-        color: kpis.pendingDeliverables > 0 ? "orange" : "green",
-        value: kpis.pendingDeliverables,
+        color: pendingDeliverables > 0 ? "orange" : "green",
+        value: pendingDeliverables,
       },
       {
-        title: "CA missions",
+        title: "RDV cette semaine",
+        icon: "Calendar",
+        color: "teal",
+        value: appointmentsThisWeek,
+        subtitle: "Consultation",
+      },
+      {
+        title: "CA consultation",
         icon: "TrendingUp",
         color: "teal",
-        value: kpis.revenueFormatted,
-        subtitle: `${kpis.appointmentsThisWeek} RDV cette semaine`,
+        value: formatGNF(revenueConsultationThisMonthTotal),
+        subtitle: "Missions — mois en cours",
       },
     ],
-    chart7Days: kpis.chart7Days,
-    recentActivity: kpis.recentActivity,
+    chart7Days,
+    recentActivity,
     alerts,
   };
 }

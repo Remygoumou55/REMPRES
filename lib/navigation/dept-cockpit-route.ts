@@ -14,7 +14,7 @@ const CANONICAL_TO_DEPT_SLUG: Partial<Record<DepartmentKey, DeptSlug>> = {
   [DEPARTMENT_KEYS.FINANCE]: "finance",
   [DEPARTMENT_KEYS.RH]: "rh",
   [DEPARTMENT_KEYS.FORMATION]: "formation",
-  [DEPARTMENT_KEYS.CONSULTATION]: "consultation",
+  [DEPARTMENT_KEYS.CONSULTATION]: "formation",
   [DEPARTMENT_KEYS.MARKETING]: "marketing",
   [DEPARTMENT_KEYS.LOGISTIQUE]: "logistique",
 };
@@ -53,8 +53,14 @@ export function extractDeptSlugFromPath(pathname: string): DeptSlug | null {
   const path = normalizeDeptPathname(pathname);
   if (!path.startsWith("/dept/")) return null;
   const slug = path.slice("/dept/".length).split("/")[0] ?? "";
+  if (slug === "consultation") return "formation";
   if (slug in CANONICAL_TO_DEPT_SLUG) return slug as DeptSlug;
   return null;
+}
+
+/** Cockpit unique Formation — /dept/consultation redirige côté page. */
+export function isLegacyConsultationDeptSlug(slug: string): boolean {
+  return slug === "consultation";
 }
 
 /**
@@ -74,5 +80,17 @@ export function canProfileAccessDeptPath(
   const profileCockpit = resolveDeptCockpitPathForProfile(roleKey, departmentKey);
   if (!profileCockpit) return false;
 
-  return path === profileCockpit || path.startsWith(`${profileCockpit}/`);
+  if (path === profileCockpit || path.startsWith(`${profileCockpit}/`)) {
+    return true;
+  }
+
+  const authority = resolveAuthorityDepartmentKey(roleKey, departmentKey);
+  if (
+    authority === DEPARTMENT_KEYS.FORMATION &&
+    (path === "/dept/consultation" || path.startsWith("/dept/consultation/"))
+  ) {
+    return true;
+  }
+
+  return false;
 }

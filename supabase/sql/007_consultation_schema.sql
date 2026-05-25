@@ -1,7 +1,41 @@
 -- ═══════════════════════════════════════════
 -- CONSULTATION MODULE — 5 tables
--- Run manually in Supabase SQL Editor after clients schema (002).
+-- Prérequis : 002_clients_schema, 035_authorization_generic_roles_departments
 -- ═══════════════════════════════════════════
+
+CREATE OR REPLACE FUNCTION public.is_consultation_operator()
+RETURNS boolean
+LANGUAGE sql
+STABLE
+SECURITY DEFINER
+SET search_path = public
+AS $$
+  SELECT EXISTS (
+    SELECT 1
+    FROM public.profiles p
+    WHERE p.id = auth.uid()
+      AND p.deleted_at IS NULL
+      AND upper(coalesce(p.department_key, '')) = 'CONSULTATION'
+  );
+$$;
+
+GRANT EXECUTE ON FUNCTION public.is_consultation_operator() TO authenticated;
+
+CREATE OR REPLACE FUNCTION public.can_write_consultation()
+RETURNS boolean
+LANGUAGE sql
+STABLE
+SECURITY DEFINER
+SET search_path = public
+AS $$
+  SELECT public.is_super_admin()
+    OR public.is_consultation_operator()
+    OR public.user_has_module_permission('consultation', 'create')
+    OR public.user_has_module_permission('consultation', 'update')
+    OR public.user_has_module_permission('consultation', 'delete');
+$$;
+
+GRANT EXECUTE ON FUNCTION public.can_write_consultation() TO authenticated;
 
 CREATE SEQUENCE IF NOT EXISTS mission_seq START 1000;
 CREATE SEQUENCE IF NOT EXISTS contract_seq START 1000;
@@ -148,8 +182,7 @@ CREATE POLICY "missions_read" ON missions
 
 DROP POLICY IF EXISTS "missions_write" ON missions;
 CREATE POLICY "missions_write" ON missions
-  FOR ALL USING (is_super_admin() OR
-    current_user_has_role('responsable_consultation'));
+  FOR ALL USING (public.can_write_consultation());
 
 DROP POLICY IF EXISTS "appointments_read" ON appointments;
 CREATE POLICY "appointments_read" ON appointments
@@ -157,38 +190,33 @@ CREATE POLICY "appointments_read" ON appointments
 
 DROP POLICY IF EXISTS "appointments_write" ON appointments;
 CREATE POLICY "appointments_write" ON appointments
-  FOR ALL USING (is_super_admin() OR
-    current_user_has_role('responsable_consultation'));
+  FOR ALL USING (public.can_write_consultation());
 
 DROP POLICY IF EXISTS "deliverables_all" ON deliverables;
 CREATE POLICY "deliverables_all" ON deliverables
-  FOR ALL USING (is_super_admin() OR
-    current_user_has_role('responsable_consultation'));
+  FOR ALL USING (public.can_write_consultation());
 
 DROP POLICY IF EXISTS "contracts_all" ON contracts;
 CREATE POLICY "contracts_all" ON contracts
-  FOR ALL USING (is_super_admin() OR
-    current_user_has_role('responsable_consultation'));
+  FOR ALL USING (public.can_write_consultation());
 
 DROP POLICY IF EXISTS "phases_all" ON mission_phases;
 CREATE POLICY "phases_all" ON mission_phases
-  FOR ALL USING (is_super_admin() OR
-    current_user_has_role('responsable_consultation'));
+  FOR ALL USING (public.can_write_consultation());
 
-INSERT INTO public.permissions (role_key, module_key, can_read, can_create, can_update, can_delete)
-VALUES ('responsable_consultation', 'consultation', true, true, true, true)
+INSERT INTO public.permissions (
+  role_key, module_key, can_read, can_create, can_update, can_delete, deleted_at
+)
+VALUES
+  ('super_admin', 'consultation', true, true, true, true, null),
+  ('manager', 'consultation', true, true, true, true, null),
+  ('agent', 'consultation', true, false, false, false, null),
+  ('accountant', 'consultation', true, false, false, false, null),
+  ('auditor', 'consultation', true, false, false, false, null)
 ON CONFLICT (role_key, module_key) DO UPDATE SET
   can_read = EXCLUDED.can_read,
   can_create = EXCLUDED.can_create,
   can_update = EXCLUDED.can_update,
   can_delete = EXCLUDED.can_delete,
-  updated_at = NOW();
-
-INSERT INTO public.permissions (role_key, module_key, can_read, can_create, can_update, can_delete)
-VALUES ('directeur_general', 'consultation', true, true, true, true)
-ON CONFLICT (role_key, module_key) DO UPDATE SET
-  can_read = EXCLUDED.can_read,
-  can_create = EXCLUDED.can_create,
-  can_update = EXCLUDED.can_update,
-  can_delete = EXCLUDED.can_delete,
+  deleted_at = null,
   updated_at = NOW();

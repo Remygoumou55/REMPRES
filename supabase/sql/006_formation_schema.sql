@@ -1,17 +1,42 @@
 -- ═══════════════════════════════════════════
 -- FORMATION MODULE — 6 tables
--- Run manually in Supabase SQL Editor after core schema (001).
+-- Prérequis : 001_core_schema, 035_authorization_generic_roles_departments
+-- (rôles legacy responsable_formation supprimés → manager + department_key)
 -- ═══════════════════════════════════════════
 
-CREATE OR REPLACE FUNCTION public.current_user_has_role(p_role text)
+CREATE OR REPLACE FUNCTION public.is_formation_operator()
 RETURNS boolean
 LANGUAGE sql
 STABLE
 SECURITY DEFINER
 SET search_path = public
 AS $$
-  SELECT public.current_user_role() = p_role;
+  SELECT EXISTS (
+    SELECT 1
+    FROM public.profiles p
+    WHERE p.id = auth.uid()
+      AND p.deleted_at IS NULL
+      AND upper(coalesce(p.department_key, '')) = 'FORMATION'
+  );
 $$;
+
+GRANT EXECUTE ON FUNCTION public.is_formation_operator() TO authenticated;
+
+CREATE OR REPLACE FUNCTION public.can_write_formation()
+RETURNS boolean
+LANGUAGE sql
+STABLE
+SECURITY DEFINER
+SET search_path = public
+AS $$
+  SELECT public.is_super_admin()
+    OR public.is_formation_operator()
+    OR public.user_has_module_permission('formation', 'create')
+    OR public.user_has_module_permission('formation', 'update')
+    OR public.user_has_module_permission('formation', 'delete');
+$$;
+
+GRANT EXECUTE ON FUNCTION public.can_write_formation() TO authenticated;
 
 CREATE TABLE IF NOT EXISTS trainings (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -156,8 +181,7 @@ CREATE POLICY "formation_read" ON trainings
 
 DROP POLICY IF EXISTS "formation_write" ON trainings;
 CREATE POLICY "formation_write" ON trainings
-  FOR ALL USING (is_super_admin() OR
-    current_user_has_role('responsable_formation'));
+  FOR ALL USING (public.can_write_formation());
 
 DROP POLICY IF EXISTS "training_sessions_read" ON training_sessions;
 CREATE POLICY "training_sessions_read" ON training_sessions
@@ -165,8 +189,7 @@ CREATE POLICY "training_sessions_read" ON training_sessions
 
 DROP POLICY IF EXISTS "training_sessions_write" ON training_sessions;
 CREATE POLICY "training_sessions_write" ON training_sessions
-  FOR ALL USING (is_super_admin() OR
-    current_user_has_role('responsable_formation'));
+  FOR ALL USING (public.can_write_formation());
 
 DROP POLICY IF EXISTS "trainees_read" ON trainees;
 CREATE POLICY "trainees_read" ON trainees
@@ -174,8 +197,7 @@ CREATE POLICY "trainees_read" ON trainees
 
 DROP POLICY IF EXISTS "trainees_write" ON trainees;
 CREATE POLICY "trainees_write" ON trainees
-  FOR ALL USING (is_super_admin() OR
-    current_user_has_role('responsable_formation'));
+  FOR ALL USING (public.can_write_formation());
 
 DROP POLICY IF EXISTS "enrollments_read" ON enrollments;
 CREATE POLICY "enrollments_read" ON enrollments
@@ -183,8 +205,7 @@ CREATE POLICY "enrollments_read" ON enrollments
 
 DROP POLICY IF EXISTS "enrollments_write" ON enrollments;
 CREATE POLICY "enrollments_write" ON enrollments
-  FOR ALL USING (is_super_admin() OR
-    current_user_has_role('responsable_formation'));
+  FOR ALL USING (public.can_write_formation());
 
 DROP POLICY IF EXISTS "certificates_read" ON certificates;
 CREATE POLICY "certificates_read" ON certificates
@@ -192,8 +213,7 @@ CREATE POLICY "certificates_read" ON certificates
 
 DROP POLICY IF EXISTS "certificates_write" ON certificates;
 CREATE POLICY "certificates_write" ON certificates
-  FOR ALL USING (is_super_admin() OR
-    current_user_has_role('responsable_formation'));
+  FOR ALL USING (public.can_write_formation());
 
 DROP POLICY IF EXISTS "attendance_formation_read" ON attendance_formation;
 CREATE POLICY "attendance_formation_read"
@@ -202,24 +222,22 @@ CREATE POLICY "attendance_formation_read"
 DROP POLICY IF EXISTS "attendance_formation_write" ON attendance_formation;
 CREATE POLICY "attendance_formation_write"
   ON attendance_formation FOR ALL
-  USING (is_super_admin() OR
-    current_user_has_role('responsable_formation'));
+  USING (public.can_write_formation());
 
--- Permissions applicatives (module formation)
-INSERT INTO public.permissions (role_key, module_key, can_read, can_create, can_update, can_delete)
-VALUES ('responsable_formation', 'formation', true, true, true, true)
+-- Permissions (rôles génériques post-035 — FK app_roles)
+INSERT INTO public.permissions (
+  role_key, module_key, can_read, can_create, can_update, can_delete, deleted_at
+)
+VALUES
+  ('super_admin', 'formation', true, true, true, true, null),
+  ('manager', 'formation', true, true, true, true, null),
+  ('agent', 'formation', true, false, false, false, null),
+  ('accountant', 'formation', true, false, false, false, null),
+  ('auditor', 'formation', true, false, false, false, null)
 ON CONFLICT (role_key, module_key) DO UPDATE SET
   can_read = EXCLUDED.can_read,
   can_create = EXCLUDED.can_create,
   can_update = EXCLUDED.can_update,
   can_delete = EXCLUDED.can_delete,
-  updated_at = NOW();
-
-INSERT INTO public.permissions (role_key, module_key, can_read, can_create, can_update, can_delete)
-VALUES ('directeur_general', 'formation', true, true, true, true)
-ON CONFLICT (role_key, module_key) DO UPDATE SET
-  can_read = EXCLUDED.can_read,
-  can_create = EXCLUDED.can_create,
-  can_update = EXCLUDED.can_update,
-  can_delete = EXCLUDED.can_delete,
+  deleted_at = null,
   updated_at = NOW();

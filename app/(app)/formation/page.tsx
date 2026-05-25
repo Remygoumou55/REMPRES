@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 
-/**
- * Module Formation — en cours de développement.
- */
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default function FormationPage() {
-  redirect("/coming-soon?module=formation");
+  redirect("/formation/formations");
 }

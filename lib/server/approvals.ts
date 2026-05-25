@@ -333,7 +333,9 @@ async function executeAction(req: ApprovalRow): Promise<void> {
       await softDelete("employees", targetId);
       break;
     case "cancel_formation":
-      if (targetId) {
+      if (payload.operation === "soft_delete") {
+        await softDelete("trainings", targetId);
+      } else if (targetId) {
         await adminClient
           .from("trainings" as never)
           .update({ status: "cancelled" } as never)

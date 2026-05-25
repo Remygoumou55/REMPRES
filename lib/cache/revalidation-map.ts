@@ -60,6 +60,10 @@ const REVALIDATION_MAP: Record<string, string[]> = {
   ],
   formation: [
     "/formation",
+    "/formation/formations",
+    "/formation/apprenants",
+    "/formation/inscriptions",
+    "/formation/certificats",
     "/formation/dashboard",
     "/dashboard",
     "/dept/formation",
@@ -67,6 +71,9 @@ const REVALIDATION_MAP: Record<string, string[]> = {
   ],
   consultation: [
     "/consultation",
+    "/consultation/missions",
+    "/consultation/agenda",
+    "/consultation/clients",
     "/consultation/dashboard",
     "/dashboard",
     "/dept/consultation",

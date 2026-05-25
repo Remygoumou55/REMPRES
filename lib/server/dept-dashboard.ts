@@ -10,6 +10,8 @@ import { getFinanceTreasuryKpis } from "@/lib/finance/runtime/finance-treasury-k
 import { getVenteCommerceKpis } from "@/lib/vente/runtime/vente-commerce-kpis";
 import { computeRhDeptKpisLive } from "@/modules/analytics/aggregation/rh-dept-kpi-live";
 import { getRecentActivity } from "@/lib/server/get-recent-activity";
+import { getFormationDashboardKpis } from "@/lib/server/formation";
+import { getConsultationDashboardKpis } from "@/lib/server/consultation";
 import { safeCount, safeRows } from "@/lib/utils/safe-query";
 
 export type DeptKey = DepartmentKey;
@@ -300,74 +302,72 @@ async function getRhDashboard(supabase: SupabaseClient<Database>): Promise<DeptK
 }
 
 async function getFormationDashboard(supabase: SupabaseClient<Database>): Promise<DeptKpiData> {
-  const [trainings, trainees, certs, activity] = await Promise.all([
-    safeCount(
-      supabase.from("trainings" as never).select("*", { count: "exact", head: true }).eq("status", "active").is("deleted_at", null),
-    ),
-    safeCount(supabase.from("trainees" as never).select("*", { count: "exact", head: true }).is("deleted_at", null)),
-    safeCount(supabase.from("certificates" as never).select("*", { count: "exact", head: true })),
-    getRecentActivity(supabase, { moduleKeys: getDeptActivityModuleKeys("formation"), limit: 6 }),
-  ]);
+  void supabase;
+  const kpis = await getFormationDashboardKpis();
 
   return {
     dept: "formation",
     deptLabel: DEPT_META.formation.label,
     deptColor: DEPT_META.formation.color,
     kpis: [
-      { title: "Formations actives", icon: "GraduationCap", color: "orange", value: trainings },
-      { title: "Apprenants inscrits", icon: "Users", color: "blue", value: trainees },
-      { title: "Certificats émis", icon: "Award", color: "green", value: certs },
+      { title: "Formations actives", icon: "GraduationCap", color: "orange", value: kpis.activeTrainings },
+      { title: "Apprenants inscrits", icon: "Users", color: "blue", value: kpis.totalTrainees },
+      { title: "Certificats émis", icon: "Award", color: "green", value: kpis.certificatesIssued },
       {
         title: "Revenus formation",
         icon: "TrendingUp",
         color: "teal",
-        value: "—",
-        isEmpty: true,
-        subtitle: "Module en cours d'activation",
+        value: kpis.revenueFormatted,
+        subtitle: `${kpis.enrollmentsThisMonth} inscription(s) ce mois`,
       },
     ],
-    chart7Days: [],
-    recentActivity: activity,
+    chart7Days: kpis.chart7Days,
+    recentActivity: kpis.recentActivity,
     alerts: [],
   };
 }
 
 async function getConsultationDashboard(supabase: SupabaseClient<Database>): Promise<DeptKpiData> {
-  const [active, completed, clients, activity] = await Promise.all([
-    safeCount(
-      supabase.from("missions" as never).select("*", { count: "exact", head: true }).eq("status", "active").is("deleted_at", null),
-    ),
-    safeCount(supabase.from("missions" as never).select("*", { count: "exact", head: true }).eq("status", "completed")),
-    safeCount(
-      supabase
-        .from("clients")
-        .select("*", { count: "exact", head: true })
-        .eq("client_type", "company")
-        .is("deleted_at", null),
-    ),
-    getRecentActivity(supabase, { moduleKeys: getDeptActivityModuleKeys("consultation"), limit: 6 }),
-  ]);
+  void supabase;
+  const kpis = await getConsultationDashboardKpis();
+
+  const alerts: AlertItem[] =
+    kpis.pendingDeliverables > 0
+      ? [
+          {
+            id: "pending-deliverables",
+            level: "MEDIUM",
+            title: `${kpis.pendingDeliverables} livrable(s) en attente`,
+            description: "Des livrables nécessitent un suivi.",
+            time: "Maintenant",
+          },
+        ]
+      : [];
 
   return {
     dept: "consultation",
     deptLabel: DEPT_META.consultation.label,
     deptColor: DEPT_META.consultation.color,
     kpis: [
-      { title: "Missions actives", icon: "Briefcase", color: "blue", value: active },
-      { title: "Missions terminées", icon: "CheckCircle", color: "green", value: completed },
-      { title: "Clients entreprises", icon: "Building2", color: "purple", value: clients },
+      { title: "Missions actives", icon: "Briefcase", color: "blue", value: kpis.activeMissions },
+      { title: "Missions terminées", icon: "CheckCircle", color: "green", value: kpis.completedMissions },
+      {
+        title: "Livrables en attente",
+        icon: "FileText",
+        color: kpis.pendingDeliverables > 0 ? "orange" : "green",
+        value: kpis.pendingDeliverables,
+      },
       {
         title: "CA missions",
         icon: "TrendingUp",
         color: "teal",
-        value: "—",
-        isEmpty: true,
-        subtitle: "Module en cours d'activation",
+        value: kpis.revenueFormatted,
+        subtitle: `${kpis.appointmentsThisWeek} RDV cette semaine`,
       },
     ],
-    chart7Days: [],
-    recentActivity: activity,
-    alerts: [],
+    chart7Days: kpis.chart7Days,
+    recentActivity: kpis.recentActivity,
+    alerts,
   };
 }
 

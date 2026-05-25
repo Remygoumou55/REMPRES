@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 
-/**
- * Module Consultation — en cours de développement.
- */
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default function ConsultationPage() {
-  redirect("/coming-soon?module=consultation");
+  redirect("/consultation/missions");
 }

@@ -11,6 +11,7 @@ import { DataTable } from "@/modules/hr/employees/ui/tables/DataTable";
 import { SectionPanel } from "@/modules/hr/employees/ui/panels/SectionPanel";
 import { EmployeeRoleForm } from "@/modules/hr/employees/components/forms/EmployeeRoleForm";
 import { EmployeeManagerForm } from "@/modules/hr/employees/components/forms/EmployeeManagerForm";
+import { EmployeeStatusForm } from "@/modules/hr/employees/components/forms/EmployeeStatusForm";
 import { EmployeeDocumentsPanel } from "@/modules/hr/employees/components/documents/EmployeeDocumentsPanel";
 import { EmployeeHistoryPanel } from "@/modules/hr/employees/components/history/EmployeeHistoryPanel";
 import { EmployeeHierarchyPanel } from "@/modules/hr/employees/components/hierarchy/EmployeeHierarchyPanel";
@@ -144,6 +145,7 @@ export function EmployeeAdminWorkspace({ snapshot }: { snapshot: EmployeeDomainS
               initialRoleKey={selectedEmployee.roleKey}
               initialDepartmentKey={selectedEmployee.departmentKey}
             />
+            <EmployeeStatusForm employeeId={selectedEmployee.id} isActive={selectedEmployee.isActive} />
             <EmployeeManagerForm
               employeeId={selectedEmployee.id}
               profiles={snapshot.profiles}

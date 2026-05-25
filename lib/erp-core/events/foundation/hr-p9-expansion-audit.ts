@@ -17,7 +17,7 @@ export const HR_P9_EXPANSION_AUDIT_FINDINGS: readonly HrP9AuditFinding[] = [
     id: "P9-1",
     category: "wired",
     area: "taxonomy",
-    finding: "5 types lifecycle/recruitment ajoutés (30 officiels)",
+    finding: "Lifecycle/recruitment + Bloc3 attendance/status/rejected (33 officiels)",
     location: "event-taxonomy.ts",
   },
   {
@@ -45,15 +45,15 @@ export const HR_P9_EXPANSION_AUDIT_FINDINGS: readonly HrP9AuditFinding[] = [
     id: "P9-5",
     category: "limit",
     area: "attendance",
-    finding: "hr.attendance.* hors scope P9",
-    location: "hr-domain-governance.ts",
+    finding: "hr.attendance.recorded actif Bloc 3",
+    location: "hr-attendance-mutations.ts",
   },
 ] as const;
 
 export const HR_P9_EXPANSION_AUDIT_SUMMARY = {
   auditVersion: HR_P9_EXPANSION_AUDIT_VERSION,
-  catalogVersion: "erp-event-catalog-p9-v1",
-  officialTypeCount: 30,
-  activeHrCatalogEvents: 11,
+  catalogVersion: "erp-event-catalog-bloc3-v1",
+  officialTypeCount: 33,
+  activeHrCatalogEvents: 14,
   legacyTryCreateAlertRetired: 4,
 } as const;

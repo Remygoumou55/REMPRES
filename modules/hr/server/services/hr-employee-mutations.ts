@@ -7,7 +7,10 @@ import {
   assertHrWriteActionAllowed,
   HR_WRITE_ACTIONS,
 } from "@/lib/hr/runtime/hr-write-governance";
-import { emitHrEmployeeUpdated } from "@/lib/erp-core/events/integrations/hr-events";
+import {
+  emitHrEmployeeStatusChanged,
+  emitHrEmployeeUpdated,
+} from "@/lib/erp-core/events/integrations/hr-events";
 import { recordHrGovernanceAudit } from "@/modules/hr/server/services/hr-audit-hook";
 
 export async function updateHrEmployeeRole(
@@ -133,6 +136,70 @@ export async function updateHrEmployeeManager(
         title: input.title,
         department_key: input.departmentKey,
       },
+    }),
+  ]);
+
+  return { success: true };
+}
+
+export async function updateHrEmployeeEmploymentStatus(
+  userId: string,
+  input: { employeeId: string; isActive: boolean },
+): Promise<{ success: true } | { success: false; error: string }> {
+  try {
+    await assertHrWriteActionAllowed(userId, HR_WRITE_ACTIONS.EMPLOYEE_STATUS_UPDATE, "update");
+  } catch {
+    return { success: false, error: "Action reservee aux gestionnaires RH." };
+  }
+
+  const supabase = getSupabaseServerClient();
+  const { data: before } = await supabase
+    .from("profiles")
+    .select("is_active,role_key")
+    .eq("id", input.employeeId)
+    .is("deleted_at", null)
+    .maybeSingle();
+
+  if (!before) return { success: false, error: "Collaborateur introuvable." };
+  if (before.is_active === input.isActive) {
+    return { success: false, error: "Le statut est deja a jour." };
+  }
+
+  const update = await supabase
+    .from("profiles")
+    .update({ is_active: input.isActive })
+    .eq("id", input.employeeId)
+    .is("deleted_at", null);
+  if (update.error) return { success: false, error: "Mise a jour statut impossible." };
+
+  await supabase.from("rh_employee_history").insert({
+    employee_id: input.employeeId,
+    event_type: "employment_status_changed",
+    event_label: input.isActive ? "Collaborateur active" : "Collaborateur desactive",
+    payload: { is_active: input.isActive, previous: before.is_active },
+    created_by: userId,
+  });
+
+  await Promise.all([
+    emitHrEmployeeStatusChanged({
+      actorUserId: userId,
+      employeeId: input.employeeId,
+      fromActive: before.is_active,
+      toActive: input.isActive,
+    }),
+    emitHrEmployeeUpdated({
+      actorUserId: userId,
+      employeeId: input.employeeId,
+      field: "is_active",
+      fromValue: String(before.is_active),
+      toValue: String(input.isActive),
+    }),
+    recordHrGovernanceAudit({
+      actionType: HR_WRITE_ACTIONS.EMPLOYEE_STATUS_UPDATE,
+      entityType: "profiles",
+      entityId: input.employeeId,
+      beforeSnapshot: { is_active: before.is_active },
+      afterSnapshot: { is_active: input.isActive },
     }),
   ]);
 

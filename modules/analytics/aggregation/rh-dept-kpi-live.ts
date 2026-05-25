@@ -62,7 +62,10 @@ export async function computeRhDeptKpisLive(supabase: SupabaseClient<Database>):
       label: [hire.first_name, hire.last_name].filter(Boolean).join(" ").trim() || "dashboard.dept.activity.newHire",
       timestamp: hire.created_at ?? undefined,
     })),
-    health: { status: "placeholder", notes: ["dashboard.dept.health.partialAttendance"] },
-    metadata: { source: "rh-live", generatedAt: now.toISOString(), placeholder: true },
+    health: {
+      status: pendingLeaves > 5 ? "degraded" : "ok",
+      notes: pendingLeaves > 0 ? ["dashboard.dept.health.pendingLeaves"] : [],
+    },
+    metadata: { source: "rh-live", generatedAt: now.toISOString(), placeholder: false },
   };
 }

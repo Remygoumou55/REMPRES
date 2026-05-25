@@ -19,18 +19,18 @@ describe("P9 — HR expansion", () => {
     clearNotificationBridgeLogsForTests();
   });
 
-  it("taxonomy — 30 official types including P9 lifecycle", () => {
-    expect(Object.values(OFFICIAL_ERP_EVENT_TYPES)).toHaveLength(30);
+  it("taxonomy — 33 official types including Bloc3 HR completion", () => {
+    expect(Object.values(OFFICIAL_ERP_EVENT_TYPES)).toHaveLength(33);
     expect(OFFICIAL_ERP_EVENT_TYPES.HR_CONTRACT_SUBMITTED).toBe("hr.contract.submitted");
     expect(OFFICIAL_ERP_EVENT_TYPES.HR_RECRUITMENT_HIRE_SUBMITTED).toBe(
       "hr.recruitment.hire_submitted",
     );
   });
 
-  it("catalog — p9-v1 with 11 active HR events", () => {
-    expect(ERP_EVENT_CATALOG_VERSION).toBe("erp-event-catalog-p9-v1");
+  it("catalog — bloc3 with 14 active HR events", () => {
+    expect(ERP_EVENT_CATALOG_VERSION).toBe("erp-event-catalog-bloc3-v1");
     const activeHr = listHrGovernanceEvents().filter((e) => e.status === "active");
-    expect(activeHr.length).toBe(11);
+    expect(activeHr.length).toBe(14);
     expect(activeHr.map((e) => e.type)).toContain(OFFICIAL_ERP_EVENT_TYPES.HR_EMPLOYEE_CREATED);
     expect(activeHr.map((e) => e.type)).toContain(
       OFFICIAL_ERP_EVENT_TYPES.HR_RECRUITMENT_HIRE_SUBMITTED,
@@ -39,7 +39,7 @@ describe("P9 — HR expansion", () => {
 
   it("write registry — P9 actions enabled", () => {
     const enabled = Object.values(HR_WRITE_ACTION_REGISTRY).filter((r) => r.enabled);
-    expect(enabled.length).toBe(10);
+    expect(enabled.length).toBe(12);
     expect(HR_WRITE_ACTION_REGISTRY["hr.contract.submit_approval"]?.eventType).toBe(
       "hr.contract.submitted",
     );

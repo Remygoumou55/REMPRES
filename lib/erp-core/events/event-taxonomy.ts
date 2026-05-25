@@ -35,6 +35,9 @@ export const OFFICIAL_ERP_EVENT_TYPES = {
   HR_RECRUITMENT_HIRE_SUBMITTED: "hr.recruitment.hire_submitted",
   HR_LEAVE_REQUESTED: "hr.leave.requested",
   HR_LEAVE_APPROVED: "hr.leave.approved",
+  HR_LEAVE_REJECTED: "hr.leave.rejected",
+  HR_ATTENDANCE_RECORDED: "hr.attendance.recorded",
+  HR_EMPLOYEE_STATUS_CHANGED: "hr.employee.status_changed",
   SYSTEM_AUDIT_RECORDED: "system.audit.recorded",
   RUNTIME_ORCHESTRATION_COMPLETED: "runtime.orchestration.completed",
   RUNTIME_ORCHESTRATION_FAILED: "runtime.orchestration.failed",
@@ -178,6 +181,21 @@ const EVENT_META: Record<
     owner: "hr",
   },
   [OFFICIAL_ERP_EVENT_TYPES.HR_LEAVE_APPROVED]: {
+    family: "domain",
+    sensitivity: "restricted",
+    owner: "hr",
+  },
+  [OFFICIAL_ERP_EVENT_TYPES.HR_LEAVE_REJECTED]: {
+    family: "domain",
+    sensitivity: "restricted",
+    owner: "hr",
+  },
+  [OFFICIAL_ERP_EVENT_TYPES.HR_ATTENDANCE_RECORDED]: {
+    family: "domain",
+    sensitivity: "internal",
+    owner: "hr",
+  },
+  [OFFICIAL_ERP_EVENT_TYPES.HR_EMPLOYEE_STATUS_CHANGED]: {
     family: "domain",
     sensitivity: "restricted",
     owner: "hr",

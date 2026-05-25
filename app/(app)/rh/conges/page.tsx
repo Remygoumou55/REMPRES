@@ -6,6 +6,7 @@ import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getModulePermissions, getProfileAuthBrief, isAdminRole } from "@/lib/server/permissions";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { PageHeader } from "@/components/ui/page-header";
+import { HR_LEAVE_TYPE_LABELS, HR_LEAVE_TYPES } from "@/lib/hr/constants/hr-leave-types";
 import { RhLeavesClient } from "./RhLeavesClient";
 import { RhLeaveStatusActions } from "./RhLeaveStatusActions";
 
@@ -31,7 +32,7 @@ export default async function RhLeavesPage({ searchParams }: RhLeavesPageProps) 
   const statusFilter = String(searchParams?.status ?? "").trim().toLowerCase();
   const leaveTypeFilter = String(searchParams?.leaveType ?? "").trim().toLowerCase();
   const allowedStatus = ["pending", "approved", "rejected", "cancelled"] as const;
-  const allowedLeaveType = ["paid", "sick", "exceptional"] as const;
+  const allowedLeaveType = HR_LEAVE_TYPES;
   const isAllowedStatus = (value: string): value is (typeof allowedStatus)[number] =>
     (allowedStatus as readonly string[]).includes(value);
   const isAllowedLeaveType = (value: string): value is (typeof allowedLeaveType)[number] =>
@@ -115,9 +116,11 @@ export default async function RhLeavesPage({ searchParams }: RhLeavesPageProps) 
               className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm"
             >
               <option value="">Tous</option>
-              <option value="paid">Conge paye</option>
-              <option value="sick">Conge maladie</option>
-              <option value="exceptional">Conge exceptionnel</option>
+              {HR_LEAVE_TYPES.map((type) => (
+                <option key={type} value={type}>
+                  {HR_LEAVE_TYPE_LABELS[type]}
+                </option>
+              ))}
             </select>
           </div>
           <div className="flex items-end">

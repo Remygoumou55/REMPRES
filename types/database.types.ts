@@ -367,7 +367,7 @@ export type Database = {
         Row: {
           id: string;
           employee_id: string;
-          leave_type: "paid" | "sick" | "exceptional";
+          leave_type: "annual" | "sick" | "special" | "unpaid";
           start_date: string;
           end_date: string;
           reason: string;
@@ -380,7 +380,7 @@ export type Database = {
         Insert: {
           id?: string;
           employee_id: string;
-          leave_type: "paid" | "sick" | "exceptional";
+          leave_type: "annual" | "sick" | "special" | "unpaid";
           start_date: string;
           end_date: string;
           reason: string;
@@ -393,7 +393,7 @@ export type Database = {
         Update: {
           id?: string;
           employee_id?: string;
-          leave_type?: "paid" | "sick" | "exceptional";
+          leave_type?: "annual" | "sick" | "special" | "unpaid";
           start_date?: string;
           end_date?: string;
           reason?: string;

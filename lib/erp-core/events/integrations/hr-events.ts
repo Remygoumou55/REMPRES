@@ -229,6 +229,69 @@ export async function emitHrLeaveRequested(params: {
   });
 }
 
+export async function emitHrLeaveRejected(params: {
+  actorUserId: string;
+  leaveId: string;
+  employeeId: string;
+  rejectionReason?: string | null;
+}): Promise<void> {
+  await publishIntegrationOfficialEvent(OFFICIAL_ERP_EVENT_TYPES.HR_LEAVE_REJECTED, {
+    actorUserId: params.actorUserId,
+    departmentKey: HR_DEPARTMENT_KEY,
+    entityType: "leave_request",
+    entityId: params.leaveId,
+    correlationId: params.leaveId,
+    payload: {
+      leave_id: params.leaveId,
+      employee_id: params.employeeId,
+      rejection_reason: params.rejectionReason ?? null,
+    },
+  });
+}
+
+export async function emitHrAttendanceRecorded(params: {
+  actorUserId: string;
+  attendanceId: string;
+  employeeId: string;
+  eventType: string;
+  eventAt: string;
+}): Promise<void> {
+  await publishIntegrationOfficialEvent(OFFICIAL_ERP_EVENT_TYPES.HR_ATTENDANCE_RECORDED, {
+    actorUserId: params.actorUserId,
+    departmentKey: HR_DEPARTMENT_KEY,
+    entityType: "rh_attendance_events",
+    entityId: params.attendanceId,
+    correlationId: params.attendanceId,
+    payload: {
+      attendance_id: params.attendanceId,
+      employee_id: params.employeeId,
+      event_type: params.eventType,
+      event_at: params.eventAt,
+    },
+  });
+}
+
+export async function emitHrEmployeeStatusChanged(params: {
+  actorUserId: string;
+  employeeId: string;
+  fromActive: boolean;
+  toActive: boolean;
+}): Promise<void> {
+  await publishIntegrationOfficialEvent(OFFICIAL_ERP_EVENT_TYPES.HR_EMPLOYEE_STATUS_CHANGED, {
+    actorUserId: params.actorUserId,
+    departmentKey: HR_DEPARTMENT_KEY,
+    entityType: "profiles",
+    entityId: params.employeeId,
+    correlationId: params.employeeId,
+    payload: {
+      employee_id: params.employeeId,
+      from_active: params.fromActive,
+      to_active: params.toActive,
+      employment_status: params.toActive ? "active" : "inactive",
+    },
+  });
+}
+
 export async function emitHrLeaveApproved(params: {
   actorUserId: string;
   leaveId: string;

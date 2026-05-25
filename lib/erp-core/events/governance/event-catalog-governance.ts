@@ -8,7 +8,7 @@ import {
 } from "@/lib/erp-core/events/event-taxonomy";
 import type { ErpEventFamily } from "@/lib/erp-core/events/event-contracts";
 
-export const ERP_EVENT_CATALOG_VERSION = "erp-event-catalog-p9-v1" as const;
+export const ERP_EVENT_CATALOG_VERSION = "erp-event-catalog-bloc3-v1" as const;
 
 export type ErpEventCatalogStatus =
   | "active"
@@ -288,6 +288,33 @@ export const ERP_EVENT_GOVERNANCE_MAP: readonly ErpEventCatalogEntry[] = [
     publisher: "integrations/hr-events.ts",
     wiredAt: "modules/hr/server/services/hr-leave-mutations.ts#updateHrLeaveStatus",
     notes: "P7.1 — émis si status approved uniquement.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.HR_LEAVE_REJECTED,
+    family: "domain",
+    status: "active",
+    owner: "hr",
+    publisher: "integrations/hr-events.ts",
+    wiredAt: "modules/hr/server/services/hr-leave-mutations.ts#updateHrLeaveStatus",
+    notes: "Bloc 3 — rejet congé.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.HR_ATTENDANCE_RECORDED,
+    family: "domain",
+    status: "active",
+    owner: "hr",
+    publisher: "integrations/hr-events.ts",
+    wiredAt: "modules/hr/server/services/hr-attendance-mutations.ts#recordHrAttendance",
+    notes: "Bloc 3 — pointage.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.HR_EMPLOYEE_STATUS_CHANGED,
+    family: "domain",
+    status: "active",
+    owner: "hr",
+    publisher: "integrations/hr-events.ts",
+    wiredAt: "modules/hr/server/services/hr-employee-mutations.ts#updateHrEmployeeEmploymentStatus",
+    notes: "Bloc 3 — statut employé.",
   },
   {
     type: OFFICIAL_ERP_EVENT_TYPES.SYSTEM_AUDIT_RECORDED,

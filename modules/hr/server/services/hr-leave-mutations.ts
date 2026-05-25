@@ -8,8 +8,10 @@ import {
   assertHrWriteActionAllowed,
   HR_WRITE_ACTIONS,
 } from "@/lib/hr/runtime/hr-write-governance";
+import { isValidHrLeaveType } from "@/lib/hr/constants/hr-leave-types";
 import {
   emitHrLeaveApproved,
+  emitHrLeaveRejected,
   emitHrLeaveRequested,
 } from "@/lib/erp-core/events/integrations/hr-events";
 import { recordHrGovernanceAudit } from "@/modules/hr/server/services/hr-audit-hook";
@@ -37,12 +39,12 @@ export async function submitHrLeaveRequest(
   const startDate = String(input.startDate ?? "").trim();
   const endDate = String(input.endDate ?? "").trim();
   const reason = String(input.reason ?? "").trim();
-  const validLeaveTypes = new Set(["paid", "sick", "exceptional"]);
+  const validLeaveTypes = new Set(["annual", "sick", "special", "unpaid"]);
 
   if (!employeeId || !leaveType || !startDate || !endDate || !reason) {
     return { success: false, error: "Veuillez remplir tous les champs obligatoires." };
   }
-  if (!validLeaveTypes.has(leaveType)) {
+  if (!isValidHrLeaveType(leaveType) || !validLeaveTypes.has(leaveType)) {
     return { success: false, error: "Type de conge invalide." };
   }
   if (reason.length < 8 || reason.length > 1000) {
@@ -91,7 +93,7 @@ export async function submitHrLeaveRequest(
     .from("rh_leave_requests")
     .insert({
       employee_id: employeeId,
-      leave_type: leaveType as "paid" | "sick" | "exceptional",
+      leave_type: leaveType as "annual" | "sick" | "special" | "unpaid",
       start_date: startDate,
       end_date: endDate,
       reason,
@@ -261,6 +263,17 @@ export async function updateHrLeaveStatus(
         toStatus: nextStatus,
         approverId: userId,
         approvalRequestId: leaveResult.data.approval_request_id,
+      }),
+    );
+  }
+
+  if (nextStatus === "rejected" && employeeId) {
+    postWriteTasks.push(
+      emitHrLeaveRejected({
+        actorUserId: userId,
+        leaveId: leaveRequestId,
+        employeeId,
+        rejectionReason: input.rejectionReason ?? null,
       }),
     );
   }

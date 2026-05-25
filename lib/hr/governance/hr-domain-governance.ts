@@ -2,7 +2,7 @@
  * P7 — Gouvernance domaine RH (catalogue métier, pas runtime complet).
  */
 
-export const HR_DOMAIN_GOVERNANCE_VERSION = "hr-domain-governance-p9-v1" as const;
+export const HR_DOMAIN_GOVERNANCE_VERSION = "hr-domain-governance-bloc3-v1" as const;
 
 /** Clé département canonique bus / RBAC (aligné FINANCE). */
 export const HR_DEPARTMENT_KEY = "RH" as const;
@@ -79,7 +79,7 @@ export const HR_GOVERNANCE_MAP: readonly HrGovernanceCapability[] = [
   {
     id: "leave_visibility",
     label: "Congés — demandes & statuts",
-    status: "approval_ready",
+    status: "active",
     owner: "app/(app)/rh/actions",
     security: "restricted",
     visibility: "department",
@@ -90,13 +90,13 @@ export const HR_GOVERNANCE_MAP: readonly HrGovernanceCapability[] = [
   {
     id: "attendance_visibility",
     label: "Présences — saisie événements",
-    status: "planned",
-    owner: "app/(app)/rh/presences",
+    status: "active",
+    owner: "modules/hr/server/services/hr-attendance-mutations.ts",
     security: "internal",
     visibility: "department",
-    runtimeScope: "read",
+    runtimeScope: "write_governed",
     modulePath: "app/(app)/rh/presences",
-    notes: "Hors taxonomie P7 ; event hr.attendance.* = P9+.",
+    notes: "Bloc 3 — hr.attendance.recorded bus actif.",
   },
   {
     id: "payroll_engine",

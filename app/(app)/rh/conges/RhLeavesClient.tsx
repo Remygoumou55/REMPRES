@@ -60,9 +60,10 @@ export function RhLeavesClient({ employees }: { employees: EmployeeOption[] }) {
         <div className="space-y-1">
           <label className="text-xs font-medium text-gray-600">Type</label>
           <select name="leaveType" required className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm">
-            <option value="paid">Conge paye</option>
+            <option value="annual">Conge annuel</option>
             <option value="sick">Conge maladie</option>
-            <option value="exceptional">Conge exceptionnel</option>
+            <option value="special">Conge special</option>
+            <option value="unpaid">Conge sans solde</option>
           </select>
         </div>
         <div className="space-y-1">

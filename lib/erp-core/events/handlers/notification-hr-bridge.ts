@@ -61,6 +61,36 @@ export function mapHrEventToNotificationCandidate(
         priority: "normal",
         channels: [...base.channels],
       };
+    case OFFICIAL_ERP_EVENT_TYPES.HR_LEAVE_REJECTED:
+      return {
+        ...base,
+        recipientScope: "department",
+        templateKey: "hr.leave.rejected",
+        title: "Congé rejeté",
+        body: `Demande rejetée — ${String(event.payload.rejection_reason ?? "sans motif")}`,
+        priority: "normal",
+        channels: [...base.channels],
+      };
+    case OFFICIAL_ERP_EVENT_TYPES.HR_ATTENDANCE_RECORDED:
+      return {
+        ...base,
+        recipientScope: "department",
+        templateKey: "hr.attendance.recorded",
+        title: "Pointage enregistré",
+        body: `${String(event.payload.event_type ?? "presence")} — ${formatDate(event.payload.event_at)}`,
+        priority: "low",
+        channels: [...base.channels],
+      };
+    case OFFICIAL_ERP_EVENT_TYPES.HR_EMPLOYEE_STATUS_CHANGED:
+      return {
+        ...base,
+        recipientScope: "department",
+        templateKey: "hr.employee.status_changed",
+        title: "Statut collaborateur modifié",
+        body: `Employment ${String(event.payload.employment_status ?? "updated")} (${entityLabel(event)})`,
+        priority: "normal",
+        channels: [...base.channels],
+      };
     case OFFICIAL_ERP_EVENT_TYPES.HR_CONTRACT_EXPIRING:
       return {
         ...base,

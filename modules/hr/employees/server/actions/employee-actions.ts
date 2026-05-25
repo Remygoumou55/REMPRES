@@ -6,6 +6,7 @@ import { canManageEmployeeDomain } from "@/modules/hr/employees/server/security/
 import { getEmployeeDomainDetails } from "@/modules/hr/employees/server/services/employee-service";
 import { validateEmployeeDocumentType, validateEmployeeId } from "@/modules/hr/employees/server/validators/employee";
 import {
+  updateHrEmployeeEmploymentStatus,
   updateHrEmployeeManager,
   updateHrEmployeeRole,
 } from "@/modules/hr/server/services/hr-employee-mutations";
@@ -54,6 +55,20 @@ export async function updateEmployeeManagerAction(input: {
   }
 
   return updateHrEmployeeManager(actor.id, input);
+}
+
+export async function updateEmployeeEmploymentStatusAction(input: {
+  employeeId: string;
+  isActive: boolean;
+}) {
+  const actor = await getServerSessionUser();
+  if (!actor) return { success: false as const, error: "Utilisateur non authentifie." };
+  if (!validateEmployeeId(input.employeeId)) return { success: false as const, error: "Employee id invalide." };
+  if (!(await canManageEmployeeDomain(actor.id))) {
+    return { success: false as const, error: "Action reservee aux gestionnaires RH." };
+  }
+
+  return updateHrEmployeeEmploymentStatus(actor.id, input);
 }
 
 export async function createEmployeeDocumentAction(input: {

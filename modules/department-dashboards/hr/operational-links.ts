@@ -7,4 +7,6 @@ export const HR_OPERATIONAL_LINKS: readonly DepartmentOperationalLink[] = [
   { id: "rh-collaborateurs", vertical: "hr", href: "/rh/collaborateurs", labelKey: "deptDash.hr.link.collaborateurs", primaryDeptKey: "rh" },
   { id: "rh-contrats", vertical: "hr", href: "/rh/contrats", labelKey: "deptDash.hr.link.contrats", primaryDeptKey: "rh" },
   { id: "rh-recrutement", vertical: "hr", href: "/rh/recrutement", labelKey: "deptDash.hr.link.recrutement", primaryDeptKey: "rh" },
+  { id: "rh-conges", vertical: "hr", href: "/rh/conges", labelKey: "deptDash.hr.link.conges", primaryDeptKey: "rh" },
+  { id: "rh-presences", vertical: "hr", href: "/rh/presences", labelKey: "deptDash.hr.link.presences", primaryDeptKey: "rh" },
 ];

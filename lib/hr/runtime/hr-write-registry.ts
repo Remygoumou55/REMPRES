@@ -15,6 +15,8 @@ export const HR_WRITE_ACTIONS = {
   LEAVE_STATUS_UPDATE: "hr.leave.status_update",
   RECRUITMENT_HIRE_SUBMIT: "hr.recruitment.hire_submit",
   RECRUITMENT_DOMAIN_LINK: "hr.recruitment.domain_link",
+  ATTENDANCE_RECORD: "hr.attendance.record",
+  EMPLOYEE_STATUS_UPDATE: "hr.employee.status_update",
 } as const;
 
 export type HrWriteAction = (typeof HR_WRITE_ACTIONS)[keyof typeof HR_WRITE_ACTIONS];
@@ -82,6 +84,18 @@ export const HR_WRITE_ACTION_REGISTRY: Record<
     requiresApproval: false,
     description: "Rattachement candidat embauché au domaine employé — P9",
     eventType: "hr.employee.created",
+  },
+  [HR_WRITE_ACTIONS.ATTENDANCE_RECORD]: {
+    enabled: true,
+    requiresApproval: false,
+    description: "Pointage présence — Bloc 3 bus",
+    eventType: "hr.attendance.recorded",
+  },
+  [HR_WRITE_ACTIONS.EMPLOYEE_STATUS_UPDATE]: {
+    enabled: true,
+    requiresApproval: false,
+    description: "Activation / désactivation collaborateur — Bloc 3",
+    eventType: "hr.employee.status_changed",
   },
 };
 

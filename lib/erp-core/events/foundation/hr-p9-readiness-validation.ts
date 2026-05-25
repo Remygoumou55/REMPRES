@@ -23,8 +23,8 @@ export const HR_P9_READINESS_CHECKS: readonly HrP9ReadinessCheck[] = [
   {
     id: "P9-R1",
     label: "Catalogue P9",
-    passed: ERP_EVENT_CATALOG_VERSION === "erp-event-catalog-p9-v1",
-    notes: "30 types officiels",
+    passed: ERP_EVENT_CATALOG_VERSION === "erp-event-catalog-bloc3-v1",
+    notes: "33 types officiels (Bloc 3 HR)",
   },
   {
     id: "P9-R2",
@@ -53,7 +53,7 @@ export const HR_P9_READINESS_CHECKS: readonly HrP9ReadinessCheck[] = [
   {
     id: "P9-R6",
     label: "Audit P9",
-    passed: HR_P9_EXPANSION_AUDIT_SUMMARY.officialTypeCount === 30,
+    passed: HR_P9_EXPANSION_AUDIT_SUMMARY.officialTypeCount === 33,
     notes: HR_P9_EXPANSION_AUDIT_SUMMARY.catalogVersion,
   },
 ];

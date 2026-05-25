@@ -5,7 +5,9 @@ export type ApprovalActionType =
   | "large_expense"
   | "delete_employee"
   | "cancel_formation"
-  | "delete_mission";
+  | "delete_mission"
+  | "delete_stock_item"
+  | "approve_purchase_order";
 
 export type ApprovalPriority = "low" | "normal" | "high" | "critical";
 
@@ -59,6 +61,20 @@ export const SENSITIVE_ACTIONS = {
     priority: "high" as ApprovalPriority,
     description: (label: string) => `Demande de suppression de la mission : ${label}`,
   },
+
+  DELETE_STOCK_ITEM: {
+    type: "delete_stock_item" as ApprovalActionType,
+    module: "logistique",
+    priority: "normal" as ApprovalPriority,
+    description: (label: string) => `Demande de suppression de l'article : ${label}`,
+  },
+
+  APPROVE_PURCHASE_ORDER: {
+    type: "approve_purchase_order" as ApprovalActionType,
+    module: "logistique",
+    priority: "high" as ApprovalPriority,
+    description: (label: string) => `Demande d'approbation de la commande : ${label}`,
+  },
 } as const;
 
 export function expenseRequiresApproval(amountGnf: number): boolean {
@@ -73,4 +89,6 @@ export const ACTION_TYPE_LABELS: Record<string, string> = {
   delete_employee: "Suppression d'employé",
   cancel_formation: "Annulation de formation",
   delete_mission: "Suppression de mission",
+  delete_stock_item: "Suppression d'article",
+  approve_purchase_order: "Approbation de commande d'achat",
 };

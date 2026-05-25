@@ -1,84 +1,8 @@
-import Link from "next/link";
-import { PageHeader } from "@/components/ui/page-header";
-import { getSupabaseServerClient } from "@/lib/supabaseServer";
-import { ROUTES } from "@/lib/constants/routes";
-import { LOGISTICS_NAV } from "@/modules/logistics/constants/nav";
-import { LogisticsMetricCard } from "@/modules/logistics/ui/cards/LogisticsMetricCard";
-import { LogisticsSectionPanel } from "@/modules/logistics/ui/panels/SectionPanel";
-import { getLogisticsOperationalOverview } from "@/modules/logistics/server/services/logistics-overview";
+import { redirect } from "next/navigation";
 
-export default async function LogistiqueHubPage() {
-  const supabase = getSupabaseServerClient();
-  const overview = await getLogisticsOperationalOverview(supabase);
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
-  return (
-    <div className="page-wrapper">
-      <PageHeader
-        title="Logistique"
-        subtitle="Entrepôts, stocks, achats et livraisons : pilotage opérationnel aligné avec le catalogue et la vente."
-        actions={
-          <div className="flex flex-wrap items-center gap-2">
-            <Link
-              href={ROUTES.logisticsVisual}
-              className="rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-medium text-emerald-800 shadow-sm transition hover:bg-emerald-100"
-            >
-              Vue analytique supply chain
-            </Link>
-            <Link
-              href="/logistique/dashboard"
-              className="rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-darktext shadow-sm transition hover:bg-gray-50"
-            >
-              Pilotage département
-            </Link>
-          </div>
-        }
-      />
-
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-        <LogisticsMetricCard label="Entrepôts actifs" value={overview.warehouseCount} />
-        <LogisticsMetricCard label="Fournisseurs actifs" value={overview.supplierCount} />
-        <LogisticsMetricCard label="Commandes ouvertes" value={overview.openPurchaseOrders} />
-        <LogisticsMetricCard label="Livraisons en cours" value={overview.activeDeliveries} />
-        <LogisticsMetricCard
-          label="Alertes stock"
-          value={overview.stockAlertRows}
-          hint="≤ seuil catalogue"
-        />
-      </div>
-
-      <LogisticsSectionPanel title="Accès rapide" description="Parcours logistiques : achats, stocks, entrepôts et livraisons.">
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {LOGISTICS_NAV.filter((x) => x.href !== "/logistique").map((item) => {
-            const Icon = item.icon;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="card flex items-center gap-3 rounded-xl border border-gray-200 p-4 transition hover:border-emerald-400/40 hover:shadow-sm"
-              >
-                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50 text-emerald-800">
-                  <Icon className="h-5 w-5" />
-                </span>
-                <span className="font-semibold text-darktext">{item.label}</span>
-              </Link>
-            );
-          })}
-        </div>
-      </LogisticsSectionPanel>
-
-      <LogisticsSectionPanel
-        title="Liens transverses"
-        description="Raccourcis vers les modules liés : catalogue produits, pilotage financier."
-      >
-        <div className="flex flex-wrap gap-3 text-sm">
-          <Link href="/vente/produits" className="font-medium text-primary hover:underline">
-            Catalogue produits
-          </Link>
-          <Link href="/finance/enterprise" className="font-medium text-primary hover:underline">
-            Pilotage financier
-          </Link>
-        </div>
-      </LogisticsSectionPanel>
-    </div>
-  );
+export default function LogistiquePage() {
+  redirect("/logistique/articles");
 }

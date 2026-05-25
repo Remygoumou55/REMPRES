@@ -183,10 +183,20 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
         id: "logistique",
         label: "Logistique",
         links: [
-          { href: "/logistique", label: "Pilotage" },
-          { href: "/logistique/stock", label: "Stock" },
+          { href: "/dashboard", label: "Tableau de bord" },
+          { href: "/logistique/articles", label: "Articles" },
           { href: "/logistique/mouvements", label: "Mouvements" },
+          { href: "/logistique/fournisseurs", label: "Fournisseurs" },
+          { href: "/logistique/achats", label: "Commandes" },
+        ],
+      },
+      {
+        id: "logistique-avance",
+        label: "Avancé",
+        links: [
+          { href: "/logistique/stock", label: "Stock multi-sites" },
           { href: "/logistique/entrepots", label: "Entrepôts" },
+          { href: "/logistique/dashboard", label: "Pilotage département" },
         ],
       },
     ],

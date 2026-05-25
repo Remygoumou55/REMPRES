@@ -528,66 +528,53 @@ async function getMarketingDashboard(supabase: SupabaseClient<Database>): Promis
 }
 
 async function getLogistiqueDashboard(supabase: SupabaseClient<Database>): Promise<DeptKpiData> {
-  const productRows = await safeRows<{ stock_quantity: number | null; stock_threshold: number | null }>(
-    supabase.from("products").select("stock_quantity, stock_threshold").is("deleted_at", null),
-  );
-
-  let items = 0;
-  let lowItems = 0;
-  for (const p of productRows) {
-    items++;
-    const qty = p.stock_quantity ?? 0;
-    const threshold = p.stock_threshold ?? 5;
-    if (qty <= threshold) lowItems++;
-  }
-
-  const activity = await getRecentActivity(supabase, {
-    moduleKeys: getDeptActivityModuleKeys("logistique"),
-    limit: 6,
-  });
+  void supabase;
+  const { getLogistiqueDashboardKpis } = await import("@/lib/server/logistique");
+  const kpis = await getLogistiqueDashboardKpis();
 
   return {
     dept: "logistique",
     deptLabel: DEPT_META.logistique.label,
     deptColor: DEPT_META.logistique.color,
     kpis: [
-      { title: "Articles en stock", icon: "Package", color: "blue", value: items },
       {
-        title: "Articles sous seuil",
-        icon: "AlertTriangle",
-        color: lowItems > 0 ? "red" : "green",
-        value: lowItems,
+        title: "Articles en stock",
+        icon: "Package",
+        color: "blue",
+        value: kpis.totalItems,
+        subtitle: `${kpis.activeSuppliers} fournisseur${kpis.activeSuppliers > 1 ? "s" : ""} actif${kpis.activeSuppliers > 1 ? "s" : ""}`,
       },
       {
-        title: "Mouvements ce mois",
+        title: "Stock bas / rupture",
+        icon: "AlertTriangle",
+        color: kpis.outOfStockItems > 0 ? "red" : kpis.lowStockItems > 0 ? "orange" : "green",
+        value: kpis.lowStockItems + kpis.outOfStockItems,
+        subtitle: `${kpis.lowStockItems} bas · ${kpis.outOfStockItems} en rupture`,
+      },
+      {
+        title: "Mouvements (7j)",
         icon: "ArrowLeftRight",
         color: "purple",
-        value: "—",
-        isEmpty: true,
-        subtitle: "Module en cours d'activation",
+        value: kpis.movementsThisWeek,
+        subtitle: "Entrées, sorties, transferts",
       },
       {
-        title: "Valeur stock",
+        title: "Valeur stock (GNF)",
         icon: "BarChart3",
         color: "teal",
-        value: "—",
-        isEmpty: true,
-        subtitle: "Module en cours d'activation",
+        value: Math.round(kpis.totalInventoryValueGnf).toLocaleString("fr-FR"),
+        subtitle: "Inventaire valorisé",
+      },
+      {
+        title: "Commandes ouvertes",
+        icon: "ShoppingCart",
+        color: kpis.pendingOrders > 0 ? "orange" : "green",
+        value: kpis.pendingOrders,
+        subtitle: "Soumises ou approuvées",
       },
     ],
-    chart7Days: [],
-    recentActivity: activity,
-    alerts:
-      lowItems > 0
-        ? [
-            {
-              id: "low-stock-logistique",
-              level: "MEDIUM",
-              title: `${lowItems} article(s) sous seuil minimum`,
-              description: "Vérifiez le stock et lancez une commande.",
-              time: "Maintenant",
-            },
-          ]
-        : [],
+    chart7Days: kpis.chart7Days,
+    recentActivity: kpis.recentActivity,
+    alerts: kpis.alerts,
   };
 }

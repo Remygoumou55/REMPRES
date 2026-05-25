@@ -345,6 +345,20 @@ async function executeAction(req: ApprovalRow): Promise<void> {
     case "delete_mission":
       await softDelete("missions", targetId);
       break;
+    case "delete_stock_item":
+      await softDelete("stock_items", targetId);
+      break;
+    case "approve_purchase_order":
+      if (targetId) {
+        await adminClient
+          .from("simple_purchase_orders" as never)
+          .update({
+            status: "approved",
+            approved_at: new Date().toISOString(),
+          } as never)
+          .eq("id", targetId);
+      }
+      break;
     case "large_expense":
       if (payload.expense_id) {
         await adminClient

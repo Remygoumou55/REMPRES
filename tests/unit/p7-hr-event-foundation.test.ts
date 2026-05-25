@@ -24,12 +24,12 @@ describe("P7 — HR Event Foundation", () => {
     expect(OFFICIAL_ERP_EVENT_TYPES.HR_CONTRACT_EXPIRING).toBe("hr.contract.expiring");
     expect(OFFICIAL_ERP_EVENT_TYPES.HR_LEAVE_APPROVED).toBe("hr.leave.approved");
     expect(OFFICIAL_ERP_EVENT_TYPES.HR_ATTENDANCE_RECORDED).toBe("hr.attendance.recorded");
-    expect(Object.values(OFFICIAL_ERP_EVENT_TYPES)).toHaveLength(38);
+    expect(Object.values(OFFICIAL_ERP_EVENT_TYPES)).toHaveLength(47);
   });
 
   it("catalog has 38 governance entries, HR types in catalog", () => {
-    expect(ERP_EVENT_CATALOG_VERSION).toBe("erp-event-catalog-bloc3-finance-v1");
-    expect(ERP_EVENT_GOVERNANCE_MAP).toHaveLength(38);
+    expect(ERP_EVENT_CATALOG_VERSION).toBe("erp-event-catalog-bloc3-crm-v1");
+    expect(ERP_EVENT_GOVERNANCE_MAP).toHaveLength(47);
     const hrEvents = listHrGovernanceEvents();
     expect(hrEvents.length).toBeGreaterThanOrEqual(11);
     expect(hrEvents.filter((e) => e.status === "active").length).toBeGreaterThanOrEqual(11);

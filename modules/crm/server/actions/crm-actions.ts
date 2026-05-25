@@ -17,6 +17,7 @@ import {
   updateCrmQuoteStatus,
 } from "@/modules/crm/server/services/crm-mutations";
 import { convertCrmQuoteToSale } from "@/modules/crm/server/services/quote-sale-conversion";
+import { refreshCrmForecastSnapshot } from "@/modules/crm/server/services/crm-analytics-service";
 
 function mapCrmActionError(e: unknown): string {
   if (e instanceof Error) {
@@ -191,6 +192,19 @@ export async function createCrmActivityAction(input: {
     const row = await createCrmActivity(userId, input);
     afterCrmMutation();
     return ok({ id: row.id });
+  } catch (e) {
+    return err(mapCrmActionError(e));
+  }
+}
+
+export async function refreshCrmForecastAction(): Promise<SafeResult<{ snapshotId: string }>> {
+  const userId = await requireUserId();
+  if (typeof userId !== "string") return userId;
+  try {
+    const supabase = getSupabaseServerClient();
+    const { id } = await refreshCrmForecastSnapshot(supabase, userId);
+    afterCrmMutation();
+    return ok({ snapshotId: id });
   } catch (e) {
     return err(mapCrmActionError(e));
   }

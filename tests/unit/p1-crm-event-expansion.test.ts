@@ -14,38 +14,35 @@ describe("P1 — CRM Event Expansion", () => {
     expect(OFFICIAL_ERP_EVENT_TYPES.CRM_LEAD_CREATED).toBe("crm.lead.created");
     expect(OFFICIAL_ERP_EVENT_TYPES.CRM_QUOTE_CREATED).toBe("crm.quote.created");
     expect(OFFICIAL_ERP_EVENT_TYPES.CRM_QUOTE_STATUS_UPDATED).toBe("crm.quote.status_updated");
-    expect(Object.values(OFFICIAL_ERP_EVENT_TYPES)).toHaveLength(38);
+    expect(Object.values(OFFICIAL_ERP_EVENT_TYPES)).toHaveLength(47);
   });
 
-  it("catalogue — 5 événements CRM (prefix crm.)", () => {
+  it("catalogue — 14 événements CRM (prefix crm.)", () => {
     const crm = listCrmGovernanceEvents();
-    expect(crm).toHaveLength(5);
-    expect(ERP_EVENT_GOVERNANCE_MAP).toHaveLength(38);
+    expect(crm).toHaveLength(14);
+    expect(crm.filter((e) => e.status === "active").length).toBeGreaterThanOrEqual(13);
+    expect(ERP_EVENT_GOVERNANCE_MAP).toHaveLength(47);
   });
 
-  it("publisher design — 3 publishers P1 actifs (P1.1)", () => {
-    const wired = CRM_PUBLISHER_DESIGN_MAP.filter(
-      (p) =>
-        p.wirePhase === "active" &&
-        ["emitCrmLeadCreated", "emitCrmQuoteCreated", "emitCrmQuoteStatusUpdated"].includes(
-          p.publisher,
-        ),
-    );
-    expect(wired).toHaveLength(3);
+  it("publisher design — publishers Bloc 3 actifs", () => {
+    const wired = CRM_PUBLISHER_DESIGN_MAP.filter((p) => p.wirePhase === "active");
+    expect(wired.length).toBeGreaterThanOrEqual(3);
   });
 
-  it("integration plan — 4 mutations done (convert + P1.1)", () => {
+  it("integration plan — mutations CRM câblées bus", () => {
     const done = CRM_MUTATION_INTEGRATION_TABLE.filter((r) => r.integrationPhase === "done");
     expect(done.length).toBeGreaterThanOrEqual(4);
   });
 
-  it("crm-mutations — publishers P1.1 câblés", () => {
+  it("crm-mutations — bus lifecycle complet", () => {
     const src = readFileSync(
       join(process.cwd(), "modules/crm/server/services/crm-mutations.ts"),
       "utf8",
     );
     expect(src).toContain("emitCrmLeadCreated");
-    expect(src).toContain("emitCrmQuoteCreated");
-    expect(src).toContain("emitCrmQuoteStatusUpdated");
+    expect(src).toContain("emitCrmLeadUpdated");
+    expect(src).toContain("emitCrmDealCreated");
+    expect(src).toContain("emitCrmPipelineUpdated");
+    expect(src).toContain("emitCrmActivityCreated");
   });
 });

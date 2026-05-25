@@ -8,7 +8,7 @@ import {
 } from "@/lib/erp-core/events/event-taxonomy";
 import type { ErpEventFamily } from "@/lib/erp-core/events/event-contracts";
 
-export const ERP_EVENT_CATALOG_VERSION = "erp-event-catalog-bloc3-finance-v1" as const;
+export const ERP_EVENT_CATALOG_VERSION = "erp-event-catalog-bloc3-crm-v1" as const;
 
 export type ErpEventCatalogStatus =
   | "active"
@@ -135,6 +135,87 @@ export const ERP_EVENT_GOVERNANCE_MAP: readonly ErpEventCatalogEntry[] = [
     publisher: "integrations/crm-events.ts",
     wiredAt: "modules/crm/server/services/crm-mutations.ts#updateCrmQuoteStatus",
     notes: "P1.1 — post-update, avant audit legacy.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.CRM_LEAD_UPDATED,
+    family: "domain",
+    status: "active",
+    owner: "vente-crm",
+    publisher: "integrations/crm-events.ts",
+    wiredAt: "modules/crm/server/services/crm-mutations.ts#updateCrmLeadStatus",
+    notes: "Bloc 3 — transition statut lead.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.CRM_LEAD_CONVERTED,
+    family: "domain",
+    status: "active",
+    owner: "vente-crm",
+    publisher: "integrations/crm-events.ts",
+    wiredAt: "modules/crm/server/services/crm-mutations.ts#convertCrmLeadToClient",
+    notes: "Bloc 3 — lead → client.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.CRM_PIPELINE_UPDATED,
+    family: "domain",
+    status: "active",
+    owner: "vente-crm",
+    publisher: "integrations/crm-events.ts",
+    wiredAt: "modules/crm/server/services/crm-mutations.ts#updateCrmOpportunityStage",
+    notes: "Bloc 3 — changement étape opportunité.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.CRM_DEAL_CREATED,
+    family: "domain",
+    status: "active",
+    owner: "vente-crm",
+    publisher: "integrations/crm-events.ts",
+    wiredAt: "modules/crm/server/services/crm-mutations.ts#createCrmOpportunity",
+    notes: "Bloc 3 — opportunité créée (deal).",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.CRM_DEAL_WON,
+    family: "domain",
+    status: "active",
+    owner: "vente-crm",
+    publisher: "integrations/crm-events.ts",
+    wiredAt: "modules/crm/server/services/crm-mutations.ts#updateCrmOpportunityStage",
+    notes: "Bloc 3 — étape terminal win.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.CRM_DEAL_LOST,
+    family: "domain",
+    status: "active",
+    owner: "vente-crm",
+    publisher: "integrations/crm-events.ts",
+    wiredAt: "modules/crm/server/services/crm-mutations.ts#updateCrmOpportunityStage",
+    notes: "Bloc 3 — étape terminal loss.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.CRM_ACTIVITY_CREATED,
+    family: "domain",
+    status: "active",
+    owner: "vente-crm",
+    publisher: "integrations/crm-events.ts",
+    wiredAt: "modules/crm/server/services/crm-mutations.ts#createCrmActivity",
+    notes: "Bloc 3 — follow-up / activité créée.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.CRM_ACTIVITY_COMPLETED,
+    family: "domain",
+    status: "active",
+    owner: "vente-crm",
+    publisher: "integrations/crm-events.ts",
+    wiredAt: "modules/crm/server/services/crm-mutations.ts#completeCrmActivity",
+    notes: "Bloc 3 — activité clôturée.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.CRM_REPORT_GENERATED,
+    family: "domain",
+    status: "active",
+    owner: "vente-crm",
+    publisher: "integrations/crm-events.ts",
+    wiredAt: "modules/crm/server/services/crm-analytics-service.ts",
+    notes: "Bloc 3 — rapport analytics opérationnel.",
   },
   {
     type: OFFICIAL_ERP_EVENT_TYPES.FINANCE_TRANSACTION_RECORDED,

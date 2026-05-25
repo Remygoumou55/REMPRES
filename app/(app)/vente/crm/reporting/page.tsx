@@ -1,27 +1,48 @@
 import Link from "next/link";
 import { PageHeader } from "@/components/ui/page-header";
-import { CRM_REPORT_DEFINITIONS } from "@/modules/crm/reporting/report-registry";
+import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import { redirect } from "next/navigation";
+import { getServerSessionUser } from "@/lib/server/auth-session";
+import {
+  buildCrmOperationalAnalytics,
+  generateCrmOperationalAnalyticsReport,
+} from "@/modules/crm/server/services/crm-analytics-service";
+import { CrmMetricCard } from "@/modules/crm/ui/cards/CrmMetricCard";
 import { CrmSectionPanel } from "@/modules/crm/ui/panels/SectionPanel";
+import { formatMoneyGnf } from "@/modules/crm/utils/format-money";
 
-export default function VenteCrmReportingPage() {
+export default async function VenteCrmReportingPage() {
+  const user = await getServerSessionUser();
+  if (!user) redirect("/login");
+
+  const supabase = getSupabaseServerClient();
+  const analytics = await buildCrmOperationalAnalytics(supabase);
+  await generateCrmOperationalAnalyticsReport(user.id);
+
   return (
     <div className="page-wrapper">
       <PageHeader
         title="Reporting commercial"
-        subtitle="Restitutions analytiques : pipeline, prévisions et liens vers les écrans opérationnels."
+        subtitle="Rapport opérationnel généré — P&L commercial, pipeline et conversion."
       />
-      <CrmSectionPanel title="Rapports standard">
-        <ul className="space-y-3">
-          {CRM_REPORT_DEFINITIONS.map((r) => (
-            <li key={r.key} className="rounded-xl border border-gray-100 bg-gray-50/80 px-4 py-3">
-              <div className="font-semibold text-darktext">{r.label}</div>
-              <div className="mt-1 text-sm text-gray-600">{r.description}</div>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-6 text-sm">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <CrmMetricCard label="Conversion leads" value={`${analytics.conversion.conversionRatePct ?? "—"} %`} />
+        <CrmMetricCard label="Pipeline pondéré" value={formatMoneyGnf(analytics.pipeline.weightedValueGnf)} />
+        <CrmMetricCard label="Montant gagné (deals)" value={formatMoneyGnf(analytics.deals.closedWonGnf)} />
+        <CrmMetricCard label="Win rate" value={`${analytics.deals.winRatePct ?? "—"} %`} />
+        <CrmMetricCard label="Ventes CRM (mois)" value={analytics.sales.crmLinkedSaleCount} />
+        <CrmMetricCard label="CA ventes CRM" value={formatMoneyGnf(analytics.sales.crmLinkedRevenueGnf)} />
+      </div>
+      <CrmSectionPanel title="Parcours opérationnels">
+        <div className="flex flex-wrap gap-3 text-sm">
           <Link href="/vente/crm/pipeline" className="font-medium text-primary hover:underline">
-            Voir pipeline pondéré
+            Pipeline pondéré
+          </Link>
+          <Link href="/vente/crm/analytics" className="font-medium text-primary hover:underline">
+            Analytics détaillés
+          </Link>
+          <Link href="/vente/crm/forecasting" className="font-medium text-primary hover:underline">
+            Prévisions & snapshots
           </Link>
         </div>
       </CrmSectionPanel>

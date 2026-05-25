@@ -24,6 +24,20 @@ export const CRM_OPERATIONAL_LINKS: readonly DepartmentOperationalLink[] = [
     primaryDeptKey: "vente",
   },
   {
+    id: "crm-activities",
+    vertical: "crm",
+    href: "/vente/crm/activities",
+    labelKey: "deptDash.crm.link.activities",
+    primaryDeptKey: "vente",
+  },
+  {
+    id: "crm-analytics",
+    vertical: "crm",
+    href: "/vente/crm/analytics",
+    labelKey: "deptDash.crm.link.analytics",
+    primaryDeptKey: "vente",
+  },
+  {
     id: "crm-visual",
     vertical: "crm",
     href: "/vente/crm/visual",

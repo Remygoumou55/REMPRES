@@ -16,7 +16,15 @@ import {
 import { CRM_WRITE_ACTIONS } from "@/lib/vente/runtime/crm-write-governance";
 import { assertCrmWriteActionAllowed } from "@/lib/vente/runtime/crm-write-governance";
 import {
+  emitCrmActivityCompleted,
+  emitCrmActivityCreated,
+  emitCrmDealCreated,
+  emitCrmDealLost,
+  emitCrmDealWon,
+  emitCrmLeadConverted,
   emitCrmLeadCreated,
+  emitCrmLeadUpdated,
+  emitCrmPipelineUpdated,
   emitCrmQuoteCreated,
   emitCrmQuoteStatusUpdated,
 } from "@/lib/erp-core/events/integrations/crm-events";
@@ -147,13 +155,21 @@ export async function updateCrmLeadStatus(
 
   if (error) throw new Error(error.message);
 
-  await recordCrmGovernanceAudit({
-    actionType: CRM_WRITE_ACTIONS.LEAD_UPDATE_STATUS,
-    entityType: "crm_leads",
-    entityId: leadId,
-    beforeSnapshot: { status: from },
-    afterSnapshot: data,
-  });
+  await Promise.all([
+    emitCrmLeadUpdated({
+      actorUserId: userId,
+      leadId,
+      fromStatus: from,
+      toStatus: data.status,
+    }),
+    recordCrmGovernanceAudit({
+      actionType: CRM_WRITE_ACTIONS.LEAD_UPDATE_STATUS,
+      entityType: "crm_leads",
+      entityId: leadId,
+      beforeSnapshot: { status: from },
+      afterSnapshot: data,
+    }),
+  ]);
 
   return data;
 }
@@ -206,12 +222,19 @@ export async function convertCrmLeadToClient(
 
   if (error) throw new Error(error.message);
 
-  await recordCrmGovernanceAudit({
-    actionType: CRM_WRITE_ACTIONS.LEAD_CONVERT,
-    entityType: "crm_leads",
-    entityId: leadId,
-    afterSnapshot: { lead: data, client_id: client.id },
-  });
+  await Promise.all([
+    emitCrmLeadConverted({
+      actorUserId: userId,
+      leadId,
+      clientId: client.id,
+    }),
+    recordCrmGovernanceAudit({
+      actionType: CRM_WRITE_ACTIONS.LEAD_CONVERT,
+      entityType: "crm_leads",
+      entityId: leadId,
+      afterSnapshot: { lead: data, client_id: client.id },
+    }),
+  ]);
 
   return { lead: data, client };
 }
@@ -260,12 +283,21 @@ export async function createCrmOpportunity(userId: string, input: CreateCrmOppor
 
   if (error) throw new Error(error.message);
 
-  await recordCrmGovernanceAudit({
-    actionType: CRM_WRITE_ACTIONS.OPPORTUNITY_CREATE,
-    entityType: "crm_opportunities",
-    entityId: data.id,
-    afterSnapshot: data,
-  });
+  await Promise.all([
+    emitCrmDealCreated({
+      actorUserId: userId,
+      opportunityId: data.id,
+      title: data.title,
+      stageId: data.stage_id,
+      amountEstimatedGnf: Math.max(0, Number(input.amountEstimatedGnf ?? 0)),
+    }),
+    recordCrmGovernanceAudit({
+      actionType: CRM_WRITE_ACTIONS.OPPORTUNITY_CREATE,
+      entityType: "crm_opportunities",
+      entityId: data.id,
+      afterSnapshot: data,
+    }),
+  ]);
 
   return data;
 }
@@ -307,13 +339,46 @@ export async function updateCrmOpportunityStage(
 
   if (error) throw new Error(error.message);
 
-  await recordCrmGovernanceAudit({
-    actionType: CRM_WRITE_ACTIONS.OPPORTUNITY_UPDATE_STAGE,
-    entityType: "crm_opportunities",
-    entityId: opportunityId,
-    beforeSnapshot: { stage_id: opp.stage_id },
-    afterSnapshot: data,
-  });
+  const eventPromises: Promise<void>[] = [
+    emitCrmPipelineUpdated({
+      actorUserId: userId,
+      opportunityId,
+      fromStageId: opp.stage_id,
+      toStageId: nextStageId,
+      stageCode: nextStage.code,
+    }),
+  ];
+
+  if (nextStage.is_terminal_win) {
+    eventPromises.push(
+      emitCrmDealWon({
+        actorUserId: userId,
+        opportunityId,
+        amountGnf: Number(opp.amount_estimated_gnf ?? 0),
+        stageCode: nextStage.code,
+      }),
+    );
+  } else if (nextStage.is_terminal_loss) {
+    eventPromises.push(
+      emitCrmDealLost({
+        actorUserId: userId,
+        opportunityId,
+        lostReason: data.lost_reason,
+        stageCode: nextStage.code,
+      }),
+    );
+  }
+
+  await Promise.all([
+    ...eventPromises,
+    recordCrmGovernanceAudit({
+      actionType: CRM_WRITE_ACTIONS.OPPORTUNITY_UPDATE_STAGE,
+      entityType: "crm_opportunities",
+      entityId: opportunityId,
+      beforeSnapshot: { stage_id: opp.stage_id },
+      afterSnapshot: data,
+    }),
+  ]);
 
   return data;
 }
@@ -444,12 +509,22 @@ export async function createCrmActivity(userId: string, input: CreateCrmActivity
 
   if (error) throw new Error(error.message);
 
-  await recordCrmGovernanceAudit({
-    actionType: CRM_WRITE_ACTIONS.ACTIVITY_CREATE,
-    entityType: "crm_activities",
-    entityId: data.id,
-    afterSnapshot: data,
-  });
+  await Promise.all([
+    emitCrmActivityCreated({
+      actorUserId: userId,
+      activityId: data.id,
+      activityType: data.activity_type,
+      subject: data.subject,
+      relatedKind: data.related_kind,
+      relatedId: data.related_id,
+    }),
+    recordCrmGovernanceAudit({
+      actionType: CRM_WRITE_ACTIONS.ACTIVITY_CREATE,
+      entityType: "crm_activities",
+      entityId: data.id,
+      afterSnapshot: data,
+    }),
+  ]);
 
   return data;
 }
@@ -469,12 +544,15 @@ export async function completeCrmActivity(userId: string, activityId: string) {
 
   if (error) throw new Error(error.message);
 
-  await recordCrmGovernanceAudit({
-    actionType: CRM_WRITE_ACTIONS.ACTIVITY_COMPLETE,
-    entityType: "crm_activities",
-    entityId: activityId,
-    afterSnapshot: data,
-  });
+  await Promise.all([
+    emitCrmActivityCompleted({ actorUserId: userId, activityId }),
+    recordCrmGovernanceAudit({
+      actionType: CRM_WRITE_ACTIONS.ACTIVITY_COMPLETE,
+      entityType: "crm_activities",
+      entityId: activityId,
+      afterSnapshot: data,
+    }),
+  ]);
 
   return data;
 }

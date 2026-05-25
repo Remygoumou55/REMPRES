@@ -39,6 +39,10 @@ describe("B2.1 — CRM write path", () => {
     expect(act).toContain("createCrmLeadAction");
     expect(mut).toContain("recordCrmGovernanceAudit");
     expect(mut).toContain("emitCrmLeadCreated");
+    expect(mut).toContain("emitCrmLeadUpdated");
+    expect(mut).toContain("emitCrmDealCreated");
+    expect(mut).toContain("emitCrmPipelineUpdated");
+    expect(mut).toContain("emitCrmActivityCreated");
     expect(mut).toContain("emitCrmQuoteCreated");
     expect(mut).toContain("emitCrmQuoteStatusUpdated");
   });

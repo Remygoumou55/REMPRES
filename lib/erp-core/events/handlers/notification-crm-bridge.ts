@@ -84,6 +84,96 @@ export function mapCrmEventToNotificationCandidate(
         priority: "high",
         channels: [...base.channels],
       };
+    case OFFICIAL_ERP_EVENT_TYPES.CRM_LEAD_UPDATED:
+      return {
+        ...base,
+        recipientScope: "department",
+        templateKey: "crm.lead.updated",
+        title: "Lead mis à jour",
+        body: `Statut ${String(event.payload.from_status)} → ${String(event.payload.to_status)}`,
+        priority: "normal",
+        channels: [...base.channels],
+      };
+    case OFFICIAL_ERP_EVENT_TYPES.CRM_LEAD_CONVERTED:
+      return {
+        ...base,
+        recipientScope: "department",
+        templateKey: "crm.lead.converted",
+        title: "Lead converti",
+        body: `Client ${String(event.payload.client_id ?? "").slice(0, 8)}…`,
+        priority: "normal",
+        channels: [...base.channels],
+      };
+    case OFFICIAL_ERP_EVENT_TYPES.CRM_PIPELINE_UPDATED:
+      return {
+        ...base,
+        recipientScope: "department",
+        templateKey: "crm.pipeline.updated",
+        title: "Pipeline mis à jour",
+        body: `Opportunité ${entityLabel(event)} — étape ${String(event.payload.stage_code ?? "")}`,
+        priority: "normal",
+        channels: [...base.channels],
+      };
+    case OFFICIAL_ERP_EVENT_TYPES.CRM_DEAL_CREATED:
+      return {
+        ...base,
+        recipientScope: "department",
+        templateKey: "crm.deal.created",
+        title: "Nouvelle opportunité",
+        body: String(event.payload.title ?? entityLabel(event)),
+        priority: "normal",
+        channels: [...base.channels],
+      };
+    case OFFICIAL_ERP_EVENT_TYPES.CRM_DEAL_WON:
+      return {
+        ...base,
+        recipientScope: "department",
+        templateKey: "crm.deal.won",
+        title: "Deal gagné",
+        body: `${Number(event.payload.amount_gnf ?? 0).toLocaleString("fr-FR")} GNF`,
+        priority: "high",
+        channels: [...base.channels],
+      };
+    case OFFICIAL_ERP_EVENT_TYPES.CRM_DEAL_LOST:
+      return {
+        ...base,
+        recipientScope: "department",
+        templateKey: "crm.deal.lost",
+        title: "Deal perdu",
+        body: entityLabel(event),
+        priority: "normal",
+        channels: [...base.channels],
+      };
+    case OFFICIAL_ERP_EVENT_TYPES.CRM_ACTIVITY_CREATED:
+      return {
+        ...base,
+        recipientScope: "department",
+        templateKey: "crm.activity.created",
+        title: "Relance créée",
+        body: `${String(event.payload.activity_type)} — ${String(event.payload.subject)}`,
+        priority: "normal",
+        channels: [...base.channels],
+      };
+    case OFFICIAL_ERP_EVENT_TYPES.CRM_ACTIVITY_COMPLETED:
+      return {
+        ...base,
+        recipientScope: "department",
+        templateKey: "crm.activity.completed",
+        title: "Activité terminée",
+        body: entityLabel(event),
+        priority: "low",
+        channels: [...base.channels],
+      };
+    case OFFICIAL_ERP_EVENT_TYPES.CRM_REPORT_GENERATED:
+      return {
+        ...base,
+        recipientScope: "department",
+        templateKey: "crm.report.generated",
+        title: "Rapport CRM généré",
+        body: String(event.payload.report_type ?? "operational"),
+        priority: "low",
+        channels: [...base.channels],
+      };
     default:
       return null;
   }

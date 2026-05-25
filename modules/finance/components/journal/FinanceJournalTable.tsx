@@ -1,4 +1,5 @@
 import type { Database } from "@/types/database.types";
+import { FinanceJournalBatchActions } from "@/modules/finance/components/journal/FinanceJournalBatchActions";
 import { FinanceScrollTable } from "@/modules/finance/ui/tables/FinanceScrollTable";
 
 type Row = Database["public"]["Tables"]["finance_journal_batches"]["Row"];
@@ -29,6 +30,7 @@ export function FinanceJournalTable({ rows }: { rows: Row[] }) {
             <th className="border-b px-3 py-2 font-medium">Statut</th>
             <th className="border-b px-3 py-2 font-medium">Comptabilisé</th>
             <th className="border-b px-3 py-2 font-medium">Description</th>
+            <th className="border-b px-3 py-2 font-medium">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -47,6 +49,9 @@ export function FinanceJournalTable({ rows }: { rows: Row[] }) {
                 {r.posted_at ? new Date(r.posted_at).toLocaleString("fr-FR") : "—"}
               </td>
               <td className="max-w-[280px] truncate px-3 py-2.5 text-gray-600">{r.description ?? "—"}</td>
+              <td className="px-3 py-2.5">
+                <FinanceJournalBatchActions batchId={r.id} status={r.status} />
+              </td>
             </tr>
           ))}
         </tbody>

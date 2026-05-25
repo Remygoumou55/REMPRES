@@ -24,6 +24,11 @@ export const OFFICIAL_ERP_EVENT_TYPES = {
   FINANCE_PAYMENT_RECORDED: "finance.payment.recorded",
   FINANCE_EXPENSE_CREATED: "finance.expense.created",
   FINANCE_EXPENSE_UPDATED: "finance.expense.updated",
+  FINANCE_TRANSACTION_UPDATED: "finance.transaction.updated",
+  FINANCE_APPROVAL_REQUESTED: "finance.approval.requested",
+  FINANCE_APPROVAL_APPROVED: "finance.approval.approved",
+  FINANCE_APPROVAL_REJECTED: "finance.approval.rejected",
+  FINANCE_REPORT_GENERATED: "finance.report.generated",
   HR_EMPLOYEE_CREATED: "hr.employee.created",
   HR_EMPLOYEE_UPDATED: "hr.employee.updated",
   HR_CONTRACT_CREATED: "hr.contract.created",
@@ -128,6 +133,31 @@ const EVENT_META: Record<
   [OFFICIAL_ERP_EVENT_TYPES.FINANCE_EXPENSE_UPDATED]: {
     family: "domain",
     sensitivity: "restricted",
+    owner: "finance",
+  },
+  [OFFICIAL_ERP_EVENT_TYPES.FINANCE_TRANSACTION_UPDATED]: {
+    family: "domain",
+    sensitivity: "restricted",
+    owner: "finance",
+  },
+  [OFFICIAL_ERP_EVENT_TYPES.FINANCE_APPROVAL_REQUESTED]: {
+    family: "domain",
+    sensitivity: "internal",
+    owner: "finance",
+  },
+  [OFFICIAL_ERP_EVENT_TYPES.FINANCE_APPROVAL_APPROVED]: {
+    family: "domain",
+    sensitivity: "internal",
+    owner: "finance",
+  },
+  [OFFICIAL_ERP_EVENT_TYPES.FINANCE_APPROVAL_REJECTED]: {
+    family: "domain",
+    sensitivity: "internal",
+    owner: "finance",
+  },
+  [OFFICIAL_ERP_EVENT_TYPES.FINANCE_REPORT_GENERATED]: {
+    family: "domain",
+    sensitivity: "internal",
     owner: "finance",
   },
   [OFFICIAL_ERP_EVENT_TYPES.HR_EMPLOYEE_CREATED]: {

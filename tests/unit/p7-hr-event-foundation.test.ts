@@ -19,17 +19,17 @@ import { HR_DOMAIN_GOVERNANCE, HR_GOVERNANCE_MAP } from "@/lib/hr/governance/hr-
 import { HR_WRITE_GOVERNANCE_SUMMARY } from "@/lib/hr/runtime/hr-write-registry";
 
 describe("P7 — HR Event Foundation", () => {
-  it("extends official taxonomy with hr.* types (33 total post-Bloc3)", () => {
+  it("extends official taxonomy with hr.* types (38 total post-Bloc3 Finance)", () => {
     expect(OFFICIAL_ERP_EVENT_TYPES.HR_EMPLOYEE_CREATED).toBe("hr.employee.created");
     expect(OFFICIAL_ERP_EVENT_TYPES.HR_CONTRACT_EXPIRING).toBe("hr.contract.expiring");
     expect(OFFICIAL_ERP_EVENT_TYPES.HR_LEAVE_APPROVED).toBe("hr.leave.approved");
     expect(OFFICIAL_ERP_EVENT_TYPES.HR_ATTENDANCE_RECORDED).toBe("hr.attendance.recorded");
-    expect(Object.values(OFFICIAL_ERP_EVENT_TYPES)).toHaveLength(33);
+    expect(Object.values(OFFICIAL_ERP_EVENT_TYPES)).toHaveLength(38);
   });
 
-  it("catalog has 33 governance entries, HR types in catalog", () => {
-    expect(ERP_EVENT_CATALOG_VERSION).toBe("erp-event-catalog-bloc3-v1");
-    expect(ERP_EVENT_GOVERNANCE_MAP).toHaveLength(33);
+  it("catalog has 38 governance entries, HR types in catalog", () => {
+    expect(ERP_EVENT_CATALOG_VERSION).toBe("erp-event-catalog-bloc3-finance-v1");
+    expect(ERP_EVENT_GOVERNANCE_MAP).toHaveLength(38);
     const hrEvents = listHrGovernanceEvents();
     expect(hrEvents.length).toBeGreaterThanOrEqual(11);
     expect(hrEvents.filter((e) => e.status === "active").length).toBeGreaterThanOrEqual(11);

@@ -17,7 +17,7 @@ describe("P4.1 — Finance expense wiring", () => {
     const reg = readSrc("lib/finance/runtime/finance-write-governance.ts");
     expect(reg).toMatch(/EXPENSE_CREATE[\s\S]*enabled:\s*true/);
     expect(reg).toMatch(/EXPENSE_UPDATE[\s\S]*enabled:\s*true/);
-    expect(reg).toMatch(/JOURNAL_POST[\s\S]*enabled:\s*false/);
+    expect(reg).toMatch(/JOURNAL_POST[\s\S]*enabled:\s*true/);
   });
 
   it("finance-expense-mutations — gate, emit, audit", () => {
@@ -25,6 +25,7 @@ describe("P4.1 — Finance expense wiring", () => {
     expect(src).toContain("assertFinanceWriteActionAllowed");
     expect(src).toContain("emitFinanceExpenseCreated");
     expect(src).toContain("emitFinanceExpenseUpdated");
+    expect(src).toContain("emitFinanceTransactionForExpense");
     expect(src).toContain("recordFinanceGovernanceAudit");
     expect(src).toContain("Promise.all");
   });

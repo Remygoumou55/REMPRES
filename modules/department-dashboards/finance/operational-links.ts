@@ -30,4 +30,18 @@ export const FINANCE_OPERATIONAL_LINKS: readonly DepartmentOperationalLink[] = [
     labelKey: "deptDash.finance.link.visual",
     primaryDeptKey: "finance",
   },
+  {
+    id: "finance-depenses",
+    vertical: "finance",
+    href: "/finance/depenses",
+    labelKey: "deptDash.finance.link.depenses",
+    primaryDeptKey: "finance",
+  },
+  {
+    id: "finance-reporting",
+    vertical: "finance",
+    href: "/finance/enterprise/reporting",
+    labelKey: "deptDash.finance.link.reporting",
+    primaryDeptKey: "finance",
+  },
 ];

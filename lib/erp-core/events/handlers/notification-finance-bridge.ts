@@ -74,7 +74,7 @@ export function mapFinanceEventToNotificationCandidate(
         recipientScope: "super_admin",
         templateKey: "finance.transaction.failed",
         title: "Échec transaction finance",
-        body: String(event.payload.message ?? event.payload.failure_code ?? entityLabel(event)),
+        body: String(event.payload.reason ?? event.payload.message ?? entityLabel(event)),
         priority: "high",
         channels: [...base.channels],
       };
@@ -96,6 +96,56 @@ export function mapFinanceEventToNotificationCandidate(
         title: "Paiement enregistré",
         body: `Paiement ${formatGnf(event.payload.amount_gnf)} — ${entityLabel(event)}`,
         priority: "high",
+        channels: [...base.channels],
+      };
+    case OFFICIAL_ERP_EVENT_TYPES.FINANCE_TRANSACTION_UPDATED:
+      return {
+        ...base,
+        recipientScope: "department",
+        templateKey: "finance.transaction.updated",
+        title: "Transaction mise à jour",
+        body: `${entityLabel(event)} — ${formatGnf(event.payload.amount_gnf)}`,
+        priority: "low",
+        channels: [...base.channels],
+      };
+    case OFFICIAL_ERP_EVENT_TYPES.FINANCE_APPROVAL_REQUESTED:
+      return {
+        ...base,
+        recipientScope: "approvers",
+        templateKey: "finance.approval.requested",
+        title: "Approbation finance demandée",
+        body: String(event.payload.reason ?? entityLabel(event)),
+        priority: "normal",
+        channels: [...base.channels],
+      };
+    case OFFICIAL_ERP_EVENT_TYPES.FINANCE_APPROVAL_APPROVED:
+      return {
+        ...base,
+        recipientScope: "department",
+        templateKey: "finance.approval.approved",
+        title: "Approbation finance accordée",
+        body: entityLabel(event),
+        priority: "normal",
+        channels: [...base.channels],
+      };
+    case OFFICIAL_ERP_EVENT_TYPES.FINANCE_APPROVAL_REJECTED:
+      return {
+        ...base,
+        recipientScope: "department",
+        templateKey: "finance.approval.rejected",
+        title: "Approbation finance rejetée",
+        body: String(event.payload.rejection_reason ?? "—"),
+        priority: "normal",
+        channels: [...base.channels],
+      };
+    case OFFICIAL_ERP_EVENT_TYPES.FINANCE_REPORT_GENERATED:
+      return {
+        ...base,
+        recipientScope: "department",
+        templateKey: "finance.report.generated",
+        title: "Rapport finance généré",
+        body: `${String(event.payload.report_type ?? "report")} ${String(event.payload.period_from ?? "")} → ${String(event.payload.period_to ?? "")}`,
+        priority: "low",
         channels: [...base.channels],
       };
     default:

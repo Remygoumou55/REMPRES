@@ -8,7 +8,7 @@ import {
 } from "@/lib/erp-core/events/event-taxonomy";
 import type { ErpEventFamily } from "@/lib/erp-core/events/event-contracts";
 
-export const ERP_EVENT_CATALOG_VERSION = "erp-event-catalog-bloc3-v1" as const;
+export const ERP_EVENT_CATALOG_VERSION = "erp-event-catalog-bloc3-finance-v1" as const;
 
 export type ErpEventCatalogStatus =
   | "active"
@@ -139,11 +139,11 @@ export const ERP_EVENT_GOVERNANCE_MAP: readonly ErpEventCatalogEntry[] = [
   {
     type: OFFICIAL_ERP_EVENT_TYPES.FINANCE_TRANSACTION_RECORDED,
     family: "domain",
-    status: "catalog_only",
+    status: "active",
     owner: "finance",
     publisher: "integrations/finance-events.ts",
-    wiredAt: null,
-    notes: "P4 — journal post / FT SoT ; activation write P4.1.",
+    wiredAt: "modules/finance/server/services/finance-transaction-mutations.ts",
+    notes: "Bloc 3 — FT expense / journal post.",
   },
   {
     type: OFFICIAL_ERP_EVENT_TYPES.FINANCE_TRANSACTION_FAILED,
@@ -166,11 +166,11 @@ export const ERP_EVENT_GOVERNANCE_MAP: readonly ErpEventCatalogEntry[] = [
   {
     type: OFFICIAL_ERP_EVENT_TYPES.FINANCE_PAYMENT_RECORDED,
     family: "domain",
-    status: "catalog_only",
+    status: "active",
     owner: "finance",
     publisher: "integrations/finance-events.ts",
-    wiredAt: null,
-    notes: "P4 — paiement enregistré ; distinct de payment.allocate registry.",
+    wiredAt: "modules/finance/server/services/finance-transaction-mutations.ts",
+    notes: "Bloc 3 — allocation paiement lue.",
   },
   {
     type: OFFICIAL_ERP_EVENT_TYPES.FINANCE_EXPENSE_CREATED,
@@ -189,6 +189,51 @@ export const ERP_EVENT_GOVERNANCE_MAP: readonly ErpEventCatalogEntry[] = [
     publisher: "integrations/finance-events.ts",
     wiredAt: "modules/finance/server/services/finance-expense-mutations.ts#updateFinanceExpense",
     notes: "P4.1 — post-RPC, parallèle audit governance.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.FINANCE_TRANSACTION_UPDATED,
+    family: "domain",
+    status: "active",
+    owner: "finance",
+    publisher: "integrations/finance-events.ts",
+    wiredAt: "modules/finance/server/services/finance-expense-mutations.ts",
+    notes: "Bloc 3 — mise à jour dépense / FT.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.FINANCE_APPROVAL_REQUESTED,
+    family: "domain",
+    status: "active",
+    owner: "finance",
+    publisher: "integrations/finance-events.ts",
+    wiredAt: "modules/finance/server/services/finance-journal-mutations.ts",
+    notes: "Bloc 3 — soumission lot journal.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.FINANCE_APPROVAL_APPROVED,
+    family: "domain",
+    status: "active",
+    owner: "finance",
+    publisher: "integrations/finance-events.ts",
+    wiredAt: "modules/finance/server/services/finance-journal-mutations.ts",
+    notes: "Bloc 3 — comptabilisation lot.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.FINANCE_APPROVAL_REJECTED,
+    family: "domain",
+    status: "active",
+    owner: "finance",
+    publisher: "integrations/finance-events.ts",
+    wiredAt: "modules/finance/server/services/finance-journal-mutations.ts",
+    notes: "Bloc 3 — rejet lot journal.",
+  },
+  {
+    type: OFFICIAL_ERP_EVENT_TYPES.FINANCE_REPORT_GENERATED,
+    family: "domain",
+    status: "active",
+    owner: "finance",
+    publisher: "integrations/finance-events.ts",
+    wiredAt: "modules/finance/server/services/finance-reporting-service.ts",
+    notes: "Bloc 3 — rapport opérationnel généré.",
   },
   {
     type: OFFICIAL_ERP_EVENT_TYPES.HR_EMPLOYEE_CREATED,

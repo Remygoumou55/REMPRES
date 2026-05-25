@@ -51,7 +51,7 @@ describe("B3 — Finance runtime (B2.4)", () => {
     expect(reg).toContain("FINANCE_WRITE_ACTION_REGISTRY");
     expect(reg).toContain('EXPENSE_CREATE');
     expect(reg).toMatch(/EXPENSE_CREATE[\s\S]*enabled:\s*true/);
-    expect(reg).toMatch(/JOURNAL_POST[\s\S]*enabled:\s*false/);
+    expect(reg).toMatch(/JOURNAL_POST[\s\S]*enabled:\s*true/);
   });
 
   it("payload cockpit source officielle", () => {

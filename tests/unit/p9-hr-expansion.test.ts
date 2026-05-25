@@ -19,8 +19,8 @@ describe("P9 — HR expansion", () => {
     clearNotificationBridgeLogsForTests();
   });
 
-  it("taxonomy — 33 official types including Bloc3 HR completion", () => {
-    expect(Object.values(OFFICIAL_ERP_EVENT_TYPES)).toHaveLength(33);
+  it("taxonomy — 38 official types including Bloc3 Finance maturity", () => {
+    expect(Object.values(OFFICIAL_ERP_EVENT_TYPES)).toHaveLength(38);
     expect(OFFICIAL_ERP_EVENT_TYPES.HR_CONTRACT_SUBMITTED).toBe("hr.contract.submitted");
     expect(OFFICIAL_ERP_EVENT_TYPES.HR_RECRUITMENT_HIRE_SUBMITTED).toBe(
       "hr.recruitment.hire_submitted",
@@ -28,7 +28,7 @@ describe("P9 — HR expansion", () => {
   });
 
   it("catalog — bloc3 with 14 active HR events", () => {
-    expect(ERP_EVENT_CATALOG_VERSION).toBe("erp-event-catalog-bloc3-v1");
+    expect(ERP_EVENT_CATALOG_VERSION).toBe("erp-event-catalog-bloc3-finance-v1");
     const activeHr = listHrGovernanceEvents().filter((e) => e.status === "active");
     expect(activeHr.length).toBe(14);
     expect(activeHr.map((e) => e.type)).toContain(OFFICIAL_ERP_EVENT_TYPES.HR_EMPLOYEE_CREATED);

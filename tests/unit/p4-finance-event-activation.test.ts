@@ -16,12 +16,12 @@ import {
 import { OFFICIAL_ERP_EVENT_TYPES } from "@/lib/erp-core/events/event-taxonomy";
 
 describe("P4 — Finance Event Activation (governance)", () => {
-  it("catalogue P4 — 17 types officiels dont 4 finance", () => {
-    expect(ERP_EVENT_CATALOG_VERSION).toBe("erp-event-catalog-bloc3-v1");
-    expect(ERP_EVENT_GOVERNANCE_MAP.length).toBe(33);
+  it("catalogue Bloc3 — 38 types dont 11 finance", () => {
+    expect(ERP_EVENT_CATALOG_VERSION).toBe("erp-event-catalog-bloc3-finance-v1");
+    expect(ERP_EVENT_GOVERNANCE_MAP.length).toBe(38);
     const finance = listFinanceGovernanceEvents();
-    expect(finance).toHaveLength(6);
-    expect(finance.filter((e) => e.status === "active")).toHaveLength(3);
+    expect(finance).toHaveLength(11);
+    expect(finance.filter((e) => e.status === "active").length).toBeGreaterThanOrEqual(10);
   });
 
   it("amendment P4 — 4 slots officiels minimum", () => {

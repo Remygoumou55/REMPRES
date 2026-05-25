@@ -10,6 +10,10 @@ import {
   emitFinanceExpenseCreated,
   emitFinanceExpenseUpdated,
 } from "@/lib/erp-core/events/integrations/finance-events";
+import {
+  emitFinanceTransactionForExpense,
+  emitFinanceTransactionUpdatedForExpense,
+} from "@/modules/finance/server/services/finance-transaction-mutations";
 import { createExpense, updateExpense } from "@/lib/server/expenses";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { recordFinanceGovernanceAudit } from "@/modules/finance/server/services/finance-audit-hook";
@@ -51,6 +55,7 @@ export async function createFinanceExpense(userId: string, input: CreateExpenseF
       categoryId: input.categoryId,
       categoryName,
     }),
+    emitFinanceTransactionForExpense(userId, expenseId),
     recordFinanceGovernanceAudit({
       actionType: FINANCE_WRITE_ACTIONS.EXPENSE_CREATE,
       entityType: "expenses",
@@ -91,6 +96,12 @@ export async function updateFinanceExpense(userId: string, input: UpdateExpenseF
       fromAmountGnf: before?.amount_gnf != null ? Number(before.amount_gnf) : null,
       categoryName,
     }),
+    emitFinanceTransactionUpdatedForExpense(
+      userId,
+      expenseId,
+      before?.amount_gnf != null ? Number(before.amount_gnf) : null,
+      input.amountGnf,
+    ),
     recordFinanceGovernanceAudit({
       actionType: FINANCE_WRITE_ACTIONS.EXPENSE_UPDATE,
       entityType: "expenses",

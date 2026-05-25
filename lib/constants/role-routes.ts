@@ -46,7 +46,17 @@ export const DEPT_ALLOWED_ROUTES: Record<string, string[]> = {
     "/formation",
     "/consultation",
   ],
-  responsable_marketing: ["/dashboard", "/dept", "/marketing"],
+  responsable_marketing: [
+    "/dashboard",
+    "/dept",
+    "/dept/marketing",
+    "/marketing",
+    "/marketing/campagnes",
+    "/marketing/campagnes/new",
+    "/marketing/leads",
+    "/marketing/leads/new",
+    "/marketing/analytics",
+  ],
   responsable_logistique: [
     "/dashboard",
     "/dept",

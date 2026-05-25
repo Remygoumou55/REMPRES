@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 
-/**
- * Module Marketing — en cours de développement.
- */
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default function MarketingPage() {
-  redirect("/coming-soon?module=marketing");
+  redirect("/marketing/campagnes");
 }

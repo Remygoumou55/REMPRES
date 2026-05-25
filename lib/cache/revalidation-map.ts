@@ -83,10 +83,16 @@ const REVALIDATION_MAP: Record<string, string[]> = {
   ],
   marketing: [
     "/marketing",
+    "/marketing/campagnes",
+    "/marketing/campagnes/new",
+    "/marketing/leads",
+    "/marketing/leads/new",
+    "/marketing/analytics",
     "/marketing/dashboard",
     "/dashboard",
     "/dept/marketing",
     "/dept",
+    "/vente/clients",
   ],
   logistique: [
     "/logistique",

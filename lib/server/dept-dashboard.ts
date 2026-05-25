@@ -489,41 +489,47 @@ async function getFormationDashboard(supabase: SupabaseClient<Database>): Promis
 }
 
 async function getMarketingDashboard(supabase: SupabaseClient<Database>): Promise<DeptKpiData> {
-  const [campaigns, leads, activity] = await Promise.all([
-    safeCount(
-      supabase.from("campaigns" as never).select("*", { count: "exact", head: true }).eq("status", "active").is("deleted_at", null),
-    ),
-    safeCount(supabase.from("leads" as never).select("*", { count: "exact", head: true })),
-    getRecentActivity(supabase, { moduleKeys: getDeptActivityModuleKeys("marketing"), limit: 6 }),
-  ]);
+  void supabase;
+  const { getMarketingDashboardKpis } = await import("@/lib/server/marketing");
+  const kpis = await getMarketingDashboardKpis();
 
   return {
     dept: "marketing",
     deptLabel: DEPT_META.marketing.label,
     deptColor: DEPT_META.marketing.color,
     kpis: [
-      { title: "Campagnes actives", icon: "Megaphone", color: "pink", value: campaigns },
-      { title: "Leads totaux", icon: "Target", color: "blue", value: leads },
+      {
+        title: "Campagnes actives",
+        icon: "Megaphone",
+        color: "pink",
+        value: kpis.activeCampaigns,
+        subtitle: `${kpis.totalCampaigns} au total`,
+      },
+      {
+        title: "Leads totaux",
+        icon: "Target",
+        color: "blue",
+        value: kpis.totalLeads,
+        subtitle: `${kpis.newLeadsThisMonth} ce mois`,
+      },
       {
         title: "Conversions",
         icon: "TrendingUp",
         color: "green",
-        value: "—",
-        isEmpty: true,
-        subtitle: "Module en cours d'activation",
+        value: kpis.convertedLeads,
+        subtitle: `Taux : ${kpis.conversionRate.toFixed(1)}%`,
       },
       {
-        title: "ROI moyen",
+        title: "Budget total",
         icon: "BarChart3",
         color: "orange",
-        value: "—",
-        isEmpty: true,
-        subtitle: "Module en cours d'activation",
+        value: formatGNF(kpis.totalBudgetGnf),
+        subtitle: "Toutes campagnes confondues",
       },
     ],
-    chart7Days: [],
-    recentActivity: activity,
-    alerts: [],
+    chart7Days: kpis.chart7Days,
+    recentActivity: kpis.recentActivity,
+    alerts: kpis.alerts,
   };
 }
 

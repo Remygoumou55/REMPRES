@@ -161,15 +161,17 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
   },
   [DEPARTMENT_KEYS.MARKETING]: {
     departmentKey: DEPARTMENT_KEYS.MARKETING,
-    cockpitRoute: "/marketing/dashboard",
+    cockpitRoute: "/dept/marketing",
     operationalRoot: "/marketing",
     navGroups: [
       {
         id: "marketing",
         label: "Marketing",
         links: [
-          { href: "/dept/marketing", label: "Pilotage" },
-          { href: "/marketing", label: "Campagnes" },
+          { href: "/dashboard", label: "Tableau de bord" },
+          { href: "/marketing/campagnes", label: "Campagnes" },
+          { href: "/marketing/leads", label: "Leads" },
+          { href: "/marketing/analytics", label: "Analytics" },
         ],
       },
     ],

@@ -38,13 +38,24 @@ export const DEPT_ALLOWED_ROUTES: Record<string, string[]> = {
     "/consultation/agenda/new",
     "/consultation/clients",
   ],
-  /** @deprecated Legacy — même périmètre que responsable_formation. */
+  /** @deprecated Legacy — alias de responsable_formation (Consultation fusionnée). */
   responsable_consultation: [
     "/dashboard",
     "/dept/formation",
     "/dept/consultation",
     "/formation",
+    "/formation/formations",
+    "/formation/formations/new",
+    "/formation/apprenants",
+    "/formation/apprenants/new",
+    "/formation/inscriptions",
+    "/formation/certificats",
     "/consultation",
+    "/consultation/missions",
+    "/consultation/missions/new",
+    "/consultation/agenda",
+    "/consultation/agenda/new",
+    "/consultation/clients",
   ],
   responsable_marketing: [
     "/dashboard",

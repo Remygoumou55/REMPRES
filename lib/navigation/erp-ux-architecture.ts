@@ -134,14 +134,10 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
     operationalRoot: "/formation",
     navGroups: [
       {
-        id: "accueil",
-        label: "Accueil",
-        links: [{ href: "/dashboard", label: "Tableau de bord" }],
-      },
-      {
         id: "formation",
         label: "Formation",
         links: [
+          { href: "/dashboard", label: "Tableau de bord" },
           { href: "/formation/formations", label: "Formations" },
           { href: "/formation/apprenants", label: "Apprenants" },
           { href: "/formation/inscriptions", label: "Inscriptions" },

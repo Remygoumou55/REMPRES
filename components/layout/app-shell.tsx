@@ -15,6 +15,7 @@ import {
   usesErpGlobalSidebar,
 } from "@/lib/navigation/sidebar-for-role";
 import type { ShellRailVisibility } from "@/lib/navigation/shell-visibility";
+import { AvatarDropdown } from "@/components/ui/AvatarDropdown";
 
 const EMPTY_SHELL_RAIL: ShellRailVisibility = {
   commerce: false,
@@ -56,6 +57,8 @@ const CurrencySwitcher = dynamic(
 type AppShellProps = {
   userDisplayName: string;
   userAvatarInitial: string;
+  userAvatarUrl?: string | null;
+  userEmail?: string | null;
   userRole: string;
   departmentKey: string | null;
   isSuperAdmin?: boolean;
@@ -69,6 +72,8 @@ type AppShellProps = {
 export function AppShell({
   userDisplayName,
   userAvatarInitial,
+  userAvatarUrl = null,
+  userEmail = null,
   userRole,
   departmentKey,
   isSuperAdmin = false,
@@ -220,14 +225,14 @@ export function AppShell({
               <span className="max-w-[120px] truncate text-sm font-bold text-darktext">{appConfig.name}</span>
             </div>
 
-            <div className="flex shrink-0 items-center gap-2">
+            <div className="flex shrink-0 items-center gap-3">
               <CurrencySwitcher />
-              <div className="hidden items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 sm:flex">
-                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white">
-                  {(userAvatarInitial ?? "U").charAt(0).toUpperCase()}
-                </div>
-                <span className="max-w-[140px] truncate text-xs font-medium text-gray-700">{userDisplayName}</span>
-              </div>
+              <AvatarDropdown
+                name={userDisplayName}
+                email={userEmail}
+                role={userRole}
+                avatarUrl={userAvatarUrl}
+              />
             </div>
           </header>
 

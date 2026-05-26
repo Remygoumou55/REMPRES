@@ -12,6 +12,7 @@ import { getShellLayoutPermissions } from "@/lib/server/permissions";
 import { countPendingApprovals } from "@/lib/server/approvals";
 import { getCachedProfileRow } from "@/lib/server/profile-row";
 import { avatarInitialFromDisplayName } from "@/lib/server/profile-display";
+import { getSupabaseServerClient } from "@/lib/supabaseServer";
 
 export const getLayoutAccess = cache(async () => {
   const user = await getServerSessionUser();
@@ -24,9 +25,31 @@ export const getLayoutAccess = cache(async () => {
   const profile = await getCachedProfileRow(userId);
   const isSuperAdminProfile = profile.roleKey === ROLE_KEYS.SUPER_ADMIN;
 
-  const shellPerms = isSuperAdminProfile
-    ? null
-    : await getShellLayoutPermissions(userId);
+  const supabaseForAvatar = getSupabaseServerClient();
+
+  const [shellPerms, pendingApprovalsCount, avatarRow] = await Promise.all([
+    isSuperAdminProfile ? Promise.resolve(null) : getShellLayoutPermissions(userId),
+    isSuperAdminProfile
+      ? countPendingApprovals().catch(() => 0)
+      : Promise.resolve(0),
+    (async () => {
+      try {
+        const res = await supabaseForAvatar
+          .from("profiles")
+          .select("avatar_url")
+          .eq("id", userId)
+          .maybeSingle<{ avatar_url: string | null }>();
+        return res.data ?? null;
+      } catch {
+        return null;
+      }
+    })(),
+  ]);
+
+  const userAvatarUrl =
+    avatarRow?.avatar_url && avatarRow.avatar_url.trim().length > 0
+      ? avatarRow.avatar_url
+      : null;
 
   const permissions = shellPerms?.clients ?? {
     canRead: false,
@@ -65,18 +88,11 @@ export const getLayoutAccess = cache(async () => {
     isSuperAdminUser ||
     hasAdminConsoleAccess(profile.roleKey, profile.departmentKey);
 
-  let pendingApprovalsCount = 0;
-  if (isSuperAdminUser) {
-    try {
-      pendingApprovalsCount = await countPendingApprovals();
-    } catch {
-      pendingApprovalsCount = 0;
-    }
-  }
-
   return {
     userDisplayName: profile.displayName,
     userAvatarInitial: avatarInitialFromDisplayName(profile.displayName),
+    userAvatarUrl,
+    userEmail: user.email ?? null,
     roleKey: profile.roleKey,
     departmentKey: profile.departmentKey,
     canReadClients: permissions.canRead,

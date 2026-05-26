@@ -17,6 +17,8 @@ export default async function AppRouteLayout({ children }: { children: React.Rea
       <AppShell
         userDisplayName={access.userDisplayName}
         userAvatarInitial={access.userAvatarInitial}
+        userAvatarUrl={access.userAvatarUrl}
+        userEmail={access.userEmail}
         userRole={access.roleKey ?? ""}
         departmentKey={access.departmentKey}
         isSuperAdmin={access.isSuperAdmin}

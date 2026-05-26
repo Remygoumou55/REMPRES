@@ -6,8 +6,8 @@ const ALWAYS_ALLOWED_PREFIXES = ["/access-denied", "/error-profile", "/login", "
 
 /** @deprecated Legacy allowlist — fuite /dept cross-slug corrigée dans dept-cockpit-route. */
 export const DEPT_ALLOWED_ROUTES: Record<string, string[]> = {
-  responsable_vente: ["/dashboard", "/dept", "/vente"],
-  comptable: ["/dashboard", "/dept", "/finance"],
+  responsable_vente: ["/dashboard", "/dept", "/vente", "/profil"],
+  comptable: ["/dashboard", "/dept", "/finance", "/profil"],
   responsable_rh: [
     "/dashboard",
     "/dept",
@@ -19,6 +19,7 @@ export const DEPT_ALLOWED_ROUTES: Record<string, string[]> = {
     "/rh/conges/new",
     "/rh/presences",
     "/rh/presences/new",
+    "/profil",
   ],
   responsable_formation: [
     "/dashboard",
@@ -37,6 +38,7 @@ export const DEPT_ALLOWED_ROUTES: Record<string, string[]> = {
     "/consultation/agenda",
     "/consultation/agenda/new",
     "/consultation/clients",
+    "/profil",
   ],
   /** @deprecated Legacy — alias de responsable_formation (Consultation fusionnée). */
   responsable_consultation: [
@@ -56,6 +58,7 @@ export const DEPT_ALLOWED_ROUTES: Record<string, string[]> = {
     "/consultation/agenda",
     "/consultation/agenda/new",
     "/consultation/clients",
+    "/profil",
   ],
   responsable_marketing: [
     "/dashboard",
@@ -67,6 +70,7 @@ export const DEPT_ALLOWED_ROUTES: Record<string, string[]> = {
     "/marketing/leads",
     "/marketing/leads/new",
     "/marketing/analytics",
+    "/profil",
   ],
   responsable_logistique: [
     "/dashboard",
@@ -83,9 +87,10 @@ export const DEPT_ALLOWED_ROUTES: Record<string, string[]> = {
     "/logistique/achats/new",
     "/logistique/stock",
     "/logistique/dashboard",
+    "/profil",
   ],
-  employe: ["/dashboard", "/dept"],
-  auditeur: ["/dashboard", "/dept", "/admin/activity-logs"],
+  employe: ["/dashboard", "/dept", "/profil"],
+  auditeur: ["/dashboard", "/dept", "/admin/activity-logs", "/profil"],
 };
 
 function normalizeRole(role: string): string {

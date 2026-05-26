@@ -7,7 +7,62 @@ import { useState } from "react";
 import { AlertCircle, ArrowLeft, CheckCircle, Loader2, Mail } from "lucide-react";
 
 import { appConfig, getLogoUrl } from "@/lib/config";
+import { logWarn } from "@/lib/logger";
 import { getSupabaseBrowserClient } from "@/lib/supabase";
+
+type ResetAuthError = {
+  message?: string;
+  status?: number;
+  name?: string;
+};
+
+function mapResetError(authError: ResetAuthError): string {
+  const raw = (authError.message ?? "").toLowerCase();
+  const status = authError.status ?? 0;
+
+  if (
+    status === 429 ||
+    raw.includes("rate limit") ||
+    raw.includes("too many") ||
+    raw.includes("over_email_send_rate_limit") ||
+    raw.includes("email rate limit")
+  ) {
+    return "Trop de demandes envoyées pour cet email. Patientez quelques minutes avant de réessayer.";
+  }
+
+  if (
+    raw.includes("redirect") &&
+    (raw.includes("not allowed") || raw.includes("invalid") || raw.includes("allow list"))
+  ) {
+    return "L’URL de réinitialisation n’est pas autorisée par le serveur. Contactez votre administrateur (Supabase → Authentication → URL Configuration → Redirect URLs).";
+  }
+
+  if (
+    raw.includes("smtp") ||
+    raw.includes("email") && (raw.includes("not sent") || raw.includes("failed") || raw.includes("provider"))
+  ) {
+    return "Le service d’envoi d’email est indisponible. Réessayez plus tard ou contactez votre administrateur.";
+  }
+
+  if (raw.includes("invalid email") || raw.includes("invalid format")) {
+    return "Cette adresse email n’est pas valide.";
+  }
+
+  if (
+    raw.includes("network") ||
+    raw.includes("fetch") ||
+    raw.includes("failed to fetch") ||
+    raw.includes("load failed")
+  ) {
+    return "Problème de connexion réseau. Vérifiez votre connexion et réessayez.";
+  }
+
+  if (raw.trim()) {
+    return `L’envoi du lien a échoué : ${authError.message}`;
+  }
+
+  return "Une erreur s’est produite. Réessayez dans quelques instants.";
+}
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -28,20 +83,25 @@ export default function ForgotPasswordPage() {
 
     setLoading(true);
 
+    const redirectTo = `${window.location.origin}/reset-password`;
     const supabase = getSupabaseBrowserClient();
     const { error: resetError } = await supabase.auth.resetPasswordForEmail(cleaned, {
-      redirectTo: `${window.location.origin}/reset-password`,
+      redirectTo,
     });
 
     setLoading(false);
 
     if (resetError) {
-      setError("Une erreur s'est produite. Réessayez dans quelques instants.");
+      logWarn("auth", "resetPasswordForEmail failed", {
+        email: cleaned,
+        redirectTo,
+        status: (resetError as ResetAuthError).status ?? null,
+        reason: resetError.message,
+      });
+      setError(mapResetError(resetError as ResetAuthError));
       return;
     }
 
-    // Supabase returns success even when the email is unknown — by design,
-    // to prevent enumeration. Always show the same success screen.
     setSubmittedEmail(cleaned);
     setSuccess(true);
   }

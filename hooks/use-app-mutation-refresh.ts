@@ -1,7 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { useCallback, useMemo } from "react";
+import {
+  invalidateAppQueries,
+  type AppSyncOptions,
+} from "@/lib/realtime/invalidate-app-queries";
 
 /** Même pathname + search que `href` (évite un `push` inutile si seul le flash change déjà l’URL). */
 function isCurrentLocation(href: string): boolean {
@@ -14,28 +19,33 @@ function isCurrentLocation(href: string): boolean {
 }
 
 /**
- * Politique unique après mutation : synchroniser via navigation Next.js uniquement.
+ * Politique unique après mutation : synchroniser données client + Server Components.
  *
- * - **`refreshAfterMutation`** — même page : `router.refresh()` uniquement.
- * - **`pushThenRefresh`** — nouvelle URL (ex. query flash) : `router.push(href)` uniquement
- *   (pas de double refresh ; la navigation déclenche le rendu de la nouvelle route).
+ * - **`refreshAfterMutation`** — invalide React Query (KPIs, dashboards) puis `router.refresh()`.
+ * - **`pushThenRefresh`** — navigation vers une nouvelle URL (ex. flash message).
  */
 export function useAppMutationRefresh() {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
-  const refreshAfterMutation = useCallback(() => {
-    router.refresh();
-  }, [router]);
+  const refreshAfterMutation = useCallback(
+    (options?: AppSyncOptions) => {
+      void invalidateAppQueries(queryClient, options);
+      router.refresh();
+    },
+    [queryClient, router],
+  );
 
   const pushThenRefresh = useCallback(
-    (href: string) => {
+    (href: string, options?: AppSyncOptions) => {
+      void invalidateAppQueries(queryClient, options);
       if (isCurrentLocation(href)) {
         router.refresh();
         return;
       }
       router.push(href);
     },
-    [router],
+    [queryClient, router],
   );
 
   return useMemo(

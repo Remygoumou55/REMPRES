@@ -7,6 +7,7 @@ import { ToastProvider } from "@/components/providers/ToastProvider";
 import { I18nProvider } from "@/providers/i18n-provider";
 import { type AppLocale } from "@/lib/i18n/config";
 import { makeQueryClient } from "@/lib/queryClient";
+import { AppRealtimeBridge } from "@/components/providers/AppRealtimeBridge";
 
 type ProvidersProps = {
   locale: AppLocale;
@@ -21,7 +22,10 @@ export function Providers({ locale, messages, children }: ProvidersProps) {
     <I18nProvider locale={locale} messages={messages}>
       <QueryClientProvider client={queryClient}>
         <ToastProvider>
-          <CurrencyContextProvider>{children}</CurrencyContextProvider>
+          <CurrencyContextProvider>
+            {children}
+            <AppRealtimeBridge />
+          </CurrencyContextProvider>
         </ToastProvider>
       </QueryClientProvider>
     </I18nProvider>

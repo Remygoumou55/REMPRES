@@ -88,6 +88,12 @@ export const queryKeys = {
   consultation: {
     root: ["consultation"] as const,
   },
+  marketing: {
+    root: ["marketing"] as const,
+    campaigns: ["marketing", "campaigns"] as const,
+    leads: ["marketing", "leads"] as const,
+    analytics: ["marketing", "analytics"] as const,
+  },
   crm: {
     root: ["crm"] as const,
     hub: ["crm", "hub"] as const,

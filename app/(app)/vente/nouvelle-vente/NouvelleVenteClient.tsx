@@ -285,7 +285,7 @@ export function NouvelleVenteClient({ products, clients }: Props) {
         });
         setSelectedCurrency("GNF");
         setCartModalOpen(false);
-        refreshAfterMutation();
+        refreshAfterMutation({ modules: ["vente", "clients", "produits", "finance"] });
       } else {
         logError("SALE_SUBMIT", result.error, { cartSize: cart.length });
         const message = resolveErrorMessage(result.error);

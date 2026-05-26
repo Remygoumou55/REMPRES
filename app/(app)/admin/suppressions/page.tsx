@@ -1,60 +1,130 @@
 import { redirect } from "next/navigation";
-import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import { CheckCircle } from "lucide-react";
+import { getServerSessionUser } from "@/lib/server/auth-session";
+import { isSuperAdmin } from "@/lib/server/permissions";
+import { getAllDeletedRecords } from "@/lib/server/suppressions";
 import { PageHeader } from "@/components/ui/page-header";
-import { assertSuperAdminArchivesAdmin, listDeletionActivityLogs } from "@/lib/server/archives";
+import { SuppressionsSection } from "@/components/admin/SuppressionsClient";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export const metadata = {
-  title: "Suppressions — Admin",
+  title: "Corbeille — Admin",
 };
 
 export default async function AdminSuppressionsPage() {
-  const supabase = getSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getServerSessionUser();
   if (!user) redirect("/login");
 
-  await assertSuperAdminArchivesAdmin(user.id);
+  if (!(await isSuperAdmin(user.id))) {
+    redirect("/dashboard");
+  }
 
-  const rows = await listDeletionActivityLogs();
+  const data = await getAllDeletedRecords();
+  const isEmpty = data.total === 0;
 
   return (
     <div className="page-wrapper">
       <PageHeader
-        title="Suppressions"
-        subtitle="Journal des suppressions enregistrées (lecture seule)."
+        title="Corbeille"
+        subtitle="Éléments supprimés — restauration possible"
       />
-      <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-        {rows.length === 0 ? (
-          <p className="px-6 py-12 text-center text-sm text-gray-500">Aucune suppression enregistrée.</p>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="min-w-full text-sm">
-              <thead>
-                <tr className="bg-[#0E4A8A] text-left text-xs font-semibold uppercase tracking-wide text-white">
-                  <th className="px-4 py-3">Module</th>
-                  <th className="px-4 py-3">Élément</th>
-                  <th className="px-4 py-3">Supprimé par</th>
-                  <th className="px-4 py-3">Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((row, index) => (
-                  <tr key={row.id} className={index % 2 === 0 ? "bg-white" : "bg-gray-50/80"}>
-                    <td className="px-4 py-3 font-medium text-gray-900">{row.module}</td>
-                    <td className="px-4 py-3 text-gray-700">{row.element}</td>
-                    <td className="px-4 py-3 text-gray-700">{row.deletedBy}</td>
-                    <td className="px-4 py-3 text-gray-600">{row.deletedAt}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+
+      <div className="mb-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
+        <SummaryCard label="Total supprimé" value={data.total} tone="gray" />
+        <SummaryCard label="Clients" value={data.clients.length} tone="blue" />
+        <SummaryCard label="Produits" value={data.products.length} tone="amber" />
+        <SummaryCard
+          label="Employés"
+          value={data.employees.length}
+          tone="purple"
+        />
       </div>
+
+      {isEmpty ? (
+        <div className="flex flex-col items-center justify-center py-24 text-center">
+          <CheckCircle size={48} className="mb-4 text-green-400" />
+          <h3 className="mb-2 text-lg font-medium text-gray-900">
+            La corbeille est vide
+          </h3>
+          <p className="text-sm text-gray-500">
+            Aucun élément supprimé pour le moment.
+          </p>
+        </div>
+      ) : (
+        <div>
+          <SuppressionsSection
+            records={data.clients}
+            sectionTitle="Clients supprimés"
+            module="vente"
+            table="clients"
+          />
+          <SuppressionsSection
+            records={data.products}
+            sectionTitle="Produits supprimés"
+            module="vente"
+            table="products"
+          />
+          <SuppressionsSection
+            records={data.employees}
+            sectionTitle="Employés supprimés"
+            module="rh"
+            table="employees"
+          />
+          <SuppressionsSection
+            records={data.trainings}
+            sectionTitle="Formations supprimées"
+            module="formation"
+            table="trainings"
+          />
+          <SuppressionsSection
+            records={data.missions}
+            sectionTitle="Missions supprimées"
+            module="consultation"
+            table="missions"
+          />
+          <SuppressionsSection
+            records={data.campaigns}
+            sectionTitle="Campagnes supprimées"
+            module="marketing"
+            table="campaigns"
+          />
+          <SuppressionsSection
+            records={data.leads}
+            sectionTitle="Leads supprimés"
+            module="marketing"
+            table="leads"
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
+type SummaryTone = "gray" | "blue" | "amber" | "purple";
+
+const SUMMARY_TONES: Record<SummaryTone, { bg: string; text: string }> = {
+  gray: { bg: "bg-gray-50", text: "text-gray-900" },
+  blue: { bg: "bg-blue-50", text: "text-blue-700" },
+  amber: { bg: "bg-amber-50", text: "text-amber-700" },
+  purple: { bg: "bg-purple-50", text: "text-purple-700" },
+};
+
+function SummaryCard({
+  label,
+  value,
+  tone,
+}: {
+  label: string;
+  value: number;
+  tone: SummaryTone;
+}) {
+  const t = SUMMARY_TONES[tone];
+  return (
+    <div className={`rounded-xl ${t.bg} p-4 text-center`}>
+      <div className={`text-2xl font-medium ${t.text}`}>{value}</div>
+      <div className="mt-1 text-xs text-gray-500">{label}</div>
     </div>
   );
 }

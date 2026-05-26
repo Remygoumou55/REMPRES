@@ -75,6 +75,14 @@ const nextConfig = {
       { source: "/admin/users/:path*", destination: "/settings/users", permanent: true },
       { source: "/admin/currency", destination: "/settings/rates", permanent: true },
       { source: "/admin/currency/:path*", destination: "/settings/rates", permanent: true },
+      // Redirections légacy des dashboards département (pages purement redirect)
+      { source: "/vente/dashboard", destination: "/dept/vente", permanent: false },
+      { source: "/finance/dashboard", destination: "/dept/finance", permanent: false },
+      { source: "/rh/dashboard", destination: "/dept/rh", permanent: false },
+      { source: "/formation/dashboard", destination: "/dept/formation", permanent: false },
+      { source: "/marketing/dashboard", destination: "/dept/marketing", permanent: false },
+      { source: "/logistique/dashboard", destination: "/dept/logistique", permanent: false },
+      { source: "/consultation/dashboard", destination: "/dept/formation", permanent: false },
     ];
   },
 

@@ -242,8 +242,8 @@ async function getFinanceDashboard(supabase: SupabaseClient<Database>): Promise<
   };
 }
 
-async function getRhDashboard(supabase: SupabaseClient<Database>): Promise<DeptKpiData> {
-  void supabase;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+async function getRhDashboard(_supabase: SupabaseClient<Database>): Promise<DeptKpiData> {
   const { getRhDashboardKpis } = await import("@/lib/server/rh");
   const kpis = await getRhDashboardKpis();
 

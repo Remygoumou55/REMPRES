@@ -32,8 +32,17 @@ import {
   SectionLabel,
 } from "@/components/dashboard";
 import { getGreeting } from "@/lib/utils/safe-query";
-import { DomainMixChart, type DomainMixPoint } from "./DomainMixChart";
-import { PlatformTrendLine } from "./PlatformTrendLine";
+import type { DomainMixPoint } from "./DomainMixChart";
+
+const DomainMixChart = dynamic(
+  () => import("./DomainMixChart").then((m) => ({ default: m.DomainMixChart })),
+  { loading: () => <Skeleton className="h-52 w-full rounded-2xl" />, ssr: false },
+);
+
+const PlatformTrendLine = dynamic(
+  () => import("./PlatformTrendLine").then((m) => ({ default: m.PlatformTrendLine })),
+  { loading: () => <Skeleton className="h-52 w-full rounded-2xl" />, ssr: false },
+);
 import { splitWindowTrendFromDays, statValue } from "./cockpit-helpers";
 
 const SalesChart = dynamic(

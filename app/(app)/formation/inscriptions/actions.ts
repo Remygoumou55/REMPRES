@@ -3,7 +3,12 @@
 import { redirect } from "next/navigation";
 import { revalidateFormation } from "@/lib/cache/revalidation-map";
 import { assertFormationWrite } from "@/lib/server/formation-access";
-import { createEnrollment, updateEnrollmentStatus } from "@/lib/server/formation";
+import {
+  createEnrollment,
+  getEnrollmentById,
+  issueCertificate,
+  updateEnrollmentStatus,
+} from "@/lib/server/formation";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import type { EnrollmentStatus, PaymentMethod } from "@/lib/types/formation";
 
@@ -39,4 +44,35 @@ export async function updateEnrollmentStatusAction(id: string, status: string) {
   await updateEnrollmentStatus(id, status);
   await revalidateFormation();
   redirect(`/formation/inscriptions?success=${encodeURIComponent("Statut mis à jour.")}`);
+}
+
+export async function issueCertificateFromEnrollmentAction(enrollmentId: string): Promise<{
+  success: boolean;
+  certificateId?: string;
+  certNumber?: string;
+  error?: string;
+}> {
+  const user = await getServerSessionUser();
+  if (!user) return { success: false, error: "Non authentifié." };
+  await assertFormationWrite(user.id);
+
+  const enrollment = await getEnrollmentById(enrollmentId);
+  if (!enrollment) return { success: false, error: "Inscription introuvable." };
+  if (enrollment.status !== "completed") {
+    return { success: false, error: "L'inscription doit être au statut « Terminée »." };
+  }
+
+  const result = await issueCertificate({
+    training_id: enrollment.training_id,
+    trainee_id: enrollment.trainee_id,
+    enrollment_id: enrollment.id,
+  });
+
+  if (!result.success) return { success: false, error: result.error };
+  await revalidateFormation();
+  return {
+    success: true,
+    certificateId: result.id,
+    certNumber: result.certNumber,
+  };
 }

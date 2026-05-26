@@ -5,12 +5,16 @@ import { assertFormationRead } from "@/lib/server/formation-access";
 import { listCertificates, listTraineesForSelect, listTrainingsForSelect } from "@/lib/server/formation";
 import { PageHeader } from "@/components/ui/page-header";
 import { FlashMessage } from "@/components/ui/flash-message";
+import { CertificateDownloadButton } from "@/components/formation/CertificateDownloadButton";
+import { CertificateIssueSuccessBanner } from "@/components/formation/CertificateIssueSuccessBanner";
 import { issueCertificateAction } from "./actions";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-type Props = { searchParams?: { success?: string; error?: string } };
+type Props = {
+  searchParams?: { success?: string; error?: string; issuedId?: string };
+};
 
 export default async function CertificatsPage({ searchParams }: Props) {
   const user = await getServerSessionUser();
@@ -23,10 +27,23 @@ export default async function CertificatsPage({ searchParams }: Props) {
     listTraineesForSelect(),
   ]);
 
+  const issuedId = searchParams?.issuedId?.trim();
+  const issuedCert = issuedId ? data.find((c) => c.id === issuedId) : undefined;
+  const showIssueBanner = Boolean(issuedId && searchParams?.success);
+
   return (
     <div className="page-wrapper">
       <PageHeader title="Certificats" subtitle={`${total} certificat(s) émis`} />
-      <FlashMessage success={searchParams?.success} error={searchParams?.error} />
+
+      {showIssueBanner ? (
+        <CertificateIssueSuccessBanner
+          certificateId={issuedId!}
+          certificateNumber={issuedCert?.certificate_number ?? issuedId!}
+          message={searchParams!.success!}
+        />
+      ) : (
+        <FlashMessage success={searchParams?.success} error={searchParams?.error} />
+      )}
 
       <details className="card mb-6 p-4">
         <summary className="cursor-pointer inline-flex items-center gap-2 text-sm font-medium text-primary">
@@ -70,7 +87,7 @@ export default async function CertificatsPage({ searchParams }: Props) {
           </div>
           <div className="sm:col-span-2">
             <button type="submit" className="btn-primary text-sm">
-              Émettre
+              Générer le certificat
             </button>
           </div>
         </form>
@@ -90,6 +107,7 @@ export default async function CertificatsPage({ searchParams }: Props) {
                 <th className="p-3">Apprenant</th>
                 <th className="p-3">Formation</th>
                 <th className="p-3">Date</th>
+                <th className="p-3 text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -101,6 +119,13 @@ export default async function CertificatsPage({ searchParams }: Props) {
                   </td>
                   <td className="p-3">{c.training?.title ?? "—"}</td>
                   <td className="p-3">{new Date(c.issued_at).toLocaleDateString("fr-FR")}</td>
+                  <td className="p-3 text-right">
+                    <CertificateDownloadButton
+                      certificateId={c.id}
+                      certificateNumber={c.certificate_number}
+                      variant="icon"
+                    />
+                  </td>
                 </tr>
               ))}
             </tbody>

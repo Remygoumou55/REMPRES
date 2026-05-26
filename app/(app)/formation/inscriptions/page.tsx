@@ -2,7 +2,13 @@ import { redirect } from "next/navigation";
 import { Plus } from "lucide-react";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { assertFormationRead } from "@/lib/server/formation-access";
-import { listEnrollments, listTraineesForSelect, listTrainingsForSelect } from "@/lib/server/formation";
+import {
+  getEnrollmentCertificateMap,
+  listEnrollments,
+  listTraineesForSelect,
+  listTrainingsForSelect,
+} from "@/lib/server/formation";
+import { EnrollmentCertificateCell } from "@/components/formation/EnrollmentCertificateCell";
 import { PageHeader } from "@/components/ui/page-header";
 import { FlashMessage } from "@/components/ui/flash-message";
 import { createEnrollmentAction, updateEnrollmentStatusAction } from "./actions";
@@ -21,10 +27,11 @@ export default async function InscriptionsPage({ searchParams }: Props) {
   if (!user) redirect("/login");
   await assertFormationRead(user.id);
 
-  const [{ data, total }, trainings, trainees] = await Promise.all([
+  const [{ data, total }, trainings, trainees, certMap] = await Promise.all([
     listEnrollments(undefined, searchParams?.status ?? "all"),
     listTrainingsForSelect(),
     listTraineesForSelect(),
+    getEnrollmentCertificateMap(),
   ]);
 
   return (
@@ -112,6 +119,7 @@ export default async function InscriptionsPage({ searchParams }: Props) {
               <th className="p-3">Statut</th>
               <th className="p-3">Montant</th>
               <th className="p-3">Date</th>
+              <th className="p-3">Certificat</th>
               <th className="p-3">Actions</th>
             </tr>
           </thead>
@@ -125,6 +133,15 @@ export default async function InscriptionsPage({ searchParams }: Props) {
                 <td className="p-3">{e.status}</td>
                 <td className="p-3">{formatGNF(Number(e.amount_paid_gnf))}</td>
                 <td className="p-3">{new Date(e.enrolled_at).toLocaleDateString("fr-FR")}</td>
+                <td className="p-3">
+                  <EnrollmentCertificateCell
+                    enrollmentId={e.id}
+                    status={e.status}
+                    certificate={
+                      certMap[e.id] ?? certMap[`${e.trainee_id}:${e.training_id}`] ?? null
+                    }
+                  />
+                </td>
                 <td className="p-3">
                   <form action={updateEnrollmentStatusAction.bind(null, e.id, "confirmed")}>
                     <button type="submit" className="text-xs text-primary">

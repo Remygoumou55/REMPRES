@@ -28,15 +28,21 @@ CREATE INDEX IF NOT EXISTS idx_payslips_period   ON public.payslips (year, month
 
 ALTER TABLE public.payslips ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "payslips_read" ON public.payslips;
 CREATE POLICY "payslips_read"
   ON public.payslips FOR SELECT
   USING (true);
 
+DROP POLICY IF EXISTS "payslips_write" ON public.payslips;
 CREATE POLICY "payslips_write"
   ON public.payslips FOR ALL
   USING (
     public.is_super_admin() OR
     public.user_has_module_permission('rh', 'create')
+  )
+  WITH CHECK (
+    public.is_super_admin() OR
+    public.user_has_module_permission('rh', 'create')
   );
 
--- ► Run this script in Supabase SQL Editor once the migration is ready.
+-- ► Safe to re-run: table/indexes use IF NOT EXISTS; policies are dropped then recreated.

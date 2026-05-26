@@ -278,6 +278,20 @@ export async function createEnrollment(
   return { success: true, id: String((data as { id: string }).id) };
 }
 
+export async function getEnrollmentById(id: string): Promise<EnrollmentRow | null> {
+  const supabase = getSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("enrollments" as never)
+    .select(
+      "*, trainee:trainees(first_name,last_name), training:trainings(title)",
+    )
+    .eq("id", id)
+    .is("deleted_at", null)
+    .maybeSingle();
+  if (error || !data) return null;
+  return data as EnrollmentRow;
+}
+
 export async function updateEnrollmentStatus(
   id: string,
   status: string,
@@ -313,7 +327,7 @@ export async function listCertificates(
 
 export async function issueCertificate(
   input: IssueCertificateInput,
-): Promise<{ success: boolean; certNumber?: string; error?: string }> {
+): Promise<{ success: boolean; id?: string; certNumber?: string; error?: string }> {
   const supabase = getSupabaseServerClient();
   const { data, error } = await supabase
     .from("certificates" as never)
@@ -326,10 +340,111 @@ export async function issueCertificate(
       valid_until: input.valid_until ?? null,
       notes: input.notes ?? null,
     } as never)
-    .select("certificate_number")
+    .select("id, certificate_number")
     .single();
   if (error) return { success: false, error: error.message };
-  return { success: true, certNumber: String((data as { certificate_number: string }).certificate_number) };
+  const row = data as { id: string; certificate_number: string };
+  return {
+    success: true,
+    id: String(row.id),
+    certNumber: String(row.certificate_number),
+  };
+}
+
+export type CertificatePdfPayload = {
+  certificate: {
+    id: string;
+    certificate_number: string;
+    issued_at: string;
+    valid_until: string | null;
+    score: number | null;
+    grade: string | null;
+    notes: string | null;
+  };
+  trainee: {
+    first_name: string;
+    last_name: string;
+    email: string | null;
+    company: string | null;
+  };
+  training: {
+    title: string;
+    duration_hours: number | null;
+    category: string | null;
+  };
+};
+
+export async function getCertificateDataById(
+  id: string,
+): Promise<CertificatePdfPayload | null> {
+  const supabase = getSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("certificates" as never)
+    .select(
+      `id, certificate_number, issued_at, valid_until, score, grade, notes,
+       trainee:trainees(first_name, last_name, email, company),
+       training:trainings(title, duration_hours, category)`,
+    )
+    .eq("id", id)
+    .is("deleted_at", null)
+    .maybeSingle();
+
+  if (error || !data) return null;
+
+  const row = data as Record<string, unknown>;
+  const trainee = row.trainee as Record<string, unknown> | null;
+  const training = row.training as Record<string, unknown> | null;
+  if (!trainee || !training) return null;
+
+  return {
+    certificate: {
+      id: String(row.id),
+      certificate_number: String(row.certificate_number),
+      issued_at: String(row.issued_at),
+      valid_until: row.valid_until != null ? String(row.valid_until) : null,
+      score: row.score != null ? Number(row.score) : null,
+      grade: row.grade != null ? String(row.grade) : null,
+      notes: row.notes != null ? String(row.notes) : null,
+    },
+    trainee: {
+      first_name: String(trainee.first_name),
+      last_name: String(trainee.last_name),
+      email: trainee.email != null ? String(trainee.email) : null,
+      company: trainee.company != null ? String(trainee.company) : null,
+    },
+    training: {
+      title: String(training.title),
+      duration_hours: training.duration_hours != null ? Number(training.duration_hours) : null,
+      category: training.category != null ? String(training.category) : null,
+    },
+  };
+}
+
+/** Map enrollment_id (or trainee:training key) → certificate summary for list UIs. */
+export async function getEnrollmentCertificateMap(): Promise<
+  Record<string, { id: string; certificate_number: string }>
+> {
+  const supabase = getSupabaseServerClient();
+  const rows = await safeRows<{
+    id: string;
+    certificate_number: string;
+    enrollment_id: string | null;
+    trainee_id: string;
+    training_id: string;
+  }>(
+    supabase
+      .from("certificates" as never)
+      .select("id, certificate_number, enrollment_id, trainee_id, training_id")
+      .is("deleted_at", null),
+  );
+
+  const map: Record<string, { id: string; certificate_number: string }> = {};
+  for (const c of rows) {
+    const entry = { id: c.id, certificate_number: c.certificate_number };
+    if (c.enrollment_id) map[c.enrollment_id] = entry;
+    map[`${c.trainee_id}:${c.training_id}`] = entry;
+  }
+  return map;
 }
 
 export async function listTrainingsForSelect(): Promise<{ id: string; title: string }[]> {

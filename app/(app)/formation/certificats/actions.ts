@@ -2,13 +2,44 @@
 
 import { redirect } from "next/navigation";
 import { revalidateFormation } from "@/lib/cache/revalidation-map";
-import { assertFormationWrite } from "@/lib/server/formation-access";
-import { issueCertificate } from "@/lib/server/formation";
+import { assertFormationRead, assertFormationWrite } from "@/lib/server/formation-access";
+import { getCertificateDataById, issueCertificate } from "@/lib/server/formation";
 import { getServerSessionUser } from "@/lib/server/auth-session";
+import type {
+  CertificateData,
+  TraineeData,
+  TrainingData,
+} from "@/components/formation/CertificatePDF";
 
 function field(formData: FormData, name: string): string {
   const v = formData.get(name);
   return typeof v === "string" ? v : "";
+}
+
+export type GetCertificateDataResult = {
+  success: boolean;
+  certificate?: CertificateData;
+  trainee?: TraineeData;
+  training?: TrainingData;
+  error?: string;
+};
+
+export async function getCertificateDataAction(
+  certificateId: string,
+): Promise<GetCertificateDataResult> {
+  const user = await getServerSessionUser();
+  if (!user) return { success: false, error: "Non authentifié." };
+  await assertFormationRead(user.id);
+
+  const payload = await getCertificateDataById(certificateId);
+  if (!payload) return { success: false, error: "Certificat introuvable." };
+
+  return {
+    success: true,
+    certificate: payload.certificate,
+    trainee: payload.trainee,
+    training: payload.training,
+  };
 }
 
 export async function issueCertificateAction(formData: FormData) {
@@ -29,7 +60,7 @@ export async function issueCertificateAction(formData: FormData) {
     redirect(`/formation/certificats?error=${encodeURIComponent(result.error ?? "Erreur")}`);
   }
   await revalidateFormation();
-  redirect(
-    `/formation/certificats?success=${encodeURIComponent(`Certificat ${result.certNumber ?? ""} émis.`)}`,
-  );
+  const successMsg = encodeURIComponent(`Certificat N°${result.certNumber ?? ""} émis avec succès !`);
+  const issuedId = result.id ? `&issuedId=${result.id}` : "";
+  redirect(`/formation/certificats?success=${successMsg}${issuedId}`);
 }

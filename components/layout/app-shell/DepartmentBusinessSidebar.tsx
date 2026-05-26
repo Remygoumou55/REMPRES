@@ -12,12 +12,13 @@ import {
   buildDepartmentSidebarGroups,
   lockDepartmentSidebarGroups,
   resolveDepartmentNavContextLabel,
+  getDepartmentSectionLabel,
   type DepartmentSidebarGroup,
 } from "@/lib/navigation/department-sidebar-nav";
+import { normalizeDisplayText } from "@/lib/utils/display-text";
 import { OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE } from "@/lib/navigation/erp-ux-architecture";
 import { resolveEffectiveDepartmentKey } from "@/lib/auth/profile-authority";
 import type { ShellRailVisibility } from "@/lib/navigation/shell-visibility";
-import { DEPARTMENT_KEYS } from "@/lib/departments/department-config";
 
 function homeItemClasses(active: boolean, expanded: boolean) {
   return [
@@ -40,6 +41,7 @@ type DepartmentBusinessSidebarProps = {
   canReadClients: boolean;
   canReadProducts: boolean;
   userAvatarInitial: string;
+  userDisplayName: string;
   onLogout: () => void;
   isExpanded: boolean;
   onToggleExpanded: () => void;
@@ -52,6 +54,7 @@ export const DepartmentBusinessSidebar = memo(function DepartmentBusinessSidebar
   canReadClients,
   canReadProducts,
   userAvatarInitial,
+  userDisplayName,
   onLogout,
   isExpanded,
   onToggleExpanded,
@@ -77,10 +80,21 @@ export const DepartmentBusinessSidebar = memo(function DepartmentBusinessSidebar
   const homeActive =
     pathname === homeHref || pathname.startsWith(`${homeHref}/`);
 
-  const deptTitle =
-    effectiveDept === DEPARTMENT_KEYS.VENTE
-      ? "Vente"
-      : groups[0]?.label ?? NAV_LABELS.home;
+  const sectionLabel = getDepartmentSectionLabel(departmentKey);
+  const showSectionHeader =
+    isExpanded &&
+    groups.length > 0 &&
+    (groups.length > 1 ||
+      (sectionLabel != null && groups.some((g) => g.label !== sectionLabel)));
+
+  const displayName = normalizeDisplayText(userDisplayName) || "Compte";
+  const avatarInitials =
+    displayName
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((w) => w.charAt(0).toUpperCase())
+      .join("") || userAvatarInitial;
 
   return (
     <div className="flex h-full w-full flex-col border-r border-white/10">
@@ -125,9 +139,9 @@ export const DepartmentBusinessSidebar = memo(function DepartmentBusinessSidebar
         </Link>
       </div>
 
-      {isExpanded && groups.length > 0 ? (
+      {showSectionHeader && sectionLabel ? (
         <p className="px-4 pb-1 text-[10px] font-semibold uppercase tracking-wider text-white/40">
-          {deptTitle}
+          {sectionLabel}
         </p>
       ) : null}
 
@@ -135,7 +149,7 @@ export const DepartmentBusinessSidebar = memo(function DepartmentBusinessSidebar
 
       <nav
         className={`flex flex-1 flex-col gap-2 overflow-y-auto overflow-x-hidden ${isExpanded ? "px-2 pb-2" : "px-1.5 pb-2"}`}
-        aria-label={`Navigation ${deptTitle}`}
+        aria-label={sectionLabel ? `Navigation ${sectionLabel}` : "Navigation métier"}
       >
         {groups.map((g) => (
           <CollapsibleNavGroup
@@ -156,7 +170,17 @@ export const DepartmentBusinessSidebar = memo(function DepartmentBusinessSidebar
 
       <div className={`mt-auto shrink-0 border-t border-white/10 py-3 ${isExpanded ? "px-2" : "px-1.5"}`}>
         <div className={`flex items-center ${isExpanded ? "justify-between gap-2 px-1" : "flex-col gap-2"}`}>
-          <UserAvatar initial={userAvatarInitial} />
+          <div className={`flex min-w-0 items-center ${isExpanded ? "gap-2" : "justify-center"}`}>
+            <UserAvatar initial={avatarInitials} />
+            {isExpanded ? (
+              <div className="min-w-0">
+                <p className="truncate text-[12px] font-medium text-white" title={displayName}>
+                  {displayName}
+                </p>
+                <p className="text-[10px] text-white/45">Connecté</p>
+              </div>
+            ) : null}
+          </div>
           <button
             type="button"
             onClick={onLogout}

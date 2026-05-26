@@ -9,6 +9,10 @@ export const PROFILE_HEADER_LNAME = "x-rempres-lname";
 export const PROFILE_HEADER_EMAIL = "x-rempres-email";
 export const PROFILE_HEADER_LANG = "x-rempres-lang";
 
+import { decodeHeaderText, encodeHeaderText } from "@/lib/utils/display-text";
+
+export { decodeHeaderText } from "@/lib/utils/display-text";
+
 export type MiddlewareProfileSlice = {
   userId: string;
   roleKey: string | null;
@@ -27,9 +31,9 @@ export function applyProfileHeaders(headers: Headers, profile: MiddlewareProfile
   headers.set(PROFILE_HEADER_DEPT_KEY, profile.departmentKey ?? "");
   headers.set(PROFILE_HEADER_DEPT_ID, profile.departmentId ?? "");
   headers.set(PROFILE_HEADER_ACTIVE, profile.isActive ? "1" : "0");
-  headers.set(PROFILE_HEADER_FNAME, profile.firstName ?? "");
-  headers.set(PROFILE_HEADER_LNAME, profile.lastName ?? "");
-  headers.set(PROFILE_HEADER_EMAIL, profile.email ?? "");
+  headers.set(PROFILE_HEADER_FNAME, encodeHeaderText(profile.firstName));
+  headers.set(PROFILE_HEADER_LNAME, encodeHeaderText(profile.lastName));
+  headers.set(PROFILE_HEADER_EMAIL, encodeHeaderText(profile.email));
   headers.set(PROFILE_HEADER_LANG, profile.preferredLanguage ?? "");
 }
 
@@ -50,9 +54,9 @@ export function readProfileHeaders(
     departmentKey: deptKeyRaw?.trim() ? deptKeyRaw.trim() : null,
     departmentId: deptIdRaw?.trim() ? deptIdRaw.trim() : null,
     isActive: headers.get(PROFILE_HEADER_ACTIVE) !== "0",
-    firstName: headers.get(PROFILE_HEADER_FNAME) || null,
-    lastName: headers.get(PROFILE_HEADER_LNAME) || null,
-    email: headers.get(PROFILE_HEADER_EMAIL) || null,
+    firstName: decodeHeaderText(headers.get(PROFILE_HEADER_FNAME)),
+    lastName: decodeHeaderText(headers.get(PROFILE_HEADER_LNAME)),
+    email: decodeHeaderText(headers.get(PROFILE_HEADER_EMAIL)),
     preferredLanguage: headers.get(PROFILE_HEADER_LANG)?.trim() || null,
   };
 }

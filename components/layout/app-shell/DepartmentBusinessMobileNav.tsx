@@ -14,6 +14,7 @@ import {
 import { OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE } from "@/lib/navigation/erp-ux-architecture";
 import { resolveEffectiveDepartmentKey } from "@/lib/navigation/home-route";
 import type { ShellRailVisibility } from "@/lib/navigation/shell-visibility";
+import { normalizeDisplayText } from "@/lib/utils/display-text";
 
 type DepartmentBusinessMobileNavProps = {
   pathname: string;
@@ -112,7 +113,9 @@ export function DepartmentBusinessMobileNav({
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-xs font-bold text-white">
             {(userAvatarInitial ?? "U").charAt(0).toUpperCase()}
           </div>
-          <span className="truncate text-sm text-white/90">{userDisplayName}</span>
+          <span className="truncate text-sm text-white/90">
+            {normalizeDisplayText(userDisplayName) || "Compte"}
+          </span>
         </div>
         <button
           type="button"

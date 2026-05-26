@@ -1,11 +1,9 @@
 import { PageHeader } from "@/components/ui/page-header";
-import { getSupabaseServerClient } from "@/lib/supabaseServer";
-import { buildAutomationCockpitDigest } from "@/modules/automation/server/services/automation-cockpit-digest";
+import { getCachedAutomationCockpitDigest } from "@/lib/performance/cached-admin-digests";
 import { AutomationObservabilityMetricsPanel } from "@/modules/automation/components/dashboard/AutomationObservabilityMetrics";
 
 export default async function AdminAutomationAnalyticsPage() {
-  const supabase = getSupabaseServerClient();
-  const digest = await buildAutomationCockpitDigest(supabase);
+  const digest = await getCachedAutomationCockpitDigest();
 
   return (
     <div className="page-wrapper space-y-6">

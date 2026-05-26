@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Camera, LogOut, Settings, Shield, User } from "lucide-react";
 
 import { getSupabaseBrowserClient } from "@/lib/supabase";
+import { normalizeDisplayText } from "@/lib/utils/display-text";
 import { UserAvatar } from "./UserAvatar";
 
 type Props = {
@@ -80,7 +81,7 @@ function AvatarDropdownInner({ name, email, role, avatarUrl }: Props) {
     ? (ROLE_LABELS[role.toLowerCase()] ?? role)
     : "Utilisateur";
 
-  const displayName = name?.trim() || email || "Compte";
+  const displayName = normalizeDisplayText(name) || email || "Compte";
 
   return (
     <div ref={containerRef} style={{ position: "relative" }}>

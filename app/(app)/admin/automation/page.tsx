@@ -1,22 +1,13 @@
 import Link from "next/link";
 import { PageHeader } from "@/components/ui/page-header";
-import { getSupabaseServerClient } from "@/lib/supabaseServer";
-import { getServerSessionUser } from "@/lib/server/auth-session";
 import { AUTOMATION_NAV } from "@/modules/automation/constants/nav";
 import { AutomationOverviewMetrics } from "@/modules/automation/components/dashboard/AutomationOverviewMetrics";
 import { AutomationObservabilityMetricsPanel } from "@/modules/automation/components/dashboard/AutomationObservabilityMetrics";
 import { AutomationTracePanel } from "@/modules/automation/components/dashboard/AutomationTracePanel";
-import {
-  buildAutomationCockpitDigest,
-  publishAutomationCockpitDigest,
-} from "@/modules/automation/server/services/automation-cockpit-digest";
+import { getCachedAutomationCockpitDigest } from "@/lib/performance/cached-admin-digests";
 
 export default async function AdminAutomationHubPage() {
-  const supabase = getSupabaseServerClient();
-  const user = await getServerSessionUser();
-  const digest = user?.id
-    ? await publishAutomationCockpitDigestSafe(supabase, user.id)
-    : await buildAutomationCockpitDigest(supabase);
+  const digest = await getCachedAutomationCockpitDigest();
 
   return (
     <div className="page-wrapper space-y-6">
@@ -57,15 +48,4 @@ export default async function AdminAutomationHubPage() {
       </section>
     </div>
   );
-}
-
-async function publishAutomationCockpitDigestSafe(
-  supabase: ReturnType<typeof getSupabaseServerClient>,
-  userId: string,
-) {
-  try {
-    return await publishAutomationCockpitDigest(supabase, userId);
-  } catch {
-    return buildAutomationCockpitDigest(supabase);
-  }
 }

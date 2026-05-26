@@ -6,6 +6,7 @@ import { emitExecutiveSnapshotRefreshed } from "@/lib/erp-core/events/integratio
 import type { ExecutiveGlobalSnapshot } from "@/modules/executive-dashboard/types/domain";
 import { createExecutiveCorrelationId } from "@/modules/executive-dashboard/utils/correlation";
 import { getOperationsOperationalOverview } from "@/modules/operations/server/services/ops-overview";
+import { getFinanceTreasuryKpis } from "@/lib/finance/runtime/finance-treasury-kpis";
 
 const EXECUTIVE_SCOPE_KEY = "executive_global_v1";
 const SNAPSHOT_MAX_AGE_SEC = 10 * 60;
@@ -47,19 +48,31 @@ async function resolveTenantScope(userId: string, elevated: boolean): Promise<Te
 async function buildRevenueTrendChart(
   supabase: ReturnType<typeof getSupabaseServerClient>,
 ): Promise<DeptKpiChart> {
-  const points: DeptKpiChart["points"] = [];
   const now = new Date();
-  for (let i = 5; i >= 0; i--) {
-    const start = startOfMonth(subMonths(now, i));
-    const end = startOfMonth(subMonths(now, i - 1));
-    const { data } = await supabase
-      .from("sales")
-      .select("total_amount_gnf")
-      .gte("created_at", start.toISOString())
-      .lt("created_at", end.toISOString());
-    const total = (data ?? []).reduce((s, r) => s + toCurrency(r.total_amount_gnf), 0);
-    points.push({ x: format(start, "yyyy-MM"), revenue: Math.round(total) });
-  }
+  const monthRanges = Array.from({ length: 6 }, (_, idx) => {
+    const offset = 5 - idx;
+    const start = startOfMonth(subMonths(now, offset));
+    const end = startOfMonth(subMonths(now, offset - 1));
+    return { start, end };
+  });
+
+  const totals = await Promise.all(
+    monthRanges.map(async ({ start, end }) => {
+      const { data } = await supabase
+        .from("sales")
+        .select("total_amount_gnf")
+        .gte("created_at", start.toISOString())
+        .lt("created_at", end.toISOString())
+        .limit(2000);
+      return (data ?? []).reduce((s, r) => s + toCurrency(r.total_amount_gnf), 0);
+    }),
+  );
+
+  const points: DeptKpiChart["points"] = monthRanges.map(({ start }, i) => ({
+    x: format(start, "yyyy-MM"),
+    revenue: Math.round(totals[i] ?? 0),
+  }));
+
   return {
     id: "revenue_trend_6m",
     title: "executive.chart.revenueTrend",
@@ -81,8 +94,9 @@ async function buildLiveExecutiveSnapshot(args: {
   const weekStart = new Date(now.getTime() - 6 * 24 * 60 * 60 * 1000).toISOString();
 
   const [
-    salesMonth,
-    expensesMonth,
+    treasuryMonth,
+    salesCountMonth,
+    expensesCountMonth,
     clientsCount,
     productsCount,
     rhContractsActive,
@@ -103,8 +117,9 @@ async function buildLiveExecutiveSnapshot(args: {
     opsOverview,
     revenueChart,
   ] = await Promise.all([
-      supabase.from("sales").select("total_amount_gnf", { count: "exact" }).gte("created_at", monthStart),
-      supabase.from("expenses").select("amount_gnf", { count: "exact" }).gte("created_at", monthStart),
+      getFinanceTreasuryKpis(supabase, now),
+      supabase.from("sales").select("id", { count: "exact", head: true }).gte("created_at", monthStart),
+      supabase.from("expenses").select("id", { count: "exact", head: true }).gte("created_at", monthStart),
       supabase.from("clients").select("id", { count: "exact", head: true }).is("deleted_at", null),
       supabase.from("products").select("id", { count: "exact", head: true }).is("deleted_at", null),
       supabase.from("rh_employee_contracts").select("id", { count: "exact", head: true }).eq("status", "active"),
@@ -166,8 +181,8 @@ async function buildLiveExecutiveSnapshot(args: {
     buildRevenueTrendChart(supabase),
   ]);
 
-  const revenue = (salesMonth.data ?? []).reduce((sum, x) => sum + toCurrency(x.total_amount_gnf), 0);
-  const expenses = (expensesMonth.data ?? []).reduce((sum, x) => sum + toCurrency(x.amount_gnf), 0);
+  const revenue = treasuryMonth.grossRevenueMonth;
+  const expenses = treasuryMonth.expensesMonth;
   const margin = revenue - expenses;
   const inventoryTotal = (inventoryRows.data ?? []).reduce((sum, x) => sum + toCount(x.qty_on_hand), 0);
   const correlationId = createExecutiveCorrelationId();
@@ -177,7 +192,12 @@ async function buildLiveExecutiveSnapshot(args: {
       { id: "revenue", label: "dashboard.dept.kpi.totalRevenueMonth", value: revenue, unit: "currency" },
       { id: "expenses", label: "dashboard.dept.kpi.totalExpensesMonth", value: expenses, unit: "currency" },
       { id: "margin", label: "dashboard.dept.kpi.netMargin", value: revenue - expenses, unit: "currency" },
-      { id: "transactions", label: "dashboard.dept.kpi.transactions", value: toCount(salesMonth.count) + toCount(expensesMonth.count), unit: "count" },
+      {
+        id: "transactions",
+        label: "dashboard.dept.kpi.transactions",
+        value: toCount(salesCountMonth.count) + toCount(expensesCountMonth.count),
+        unit: "count",
+      },
     ],
     charts: [revenueChart],
     alerts:

@@ -152,6 +152,7 @@ export function AppShell({
         canReadClients={canReadClients}
         canReadProducts={canReadProducts}
         userAvatarInitial={userAvatarInitial}
+        userDisplayName={userDisplayName}
         onLogout={handleLogout}
         isExpanded={!sidebarCollapsed}
         onToggleExpanded={toggleSidebarExpanded}
@@ -166,6 +167,7 @@ export function AppShell({
     canReadClients,
     canReadProducts,
     userAvatarInitial,
+    userDisplayName,
     handleLogout,
     sidebarCollapsed,
     toggleSidebarExpanded,

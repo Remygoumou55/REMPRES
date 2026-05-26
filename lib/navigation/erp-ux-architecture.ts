@@ -111,11 +111,6 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
     operationalRoot: "/rh",
     navGroups: [
       {
-        id: "accueil",
-        label: "Accueil",
-        links: [{ href: "/dashboard", label: "Tableau de bord" }],
-      },
-      {
         id: "rh",
         label: "Ressources Humaines",
         links: [
@@ -137,8 +132,8 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
         id: "formation",
         label: "Formation",
         links: [
-          { href: "/dashboard", label: "Tableau de bord" },
-          { href: "/formation/formations", label: "Formations" },
+          { href: "/formation/dashboard", label: "Pilotage" },
+          { href: "/formation/formations", label: "Catalogue" },
           { href: "/formation/apprenants", label: "Apprenants" },
           { href: "/formation/inscriptions", label: "Inscriptions" },
           { href: "/formation/certificats", label: "Certificats" },
@@ -164,7 +159,7 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
         id: "marketing",
         label: "Marketing",
         links: [
-          { href: "/dashboard", label: "Tableau de bord" },
+          { href: "/marketing/dashboard", label: "Pilotage" },
           { href: "/marketing/campagnes", label: "Campagnes" },
           { href: "/marketing/leads", label: "Leads" },
           { href: "/marketing/analytics", label: "Analytics" },
@@ -181,7 +176,7 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
         id: "logistique",
         label: "Logistique",
         links: [
-          { href: "/dashboard", label: "Tableau de bord" },
+          { href: "/logistique/dashboard", label: "Pilotage" },
           { href: "/logistique/articles", label: "Articles" },
           { href: "/logistique/mouvements", label: "Mouvements" },
           { href: "/logistique/fournisseurs", label: "Fournisseurs" },

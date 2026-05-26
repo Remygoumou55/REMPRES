@@ -1,21 +1,12 @@
 import Link from "next/link";
 import { PageHeader } from "@/components/ui/page-header";
-import { getSupabaseServerClient } from "@/lib/supabaseServer";
-import { getServerSessionUser } from "@/lib/server/auth-session";
 import { PLATFORM_NAV } from "@/modules/platform/constants/nav";
 import { PlatformOverviewMetrics } from "@/modules/platform/components/dashboard/PlatformOverviewMetrics";
 import { PlatformObservabilityMetricsPanel } from "@/modules/platform/components/dashboard/PlatformObservabilityMetrics";
-import {
-  buildPlatformCockpitDigest,
-  publishPlatformCockpitDigest,
-} from "@/modules/platform/server/services/platform-cockpit-digest";
+import { getCachedPlatformCockpitDigest } from "@/lib/performance/cached-admin-digests";
 
 export default async function AdminPlatformHubPage() {
-  const supabase = getSupabaseServerClient();
-  const user = await getServerSessionUser();
-  const digest = user?.id
-    ? await publishPlatformCockpitDigestSafe(supabase, user.id)
-    : await buildPlatformCockpitDigest(supabase);
+  const digest = await getCachedPlatformCockpitDigest();
 
   return (
     <div className="page-wrapper space-y-6">
@@ -52,15 +43,4 @@ export default async function AdminPlatformHubPage() {
       </div>
     </div>
   );
-}
-
-async function publishPlatformCockpitDigestSafe(
-  supabase: ReturnType<typeof getSupabaseServerClient>,
-  userId: string,
-) {
-  try {
-    return await publishPlatformCockpitDigest(supabase, userId);
-  } catch {
-    return buildPlatformCockpitDigest(supabase);
-  }
 }

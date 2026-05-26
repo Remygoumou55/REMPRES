@@ -3,8 +3,11 @@
  */
 import type { LucideIcon } from "lucide-react";
 import {
+  Award,
   BarChart3,
+  BookOpen,
   Briefcase,
+  Calendar,
   ClipboardList,
   GraduationCap,
   LayoutDashboard,
@@ -14,6 +17,7 @@ import {
   Settings2,
   ShoppingCart,
   Truck,
+  UserCircle,
   Users,
   Wallet,
   Zap,
@@ -31,6 +35,20 @@ import { LOGISTICS_NAV } from "@/modules/logistics/constants/nav";
 import type { CollapsibleNavLinkItem } from "@/components/layout/app-shell/CollapsibleNavGroup";
 import { resolveEffectiveDepartmentKey } from "@/lib/auth/profile-authority";
 import type { ShellRailVisibility } from "@/lib/navigation/shell-visibility";
+
+const FORMATION_LINK_ICONS: Record<string, LucideIcon> = {
+  "/formation/dashboard": LayoutDashboard,
+  "/formation/formations": BookOpen,
+  "/formation/apprenants": UserCircle,
+  "/formation/inscriptions": ClipboardList,
+  "/formation/certificats": Award,
+};
+
+const CONSULTATION_LINK_ICONS: Record<string, LucideIcon> = {
+  "/consultation/missions": Briefcase,
+  "/consultation/agenda": Calendar,
+  "/consultation/clients": Users,
+};
 
 const ICON_BY_HREF_PREFIX: { prefix: string; icon: LucideIcon }[] = [
   { prefix: "/vente/crm", icon: Briefcase },
@@ -50,6 +68,10 @@ const ICON_BY_HREF_PREFIX: { prefix: string; icon: LucideIcon }[] = [
 ];
 
 function iconForHref(href: string): LucideIcon {
+  const exact =
+    FORMATION_LINK_ICONS[href] ??
+    CONSULTATION_LINK_ICONS[href];
+  if (exact) return exact;
   const match = ICON_BY_HREF_PREFIX.find((e) => href === e.prefix || href.startsWith(`${e.prefix}/`));
   return match?.icon ?? LayoutDashboard;
 }
@@ -168,7 +190,6 @@ export function filterDepartmentSidebarGroups(
     if (id === "logistique") return shellRail.logistics;
     if (id === "formation") return shellRail.formation;
     if (id === "consultation") return shellRail.formation;
-    if (id === "accueil") return shellRail.formation;
     if (id === "marketing") return shellRail.marketing;
     if (id === "actions") return shellRail.actions;
     if (id === "settings") return shellRail.settings;
@@ -213,3 +234,10 @@ const DEPARTMENT_NAVIGATION_LABEL: Partial<Record<DepartmentKey, string>> = {
   [DEPARTMENT_KEYS.MARKETING]: NAV_LABELS.marketing,
   [DEPARTMENT_KEYS.LOGISTIQUE]: NAV_LABELS.logistics,
 };
+
+/** Libellé de section sidebar (évite de répéter le 1er groupe). */
+export function getDepartmentSectionLabel(departmentKey: string | null | undefined): string | null {
+  const effective = resolveEffectiveDepartmentKey(departmentKey);
+  if (!effective) return null;
+  return DEPARTMENT_NAVIGATION_LABEL[effective] ?? null;
+}

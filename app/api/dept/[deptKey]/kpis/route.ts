@@ -28,9 +28,10 @@ export async function GET(_request: Request, { params }: RouteContext) {
     return NextResponse.json({ error: "Department not found" }, { status: 404 });
   }
 
-  const [profileBrief, deptPermission] = await Promise.all([
+  const [profileBrief, deptPermission, superAdmin] = await Promise.all([
     getProfileAuthBrief(user.id),
     getModulePermissions(user.id, [deptKey]),
+    isSuperAdmin(user.id),
   ]);
 
   const access = await assertApiDeptKpiAccess(user.id, deptKey, profileBrief);
@@ -38,10 +39,15 @@ export async function GET(_request: Request, { params }: RouteContext) {
     return NextResponse.json({ error: access.message }, { status: access.status });
   }
 
-  const superAdmin = await isSuperAdmin(user.id);
-
   const supabase = getSupabaseServerClient();
   const now = new Date();
+
+  const activitiesPromise = getRecentActivity(supabase, {
+    moduleKeys: getDeptActivityModuleKeys(deptKey as DepartmentKey),
+    excludeModules: ["audit"],
+    excludeActions: ["read"],
+    limit: 4,
+  });
 
   let data: DeptKpiPayload = {
     stats: [],
@@ -120,12 +126,7 @@ export async function GET(_request: Request, { params }: RouteContext) {
       return NextResponse.json({ error: "Department not found" }, { status: 404 });
   }
 
-  const activities = await getRecentActivity(supabase, {
-    moduleKeys: getDeptActivityModuleKeys(deptKey as DepartmentKey),
-    excludeModules: ["audit"],
-    excludeActions: ["read"],
-    limit: 4,
-  });
+  const activities = await activitiesPromise;
 
   return NextResponse.json({
     dept: deptKey,

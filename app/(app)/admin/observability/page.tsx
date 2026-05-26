@@ -1,15 +1,11 @@
 import Link from "next/link";
 import { PageHeader } from "@/components/ui/page-header";
-import { getSupabaseServerClient } from "@/lib/supabaseServer";
-import { getServerSessionUser } from "@/lib/server/auth-session";
 import { OBSERVABILITY_NAV } from "@/modules/observability/constants/nav";
 import { ObservabilityOverviewMetrics } from "@/modules/observability/components/dashboard/ObservabilityOverviewMetrics";
-import { publishObservabilityHubDigest } from "@/modules/observability/server/services/observability-hub-digest";
+import { getCachedObservabilityHubDigest } from "@/lib/performance/cached-admin-digests";
 
 export default async function AdminObservabilityHubPage() {
-  const supabase = getSupabaseServerClient();
-  const user = await getServerSessionUser();
-  const digest = await buildObservabilityHubDigestSafe(supabase, user?.id);
+  const digest = await getCachedObservabilityHubDigest();
 
   return (
     <div className="page-wrapper space-y-6">
@@ -45,21 +41,4 @@ export default async function AdminObservabilityHubPage() {
       </div>
     </div>
   );
-}
-
-async function buildObservabilityHubDigestSafe(
-  supabase: ReturnType<typeof getSupabaseServerClient>,
-  userId?: string,
-) {
-  if (userId) {
-    try {
-      return await publishObservabilityHubDigest(supabase, userId);
-    } catch {
-      /* fallback */
-    }
-  }
-  const { buildObservabilityHubDigest } = await import(
-    "@/modules/observability/server/services/observability-hub-digest"
-  );
-  return buildObservabilityHubDigest(supabase);
 }

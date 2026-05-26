@@ -2,7 +2,10 @@
  * Runtime performance registry — Bloc 2 Étape 4.
  * Baseline et contrats d'optimisation (mesure documentée, pas de rewrite).
  */
-export const RUNTIME_PERFORMANCE_VERSION = "runtime-cleanup-v1" as const;
+export const RUNTIME_PERFORMANCE_VERSION = "runtime-cleanup-v2" as const;
+
+/** Cache Next.js des digests hubs admin (automation / platform / observability). */
+export const ADMIN_DIGEST_CACHE_TTL_SEC = 120 as const;
 
 /** Shell i18n : 3 bundles vs 8 full page bundles. */
 export const SHELL_I18N_BUNDLE_COUNT = 3 as const;
@@ -67,6 +70,42 @@ export const RUNTIME_PERF_MATRIX: RuntimePerfMetric[] = [
     id: "currency_switcher",
     before: "static import in AppShell",
     after: "dynamic import (code-split header widget)",
+    result: "improved",
+  },
+  {
+    id: "layout_access_pending",
+    before: "shell perms then countPendingApprovals (sequential)",
+    after: "Promise.all for super-admin shell path",
+    result: "improved",
+  },
+  {
+    id: "admin_hub_digest",
+    before: "publish*Digest on load (bus + DB) or cold build each navigation",
+    after: "build only + memory TTL 120s + React.cache; publish on explicit actions",
+    result: "improved",
+  },
+  {
+    id: "executive_snapshot_finance",
+    before: "full sales/expenses rows for month KPIs",
+    after: "getFinanceTreasuryKpis + head count for transactions",
+    result: "improved",
+  },
+  {
+    id: "executive_revenue_chart",
+    before: "6 sequential month queries",
+    after: "6 parallel month queries",
+    result: "improved",
+  },
+  {
+    id: "dept_kpi_api",
+    before: "KPI build then getRecentActivity",
+    after: "activity fetch in parallel with KPI switch",
+    result: "improved",
+  },
+  {
+    id: "radix_tree_shake",
+    before: "radix barrels in client bundles",
+    after: "optimizePackageImports for @radix-ui/*",
     result: "improved",
   },
 ];

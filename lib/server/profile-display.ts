@@ -1,6 +1,9 @@
 import { cache } from "react";
 import { getProfileShellSliceFromRow } from "@/lib/server/profile-row";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import { normalizeDisplayText } from "@/lib/utils/display-text";
+
+export { normalizeDisplayText } from "@/lib/utils/display-text";
 
 // ---------------------------------------------------------------------------
 // Helpers de mise en forme
@@ -14,8 +17,8 @@ export function formatProfileDisplayName(
   firstName: string | null | undefined,
   lastName: string | null | undefined,
 ): string {
-  const f = (firstName ?? "").trim();
-  const l = (lastName ?? "").trim();
+  const f = normalizeDisplayText(firstName);
+  const l = normalizeDisplayText(lastName);
   if (!f && !l) return "";
   return [f, l]
     .filter(Boolean)

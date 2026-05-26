@@ -173,13 +173,6 @@ export const NAV_CONFIG = [
             roles: ["super_admin", "directeur_general"],
           },
           {
-            key: "archives-consultation",
-            label: "Consultation",
-            icon: "Briefcase",
-            href: "/archives/consultation",
-            roles: ["super_admin", "directeur_general"],
-          },
-          {
             key: "archives-marketing",
             label: "Marketing",
             icon: "Megaphone",

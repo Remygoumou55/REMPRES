@@ -57,6 +57,25 @@ import {
   deleteExpenseAction,
   updateExpenseAction,
 } from "./actions";
+import { ExportButton } from "@/components/ui/ExportButton";
+import type { ExcelColumn } from "@/lib/utils/export-excel";
+import type { PdfColumn } from "@/lib/utils/export-pdf";
+
+const DEPENSES_EXCEL_COLUMNS: ExcelColumn[] = [
+  { key: "date", label: "Date", width: 14 },
+  { key: "description", label: "Description", width: 30 },
+  { key: "category", label: "Catégorie", width: 16 },
+  { key: "amount_gnf", label: "Montant (GNF)", width: 18 },
+  { key: "status", label: "Statut", width: 12 },
+];
+
+const DEPENSES_PDF_COLUMNS: PdfColumn[] = [
+  { key: "date", label: "Date", width: 70 },
+  { key: "description", label: "Description", width: 200 },
+  { key: "category", label: "Catégorie", width: 100 },
+  { key: "amount_gnf", label: "Montant (GNF)", width: 100 },
+  { key: "status", label: "Statut", width: 80 },
+];
 
 const PAYMENT_LABELS: Record<string, string> = {
   cash: "Espèces",
@@ -171,6 +190,18 @@ export function DepensesClient({
       (r: ExpenseListRow) => [r.amount_gnf, r.category_name],
     ],
     [],
+  );
+
+  const exportRows = useMemo(
+    () =>
+      list.data.map((r) => ({
+        date: formatDateDayFr(r.expense_date),
+        description: r.description,
+        category: r.category_name,
+        amount_gnf: r.amount_gnf,
+        status: PAYMENT_LABELS[r.payment_method ?? ""] ?? r.payment_method ?? "—",
+      })),
+    [list.data],
   );
 
   const { query, setQuery, filteredData: filteredRows, suggestions } = useGlobalSearch<ExpenseListRow>({
@@ -395,16 +426,26 @@ export function DepensesClient({
         title="Dépenses"
         subtitle={`${list.total} dépense${list.total > 1 ? "s" : ""} sur la période`}
         actions={
-          canCreate && (
-            <button
-              type="button"
-              onClick={() => { setFormOpen(true); setFormError(null); }}
-              className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-primary/90"
-            >
-              <Plus size={16} />
-              Nouvelle dépense
-            </button>
-          )
+          <div className="flex flex-wrap items-center gap-2">
+            <ExportButton
+              data={exportRows}
+              filename="rempres-depenses"
+              title="Rapport des Dépenses"
+              subtitle="RemPres ERP"
+              excelColumns={DEPENSES_EXCEL_COLUMNS}
+              pdfColumns={DEPENSES_PDF_COLUMNS}
+            />
+            {canCreate ? (
+              <button
+                type="button"
+                onClick={() => { setFormOpen(true); setFormError(null); }}
+                className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-primary/90"
+              >
+                <Plus size={16} />
+                Nouvelle dépense
+              </button>
+            ) : null}
+          </div>
         }
       />
 

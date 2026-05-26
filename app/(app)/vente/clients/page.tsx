@@ -18,6 +18,7 @@ import type { ClientType } from "@/types/client";
 import { mapClientError } from "@/lib/server/client-error-messages";
 import { withCreateModalQuery } from "@/lib/routing/modal-query";
 import { revalidateClients } from "@/lib/cache/revalidation-map";
+import { ClientsExportButton } from "@/components/vente/clients/ClientsExportButton";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -128,6 +129,7 @@ export default async function ClientsPage({ searchParams }: ClientsPageProps) {
           subtitle={`${result.total} client(s) trouvé(s).`}
           actions={
             <div className="flex flex-wrap items-center gap-2">
+              <ClientsExportButton clients={result.data} />
               {permissions.canDelete ? (
                 <Link
                   href="/vente/clients/archives"

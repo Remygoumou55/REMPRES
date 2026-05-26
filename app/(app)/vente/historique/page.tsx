@@ -10,6 +10,7 @@ import { PaginationBar } from "@/components/ui/pagination-bar";
 import { SALES_HISTORY_PAGE_SIZE } from "@/lib/data-listing";
 import { SalesTable, type SaleRow } from "@/components/vente/historique/sales-table";
 import { HistoriqueSalesFiltersForm } from "@/components/vente/historique/historique-sales-filters-form";
+import { HistoriqueExportButton } from "@/components/vente/historique/HistoriqueExportButton";
 
 export const metadata = { title: "Historique des ventes" };
 
@@ -152,14 +153,17 @@ export default async function HistoriquePage({ searchParams }: PageProps) {
         title="Historique des ventes"
         subtitle={`${total} vente${total > 1 ? "s" : ""} trouvée${total > 1 ? "s" : ""}`}
         actions={
-          permissions.canCreate && (
-            <Link
-              href="/vente/nouvelle-vente"
-              className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-white transition hover:bg-primary/90"
-            >
-              + Nouvelle vente
-            </Link>
-          )
+          <div className="flex flex-wrap items-center gap-2">
+            <HistoriqueExportButton sales={sales} clientsById={clientsById} />
+            {permissions.canCreate ? (
+              <Link
+                href="/vente/nouvelle-vente"
+                className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-white transition hover:bg-primary/90"
+              >
+                + Nouvelle vente
+              </Link>
+            ) : null}
+          </div>
         }
       />
 

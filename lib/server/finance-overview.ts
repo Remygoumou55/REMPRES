@@ -529,3 +529,34 @@ export function buildFinanceExportCsvSections(
 
   return "\uFEFF" + lines.join("\n");
 }
+
+const FT_SOURCE_LABELS: Record<string, string> = {
+  sale: "Vente",
+  expense: "Dépense",
+  training: "Formation",
+  consultation: "Consultation",
+};
+
+const FT_STATUS_LABELS: Record<string, string> = {
+  pending: "En attente",
+  paid: "Payé",
+  partial: "Partiel",
+  cancelled: "Annulé",
+};
+
+/** Lignes transactions financières pour export client (PDF / Excel). */
+export async function listFinancialTransactionsForExport(
+  supabase: SupabaseClient<Database>,
+  from: string,
+  to: string,
+  createdByUserId: string | null,
+): Promise<Record<string, unknown>[]> {
+  const rows = await loadFtInWindow(supabase, from, to, createdByUserId);
+  return rows.map((r) => ({
+    date: format(parseISO(r.created_at), "dd/MM/yyyy", { locale: fr }),
+    source_type: FT_SOURCE_LABELS[r.source_type] ?? r.source_type,
+    amount_gnf: Number(r.amount_gnf),
+    status: FT_STATUS_LABELS[r.status] ?? r.status,
+    description: r.description?.trim() || "—",
+  }));
+}

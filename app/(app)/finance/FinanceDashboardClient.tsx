@@ -35,6 +35,7 @@ import { useCurrencyBatchConversion } from "@/hooks/useCurrencyConversion";
 import { useCurrencyStore } from "@/stores/currencyStore";
 import { useToast } from "@/components/providers/ToastProvider";
 import { FilterPanelShell } from "@/components/ui/filter-panel-shell";
+import { FinanceTransactionsExport } from "@/components/finance/FinanceTransactionsExport";
 
 // Sub-components
 import { DeltaText, FinanceKpiCard } from "./components/FinanceKpis";
@@ -72,6 +73,7 @@ type Props = {
   canFilterByUser: boolean;
   selectedCategoryIds: string[];
   selectedCreatedBy: string | null;
+  transactionExportRows: Record<string, unknown>[];
 };
 
 // ---------------------------------------------------------------------------
@@ -87,6 +89,7 @@ export function FinanceDashboardClient({
   canFilterByUser,
   selectedCategoryIds,
   selectedCreatedBy,
+  transactionExportRows,
 }: Props) {
   const { showSuccess, showError } = useToast();
   const { data, updatedAt, refreshing, refetch } = useFinanceLiveData({
@@ -260,6 +263,7 @@ export function FinanceDashboardClient({
         subtitle="Pilotage financier — données en GNF, affichage multi-devise."
         actions={
           <div className="flex flex-wrap items-center gap-2">
+            <FinanceTransactionsExport data={transactionExportRows} />
             <button
               type="button"
               onClick={() => setExportOpen(true)}

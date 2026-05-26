@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getModulePermissions, isSuperAdmin, listProfilesForAdminSelect } from "@/lib/server/permissions";
-import { getFinanceCfoData } from "@/lib/server/finance-overview";
+import { getFinanceCfoData, listFinancialTransactionsForExport } from "@/lib/server/finance-overview";
 import { listExpenseCategories } from "@/lib/server/expenses";
 import { parseCategoryIds, parseCreatedBy, parseFinanceIsoDate } from "@/lib/finance-query-params";
 import { RouteLoadingShell } from "@/components/ui/route-loading-shell";
@@ -68,10 +68,11 @@ export default async function FinancePage({ searchParams }: PageProps) {
   const createdByUserId = parseCreatedBy(searchParams.createdBy, superAdmin);
 
   const supabase = getSupabaseServerClient();
-  const [data, categoryOptions, profileOptions] = await Promise.all([
+  const [data, categoryOptions, profileOptions, transactionExportRows] = await Promise.all([
     getFinanceCfoData(supabase, { from, to, categoryIds, createdByUserId }),
     listExpenseCategories(),
     superAdmin ? listProfilesForAdminSelect() : Promise.resolve([] as { id: string; label: string }[]),
+    listFinancialTransactionsForExport(supabase, from, to, createdByUserId).catch(() => []),
   ]);
 
   return (
@@ -90,6 +91,7 @@ export default async function FinancePage({ searchParams }: PageProps) {
         canFilterByUser={superAdmin}
         selectedCategoryIds={categoryIds}
         selectedCreatedBy={createdByUserId}
+        transactionExportRows={transactionExportRows}
       />
     </div>
   );

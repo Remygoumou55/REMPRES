@@ -12,6 +12,7 @@ import {
   EmployeeStatusBadge,
 } from "@/components/rh/rh-badges";
 import { deactivateEmployeeAction } from "./actions";
+import { CollaborateursExportButton } from "@/components/rh/CollaborateursExportButton";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -46,13 +47,16 @@ export default async function CollaborateursPage({ searchParams }: Props) {
         title="Collaborateurs"
         subtitle={`${total} collaborateur${total > 1 ? "s" : ""}`}
         actions={
-          <Link
-            href="/rh/collaborateurs/new"
-            className="btn-primary inline-flex items-center gap-2 text-sm"
-          >
-            <Plus className="h-4 w-4" />
-            Ajouter un collaborateur
-          </Link>
+          <div className="flex flex-wrap items-center gap-2">
+            <CollaborateursExportButton employees={data} />
+            <Link
+              href="/rh/collaborateurs/new"
+              className="btn-primary inline-flex items-center gap-2 text-sm"
+            >
+              <Plus className="h-4 w-4" />
+              Ajouter un collaborateur
+            </Link>
+          </div>
         }
       />
       <FlashMessage success={searchParams?.success} error={searchParams?.error} />

@@ -153,6 +153,23 @@ export default async function ProductDetailPage({ params, searchParams }: Produc
     );
   }
 
+  const editOpen =
+    permissions.canUpdate && isDetailEditOpen(searchParams?.edit, params.id);
+
+  if (editOpen) {
+    return (
+      <ProductForm
+        title="Modifier le produit"
+        submitLabel="Enregistrer"
+        action={updateProductAction}
+        initialValues={product}
+        productId={product.id}
+        successMessage={searchParams?.success}
+        errorMessage={searchParams?.error}
+      />
+    );
+  }
+
   return (
     <DetailPageModal
       title={product.name}
@@ -251,18 +268,6 @@ export default async function ProductDetailPage({ params, searchParams }: Produc
         <div className="mt-6">
           <DeleteProductButton deleteAction={deleteProductAction} />
         </div>
-      ) : null}
-
-      {permissions.canUpdate && isDetailEditOpen(searchParams?.edit, params.id) ? (
-        <ProductForm
-          title="Modifier le produit"
-          submitLabel="Enregistrer"
-          action={updateProductAction}
-          initialValues={product}
-          productId={product.id}
-          successMessage={searchParams?.success}
-          errorMessage={searchParams?.error}
-        />
       ) : null}
     </DetailPageModal>
   );

@@ -142,6 +142,22 @@ export default async function ClientDetailPage({ params, searchParams }: ClientD
     };
   }
 
+  const editOpen =
+    permissions.canUpdate && isDetailEditOpen(searchParams?.edit, params.id);
+
+  if (editOpen) {
+    return (
+      <ClientForm
+        title="Modifier le client"
+        submitLabel="Enregistrer"
+        action={updateClientAction}
+        initialValues={client}
+        successMessage={searchParams?.success}
+        errorMessage={searchParams?.error}
+      />
+    );
+  }
+
   return (
     <DetailPageModal
       title={displayClientName(
@@ -205,17 +221,6 @@ export default async function ClientDetailPage({ params, searchParams }: ClientD
             <DeleteClientButton deleteAction={deleteClientAction} />
           ) : null}
         </div>
-
-      {permissions.canUpdate && isDetailEditOpen(searchParams?.edit, params.id) ? (
-        <ClientForm
-          title="Modifier le client"
-          submitLabel="Enregistrer"
-          action={updateClientAction}
-          initialValues={client}
-          successMessage={searchParams?.success}
-          errorMessage={searchParams?.error}
-        />
-      ) : null}
     </DetailPageModal>
   );
 }

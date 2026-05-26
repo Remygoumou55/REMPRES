@@ -8,6 +8,8 @@ import { useAppMutationRefresh } from "@/hooks/use-app-mutation-refresh";
 import { MarkAsPaidButton } from "@/components/vente/historique/mark-as-paid-button";
 import { ConfirmDangerDialog } from "@/components/ui/confirm-danger-dialog";
 import { withViewModalQuery } from "@/lib/routing/modal-query";
+import { applyListMutationFeedback } from "@/lib/governance/approvals/client-mutation-feedback";
+import { useToast } from "@/components/providers/ToastProvider";
 
 export type SaleRowForActions = {
   id: string;
@@ -23,16 +25,6 @@ type SalesRowActionsProps = {
   showMarkPaid: boolean;
 };
 
-function withListFlash(queryString: string, flash: { success?: string; error?: string }): string {
-  const p = new URLSearchParams(queryString);
-  p.delete("success");
-  p.delete("error");
-  if (flash.success) p.set("success", flash.success);
-  if (flash.error) p.set("error", flash.error);
-  const qs = p.toString();
-  return qs ? `/vente/historique?${qs}` : "/vente/historique";
-}
-
 export function SalesRowActions({
   sale,
   labelReference,
@@ -41,6 +33,7 @@ export function SalesRowActions({
   showMarkPaid,
 }: SalesRowActionsProps) {
   const { pushThenRefresh } = useAppMutationRefresh();
+  const { showSuccess, showError } = useToast();
   const [pending, startTransition] = useTransition();
   const [confirmOpen, setConfirmOpen] = useState(false);
 
@@ -48,13 +41,14 @@ export function SalesRowActions({
     startTransition(async () => {
       const result = await archiveAndDeleteSaleAction(sale.id);
       setConfirmOpen(false);
-      if (result.success) {
-        pushThenRefresh(
-          withListFlash(listQueryString, { success: "Vente archivée et retirée de l'historique." }),
-        );
-      } else {
-        pushThenRefresh(withListFlash(listQueryString, { error: result.error }));
-      }
+      applyListMutationFeedback(result, {
+        pathname: "/vente/historique",
+        queryString: listQueryString,
+        successMessage: "Vente archivée et retirée de l'historique.",
+        pushThenRefresh,
+        showSuccess,
+        showError,
+      });
     });
   }
 

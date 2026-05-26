@@ -8,6 +8,7 @@ import { tryLogGovernanceAuditEvent } from "@/lib/governance/audit/log-audit-eve
 import type { AuditEventType } from "@/lib/audit/audit-types";
 import { effectiveAuthRoleKey, ROLE_KEYS } from "@/lib/auth/roles";
 import type { ApprovalDecision } from "@/lib/approvals/approval-types";
+import { APPROVAL_PENDING_ACTION_MESSAGE } from "@/lib/governance/approvals/pending-notice";
 
 export class ApprovalRequiredError extends Error {
   constructor(message: string) {
@@ -120,7 +121,5 @@ export async function enforceGovernanceApproval(
     });
   }
 
-  throw new ApprovalRequiredError(
-    "Action sensible transmise au centre de gouvernance. En attente d'approbation super_admin.",
-  );
+  throw new ApprovalRequiredError(APPROVAL_PENDING_ACTION_MESSAGE);
 }

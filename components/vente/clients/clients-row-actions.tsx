@@ -10,6 +10,7 @@ import { EditActionLink } from "@/components/ui/edit-action-link";
 import { ConfirmDangerDialog } from "@/components/ui/confirm-danger-dialog";
 import { useToast } from "@/components/providers/ToastProvider";
 import { withViewModalQuery } from "@/lib/routing/modal-query";
+import { applyListMutationFeedback } from "@/lib/governance/approvals/client-mutation-feedback";
 
 type ClientsRowActionsProps = {
   client: Client;
@@ -18,16 +19,6 @@ type ClientsRowActionsProps = {
   canDelete: boolean;
   listQueryString: string;
 };
-
-function withListFlash(queryString: string, flash: { success?: string; error?: string }): string {
-  const p = new URLSearchParams(queryString);
-  p.delete("success");
-  p.delete("error");
-  if (flash.success) p.set("success", flash.success);
-  if (flash.error) p.set("error", flash.error);
-  const qs = p.toString();
-  return qs ? `/vente/clients?${qs}` : "/vente/clients";
-}
 
 export function ClientsRowActions({
   client,
@@ -45,13 +36,14 @@ export function ClientsRowActions({
     startTransition(async () => {
       const result = await deleteClientFromListAction(client.id);
       setConfirmOpen(false);
-      if (result.success) {
-        showSuccess("Le client a bien été supprimé.");
-        pushThenRefresh(withListFlash(listQueryString, { success: "Le client a bien été supprimé." }));
-      } else {
-        showError(result.error);
-        pushThenRefresh(withListFlash(listQueryString, { error: result.error }));
-      }
+      applyListMutationFeedback(result, {
+        pathname: "/vente/clients",
+        queryString: listQueryString,
+        successMessage: "Le client a bien été supprimé.",
+        pushThenRefresh,
+        showSuccess,
+        showError,
+      });
     });
   }
 

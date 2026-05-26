@@ -1,9 +1,15 @@
+import { isApprovalPendingMessage } from "@/lib/governance/approvals/pending-notice";
+
 type FlashMessageProps = {
   success?: string;
   error?: string;
 };
 
 export function FlashMessage({ success, error }: FlashMessageProps) {
+  if (error && isApprovalPendingMessage(error)) {
+    return null;
+  }
+
   const message = error ?? success;
   if (!message) return null;
 

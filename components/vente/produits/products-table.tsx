@@ -20,6 +20,7 @@ import { useToast } from "@/components/providers/ToastProvider";
 import { useCurrency } from "@/hooks/useCurrency";
 import { useCurrencyBatchConversion } from "@/hooks/useCurrencyConversion";
 import { formatCurrency } from "@/utils/currency";
+import { applyListMutationFeedback } from "@/lib/governance/approvals/client-mutation-feedback";
 
 // ---------------------------------------------------------------------------
 // Sub-components
@@ -294,13 +295,24 @@ export function ProductsTable({
       setConfirmBulkOpen(false);
       if (result.success) {
         clearSelection();
-        showSuccess(`${result.data.deleted} produits supprimés.`);
-        pushThenRefresh(`/vente/produits?success=bulk_deleted`);
-      } else {
-        showError(result.error);
       }
+      applyListMutationFeedback(
+        result.success
+          ? { success: true }
+          : { success: false, error: result.error },
+        {
+          pathname: "/vente/produits",
+          queryString: listQueryString,
+          successMessage: result.success
+            ? `${result.data?.deleted ?? selectedIds.length} produit(s) supprimé(s).`
+            : "Produits supprimés.",
+          pushThenRefresh,
+          showSuccess,
+          showError,
+        },
+      );
     });
-  }, [selectedIds, clearSelection, showSuccess, showError, pushThenRefresh]);
+  }, [selectedIds, clearSelection, listQueryString, showSuccess, showError, pushThenRefresh]);
 
   const totalQty = useMemo(() => rows.reduce((s, p) => s + p.stock_quantity, 0), [rows]);
 

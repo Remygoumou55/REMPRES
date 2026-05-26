@@ -2,8 +2,7 @@
 
 import { useEffect, useMemo, useState, useTransition } from "react";
 import { useCloseModalNavigation } from "@/lib/hooks/use-close-modal-navigation";
-import Image from "next/image";
-import { Package, Tag, Layers, DollarSign, Archive, AlertTriangle, FileText, Save, Plus, Upload } from "lucide-react";
+import { Package, Tag, Layers, DollarSign, Archive, AlertTriangle, FileText, Save, Plus } from "lucide-react";
 import {
   Modal,
   ModalField,
@@ -13,6 +12,7 @@ import {
   ModalError,
   ModalActions,
 } from "@/components/ui/modal";
+import { ProductImageUpload } from "@/components/products/ProductImageUpload";
 import { useCurrency } from "@/hooks/useCurrency";
 import { formatCurrency } from "@/utils/currency";
 import { convertCurrency } from "@/lib/services/currencyService";
@@ -54,6 +54,12 @@ type ProductFormProps = {
   initialValues?: ProductFormValues;
   successMessage?: string;
   errorMessage?: string;
+  /**
+   * ID produit existant. Si fourni, le widget d'image autorise l'upload réel
+   * vers Supabase Storage et persiste image_url via updateProductImageAction.
+   * Si absent (création), le widget reste désactivé avec un message.
+   */
+  productId?: string | null;
 };
 
 // ---------------------------------------------------------------------------
@@ -66,14 +72,13 @@ export function ProductForm({
   action,
   initialValues,
   errorMessage,
+  productId,
 }: ProductFormProps) {
   const { currency } = useCurrency();
   const closeModal = useCloseModalNavigation();
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(errorMessage ?? null);
-  const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
-  const [filePreviewUrl, setFilePreviewUrl] = useState<string>("");
-  const initialPreviewUrl = initialValues?.image_url ?? "";
+  const [imageUrl, setImageUrl] = useState<string | null>(initialValues?.image_url ?? null);
   const [priceValue, setPriceValue] = useState<number>(
     Math.max(0, initialValues?.price_gnf ?? 0),
   );
@@ -81,17 +86,6 @@ export function ProductForm({
   const [conversionLoading, setConversionLoading] = useState(false);
   const conversionUnavailable = currency !== "GNF" && priceValue > 0 && !conversionLoading && convertedPrice === null;
 
-  useEffect(() => {
-    if (!selectedImageFile) {
-      setFilePreviewUrl("");
-      return;
-    }
-    const objectUrl = URL.createObjectURL(selectedImageFile);
-    setFilePreviewUrl(objectUrl);
-    return () => URL.revokeObjectURL(objectUrl);
-  }, [selectedImageFile]);
-
-  const previewUrl = filePreviewUrl || initialPreviewUrl;
   const formattedPrice = useMemo(() => formatGNFInput(priceValue), [priceValue]);
   useEffect(() => {
     let mounted = true;
@@ -289,39 +283,15 @@ export function ProductForm({
               />
             </div>
           </ModalField>
-          <ModalField label="Image du produit">
-            <div className="relative">
-              <label className="flex cursor-pointer items-center gap-2 rounded-xl border border-dashed border-gray-200 px-3 py-2.5 text-sm text-gray-500 transition hover:border-primary/40 hover:bg-primary/5 hover:text-primary">
-                <Upload size={14} />
-                {selectedImageFile ? selectedImageFile.name : "Ajouter une image"}
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="sr-only"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0] ?? null;
-                    setSelectedImageFile(file);
-                  }}
-                />
-              </label>
-              <input type="hidden" name="image_url" value={initialValues?.image_url ?? ""} />
-            </div>
-          </ModalField>
-        </div>
-
-        {previewUrl && (
-          <div className="flex items-center gap-3 rounded-xl border border-gray-200 bg-gray-50 p-3">
-            <Image
-              src={previewUrl}
-              alt="Aperçu"
-              width={56}
-              height={56}
-              unoptimized
-              className="h-14 w-14 rounded-lg object-contain"
+          <div>
+            <ProductImageUpload
+              currentImageUrl={imageUrl}
+              productId={productId ?? null}
+              onChange={setImageUrl}
             />
-            <p className="text-xs text-gray-400">Aperçu de l&apos;image</p>
+            <input type="hidden" name="image_url" value={imageUrl ?? ""} />
           </div>
-        )}
+        </div>
 
         </div>
 

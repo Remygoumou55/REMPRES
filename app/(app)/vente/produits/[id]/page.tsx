@@ -259,6 +259,7 @@ export default async function ProductDetailPage({ params, searchParams }: Produc
           submitLabel="Enregistrer"
           action={updateProductAction}
           initialValues={product}
+          productId={product.id}
           successMessage={searchParams?.success}
           errorMessage={searchParams?.error}
         />

@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, memo } from "react";
-import { Package, Plus } from "lucide-react";
+import Image from "next/image";
+import { ImageIcon, Package, Plus } from "lucide-react";
 import type { Product } from "@/types/product";
 import type { Currency } from "@/lib/currencyService";
 import { PriceText } from "./PriceText";
@@ -44,25 +45,43 @@ export const ProductCard = memo(function ProductCard({
     >
       {/* Badge en coin */}
       {outOfStock ? (
-        <span className="absolute right-2.5 top-2.5 rounded-full bg-red-100 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-red-600">
+        <span className="absolute right-2.5 top-2.5 z-10 rounded-full bg-red-100 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-red-600">
           Rupture
         </span>
       ) : isLowStock ? (
-        <span className="absolute right-2.5 top-2.5 rounded-full bg-amber-100 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-amber-700">
+        <span className="absolute right-2.5 top-2.5 z-10 rounded-full bg-amber-100 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-amber-700">
           Faible
         </span>
       ) : cartQty > 0 ? (
-        <span className="absolute right-2.5 top-2.5 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white">
+        <span className="absolute right-2.5 top-2.5 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white">
           {cartQty}
         </span>
       ) : null}
 
-      {/* Icône + nom */}
+      {/* Visuel produit */}
+      <div className="relative -mx-3.5 -mt-3.5 mb-3 h-24 overflow-hidden rounded-t-2xl bg-gray-50">
+        {product.image_url ? (
+          <Image
+            src={product.image_url}
+            alt={product.name}
+            fill
+            unoptimized
+            sizes="(max-width: 768px) 50vw, 200px"
+            style={{ objectFit: "cover" }}
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center text-gray-300">
+            <ImageIcon size={28} aria-hidden="true" />
+          </div>
+        )}
+      </div>
+
+      {/* Nom + SKU */}
       <div className="flex items-start gap-2.5">
-        <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-colors ${
+        <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg transition-colors ${
           cartQty > 0 ? "bg-primary/15 text-primary" : "bg-gray-100 text-gray-400 group-hover:bg-primary/10 group-hover:text-primary"
         }`}>
-          <Package size={16} />
+          <Package size={13} />
         </div>
         <div className="min-w-0 flex-1 pr-6">
           <p className="truncate text-sm font-semibold text-darktext leading-tight">{product.name}</p>

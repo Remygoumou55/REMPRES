@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getModulePermissions, getUserRole } from "@/lib/server/permissions";
 import { softDeleteProduct, restoreProduct } from "@/lib/server/products";
@@ -12,6 +13,51 @@ import { assertApprovalOrThrow } from "@/lib/approvals/approval-engine";
 import { isApprovalRequiredError } from "@/lib/governance/approvals/workflow";
 
 const MODULE_KEYS = ["produits", "vente"] as const;
+
+/**
+ * Persistance immédiate de l'image produit après upload côté client.
+ * Action additive : ne touche pas au flux create/update existant — elle
+ * permet juste à <ProductImageUpload /> de synchroniser products.image_url
+ * dès que le fichier est uploadé dans Supabase Storage.
+ */
+export async function updateProductImageAction(
+  productId: string,
+  imageUrl: string | null,
+): Promise<SafeResult<null>> {
+  const id = (productId ?? "").trim();
+  if (!id) {
+    return err("Produit invalide.");
+  }
+
+  const supabase = getSupabaseServerClient();
+  const { data } = await supabase.auth.getUser();
+  if (!data?.user) {
+    return err("Non authentifié.");
+  }
+
+  const perms = await getModulePermissions(data.user.id, [...MODULE_KEYS]);
+  if (!perms.canUpdate) {
+    return err("Accès refusé : modification produit.");
+  }
+
+  const normalizedUrl = typeof imageUrl === "string" ? imageUrl.trim() : "";
+  const valueToWrite: string | null = normalizedUrl.length > 0 ? normalizedUrl : null;
+
+  const { error: updateError } = await supabase
+    .from("products")
+    .update({ image_url: valueToWrite, updated_at: new Date().toISOString() })
+    .eq("id", id)
+    .is("deleted_at", null);
+
+  if (updateError) {
+    return err(mapProductError(updateError, "Impossible d'enregistrer l'image produit."));
+  }
+
+  revalidatePath("/vente/produits");
+  revalidatePath(`/vente/produits/${id}`);
+  revalidatePath("/vente/nouvelle-vente");
+  return ok(null);
+}
 
 /**
  * Suppression logique d'un produit depuis la liste (/vente/produits).

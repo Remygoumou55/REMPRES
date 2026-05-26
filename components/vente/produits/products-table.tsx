@@ -1,7 +1,8 @@
 "use client";
 
 import { memo, useMemo, useState, useTransition, useCallback } from "react";
-import { Package } from "lucide-react";
+import Image from "next/image";
+import { ImageIcon, Package } from "lucide-react";
 import type { Product } from "@/types/product";
 import { EmptyState } from "@/components/ui/empty-state";
 import { SearchInput } from "@/components/ui/search-input";
@@ -76,6 +77,27 @@ const ProductDataRow = memo(function ProductDataRow({
           />
         </td>
       ) : null}
+      <td className="px-2 py-3.5">
+        {product.image_url ? (
+          <div className="relative h-10 w-10 overflow-hidden rounded-lg border border-gray-100 bg-gray-50">
+            <Image
+              src={product.image_url}
+              alt=""
+              fill
+              unoptimized
+              sizes="40px"
+              style={{ objectFit: "cover" }}
+            />
+          </div>
+        ) : (
+          <div
+            className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50 text-gray-300"
+            aria-hidden="true"
+          >
+            <ImageIcon size={16} />
+          </div>
+        )}
+      </td>
       <td className="px-3 py-3.5">
         <span className="inline-block rounded-lg bg-gray-100 px-2.5 py-1 font-mono text-xs font-semibold text-gray-600">{product.sku}</span>
       </td>
@@ -175,8 +197,9 @@ const VirtualTableBody = memo(function VirtualTableBody({
       <table className="w-full table-fixed text-sm">
         <colgroup>
           {canDelete ? <col className="w-[5%]" /> : null}
+          <col className="w-[7%]" />
           <col className="w-[9%]" />
-          <col className="w-[35%]" />
+          <col className="w-[28%]" />
           <col className="w-[8%]" />
           <col className="w-[19%]" />
           <col className="w-[19%]" />
@@ -307,8 +330,9 @@ export function ProductsTable({
       <table className="w-full table-fixed text-sm border-b border-gray-100 bg-gray-50/60">
         <colgroup>
           {canDelete ? <col className="w-[5%]" /> : null}
+          <col className="w-[7%]" />
           <col className="w-[9%]" />
-          <col className="w-[35%]" />
+          <col className="w-[28%]" />
           <col className="w-[8%]" />
           <col className="w-[19%]" />
           <col className="w-[19%]" />
@@ -317,6 +341,7 @@ export function ProductsTable({
         <thead>
           <tr className="text-xs font-semibold uppercase text-gray-400">
             {canDelete && <th className="px-2 py-3 text-left"><input type="checkbox" checked={allVisibleSelected} onChange={toggleAllVisible} /></th>}
+            <th className="px-2 py-3 text-left">Image</th>
             <th className="px-3 py-3 text-left">Code</th>
             <th className="px-4 py-3 text-left">Nom</th>
             <th className="px-2 py-3 text-right">Qté</th>
@@ -338,7 +363,7 @@ export function ProductsTable({
         listQueryString={listQueryString}
         currency={currency}
         formattedPrices={formattedPrices}
-        canDeleteColCount={canDelete ? 7 : 6}
+        canDeleteColCount={canDelete ? 8 : 7}
       />
 
       {rows.length === 0 && products.length > 0 && (

@@ -1,5 +1,4 @@
 import { redirect, notFound } from "next/navigation";
-import Link from "next/link";
 import {
   Package,
   User,
@@ -120,122 +119,88 @@ export default async function SaleDetailPage({ params }: PageProps) {
       })}
       icon={<Receipt size={18} />}
       closeHref="/vente/historique"
-      size="5xl"
+      size="2xl"
     >
 
-      {/* ── Fil d'Ariane + retour ───────────────────────────────────────── */}
-      <div className="flex items-center gap-3">
-        <Link
-          href="/vente/historique"
-          className="flex items-center gap-1.5 rounded-xl border border-gray-200 px-3 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-50"
+      {/* ── Statut + actions ─────────────────────────────────────────────── */}
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <Badge label={t(statusTranslationKey(sale.payment_status))} variant={statut.variant} dot />
+        <a
+          href={`/vente/recu/${sale.id}?print=1`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 px-2.5 py-1.5 text-xs font-medium text-gray-600 transition hover:bg-gray-50"
         >
-          Retour
-        </Link>
+          <Printer size={13} />
+          Imprimer
+        </a>
       </div>
 
-      {/* ── Entête vente ────────────────────────────────────────────────── */}
-      <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-        <div className="flex flex-wrap items-start justify-between gap-4 border-b border-gray-100 px-6 py-5">
-          <div>
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
-                <Receipt size={18} className="text-primary" />
-              </div>
-              <div>
-                <h1 className="text-lg font-bold text-darktext">
-                  Vente {sale.reference ?? "#" + sale.id.slice(0, 8).toUpperCase()}
-                </h1>
-                <p className="text-xs text-gray-400">
-                  {new Date(sale.created_at).toLocaleDateString("fr-FR", {
-                    weekday: "long", day: "2-digit", month: "long", year: "numeric",
-                  })}
-                </p>
-              </div>
-            </div>
+      {/* ── Infos méta : Client / Date / Paiement ────────────────────────── */}
+      <div className="grid gap-2.5 rounded-2xl border border-gray-100 bg-white px-3.5 py-3 shadow-sm sm:grid-cols-3">
+        <div className="flex items-start gap-2">
+          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-gray-100">
+            <User size={13} className="text-gray-500" />
           </div>
-          <div className="flex items-center gap-3">
-            <Badge label={t(statusTranslationKey(sale.payment_status))} variant={statut.variant} dot />
-            <a
-              href={`/vente/recu/${sale.id}?print=1`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 rounded-xl border border-gray-200 px-3 py-2 text-xs font-medium text-gray-600 transition hover:bg-gray-50"
-            >
-              <Printer size={13} />
-              Imprimer
-            </a>
-          </div>
-        </div>
-
-        {/* Infos meta */}
-        <div className="grid gap-4 px-6 py-4 sm:grid-cols-3">
-          {/* Client */}
-          <div className="flex items-start gap-2.5">
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gray-100">
-              <User size={14} className="text-gray-500" />
-            </div>
-            <div>
-              <p className="text-xs text-gray-400">Client</p>
-              <p className="text-sm font-semibold text-darktext">
-                {client ? getClientLabel(client) : (
-                  <span className="italic text-gray-400">Client de passage</span>
-                )}
-              </p>
-              {client?.phone && (
-                <p className="text-xs text-gray-400">{client.phone}</p>
+          <div className="min-w-0">
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-400">Client</p>
+            <p className="truncate text-sm font-semibold text-darktext">
+              {client ? getClientLabel(client) : (
+                <span className="italic text-gray-400">Client de passage</span>
               )}
-            </div>
+            </p>
+            {client?.phone && (
+              <p className="truncate text-[11px] text-gray-400">{client.phone}</p>
+            )}
           </div>
+        </div>
 
-          {/* Date */}
-          <div className="flex items-start gap-2.5">
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gray-100">
-              <Calendar size={14} className="text-gray-500" />
-            </div>
-            <div>
-              <p className="text-xs text-gray-400">Date</p>
-              <p className="text-sm font-semibold text-darktext">
-                {new Date(sale.created_at).toLocaleDateString("fr-FR", {
-                  day: "2-digit", month: "short", year: "numeric",
-                })}
-              </p>
-              <p className="text-xs text-gray-400">
-                {new Date(sale.created_at).toLocaleTimeString("fr-FR", {
-                  hour: "2-digit", minute: "2-digit",
-                })}
-              </p>
-            </div>
+        <div className="flex items-start gap-2">
+          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-gray-100">
+            <Calendar size={13} className="text-gray-500" />
           </div>
+          <div className="min-w-0">
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-400">Date</p>
+            <p className="text-sm font-semibold text-darktext">
+              {new Date(sale.created_at).toLocaleDateString("fr-FR", {
+                day: "2-digit", month: "short", year: "numeric",
+              })}
+            </p>
+            <p className="text-[11px] text-gray-400">
+              {new Date(sale.created_at).toLocaleTimeString("fr-FR", {
+                hour: "2-digit", minute: "2-digit",
+              })}
+            </p>
+          </div>
+        </div>
 
-          {/* Paiement */}
-          <div className="flex items-start gap-2.5">
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gray-100">
-              <CreditCard size={14} className="text-gray-500" />
-            </div>
-            <div>
-              <p className="text-xs text-gray-400">Mode de paiement</p>
-              <p className="text-sm font-semibold text-darktext">
-                {sale.payment_method ? (PAYMENT_LABELS[sale.payment_method] ?? sale.payment_method) : "—"}
-              </p>
-              <p className="text-xs text-gray-400">
-                Payé : {fmt(sale.amount_paid_gnf)}
-              </p>
-            </div>
+        <div className="flex items-start gap-2">
+          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-gray-100">
+            <CreditCard size={13} className="text-gray-500" />
+          </div>
+          <div className="min-w-0">
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-400">Paiement</p>
+            <p className="truncate text-sm font-semibold text-darktext">
+              {sale.payment_method ? (PAYMENT_LABELS[sale.payment_method] ?? sale.payment_method) : "—"}
+            </p>
+            <p className="truncate text-[11px] text-gray-400">
+              Payé : {fmt(sale.amount_paid_gnf)}
+            </p>
           </div>
         </div>
       </div>
 
-      {/* ── Lignes de produits ───────────────────────────────────────────── */}
+      {/* ── Produits + Totaux (carte unique) ─────────────────────────────── */}
       <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-        <div className="border-b border-gray-100 px-5 py-3.5">
-          <h2 className="flex items-center gap-2 text-sm font-bold text-darktext">
-            <Package size={15} className="text-primary" />
+        <div className="border-b border-gray-100 px-3.5 py-2.5">
+          <h2 className="flex items-center gap-1.5 text-sm font-bold text-darktext">
+            <Package size={14} className="text-primary" />
             Produits ({items.length})
           </h2>
         </div>
 
         {items.length === 0 ? (
-          <div className="py-10 text-center text-sm text-gray-400">
+          <div className="py-6 text-center text-xs text-gray-400">
             Aucun article enregistré pour cette vente.
           </div>
         ) : (
@@ -243,28 +208,28 @@ export default async function SaleDetailPage({ params }: PageProps) {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-gray-100 bg-gray-50/60">
-                  <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-400">Désignation</th>
-                  <th className="px-5 py-3 text-right text-xs font-semibold uppercase tracking-wide text-gray-400">Qté</th>
-                  <th className="px-5 py-3 text-right text-xs font-semibold uppercase tracking-wide text-gray-400">Prix unit.</th>
-                  <th className="px-5 py-3 text-right text-xs font-semibold uppercase tracking-wide text-gray-400">Total</th>
+                  <th className="px-3.5 py-2 text-left text-[10px] font-semibold uppercase tracking-wide text-gray-400">Désignation</th>
+                  <th className="px-2 py-2 text-right text-[10px] font-semibold uppercase tracking-wide text-gray-400">Qté</th>
+                  <th className="px-2 py-2 text-right text-[10px] font-semibold uppercase tracking-wide text-gray-400">Prix unit.</th>
+                  <th className="px-3.5 py-2 text-right text-[10px] font-semibold uppercase tracking-wide text-gray-400">Total</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
                 {items.map((item) => (
-                  <tr key={item.id} className="hover:bg-gray-50/40 transition-colors">
-                    <td className="px-5 py-3.5">
-                      <p className="font-medium text-darktext">{item.product_name}</p>
+                  <tr key={item.id} className="transition-colors hover:bg-gray-50/40">
+                    <td className="px-3.5 py-2.5">
+                      <p className="text-sm font-medium text-darktext">{item.product_name}</p>
                       {item.product_sku && (
-                        <p className="text-xs text-gray-400 font-mono">{item.product_sku}</p>
+                        <p className="font-mono text-[11px] text-gray-400">{item.product_sku}</p>
                       )}
                     </td>
-                    <td className="px-5 py-3.5 text-right font-bold tabular-nums text-darktext">
+                    <td className="px-2 py-2.5 text-right text-sm font-bold tabular-nums text-darktext">
                       {item.quantity}
                     </td>
-                    <td className="px-5 py-3.5 text-right tabular-nums text-gray-600">
+                    <td className="px-2 py-2.5 text-right text-sm tabular-nums text-gray-600">
                       {fmt(item.unit_price_gnf)}
                     </td>
-                    <td className="px-5 py-3.5 text-right font-semibold tabular-nums text-darktext">
+                    <td className="px-3.5 py-2.5 text-right text-sm font-semibold tabular-nums text-darktext">
                       {fmt(item.total_price_gnf)}
                     </td>
                   </tr>
@@ -273,33 +238,31 @@ export default async function SaleDetailPage({ params }: PageProps) {
             </table>
           </TableShell>
         )}
-      </div>
 
-      {/* ── Totaux ──────────────────────────────────────────────────────── */}
-      <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-        <div className="space-y-2 px-6 py-5">
-          <div className="flex justify-between text-sm">
+        {/* Totaux intégrés à la carte */}
+        <div className="space-y-1.5 border-t border-gray-100 bg-gray-50/40 px-3.5 py-3">
+          <div className="flex justify-between text-xs">
             <span className="text-gray-500">Sous-total</span>
             <span className="font-semibold tabular-nums text-darktext">
               {fmt(sale.subtotal ?? sale.total_amount_gnf)}
             </span>
           </div>
           {(sale.discount_percent ?? 0) > 0 && (
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between text-xs">
               <span className="text-gray-500">Remise ({sale.discount_percent}%)</span>
               <span className="font-semibold tabular-nums text-red-500">
                 −{fmt(sale.discount_amount ?? 0)}
               </span>
             </div>
           )}
-          <div className="flex justify-between rounded-2xl bg-primary/5 px-4 py-3 text-base">
-            <span className="font-bold text-darktext">Total</span>
+          <div className="mt-1 flex items-center justify-between rounded-xl bg-primary/5 px-3 py-2">
+            <span className="text-sm font-bold text-darktext">Total</span>
             <div className="text-right">
-              <p className="text-xl font-extrabold tabular-nums text-primary">
+              <p className="text-lg font-extrabold leading-none tabular-nums text-primary">
                 {fmt(sale.total_amount_gnf)}
               </p>
               {currency !== "GNF" && (
-                <p className="text-xs font-normal text-gray-400">
+                <p className="mt-0.5 text-[10px] font-normal text-gray-400">
                   ≈ {formatMoney(sale.total_amount_gnf, "GNF", 1)} · Taux {rate}
                 </p>
               )}
@@ -310,9 +273,9 @@ export default async function SaleDetailPage({ params }: PageProps) {
 
       {/* ── Notes ───────────────────────────────────────────────────────── */}
       {sale.notes && (
-        <div className="rounded-2xl border border-gray-100 bg-white px-5 py-4 shadow-sm">
-          <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">Notes</p>
-          <p className="mt-1.5 text-sm text-gray-700">{sale.notes}</p>
+        <div className="rounded-2xl border border-gray-100 bg-white px-3.5 py-2.5 shadow-sm">
+          <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-400">Notes</p>
+          <p className="mt-1 text-xs text-gray-700">{sale.notes}</p>
         </div>
       )}
 

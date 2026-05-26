@@ -21,6 +21,8 @@ import { useCurrency } from "@/hooks/useCurrency";
 import { useCurrencyBatchConversion } from "@/hooks/useCurrencyConversion";
 import { formatCurrency } from "@/utils/currency";
 import { applyListMutationFeedback } from "@/lib/governance/approvals/client-mutation-feedback";
+import { MarginBadge } from "@/components/products/MarginBadge";
+import { formatGnf } from "@/lib/utils/margin";
 
 // ---------------------------------------------------------------------------
 // Sub-components
@@ -126,6 +128,14 @@ const ProductDataRow = memo(function ProductDataRow({
           ) : null}
         </div>
       </td>
+      <td className="px-2 py-3.5 text-right">
+        <span className="text-xs tabular-nums text-gray-500">
+          {formatGnf(product.cost_price_gnf)}
+        </span>
+      </td>
+      <td className="px-2 py-3.5 text-center">
+        <MarginBadge marginPct={product.margin_pct} />
+      </td>
       <td className="px-3 py-3.5 text-right">
         <div className="text-right">
           <span className="text-xs font-bold tabular-nums text-primary">
@@ -202,8 +212,10 @@ const VirtualTableBody = memo(function VirtualTableBody({
           <col className="w-[9%]" />
           <col className="w-[28%]" />
           <col className="w-[8%]" />
-          <col className="w-[19%]" />
-          <col className="w-[19%]" />
+          <col className="w-[12%]" />
+          <col className="w-[10%]" />
+          <col className="w-[8%]" />
+          <col className="w-[12%]" />
           <col className="w-[10%]" />
         </colgroup>
         <tbody className="divide-y divide-gray-50">
@@ -346,8 +358,10 @@ export function ProductsTable({
           <col className="w-[9%]" />
           <col className="w-[28%]" />
           <col className="w-[8%]" />
-          <col className="w-[19%]" />
-          <col className="w-[19%]" />
+          <col className="w-[12%]" />
+          <col className="w-[10%]" />
+          <col className="w-[8%]" />
+          <col className="w-[12%]" />
           <col className="w-[10%]" />
         </colgroup>
         <thead>
@@ -358,6 +372,8 @@ export function ProductsTable({
             <th className="px-4 py-3 text-left">Nom</th>
             <th className="px-2 py-3 text-right">Qté</th>
             <th className="px-3 py-3 text-right">P.U</th>
+            <th className="px-2 py-3 text-right">Prix achat</th>
+            <th className="px-2 py-3 text-center">Marge</th>
             <th className="px-3 py-3 text-right">Montant</th>
             <th className="px-3 py-3 text-center">Actions</th>
           </tr>
@@ -375,7 +391,7 @@ export function ProductsTable({
         listQueryString={listQueryString}
         currency={currency}
         formattedPrices={formattedPrices}
-        canDeleteColCount={canDelete ? 8 : 7}
+        canDeleteColCount={canDelete ? 10 : 9}
       />
 
       {rows.length === 0 && products.length > 0 && (

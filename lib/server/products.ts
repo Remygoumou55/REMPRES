@@ -7,7 +7,7 @@ import { getModulePermissions, type ModulePermissions } from "@/lib/server/permi
 import { logError, logInfo } from "@/lib/logger";
 
 const PRODUCT_COLUMNS =
-  "id,sku,name,description,image_url,unit,price_gnf,stock_quantity,stock_threshold,created_by,created_at,updated_at,deleted_at,deleted_by";
+  "id,sku,name,description,image_url,unit,price_gnf,cost_price_gnf,margin_pct,stock_quantity,stock_threshold,created_by,created_at,updated_at,deleted_at,deleted_by";
 
 const MODULE_KEYS = ["produits", "vente"] as const;
 
@@ -81,6 +81,8 @@ function sanitizeProductForLog(p: Product | null) {
     name: p.name,
     unit: p.unit,
     price_gnf: p.price_gnf,
+    cost_price_gnf: p.cost_price_gnf,
+    margin_pct: p.margin_pct,
     stock_quantity: p.stock_quantity,
     stock_threshold: p.stock_threshold,
     deleted_at: p.deleted_at,

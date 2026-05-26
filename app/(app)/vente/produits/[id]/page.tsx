@@ -16,6 +16,8 @@ import { DetailPageModal } from "@/components/ui/detail-page-modal";
 import { mapProductError } from "@/lib/server/product-error-messages";
 import { isDetailEditOpen } from "@/lib/routing/modal-query";
 import { revalidateProduits } from "@/lib/cache/revalidation-map";
+import { MarginBadge } from "@/components/products/MarginBadge";
+import { formatGnf } from "@/lib/utils/margin";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -46,6 +48,14 @@ function getNumberValue(formData: FormData, name: string) {
   const value = getFieldValue(formData, name);
   const num = Number(value);
   return isNaN(num) ? 0 : num;
+}
+
+function getOptionalCostPrice(formData: FormData): number | null {
+  const raw = formData.get("cost_price_gnf");
+  if (typeof raw !== "string" || raw.trim() === "") return null;
+  const num = parseFloat(raw);
+  if (Number.isNaN(num)) return null;
+  return Math.max(0, num);
 }
 
 export default async function ProductDetailPage({ params, searchParams }: ProductDetailPageProps) {
@@ -134,6 +144,7 @@ export default async function ProductDetailPage({ params, searchParams }: Produc
         image_url: getNullableFieldValue(formData, "image_url"),
         unit: getFieldValue(formData, "unit"),
         price_gnf: getNumberValue(formData, "price_gnf"),
+        cost_price_gnf: getOptionalCostPrice(formData),
         stock_quantity: getNumberValue(formData, "stock_quantity"),
         stock_threshold: getNumberValue(formData, "stock_threshold"),
       };
@@ -210,7 +221,61 @@ export default async function ProductDetailPage({ params, searchParams }: Produc
           <dt className="text-xs font-medium uppercase text-darktext/70">
             Prix (GNF)
           </dt>
-          <dd className="text-sm text-darktext">{product.price_gnf}</dd>
+          <dd className="text-sm text-darktext">{formatGnf(product.price_gnf)}</dd>
+        </div>
+
+        <div className="sm:col-span-2">
+          <dt className="mb-2 text-xs font-medium uppercase text-darktext/70">
+            Rentabilité
+          </dt>
+          <dd className="text-sm text-darktext">
+            {product.cost_price_gnf != null ? (
+              <dl className="grid gap-3 rounded-lg border border-gray-100 bg-gray-50/80 p-4 sm:grid-cols-2">
+                <div>
+                  <dt className="text-[11px] font-medium uppercase text-darktext/60">
+                    Prix de vente
+                  </dt>
+                  <dd className="mt-0.5">{formatGnf(product.price_gnf)}</dd>
+                </div>
+                <div>
+                  <dt className="text-[11px] font-medium uppercase text-darktext/60">
+                    Prix d&apos;achat
+                  </dt>
+                  <dd className="mt-0.5">{formatGnf(product.cost_price_gnf)}</dd>
+                </div>
+                <div>
+                  <dt className="text-[11px] font-medium uppercase text-darktext/60">
+                    Marge brute
+                  </dt>
+                  <dd className="mt-0.5">
+                    {formatGnf(product.price_gnf - product.cost_price_gnf)}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-[11px] font-medium uppercase text-darktext/60">
+                    Marge (%)
+                  </dt>
+                  <dd className="mt-1">
+                    <MarginBadge marginPct={product.margin_pct} showLabel />
+                  </dd>
+                </div>
+              </dl>
+            ) : (
+              <div className="flex flex-wrap items-center gap-3 rounded-lg border border-dashed border-gray-200 bg-gray-50/60 px-4 py-3">
+                <p className="text-sm text-darktext/80">
+                  Prix d&apos;achat non renseigné — marge non calculée
+                </p>
+                {permissions.canUpdate ? (
+                  <EditActionLink
+                    href={`/vente/produits/${product.id}`}
+                    entityId={product.id}
+                    label="Renseigner"
+                    className="inline-flex items-center rounded-md border border-gray-300 px-2.5 py-1 text-xs font-medium text-darktext hover:bg-white"
+                  />
+                ) : null}
+              </div>
+            )}
+          </dd>
         </div>
 
         <div>

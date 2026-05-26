@@ -16,6 +16,12 @@ import { ProductImageUpload } from "@/components/products/ProductImageUpload";
 import { useCurrency } from "@/hooks/useCurrency";
 import { formatCurrency } from "@/utils/currency";
 import { convertCurrency } from "@/lib/services/currencyService";
+import { MarginBadge } from "@/components/products/MarginBadge";
+import {
+  computeMargin,
+  getMarginLevel,
+  MARGIN_BG,
+} from "@/lib/utils/margin";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -28,6 +34,7 @@ type ProductFormValues = {
   image_url?: string | null;
   unit?: string | null;
   price_gnf?: number | null;
+  cost_price_gnf?: number | null;
   stock_quantity?: number | null;
   stock_threshold?: number | null;
 };
@@ -82,11 +89,28 @@ export function ProductForm({
   const [priceValue, setPriceValue] = useState<number>(
     Math.max(0, initialValues?.price_gnf ?? 0),
   );
+  const [costPriceValue, setCostPriceValue] = useState<number>(
+    Math.max(0, initialValues?.cost_price_gnf ?? 0),
+  );
   const [convertedPrice, setConvertedPrice] = useState<number | null>(null);
   const [conversionLoading, setConversionLoading] = useState(false);
   const conversionUnavailable = currency !== "GNF" && priceValue > 0 && !conversionLoading && convertedPrice === null;
 
   const formattedPrice = useMemo(() => formatGNFInput(priceValue), [priceValue]);
+  const formattedCostPrice = useMemo(
+    () => (costPriceValue > 0 ? formatGNFInput(costPriceValue) : ""),
+    [costPriceValue],
+  );
+  const liveMargin = useMemo(
+    () =>
+      computeMargin(
+        priceValue > 0 ? priceValue : null,
+        costPriceValue > 0 ? costPriceValue : null,
+      ),
+    [priceValue, costPriceValue],
+  );
+  const liveMarginLevel = getMarginLevel(liveMargin);
+  const showMarginPreview = priceValue > 0 && costPriceValue > 0;
   useEffect(() => {
     let mounted = true;
     if (currency === "GNF" || priceValue <= 0) {
@@ -251,6 +275,30 @@ export function ProductForm({
               )}
             </p>
           </ModalField>
+          <ModalField label="Prix d'achat (GNF)">
+            <p className="-mt-0.5 mb-1 text-[11px] text-gray-400">
+              (optionnel — pour calcul de marge)
+            </p>
+            <div className="relative">
+              <DollarSign size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+              <ModalInput
+                type="text"
+                inputMode="numeric"
+                value={formattedCostPrice}
+                onChange={(e) => setCostPriceValue(parseGNFInput(e.target.value))}
+                placeholder="Ex: 1 500 000"
+                className="pl-8 pr-12"
+              />
+              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-gray-400">
+                GNF
+              </span>
+              <input
+                type="hidden"
+                name="cost_price_gnf"
+                value={costPriceValue > 0 ? String(costPriceValue) : ""}
+              />
+            </div>
+          </ModalField>
           <ModalField label="Stock initial" required>
             <div className="relative">
               <Archive size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -265,6 +313,28 @@ export function ProductForm({
               />
             </div>
           </ModalField>
+        </div>
+
+        <div
+          className="rounded-xl px-3 py-2.5 text-sm"
+          style={{
+            background: showMarginPreview
+              ? liveMarginLevel
+                ? MARGIN_BG[liveMarginLevel]
+                : "#f3f4f6"
+              : "#f9fafb",
+          }}
+        >
+          {showMarginPreview ? (
+            <p className="flex flex-wrap items-center gap-2 text-gray-700">
+              <span className="text-xs font-medium">Marge calculée :</span>
+              <MarginBadge marginPct={liveMargin} />
+            </p>
+          ) : (
+            <p className="text-xs text-gray-500">
+              Renseignez le prix de vente et le prix d&apos;achat pour prévisualiser la marge.
+            </p>
+          )}
         </div>
 
         {/* Seuil stock + Image upload */}

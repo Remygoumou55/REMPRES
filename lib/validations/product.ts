@@ -16,6 +16,10 @@ export const createProductSchema = z.object({
   ),
   unit: z.string().trim().min(1, "Unité requise").max(30, "Unité trop longue").default("unite"),
   price_gnf: z.coerce.number().min(0, "Le prix ne peut pas être négatif"),
+  cost_price_gnf: z.preprocess(
+    emptyToNull,
+    z.coerce.number().min(0, "Le prix d'achat ne peut pas être négatif").nullable().optional(),
+  ),
   stock_quantity: z.coerce.number().int("Doit être un entier").min(0, "Le stock ne peut pas être négatif"),
   stock_threshold: z.coerce.number().int("Doit être un entier").min(0, "Le seuil ne peut pas être négatif").default(5),
 });

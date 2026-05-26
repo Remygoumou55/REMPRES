@@ -40,6 +40,14 @@ function getNumberValue(formData: FormData, name: string) {
   return isNaN(num) ? 0 : num;
 }
 
+function getOptionalCostPrice(formData: FormData): number | null {
+  const raw = formData.get("cost_price_gnf");
+  if (typeof raw !== "string" || raw.trim() === "") return null;
+  const num = parseFloat(raw);
+  if (Number.isNaN(num)) return null;
+  return Math.max(0, num);
+}
+
 export default async function ProductsPage({ searchParams }: ProductsPageProps) {
   const user = await getServerSessionUser();
 
@@ -83,6 +91,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
         image_url: getNullableFieldValue(formData, "image_url"),
         unit: getFieldValue(formData, "unit"),
         price_gnf: getNumberValue(formData, "price_gnf"),
+        cost_price_gnf: getOptionalCostPrice(formData),
         stock_quantity: getNumberValue(formData, "stock_quantity"),
         stock_threshold: getNumberValue(formData, "stock_threshold"),
       };

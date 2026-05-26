@@ -56,6 +56,7 @@ const ICON_BY_HREF_PREFIX: { prefix: string; icon: LucideIcon }[] = [
   { prefix: "/vente/produits", icon: Package },
   { prefix: "/vente/nouvelle-vente", icon: ShoppingCart },
   { prefix: "/vente/historique", icon: ClipboardList },
+  { prefix: "/vente/statistiques", icon: BarChart3 },
   { prefix: "/finance/depenses", icon: Receipt },
   { prefix: "/finance", icon: BarChart3 },
   { prefix: "/rh", icon: Users },

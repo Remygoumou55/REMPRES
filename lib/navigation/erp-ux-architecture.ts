@@ -75,6 +75,7 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
           { href: "/vente/produits", label: "Produits" },
           { href: "/vente/nouvelle-vente", label: "Nouvelle vente" },
           { href: "/vente/historique", label: "Historique" },
+          { href: "/vente/statistiques", label: "Statistiques" },
         ],
       },
       {

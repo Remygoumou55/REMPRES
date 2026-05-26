@@ -8,6 +8,7 @@ import type { DepartmentKey } from "@/lib/constants/departments";
 import { getDeptActivityModuleKeys } from "@/lib/dept/dashboard-module-keys";
 import { getFinanceTreasuryKpis } from "@/lib/finance/runtime/finance-treasury-kpis";
 import { getVenteCommerceKpis } from "@/lib/vente/runtime/vente-commerce-kpis";
+import { getVenteAnalyticsSnapshot } from "@/lib/server/sales-analytics";
 import { getRecentActivity } from "@/lib/server/get-recent-activity";
 import { safeCount, safeRows } from "@/lib/utils/safe-query";
 
@@ -117,9 +118,13 @@ function chartFromDayStats(days: { label: string; amount: number }[]): ChartPoin
 }
 
 async function getVenteDashboard(supabase: SupabaseClient<Database>): Promise<DeptKpiData> {
-  const [commerce, activity] = await Promise.all([
+  const [commerce, activity, analyticsSnap] = await Promise.all([
     getVenteCommerceKpis(supabase),
     getRecentActivity(supabase, { moduleKeys: getDeptActivityModuleKeys("vente"), limit: 6 }),
+    getVenteAnalyticsSnapshot().catch(() => ({
+      averageBasket: 0,
+      topProductName: null as string | null,
+    })),
   ]);
 
   const lowStock = commerce.productsLowStock + commerce.productsOutOfStock;
@@ -156,6 +161,20 @@ async function getVenteDashboard(supabase: SupabaseClient<Database>): Promise<De
         color: lowStock > 0 ? "red" : "green",
         value: lowStock,
         subtitle: "Produits sous seuil ou rupture",
+      },
+      {
+        title: "Panier moyen",
+        icon: "ShoppingCart",
+        color: "teal",
+        value: formatGNF(analyticsSnap.averageBasket),
+        subtitle: "Mois en cours",
+      },
+      {
+        title: "Top produit",
+        icon: "BarChart3",
+        color: "blue",
+        value: analyticsSnap.topProductName ?? "—",
+        subtitle: "CA mois en cours",
       },
     ],
     chart7Days: chartFromDayStats(commerce.salesLast7Days),

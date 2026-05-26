@@ -289,6 +289,27 @@ export function NouvelleVenteClient({ products, clients }: Props) {
             </div>
           </div>
           <div className="flex shrink-0 items-center gap-2">
+            {cart.length > 0 && (
+              <button
+                type="button"
+                onClick={() => {
+                  const label =
+                    totals.totalItems > 1
+                      ? `${totals.totalItems} articles seront retirés.`
+                      : "1 article sera retiré.";
+                  if (window.confirm(`Vider le panier ? ${label}`)) {
+                    setCart([]);
+                    showSuccess("Panier vidé");
+                  }
+                }}
+                title="Vider le panier"
+                aria-label="Vider le panier"
+                className="inline-flex items-center gap-2 rounded-xl border border-red-200 bg-white px-3.5 py-2 text-sm font-semibold text-red-600 shadow-sm transition hover:border-red-300 hover:bg-red-50"
+              >
+                <Trash2 size={15} />
+                Vider le panier
+              </button>
+            )}
             <Link
               href="/vente/historique"
               className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3.5 py-2 text-sm font-semibold text-gray-700 shadow-sm transition hover:border-gray-300 hover:bg-gray-50"

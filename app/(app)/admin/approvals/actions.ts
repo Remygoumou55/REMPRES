@@ -3,7 +3,7 @@
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { revalidateAdminApprovals } from "@/lib/cache/revalidation-map";
 import { isSuperAdmin } from "@/lib/server/permissions";
-import { decideApprovalRequest } from "@/lib/governance/approvals/repository";
+import { approveRequest, rejectRequest } from "@/lib/server/approvals";
 import { tryLogAuditEvent } from "@/lib/audit/audit-logger";
 import { AUDIT_EVENT_TYPES } from "@/lib/audit/audit-events";
 import { tryLogGovernanceAuditEvent } from "@/lib/governance/audit/log-audit-event";
@@ -36,11 +36,10 @@ async function loadApprovalMeta(requestId: string) {
 
 export async function approveRequestAction(requestId: string): Promise<void> {
   const approverUserId = await assertSuperAdminActor();
-  await decideApprovalRequest({
-    requestId,
-    status: "approved",
-    approverUserId,
-  });
+  const result = await approveRequest(requestId, approverUserId);
+  if (!result.success) {
+    throw new Error(result.error ?? "Erreur lors de l'approbation");
+  }
   const meta = await loadApprovalMeta(requestId);
   await emitApprovalRequestApproved({
     approverUserId,
@@ -75,12 +74,11 @@ export async function rejectRequestAction(
   rejectionReason?: string,
 ): Promise<void> {
   const approverUserId = await assertSuperAdminActor();
-  await decideApprovalRequest({
-    requestId,
-    status: "rejected",
-    approverUserId,
-    rejectionReason: rejectionReason ?? null,
-  });
+  const reason = (rejectionReason ?? "").trim() || "Rejetée par le Super Admin";
+  const result = await rejectRequest(requestId, approverUserId, reason);
+  if (!result.success) {
+    throw new Error(result.error ?? "Erreur lors du rejet");
+  }
   const meta = await loadApprovalMeta(requestId);
   await emitApprovalRequestRejected({
     approverUserId,

@@ -43,6 +43,10 @@ export const APP_REALTIME_TABLE_SCOPES: Record<string, readonly (readonly string
     queryKeys.rh.approvals,
     queryKeys.rh.root,
     queryKeys.admin.supervision,
+    queryKeys.vente.root,
+    queryKeys.vente.clients,
+    queryKeys.vente.products,
+    queryKeys.vente.sales,
   ],
 
   // ── Formation & consultation ─────────────────────────────────────────────
@@ -79,8 +83,8 @@ export const APP_REALTIME_TABLE_SCOPES: Record<string, readonly (readonly string
 
   // ── Gouvernance & journaux ───────────────────────────────────────────────
   governance_alerts: [queryKeys.rh.alerts, queryKeys.admin.supervision],
-  governance_approvals: [queryKeys.rh.approvals, queryKeys.admin.supervision],
   activity_logs: [queryKeys.admin.activityLogs, queryKeys.admin.root],
+  notifications: [queryKeys.admin.supervision],
 
   // ── Utilisateurs ──────────────────────────────────────────────────────────
   profiles: [queryKeys.admin.users, queryKeys.admin.root],
@@ -119,7 +123,7 @@ export const MODULE_QUERY_SCOPES: Record<string, readonly (readonly string[])[]>
   utilisateurs: APP_REALTIME_TABLE_SCOPES.profiles,
   activity_logs: APP_REALTIME_TABLE_SCOPES.activity_logs,
   admin_alerts: APP_REALTIME_TABLE_SCOPES.governance_alerts,
-  admin_approvals: APP_REALTIME_TABLE_SCOPES.governance_approvals,
+  admin_approvals: APP_REALTIME_TABLE_SCOPES.approval_requests,
   crm: [queryKeys.crm.root],
   dashboard_foundation: [...APP_GLOBAL_QUERY_SCOPES],
 };

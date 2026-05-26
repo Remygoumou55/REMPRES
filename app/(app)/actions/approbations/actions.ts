@@ -4,7 +4,7 @@ import { approveRequest, rejectRequest } from "@/lib/server/approvals";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { isSuperAdmin } from "@/lib/server/permissions";
 import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
+import { revalidateAdminApprovals } from "@/lib/cache/revalidation-map";
 
 async function assertSuperAdminUser(): Promise<string> {
   const supabase = getSupabaseServerClient();
@@ -22,7 +22,7 @@ export async function approveRequestAction(
 ): Promise<{ success?: boolean; error?: string }> {
   const userId = await assertSuperAdminUser();
   const result = await approveRequest(requestId, userId, comment);
-  revalidatePath("/actions/approbations");
+  await revalidateAdminApprovals();
   return result;
 }
 
@@ -35,6 +35,6 @@ export async function rejectRequestAction(
   }
   const userId = await assertSuperAdminUser();
   const result = await rejectRequest(requestId, userId, comment);
-  revalidatePath("/actions/approbations");
+  await revalidateAdminApprovals();
   return result;
 }

@@ -8,4 +8,8 @@ export {
   MODULE_QUERY_SCOPES,
 } from "./app-tables";
 export { invalidateAppQueries, type AppSyncOptions } from "./invalidate-app-queries";
+export {
+  modulesForApprovalAction,
+  actionTypeFromApprovalRow,
+} from "./approval-sync";
 export { useAppRealtimeSync } from "./use-app-realtime-sync";

@@ -3,6 +3,7 @@ import { getSupabaseAdminClient } from "@/lib/supabaseAdmin";
 import type { Json } from "@/types/database.types";
 import type { Database } from "@/types/database.types";
 import { tryEmitGovernanceAlert } from "@/lib/governance/alert-engine";
+import { revalidateAfterApprovalExecution } from "@/lib/governance/approvals/approval-revalidation";
 import { cache } from "react";
 import { revalidateTag } from "next/cache";
 
@@ -380,6 +381,14 @@ async function executeAction(req: ApprovalRow): Promise<void> {
       } as Json,
     })
     .eq("id", String(req.id));
+
+  const actionType = String(req.action_type ?? "");
+  const departmentKey = String(req.department_key ?? req.requester_dept ?? "");
+  try {
+    await revalidateAfterApprovalExecution(actionType, departmentKey);
+  } catch (revalidateErr) {
+    console.error("[Approval] revalidate after execute failed:", revalidateErr);
+  }
 }
 
 async function notifyRequester(

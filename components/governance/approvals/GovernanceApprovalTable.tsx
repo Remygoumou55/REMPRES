@@ -11,9 +11,9 @@ export function GovernanceApprovalTable({
   if (requests.length === 0) {
     return (
       <div className="rounded-2xl border border-dashed border-gray-200 bg-gray-50/80 p-8 text-center shadow-sm">
-        <p className="text-sm font-medium text-darktext">Aucune demande à traiter</p>
+        <p className="text-sm font-medium text-darktext">Tout est à jour !</p>
         <p className="mt-2 text-sm text-gray-500">
-          Modifiez les filtres ou revenez plus tard : les nouvelles demandes apparaissent ici automatiquement.
+          Aucune demande en attente pour le moment. Les nouvelles demandes apparaîtront ici automatiquement.
         </p>
       </div>
     );

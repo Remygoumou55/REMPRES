@@ -38,9 +38,37 @@ function normalizeApprovalStatus(value: unknown): ApprovalRequestStatus {
   return "pending";
 }
 
+function pickString(record: Record<string, unknown>, ...keys: string[]): string | null {
+  for (const key of keys) {
+    const value = record[key];
+    if (typeof value === "string") {
+      const trimmed = value.trim();
+      if (trimmed) return trimmed;
+    }
+  }
+  return null;
+}
+
 function toModel(row: ApprovalRowLike): GovernanceApprovalRequest {
   const payloadSnapshot = asRecord(row.payload_snapshot ?? row.action_payload);
   const createdAt = row.created_at ?? row.requested_at ?? new Date().toISOString();
+
+  const requesterName = pickString(
+    payloadSnapshot,
+    "requester_name",
+    "requester_full_name",
+    "actor_name",
+  );
+  const targetLabel = pickString(
+    payloadSnapshot,
+    "target_label",
+    "entity_label",
+    "label",
+    "name",
+    "title",
+  );
+  const description = pickString(payloadSnapshot, "description") ?? row.description ?? row.reason ?? null;
+  const operation = pickString(payloadSnapshot, "operation");
 
   return {
     id: row.id,
@@ -49,9 +77,13 @@ function toModel(row: ApprovalRowLike): GovernanceApprovalRequest {
     entityType: asText(row.entity_type ?? row.module),
     entityId: asText(row.entity_id ?? row.target_id),
     requestedBy: asText(row.requested_by, "unknown"),
+    requesterName,
     requestedAt: row.requested_at ?? createdAt,
     payloadSnapshot,
     reason: row.reason ?? row.description ?? null,
+    description,
+    targetLabel,
+    operation,
     status: normalizeApprovalStatus(row.status),
     approvedBy: row.approved_by,
     approvedAt: row.approved_at,

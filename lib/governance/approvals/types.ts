@@ -7,9 +7,13 @@ export type GovernanceApprovalRequest = {
   entityType: string;
   entityId: string;
   requestedBy: string;
+  requesterName: string | null;
   requestedAt: string;
   payloadSnapshot: Record<string, unknown>;
   reason: string | null;
+  description: string | null;
+  targetLabel: string | null;
+  operation: string | null;
   status: ApprovalRequestStatus;
   approvedBy: string | null;
   approvedAt: string | null;

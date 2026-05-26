@@ -16,8 +16,8 @@ export function ApprovalRequestCard({
         <h3 className="text-sm font-semibold text-darktext">{getApprovalCardTitle(request)}</h3>
         <ApprovalStatusBadge status={request.status} />
       </div>
-      <p className="mt-1 text-xs font-medium text-gray-700">{getApprovalCardScope(request)}</p>
-      <p className="mt-0.5 text-xs text-gray-500">{getApprovalCardMeta(request)}</p>
+      <p className="mt-1 text-sm text-gray-700">{getApprovalCardScope(request)}</p>
+      <p className="mt-1 text-xs text-gray-500">{getApprovalCardMeta(request)}</p>
       <div className="mt-2">
         <ApprovalTimeline
           requestedAt={request.requestedAt}

@@ -1,4 +1,9 @@
 import type { GovernanceApprovalRequest } from "@/lib/governance/approvals/types";
+import {
+  getApprovalDescription,
+  getApprovalTitle,
+  timeAgo,
+} from "@/lib/constants/human-messages";
 
 const DEPARTMENT_LABELS: Record<string, string> = {
   finance: "Finance",
@@ -9,6 +14,9 @@ const DEPARTMENT_LABELS: Record<string, string> = {
   crm: "CRM",
   admin: "Administration",
   direction: "Direction",
+  formation: "Formation",
+  consultation: "Consultation",
+  marketing: "Marketing",
 };
 
 function humanizeKey(value: string): string {
@@ -20,42 +28,34 @@ function humanizeKey(value: string): string {
     .replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-function shortRef(id: string): string {
-  if (id.length <= 12) return id;
-  return `${id.slice(0, 8)}…`;
-}
-
 /** Titre principal lisible pour les opérateurs (sans jargon technique brut). */
 export function getApprovalCardTitle(request: GovernanceApprovalRequest): string {
-  const action = String(request.actionType ?? "").toLowerCase();
-  if (action.includes("delete") || action.includes("remove")) {
-    return "Demande de suppression";
-  }
-  if (action.includes("create") || action.includes("insert")) {
-    return "Demande de création";
-  }
-  if (action.includes("update") || action.includes("edit") || action.includes("modify")) {
-    return "Demande de modification";
-  }
-  if (action.includes("approve") || action.includes("validation")) {
-    return "Demande de validation";
-  }
-  return `Demande : ${humanizeKey(request.actionType)}`;
+  return getApprovalTitle({ action_type: request.actionType });
 }
 
-/** Sous-titre : périmètre métier + référence courte. */
+/** Phrase humaine : qui souhaite faire quoi sur quel élément. */
 export function getApprovalCardScope(request: GovernanceApprovalRequest): string {
-  const entity = humanizeKey(String(request.entityType ?? ""));
-  const entityId = String(request.entityId ?? "").trim();
-  return `Objet : ${entity} · Réf. ${shortRef(entityId || "unknown")}`;
+  return getApprovalDescription({
+    action_type: request.actionType,
+    entity_type: request.entityType,
+    operation: request.operation,
+    requester_name: request.requesterName,
+    entity_label: request.targetLabel,
+  });
 }
 
-/** Ligne méta : département + demandeur. */
+/** Ligne méta : demandeur + département + horodatage relatif. */
 export function getApprovalCardMeta(request: GovernanceApprovalRequest): string {
   const departmentKey = String(request.departmentKey ?? "").trim();
   const dept =
-    DEPARTMENT_LABELS[departmentKey.toLowerCase()] ??
-    humanizeKey(departmentKey);
-  const who = request.requestedBy?.trim() ? request.requestedBy : "—";
-  return `Département : ${dept} · Demandé par : ${who}`;
+    DEPARTMENT_LABELS[departmentKey.toLowerCase()] ?? humanizeKey(departmentKey);
+  const who = request.requesterName?.trim() || "—";
+  const when = timeAgo(request.requestedAt ?? request.createdAt);
+  return [
+    `Demandé par : ${who}`,
+    `Département : ${dept}`,
+    when ? when : null,
+  ]
+    .filter(Boolean)
+    .join(" · ");
 }

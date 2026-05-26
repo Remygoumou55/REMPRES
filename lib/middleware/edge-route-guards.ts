@@ -35,6 +35,8 @@ const ADMIN_GOVERNANCE_ALLOWED_PREFIXES = [
   "/admin/audit",
   "/admin/activity-logs",
   "/admin/archives",
+  "/admin/exports",
+  "/admin/suppressions",
 ] as const;
 
 const SUPER_ADMIN_GOVERNANCE_ALLOWED_PREFIXES = [

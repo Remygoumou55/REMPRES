@@ -22,6 +22,7 @@ import { resolveErrorMessage, ERROR_CODES } from "@/lib/messages";
 import { formatCurrency } from "@/utils/currency";
 import { useSales } from "@/hooks/useSales";
 import { Modal } from "@/components/ui/modal";
+import { ConfirmDangerDialog } from "@/components/ui/confirm-danger-dialog";
 import { useToast } from "@/components/providers/ToastProvider";
 import { useAppMutationRefresh } from "@/hooks/use-app-mutation-refresh";
 import { useDebounce } from "@/hooks/useDebounce";
@@ -85,6 +86,7 @@ export function NouvelleVenteClient({ products, clients }: Props) {
   const [submitError, setSubmitError]     = useState<string | null>(null);
   const [completedSale, setCompletedSale] = useState<CompletedSale | null>(null);
   const [cartModalOpen, setCartModalOpen] = useState(false);
+  const [confirmClearOpen, setConfirmClearOpen] = useState(false);
 
   const mountedRef = useRef(true);
 
@@ -292,16 +294,7 @@ export function NouvelleVenteClient({ products, clients }: Props) {
             {cart.length > 0 && (
               <button
                 type="button"
-                onClick={() => {
-                  const label =
-                    totals.totalItems > 1
-                      ? `${totals.totalItems} articles seront retirés.`
-                      : "1 article sera retiré.";
-                  if (window.confirm(`Vider le panier ? ${label}`)) {
-                    setCart([]);
-                    showSuccess("Panier vidé");
-                  }
-                }}
+                onClick={() => setConfirmClearOpen(true)}
                 title="Vider le panier"
                 aria-label="Vider le panier"
                 className="inline-flex items-center gap-2 rounded-xl border border-red-200 bg-white px-3.5 py-2 text-sm font-semibold text-red-600 shadow-sm transition hover:border-red-300 hover:bg-red-50"
@@ -583,6 +576,24 @@ export function NouvelleVenteClient({ products, clients }: Props) {
           </div>
         </div>
       </Modal>
+
+      <ConfirmDangerDialog
+        open={confirmClearOpen}
+        title="Vider le panier"
+        message={
+          totals.totalItems > 1
+            ? `Cette action retirera les ${totals.totalItems} articles actuellement dans le panier. Vous pourrez les rajouter à tout moment depuis le catalogue.`
+            : "Cette action retirera l'article actuellement dans le panier. Vous pourrez le rajouter à tout moment depuis le catalogue."
+        }
+        confirmLabel="Vider le panier"
+        cancelLabel="Annuler"
+        onCancel={() => setConfirmClearOpen(false)}
+        onConfirm={() => {
+          setCart([]);
+          setConfirmClearOpen(false);
+          showSuccess("Panier vidé");
+        }}
+      />
     </>
   );
 }

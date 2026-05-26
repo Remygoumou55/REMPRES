@@ -21,6 +21,7 @@ import { convertGnfWithRates, FALLBACK_RATES, type Currency } from "@/lib/curren
 import { resolveErrorMessage, ERROR_CODES } from "@/lib/messages";
 import { formatCurrency } from "@/utils/currency";
 import { useSales } from "@/hooks/useSales";
+import { markAsPaidAction } from "./actions";
 import { Modal } from "@/components/ui/modal";
 import { ConfirmDangerDialog } from "@/components/ui/confirm-danger-dialog";
 import { useToast } from "@/components/providers/ToastProvider";
@@ -72,6 +73,7 @@ export function NouvelleVenteClient({ products, clients }: Props) {
   const [cart, setCart]                       = useState<CartItem[]>([]);
   const [discountPercent, setDiscountPercent] = useState<number>(0);
   const [paymentMethod, setPaymentMethod]     = useState<PaymentMethodKey>("cash");
+  const [markAsPaid, setMarkAsPaid]           = useState<boolean>(false);
   
   const [productSearch, setProductSearch]         = useState("");
   const debouncedSearch                           = useDebounce(productSearch, SEARCH_DEBOUNCE_MS);
@@ -233,6 +235,32 @@ export function NouvelleVenteClient({ products, clients }: Props) {
 
       if (!mountedRef.current) return;
       if (result.success) {
+        if (markAsPaid) {
+          try {
+            const paidResult = await markAsPaidAction(
+              result.sale.id,
+              result.sale.total_amount_gnf,
+            );
+            if (!paidResult.success) {
+              showError(
+                "Vente créée, mais le paiement n'a pas pu être enregistré. Vous pouvez la marquer payée depuis l'historique.",
+              );
+              logError("MARK_AS_PAID_INLINE_FAILED", paidResult.error, {
+                saleId: result.sale.id,
+              });
+            } else {
+              showSuccess("Vente enregistrée et marquée comme payée");
+            }
+          } catch (paidErr) {
+            logError("MARK_AS_PAID_INLINE_UNEXPECTED", paidErr, {
+              saleId: result.sale.id,
+            });
+            showError(
+              "Vente créée, mais le paiement n'a pas pu être enregistré. Vous pouvez la marquer payée depuis l'historique.",
+            );
+          }
+        }
+
         const conv = convertGnfWithRates(result.sale.total_amount_gnf, selectedCurrency, rates);
         setCompletedSale({
           ...result.sale,
@@ -258,7 +286,7 @@ export function NouvelleVenteClient({ products, clients }: Props) {
     } finally {
       if (mountedRef.current) setIsSubmitting(false);
     }
-  }, [cart, isSubmitting, selectedClient, discountPercent, paymentMethod, selectedCurrency, rates, submitSale, setSelectedCurrency, refreshAfterMutation, showError]);
+  }, [cart, isSubmitting, selectedClient, discountPercent, paymentMethod, selectedCurrency, rates, markAsPaid, submitSale, setSelectedCurrency, refreshAfterMutation, showSuccess, showError]);
 
   const resetForNewSale = useCallback(() => {
     setCart([]);
@@ -266,6 +294,7 @@ export function NouvelleVenteClient({ products, clients }: Props) {
     setSelectedClientId(null);
     setDetachedClient(null);
     setPaymentMethod("cash");
+    setMarkAsPaid(false);
     setProductSearch("");
     setSubmitError(null);
     setCompletedSale(null);
@@ -542,6 +571,30 @@ export function NouvelleVenteClient({ products, clients }: Props) {
                   ))}
                 </div>
               </div>
+
+              {/* Marquer payé — option de paiement immédiat */}
+              <label
+                className={`flex cursor-pointer items-start gap-2 rounded-xl border px-2.5 py-2 transition ${
+                  markAsPaid
+                    ? "border-emerald-300 bg-emerald-50/60"
+                    : "border-gray-200 bg-white hover:border-emerald-200"
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  checked={markAsPaid}
+                  onChange={(e) => setMarkAsPaid(e.target.checked)}
+                  className="mt-0.5 h-4 w-4 shrink-0 cursor-pointer accent-emerald-600"
+                />
+                <span className="min-w-0">
+                  <span className="block text-xs font-bold text-darktext">
+                    Marquer comme payé immédiatement
+                  </span>
+                  <span className="block text-[10px] leading-tight text-gray-500">
+                    La vente sera validée et le statut passera directement à « payé ».
+                  </span>
+                </span>
+              </label>
             </div>
 
             {/* Sticky Action Button */}
@@ -559,7 +612,9 @@ export function NouvelleVenteClient({ products, clients }: Props) {
                 className={`flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3.5 text-sm font-extrabold shadow-lg transition-all ${
                   cart.length === 0 || !selectedClient
                     ? "cursor-not-allowed bg-gray-100 text-gray-400 shadow-none"
-                    : "bg-primary text-white shadow-primary/35 hover:bg-primary/90"
+                    : markAsPaid
+                      ? "bg-emerald-600 text-white shadow-emerald-600/30 hover:bg-emerald-700"
+                      : "bg-primary text-white shadow-primary/35 hover:bg-primary/90"
                 }`}
               >
                 {isSubmitting ? (
@@ -568,6 +623,8 @@ export function NouvelleVenteClient({ products, clients }: Props) {
                   "Panier vide"
                 ) : !selectedClient ? (
                   "Choisir un client"
+                ) : markAsPaid ? (
+                  <><CheckCircle size={18} strokeWidth={2.25} /> Valider et marquer payé — {displays.total}</>
                 ) : (
                   <><CheckCircle size={18} strokeWidth={2.25} /> Valider la vente — {displays.total}</>
                 )}

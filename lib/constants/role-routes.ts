@@ -19,6 +19,7 @@ export const DEPT_ALLOWED_ROUTES: Record<string, string[]> = {
     "/rh/conges/new",
     "/rh/presences",
     "/rh/presences/new",
+    "/rh/fiches-de-paie",
     "/profil",
   ],
   responsable_formation: [

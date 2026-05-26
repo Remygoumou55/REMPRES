@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
-import { ArrowLeft, Calendar, Clock, Edit, FileText, Trash2 } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Edit, FileText, Receipt, Trash2 } from "lucide-react";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { assertRhRead, canRhDelete, canRhManageLeaves } from "@/lib/server/rh-access";
 import {
@@ -9,6 +9,7 @@ import {
   listAttendance,
   listLeaveRequests,
 } from "@/lib/server/rh";
+import { listPayslips } from "@/lib/server/payslips";
 import { PageHeader } from "@/components/ui/page-header";
 import { FlashMessage } from "@/components/ui/flash-message";
 import {
@@ -19,11 +20,14 @@ import {
   LeaveStatusBadge,
   LeaveTypeBadge,
 } from "@/components/rh/rh-badges";
+import { PayslipGeneratorForm } from "@/components/rh/PayslipGeneratorForm";
+import { EmployeePayslipsTab } from "@/components/rh/EmployeePayslipsTab";
 import { deleteEmployeeAction } from "../actions";
 import {
   approveLeaveAction,
   rejectLeaveAction,
 } from "../../conges/actions";
+import { generatePayslipAction } from "../../fiches-de-paie/actions";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -33,7 +37,7 @@ type Props = {
   searchParams?: { tab?: string; success?: string; error?: string };
 };
 
-const VALID_TABS = new Set(["profil", "conges", "presences"]);
+const VALID_TABS = new Set(["profil", "conges", "presences", "fiches-de-paie"]);
 
 function formatGNF(n: number) {
   return `${Math.round(n).toLocaleString("fr-FR")} GNF`;
@@ -59,7 +63,7 @@ export default async function CollaborateurDetailPage({ params, searchParams }: 
 
   const tab = VALID_TABS.has(searchParams?.tab ?? "") ? searchParams!.tab! : "profil";
 
-  const [{ data: leaves }, { data: attendance }, monthlyStats] = await Promise.all([
+  const [{ data: leaves }, { data: attendance }, monthlyStats, { data: payslips }] = await Promise.all([
     tab === "conges" || tab === "profil"
       ? listLeaveRequests({ employeeId: employee.id, pageSize: 25 })
       : Promise.resolve({ data: [], total: 0 }),
@@ -67,6 +71,9 @@ export default async function CollaborateurDetailPage({ params, searchParams }: 
       ? listAttendance({ employeeId: employee.id, pageSize: 30 })
       : Promise.resolve({ data: [], total: 0 }),
     getAttendanceMonthlyStats(employee.id),
+    tab === "fiches-de-paie"
+      ? listPayslips({ employeeId: employee.id, pageSize: 50 })
+      : Promise.resolve({ data: [], total: 0 }),
   ]);
 
   return (
@@ -128,6 +135,7 @@ export default async function CollaborateurDetailPage({ params, searchParams }: 
           { id: "profil", label: "Profil", icon: FileText },
           { id: "conges", label: "Congés", icon: Calendar },
           { id: "presences", label: "Présences", icon: Clock },
+          { id: "fiches-de-paie", label: "Fiches de paie", icon: Receipt },
         ].map((t) => {
           const Icon = t.icon;
           const active = tab === t.id;
@@ -245,6 +253,31 @@ export default async function CollaborateurDetailPage({ params, searchParams }: 
               </table>
             </div>
           )}
+        </section>
+      ) : null}
+
+      {tab === "fiches-de-paie" ? (
+        <section className="space-y-6">
+          <PayslipGeneratorForm
+            employee={{
+              id: employee.id,
+              first_name: employee.first_name,
+              last_name: employee.last_name,
+              position: employee.position,
+              department: employee.department,
+              contract_type: employee.contract_type,
+              hire_date: employee.hire_date,
+              salary_gnf: Number(employee.salary_gnf ?? 0),
+            }}
+            onSave={async (input) => {
+              "use server";
+              return generatePayslipAction(input);
+            }}
+          />
+          <EmployeePayslipsTab
+            payslips={payslips}
+            employee={employee}
+          />
         </section>
       ) : null}
 

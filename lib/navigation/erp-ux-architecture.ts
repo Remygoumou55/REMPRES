@@ -117,6 +117,7 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
           { href: "/rh/collaborateurs", label: "Collaborateurs" },
           { href: "/rh/conges", label: "Congés" },
           { href: "/rh/presences", label: "Présences" },
+          { href: "/rh/fiches-de-paie", label: "Fiches de paie" },
           { href: "/rh/contrats", label: "Contrats" },
           { href: "/rh/recrutement", label: "Recrutement" },
         ],

@@ -12,6 +12,8 @@ import {
   Loader2,
   Trash2,
   CheckCircle,
+  Banknote,
+  Clock,
 } from "lucide-react";
 import type { Product } from "@/types/product";
 import type { Client } from "@/types/client";
@@ -73,7 +75,6 @@ export function NouvelleVenteClient({ products, clients }: Props) {
   const [cart, setCart]                       = useState<CartItem[]>([]);
   const [discountPercent, setDiscountPercent] = useState<number>(0);
   const [paymentMethod, setPaymentMethod]     = useState<PaymentMethodKey>("cash");
-  const [markAsPaid, setMarkAsPaid]           = useState<boolean>(false);
   
   const [productSearch, setProductSearch]         = useState("");
   const debouncedSearch                           = useDebounce(productSearch, SEARCH_DEBOUNCE_MS);
@@ -89,6 +90,7 @@ export function NouvelleVenteClient({ products, clients }: Props) {
   const [completedSale, setCompletedSale] = useState<CompletedSale | null>(null);
   const [cartModalOpen, setCartModalOpen] = useState(false);
   const [confirmClearOpen, setConfirmClearOpen] = useState(false);
+  const [paymentDecisionOpen, setPaymentDecisionOpen] = useState(false);
 
   const mountedRef = useRef(true);
 
@@ -203,12 +205,23 @@ export function NouvelleVenteClient({ products, clients }: Props) {
     setDetachedClient(clients.some((x) => x.id === c.id) ? null : c);
   }, [clients]);
 
-  const handleSubmit = useCallback(async () => {
+  const openPaymentDecision = useCallback(() => {
     if (cart.length === 0 || isSubmitting) return;
     if (!selectedClient) {
       setSubmitError(ERROR_CODES.CLIENT_REQUIRED);
       return;
     }
+    setSubmitError(null);
+    setPaymentDecisionOpen(true);
+  }, [cart.length, isSubmitting, selectedClient]);
+
+  const executeSaleSubmit = useCallback(async (shouldMarkAsPaid: boolean) => {
+    if (cart.length === 0 || isSubmitting) return;
+    if (!selectedClient) {
+      setSubmitError(ERROR_CODES.CLIENT_REQUIRED);
+      return;
+    }
+    setPaymentDecisionOpen(false);
     setIsSubmitting(true);
     setSubmitError(null);
 
@@ -235,7 +248,7 @@ export function NouvelleVenteClient({ products, clients }: Props) {
 
       if (!mountedRef.current) return;
       if (result.success) {
-        if (markAsPaid) {
+        if (shouldMarkAsPaid) {
           try {
             const paidResult = await markAsPaidAction(
               result.sale.id,
@@ -259,6 +272,8 @@ export function NouvelleVenteClient({ products, clients }: Props) {
               "Vente créée, mais le paiement n'a pas pu être enregistré. Vous pouvez la marquer payée depuis l'historique.",
             );
           }
+        } else {
+          showSuccess("Vente enregistrée — en attente de paiement");
         }
 
         const conv = convertGnfWithRates(result.sale.total_amount_gnf, selectedCurrency, rates);
@@ -269,6 +284,7 @@ export function NouvelleVenteClient({ products, clients }: Props) {
             : formatCurrency(result.sale.total_amount_gnf, "GNF"),
         });
         setSelectedCurrency("GNF");
+        setCartModalOpen(false);
         refreshAfterMutation();
       } else {
         logError("SALE_SUBMIT", result.error, { cartSize: cart.length });
@@ -286,7 +302,7 @@ export function NouvelleVenteClient({ products, clients }: Props) {
     } finally {
       if (mountedRef.current) setIsSubmitting(false);
     }
-  }, [cart, isSubmitting, selectedClient, discountPercent, paymentMethod, selectedCurrency, rates, markAsPaid, submitSale, setSelectedCurrency, refreshAfterMutation, showSuccess, showError]);
+  }, [cart, isSubmitting, selectedClient, discountPercent, paymentMethod, selectedCurrency, rates, submitSale, setSelectedCurrency, refreshAfterMutation, showSuccess, showError]);
 
   const resetForNewSale = useCallback(() => {
     setCart([]);
@@ -294,7 +310,7 @@ export function NouvelleVenteClient({ products, clients }: Props) {
     setSelectedClientId(null);
     setDetachedClient(null);
     setPaymentMethod("cash");
-    setMarkAsPaid(false);
+    setPaymentDecisionOpen(false);
     setProductSearch("");
     setSubmitError(null);
     setCompletedSale(null);
@@ -572,29 +588,6 @@ export function NouvelleVenteClient({ products, clients }: Props) {
                 </div>
               </div>
 
-              {/* Marquer payé — option de paiement immédiat */}
-              <label
-                className={`flex cursor-pointer items-start gap-2 rounded-xl border px-2.5 py-2 transition ${
-                  markAsPaid
-                    ? "border-emerald-300 bg-emerald-50/60"
-                    : "border-gray-200 bg-white hover:border-emerald-200"
-                }`}
-              >
-                <input
-                  type="checkbox"
-                  checked={markAsPaid}
-                  onChange={(e) => setMarkAsPaid(e.target.checked)}
-                  className="mt-0.5 h-4 w-4 shrink-0 cursor-pointer accent-emerald-600"
-                />
-                <span className="min-w-0">
-                  <span className="block text-xs font-bold text-darktext">
-                    Marquer comme payé immédiatement
-                  </span>
-                  <span className="block text-[10px] leading-tight text-gray-500">
-                    La vente sera validée et le statut passera directement à « payé ».
-                  </span>
-                </span>
-              </label>
             </div>
 
             {/* Sticky Action Button */}
@@ -608,13 +601,11 @@ export function NouvelleVenteClient({ products, clients }: Props) {
               <button
                 type="button"
                 disabled={cart.length === 0 || !selectedClient || isSubmitting}
-                onClick={handleSubmit}
+                onClick={openPaymentDecision}
                 className={`flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3.5 text-sm font-extrabold shadow-lg transition-all ${
                   cart.length === 0 || !selectedClient
                     ? "cursor-not-allowed bg-gray-100 text-gray-400 shadow-none"
-                    : markAsPaid
-                      ? "bg-emerald-600 text-white shadow-emerald-600/30 hover:bg-emerald-700"
-                      : "bg-primary text-white shadow-primary/35 hover:bg-primary/90"
+                    : "bg-primary text-white shadow-primary/35 hover:bg-primary/90"
                 }`}
               >
                 {isSubmitting ? (
@@ -623,14 +614,96 @@ export function NouvelleVenteClient({ products, clients }: Props) {
                   "Panier vide"
                 ) : !selectedClient ? (
                   "Choisir un client"
-                ) : markAsPaid ? (
-                  <><CheckCircle size={18} strokeWidth={2.25} /> Valider et marquer payé — {displays.total}</>
                 ) : (
                   <><CheckCircle size={18} strokeWidth={2.25} /> Valider la vente — {displays.total}</>
                 )}
               </button>
             </div>
           </div>
+        </div>
+      </Modal>
+
+      <Modal
+        open={paymentDecisionOpen}
+        onClose={() => {
+          if (!isSubmitting) setPaymentDecisionOpen(false);
+        }}
+        title="Statut de la vente"
+        subtitle="Décision obligatoire avant validation"
+        icon={<Banknote size={18} />}
+        size="md"
+        overlayClassName="p-4 z-[10000]"
+        cardClassName="z-[10001]"
+      >
+        <p className="text-sm leading-relaxed text-darktext/80">
+          Avant d&apos;enregistrer cette vente, indiquez si le paiement est confirmé ou s&apos;il
+          doit rester en attente. Cette étape est obligatoire et sera tracée dans l&apos;historique.
+        </p>
+
+        <div className="mt-4 space-y-2 rounded-xl border border-gray-100 bg-gray-50/80 px-3.5 py-3 text-sm">
+          <div className="flex justify-between gap-3">
+            <span className="text-gray-500">Client</span>
+            <span className="max-w-[60%] truncate text-right font-semibold text-darktext">
+              {selectedClient
+                ? selectedClient.client_type === "company"
+                  ? selectedClient.company_name ?? "Entreprise"
+                  : [selectedClient.first_name, selectedClient.last_name].filter(Boolean).join(" ") || "Client"
+                : "—"}
+            </span>
+          </div>
+          <div className="flex justify-between gap-3">
+            <span className="text-gray-500">Montant</span>
+            <span className="font-bold tabular-nums text-primary">{displays.total}</span>
+          </div>
+          <div className="flex justify-between gap-3">
+            <span className="text-gray-500">Mode</span>
+            <span className="font-medium text-darktext">
+              {PAYMENT_METHODS.find((pm) => pm.key === paymentMethod)?.label ?? "—"}
+            </span>
+          </div>
+        </div>
+
+        <div className="mt-5 grid gap-2.5 sm:grid-cols-2">
+          <button
+            type="button"
+            disabled={isSubmitting}
+            onClick={() => executeSaleSubmit(true)}
+            className="flex flex-col items-start gap-1 rounded-2xl border-2 border-emerald-500 bg-emerald-50 px-3.5 py-3 text-left transition hover:bg-emerald-100 disabled:opacity-50"
+          >
+            <span className="flex items-center gap-1.5 text-sm font-bold text-emerald-800">
+              <CheckCircle size={16} />
+              Marquer la vente
+            </span>
+            <span className="text-[11px] leading-snug text-emerald-700/90">
+              Paiement confirmé — statut «&nbsp;Payé&nbsp;» dès l&apos;enregistrement.
+            </span>
+          </button>
+
+          <button
+            type="button"
+            disabled={isSubmitting}
+            onClick={() => executeSaleSubmit(false)}
+            className="flex flex-col items-start gap-1 rounded-2xl border-2 border-amber-400 bg-amber-50 px-3.5 py-3 text-left transition hover:bg-amber-100 disabled:opacity-50"
+          >
+            <span className="flex items-center gap-1.5 text-sm font-bold text-amber-900">
+              <Clock size={16} />
+              Rejeter la vente
+            </span>
+            <span className="text-[11px] leading-snug text-amber-800/90">
+              Paiement non confirmé — statut «&nbsp;En attente&nbsp;» (encaissement ultérieur).
+            </span>
+          </button>
+        </div>
+
+        <div className="mt-5 flex justify-end">
+          <button
+            type="button"
+            disabled={isSubmitting}
+            onClick={() => setPaymentDecisionOpen(false)}
+            className="rounded-xl border border-gray-200 px-4 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-50 disabled:opacity-50"
+          >
+            Annuler
+          </button>
         </div>
       </Modal>
 

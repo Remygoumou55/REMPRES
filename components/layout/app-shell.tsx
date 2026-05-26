@@ -16,6 +16,7 @@ import {
 } from "@/lib/navigation/sidebar-for-role";
 import type { ShellRailVisibility } from "@/lib/navigation/shell-visibility";
 import { AvatarDropdown } from "@/components/ui/AvatarDropdown";
+import { NotificationBell } from "@/components/ui/NotificationBell";
 
 const EMPTY_SHELL_RAIL: ShellRailVisibility = {
   commerce: false,
@@ -62,6 +63,7 @@ type AppShellProps = {
   userRole: string;
   departmentKey: string | null;
   isSuperAdmin?: boolean;
+  userId?: string | null;
   pendingApprovalsCount?: number;
   shellRail?: ShellRailVisibility;
   canReadClients?: boolean;
@@ -77,6 +79,7 @@ export function AppShell({
   userRole,
   departmentKey,
   isSuperAdmin = false,
+  userId = null,
   pendingApprovalsCount = 0,
   shellRail,
   canReadClients = false,
@@ -227,6 +230,11 @@ export function AppShell({
 
             <div className="flex shrink-0 items-center gap-3">
               <CurrencySwitcher />
+              <NotificationBell
+                userId={userId}
+                role={userRole}
+                initialUnreadCount={pendingApprovalsCount}
+              />
               <AvatarDropdown
                 name={userDisplayName}
                 email={userEmail}

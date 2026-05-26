@@ -9,7 +9,7 @@ import {
 } from "@/lib/navigation/shell-visibility";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getShellLayoutPermissions } from "@/lib/server/permissions";
-import { countPendingApprovals } from "@/lib/server/approvals";
+import { getPendingCount } from "@/lib/server/notifications";
 import { getCachedProfileRow } from "@/lib/server/profile-row";
 import { avatarInitialFromDisplayName } from "@/lib/server/profile-display";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
@@ -29,9 +29,7 @@ export const getLayoutAccess = cache(async () => {
 
   const [shellPerms, pendingApprovalsCount, avatarRow] = await Promise.all([
     isSuperAdminProfile ? Promise.resolve(null) : getShellLayoutPermissions(userId),
-    isSuperAdminProfile
-      ? countPendingApprovals().catch(() => 0)
-      : Promise.resolve(0),
+    getPendingCount(userId, profile.roleKey).catch(() => 0),
     (async () => {
       try {
         const res = await supabaseForAvatar
@@ -113,5 +111,6 @@ export const getLayoutAccess = cache(async () => {
     canArchiveClients: permissions.canRead && permissions.canDelete,
     canArchiveProduits: productsPermissions.canRead && productsPermissions.canDelete,
     pendingApprovalsCount,
+    userId,
   };
 });

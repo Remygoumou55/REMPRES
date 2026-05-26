@@ -3,6 +3,7 @@ import { getSupabaseAdminClient } from "@/lib/supabaseAdmin";
 import type { Json } from "@/types/database.types";
 import type { Database } from "@/types/database.types";
 import { tryEmitGovernanceAlert } from "@/lib/governance/alert-engine";
+import { createNotification } from "@/lib/server/notifications";
 import { revalidateAfterApprovalExecution } from "@/lib/governance/approvals/approval-revalidation";
 import { cache } from "react";
 import { revalidateTag } from "next/cache";
@@ -128,14 +129,16 @@ async function notifySuperAdmins(requestId: string, input: CreateApprovalInput):
   const link = `/actions/approbations?id=${requestId}`;
 
   try {
-    await adminClient.from("notifications" as never).insert(
-      admins.map((admin) => ({
-        user_id: admin.id,
-        title: `Approbation requise — ${input.requesterDept}`,
-        message: input.description,
-        type: "approval_required",
-        link,
-      })) as never,
+    await Promise.all(
+      admins.map((admin) =>
+        createNotification({
+          userId: admin.id,
+          type: "approval",
+          title: `Approbation requise — ${input.requesterDept}`,
+          message: input.description,
+          actionUrl: link,
+        }),
+      ),
     );
   } catch {
     await tryEmitGovernanceAlert({
@@ -396,7 +399,6 @@ async function notifyRequester(
   decision: "approved" | "rejected",
   comment?: string,
 ): Promise<void> {
-  const adminClient = getSupabaseAdminClient();
   const approved = decision === "approved";
   const targetLabel = String(req.target_label ?? "votre demande");
   const message = approved
@@ -404,13 +406,13 @@ async function notifyRequester(
     : `Votre demande "${targetLabel}" a été rejetée.${comment ? ` Raison : ${comment}` : ""}`;
 
   try {
-    await adminClient.from("notifications" as never).insert({
-      user_id: req.requested_by,
-      title: approved ? "Demande approuvée" : "Demande rejetée",
+    await createNotification({
+      userId: String(req.requested_by ?? ""),
+      type: approved ? "info" : "alert",
+      title: approved ? "Demande approuvée" : "Demande refusée",
       message,
-      type: approved ? "approval_approved" : "approval_rejected",
-      link: "/actions/approbations",
-    } as never);
+      actionUrl: "/actions/approbations",
+    });
   } catch {
     await tryEmitGovernanceAlert({
       type: approved ? "approval_granted" : "approval_rejected",

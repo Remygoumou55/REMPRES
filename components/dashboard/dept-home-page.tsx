@@ -116,7 +116,8 @@ export const DeptHomePage = memo(function DeptHomePage({ data, firstName }: Dept
         firstName={firstName}
         date={frenchDate}
         time={clock}
-        subtitle={data.deptLabel}
+        eyebrow={`Département ${data.deptLabel}`}
+        subtitle="Tableau de bord"
         platformOk={platformOk}
         priorityCount={data.alerts.length}
       />

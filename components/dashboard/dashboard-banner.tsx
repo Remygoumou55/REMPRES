@@ -8,6 +8,8 @@ export type DashboardBannerProps = {
   date: string;
   time: string;
   subtitle?: string;
+  /** Petit libellé sur-titre (affiché en majuscules). Défaut : « Supervision globale ». */
+  eyebrow?: string;
   platformOk: boolean;
   priorityCount: number;
   children?: ReactNode;
@@ -19,6 +21,7 @@ export function DashboardBanner({
   date,
   time,
   subtitle,
+  eyebrow,
   platformOk,
   priorityCount,
   children,
@@ -33,7 +36,7 @@ export function DashboardBanner({
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div className="min-w-0 space-y-2">
           <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/70">
-            Supervision globale
+            {eyebrow ?? "Supervision globale"}
           </p>
           <h1 className="text-[26px] font-medium tracking-tight">
             {greeting}, {firstName} 👋

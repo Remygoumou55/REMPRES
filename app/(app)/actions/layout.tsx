@@ -1,10 +1,7 @@
-import { Suspense } from "react";
-import { GovernanceChrome } from "@/components/governance/GovernanceChrome";
-
+/**
+ * Actions — navigation sidebar uniquement (pas de bandeau horizontal).
+ * Le bandeau GovernanceChrome a été retiré pour éviter le doublon avec la sidebar.
+ */
 export default function ActionsModuleLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <Suspense fallback={<div className="space-y-6">{children}</div>}>
-      <GovernanceChrome>{children}</GovernanceChrome>
-    </Suspense>
-  );
+  return <>{children}</>;
 }

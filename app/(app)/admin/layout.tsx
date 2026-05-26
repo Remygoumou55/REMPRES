@@ -1,14 +1,8 @@
-import { Suspense } from "react";
-import { GovernanceChrome } from "@/components/governance/GovernanceChrome";
-
 /**
- * Administration — espacement vertical unifié (sans fil d’Ariane dupliqué : le shell porte le contexte).
- * Bandeaux gouvernance Actions / Archives selon le chemin.
+ * Administration — navigation sidebar uniquement (pas de bandeau horizontal).
+ * Le bandeau GovernanceChrome a été retiré pour éviter le doublon avec la sidebar
+ * (cf. patron identique sur /archives).
  */
 export default function AdminModuleLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <Suspense fallback={<div className="space-y-6">{children}</div>}>
-      <GovernanceChrome>{children}</GovernanceChrome>
-    </Suspense>
-  );
+  return <>{children}</>;
 }

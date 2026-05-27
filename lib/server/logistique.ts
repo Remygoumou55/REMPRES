@@ -789,3 +789,74 @@ export async function getLogistiqueDashboardKpis(): Promise<LogistiqueDashboardK
     alerts,
   };
 }
+
+// ═══════════════════════════════════════════════════════════════════════════
+// LOW STOCK ALERTS
+// ═══════════════════════════════════════════════════════════════════════════
+
+export type LowStockItem = {
+  id: string;
+  name: string;
+  sku: string | null;
+  quantity: number;
+  min_quantity: number;
+  deficit: number;
+  unit_price_gnf: number;
+  category: string | null;
+  last_movement_at: string | null;
+};
+
+export async function getLowStockItems(): Promise<LowStockItem[]> {
+  const supabase = getSupabaseServerClient();
+
+  const { data } = await supabase
+    .from("stock_items" as never)
+    .select("id,name,sku,quantity,min_quantity,unit_price_gnf,category,updated_at")
+    .is("deleted_at", null)
+    .order("name", { ascending: true });
+
+  if (!data) return [];
+
+  return ((data ?? []) as Array<{
+    id: string;
+    name: string;
+    sku: string | null;
+    quantity: number;
+    min_quantity: number;
+    unit_price_gnf: number;
+    category: string | null;
+    updated_at: string | null;
+  }>)
+    .map((item) => {
+      const minQty = Number(item.min_quantity ?? 0);
+      const qty = Number(item.quantity ?? 0);
+      return {
+        id: item.id,
+        name: item.name,
+        sku: item.sku ?? null,
+        quantity: qty,
+        min_quantity: minQty,
+        deficit: Math.max(0, minQty - qty),
+        unit_price_gnf: Number(item.unit_price_gnf ?? 0),
+        category: item.category ?? null,
+        last_movement_at: item.updated_at ?? null,
+      };
+    })
+    .filter((item) => item.quantity < item.min_quantity)
+    .sort((a, b) => b.deficit - a.deficit);
+}
+
+export async function getLowStockCount(): Promise<number> {
+  const supabase = getSupabaseServerClient();
+
+  const { data } = await supabase
+    .from("stock_items" as never)
+    .select("id,quantity,min_quantity")
+    .is("deleted_at", null);
+
+  if (!data) return 0;
+
+  return ((data ?? []) as Array<{ quantity: number; min_quantity: number }>).filter(
+    (item) => Number(item.quantity ?? 0) < Number(item.min_quantity ?? 0),
+  ).length;
+}

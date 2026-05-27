@@ -186,6 +186,7 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
           { href: "/logistique/inventaire", label: "Inventaire" },
           { href: "/logistique/fournisseurs", label: "Fournisseurs" },
           { href: "/logistique/commandes", label: "Commandes" },
+          { href: "/logistique/alertes", label: "Alertes stock" },
         ],
       },
       {

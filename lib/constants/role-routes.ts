@@ -94,6 +94,7 @@ export const DEPT_ALLOWED_ROUTES: Record<string, string[]> = {
     "/logistique/fournisseurs/new",
     "/logistique/achats",
     "/logistique/commandes",
+    "/logistique/alertes",
     "/logistique/achats/new",
     "/logistique/stock",
     "/logistique/dashboard",

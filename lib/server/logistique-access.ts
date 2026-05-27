@@ -23,13 +23,17 @@ export async function assertLogistiqueRead(userId: string): Promise<void> {
   if (!perms.canRead) redirect("/access-denied");
 }
 
-export async function assertLogistiqueWrite(userId: string): Promise<void> {
-  if (await isSuperAdmin(userId)) return;
+export async function canLogistiqueWrite(userId: string): Promise<boolean> {
+  if (await isSuperAdmin(userId)) return true;
   const role = await getUserRole(userId);
-  if (role && LOGISTIQUE_ROLES.has(role)) return;
-  if (await hasLogistiqueDepartmentAccess(userId)) return;
+  if (role && LOGISTIQUE_ROLES.has(role)) return true;
+  if (await hasLogistiqueDepartmentAccess(userId)) return true;
   const perms = await getModulePermissions(userId, ["logistics", "logistique"]);
-  if (!perms.canCreate && !perms.canUpdate) redirect("/access-denied");
+  return perms.canCreate || perms.canUpdate;
+}
+
+export async function assertLogistiqueWrite(userId: string): Promise<void> {
+  if (!(await canLogistiqueWrite(userId))) redirect("/access-denied");
 }
 
 export async function canLogistiqueDelete(userId: string): Promise<boolean> {

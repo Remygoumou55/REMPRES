@@ -63,6 +63,7 @@ const ICON_BY_HREF_PREFIX: { prefix: string; icon: LucideIcon }[] = [
   { prefix: "/formation", icon: GraduationCap },
   { prefix: "/consultation", icon: Briefcase },
   { prefix: "/marketing", icon: Megaphone },
+  { prefix: "/logistique/inventaire", icon: ClipboardList },
   { prefix: "/logistique", icon: Truck },
   { prefix: ROUTES.actions, icon: Zap },
   { prefix: ROUTES.settings, icon: Settings2 },

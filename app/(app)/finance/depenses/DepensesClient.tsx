@@ -48,6 +48,14 @@ import {
   EXPENSE_RECEIPTS_BUCKET,
   validateReceiptFile,
 } from "@/lib/expense-receipts";
+
+/** Modal dépense : largeur confortable, sans scroll vertical interne */
+const EXPENSE_FORM_MODAL_PROPS = {
+  size: "2xl" as const,
+  scrollable: false,
+  headerClassName: "px-6 py-4",
+  bodyClassName: "overflow-visible px-6 py-4",
+};
 import type { ExpenseListRow, ExpenseListResult, ExpenseCategoryRow, ExpenseStats } from "@/lib/server/expenses";
 import { GLOBAL_LIST_SEARCH_DEBOUNCE_MS } from "@/lib/data-listing";
 import type { ExpensePaymentMethod } from "@/lib/validations/expense";
@@ -468,106 +476,110 @@ export function DepensesClient({
         title="Nouvelle dépense"
         subtitle="Montant, catégorie et justificatif en une saisie"
         icon={<Receipt size={18} />}
-        size="md"
+        {...EXPENSE_FORM_MODAL_PROPS}
       >
-        <form onSubmit={onCreateSubmit} className="space-y-4">
-          <ModalSectionHeading>Montant &amp; catégorie</ModalSectionHeading>
-          <div className="grid grid-cols-2 gap-3">
-            <ModalField label="Montant (GNF)" required>
-              <ModalInput
-                autoFocus
+        <form onSubmit={onCreateSubmit} className="grid grid-cols-2 gap-x-4 gap-y-3">
+          <ModalSectionHeading className="col-span-2">
+            Montant &amp; catégorie
+          </ModalSectionHeading>
+          <ModalField label="Montant (GNF)" required>
+            <ModalInput
+              autoFocus
+              required
+              type="text"
+              inputMode="decimal"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              placeholder="ex. 1 500 000"
+            />
+            <p className="mt-0.5 text-[11px] leading-tight text-gray-400">
+              {currency === "GNF"
+                ? "Montant enregistré en GNF."
+                : typedConvertLoading
+                ? "Conversion en cours..."
+                : typedConvertedAmount === null
+                ? "Conversion indisponible"
+                : `${formatCurrency(typedConvertedAmount, currency)} ≈ ${formatCurrency(typedAmountGNF, "GNF")}`}
+            </p>
+          </ModalField>
+          <ModalField label="Catégorie" required>
+            <ModalSelect
+              value={categoryId}
+              onChange={(e) => setCategoryId(e.target.value)}
+              required
+            >
+              {categories.map((c) => (
+                <option key={c.id} value={c.id}>{c.name}</option>
+              ))}
+            </ModalSelect>
+          </ModalField>
+
+          <ModalSectionHeading className="col-span-2">Détail</ModalSectionHeading>
+          <div className="col-span-2">
+            <ModalField label="Description" required>
+              <ModalTextarea
                 required
-                type="text"
-                inputMode="decimal"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                placeholder="ex. 1 500 000"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                rows={2}
+                placeholder="Objet de la dépense…"
               />
-              <p className="mt-1 text-[11px] text-gray-400">
-                {currency === "GNF"
-                  ? "Montant enregistré en GNF."
-                  : typedConvertLoading
-                  ? "Conversion en cours..."
-                  : typedConvertedAmount === null
-                  ? "Conversion indisponible"
-                  : `${formatCurrency(typedConvertedAmount, currency)} ≈ ${formatCurrency(typedAmountGNF, "GNF")}`}
-              </p>
-            </ModalField>
-            <ModalField label="Catégorie" required>
-              <ModalSelect
-                value={categoryId}
-                onChange={(e) => setCategoryId(e.target.value)}
-                required
-              >
-                {categories.map((c) => (
-                  <option key={c.id} value={c.id}>{c.name}</option>
-                ))}
-              </ModalSelect>
             </ModalField>
           </div>
-
-          <ModalSectionHeading>Détail</ModalSectionHeading>
-          <ModalField label="Description" required>
-            <ModalTextarea
+          <ModalField label="Date" required>
+            <ModalInput
+              type="date"
               required
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              rows={2}
-              placeholder="Objet de la dépense…"
+              value={expenseDate}
+              onChange={(e) => setExpenseDate(e.target.value)}
             />
           </ModalField>
+          <ModalField label="Mode de paiement" required>
+            <ModalSelect
+              value={payment}
+              onChange={(e) => setPayment(e.target.value as ExpensePaymentMethod)}
+            >
+              <option value="cash">Espèces</option>
+              <option value="mobile_money">Mobile Money</option>
+              <option value="bank_transfer">Virement</option>
+              <option value="other">Autre</option>
+            </ModalSelect>
+          </ModalField>
 
-          <div className="grid grid-cols-2 gap-3">
-            <ModalField label="Date" required>
-              <ModalInput
-                type="date"
-                required
-                value={expenseDate}
-                onChange={(e) => setExpenseDate(e.target.value)}
-              />
-            </ModalField>
-            <ModalField label="Mode de paiement" required>
-              <ModalSelect
-                value={payment}
-                onChange={(e) => setPayment(e.target.value as ExpensePaymentMethod)}
-              >
-                <option value="cash">Espèces</option>
-                <option value="mobile_money">Mobile Money</option>
-                <option value="bank_transfer">Virement</option>
-                <option value="other">Autre</option>
-              </ModalSelect>
+          <ModalSectionHeading className="col-span-2">Justificatif</ModalSectionHeading>
+          <div className="col-span-2">
+            <ModalField label="Pièce justificative (PDF / image, max. 5 Mo)">
+              <label className="flex cursor-pointer items-center gap-2 rounded-xl border border-dashed border-gray-200 px-3 py-2 text-sm text-gray-400 transition hover:border-primary/40 hover:text-primary/70">
+                <Paperclip size={14} className="shrink-0" />
+                <span className="truncate">
+                  {receiptFile ? receiptFile.name : "Choisir un fichier…"}
+                </span>
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,image/gif,application/pdf"
+                  onChange={(e) => setReceiptFile(e.target.files?.[0] ?? null)}
+                  className="sr-only"
+                />
+              </label>
             </ModalField>
           </div>
 
-          <ModalSectionHeading>Justificatif</ModalSectionHeading>
-          <ModalField label="Pièce justificative (PDF / image, max. 5 Mo)">
-            <label className="flex cursor-pointer items-center gap-2 rounded-xl border border-dashed border-gray-200 px-3 py-3 text-sm text-gray-400 transition hover:border-primary/40 hover:text-primary/70">
-              <Paperclip size={14} />
-              {receiptFile ? receiptFile.name : "Choisir un fichier…"}
-              <input
-                type="file"
-                accept="image/jpeg,image/png,image/webp,image/gif,application/pdf"
-                onChange={(e) => setReceiptFile(e.target.files?.[0] ?? null)}
-                className="sr-only"
-              />
-            </label>
-          </ModalField>
-
-          <ModalError message={formError} />
-
-          <ModalActions
-            onCancel={() => {
-              if (!saving) {
-                setFormOpen(false);
-                setFormError(null);
-              }
-            }}
-            submitLabel="Enregistrer"
-            loading={saving}
-            submitLoadingText="Enregistrement…"
-            submitDisabled={typedConvertUnavailable}
-            submitIcon={<Plus size={14} />}
-          />
+          <div className="col-span-2 space-y-3">
+            <ModalError message={formError} />
+            <ModalActions
+              onCancel={() => {
+                if (!saving) {
+                  setFormOpen(false);
+                  setFormError(null);
+                }
+              }}
+              submitLabel="Enregistrer"
+              loading={saving}
+              submitLoadingText="Enregistrement…"
+              submitDisabled={typedConvertUnavailable}
+              submitIcon={<Plus size={14} />}
+            />
+          </div>
         </form>
       </Modal>
 
@@ -805,88 +817,92 @@ export function DepensesClient({
         title="Modifier la dépense"
         subtitle={editing ? `Réf. ${editing.id.slice(0, 8)}` : undefined}
         icon={<Pencil size={18} />}
-        size="md"
+        {...EXPENSE_FORM_MODAL_PROPS}
       >
         {editing && (
-          <form onSubmit={onEditSave} className="space-y-4">
-            <ModalSectionHeading>Montant &amp; catégorie</ModalSectionHeading>
-            <div className="grid grid-cols-2 gap-3">
-              <ModalField label="Montant (GNF)" required>
-                <ModalInput
-                  autoFocus
-                  name="amount"
-                  defaultValue={String(Math.round(editing.amount_gnf))}
-                />
-              </ModalField>
-              <ModalField label="Catégorie" required>
-                <ModalSelect name="categoryId" defaultValue={editing.category_id}>
-                  {categories.map((c) => (
-                    <option key={c.id} value={c.id}>{c.name}</option>
-                  ))}
-                </ModalSelect>
-              </ModalField>
-            </div>
-
-            <ModalSectionHeading>Détail</ModalSectionHeading>
-            <ModalField label="Description" required>
-              <ModalTextarea name="description" defaultValue={editing.description} rows={2} />
+          <form onSubmit={onEditSave} className="grid grid-cols-2 gap-x-4 gap-y-3">
+            <ModalSectionHeading className="col-span-2">
+              Montant &amp; catégorie
+            </ModalSectionHeading>
+            <ModalField label="Montant (GNF)" required>
+              <ModalInput
+                autoFocus
+                name="amount"
+                defaultValue={String(Math.round(editing.amount_gnf))}
+              />
+            </ModalField>
+            <ModalField label="Catégorie" required>
+              <ModalSelect name="categoryId" defaultValue={editing.category_id}>
+                {categories.map((c) => (
+                  <option key={c.id} value={c.id}>{c.name}</option>
+                ))}
+              </ModalSelect>
             </ModalField>
 
-            <div className="grid grid-cols-2 gap-3">
-              <ModalField label="Date" required>
-                <ModalInput type="date" name="expenseDate" defaultValue={editing.expense_date.slice(0, 10)} />
-              </ModalField>
-              <ModalField label="Paiement" required>
-                <ModalSelect name="payment" defaultValue={editing.payment_method ?? "cash"}>
-                  <option value="cash">Espèces</option>
-                  <option value="mobile_money">Mobile Money</option>
-                  <option value="bank_transfer">Virement</option>
-                  <option value="other">Autre</option>
-                </ModalSelect>
+            <ModalSectionHeading className="col-span-2">Détail</ModalSectionHeading>
+            <div className="col-span-2">
+              <ModalField label="Description" required>
+                <ModalTextarea name="description" defaultValue={editing.description} rows={2} />
               </ModalField>
             </div>
+            <ModalField label="Date" required>
+              <ModalInput type="date" name="expenseDate" defaultValue={editing.expense_date.slice(0, 10)} />
+            </ModalField>
+            <ModalField label="Paiement" required>
+              <ModalSelect name="payment" defaultValue={editing.payment_method ?? "cash"}>
+                <option value="cash">Espèces</option>
+                <option value="mobile_money">Mobile Money</option>
+                <option value="bank_transfer">Virement</option>
+                <option value="other">Autre</option>
+              </ModalSelect>
+            </ModalField>
 
-            <ModalSectionHeading>Justificatif</ModalSectionHeading>
-            <ModalField label="Pièce justificative">
-              {editing.receipt_url && !editRemoveReceipt && (
-                <p className="mb-1.5 text-xs text-gray-400">Une pièce est déjà enregistrée.</p>
-              )}
-              <label className="flex cursor-pointer items-center gap-2 rounded-xl border border-dashed border-gray-200 px-3 py-3 text-sm text-gray-400 transition hover:border-primary/40 hover:text-primary/70">
-                <Paperclip size={14} />
-                {editReceipt ? editReceipt.name : "Remplacer le fichier…"}
-                <input
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp,image/gif,application/pdf"
-                  onChange={(e) => setEditReceipt(e.target.files?.[0] ?? null)}
-                  className="sr-only"
-                />
-              </label>
-              {editing.receipt_url && (
-                <label className="mt-1.5 flex items-center gap-2 text-xs text-red-500 cursor-pointer">
+            <ModalSectionHeading className="col-span-2">Justificatif</ModalSectionHeading>
+            <div className="col-span-2">
+              <ModalField label="Pièce justificative">
+                {editing.receipt_url && !editRemoveReceipt && (
+                  <p className="mb-1 text-xs text-gray-400">Une pièce est déjà enregistrée.</p>
+                )}
+                <label className="flex cursor-pointer items-center gap-2 rounded-xl border border-dashed border-gray-200 px-3 py-2 text-sm text-gray-400 transition hover:border-primary/40 hover:text-primary/70">
+                  <Paperclip size={14} className="shrink-0" />
+                  <span className="truncate">
+                    {editReceipt ? editReceipt.name : "Remplacer le fichier…"}
+                  </span>
                   <input
-                    type="checkbox"
-                    checked={editRemoveReceipt}
-                    onChange={(e) => { setEditRemoveReceipt(e.target.checked); if (e.target.checked) setEditReceipt(null); }}
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp,image/gif,application/pdf"
+                    onChange={(e) => setEditReceipt(e.target.files?.[0] ?? null)}
+                    className="sr-only"
                   />
-                  Retirer la pièce actuelle
                 </label>
-              )}
-            </ModalField>
+                {editing.receipt_url && (
+                  <label className="mt-1 flex cursor-pointer items-center gap-2 text-xs text-red-500">
+                    <input
+                      type="checkbox"
+                      checked={editRemoveReceipt}
+                      onChange={(e) => { setEditRemoveReceipt(e.target.checked); if (e.target.checked) setEditReceipt(null); }}
+                    />
+                    Retirer la pièce actuelle
+                  </label>
+                )}
+              </ModalField>
+            </div>
 
-            <ModalError message={formError} />
-
-            <ModalActions
-              onCancel={() => {
-                if (!saving) {
-                  setEditing(null);
-                  setFormError(null);
-                }
-              }}
-              submitLabel="Enregistrer"
-              loading={saving}
-              submitLoadingText="Enregistrement…"
-              submitIcon={<Save size={14} />}
-            />
+            <div className="col-span-2 space-y-3">
+              <ModalError message={formError} />
+              <ModalActions
+                onCancel={() => {
+                  if (!saving) {
+                    setEditing(null);
+                    setFormError(null);
+                  }
+                }}
+                submitLabel="Enregistrer"
+                loading={saving}
+                submitLoadingText="Enregistrement…"
+                submitIcon={<Save size={14} />}
+              />
+            </div>
           </form>
         )}
       </Modal>

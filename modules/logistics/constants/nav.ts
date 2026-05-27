@@ -21,6 +21,7 @@ export const LOGISTICS_NAV: LogisticsNavItem[] = [
   { href: `${BASE}/entrepots`, label: "Entrepôts", icon: Warehouse },
   { href: `${BASE}/stock`, label: "Stock", icon: Package },
   { href: `${BASE}/mouvements`, label: "Mouvements", icon: ArrowLeftRight },
+  { href: `${BASE}/inventaire`, label: "Inventaire", icon: ClipboardList },
   { href: `${BASE}/fournisseurs`, label: "Fournisseurs", icon: Building2 },
   { href: `${BASE}/achats`, label: "Achats", icon: ShoppingBag },
   { href: `${BASE}/livraisons`, label: "Livraisons", icon: Truck },

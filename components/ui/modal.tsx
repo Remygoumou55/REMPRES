@@ -58,6 +58,8 @@ export type ModalProps = {
   bodyClassName?: string;
   /** Classes Tailwind pour la carte (hauteur max, flex…) */
   cardClassName?: string;
+  /** Désactive le scroll interne du corps (formulaires courts) */
+  scrollable?: boolean;
   /** Contenu du modal (formulaire, etc.) */
   children: React.ReactNode;
 };
@@ -73,6 +75,7 @@ export function Modal({
   headerClassName,
   bodyClassName,
   cardClassName,
+  scrollable = true,
   children,
 }: ModalProps) {
   const titleId = useId();
@@ -151,7 +154,11 @@ export function Modal({
 
         {/* Corps — flex-1 pour laisser le pied (actions) visible quand max-h est appliqué */}
         <div
-          className={`min-h-0 flex-1 overflow-y-auto px-6 py-5 ${bodyClassName ?? ""}`}
+          className={cn(
+            "min-h-0 flex-1 px-6 py-5",
+            scrollable ? "overflow-y-auto" : "overflow-visible",
+            bodyClassName,
+          )}
         >
           {children}
         </div>
@@ -168,9 +175,20 @@ export function Modal({
 // ModalSectionHeading — sous-titres de section dans les formulaires modaux
 // ---------------------------------------------------------------------------
 
-export function ModalSectionHeading({ children }: { children: React.ReactNode }) {
+export function ModalSectionHeading({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
+    <p
+      className={cn(
+        "mb-1.5 text-xs font-semibold uppercase tracking-wide text-gray-400",
+        className,
+      )}
+    >
       {children}
     </p>
   );

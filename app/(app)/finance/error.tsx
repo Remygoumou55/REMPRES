@@ -1,9 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import { logError } from "@/lib/logger";
-import { RouteErrorFallback } from "@/components/ui/route-error-fallback";
-import { reportRouteError } from "@/lib/monitoring/error-monitor";
+import { AutoRecoverRouteError } from "@/components/ui/auto-recover-route-error";
 
 type FinanceErrorProps = {
   error: Error & { digest?: string };
@@ -11,20 +8,13 @@ type FinanceErrorProps = {
 };
 
 export default function FinanceError({ error, reset }: FinanceErrorProps) {
-  useEffect(() => {
-    logError("ui", "finance error boundary triggered", {
-      error: error.message,
-      digest: error.digest,
-    });
-    reportRouteError("finance", error, { digest: error.digest ?? null });
-  }, [error]);
-
   return (
-    <RouteErrorFallback
-      title="Erreur module finance"
-      message="Le module finance ne peut pas charger les donnees pour le moment. Reessayez."
+    <AutoRecoverRouteError
+      scope="finance"
+      error={error}
       reset={reset}
-      homeHref="/dashboard"
+      fallbackHref="/dashboard"
+      loadingMessage="Chargement du module finance…"
     />
   );
 }

@@ -1,9 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import { logError } from "@/lib/logger";
-import { RouteErrorFallback } from "@/components/ui/route-error-fallback";
-import { reportRouteError } from "@/lib/monitoring/error-monitor";
+import { AutoRecoverRouteError } from "@/components/ui/auto-recover-route-error";
 
 type AdminErrorProps = {
   error: Error & { digest?: string };
@@ -11,20 +8,13 @@ type AdminErrorProps = {
 };
 
 export default function AdminError({ error, reset }: AdminErrorProps) {
-  useEffect(() => {
-    logError("ui", "admin error boundary triggered", {
-      error: error.message,
-      digest: error.digest,
-    });
-    reportRouteError("admin", error, { digest: error.digest ?? null });
-  }, [error]);
-
   return (
-    <RouteErrorFallback
-      title="Erreur administration"
-      message="Les donnees d'administration sont indisponibles temporairement. Reessayez dans quelques instants."
+    <AutoRecoverRouteError
+      scope="admin"
+      error={error}
       reset={reset}
-      homeHref="/dashboard"
+      fallbackHref="/dashboard"
+      loadingMessage="Chargement de l'administration…"
     />
   );
 }

@@ -1,14 +1,11 @@
 import { redirect } from "next/navigation";
-import { BarChart3, ShoppingBag, ShoppingCart, TrendingUp, Users } from "lucide-react";
+import { ShoppingBag, ShoppingCart, TrendingUp, Users } from "lucide-react";
 import { getServerSessionUser } from "@/lib/server/auth-session";
-import { getModulePermissions } from "@/lib/server/permissions";
-import { getSalesAnalytics } from "@/lib/server/sales-analytics";
+import { getClientsPermissions } from "@/lib/server/permissions";
+import { EMPTY_SALES_ANALYTICS, getSalesAnalytics } from "@/lib/server/sales-analytics";
 import { PageHeader } from "@/components/ui/page-header";
 import { KpiCard } from "@/components/dashboard/kpi-card";
-import { RevenueBarChart } from "@/components/vente/stats/RevenueBarChart";
-import { CategoryPieChart } from "@/components/vente/stats/CategoryPieChart";
-import { TopList } from "@/components/vente/stats/TopList";
-import { VenteStatsInsights } from "@/components/vente/stats/VenteStatsInsights";
+import { VenteStatistiquesCharts } from "@/components/vente/stats/VenteStatistiquesCharts";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -23,10 +20,11 @@ export default async function VenteStatistiquesPage() {
   const user = await getServerSessionUser();
   if (!user) redirect("/login");
 
-  const permissions = await getModulePermissions(user.id, ["vente", "produits", "clients"]);
+  const permissions = await getClientsPermissions(user.id);
   if (!permissions.canRead) redirect("/access-denied");
 
   const analytics = await getSalesAnalytics({ months: 12, limit: 5 });
+  const hasData = analytics.totalSales > 0;
 
   const topProductItems = analytics.topProducts.map((p) => ({
     id: p.product_id,
@@ -53,27 +51,34 @@ export default async function VenteStatistiquesPage() {
         subtitle="Analyse des 12 derniers mois"
       />
 
+      {!hasData ? (
+        <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+          Aucune vente validée sur les 12 derniers mois. Les graphiques affichent des
+          valeurs à zéro jusqu&apos;à la première vente enregistrée.
+        </div>
+      ) : null}
+
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <KpiCard
           title="Total CA (période)"
           value={formatGnf(analytics.totalRevenue)}
           icon={TrendingUp}
           color="green"
-          isEmpty={analytics.totalSales === 0}
+          isEmpty={!hasData}
         />
         <KpiCard
           title="Nombre de ventes"
           value={analytics.totalSales}
           icon={ShoppingBag}
           color="blue"
-          isEmpty={analytics.totalSales === 0}
+          isEmpty={!hasData}
         />
         <KpiCard
           title="Panier moyen"
           value={formatGnf(analytics.averageBasket)}
           icon={ShoppingCart}
           color="purple"
-          isEmpty={analytics.totalSales === 0}
+          isEmpty={!hasData}
         />
         <KpiCard
           title="Nouveaux clients"
@@ -84,49 +89,13 @@ export default async function VenteStatistiquesPage() {
         />
       </div>
 
-      <section className="card p-5">
-        <div className="mb-4 flex items-center gap-2">
-          <BarChart3 className="h-5 w-5 text-primary" />
-          <h2 className="text-base font-semibold text-darktext">Évolution du CA</h2>
-        </div>
-        <RevenueBarChart data={analytics.monthlyRevenue} />
-      </section>
-
-      <div className="grid gap-6 lg:grid-cols-2">
-        <TopList
-          title="Top 5 Produits"
-          items={topProductItems}
-          valueLabel="Chiffre d'affaires"
-          countLabel="ventes"
-          emptyText="Aucun produit vendu sur la période."
-        />
-        <TopList
-          title="Top 5 Clients"
-          items={topClientItems}
-          valueLabel="Volume d'achats"
-          countLabel="achats"
-          emptyText="Aucun client avec achats sur la période."
-        />
-      </div>
-
-      <div className="grid gap-6 lg:grid-cols-2">
-        <section className="card p-5">
-          <h3 className="mb-4 text-sm font-semibold text-darktext">
-            Répartition par catégorie
-          </h3>
-          <p className="mb-3 text-xs text-gray-500">
-            Répartition par unité produit (catalogue RemPres).
-          </p>
-          <CategoryPieChart data={analytics.categoryRevenue} />
-        </section>
-        <VenteStatsInsights
-          returningClientsRate={analytics.returningClientsRate}
-          averageBasket={analytics.averageBasket}
-          highestSaleGnf={analytics.highestSaleGnf}
-          topCategory={analytics.topCategory}
-          leadConversionRate={analytics.leadConversionRate}
-        />
-      </div>
+      <VenteStatistiquesCharts
+        analytics={
+          analytics.monthlyRevenue.length > 0 ? analytics : EMPTY_SALES_ANALYTICS
+        }
+        topProductItems={topProductItems}
+        topClientItems={topClientItems}
+      />
     </div>
   );
 }

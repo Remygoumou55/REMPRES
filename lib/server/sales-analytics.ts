@@ -1,4 +1,6 @@
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import { logError } from "@/lib/logger";
+import { safeCount, safeRows } from "@/lib/utils/safe-query";
 import { SALES_OPERATIONAL_LIFECYCLE } from "@/lib/vente/runtime/sales-lifecycle";
 
 export type TopProduct = {
@@ -52,6 +54,9 @@ const MONTH_FR = [
   "Jul", "Aoû", "Sep", "Oct", "Nov", "Déc",
 ] as const;
 
+const SALE_COLUMNS = "id, total_amount_gnf, created_at, client_id";
+const IN_CHUNK_SIZE = 150;
+
 type ClientJoin = {
   id: string;
   first_name: string | null;
@@ -74,6 +79,21 @@ type SaleItemAnalyticsRow = {
   total_price_gnf: number;
   product_id: string | null;
   product_name: string;
+};
+
+export const EMPTY_SALES_ANALYTICS: SalesAnalytics = {
+  topProducts: [],
+  topClients: [],
+  monthlyRevenue: [],
+  categoryRevenue: [],
+  totalRevenue: 0,
+  totalSales: 0,
+  averageBasket: 0,
+  newClientsThisMonth: 0,
+  returningClientsRate: 0,
+  leadConversionRate: null,
+  highestSaleGnf: 0,
+  topCategory: null,
 };
 
 function clientDisplayName(c: ClientJoin | null): string {
@@ -109,7 +129,112 @@ function monthLabelFromKey(key: string): string {
   return `${label} ${y}`;
 }
 
-export async function getSalesAnalytics(params?: {
+function isSchemaCompatError(error: unknown): boolean {
+  const msg = String((error as { message?: string })?.message ?? error ?? "").toLowerCase();
+  return (
+    msg.includes("lifecycle_status") ||
+    msg.includes("does not exist") ||
+    msg.includes("column") ||
+    msg.includes("crm_leads") ||
+    msg.includes("schema cache")
+  );
+}
+
+async function fetchSalesInPeriod(
+  startDateStr: string,
+): Promise<Omit<SaleAnalyticsRow, "clients">[]> {
+  const supabase = getSupabaseServerClient();
+
+  const lifecycleQuery = await supabase
+    .from("sales")
+    .select(SALE_COLUMNS)
+    .eq("lifecycle_status", SALES_OPERATIONAL_LIFECYCLE)
+    .gte("created_at", startDateStr)
+    .order("created_at", { ascending: false });
+
+  if (!lifecycleQuery.error) {
+    return (lifecycleQuery.data ?? []) as Omit<SaleAnalyticsRow, "clients">[];
+  }
+
+  if (!isSchemaCompatError(lifecycleQuery.error)) {
+    logError("sales-analytics", "sales query failed", { error: lifecycleQuery.error.message });
+    return [];
+  }
+
+  const legacyQuery = await supabase
+    .from("sales")
+    .select(SALE_COLUMNS)
+    .is("deleted_at", null)
+    .neq("payment_status", "cancelled")
+    .gte("created_at", startDateStr)
+    .order("created_at", { ascending: false });
+
+  if (legacyQuery.error) {
+    logError("sales-analytics", "sales legacy query failed", { error: legacyQuery.error.message });
+    return [];
+  }
+
+  return (legacyQuery.data ?? []) as Omit<SaleAnalyticsRow, "clients">[];
+}
+
+async function fetchSaleItemsForSales(saleIds: string[]): Promise<SaleItemAnalyticsRow[]> {
+  if (saleIds.length === 0) return [];
+
+  const supabase = getSupabaseServerClient();
+  const rows: SaleItemAnalyticsRow[] = [];
+
+  for (let i = 0; i < saleIds.length; i += IN_CHUNK_SIZE) {
+    const chunk = saleIds.slice(i, i + IN_CHUNK_SIZE);
+    const batch = await safeRows<SaleItemAnalyticsRow>(
+      supabase
+        .from("sale_items")
+        .select("sale_id, quantity, total_price_gnf, product_id, product_name")
+        .in("sale_id", chunk),
+    );
+    rows.push(...batch);
+  }
+
+  return rows;
+}
+
+async function fetchProductUnits(productIds: string[]): Promise<Map<string, string>> {
+  const map = new Map<string, string>();
+  if (productIds.length === 0) return map;
+
+  const supabase = getSupabaseServerClient();
+  for (let i = 0; i < productIds.length; i += IN_CHUNK_SIZE) {
+    const chunk = productIds.slice(i, i + IN_CHUNK_SIZE);
+    const rows = await safeRows<{ id: string; unit: string }>(
+      supabase.from("products").select("id, unit").in("id", chunk),
+    );
+    for (const p of rows) {
+      map.set(p.id, p.unit);
+    }
+  }
+  return map;
+}
+
+async function fetchClientsByIds(clientIds: string[]): Promise<Map<string, ClientJoin>> {
+  const map = new Map<string, ClientJoin>();
+  if (clientIds.length === 0) return map;
+
+  const supabase = getSupabaseServerClient();
+  for (let i = 0; i < clientIds.length; i += IN_CHUNK_SIZE) {
+    const chunk = clientIds.slice(i, i + IN_CHUNK_SIZE);
+    const rows = await safeRows<ClientJoin>(
+      supabase
+        .from("clients")
+        .select("id, first_name, last_name, company_name, client_type")
+        .in("id", chunk),
+    );
+    for (const c of rows) {
+      map.set(c.id, c);
+    }
+  }
+  return map;
+}
+
+async function loadSalesAnalytics(params?: {
   months?: number;
   limit?: number;
 }): Promise<SalesAnalytics> {
@@ -128,82 +253,46 @@ export async function getSalesAnalytics(params?: {
   monthStart.setHours(0, 0, 0, 0);
   const monthStartStr = monthStart.toISOString();
 
-  const [salesRes, newClientsRes, leadsTotalRes, leadsConvertedRes] = await Promise.all([
-    supabase
-      .from("sales")
-      .select("id, total_amount_gnf, created_at, client_id")
-      .eq("lifecycle_status", SALES_OPERATIONAL_LIFECYCLE)
-      .gte("created_at", startDateStr)
-      .order("created_at", { ascending: false }),
+  const monthKeys = buildMonthSeries(months);
 
-    supabase
-      .from("clients")
-      .select("id", { count: "exact", head: true })
-      .is("deleted_at", null)
-      .gte("created_at", monthStartStr),
-
-    supabase
-      .from("crm_leads")
-      .select("id", { count: "exact", head: true })
-      .is("deleted_at", null),
-
-    supabase
-      .from("crm_leads")
-      .select("id", { count: "exact", head: true })
-      .is("deleted_at", null)
-      .or("status.eq.converted,converted_client_id.not.is.null"),
+  const [salesRaw, newClientsThisMonth, totalLeads, convertedLeads] = await Promise.all([
+    fetchSalesInPeriod(startDateStr),
+    safeCount(
+      supabase
+        .from("clients")
+        .select("id", { count: "exact", head: true })
+        .is("deleted_at", null)
+        .gte("created_at", monthStartStr),
+    ),
+    safeCount(
+      supabase
+        .from("crm_leads")
+        .select("id", { count: "exact", head: true })
+        .is("deleted_at", null),
+    ),
+    safeCount(
+      supabase
+        .from("crm_leads")
+        .select("id", { count: "exact", head: true })
+        .is("deleted_at", null)
+        .or("status.eq.converted,converted_client_id.not.is.null"),
+    ),
   ]);
 
-  if (salesRes.error) throw new Error(salesRes.error.message);
-
-  const salesRaw = (salesRes.data ?? []) as Omit<SaleAnalyticsRow, "clients">[];
   const saleIds = salesRaw.map((s) => s.id);
-
   const clientIds = Array.from(
     new Set(salesRaw.map((s) => s.client_id).filter((id): id is string => Boolean(id))),
   );
 
-  const [saleItemsRes, clientsRes] = await Promise.all([
-    saleIds.length > 0
-      ? supabase
-          .from("sale_items")
-          .select("sale_id, quantity, total_price_gnf, product_id, product_name")
-          .in("sale_id", saleIds)
-      : Promise.resolve({ data: [], error: null }),
-
-    clientIds.length > 0
-      ? supabase
-          .from("clients")
-          .select("id, first_name, last_name, company_name, client_type")
-          .in("id", clientIds)
-      : Promise.resolve({ data: [], error: null }),
-
+  const [saleItems, clientById] = await Promise.all([
+    fetchSaleItemsForSales(saleIds),
+    fetchClientsByIds(clientIds),
   ]);
-
-  const saleItems = (saleItemsRes.data ?? []) as SaleItemAnalyticsRow[];
 
   const productIds = Array.from(
     new Set(saleItems.map((i) => i.product_id).filter((id): id is string => Boolean(id))),
   );
-
-  let productUnitById = new Map<string, string>();
-  if (productIds.length > 0) {
-    const { data: productsData, error: productsError } = await supabase
-      .from("products")
-      .select("id, unit")
-      .in("id", productIds);
-    if (productsError) throw new Error(productsError.message);
-    productUnitById = new Map(
-      ((productsData ?? []) as { id: string; unit: string }[]).map((p) => [p.id, p.unit]),
-    );
-  }
-
-  if (clientsRes.error) throw new Error(clientsRes.error.message);
-  if (saleItemsRes.error) throw new Error(saleItemsRes.error.message);
-
-  const clientById = new Map(
-    ((clientsRes.data ?? []) as ClientJoin[]).map((c) => [c.id, c]),
-  );
+  const productUnitById = await fetchProductUnits(productIds);
 
   const sales: SaleAnalyticsRow[] = salesRaw.map((s) => ({
     ...s,
@@ -218,7 +307,6 @@ export async function getSalesAnalytics(params?: {
     0,
   );
 
-  // Top products
   const productMap = new Map<
     string,
     { name: string; category: string | null; qty: number; revenue: number; saleIds: Set<string> }
@@ -254,7 +342,6 @@ export async function getSalesAnalytics(params?: {
     .sort((a, b) => b.total_revenue_gnf - a.total_revenue_gnf)
     .slice(0, limit);
 
-  // Top clients
   const clientMap = new Map<
     string,
     { name: string; company: string | null; total: number; count: number }
@@ -286,8 +373,6 @@ export async function getSalesAnalytics(params?: {
     .sort((a, b) => b.total_purchases_gnf - a.total_purchases_gnf)
     .slice(0, limit);
 
-  // Monthly revenue
-  const monthKeys = buildMonthSeries(months);
   const monthAgg = new Map<string, { revenue: number; count: number }>();
   for (const key of monthKeys) {
     monthAgg.set(key, { revenue: 0, count: 0 });
@@ -310,7 +395,6 @@ export async function getSalesAnalytics(params?: {
     };
   });
 
-  // Category revenue (by product unit)
   const catMap = new Map<string, number>();
   for (const item of saleItems) {
     const unit = item.product_id ? productUnitById.get(item.product_id) : null;
@@ -328,7 +412,6 @@ export async function getSalesAnalytics(params?: {
 
   const topCategory = categoryRevenue[0]?.category ?? null;
 
-  // Returning clients rate
   const clientsWithSales = Array.from(clientMap.entries()).filter(
     ([id]) => id !== "__anonymous__",
   );
@@ -338,8 +421,6 @@ export async function getSalesAnalytics(params?: {
       ? Math.round((returningCount / clientsWithSales.length) * 1000) / 10
       : 0;
 
-  const totalLeads = leadsTotalRes.count ?? 0;
-  const convertedLeads = leadsConvertedRes.count ?? 0;
   const leadConversionRate =
     totalLeads > 0 ? Math.round((convertedLeads / totalLeads) * 1000) / 10 : null;
 
@@ -351,7 +432,7 @@ export async function getSalesAnalytics(params?: {
     totalRevenue,
     totalSales,
     averageBasket,
-    newClientsThisMonth: newClientsRes.count ?? 0,
+    newClientsThisMonth,
     returningClientsRate,
     leadConversionRate,
     highestSaleGnf,
@@ -359,7 +440,31 @@ export async function getSalesAnalytics(params?: {
   };
 }
 
-/** Snapshot léger pour le cockpit département vente. */
+/** Ne lève jamais — évite l'écran « Erreur module vente ». */
+export async function getSalesAnalytics(params?: {
+  months?: number;
+  limit?: number;
+}): Promise<SalesAnalytics> {
+  try {
+    return await loadSalesAnalytics(params);
+  } catch (error) {
+    logError("sales-analytics", "getSalesAnalytics failed", {
+      error: error instanceof Error ? error.message : String(error),
+    });
+    const months = params?.months ?? 12;
+    const monthKeys = buildMonthSeries(months);
+    return {
+      ...EMPTY_SALES_ANALYTICS,
+      monthlyRevenue: monthKeys.map((key) => ({
+        month: key,
+        month_label: monthLabelFromKey(key),
+        revenue_gnf: 0,
+        sale_count: 0,
+      })),
+    };
+  }
+}
+
 export async function getVenteAnalyticsSnapshot(): Promise<{
   averageBasket: number;
   topProductName: string | null;

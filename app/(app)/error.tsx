@@ -1,9 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import { logError } from "@/lib/logger";
-import { RouteErrorFallback } from "@/components/ui/route-error-fallback";
-import { reportRouteError } from "@/lib/monitoring/error-monitor";
+import { AutoRecoverRouteError } from "@/components/ui/auto-recover-route-error";
 
 type AppErrorProps = {
   error: Error & { digest?: string };
@@ -11,13 +8,13 @@ type AppErrorProps = {
 };
 
 export default function AppError({ error, reset }: AppErrorProps) {
-  useEffect(() => {
-    logError("ui", "app error boundary triggered", {
-      error: error.message,
-      digest: error.digest,
-    });
-    reportRouteError("app", error, { digest: error.digest ?? null });
-  }, [error]);
-
-  return <RouteErrorFallback reset={reset} />;
+  return (
+    <AutoRecoverRouteError
+      scope="app"
+      error={error}
+      reset={reset}
+      fallbackHref="/dashboard"
+      loadingMessage="Chargement de l'application…"
+    />
+  );
 }

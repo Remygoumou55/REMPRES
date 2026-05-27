@@ -1,9 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import { logError } from "@/lib/logger";
-import { RouteErrorFallback } from "@/components/ui/route-error-fallback";
-import { reportRouteError } from "@/lib/monitoring/error-monitor";
+import { AutoRecoverRouteError } from "@/components/ui/auto-recover-route-error";
 
 type GlobalErrorProps = {
   error: Error & { digest?: string };
@@ -11,23 +8,16 @@ type GlobalErrorProps = {
 };
 
 export default function GlobalError({ error, reset }: GlobalErrorProps) {
-  useEffect(() => {
-    logError("ui", "global error boundary triggered", {
-      error: error.message,
-      digest: error.digest,
-    });
-    reportRouteError("global", error, { digest: error.digest ?? null });
-  }, [error]);
-
   return (
     <html lang="fr">
       <body className="min-h-screen bg-graylight p-6">
         <main>
-          <RouteErrorFallback
-            title="Erreur inattendue"
-            message="Une erreur critique est survenue. Vous pouvez reessayer ou revenir au tableau de bord."
+          <AutoRecoverRouteError
+            scope="global"
+            error={error}
             reset={reset}
-            homeHref="/dashboard"
+            fallbackHref="/dashboard"
+            loadingMessage="Redirection vers un écran stable…"
           />
         </main>
       </body>

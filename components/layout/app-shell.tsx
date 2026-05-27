@@ -4,6 +4,7 @@ import { useState, useMemo, useCallback } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
+import { PresenceIndicator } from "@/components/ui/PresenceIndicator";
 import { Menu } from "lucide-react";
 
 import { getSupabaseBrowserClient } from "@/lib/supabase";
@@ -232,6 +233,12 @@ export function AppShell({
 
             <div className="flex shrink-0 items-center gap-3">
               <CurrencySwitcher />
+              <PresenceIndicator
+                userId={userId}
+                fullName={userDisplayName}
+                avatarUrl={userAvatarUrl}
+                currentPage={pathname ?? undefined}
+              />
               <NotificationBell
                 userId={userId}
                 role={userRole}

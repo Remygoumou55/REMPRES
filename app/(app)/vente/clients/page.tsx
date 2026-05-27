@@ -6,7 +6,11 @@ import { headers } from "next/headers";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { createClient } from "@/lib/server/clients";
 import { listClients } from "@/lib/server/clients";
-import { ClientsTable } from "@/components/vente/clients/clients-table";
+import {
+  ClientsRealtimeProvider,
+  ClientsRealtimeSubtitle,
+} from "@/components/vente/clients/ClientsRealtimeProvider";
+import { ClientsTableLive } from "@/components/vente/clients/ClientsTableLive";
 import { ClientsFilters } from "@/components/vente/clients/clients-filters";
 import { assertClientsPermission, getClientsPermissions } from "@/lib/server/permissions";
 import { FlashMessage } from "@/components/ui/flash-message";
@@ -123,10 +127,11 @@ export default async function ClientsPage({ searchParams }: ClientsPageProps) {
 
   return (
     <div className="page-wrapper">
+      <ClientsRealtimeProvider initialClients={result.data}>
       <ModulePageStack>
         <PageHeader
           title="Clients"
-          subtitle={`${result.total} client(s) trouvé(s).`}
+          subtitle={<ClientsRealtimeSubtitle total={result.total} />}
           actions={
             <div className="flex flex-wrap items-center gap-2">
               <ClientsExportButton clients={result.data} />
@@ -165,8 +170,7 @@ export default async function ClientsPage({ searchParams }: ClientsPageProps) {
           />
         </Suspense>
 
-        <ClientsTable
-          clients={result.data}
+        <ClientsTableLive
           canUpdate={permissions.canUpdate}
           canDelete={permissions.canDelete}
           listQueryString={listQueryString}
@@ -174,6 +178,7 @@ export default async function ClientsPage({ searchParams }: ClientsPageProps) {
 
         <PaginationBar page={result.page} totalPages={result.totalPages} buildHref={buildUrl} />
       </ModulePageStack>
+      </ClientsRealtimeProvider>
       {permissions.canCreate && createOpen ? (
         <ClientForm
           title="Nouveau client"

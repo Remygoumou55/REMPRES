@@ -3,7 +3,11 @@ import { Archive } from "lucide-react";
 import { redirect } from "next/navigation";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { createProduct, listProducts } from "@/lib/server/products";
-import { ProductsTable } from "@/components/vente/produits/products-table";
+import {
+  ProductsRealtimeProvider,
+  ProductsRealtimeSubtitle,
+} from "@/components/vente/produits/ProductsRealtimeProvider";
+import { ProductsTableLive } from "@/components/vente/produits/ProductsTableLive";
 import { getModulePermissions } from "@/lib/server/permissions";
 import { FlashMessage } from "@/components/ui/flash-message";
 import { PageHeader } from "@/components/ui/page-header";
@@ -108,10 +112,11 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
 
   return (
     <div className="page-wrapper">
+      <ProductsRealtimeProvider initialProducts={products ?? []}>
       <ModulePageStack>
         <PageHeader
           title="Produits"
-          subtitle={`${products?.length ?? 0} produit(s) catalogue.`}
+          subtitle={<ProductsRealtimeSubtitle count={products?.length ?? 0} />}
           actions={
             permissions.canDelete || permissions.canCreate ? (
               <div className="flex flex-wrap items-center gap-2">
@@ -139,13 +144,13 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
 
         <FlashMessage success={successMessage} error={errorMessage} />
 
-        <ProductsTable
-          products={products ?? []}
+        <ProductsTableLive
           canUpdate={permissions.canUpdate}
           canDelete={permissions.canDelete}
           listQueryString=""
         />
       </ModulePageStack>
+      </ProductsRealtimeProvider>
       {permissions.canCreate && createOpen ? (
         <ProductForm
           title="Nouveau produit"

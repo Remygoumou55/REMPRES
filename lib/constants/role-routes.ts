@@ -105,6 +105,7 @@ export const DEPT_ALLOWED_ROUTES: Record<string, string[]> = {
     "/dashboard/executive",
     "/executive",
     "/executive/rapport-hebdomadaire",
+    "/executive/previsions",
     "/dept",
     "/profil",
   ],

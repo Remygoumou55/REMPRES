@@ -9,6 +9,7 @@ import {
   Link2,
   Plug,
   Radio,
+  Share2,
   Store,
 } from "lucide-react";
 
@@ -35,6 +36,7 @@ export const PLATFORM_NAV: PlatformNavItem[] = [
   { href: `${BASE}/marketplace`, label: "Marketplace", icon: Store },
   { href: `${BASE}/events`, label: "Événements", icon: Radio },
   { href: `${BASE}/apis`, label: "APIs partenaires", icon: Globe },
+  { href: `${BASE}/webhooks`, label: "Webhooks", icon: Share2 },
   { href: `${BASE}/observability`, label: "Observabilité", icon: AppWindow },
   { href: `${BASE}/governance`, label: "Gouvernance", icon: BookOpen },
 ];

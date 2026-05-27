@@ -22,6 +22,7 @@ import {
   type CampaignStatus,
   type CampaignType,
 } from "@/lib/types/marketing";
+import { CampaignesExportWrapper } from "@/components/marketing/CampaignesExportWrapper";
 import {
   deleteCampaignAction,
   updateCampaignStatusAction,
@@ -76,10 +77,28 @@ export default async function CampagnesPage({ searchParams }: Props) {
 
   const { data, total, totalBudget, activeCount, totalLeads } =
     await listCampaignsWithMetrics({
-    search: searchParams?.q,
-    type: searchParams?.type ?? "all",
-    status: searchParams?.status ?? "all",
-  });
+      search: searchParams?.q,
+      type: searchParams?.type ?? "all",
+      status: searchParams?.status ?? "all",
+    });
+
+  const exportRows: Record<string, unknown>[] = data.map((c) => ({
+    name: c.title,
+    status: c.status,
+    channel: c.channel ?? c.type,
+    type: c.type,
+    budget_gnf: formatGNF(Number(c.budget_gnf)),
+    sent_count: c.sent_count,
+    open_count: c.open_count,
+    click_count: c.click_count,
+    conversion_count: c.conversion_count,
+    start_date: c.start_date
+      ? new Date(c.start_date).toLocaleDateString("fr-FR")
+      : "—",
+    end_date: c.end_date
+      ? new Date(c.end_date).toLocaleDateString("fr-FR")
+      : "—",
+  }));
 
   return (
     <div className="page-wrapper">
@@ -87,13 +106,18 @@ export default async function CampagnesPage({ searchParams }: Props) {
         title="Campagnes"
         subtitle={`${total} campagne${total > 1 ? "s" : ""}`}
         actions={
-          <Link
-            href="/marketing/campagnes/new"
-            className="btn-primary inline-flex items-center gap-2 text-sm"
-          >
-            <Plus className="h-4 w-4" />
-            Nouvelle campagne
-          </Link>
+          <div className="flex flex-wrap items-center gap-2">
+            {data.length > 0 ? (
+              <CampaignesExportWrapper data={exportRows} />
+            ) : null}
+            <Link
+              href="/marketing/campagnes/new"
+              className="btn-primary inline-flex items-center gap-2 text-sm"
+            >
+              <Plus className="h-4 w-4" />
+              Nouvelle campagne
+            </Link>
+          </div>
         }
       />
       <FlashMessage success={searchParams?.success} error={searchParams?.error} />

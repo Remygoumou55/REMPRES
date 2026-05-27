@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { ArrowRight, Edit, Eye, Plus, Target, Trash2 } from "lucide-react";
+import { Edit, Eye, Plus, Target, Trash2 } from "lucide-react";
+import { ConvertLeadButton } from "@/components/marketing/ConvertLeadButton";
+import { LeadsExportWrapper } from "@/components/marketing/LeadsExportWrapper";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { assertMarketingRead } from "@/lib/server/marketing-access";
 import { listCampaignsForSelect, listLeads } from "@/lib/server/marketing";
@@ -16,7 +18,7 @@ import {
   type LeadSource,
   type LeadStatus,
 } from "@/lib/types/marketing";
-import { convertLeadToClientAction, deleteLeadAction } from "./actions";
+import { deleteLeadAction } from "./actions";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -76,19 +78,35 @@ export default async function LeadsPage({ searchParams }: Props) {
     listCampaignsForSelect(),
   ]);
 
+  const exportRows: Record<string, unknown>[] = data.map((l) => ({
+    name: `${l.first_name} ${l.last_name}`.trim(),
+    email: l.email ?? "—",
+    phone: l.phone ?? "—",
+    company: l.company ?? "—",
+    source: l.source,
+    status: l.status,
+    campaign_name: l.campaign?.title ?? "—",
+    created_at: l.created_at,
+  }));
+
   return (
     <div className="page-wrapper">
       <PageHeader
         title="Leads"
         subtitle={`${total} lead${total > 1 ? "s" : ""} dans le pipeline`}
         actions={
-          <Link
-            href="/marketing/leads/new"
-            className="btn-primary inline-flex items-center gap-2 text-sm"
-          >
-            <Plus className="h-4 w-4" />
-            Ajouter un lead
-          </Link>
+          <div className="flex flex-wrap items-center gap-2">
+            {data.length > 0 ? (
+              <LeadsExportWrapper data={exportRows} />
+            ) : null}
+            <Link
+              href="/marketing/leads/new"
+              className="btn-primary inline-flex items-center gap-2 text-sm"
+            >
+              <Plus className="h-4 w-4" />
+              Ajouter un lead
+            </Link>
+          </div>
         }
       />
       <FlashMessage success={searchParams?.success} error={searchParams?.error} />
@@ -178,10 +196,7 @@ export default async function LeadsPage({ searchParams }: Props) {
               </tr>
             </thead>
             <tbody>
-              {data.map((l) => {
-                const canConvert =
-                  l.status === "qualified" || l.status === "proposal";
-                return (
+              {data.map((l) => (
                   <tr key={l.id} className="border-b border-gray-100 hover:bg-gray-50">
                     <td className="p-3">
                       <Link
@@ -224,18 +239,12 @@ export default async function LeadsPage({ searchParams }: Props) {
                         >
                           <Edit className="h-3.5 w-3.5" /> Modifier
                         </Link>
-                        {canConvert ? (
-                          <form
-                            action={convertLeadToClientAction.bind(null, l.id)}
-                          >
-                            <button
-                              type="submit"
-                              className="inline-flex items-center gap-1 text-xs font-medium text-emerald-700"
-                            >
-                              <ArrowRight className="h-3.5 w-3.5" /> Convertir
-                            </button>
-                          </form>
-                        ) : null}
+                        <ConvertLeadButton
+                          leadId={l.id}
+                          leadName={`${l.first_name} ${l.last_name}`.trim()}
+                          leadEmail={l.email}
+                          currentStatus={l.status}
+                        />
                         <form action={deleteLeadAction.bind(null, l.id)}>
                           <button
                             type="submit"
@@ -247,8 +256,7 @@ export default async function LeadsPage({ searchParams }: Props) {
                       </div>
                     </td>
                   </tr>
-                );
-              })}
+              ))}
             </tbody>
           </table>
         </div>

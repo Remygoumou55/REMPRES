@@ -27,8 +27,8 @@ import {
   LEAD_STATUS_LABELS,
   type LeadStatus,
 } from "@/lib/types/marketing";
+import { ConvertLeadButton } from "@/components/marketing/ConvertLeadButton";
 import {
-  convertLeadToClientAction,
   deleteLeadAction,
   updateLeadStatusAction,
 } from "../actions";
@@ -56,7 +56,6 @@ export default async function LeadDetailPage({ params, searchParams }: Props) {
   ]);
   if (!lead) notFound();
 
-  const canConvert = lead.status === "qualified" || lead.status === "proposal";
   const currentIdx = LEAD_PIPELINE_ORDER.indexOf(lead.status);
   const nextStatus: LeadStatus | null =
     lead.status === "lost" || lead.status === "converted"
@@ -89,17 +88,12 @@ export default async function LeadDetailPage({ params, searchParams }: Props) {
               <Edit className="h-4 w-4" />
               Modifier
             </Link>
-            {canConvert ? (
-              <form action={convertLeadToClientAction.bind(null, lead.id)}>
-                <button
-                  type="submit"
-                  className="inline-flex items-center gap-2 rounded-md border border-emerald-200 px-3 py-2 text-sm font-medium text-emerald-700 hover:bg-emerald-50"
-                >
-                  <ArrowRight className="h-4 w-4" />
-                  Convertir en client
-                </button>
-              </form>
-            ) : null}
+            <ConvertLeadButton
+              leadId={lead.id}
+              leadName={`${lead.first_name} ${lead.last_name}`.trim()}
+              leadEmail={lead.email}
+              currentStatus={lead.status}
+            />
             {canDelete ? (
               <form action={deleteLeadAction.bind(null, lead.id)}>
                 <button

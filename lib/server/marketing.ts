@@ -513,19 +513,73 @@ export async function softDeleteLead(
   return { success: true };
 }
 
+export type ConvertLeadToClientResult = {
+  success: boolean;
+  clientId?: string;
+  alreadyExists?: boolean;
+  requiresApproval?: boolean;
+  error?: string;
+};
+
+async function incrementCampaignConversionCount(
+  campaignId: string,
+): Promise<void> {
+  const supabase = getSupabaseServerClient();
+  const { data } = await supabase
+    .from("campaigns" as never)
+    .select("conversion_count")
+    .eq("id", campaignId)
+    .is("deleted_at", null)
+    .maybeSingle();
+
+  if (!data) return;
+
+  const current = Number((data as { conversion_count?: number }).conversion_count ?? 0);
+  await supabase
+    .from("campaigns" as never)
+    .update({ conversion_count: current + 1 } as never)
+    .eq("id", campaignId);
+}
+
 export async function convertLeadToClient(
   leadId: string,
   userId: string,
-): Promise<{ success: boolean; clientId?: string; error?: string }> {
+): Promise<ConvertLeadToClientResult> {
   const supabase = getSupabaseServerClient();
   const admin = getSupabaseAdminClient();
   const lead = await getLeadById(leadId);
   if (!lead) return { success: false, error: "Lead introuvable." };
-  if (lead.converted_client_id) {
-    return { success: true, clientId: lead.converted_client_id };
+
+  if (lead.status === "converted" || lead.converted_client_id) {
+    return {
+      success: false,
+      error: "Ce lead est déjà converti.",
+      clientId: lead.converted_client_id ?? undefined,
+    };
+  }
+
+  if (lead.email?.trim()) {
+    const { data: existing } = await admin
+      .from("clients")
+      .select("id")
+      .eq("email", lead.email.trim())
+      .is("deleted_at", null)
+      .maybeSingle();
+
+    if (existing) {
+      const existingId = String((existing as { id: string }).id);
+      return {
+        success: false,
+        alreadyExists: true,
+        clientId: existingId,
+        error: `Un client avec l'email ${lead.email} existe déjà.`,
+      };
+    }
   }
 
   const clientType: "individual" | "company" = lead.company ? "company" : "individual";
+  const conversionNote = `Converti depuis lead marketing le ${new Date().toLocaleDateString("fr-FR")}.`;
+  const mergedNotes = [lead.notes, conversionNote].filter(Boolean).join("\n\n");
 
   const { data, error } = await admin
     .from("clients")
@@ -536,7 +590,7 @@ export async function convertLeadToClient(
       company_name: lead.company,
       email: lead.email,
       phone: lead.phone,
-      notes: lead.notes,
+      notes: mergedNotes || null,
       created_by: userId,
     })
     .select("id")
@@ -547,7 +601,7 @@ export async function convertLeadToClient(
   }
   const clientId = String((data as { id: string }).id);
 
-  await supabase
+  const { error: leadError } = await supabase
     .from("leads" as never)
     .update({
       status: "converted",
@@ -555,6 +609,18 @@ export async function convertLeadToClient(
       converted_at: new Date().toISOString(),
     } as never)
     .eq("id", leadId);
+
+  if (leadError) {
+    return { success: false, error: leadError.message };
+  }
+
+  if (lead.campaign_id) {
+    try {
+      await incrementCampaignConversionCount(lead.campaign_id);
+    } catch (e) {
+      console.error("[marketing] increment campaign conversion_count:", e);
+    }
+  }
 
   return { success: true, clientId };
 }

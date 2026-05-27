@@ -34,18 +34,23 @@ function parsePriority(raw: string): OpsTaskPriority {
   return "normal";
 }
 
+/** Notification envoyée à l'assigné via createNotification() — T-OPS1 */
 async function notifyAssignee(
   assigneeId: string | null | undefined,
   title: string,
 ) {
   if (!assigneeId?.trim()) return;
-  await createNotification({
-    userId: assigneeId,
-    type: "info",
-    title: "Tâche assignée",
-    message: `Vous avez été assigné à la tâche « ${title} ».`,
-    actionUrl: "/operations/tasks",
-  });
+  try {
+    await createNotification({
+      userId: assigneeId,
+      type: "info",
+      title: "Tâche assignée",
+      message: `Vous avez été assigné à la tâche « ${title} ».`,
+      actionUrl: "/operations/tasks",
+    });
+  } catch {
+    // Non bloquant — l'échec de notification ne doit pas casser la tâche
+  }
 }
 
 export async function createTaskAction(

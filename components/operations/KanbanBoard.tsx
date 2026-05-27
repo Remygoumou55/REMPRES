@@ -5,10 +5,10 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
   useTransition,
 } from "react";
-import { useRouter } from "next/navigation";
 import { ClipboardList, Plus } from "lucide-react";
 import type { OpsTask } from "@/lib/server/operations";
 import {
@@ -30,58 +30,56 @@ const KANBAN_COLUMNS: { status: OpsTaskStatus; label: string }[] = [
 ];
 
 export type KanbanBoardProps = {
-  initialTasks: OpsTask[];
+  tasks: OpsTask[];
   projects: { id: string; name: string }[];
   assignableUsers: { id: string; full_name: string }[];
 };
 
 function KanbanBoardInner({
-  initialTasks,
+  tasks,
   projects,
   assignableUsers,
 }: KanbanBoardProps) {
-  const router = useRouter();
   const [, startTransition] = useTransition();
-  const [tasks, setTasks] = useState<OpsTask[]>(initialTasks);
+  const [localTasks, setLocalTasks] = useState<OpsTask[]>(tasks);
   const [projectFilter, setProjectFilter] = useState("all");
   const [editingTask, setEditingTask] = useState<OpsTask | null>(null);
   const [createStatus, setCreateStatus] = useState<OpsTaskStatus | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const pendingMoveRef = useRef(false);
 
   useEffect(() => {
-    setTasks(initialTasks);
-  }, [initialTasks]);
+    if (pendingMoveRef.current) return;
+    setLocalTasks(tasks);
+  }, [tasks]);
 
   const visibleTasks = useMemo(() => {
-    return tasks.filter((t) => {
+    return localTasks.filter((t) => {
       if (t.status === "cancelled") return false;
       if (projectFilter !== "all" && t.project_id !== projectFilter) {
         return false;
       }
       return true;
     });
-  }, [tasks, projectFilter]);
+  }, [localTasks, projectFilter]);
 
-  const moveTask = useCallback(
-    (taskId: string, newStatus: OpsTaskStatus) => {
-      setTasks((prev) => {
-        const snapshot = prev;
-        const optimistic = prev.map((t) =>
-          t.id === taskId ? { ...t, status: newStatus } : t,
-        );
-        startTransition(async () => {
-          const result = await updateTaskStatusAction(taskId, newStatus);
-          if (!result.success) {
-            setTasks(snapshot);
-            return;
-          }
-          router.refresh();
-        });
-        return optimistic;
+  const moveTask = useCallback((taskId: string, newStatus: OpsTaskStatus) => {
+    setLocalTasks((prev) => {
+      const snapshot = prev;
+      pendingMoveRef.current = true;
+      const optimistic = prev.map((t) =>
+        t.id === taskId ? { ...t, status: newStatus } : t,
+      );
+      startTransition(async () => {
+        const result = await updateTaskStatusAction(taskId, newStatus);
+        pendingMoveRef.current = false;
+        if (!result.success) {
+          setLocalTasks(snapshot);
+        }
       });
-    },
-    [router],
-  );
+      return optimistic;
+    });
+  }, []);
 
   const columnHandlers = useMemo(() => {
     return KANBAN_COLUMNS.map((col, i) => ({
@@ -117,10 +115,11 @@ function KanbanBoardInner({
 
   const onFormSuccess = () => {
     closeModal();
-    router.refresh();
+    pendingMoveRef.current = false;
+    setLocalTasks(tasks);
   };
 
-  const hasAnyKanbanTask = tasks.some((t) => t.status !== "cancelled");
+  const hasAnyKanbanTask = localTasks.some((t) => t.status !== "cancelled");
 
   return (
     <div className="space-y-4">

@@ -26,7 +26,7 @@ export default async function OperationsTasksPage() {
 
   return (
     <TasksPageClient
-      tasks={tasks}
+      initialTasks={tasks}
       projects={projectOptions}
       assignableUsers={assignableUsers}
       listView={

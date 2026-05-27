@@ -40,6 +40,35 @@ function field<T>(row: T, key: keyof T): unknown {
   return row?.[key];
 }
 
+function normalizeCampaignRow(
+  row: Campaign,
+  leadsCount = 0,
+): Campaign {
+  return {
+    ...row,
+    sent_count: Number(row.sent_count ?? 0),
+    open_count: Number(row.open_count ?? 0),
+    click_count: Number(row.click_count ?? 0),
+    conversion_count: Number(row.conversion_count ?? 0),
+    notes: row.notes ?? null,
+    leads_count: leadsCount,
+  };
+}
+
+async function countLeadsByCampaign(
+  supabase: ReturnType<typeof getSupabaseServerClient>,
+): Promise<Map<string, number>> {
+  const leadCountsRows = await safeRows<{ campaign_id: string }>(
+    supabase.from("leads" as never).select("campaign_id").is("deleted_at", null),
+  );
+  const map = new Map<string, number>();
+  leadCountsRows.forEach((r) => {
+    const cid = String(field(r, "campaign_id") ?? "");
+    if (cid) map.set(cid, (map.get(cid) ?? 0) + 1);
+  });
+  return map;
+}
+
 // ═══════════════════════════════════════════════════════════════════════════
 // CAMPAIGNS
 // ═══════════════════════════════════════════════════════════════════════════
@@ -86,44 +115,41 @@ export async function listCampaigns(
     );
   }
 
-  const [result, leadCountsRows, activeCount, totalBudgetRows] = await Promise.all([
-    query.range(from, to),
-    safeRows<{ campaign_id: string }>(
-      supabase.from("leads" as never).select("campaign_id").is("deleted_at", null),
-    ),
-    safeCount(
-      supabase
-        .from("campaigns" as never)
-        .select("*", { count: "exact", head: true })
-        .eq("status", "active")
-        .is("deleted_at", null),
-    ),
-    safeRows<{ budget_gnf: number }>(
-      supabase
-        .from("campaigns" as never)
-        .select("budget_gnf")
-        .is("deleted_at", null),
-    ),
-  ]);
+  const [result, leadsByCampaign, activeCount, totalBudgetRows, totalLeads] =
+    await Promise.all([
+      query.range(from, to),
+      countLeadsByCampaign(supabase),
+      safeCount(
+        supabase
+          .from("campaigns" as never)
+          .select("*", { count: "exact", head: true })
+          .eq("status", "active")
+          .is("deleted_at", null),
+      ),
+      safeRows<{ budget_gnf: number }>(
+        supabase
+          .from("campaigns" as never)
+          .select("budget_gnf")
+          .is("deleted_at", null),
+      ),
+      safeCount(
+        supabase
+          .from("leads" as never)
+          .select("*", { count: "exact", head: true })
+          .is("deleted_at", null),
+      ),
+    ]);
 
   const rows = (result.error ? [] : (result.data ?? [])) as Campaign[];
 
-  const leadsByCampaign = new Map<string, number>();
-  leadCountsRows.forEach((r) => {
-    const cid = String(field(r, "campaign_id") ?? "");
-    if (cid) leadsByCampaign.set(cid, (leadsByCampaign.get(cid) ?? 0) + 1);
-  });
-  const enriched = rows.map((c) => ({
-    ...c,
-    leads_count: leadsByCampaign.get(c.id) ?? 0,
-  }));
+  const enriched = rows.map((c) =>
+    normalizeCampaignRow(c, leadsByCampaign.get(c.id) ?? 0),
+  );
 
   const totalBudget = totalBudgetRows.reduce(
     (acc, r) => acc + Number(r.budget_gnf ?? 0),
     0,
   );
-  const totalLeads = leadCountsRows.length;
-
   return {
     data: enriched,
     total: result.error ? 0 : (result.count ?? 0),
@@ -131,6 +157,18 @@ export async function listCampaigns(
     activeCount,
     totalLeads,
   };
+}
+
+export async function listCampaignsWithMetrics(
+  params: ListCampaignsParams = {},
+): Promise<{
+  data: Campaign[];
+  total: number;
+  totalBudget: number;
+  activeCount: number;
+  totalLeads: number;
+}> {
+  return listCampaigns(params);
 }
 
 export async function getCampaignById(id: string): Promise<Campaign | null> {
@@ -141,8 +179,67 @@ export async function getCampaignById(id: string): Promise<Campaign | null> {
     .eq("id", id)
     .is("deleted_at", null)
     .maybeSingle();
-  if (error) return null;
-  return (data as Campaign | null) ?? null;
+  if (error || !data) return null;
+
+  const leadsCount = await safeCount(
+    supabase
+      .from("leads" as never)
+      .select("*", { count: "exact", head: true })
+      .eq("campaign_id", id)
+      .is("deleted_at", null),
+  );
+
+  return normalizeCampaignRow(data as Campaign, leadsCount);
+}
+
+export async function updateCampaignMetrics(
+  id: string,
+  metrics: {
+    sent_count: number;
+    open_count: number;
+    click_count: number;
+    conversion_count: number;
+  },
+): Promise<{ success: boolean; error?: string }> {
+  const supabase = getSupabaseServerClient();
+
+  const sent = Math.max(0, Math.floor(metrics.sent_count));
+  const open = Math.max(0, Math.floor(metrics.open_count));
+  const click = Math.max(0, Math.floor(metrics.click_count));
+  const conversion = Math.max(0, Math.floor(metrics.conversion_count));
+
+  if (open > sent) {
+    return {
+      success: false,
+      error: "Les ouvertures ne peuvent pas dépasser les envois.",
+    };
+  }
+  if (click > open) {
+    return {
+      success: false,
+      error: "Les clics ne peuvent pas dépasser les ouvertures.",
+    };
+  }
+  if (conversion > sent) {
+    return {
+      success: false,
+      error: "Les conversions ne peuvent pas dépasser les envois.",
+    };
+  }
+
+  const { error } = await supabase
+    .from("campaigns" as never)
+    .update({
+      sent_count: sent,
+      open_count: open,
+      click_count: click,
+      conversion_count: conversion,
+    } as never)
+    .eq("id", id)
+    .is("deleted_at", null);
+
+  if (error) return { success: false, error: error.message };
+  return { success: true };
 }
 
 export async function listCampaignsForSelect(): Promise<

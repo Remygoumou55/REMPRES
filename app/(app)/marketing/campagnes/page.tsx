@@ -3,7 +3,13 @@ import { redirect } from "next/navigation";
 import { Edit, Eye, Megaphone, Pause, Play, Plus, Trash2 } from "lucide-react";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { assertMarketingRead } from "@/lib/server/marketing-access";
-import { listCampaigns } from "@/lib/server/marketing";
+import { listCampaignsWithMetrics } from "@/lib/server/marketing";
+import {
+  computeRates,
+  formatRate,
+  getRateBg,
+  getRateColor,
+} from "@/lib/utils/campaign-analytics";
 import { PageHeader } from "@/components/ui/page-header";
 import { FlashMessage } from "@/components/ui/flash-message";
 import {
@@ -68,7 +74,8 @@ export default async function CampagnesPage({ searchParams }: Props) {
   if (!user) redirect("/login");
   await assertMarketingRead(user.id);
 
-  const { data, total, totalBudget, activeCount, totalLeads } = await listCampaigns({
+  const { data, total, totalBudget, activeCount, totalLeads } =
+    await listCampaignsWithMetrics({
     search: searchParams?.q,
     type: searchParams?.type ?? "all",
     status: searchParams?.status ?? "all",
@@ -153,6 +160,9 @@ export default async function CampagnesPage({ searchParams }: Props) {
                 <th className="p-3">Type</th>
                 <th className="p-3">Statut</th>
                 <th className="p-3 text-right">Budget</th>
+                <th className="p-3 text-right">Envoyés</th>
+                <th className="p-3 text-right">Ouvertures</th>
+                <th className="p-3 text-right">Conversions</th>
                 <th className="p-3">Dates</th>
                 <th className="p-3 text-right">Leads</th>
                 <th className="p-3 text-right">Actions</th>
@@ -182,6 +192,21 @@ export default async function CampagnesPage({ searchParams }: Props) {
                   </td>
                   <td className="p-3 text-right tabular-nums">
                     {formatGNF(Number(c.budget_gnf))}
+                  </td>
+                  <td className="p-3 text-right tabular-nums text-gray-700">
+                    {c.sent_count > 0 ? c.sent_count.toLocaleString("fr-FR") : "—"}
+                  </td>
+                  <td className="p-3 text-right">
+                    <AnalyticsRateBadge
+                      sent={c.sent_count}
+                      rate={computeRates(c).open_rate}
+                    />
+                  </td>
+                  <td className="p-3 text-right">
+                    <AnalyticsRateBadge
+                      sent={c.sent_count}
+                      rate={computeRates(c).conversion_rate}
+                    />
                   </td>
                   <td className="p-3 text-xs text-gray-600">
                     {formatDateRange(c.start_date, c.end_date)}
@@ -243,6 +268,29 @@ export default async function CampagnesPage({ searchParams }: Props) {
         </div>
       )}
     </div>
+  );
+}
+
+function AnalyticsRateBadge({
+  sent,
+  rate,
+}: {
+  sent: number;
+  rate: number;
+}) {
+  if (sent <= 0) {
+    return <span className="text-gray-400">—</span>;
+  }
+  return (
+    <span
+      className="inline-flex rounded-full px-2 py-0.5 text-xs font-semibold tabular-nums"
+      style={{
+        color: getRateColor(rate),
+        backgroundColor: getRateBg(rate),
+      }}
+    >
+      {formatRate(rate)}
+    </span>
   );
 }
 

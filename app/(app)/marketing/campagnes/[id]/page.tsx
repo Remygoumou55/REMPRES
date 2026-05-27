@@ -31,6 +31,10 @@ import {
   type LeadStatus,
 } from "@/lib/types/marketing";
 import {
+  CampaignAnalyticsSection,
+  metricsFromCampaign,
+} from "@/components/marketing/CampaignAnalyticsSection";
+import {
   deleteCampaignAction,
   updateCampaignStatusAction,
 } from "../actions";
@@ -71,7 +75,6 @@ export default async function CampaignDetailPage({ params, searchParams }: Props
 
   const totalLeads = leadsResult.total;
   const convertedLeads = leadsResult.byStatus.converted ?? 0;
-  const conversionRate = totalLeads > 0 ? (convertedLeads / totalLeads) * 100 : 0;
   const budget = Number(campaign.budget_gnf ?? 0);
   const costPerLead = totalLeads > 0 ? budget / totalLeads : 0;
 
@@ -190,13 +193,10 @@ export default async function CampaignDetailPage({ params, searchParams }: Props
       />
       <FlashMessage success={searchParams?.success} error={searchParams?.error} />
 
-      <div className="mb-6 grid gap-3 sm:grid-cols-4">
-        <StatCard label="Leads générés" value={totalLeads} />
-        <StatCard label="Conversions" value={convertedLeads} />
-        <StatCard label="Taux de conversion" value={`${conversionRate.toFixed(1)}%`} />
-        <StatCard
-          label="Coût par lead"
-          value={totalLeads > 0 ? formatGNF(costPerLead) : "—"}
+      <div className="mb-6">
+        <CampaignAnalyticsSection
+          campaignId={campaign.id}
+          metrics={metricsFromCampaign(campaign)}
         />
       </div>
 
@@ -251,6 +251,11 @@ export default async function CampaignDetailPage({ params, searchParams }: Props
             value={campaign.target_audience ?? "—"}
             className="md:col-span-2"
           />
+          <InfoField
+            label="Leads associés"
+            value={String(campaign.leads_count ?? totalLeads)}
+          />
+          <InfoField label="Notes" value={campaign.notes ?? "—"} className="md:col-span-2" />
         </section>
       ) : null}
 

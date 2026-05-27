@@ -49,6 +49,11 @@ export type Campaign = {
   target_audience: string | null;
   goal: string | null;
   channel: string | null;
+  notes: string | null;
+  sent_count: number;
+  open_count: number;
+  click_count: number;
+  conversion_count: number;
   created_by: string | null;
   created_at: string;
   updated_at: string;

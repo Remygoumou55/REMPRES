@@ -1946,6 +1946,10 @@ export type Database = {
           created_by: string;
           created_at: string;
           updated_at: string;
+          deleted_at: string | null;
+          start_date: string | null;
+          end_date: string | null;
+          budget_gnf: number | null;
         };
         Insert: {
           id?: string;
@@ -1961,6 +1965,10 @@ export type Database = {
           created_by: string;
           created_at?: string;
           updated_at?: string;
+          deleted_at?: string | null;
+          start_date?: string | null;
+          end_date?: string | null;
+          budget_gnf?: number | null;
         };
         Update: {
           id?: string;
@@ -1976,6 +1984,10 @@ export type Database = {
           created_by?: string;
           created_at?: string;
           updated_at?: string;
+          deleted_at?: string | null;
+          start_date?: string | null;
+          end_date?: string | null;
+          budget_gnf?: number | null;
         };
         Relationships: [
           {
@@ -2046,6 +2058,7 @@ export type Database = {
           created_by: string;
           created_at: string;
           updated_at: string;
+          deleted_at: string | null;
         };
         Insert: {
           id?: string;
@@ -2066,6 +2079,7 @@ export type Database = {
           source_entity_id?: string | null;
           created_by: string;
           created_at?: string;
+          deleted_at?: string | null;
           updated_at?: string;
         };
         Update: {
@@ -2088,6 +2102,7 @@ export type Database = {
           created_by?: string;
           created_at?: string;
           updated_at?: string;
+          deleted_at?: string | null;
         };
         Relationships: [
           {

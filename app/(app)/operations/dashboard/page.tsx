@@ -5,6 +5,9 @@ import { OperationsSectionPanel } from "@/modules/operations/ui/panels/SectionPa
 import { getOperationsOperationalOverview } from "@/modules/operations/server/services/ops-overview";
 import { buildOpsOperationalAnalytics } from "@/modules/operations/server/services/ops-analytics-service";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function OperationsDashboardPage() {
   const supabase = getSupabaseServerClient();
   const [overview, analytics] = await Promise.all([
@@ -19,16 +22,30 @@ export default async function OperationsDashboardPage() {
         subtitle="KPIs live : backlog, workflows, projets, livraison — pilotage opérationnel."
       />
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <OperationsMetricCard label="Backlog tâches" value={overview.openTasks} />
-        <OperationsMetricCard label="Charge workflows" value={overview.activeWorkflows} />
-        <OperationsMetricCard label="Projets actifs" value={overview.activeProjects} />
-        <OperationsMetricCard label="Retards livraison" value={overview.delayedDeliveries} />
+        <OperationsMetricCard
+          label="Tâches en cours"
+          value={overview.inProgressTasks}
+        />
+        <OperationsMetricCard
+          label="Tâches en retard"
+          value={overview.overdueTasks}
+          hint={overview.overdueTasks > 0 ? "Action requise" : undefined}
+        />
+        <OperationsMetricCard
+          label="Projets actifs"
+          value={overview.activeProjects}
+        />
+        <OperationsMetricCard
+          label="Terminées ce mois"
+          value={overview.doneThisMonth}
+        />
       </div>
       <OperationsSectionPanel title="Exécution (période en cours)">
         <p className="text-sm text-gray-700">
-          Tâches terminées ce mois : <strong>{analytics.tasks.doneThisMonth}</strong> — workflows
-          approuvés : <strong>{analytics.workflows.approved}</strong> — source{" "}
-          <code className="text-xs">{analytics.source}</code>
+          Backlog total : <strong>{overview.openTasks}</strong> — workflows actifs :{" "}
+          <strong>{overview.activeWorkflows}</strong> — retards livraison :{" "}
+          <strong>{overview.delayedDeliveries}</strong> — tâches terminées (analytics) :{" "}
+          <strong>{analytics.tasks.doneThisMonth}</strong>
         </p>
       </OperationsSectionPanel>
     </div>

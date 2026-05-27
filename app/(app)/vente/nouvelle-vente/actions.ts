@@ -13,6 +13,7 @@ import { logError } from "@/lib/logger";
 import { assertOperationalMutationAllowed } from "@/lib/server/auth-operational-guards";
 import { getClientsPermissions } from "@/lib/server/permissions";
 import { revalidateClients, revalidateVente } from "@/lib/cache/revalidation-map";
+import { executeRulesForTrigger } from "@/lib/server/automation-executor";
 
 // ---------------------------------------------------------------------------
 // createSaleAction — appelée depuis NouvelleVenteClient
@@ -43,6 +44,13 @@ export async function createSaleAction(
       data.user.id,
       context,
     );
+    executeRulesForTrigger("sale_validated", {
+      amount_gnf: sale.total_amount_gnf,
+      entity_id: sale.id,
+      entity_name: sale.reference ? `Vente ${sale.reference}` : "Vente",
+      department: "vente",
+      user_id: data.user.id,
+    }).catch(() => {});
     await revalidateVente({ saleId: sale.id });
     return {
       success: true,

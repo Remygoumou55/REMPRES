@@ -18,6 +18,7 @@ import { AUDIT_EVENT_TYPES } from "@/lib/audit/audit-events";
 import { tryLogAuditEvent } from "@/lib/audit/audit-logger";
 import { assertApprovalOrThrow } from "@/lib/approvals/approval-engine";
 import { isApprovalRequiredError } from "@/lib/governance/approvals/workflow";
+import { executeRulesForTrigger } from "@/lib/server/automation-executor";
 
 export async function createExpenseAction(
   raw: CreateExpenseFormInput,
@@ -55,6 +56,13 @@ export async function createExpenseAction(
         policy: approval.policy,
       },
     });
+    executeRulesForTrigger("expense_submitted", {
+      amount_gnf: Number(raw.amountGnf ?? 0),
+      department: "finance",
+      entity_name: raw.description,
+      entity_id: rawId,
+      user_id: data.user.id,
+    }).catch(() => {});
     return { success: true, expenseId: rawId };
   } catch (err) {
     if (isApprovalRequiredError(err)) return { success: false, error: err.message };

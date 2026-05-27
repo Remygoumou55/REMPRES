@@ -25,6 +25,7 @@ import type {
   LeadSource,
   LeadStatus,
 } from "@/lib/types/marketing";
+import { executeRulesForTrigger } from "@/lib/server/automation-executor";
 
 function field(formData: FormData, name: string): string {
   const v = formData.get(name);
@@ -187,6 +188,12 @@ export async function convertLeadToClientAction(leadId: string): Promise<{
 
   if (result.success && result.clientId) {
     await notifyVenteResponsables(leadName);
+    executeRulesForTrigger("lead_converted", {
+      entity_id: result.clientId,
+      entity_name: leadName,
+      department: "marketing",
+      user_id: user.id,
+    }).catch(() => {});
     await revalidateMarketing();
     revalidatePath("/marketing/leads");
     revalidatePath("/marketing/campagnes");

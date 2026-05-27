@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { getServerSessionUser } from "@/lib/server/auth-session";
+import { executeRulesForTrigger } from "@/lib/server/automation-executor";
 import { createNotification } from "@/lib/server/notifications";
 import {
   createOpsTask,
@@ -138,6 +139,15 @@ export async function updateTaskStatusAction(
   );
 
   if (result.success) {
+    const status = parseStatus(newStatus);
+    if (status === "in_progress" || status === "blocked") {
+      executeRulesForTrigger("task_overdue", {
+        entity_id: taskId,
+        priority: "normal",
+        department: "operations",
+        user_id: user.id,
+      }).catch(() => {});
+    }
     revalidatePath("/operations/tasks");
     revalidatePath("/operations/dashboard");
   }

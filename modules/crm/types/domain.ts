@@ -1,5 +1,6 @@
 import type { Database } from "@/types/database.types";
 
+/** CRM pipeline — table `crm_leads`. Distinct de `public.leads` (marketing, type `Lead`). */
 export type CrmLeadRow = Database["public"]["Tables"]["crm_leads"]["Row"];
 export type CrmOpportunityRow = Database["public"]["Tables"]["crm_opportunities"]["Row"];
 export type CrmQuoteRow = Database["public"]["Tables"]["crm_quotes"]["Row"];

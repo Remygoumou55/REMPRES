@@ -16,6 +16,13 @@ import type {
 import type { ActivityItem } from "@/components/dashboard/activity-feed";
 import type { AlertItem, ChartPoint } from "@/lib/server/dept-dashboard";
 
+/**
+ * Marketing — source de vérité leads : table `leads` (campagnes, `campaign_id`).
+ *
+ * Distinct de `crm_leads` (pipeline commercial /vente/crm). Ne pas fusionner les requêtes.
+ * Audit : docs/DUPLICATE_TABLES_AUDIT.md § Paire 3.
+ */
+
 // ═══════════════════════════════════════════════════════════════════════════
 // Helpers
 // ═══════════════════════════════════════════════════════════════════════════

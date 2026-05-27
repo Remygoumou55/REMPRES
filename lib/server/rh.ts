@@ -14,6 +14,11 @@ import type {
 import type { ActivityItem } from "@/components/dashboard/activity-feed";
 import type { ChartPoint } from "@/lib/server/dept-dashboard";
 
+/**
+ * RH — source de vérité collaborateurs : table `employees`.
+ * Timeline : `rh_employee_history` (journal, pas doublon). Audit : docs/DUPLICATE_TABLES_AUDIT.md § Paire 1.
+ */
+
 type ListEmployeesParams = {
   page?: number;
   limit?: number;

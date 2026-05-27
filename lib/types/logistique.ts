@@ -1,3 +1,9 @@
+/**
+ * Logistique supply — types alignés sur `stock_items` (articles autonomes).
+ * Stock multi-sites catalogue vente : `logistics_inventory_balances` (module logistics enterprise).
+ * Audit : docs/DUPLICATE_TABLES_AUDIT.md § Paire 2.
+ */
+
 export type StockStatus = "normal" | "low" | "out";
 export type MovementType = "in" | "out" | "adjust" | "transfer";
 export type PurchaseOrderStatus =

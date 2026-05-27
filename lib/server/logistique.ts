@@ -18,6 +18,14 @@ import type {
 import type { ActivityItem } from "@/components/dashboard/activity-feed";
 import type { AlertItem, ChartPoint } from "@/lib/server/dept-dashboard";
 
+/**
+ * Logistique supply — source de vérité : `stock_items` + `stock_movements_logistique`.
+ *
+ * Ne pas confondre avec `logistics_inventory_balances` (stock multi-sites lié au
+ * catalogue vente `products`, voir `modules/logistics/server/repositories/logistics-stock-repository.ts`).
+ * Audit : docs/DUPLICATE_TABLES_AUDIT.md § Paire 2.
+ */
+
 type ListStockItemsParams = {
   page?: number;
   limit?: number;

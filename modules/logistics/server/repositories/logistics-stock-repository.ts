@@ -1,6 +1,12 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/types/database.types";
 
+/**
+ * Stock multi-sites enterprise — table `logistics_inventory_balances` (products × entrepôt).
+ * Pour les articles supply autonomes, utiliser `stock_items` via `lib/server/logistique.ts`.
+ * Audit : docs/DUPLICATE_TABLES_AUDIT.md § Paire 2 — pas de fusion avec stock_items.
+ */
+
 export type LogisticsStockRow = Database["public"]["Tables"]["logistics_inventory_balances"]["Row"] & {
   products: Pick<
     Database["public"]["Tables"]["products"]["Row"],

@@ -1,3 +1,9 @@
+/**
+ * RH — `Employee` = état courant (`employees`).
+ * `rh_employee_history` = journal d'événements (voir `EmployeeHistoryEvent` module HR), pas un doublon.
+ * Audit : docs/DUPLICATE_TABLES_AUDIT.md § Paire 1.
+ */
+
 export type ContractType = "cdi" | "cdd" | "stage" | "freelance";
 export type LeaveType = "annual" | "sick" | "special" | "unpaid";
 export type LeaveStatus = "pending" | "approved" | "rejected" | "cancelled";

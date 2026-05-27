@@ -1,6 +1,12 @@
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import type { EmployeeHistoryEvent } from "@/modules/hr/employees/types";
 
+/**
+ * Timeline RH — table `rh_employee_history` (journal d'événements).
+ * État courant collaborateur : table `employees` via `lib/server/rh.ts` — pas un doublon.
+ * Audit : docs/DUPLICATE_TABLES_AUDIT.md § Paire 1.
+ */
+
 export async function listEmployeeHistory(employeeId: string): Promise<EmployeeHistoryEvent[]> {
   const supabase = getSupabaseServerClient();
   const [customHistory, activityLogs] = await Promise.all([

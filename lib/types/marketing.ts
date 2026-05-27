@@ -1,3 +1,9 @@
+/**
+ * Marketing — `Lead` mappe la table `leads` (campagnes).
+ * Pipeline commercial : `crm_leads` / type `CrmLeadRow` (module CRM) — domaines distincts.
+ * Audit : docs/DUPLICATE_TABLES_AUDIT.md § Paire 3.
+ */
+
 export type CampaignType =
   | "email"
   | "social"

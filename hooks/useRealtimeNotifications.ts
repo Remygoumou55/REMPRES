@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useState, useCallback, useRef, useMemo } from "react";
+import { createDebouncedCallback } from "@/lib/governance/runtime/debounce";
 import type { RealtimeChannel } from "@supabase/supabase-js";
 import { getSupabaseBrowserClient } from "@/lib/supabase";
 import { ROLE_KEYS, effectiveAuthRoleKey } from "@/lib/auth/roles";
@@ -110,6 +111,13 @@ export function useRealtimeNotifications({
     }
   }, [userId, isSuperAdmin]);
 
+  const debouncedRefetchCount = useMemo(
+    () => createDebouncedCallback(() => {
+      void fetchInitialCount();
+    }, 800),
+    [fetchInitialCount],
+  );
+
   useEffect(() => {
     if (!userId) return;
 
@@ -140,7 +148,7 @@ export function useRealtimeNotifications({
             table: "approval_requests",
           },
           () => {
-            void fetchInitialCount();
+            debouncedRefetchCount();
           },
         );
       subscribeStatus(approvalChannel);
@@ -156,7 +164,7 @@ export function useRealtimeNotifications({
             table: "governance_alerts",
           },
           () => {
-            void fetchInitialCount();
+            debouncedRefetchCount();
           },
         );
       subscribeStatus(alertsChannel);
@@ -191,7 +199,7 @@ export function useRealtimeNotifications({
           filter: `user_id=eq.${userId}`,
         },
         () => {
-          void fetchInitialCount();
+          debouncedRefetchCount();
         },
       );
     subscribeStatus(notifChannel);
@@ -206,7 +214,7 @@ export function useRealtimeNotifications({
       }
       channelsRef.current = [];
     };
-  }, [userId, isSuperAdmin, fetchInitialCount]);
+  }, [userId, isSuperAdmin, debouncedRefetchCount]);
 
   const markAllRead = useCallback(async () => {
     if (!userId) return;

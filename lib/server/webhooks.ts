@@ -1,4 +1,5 @@
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import { getSupabaseAdminClient } from "@/lib/supabaseAdmin";
 
 export type Webhook = {
   id: string;
@@ -132,6 +133,28 @@ export async function getWebhookByToken(token: string): Promise<Webhook | null> 
   return mapWebhook(data as Record<string, unknown>);
 }
 
+/** Route publique entrante — contourne RLS via service role. */
+export async function getWebhookByTokenForIncomingRoute(
+  token: string,
+): Promise<Webhook | null> {
+  try {
+    const admin = getSupabaseAdminClient();
+    const { data, error } = await admin
+      .from("webhooks" as never)
+      .select("*")
+      .eq("secret_token", token)
+      .eq("direction", "incoming")
+      .eq("is_active", true)
+      .is("deleted_at", null)
+      .maybeSingle();
+
+    if (error || !data) return null;
+    return mapWebhook(data as Record<string, unknown>);
+  } catch {
+    return null;
+  }
+}
+
 export async function createWebhook(input: {
   name: string;
   description?: string;
@@ -262,19 +285,24 @@ export async function listDeliveries(
   return (data as Record<string, unknown>[]).map(mapDelivery);
 }
 
-export async function logDelivery(input: {
-  webhook_id: string;
-  direction: string;
-  event_type?: string;
-  payload: Record<string, unknown>;
-  response_code?: number;
-  response_body?: string;
-  status: string;
-  error_message?: string;
-  duration_ms?: number;
-}): Promise<void> {
+export async function logDelivery(
+  input: {
+    webhook_id: string;
+    direction: string;
+    event_type?: string;
+    payload: Record<string, unknown>;
+    response_code?: number;
+    response_body?: string;
+    status: string;
+    error_message?: string;
+    duration_ms?: number;
+  },
+  options?: { serviceRole?: boolean },
+): Promise<void> {
   try {
-    const supabase = getSupabaseServerClient();
+    const supabase = options?.serviceRole
+      ? getSupabaseAdminClient()
+      : getSupabaseServerClient();
 
     await supabase.from("webhook_deliveries" as never).insert({
       webhook_id: input.webhook_id,
@@ -288,27 +316,10 @@ export async function logDelivery(input: {
       duration_ms: input.duration_ms ?? null,
     } as never);
 
-    const { data: webhook } = await supabase
-      .from("webhooks" as never)
-      .select("delivery_count, failure_count")
-      .eq("id", input.webhook_id)
-      .single();
-
-    const row = webhook as { delivery_count?: number; failure_count?: number } | null;
-    const updates: Record<string, unknown> = {
-      delivery_count: Number(row?.delivery_count ?? 0) + 1,
-      last_triggered_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    };
-
-    if (input.status === "failed") {
-      updates.failure_count = Number(row?.failure_count ?? 0) + 1;
-    }
-
-    await supabase
-      .from("webhooks" as never)
-      .update(updates as never)
-      .eq("id", input.webhook_id);
+    await supabase.rpc("increment_webhook_delivery_stats" as never, {
+      p_webhook_id: input.webhook_id,
+      p_failed: input.status === "failed",
+    } as never);
   } catch (err) {
     console.error("[Webhooks] logDelivery error:", err);
   }

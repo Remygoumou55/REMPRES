@@ -237,18 +237,7 @@ async function logExecution(
 
 async function updateExecutionStats(ruleId: string): Promise<void> {
   const supabase = getSupabaseServerClient();
-  const { data: rule } = await supabase
-    .from("automation_rules" as never)
-    .select("execution_count")
-    .eq("id", ruleId)
-    .single();
-
-  await supabase
-    .from("automation_rules" as never)
-    .update({
-      execution_count: Number((rule as { execution_count?: number } | null)?.execution_count ?? 0) + 1,
-      last_executed_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    } as never)
-    .eq("id", ruleId);
+  await supabase.rpc("increment_automation_rule_execution" as never, {
+    p_rule_id: ruleId,
+  } as never);
 }

@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
-import { getWebhookByToken, logDelivery } from "@/lib/server/webhooks";
+import {
+  getWebhookByTokenForIncomingRoute,
+  logDelivery,
+} from "@/lib/server/webhooks";
 import { createNotification } from "@/lib/server/notifications";
 
 type RouteContext = { params: { token: string } };
@@ -10,7 +13,7 @@ export async function POST(request: NextRequest, { params }: RouteContext) {
   const token = params.token;
 
   try {
-    const webhook = await getWebhookByToken(token);
+    const webhook = await getWebhookByTokenForIncomingRoute(token);
 
     if (!webhook) {
       return NextResponse.json(
@@ -31,14 +34,17 @@ export async function POST(request: NextRequest, { params }: RouteContext) {
 
     const eventType = String(body.event ?? body.type ?? "unknown");
 
-    await logDelivery({
-      webhook_id: webhook.id,
-      direction: "incoming",
-      event_type: eventType,
-      payload: body,
-      status: "received",
-      duration_ms: Date.now() - t0,
-    });
+    await logDelivery(
+      {
+        webhook_id: webhook.id,
+        direction: "incoming",
+        event_type: eventType,
+        payload: body,
+        status: "received",
+        duration_ms: Date.now() - t0,
+      },
+      { serviceRole: true },
+    );
 
     const supabase = getSupabaseServerClient();
     const { data: admins } = await supabase
@@ -65,7 +71,7 @@ export async function POST(request: NextRequest, { params }: RouteContext) {
 }
 
 export async function GET(_request: NextRequest, { params }: RouteContext) {
-  const webhook = await getWebhookByToken(params.token);
+  const webhook = await getWebhookByTokenForIncomingRoute(params.token);
   if (!webhook) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }

@@ -1,7 +1,11 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { getServerSessionUser } from "@/lib/server/auth-session";
+import {
+  guardErrorMessage,
+  requireAdminConsoleMutation,
+  requireAuthenticatedSession,
+} from "@/lib/governance/runtime/mutation-guard";
 import {
   createWebhook,
   deleteWebhook,
@@ -19,43 +23,65 @@ export async function createWebhookAction(
   secret_token?: string;
   error?: string;
 }> {
-  const user = await getServerSessionUser();
-  if (!user) return { success: false, error: "Non authentifié." };
-
-  const result = await createWebhook({ ...input, created_by: user.id });
-  if (result.success) revalidatePath("/admin/platform/webhooks");
-  return result;
+  try {
+    const session = await requireAdminConsoleMutation();
+    const result = await createWebhook({ ...input, created_by: session.userId });
+    if (result.success) revalidatePath("/admin/platform/webhooks");
+    return result;
+  } catch (err) {
+    return { success: false, error: guardErrorMessage(err) };
+  }
 }
 
 export async function updateWebhookAction(
   id: string,
   input: Parameters<typeof updateWebhook>[1],
 ): Promise<{ success: boolean; error?: string }> {
-  const result = await updateWebhook(id, input);
-  if (result.success) revalidatePath("/admin/platform/webhooks");
-  return result;
+  try {
+    await requireAdminConsoleMutation();
+    const result = await updateWebhook(id, input);
+    if (result.success) revalidatePath("/admin/platform/webhooks");
+    return result;
+  } catch (err) {
+    return { success: false, error: guardErrorMessage(err) };
+  }
 }
 
 export async function deleteWebhookAction(
   id: string,
 ): Promise<{ success: boolean; error?: string }> {
-  const result = await deleteWebhook(id);
-  if (result.success) revalidatePath("/admin/platform/webhooks");
-  return result;
+  try {
+    await requireAdminConsoleMutation();
+    const result = await deleteWebhook(id);
+    if (result.success) revalidatePath("/admin/platform/webhooks");
+    return result;
+  } catch (err) {
+    return { success: false, error: guardErrorMessage(err) };
+  }
 }
 
 export async function toggleWebhookAction(
   id: string,
   isActive: boolean,
 ): Promise<{ success: boolean; error?: string }> {
-  const result = await toggleWebhook(id, isActive);
-  if (result.success) revalidatePath("/admin/platform/webhooks");
-  return result;
+  try {
+    await requireAdminConsoleMutation();
+    const result = await toggleWebhook(id, isActive);
+    if (result.success) revalidatePath("/admin/platform/webhooks");
+    return result;
+  } catch (err) {
+    return { success: false, error: guardErrorMessage(err) };
+  }
 }
 
 export async function listDeliveriesAction(
   webhookId: string,
   limit = 10,
 ): Promise<WebhookDelivery[]> {
-  return listDeliveries(webhookId, limit);
+  try {
+    await requireAuthenticatedSession();
+    return listDeliveries(webhookId, limit);
+  } catch {
+    return [];
+  }
 }

@@ -304,21 +304,7 @@ export async function receivePurchaseOrder(
         created_by: userId,
       } as never);
     if (movementError) return { success: false, error: movementError.message };
-
-    const { data: current } = await supabase
-      .from("stock_items" as never)
-      .select("quantity")
-      .eq("id", item.stock_item_id)
-      .maybeSingle();
-
-    const currentQty = Number((current as { quantity?: number } | null)?.quantity ?? 0);
-    const { error: updateItemError } = await supabase
-      .from("stock_items" as never)
-      .update({ quantity: currentQty + item.quantity_ordered } as never)
-      .eq("id", item.stock_item_id)
-      .is("deleted_at", null);
-
-    if (updateItemError) return { success: false, error: updateItemError.message };
+    // Quantity is applied by trg_stock_mov_log_apply on stock_movements_logistique INSERT.
   }
 
   const { error } = await supabase

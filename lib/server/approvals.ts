@@ -221,8 +221,23 @@ export async function approveRequest(
       return { success: false, error: "Cette demande a déjà été traitée" };
     }
 
+    const normalized = normalizeRow(req as ApprovalRow);
+
+    try {
+      await executeAction(normalized);
+    } catch (execErr) {
+      console.error("[Approval] execute failed:", execErr);
+      return {
+        success: false,
+        error:
+          execErr instanceof Error
+            ? execErr.message
+            : "Échec d'exécution de l'action approuvée.",
+      };
+    }
+
     const reviewedAt = new Date().toISOString();
-    await supabase
+    const { error: updateError } = await supabase
       .from("approval_requests")
       .update({
         status: "approved",
@@ -230,16 +245,15 @@ export async function approveRequest(
         approved_at: reviewedAt,
         rejection_reason: comment ?? null,
       })
-      .eq("id", requestId);
+      .eq("id", requestId)
+      .eq("status", "pending");
 
-    try {
-      await executeAction(normalizeRow(req as ApprovalRow));
-    } catch (execErr) {
-      console.error("[Approval] execute failed:", execErr);
+    if (updateError) {
+      return { success: false, error: "Impossible de finaliser l'approbation." };
     }
 
     try {
-      await notifyRequester(normalizeRow(req as ApprovalRow), "approved", comment);
+      await notifyRequester(normalized, "approved", comment);
     } catch {
       /* silent */
     }
@@ -269,6 +283,9 @@ export async function rejectRequest(
 
     if (!req) {
       return { success: false, error: "Demande introuvable" };
+    }
+    if (req.status !== "pending") {
+      return { success: false, error: "Cette demande a déjà été traitée" };
     }
 
     const reviewedAt = new Date().toISOString();

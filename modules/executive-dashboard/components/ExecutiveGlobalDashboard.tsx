@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useMemo } from "react";
 import { Activity, RefreshCw } from "lucide-react";
+import { WeeklyReportButton } from "@/components/executive/WeeklyReportButton";
 import { DEPARTMENT_LABELS } from "@/lib/constants/departments";
 import { ROUTES } from "@/lib/constants/routes";
 import { queryKeys } from "@/lib/query/query-keys";
@@ -28,7 +29,12 @@ const COMMAND_LINKS = [
   { href: "/admin/observability", labelKey: "executive.global.link.observabilityHub" },
 ] as const;
 
-export function ExecutiveGlobalDashboard() {
+type Props = {
+  currentWeek: number;
+  currentYear: number;
+};
+
+export function ExecutiveGlobalDashboard({ currentWeek, currentYear }: Props) {
   const { t } = useTranslation();
   const { data, isLoading, isRefetching, refetch, error } = useExecutiveGlobalSnapshot(
     EXECUTIVE_GLOBAL_KPI_DEPT_KEYS,
@@ -79,6 +85,7 @@ export function ExecutiveGlobalDashboard() {
         subtitle={t("executive.global.subtitle", "Cross-domain KPI intelligence — realtime-safe orchestration")}
         actions={
           <div className="flex flex-wrap items-center gap-2">
+            <WeeklyReportButton currentWeek={currentWeek} currentYear={currentYear} />
             <Button type="button" variant="outline" size="sm" onClick={() => refetch()} disabled={isRefetching}>
               <RefreshCw className={`mr-1 h-4 w-4 ${isRefetching ? "animate-spin" : ""}`} />
               {t("executive.global.refresh", "Refresh")}

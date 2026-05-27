@@ -100,6 +100,14 @@ export const DEPT_ALLOWED_ROUTES: Record<string, string[]> = {
   ],
   employe: ["/dashboard", "/dept", "/profil"],
   auditeur: ["/dashboard", "/dept", "/admin/activity-logs", "/profil"],
+  directeur_general: [
+    "/dashboard",
+    "/dashboard/executive",
+    "/executive",
+    "/executive/rapport-hebdomadaire",
+    "/dept",
+    "/profil",
+  ],
 };
 
 function normalizeRole(role: string): string {

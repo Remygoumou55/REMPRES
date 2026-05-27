@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { getServerSessionUser } from "@/lib/server/auth-session";
+import { getISOWeek, getISOWeekYear } from "@/lib/executive/week-utils";
 import { assertExecutiveDashboardRead } from "@/modules/executive-dashboard/server";
 import { ExecutiveGlobalDashboard } from "@/modules/executive-dashboard/components/ExecutiveGlobalDashboard";
 
@@ -15,5 +16,11 @@ export default async function ExecutiveDashboardPage() {
   } catch {
     redirect("/access-denied");
   }
-  return <ExecutiveGlobalDashboard />;
+  const now = new Date();
+  return (
+    <ExecutiveGlobalDashboard
+      currentWeek={getISOWeek(now)}
+      currentYear={getISOWeekYear(now)}
+    />
+  );
 }

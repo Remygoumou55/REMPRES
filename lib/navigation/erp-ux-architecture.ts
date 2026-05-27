@@ -209,6 +209,8 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
         label: "Gouvernance",
         links: [
           { href: "/actions", label: "Centre d'actions" },
+          { href: "/dashboard/executive", label: "Centre exécutif" },
+          { href: "/executive/rapport-hebdomadaire", label: "Rapport hebdo" },
           { href: "/admin/platform-dashboard", label: "Plateforme" },
           { href: "/admin/approvals", label: "Approbations" },
           { href: "/admin/activity-logs", label: "Journaux d'activité" },

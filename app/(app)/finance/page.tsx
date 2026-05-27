@@ -68,12 +68,13 @@ export default async function FinancePage({ searchParams }: PageProps) {
   const createdByUserId = parseCreatedBy(searchParams.createdBy, superAdmin);
 
   const supabase = getSupabaseServerClient();
-  const [data, categoryOptions, profileOptions, transactionExportRows] = await Promise.all([
-    getFinanceCfoData(supabase, { from, to, categoryIds, createdByUserId }),
-    listExpenseCategories(),
-    superAdmin ? listProfilesForAdminSelect() : Promise.resolve([] as { id: string; label: string }[]),
-    listFinancialTransactionsForExport(supabase, from, to, createdByUserId).catch(() => []),
-  ]);
+  const [data, categoryOptions, profileOptions, transactionExportRows] =
+    await Promise.all([
+      getFinanceCfoData(supabase, { from, to, categoryIds, createdByUserId }),
+      listExpenseCategories(),
+      superAdmin ? listProfilesForAdminSelect() : Promise.resolve([] as { id: string; label: string }[]),
+      listFinancialTransactionsForExport(supabase, from, to, createdByUserId).catch(() => []),
+    ]);
 
   return (
     <div className="page-wrapper">

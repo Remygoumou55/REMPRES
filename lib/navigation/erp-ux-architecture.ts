@@ -101,6 +101,7 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
         label: "Finance",
         links: [
           { href: "/finance", label: "Vue d'ensemble" },
+          { href: "/finance/bilans", label: "Bilans" },
           { href: "/finance/depenses", label: "Dépenses" },
         ],
       },

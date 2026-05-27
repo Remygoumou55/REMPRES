@@ -36,6 +36,7 @@ import { useCurrencyStore } from "@/stores/currencyStore";
 import { useToast } from "@/components/providers/ToastProvider";
 import { FilterPanelShell } from "@/components/ui/filter-panel-shell";
 import { FinanceTransactionsExport } from "@/components/finance/FinanceTransactionsExport";
+import { MonthlyReportButton } from "@/components/finance/MonthlyReportButton";
 
 // Sub-components
 import { DeltaText, FinanceKpiCard } from "./components/FinanceKpis";
@@ -263,6 +264,7 @@ export function FinanceDashboardClient({
         subtitle="Pilotage financier — données en GNF, affichage multi-devise."
         actions={
           <div className="flex flex-wrap items-center gap-2">
+            <MonthlyReportButton />
             <FinanceTransactionsExport data={transactionExportRows} />
             <button
               type="button"

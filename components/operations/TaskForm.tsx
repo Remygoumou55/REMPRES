@@ -24,6 +24,7 @@ import {
 
 type Props = {
   task?: OpsTask | null;
+  defaultStatus?: OpsTaskStatus;
   projects: { id: string; name: string }[];
   assignableUsers: { id: string; full_name: string }[];
   onSuccess: () => void;
@@ -32,11 +33,13 @@ type Props = {
 
 function TaskFormInner({
   task,
+  defaultStatus,
   projects,
   assignableUsers,
   onSuccess,
   onCancel,
 }: Props) {
+  const isEdit = Boolean(task?.id);
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [priority, setPriority] = useState<OpsTaskPriority>(
@@ -50,8 +53,8 @@ function TaskFormInner({
     const fd = new FormData(e.currentTarget);
     startTransition(async () => {
       setError(null);
-      const result = task
-        ? await updateTaskAction(task.id, fd)
+      const result = isEdit
+        ? await updateTaskAction(task!.id, fd)
         : await createTaskAction(fd);
       if (!result.success) {
         setError(result.error ?? "Enregistrement impossible.");
@@ -84,7 +87,10 @@ function TaskFormInner({
 
       <div className="grid gap-4 sm:grid-cols-2">
         <ModalField label="Statut">
-          <ModalSelect name="status" defaultValue={task?.status ?? "todo"}>
+          <ModalSelect
+            name="status"
+            defaultValue={task?.status ?? defaultStatus ?? "todo"}
+          >
             {(Object.keys(TASK_STATUS_LABELS) as OpsTaskStatus[]).map((k) => (
               <option key={k} value={k}>
                 {TASK_STATUS_LABELS[k]}

@@ -1,4 +1,5 @@
 import { OperationsTasksClient } from "@/components/operations/OperationsTasksClient";
+import { TasksPageClient } from "@/components/operations/TasksPageClient";
 import {
   getOpsTaskSummary,
   listOpsProjects,
@@ -24,11 +25,18 @@ export default async function OperationsTasksPage() {
   }));
 
   return (
-    <OperationsTasksClient
+    <TasksPageClient
       tasks={tasks}
       projects={projectOptions}
       assignableUsers={assignableUsers}
-      summary={summary}
+      listView={
+        <OperationsTasksClient
+          tasks={tasks}
+          projects={projectOptions}
+          assignableUsers={assignableUsers}
+          summary={summary}
+        />
+      }
     />
   );
 }

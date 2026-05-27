@@ -185,7 +185,7 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
           { href: "/logistique/mouvements", label: "Mouvements" },
           { href: "/logistique/inventaire", label: "Inventaire" },
           { href: "/logistique/fournisseurs", label: "Fournisseurs" },
-          { href: "/logistique/achats", label: "Commandes" },
+          { href: "/logistique/commandes", label: "Commandes" },
         ],
       },
       {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type {
   RealtimeChannel,
   RealtimePostgresChangesPayload,
@@ -43,6 +43,14 @@ export function useRealtimeList<T extends object>(
   refetchRef.current = refetch;
 
   const channelName = `realtime-list-${table}-${filter ?? "all"}`;
+  const normalizedEvents = useMemo(
+    () =>
+      events.includes("*") || events.length === 0
+        ? (["INSERT", "UPDATE", "DELETE"] as const)
+        : events.filter((e): e is "INSERT" | "UPDATE" | "DELETE" => e !== "*"),
+    [events],
+  );
+  const eventsKey = normalizedEvents.join(",");
 
   useEffect(() => {
     setData(initialData);
@@ -103,12 +111,7 @@ export function useRealtimeList<T extends object>(
     try {
       channel = supabase.channel(channelName);
 
-      const listenEvents =
-        events.includes("*") || events.length === 0
-          ? (["INSERT", "UPDATE", "DELETE"] as const)
-          : events.filter((e): e is "INSERT" | "UPDATE" | "DELETE" => e !== "*");
-
-      for (const event of listenEvents) {
+      for (const event of normalizedEvents) {
         channel = channel.on(
           "postgres_changes",
           {
@@ -140,7 +143,7 @@ export function useRealtimeList<T extends object>(
         void supabase.removeChannel(channel);
       }
     };
-  }, [table, filter, channelName, mode, idField, events]);
+  }, [table, filter, channelName, mode, idField, eventsKey]);
 
   return { data, isLive, lastUpdated };
 }

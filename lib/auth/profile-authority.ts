@@ -81,6 +81,12 @@ export function resolveAuthorityDepartmentKey(
   roleKey: string | null | undefined,
   departmentKey: string | null | undefined,
 ): DepartmentKey | null {
+  // Super Admin est gouvernance globale mais opère le pôle Administration
+  // sans besoin d'affectation department_key explicite.
+  if (normalizeRoleKey(roleKey) === ROLE_KEYS.SUPER_ADMIN) {
+    return DEPARTMENT_KEYS.ADMINISTRATION;
+  }
+
   const fromProfile = resolveEffectiveDepartmentKey(departmentKey);
   if (fromProfile) return fromProfile;
 

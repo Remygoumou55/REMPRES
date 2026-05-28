@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useMemo, useRef, useState } from "react";
 import { Users } from "lucide-react";
 import { usePresence } from "@/hooks/usePresence";
 
@@ -39,15 +39,19 @@ export const PresenceIndicator = memo(function PresenceIndicator({
     return () => document.removeEventListener("mousedown", onDocClick);
   }, []);
 
+  const sortedUsers = useMemo(
+    () =>
+      [...onlineUsers].sort((a, b) => {
+        if (a.userId === userId) return -1;
+        if (b.userId === userId) return 1;
+        return a.fullName.localeCompare(b.fullName, "fr");
+      }),
+    [onlineUsers, userId],
+  );
+
   if (onlineCount <= 0) return null;
 
   const countLabel = `${onlineCount} en ligne`;
-
-  const sortedUsers = [...onlineUsers].sort((a, b) => {
-    if (a.userId === userId) return -1;
-    if (b.userId === userId) return 1;
-    return a.fullName.localeCompare(b.fullName, "fr");
-  });
 
   return (
     <div ref={rootRef} className="relative">

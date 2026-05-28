@@ -111,6 +111,7 @@ export const DeptHomePage = memo(function DeptHomePage({ data, firstName, isSupe
   const platformOk = data.alerts.length === 0;
   const kpiSectionLabel = `KPI ${data.deptLabel.toUpperCase()}`;
   const chartsSectionLabel = `GRAPHIQUES ${data.deptLabel.toUpperCase()}`;
+  const kpiGridClass = data.dept === "vente" ? "grid gap-3 sm:grid-cols-2" : "grid gap-3 sm:grid-cols-2 xl:grid-cols-4";
 
   return (
     <div className="page-wrapper space-y-6 pb-10">
@@ -127,7 +128,7 @@ export const DeptHomePage = memo(function DeptHomePage({ data, firstName, isSupe
 
       <section aria-labelledby="dept-kpi-heading" className="space-y-3">
         <SectionLabel label={kpiSectionLabel} />
-        <div id="dept-kpi-heading" className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <div id="dept-kpi-heading" className={kpiGridClass}>
           {data.kpis.map((kpi) => {
             const Icon = ICON_BY_NAME[kpi.icon] ?? Activity;
             return (

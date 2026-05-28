@@ -41,6 +41,13 @@ export function useRealtimeList<T extends object>(
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const refetchRef = useRef(refetch);
   refetchRef.current = refetch;
+  const initialDataKeyRef = useRef("");
+
+  const initialDataKey = useMemo(
+    () =>
+      `${initialData.length}:${initialData.map((row) => String(row[idField])).join(",")}`,
+    [initialData, idField],
+  );
 
   const channelName = `realtime-list-${table}-${filter ?? "all"}`;
   const normalizedEvents = useMemo(
@@ -53,8 +60,10 @@ export function useRealtimeList<T extends object>(
   const eventsKey = normalizedEvents.join(",");
 
   useEffect(() => {
+    if (initialDataKeyRef.current === initialDataKey) return;
+    initialDataKeyRef.current = initialDataKey;
     setData(initialData);
-  }, [initialData]);
+  }, [initialData, initialDataKey]);
 
   useEffect(() => {
     const supabase = getSupabaseBrowserClient();

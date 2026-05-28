@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Bell, Coins, Cog, Lock, Settings2, Shield } from "lucide-react";
+import { Bell, Coins, Cog, Lock, Settings2, Shield, UserCog } from "lucide-react";
 import { findNavItemByKey, NAV_PARAMETRES_HUB_EXTRAS } from "@/lib/constants/nav-config";
 import { SETTINGS_OFFICIAL_ROUTES } from "@/lib/settings/official-routes";
 import { isSettingsGovernancePath } from "@/lib/settings/legacy-route-lock";
@@ -22,6 +22,7 @@ export type SettingsGovernanceNavItem = {
 };
 
 const CHILD_ICONS: Record<string, LucideIcon> = {
+  "admin-utilisateurs": UserCog,
   "admin-securite": Shield,
   "admin-notifs": Bell,
   "admin-systeme": Cog,
@@ -41,20 +42,26 @@ const HUB_EXTRA_IDS: Record<string, SettingsGovernanceNavItem["id"]> = {
 const adminItem = findNavItemByKey("admin");
 
 const adminSettingsChildren =
-  adminItem?.children?.filter((c) => c.href.startsWith(SETTINGS_OFFICIAL_ROUTES.hub)) ?? [];
+  adminItem?.children?.filter(
+    (c) =>
+      c.href.startsWith(SETTINGS_OFFICIAL_ROUTES.hub) ||
+      c.href === SETTINGS_OFFICIAL_ROUTES.users,
+  ) ?? [];
 
 export const SETTINGS_GOVERNANCE_NAV: readonly SettingsGovernanceNavItem[] = [
   ...(adminItem
     ? [{ id: "hub" as const, href: SETTINGS_OFFICIAL_ROUTES.hub, label: "Paramètres", icon: Cog }]
     : []),
   ...adminSettingsChildren.map((c) => ({
-    id: (c.key === "admin-securite"
-      ? "security"
-      : c.key === "admin-notifs"
-        ? "notifications"
-        : c.key === "admin-systeme"
-          ? "system"
-          : "currency") as SettingsGovernanceNavItem["id"],
+    id: (c.key === "admin-utilisateurs"
+      ? "users"
+      : c.key === "admin-securite"
+        ? "security"
+        : c.key === "admin-notifs"
+          ? "notifications"
+          : c.key === "admin-systeme"
+            ? "system"
+            : "currency") as SettingsGovernanceNavItem["id"],
     href: c.href,
     label: c.label,
     icon: CHILD_ICONS[c.key] ?? Cog,
@@ -72,6 +79,12 @@ export { isSettingsGovernancePath };
 
 export function settingsNavActiveId(pathname: string): SettingsGovernanceNavItem["id"] {
   if (pathname === SETTINGS_OFFICIAL_ROUTES.hub) return "hub";
+  if (
+    pathname === SETTINGS_OFFICIAL_ROUTES.users ||
+    pathname.startsWith(`${SETTINGS_OFFICIAL_ROUTES.users}/`)
+  ) {
+    return "users";
+  }
   if (pathname.startsWith(SETTINGS_OFFICIAL_ROUTES.security)) return "security";
   if (pathname.startsWith(SETTINGS_OFFICIAL_ROUTES.notifications)) return "notifications";
   if (pathname.startsWith(SETTINGS_OFFICIAL_ROUTES.system)) return "system";

@@ -3,6 +3,7 @@
  * Sidebar · Cockpit · Homepage · KPI — à respecter pour tout build département.
  */
 import { DEPARTMENT_KEYS, type DepartmentKey } from "@/lib/departments/department-config";
+import { SETTINGS_OFFICIAL_ROUTES } from "@/lib/settings/official-routes";
 
 /** Pattern sidebar officiel ERP (M3). */
 export const ERP_SIDEBAR_PATTERN = {
@@ -209,6 +210,7 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
         id: "actions",
         label: "Gouvernance",
         links: [
+          { href: SETTINGS_OFFICIAL_ROUTES.users, label: "Utilisateurs" },
           { href: "/actions", label: "Centre d'actions" },
           { href: "/dashboard/executive", label: "Centre exécutif" },
           { href: "/executive/rapport-hebdomadaire", label: "Rapport hebdo" },

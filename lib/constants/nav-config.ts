@@ -186,6 +186,13 @@ export const NAV_CONFIG = [
             href: "/actions/alertes",
             roles: ["directeur_general", "manager"],
           },
+          {
+            key: "utilisateurs",
+            label: "Utilisateurs",
+            icon: "UserCog",
+            href: SETTINGS_OFFICIAL_ROUTES.users,
+            roles: ["directeur_general", "manager"],
+          },
         ],
       },
     ],
@@ -213,7 +220,7 @@ export const NAV_CONFIG = [
             label: "Utilisateurs",
             icon: "UserCog",
             href: SETTINGS_OFFICIAL_ROUTES.users,
-            roles: ["super_admin"],
+            roles: ["super_admin", "directeur_general", "manager"],
           },
           {
             key: "admin-exports",

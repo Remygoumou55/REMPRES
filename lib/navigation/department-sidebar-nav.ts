@@ -18,10 +18,12 @@ import {
   ShoppingCart,
   Truck,
   UserCircle,
+  UserCog,
   Users,
   Wallet,
   Zap,
 } from "lucide-react";
+import { SETTINGS_OFFICIAL_ROUTES } from "@/lib/settings/official-routes";
 import { ROUTES } from "@/lib/constants/routes";
 import { NAV_LABELS } from "@/lib/constants/nav-labels";
 import { DEPARTMENT_KEYS, type DepartmentKey } from "@/lib/departments/department-config";
@@ -67,6 +69,7 @@ const ICON_BY_HREF_PREFIX: { prefix: string; icon: LucideIcon }[] = [
   { prefix: "/logistique", icon: Truck },
   { prefix: ROUTES.actions, icon: Zap },
   { prefix: ROUTES.settings, icon: Settings2 },
+  { prefix: SETTINGS_OFFICIAL_ROUTES.users, icon: UserCog },
 ];
 
 function iconForHref(href: string): LucideIcon {

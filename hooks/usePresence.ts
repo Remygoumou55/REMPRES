@@ -49,9 +49,24 @@ export function usePresence(options: UsePresenceOptions) {
 
   const [onlineUsers, setOnlineUsers] = useState<PresenceUser[]>([]);
   const presenceSignatureRef = useRef<string>("");
+  const channelRef = useRef<RealtimeChannel | null>(null);
+  const trackPayloadRef = useRef<PresencePayload | null>(null);
+
+  const buildTrackPayload = (): PresencePayload => ({
+    fullName: fullName ?? "",
+    avatarUrl: avatarUrl ?? null,
+    currentPage: currentPage ?? null,
+    departmentKey: departmentKey ?? null,
+    departmentLabel: departmentKey
+      ? (DEPARTMENT_LABELS[departmentKey] ?? departmentKey)
+      : inferDepartmentLabel(currentPage),
+    joinedAt: new Date().toISOString(),
+  });
 
   useEffect(() => {
     if (!userId || !fullName) return;
+
+    trackPayloadRef.current = buildTrackPayload();
 
     const supabase = getSupabaseBrowserClient();
     let channel: RealtimeChannel | null = null;
@@ -60,6 +75,7 @@ export function usePresence(options: UsePresenceOptions) {
       channel = supabase.channel("rempres-presence", {
         config: { presence: { key: userId } },
       });
+      channelRef.current = channel;
 
       channel.on("presence", { event: "sync" }, () => {
         const state = channel?.presenceState() ?? {};
@@ -78,7 +94,9 @@ export function usePresence(options: UsePresenceOptions) {
             });
           }
         }
-        const signature = users.map((u) => `${u.userId}|${u.fullName}|${u.departmentLabel ?? ""}|${u.currentPage ?? ""}`).join(";");
+        const signature = users
+          .map((u) => `${u.userId}|${u.fullName}|${u.departmentLabel ?? ""}|${u.currentPage ?? ""}`)
+          .join(";");
         if (signature !== presenceSignatureRef.current) {
           presenceSignatureRef.current = signature;
           setOnlineUsers(users);
@@ -86,15 +104,8 @@ export function usePresence(options: UsePresenceOptions) {
       });
 
       channel.subscribe(async (status) => {
-        if (status === "SUBSCRIBED" && channel) {
-          await channel.track({
-            fullName,
-            avatarUrl: avatarUrl ?? null,
-            currentPage: currentPage ?? null,
-            departmentKey: departmentKey ?? null,
-            departmentLabel: departmentKey ? (DEPARTMENT_LABELS[departmentKey] ?? departmentKey) : inferDepartmentLabel(currentPage),
-            joinedAt: new Date().toISOString(),
-          });
+        if (status === "SUBSCRIBED" && channel && trackPayloadRef.current) {
+          await channel.track(trackPayloadRef.current);
         }
       });
     } catch (err) {
@@ -102,6 +113,8 @@ export function usePresence(options: UsePresenceOptions) {
     }
 
     return () => {
+      channelRef.current = null;
+      trackPayloadRef.current = null;
       if (channel) {
         void channel.untrack();
         void supabase.removeChannel(channel);
@@ -109,6 +122,23 @@ export function usePresence(options: UsePresenceOptions) {
       presenceSignatureRef.current = "";
       setOnlineUsers([]);
     };
+  }, [userId, fullName]);
+
+  useEffect(() => {
+    if (!userId || !fullName) return;
+
+    trackPayloadRef.current = buildTrackPayload();
+
+    const timer = setTimeout(() => {
+      const ch = channelRef.current;
+      const payload = trackPayloadRef.current;
+      if (!ch || !payload) return;
+      void ch.track(payload).catch((err) => {
+        console.warn("[Realtime] presence track failed:", err);
+      });
+    }, 350);
+
+    return () => clearTimeout(timer);
   }, [userId, fullName, avatarUrl, currentPage, departmentKey]);
 
   const onlineCount = onlineUsers.length;

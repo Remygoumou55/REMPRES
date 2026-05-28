@@ -89,15 +89,23 @@ export const NotificationBell = memo(function NotificationBell({
           <span
             style={{
               position: "absolute",
-              top: 3,
-              right: 3,
-              width: 8,
-              height: 8,
-              borderRadius: "50%",
+              top: -4,
+              right: -4,
+              minWidth: 16,
+              height: 16,
+              padding: "0 4px",
+              borderRadius: 999,
               background: "#E24B4A",
               border: "1.5px solid white",
+              color: "#fff",
+              fontSize: 10,
+              fontWeight: 700,
+              lineHeight: "13px",
+              textAlign: "center",
             }}
-          />
+          >
+            {unreadCount > 99 ? "99+" : unreadCount}
+          </span>
         )}
       </button>
 

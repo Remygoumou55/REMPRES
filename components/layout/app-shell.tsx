@@ -238,6 +238,7 @@ export function AppShell({
                 fullName={userDisplayName}
                 avatarUrl={userAvatarUrl}
                 currentPage={pathname ?? undefined}
+                departmentKey={departmentKey}
               />
               <NotificationBell
                 userId={userId}

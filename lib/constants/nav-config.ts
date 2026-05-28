@@ -106,36 +106,6 @@ export const NAV_CONFIG = [
           },
         ],
       },
-    ],
-  },
-  {
-    section: "Opérations",
-    items: [
-      {
-        key: "actions",
-        label: "Actions",
-        icon: "Zap",
-        href: "/actions",
-        roles: ["super_admin", "directeur_general", "manager"],
-        expandable: true,
-        children: [
-          {
-            key: "approbations",
-            label: "Approbations",
-            icon: "CheckCircle",
-            href: "/actions/approbations",
-            roles: ["super_admin", "directeur_general", "manager"],
-            badge: "pendingCount",
-          },
-          {
-            key: "alertes",
-            label: "Alertes",
-            icon: "Bell",
-            href: "/actions/alertes",
-            roles: ["super_admin", "directeur_general", "manager"],
-          },
-        ],
-      },
       {
         key: "archives",
         label: "Archives",
@@ -185,6 +155,36 @@ export const NAV_CONFIG = [
             icon: "Package",
             href: "/archives/logistique",
             roles: ["super_admin", "directeur_general"],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    section: "Opérations",
+    items: [
+      {
+        key: "actions",
+        label: "Actions",
+        icon: "Zap",
+        href: "/actions",
+        roles: ["directeur_general", "manager"],
+        expandable: true,
+        children: [
+          {
+            key: "approbations",
+            label: "Approbations",
+            icon: "CheckCircle",
+            href: "/actions/approbations",
+            roles: ["directeur_general", "manager"],
+            badge: "pendingCount",
+          },
+          {
+            key: "alertes",
+            label: "Alertes",
+            icon: "Bell",
+            href: "/actions/alertes",
+            roles: ["directeur_general", "manager"],
           },
         ],
       },

@@ -548,3 +548,119 @@ export async function getFormationDashboardKpis(): Promise<FormationDashboardKpi
     recentActivity,
   };
 }
+
+export type ApprenantDetail = {
+  id: string;
+  full_name: string;
+  email: string | null;
+  phone: string | null;
+  status: string | null;
+  created_at: string;
+  total_formations: number;
+  completed_formations: number;
+  certified_formations: number;
+  in_progress_formations: number;
+  enrollments: {
+    id: string;
+    training_name: string;
+    enrolled_at: string;
+    completed_at: string | null;
+    status: string;
+    progress_pct: number;
+  }[];
+  certificates: {
+    id: string;
+    certificate_number: string;
+    training_name: string;
+    issued_at: string;
+  }[];
+};
+
+export async function getApprenantById(id: string): Promise<ApprenantDetail | null> {
+  const supabase = getSupabaseServerClient();
+
+  const { data: learner, error } = await supabase
+    .from("trainees" as never)
+    .select("*")
+    .eq("id", id)
+    .is("deleted_at", null)
+    .single();
+
+  if (error || !learner) return null;
+  const learnerCreatedAt = (learner as { created_at?: string | null }).created_at ?? new Date().toISOString();
+
+  const [enrollmentsResult, certificatesResult] = await Promise.all([
+    supabase
+      .from("enrollments" as never)
+      .select("id, status, progress_pct, enrolled_at, completed_at, created_at, training:trainings(title)")
+      .eq("trainee_id", id)
+      .is("deleted_at", null)
+      .order("enrolled_at", { ascending: false }),
+    supabase
+      .from("certificates" as never)
+      .select("id, certificate_number, issued_at, created_at, training:trainings(title)")
+      .eq("trainee_id", id)
+      .is("deleted_at", null)
+      .order("issued_at", { ascending: false }),
+  ]);
+
+  const enrollments = (enrollmentsResult.data ?? []).map((e) => {
+    const row = e as {
+      id: string;
+      status?: string | null;
+      progress_pct?: number | null;
+      enrolled_at?: string | null;
+      completed_at?: string | null;
+      created_at?: string | null;
+      training?: { title?: string | null } | null;
+    };
+    return {
+      id: row.id,
+      training_name: row.training?.title ?? "Formation inconnue",
+      enrolled_at: row.enrolled_at ?? row.created_at ?? learnerCreatedAt,
+      completed_at: row.completed_at ?? null,
+      status: row.status ?? "in_progress",
+      progress_pct: Number(row.progress_pct ?? 0),
+    };
+  });
+
+  const certificates = (certificatesResult.data ?? []).map((c) => {
+    const row = c as {
+      id: string;
+      certificate_number?: string | null;
+      issued_at?: string | null;
+      created_at?: string | null;
+      training?: { title?: string | null } | null;
+    };
+    return {
+      id: row.id,
+      certificate_number: row.certificate_number ?? "CERT-???",
+      training_name: row.training?.title ?? "Formation inconnue",
+      issued_at: row.issued_at ?? row.created_at ?? learnerCreatedAt,
+    };
+  });
+
+  const total = enrollments.length;
+  const completed = enrollments.filter(
+    (e) => e.status === "completed" || e.status === "certified" || e.progress_pct >= 100,
+  ).length;
+  const certified = certificates.length;
+  const inProgress = enrollments.filter((e) => e.status === "in_progress" && e.progress_pct < 100).length;
+
+  const fullName = `${(learner as { first_name?: string | null }).first_name ?? ""} ${(learner as { last_name?: string | null }).last_name ?? ""}`.trim();
+
+  return {
+    id: String((learner as { id: string }).id),
+    full_name: fullName || "Apprenant",
+    email: ((learner as { email?: string | null }).email ?? null) as string | null,
+    phone: ((learner as { phone?: string | null }).phone ?? null) as string | null,
+    status: ((learner as { status?: string | null }).status ?? "active") as string | null,
+    created_at: learnerCreatedAt,
+    total_formations: total,
+    completed_formations: completed,
+    certified_formations: certified,
+    in_progress_formations: inProgress,
+    enrollments,
+    certificates,
+  };
+}

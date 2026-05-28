@@ -62,7 +62,12 @@ export default async function ApprenantsPage({ searchParams }: Props) {
               {data.map((t) => (
                 <tr key={t.id} className="border-b border-gray-100">
                   <td className="p-3 font-medium">
-                    {t.first_name} {t.last_name}
+                    <Link
+                      href={`/formation/apprenants/${t.id}`}
+                      className="font-medium text-gray-900 transition-colors hover:text-blue-600"
+                    >
+                      {t.first_name} {t.last_name}
+                    </Link>
                   </td>
                   <td className="p-3">{t.email ?? "—"}</td>
                   <td className="p-3">{t.phone ?? "—"}</td>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { RealtimeChannel } from "@supabase/supabase-js";
 import { getSupabaseBrowserClient } from "@/lib/supabase";
 import { DEPARTMENT_LABELS } from "@/lib/constants/departments";
@@ -48,6 +48,7 @@ export function usePresence(options: UsePresenceOptions) {
   const { userId, fullName, avatarUrl, currentPage, departmentKey } = options;
 
   const [onlineUsers, setOnlineUsers] = useState<PresenceUser[]>([]);
+  const presenceSignatureRef = useRef<string>("");
 
   useEffect(() => {
     if (!userId || !fullName) return;
@@ -63,7 +64,7 @@ export function usePresence(options: UsePresenceOptions) {
       channel.on("presence", { event: "sync" }, () => {
         const state = channel?.presenceState() ?? {};
         const users: PresenceUser[] = [];
-        for (const key of Object.keys(state)) {
+        for (const key of Object.keys(state).sort()) {
           const presences = state[key] as unknown as PresencePayload[];
           if (presences.length > 0) {
             const p = presences[0];
@@ -77,7 +78,11 @@ export function usePresence(options: UsePresenceOptions) {
             });
           }
         }
-        setOnlineUsers(users);
+        const signature = users.map((u) => `${u.userId}|${u.fullName}|${u.departmentLabel ?? ""}|${u.currentPage ?? ""}`).join(";");
+        if (signature !== presenceSignatureRef.current) {
+          presenceSignatureRef.current = signature;
+          setOnlineUsers(users);
+        }
       });
 
       channel.subscribe(async (status) => {
@@ -101,6 +106,7 @@ export function usePresence(options: UsePresenceOptions) {
         void channel.untrack();
         void supabase.removeChannel(channel);
       }
+      presenceSignatureRef.current = "";
       setOnlineUsers([]);
     };
   }, [userId, fullName, avatarUrl, currentPage, departmentKey]);

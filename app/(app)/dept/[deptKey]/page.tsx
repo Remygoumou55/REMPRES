@@ -5,6 +5,7 @@ import { DEPARTMENTS } from "@/lib/constants/departments";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getDeptDashboardData, type DeptKey } from "@/lib/server/dept-dashboard";
 import { getUserDisplay } from "@/lib/server/get-user-display";
+import { isSuperAdmin as isSuperAdminRole } from "@/lib/server/permissions";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 
 export const dynamic = "force-dynamic";
@@ -33,10 +34,11 @@ export default async function DeptDashboardPage({ params }: PageProps) {
   }
 
   const supabase = getSupabaseServerClient();
-  const [{ firstName }, data] = await Promise.all([
+  const [{ firstName }, data, isSuperAdmin] = await Promise.all([
     getUserDisplay(user.id, user.email ?? undefined),
     getDeptDashboardData(supabase, deptKey, user.id),
+    isSuperAdminRole(user.id),
   ]);
 
-  return <DeptHomePage data={data} firstName={firstName} />;
+  return <DeptHomePage data={data} firstName={firstName} isSuperAdmin={isSuperAdmin} />;
 }

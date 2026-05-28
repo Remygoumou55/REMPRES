@@ -80,9 +80,10 @@ function alertLevelStyles(level: "HIGH" | "MEDIUM" | "LOW"): { bar: string; badg
 export type DeptHomePageProps = {
   data: DeptKpiData;
   firstName: string;
+  isSuperAdmin?: boolean;
 };
 
-export const DeptHomePage = memo(function DeptHomePage({ data, firstName }: DeptHomePageProps) {
+export const DeptHomePage = memo(function DeptHomePage({ data, firstName, isSuperAdmin }: DeptHomePageProps) {
   const [nowTick, setNowTick] = useState(() => Date.now());
 
   useEffect(() => {
@@ -224,7 +225,7 @@ export const DeptHomePage = memo(function DeptHomePage({ data, firstName }: Dept
         </section>
       </div>
 
-      <DeptQuickActionsSection dept={data.dept} deptLabel={data.deptLabel} />
+      {!isSuperAdmin && <DeptQuickActionsSection dept={data.dept} deptLabel={data.deptLabel} />}
     </div>
   );
 });

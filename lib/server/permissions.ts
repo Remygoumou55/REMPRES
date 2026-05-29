@@ -2,7 +2,7 @@ import { cache } from "react";
 import { hasAdminConsoleAccess } from "@/lib/auth/permissions";
 import type { SupervisionScope } from "@/lib/auth/permissions";
 import type { ProfileDriftFlag } from "@/lib/auth/profile-authority";
-import { normalizeRoleKey } from "@/lib/auth/roles";
+import { isSuperAdminRoleKey, normalizeRoleKey } from "@/lib/auth/roles";
 import { DEPARTMENT_KEYS, type DepartmentKey, normalizeDepartmentKey } from "@/lib/departments/department-config";
 import { getCachedProfileRow } from "@/lib/server/profile-row";
 import {
@@ -275,7 +275,7 @@ export async function getCanonicalUserRole(userId: string): Promise<CanonicalRol
  */
 export async function isSuperAdmin(userId: string): Promise<boolean> {
   const role = await getUserRole(userId);
-  return role === "super_admin";
+  return isSuperAdminRoleKey(role);
 }
 
 export async function isAdminRole(userId: string): Promise<boolean> {

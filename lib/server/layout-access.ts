@@ -1,7 +1,7 @@
 import { cache } from "react";
 import { redirect } from "next/navigation";
 import { hasAdminConsoleAccess } from "@/lib/auth/permissions";
-import { effectiveAuthRoleKey, ROLE_KEYS } from "@/lib/auth/roles";
+import { isSuperAdminRoleKey } from "@/lib/auth/roles";
 import {
   resolveShellRailVisibility,
   resolveShellVisibility,
@@ -23,7 +23,7 @@ export const getLayoutAccess = cache(async () => {
 
   const userId = user.id;
   const profile = await getCachedProfileRow(userId);
-  const isSuperAdminProfile = profile.roleKey === ROLE_KEYS.SUPER_ADMIN;
+  const isSuperAdminProfile = isSuperAdminRoleKey(profile.roleKey);
 
   const supabaseForAvatar = getSupabaseServerClient();
 
@@ -79,8 +79,7 @@ export const getLayoutAccess = cache(async () => {
   const shell = resolveShellVisibility(shellInput);
   const rail: ShellRailVisibility = resolveShellRailVisibility(shellInput);
 
-  const isSuperAdminUser =
-    effectiveAuthRoleKey(profile.roleKey) === ROLE_KEYS.SUPER_ADMIN;
+  const isSuperAdminUser = isSuperAdminProfile;
 
   const canReadActivityLogs =
     isSuperAdminUser ||

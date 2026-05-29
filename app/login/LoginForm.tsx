@@ -69,23 +69,36 @@ export function LoginForm() {
     try {
       const { data: profile, error: profileError } = await supabase
         .from("profiles")
-        .select("role_key, department_key")
+        .select("role_key, department_key, is_active")
         .eq("id", data.user.id)
-        .single();
+        .is("deleted_at", null)
+        .maybeSingle();
 
       if (profileError || !profile) {
-        // Le profil n'existe pas → compte mal configuré
         logError("auth", "login profile missing", {
           userId: data.user.id,
           error: profileError ?? new Error("profile is null"),
         });
+        await supabase.auth.signOut();
         router.replace("/error-profile");
         return;
       }
 
-      if (profile.role_key) {
-        document.cookie = `rempres_role=${encodeURIComponent(profile.role_key)}; path=/; SameSite=Lax`;
+      if (profile.is_active === false) {
+        logWarn("auth", "login blocked inactive account", { userId: data.user.id });
+        await supabase.auth.signOut();
+        setError("Votre compte est bloqué. Contactez un administrateur.");
+        return;
       }
+
+      if (!profile.role_key?.trim()) {
+        logError("auth", "login profile missing role_key", { userId: data.user.id });
+        await supabase.auth.signOut();
+        router.replace("/error-profile");
+        return;
+      }
+
+      document.cookie = `rempres_role=${encodeURIComponent(profile.role_key)}; path=/; SameSite=Lax`;
 
       logInfo("auth", "login success", { userId: data.user.id, role: profile.role_key });
       router.replace(getDestinationForRole(profile.role_key, profile.department_key));

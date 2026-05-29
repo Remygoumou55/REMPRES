@@ -20,9 +20,7 @@ export function resolvePostLoginRoute(
   const effectiveDept = resolveAuthorityDepartmentKey(roleKey, departmentKey);
 
   if (r === ROLE_KEYS.SUPER_ADMIN) {
-    // Super Admin atterrit directement sur son département de supervision
-    // pour accéder immédiatement aux onglets/boutons administration.
-    return "/admin";
+    return SUPER_ADMIN_COCKPIT_ROUTE;
   }
 
   if (r === ROLE_KEYS.ACCOUNTANT) {

@@ -58,3 +58,8 @@ export function effectiveAuthRoleKey(roleKey: string | null | undefined): AppRol
   const k = normalizeRoleKey(roleKey);
   return (Object.values(ROLE_KEYS) as string[]).includes(k) ? (k as AppRoleKey) : "";
 }
+
+/** Vrai si le profil DB est super administrateur (comparaison normalisée). */
+export function isSuperAdminRoleKey(roleKey: string | null | undefined): boolean {
+  return normalizeRoleKey(roleKey) === ROLE_KEYS.SUPER_ADMIN;
+}

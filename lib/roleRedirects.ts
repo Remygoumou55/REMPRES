@@ -1,22 +1,51 @@
 /**
- * Redirection post-login — délègue à `home-route.ts` (M3 / M3.5).
+ * Redirection post-login — délègue à Authorization Core (Phase 2).
  */
 import {
-  resolvePostLoginRoute,
-} from "@/lib/navigation/home-route";
+  resolveAuthenticatedLanding,
+  resolveAuthenticatedSafeHome,
+  toPlatformAuthorityProfile,
+} from "@/lib/auth/authorization-core";
+
+export type PostLoginProfileSlice = {
+  role_key?: string | null;
+  department_key?: string | null;
+  system_authority?: string | null;
+};
+
+export function profileSliceToAuthority(slice: PostLoginProfileSlice | null | undefined) {
+  return toPlatformAuthorityProfile({
+    roleKey: slice?.role_key ?? null,
+    departmentKey: slice?.department_key ?? null,
+    systemAuthority: slice?.system_authority ?? null,
+  });
+}
 
 /**
- * Destination après authentification selon rôle et département principal.
+ * Destination après authentification selon autorité système + rôle + département.
  */
 export function getPostLoginDestination(
   roleKey: string | null | undefined,
   departmentKey?: string | null,
   systemAuthority?: string | null,
 ): string {
-  return resolvePostLoginRoute(roleKey, departmentKey, systemAuthority);
+  return resolveAuthenticatedLanding(
+    toPlatformAuthorityProfile({ roleKey, departmentKey, systemAuthority }),
+  );
 }
 
-/** @deprecated Utiliser `getPostLoginDestination(role_key, department_key)`. */
+/** Destination depuis ligne profil Supabase (login SSR / callback). */
+export function getPostLoginDestinationFromProfile(
+  profile: PostLoginProfileSlice | null | undefined,
+): string {
+  return resolveAuthenticatedLanding(profileSliceToAuthority(profile));
+}
+
+export function getSafeHomeFromProfile(profile: PostLoginProfileSlice | null | undefined): string {
+  return resolveAuthenticatedSafeHome(profileSliceToAuthority(profile));
+}
+
+/** @deprecated Utiliser `getPostLoginDestination` avec system_authority. */
 export function getDestinationForRole(
   roleKey: string | null | undefined,
   departmentKey?: string | null,

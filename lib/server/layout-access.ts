@@ -32,7 +32,7 @@ export const getLayoutAccess = cache(async () => {
 
   const [shellPerms, pendingApprovalsCount, avatarRow] = await Promise.all([
     isSuperAdminProfile ? Promise.resolve(null) : getShellLayoutPermissions(userId),
-    getPendingCount(userId, profile.roleKey).catch(() => 0),
+    getPendingCount(userId, profile.roleKey, profile.systemAuthority).catch(() => 0),
     (async () => {
       try {
         const res = await supabaseForAvatar
@@ -68,6 +68,7 @@ export const getLayoutAccess = cache(async () => {
 
   const shellInput = {
     roleKey: profile.roleKey,
+    systemAuthority: profile.systemAuthority,
     departmentKey: profile.departmentKey,
     canReadClients: permissions.canRead,
     canReadProducts: productsPermissions.canRead,
@@ -86,7 +87,7 @@ export const getLayoutAccess = cache(async () => {
 
   const canReadActivityLogs =
     isSuperAdminUser ||
-    hasAdminConsoleAccess(profile.roleKey, profile.departmentKey);
+    hasAdminConsoleAccess(profile.roleKey, profile.departmentKey, profile.systemAuthority);
 
   return {
     userDisplayName: profile.displayName,

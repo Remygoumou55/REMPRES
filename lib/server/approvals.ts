@@ -116,23 +116,20 @@ export async function createApprovalRequest(
 }
 
 async function notifySuperAdmins(requestId: string, input: CreateApprovalInput): Promise<void> {
-  const adminClient = getSupabaseAdminClient();
-  const { data: admins } = await adminClient
-    .from("profiles")
-    .select("id")
-    .eq("role_key", "super_admin")
-    .eq("is_active", true)
-    .is("deleted_at", null);
+  const { listActivePlatformGovernanceUserIds } = await import(
+    "@/lib/server/platform-governance-users"
+  );
+  const adminIds = await listActivePlatformGovernanceUserIds();
 
-  if (!admins?.length) return;
+  if (!adminIds.length) return;
 
   const link = `/actions/approbations?id=${requestId}`;
 
   try {
     await Promise.all(
-      admins.map((admin) =>
+      adminIds.map((adminUserId) =>
         createNotification({
-          userId: admin.id,
+          userId: adminUserId,
           type: "approval",
           title: `Approbation requise — ${input.requesterDept}`,
           message: input.description,

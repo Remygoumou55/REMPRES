@@ -29,6 +29,8 @@ type DbNotificationRow = {
 type UseRealtimeNotificationsOptions = {
   userId: string | null;
   role: string | null;
+  /** Autorité plateforme (ROOT) — prioritaire sur role_key pour le flux gouvernance. */
+  isPlatformGovernance?: boolean;
   initialCount?: number;
 };
 
@@ -54,6 +56,7 @@ function mapNotificationRow(row: DbNotificationRow): NotificationItem {
 export function useRealtimeNotifications({
   userId,
   role,
+  isPlatformGovernance = false,
   initialCount = 0,
 }: UseRealtimeNotificationsOptions) {
   const [unreadCount, setUnreadCount] = useState(initialCount);
@@ -61,7 +64,8 @@ export function useRealtimeNotifications({
   const [isConnected, setIsConnected] = useState(false);
   const channelsRef = useRef<RealtimeChannel[]>([]);
 
-  const isSuperAdmin = effectiveAuthRoleKey(role) === ROLE_KEYS.SUPER_ADMIN;
+  const isSuperAdmin =
+    isPlatformGovernance || effectiveAuthRoleKey(role) === ROLE_KEYS.SUPER_ADMIN;
 
   const fetchInitialCount = useCallback(async () => {
     if (!userId) return;

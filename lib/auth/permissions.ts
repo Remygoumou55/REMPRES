@@ -6,6 +6,11 @@ import {
   normalizeDepartmentKey,
   type DepartmentKey,
 } from "@/lib/departments/department-config";
+import {
+  isAdminUtilityPath,
+  isAuthenticatedUtilityPath,
+  isLayoutGuardedPath,
+} from "@/lib/auth/route-utility-paths";
 import { hasSystemRootAuthority } from "@/lib/auth/system-authority";
 import { effectiveAuthRoleKey, resolveRoleKey, ROLE_KEYS } from "@/lib/auth/roles";
 import {
@@ -73,11 +78,13 @@ export function hasAdminConsoleAccess(
 export function getSupervisionScope(
   roleKey: string | null | undefined,
   departmentKey: string | null | undefined,
+  systemAuthority?: string | null,
 ): SupervisionScope {
+  if (hasSystemRootAuthority({ roleKey, systemAuthority })) return "global";
   const r = effectiveAuthRoleKey(roleKey);
   if (!r) return "restricted";
   if (r === ROLE_KEYS.SUPER_ADMIN) return "global";
-  if (hasAdminConsoleAccess(roleKey, departmentKey)) return "global";
+  if (hasAdminConsoleAccess(roleKey, departmentKey, systemAuthority)) return "global";
   if (isSupervisionOnlyDepartmentKey(departmentKey)) return "restricted";
   return "departmental";
 }
@@ -93,6 +100,12 @@ export function canAccessPathForProfile(
   systemAuthority?: string | null,
 ): boolean {
   const path = normalizePathname(pathname);
+
+  if (isAuthenticatedUtilityPath(path)) return true;
+  if (isLayoutGuardedPath(path)) return true;
+  if (isAdminUtilityPath(path)) {
+    return hasAdminConsoleAccess(roleKey, departmentKey, systemAuthority);
+  }
 
   if (hasSystemRootAuthority({ roleKey, systemAuthority })) {
     if (isSuperAdminOperationalPath(path)) return false;
@@ -138,8 +151,9 @@ export function canAccessDepartment(
   pathname: string,
   roleKey: string | null | undefined,
   departmentKey: string | null | undefined,
+  systemAuthority?: string | null,
 ): boolean {
-  return canAccessPathForProfile(pathname, roleKey, departmentKey);
+  return canAccessPathForProfile(pathname, roleKey, departmentKey, systemAuthority);
 }
 
 /** Alias explicite — même implémentation que `canAccessPathForProfile`. */
@@ -147,8 +161,9 @@ export function canAccessOperationalModule(
   pathname: string,
   roleKey: string | null | undefined,
   departmentKey: string | null | undefined,
+  systemAuthority?: string | null,
 ): boolean {
-  return canAccessPathForProfile(pathname, roleKey, departmentKey);
+  return canAccessPathForProfile(pathname, roleKey, departmentKey, systemAuthority);
 }
 
 /** Département « supervision-only » (ERP métier — pas d’opérations vente/clients/produits directes). */

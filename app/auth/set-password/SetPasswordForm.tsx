@@ -7,7 +7,7 @@ import { Eye, EyeOff, Lock, CheckCircle, Loader2 } from "lucide-react";
 import { getSupabaseBrowserClient } from "@/lib/supabase";
 import { appConfig, getLogoUrl } from "@/lib/config";
 import { logError } from "@/lib/logger";
-import { getDestinationForRole } from "@/lib/roleRedirects";
+import { getPostLoginDestinationFromProfile } from "@/lib/roleRedirects";
 import { buildAuthErrorHref } from "@/lib/auth/callback-errors";
 
 // ---------------------------------------------------------------------------
@@ -156,11 +156,11 @@ export function SetPasswordForm() {
         for (let i = 0; i < 6; i += 1) {
           const { data: profile } = await supabase
             .from("profiles")
-            .select("role_key, department_key")
+            .select("role_key, system_authority, department_key")
             .eq("id", user.id)
             .maybeSingle();
           if (profile?.role_key) {
-            dest = getDestinationForRole(profile.role_key, profile.department_key ?? null);
+            dest = getPostLoginDestinationFromProfile(profile);
             break;
           }
           await delay(200);

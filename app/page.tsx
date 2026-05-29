@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { appConfig, getLogoUrl } from "@/lib/config";
-import { getDestinationForRole } from "@/lib/roleRedirects";
+import { getPostLoginDestinationFromProfile } from "@/lib/roleRedirects";
 import {
   ArrowRight,
   BarChart3,
@@ -72,11 +72,11 @@ export default async function LandingPage() {
   if (data.user) {
     const { data: profile } = await supabase
       .from("profiles")
-      .select("role_key, department_key")
+      .select("role_key, system_authority, department_key")
       .eq("id", data.user.id)
       .maybeSingle();
 
-    redirect(getDestinationForRole(profile?.role_key, profile?.department_key));
+    redirect(getPostLoginDestinationFromProfile(profile));
   }
 
   return (

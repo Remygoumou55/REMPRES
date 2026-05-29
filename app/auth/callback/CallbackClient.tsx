@@ -7,7 +7,7 @@ import { getSupabaseBrowserClient } from "@/lib/supabase";
 import { logError } from "@/lib/logger";
 import { buildAuthErrorHref, mapAuthCallbackError } from "@/lib/auth/callback-errors";
 import { reportRouteError } from "@/lib/monitoring/error-monitor";
-import { resolvePostLoginRoute } from "@/lib/navigation/home-route";
+import { getPostLoginDestinationFromProfile } from "@/lib/roleRedirects";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 function readExplicitNext(raw: string | null): string | null {
@@ -30,12 +30,12 @@ async function resolveAuthCallbackDestination(
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("role_key, department_key")
+    .select("role_key, system_authority, department_key")
     .eq("id", user.id)
     .is("deleted_at", null)
     .maybeSingle();
 
-  return resolvePostLoginRoute(profile?.role_key, profile?.department_key ?? null);
+  return getPostLoginDestinationFromProfile(profile);
 }
 
 function readMode(type: string | null): "invite" | "recovery" | "default" {

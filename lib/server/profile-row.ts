@@ -86,7 +86,7 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
         displayName,
         preferredLanguage,
         ok: true,
-        supervisionScope: getSupervisionScope(roleKey, departmentKey),
+        supervisionScope: getSupervisionScope(roleKey, departmentKey, systemAuthority),
       });
     }
 
@@ -137,7 +137,7 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
         displayName,
         preferredLanguage,
         ok: true,
-        supervisionScope: getSupervisionScope(null, null),
+        supervisionScope: getSupervisionScope(null, null, null),
       });
     }
 
@@ -163,7 +163,7 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
       displayName: resolveDisplayName(data),
       preferredLanguage,
       ok: true,
-      supervisionScope: getSupervisionScope(roleKey, departmentKey),
+      supervisionScope: getSupervisionScope(roleKey, departmentKey, systemAuthority),
     });
   } catch {
     return withAuthorityFields({
@@ -174,7 +174,7 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
       displayName: "Compte",
       preferredLanguage: null,
       ok: false,
-      supervisionScope: "restricted",
+      supervisionScope: getSupervisionScope(null, null, null),
     });
   }
 });

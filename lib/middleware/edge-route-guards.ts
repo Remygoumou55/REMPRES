@@ -7,6 +7,11 @@ import {
   DEPARTMENT_KEYS,
   normalizeDepartmentKey,
 } from "@/lib/departments/department-config";
+import {
+  isAdminUtilityPath,
+  isAuthenticatedUtilityPath,
+  isLayoutGuardedPath,
+} from "@/lib/auth/route-utility-paths";
 import { hasSystemRootAuthority } from "@/lib/auth/system-authority";
 import { effectiveAuthRoleKey, ROLE_KEYS } from "@/lib/auth/roles";
 import {
@@ -219,6 +224,12 @@ export function edgeCanAccessPathForProfile(
   systemAuthority?: string | null,
 ): boolean {
   const path = normalize(pathname);
+
+  if (isAuthenticatedUtilityPath(path)) return true;
+  if (isLayoutGuardedPath(path)) return true;
+  if (isAdminUtilityPath(path)) {
+    return edgeHasAdminConsoleAccess(roleKey, departmentKey, systemAuthority);
+  }
 
   if (hasSystemRootAuthority({ roleKey, systemAuthority })) {
     if (edgeIsSuperAdminOperationalPath(path)) return false;

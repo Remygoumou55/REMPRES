@@ -243,6 +243,7 @@ export function AppShell({
               <NotificationBell
                 userId={userId}
                 role={userRole}
+                isPlatformGovernance={isSuperAdmin}
                 initialUnreadCount={pendingApprovalsCount}
               />
               <AvatarDropdown

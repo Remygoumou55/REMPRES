@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { Mail, Lock, Eye, EyeOff, AlertCircle, Loader2 } from "lucide-react";
 import { getSupabaseBrowserClient } from "@/lib/supabase";
 import { logError, logInfo, logWarn } from "@/lib/logger";
-import { getDestinationForRole } from "@/lib/roleRedirects";
+import { getPostLoginDestinationFromProfile } from "@/lib/roleRedirects";
 
 // ---------------------------------------------------------------------------
 // Mapping d'erreurs Supabase → messages français
@@ -101,13 +101,7 @@ export function LoginForm() {
       document.cookie = `rempres_role=${encodeURIComponent(profile.role_key)}; path=/; SameSite=Lax`;
 
       logInfo("auth", "login success", { userId: data.user.id, role: profile.role_key });
-      router.replace(
-        getDestinationForRole(
-          profile.role_key,
-          profile.department_key,
-          "system_authority" in profile ? (profile.system_authority as string | null) : null,
-        ),
-      );
+      router.replace(getPostLoginDestinationFromProfile(profile));
     } catch (err) {
       logError("auth", "login profile fetch failed", { userId: data.user.id, error: err });
       setError("Une erreur est survenue lors de la connexion. Veuillez réessayer.");

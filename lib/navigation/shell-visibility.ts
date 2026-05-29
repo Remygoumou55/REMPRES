@@ -4,6 +4,7 @@
  */
 import { hasAdminConsoleAccess } from "@/lib/auth/permissions";
 import { resolveAuthorityDepartmentKey } from "@/lib/auth/profile-authority";
+import { hasSystemRootAuthority } from "@/lib/auth/system-authority";
 import { effectiveAuthRoleKey, ROLE_KEYS } from "@/lib/auth/roles";
 import {
   DEPARTMENT_KEYS,
@@ -23,6 +24,7 @@ export type ShellModulePermissionFlags = {
 
 export type ShellVisibilityInput = ShellModulePermissionFlags & {
   roleKey: string | null;
+  systemAuthority?: string | null;
   departmentKey: string | null;
 };
 
@@ -83,7 +85,11 @@ function departmentMatches(userDept: DepartmentKey | null, expected: DepartmentK
 export function resolveShellRailVisibility(input: ShellVisibilityInput): ShellRailVisibility {
   const role = effectiveAuthRoleKey(input.roleKey);
   const userDept = resolveUserDepartment(input.roleKey, input.departmentKey);
-  const isSuperAdmin = role === ROLE_KEYS.SUPER_ADMIN;
+  const isSuperAdmin =
+    hasSystemRootAuthority({
+      roleKey: input.roleKey,
+      systemAuthority: input.systemAuthority,
+    }) || role === ROLE_KEYS.SUPER_ADMIN;
 
   if (isSuperAdmin) {
     return {
@@ -106,6 +112,7 @@ export function resolveShellRailVisibility(input: ShellVisibilityInput): ShellRa
   const canSeeActions = hasAdminConsoleAccess(
     input.roleKey,
     userDept ?? input.departmentKey,
+    input.systemAuthority,
   );
 
   return {
@@ -127,7 +134,11 @@ export function resolveShellRailVisibility(input: ShellVisibilityInput): ShellRa
 export function resolveShellVisibility(input: ShellVisibilityInput): ShellVisibility {
   const role = effectiveAuthRoleKey(input.roleKey);
   const userDept = resolveUserDepartment(input.roleKey, input.departmentKey);
-  const isSuperAdmin = role === ROLE_KEYS.SUPER_ADMIN;
+  const isSuperAdmin =
+    hasSystemRootAuthority({
+      roleKey: input.roleKey,
+      systemAuthority: input.systemAuthority,
+    }) || role === ROLE_KEYS.SUPER_ADMIN;
   const rail = resolveShellRailVisibility(input);
 
   return {

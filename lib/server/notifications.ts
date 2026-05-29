@@ -1,4 +1,4 @@
-import { ROLE_KEYS, effectiveAuthRoleKey } from "@/lib/auth/roles";
+import { isPlatformGovernanceActor, toPlatformAuthorityProfile } from "@/lib/auth/authorization-core";
 import { getSupabaseAdminClient } from "@/lib/supabaseAdmin";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { countPendingApprovals } from "@/lib/server/approvals";
@@ -76,10 +76,11 @@ async function countUnreadUserNotifications(userId: string): Promise<number> {
 export async function getPendingCount(
   userId: string,
   role: string | null | undefined,
+  systemAuthority?: string | null,
 ): Promise<number> {
-  const roleKey = effectiveAuthRoleKey(role);
+  const profile = toPlatformAuthorityProfile({ roleKey: role, systemAuthority });
 
-  if (roleKey === ROLE_KEYS.SUPER_ADMIN) {
+  if (isPlatformGovernanceActor(profile)) {
     const [pendingApprovals, unreadAlerts, unreadNotifs] = await Promise.all([
       countPendingApprovals().catch(() => 0),
       countUnreadGovernanceAlerts(),

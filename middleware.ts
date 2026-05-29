@@ -30,6 +30,11 @@ const PROTECTED_PREFIXES = [
   "/executive",
   "/parametres",
   "/config",
+  "/profil",
+  "/operations",
+  "/direction",
+  "/erp",
+  "/coming-soon",
 ];
 
 // ---------------------------------------------------------------------------
@@ -229,5 +234,15 @@ export const config = {
     "/login",
     "/access-denied",
     "/error-profile",
+    "/profil",
+    "/profil/:path*",
+    "/operations",
+    "/operations/:path*",
+    "/direction",
+    "/direction/:path*",
+    "/erp",
+    "/erp/:path*",
+    "/coming-soon",
+    "/coming-soon/:path*",
   ],
 };

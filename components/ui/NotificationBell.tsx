@@ -10,6 +10,7 @@ import { ROLE_KEYS, effectiveAuthRoleKey } from "@/lib/auth/roles";
 type Props = {
   userId: string | null;
   role: string | null;
+  isPlatformGovernance?: boolean;
   initialUnreadCount?: number;
 };
 
@@ -27,6 +28,7 @@ function getNotifIcon(type: string) {
 export const NotificationBell = memo(function NotificationBell({
   userId,
   role,
+  isPlatformGovernance = false,
   initialUnreadCount = 0,
 }: Props) {
   const [open, setOpen] = useState(false);
@@ -36,10 +38,12 @@ export const NotificationBell = memo(function NotificationBell({
   const { unreadCount, notifications, markAllRead } = useRealtimeNotifications({
     userId,
     role,
+    isPlatformGovernance,
     initialCount: initialUnreadCount,
   });
 
-  const isSuperAdmin = effectiveAuthRoleKey(role) === ROLE_KEYS.SUPER_ADMIN;
+  const isSuperAdmin =
+    isPlatformGovernance || effectiveAuthRoleKey(role) === ROLE_KEYS.SUPER_ADMIN;
 
   useEffect(() => {
     function handle(e: MouseEvent) {

@@ -80,6 +80,7 @@ export function resolveSafeHomeRoute(
 export function resolveDepartmentHomeRoute(
   roleKey: string | null | undefined,
   departmentKey?: string | null | undefined,
+  systemAuthority?: string | null,
 ): string {
-  return resolvePostLoginRoute(roleKey, departmentKey);
+  return resolvePostLoginRoute(roleKey, departmentKey, systemAuthority);
 }

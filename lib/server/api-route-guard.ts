@@ -2,9 +2,8 @@
  * Garde-fous API — Bloc 1 Étape 5 (hors middleware, authority-driven).
  * Les routes /api/* ne passent pas par middleware : chaque handler doit s’auto-protéger.
  */
-import { ROLE_KEYS, effectiveAuthRoleKey } from "@/lib/auth/roles";
+import { canAccessRoute, fromAuthBrief, hasSystemAuthority } from "@/lib/auth/authorization-core";
 import { canAccessDeptCockpitPathForProfile } from "@/lib/navigation/route-authority";
-import { canAccessPathForProfile } from "@/lib/auth/permissions";
 import {
   getModulePermissions,
   getProfileAuthBrief,
@@ -28,6 +27,10 @@ export async function requireApiSession(): Promise<ApiGuardResult> {
     return { ok: false, status: 403, message: "Forbidden" };
   }
   return { ok: true, userId: user.id, brief };
+}
+
+function canAccessApiPath(brief: ProfileAuthBrief, pathname: string): boolean {
+  return canAccessRoute(pathname, fromAuthBrief(brief));
 }
 
 /**
@@ -74,7 +77,7 @@ export async function assertApiFinanceModuleAccess(userId: string): Promise<ApiG
     return { ok: false, status: 403, message: "Forbidden" };
   }
 
-  if (!canAccessPathForProfile("/finance", profile.roleKey, profile.departmentKey)) {
+  if (!canAccessApiPath(profile, "/finance")) {
     return { ok: false, status: 403, message: "Forbidden" };
   }
 
@@ -93,11 +96,11 @@ export async function assertApiRhModuleAccess(userId: string): Promise<ApiGuardR
     return { ok: false, status: 403, message: "Forbidden" };
   }
 
-  if (effectiveAuthRoleKey(profile.roleKey) === ROLE_KEYS.SUPER_ADMIN) {
+  if (hasSystemAuthority(fromAuthBrief(profile))) {
     return { ok: false, status: 403, message: "Forbidden" };
   }
 
-  if (!canAccessPathForProfile("/rh", profile.roleKey, profile.departmentKey)) {
+  if (!canAccessApiPath(profile, "/rh")) {
     return { ok: false, status: 403, message: "Forbidden" };
   }
 

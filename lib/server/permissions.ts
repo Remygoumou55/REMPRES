@@ -2,7 +2,8 @@ import { cache } from "react";
 import { hasAdminConsoleAccess } from "@/lib/auth/permissions";
 import type { SupervisionScope } from "@/lib/auth/permissions";
 import type { ProfileDriftFlag } from "@/lib/auth/profile-authority";
-import { isSuperAdminRoleKey, normalizeRoleKey } from "@/lib/auth/roles";
+import { hasSystemRootAuthority } from "@/lib/auth/system-authority";
+import { normalizeRoleKey } from "@/lib/auth/roles";
 import { DEPARTMENT_KEYS, type DepartmentKey, normalizeDepartmentKey } from "@/lib/departments/department-config";
 import { getCachedProfileRow } from "@/lib/server/profile-row";
 import {
@@ -94,6 +95,7 @@ function aggregatePermissions(rows: PermissionRow[]): ModulePermissions {
 
 export type ProfileAuthBrief = {
   roleKey: string | null;
+  systemAuthority: string | null;
   departmentKey: string | null;
   departmentId: string | null;
   /** Département effectif (source verrouillée Étape 2) */
@@ -110,6 +112,7 @@ export const getProfileAuthBrief = cache(async (userId: string): Promise<Profile
   const row = await getCachedProfileRow(userId);
   return {
     roleKey: row.roleKey,
+    systemAuthority: row.systemAuthority,
     departmentKey: row.departmentKey,
     departmentId: row.departmentId,
     authorityDepartmentKey: row.authorityDepartmentKey,
@@ -274,21 +277,25 @@ export async function getCanonicalUserRole(userId: string): Promise<CanonicalRol
  * Vérifie super admin
  */
 export async function isSuperAdmin(userId: string): Promise<boolean> {
-  const role = await getUserRole(userId);
-  return isSuperAdminRoleKey(role);
+  const brief = await getProfileAuthBrief(userId);
+  if (!brief.ok) return false;
+  return hasSystemRootAuthority({
+    roleKey: brief.roleKey,
+    systemAuthority: brief.systemAuthority,
+  });
 }
 
 export async function isAdminRole(userId: string): Promise<boolean> {
   const brief = await getProfileAuthBrief(userId);
   if (!brief.ok) return false;
-  return hasAdminConsoleAccess(brief.roleKey, brief.departmentKey);
+  return hasAdminConsoleAccess(brief.roleKey, brief.departmentKey, brief.systemAuthority);
 }
 
 /** Aligné sur `public.is_automation_operator()` — exploitation fichiers / orchestrations automation. */
 export async function isAutomationOperator(userId: string): Promise<boolean> {
   const brief = await getProfileAuthBrief(userId);
   if (!brief.ok) return false;
-  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey)) return true;
+  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey, brief.systemAuthority)) return true;
   return normalizeDepartmentKey(brief.departmentKey) === DEPARTMENT_KEYS.ADMINISTRATION;
 }
 
@@ -296,7 +303,7 @@ export async function isAutomationOperator(userId: string): Promise<boolean> {
 export async function isComplianceOperator(userId: string): Promise<boolean> {
   const brief = await getProfileAuthBrief(userId);
   if (!brief.ok) return false;
-  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey)) return true;
+  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey, brief.systemAuthority)) return true;
   const dk = normalizeDepartmentKey(brief.departmentKey);
   return dk === DEPARTMENT_KEYS.ADMINISTRATION || dk === DEPARTMENT_KEYS.FINANCE;
 }
@@ -305,7 +312,7 @@ export async function isComplianceOperator(userId: string): Promise<boolean> {
 export async function isObservabilityOperator(userId: string): Promise<boolean> {
   const brief = await getProfileAuthBrief(userId);
   if (!brief.ok) return false;
-  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey)) return true;
+  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey, brief.systemAuthority)) return true;
   const dk = normalizeDepartmentKey(brief.departmentKey);
   return dk === DEPARTMENT_KEYS.ADMINISTRATION || dk === DEPARTMENT_KEYS.AUDIT;
 }
@@ -314,7 +321,7 @@ export async function isObservabilityOperator(userId: string): Promise<boolean> 
 export async function isAiOperator(userId: string): Promise<boolean> {
   const brief = await getProfileAuthBrief(userId);
   if (!brief.ok) return false;
-  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey)) return true;
+  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey, brief.systemAuthority)) return true;
   return normalizeDepartmentKey(brief.departmentKey) === DEPARTMENT_KEYS.ADMINISTRATION;
 }
 
@@ -322,7 +329,7 @@ export async function isAiOperator(userId: string): Promise<boolean> {
 export async function isMultitenantOperator(userId: string): Promise<boolean> {
   const brief = await getProfileAuthBrief(userId);
   if (!brief.ok) return false;
-  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey)) return true;
+  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey, brief.systemAuthority)) return true;
   return normalizeDepartmentKey(brief.departmentKey) === DEPARTMENT_KEYS.ADMINISTRATION;
 }
 
@@ -330,7 +337,7 @@ export async function isMultitenantOperator(userId: string): Promise<boolean> {
 export async function isCloudOperator(userId: string): Promise<boolean> {
   const brief = await getProfileAuthBrief(userId);
   if (!brief.ok) return false;
-  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey)) return true;
+  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey, brief.systemAuthority)) return true;
   return normalizeDepartmentKey(brief.departmentKey) === DEPARTMENT_KEYS.ADMINISTRATION;
 }
 
@@ -338,7 +345,7 @@ export async function isCloudOperator(userId: string): Promise<boolean> {
 export async function isPlatformOperator(userId: string): Promise<boolean> {
   const brief = await getProfileAuthBrief(userId);
   if (!brief.ok) return false;
-  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey)) return true;
+  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey, brief.systemAuthority)) return true;
   return normalizeDepartmentKey(brief.departmentKey) === DEPARTMENT_KEYS.ADMINISTRATION;
 }
 
@@ -346,7 +353,7 @@ export async function isPlatformOperator(userId: string): Promise<boolean> {
 export async function isEcosystemOperator(userId: string): Promise<boolean> {
   const brief = await getProfileAuthBrief(userId);
   if (!brief.ok) return false;
-  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey)) return true;
+  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey, brief.systemAuthority)) return true;
   return normalizeDepartmentKey(brief.departmentKey) === DEPARTMENT_KEYS.ADMINISTRATION;
 }
 
@@ -354,7 +361,7 @@ export async function isEcosystemOperator(userId: string): Promise<boolean> {
 export async function isGovernancePlatformOperator(userId: string): Promise<boolean> {
   const brief = await getProfileAuthBrief(userId);
   if (!brief.ok) return false;
-  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey)) return true;
+  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey, brief.systemAuthority)) return true;
   return normalizeDepartmentKey(brief.departmentKey) === DEPARTMENT_KEYS.ADMINISTRATION;
 }
 
@@ -362,7 +369,7 @@ export async function isGovernancePlatformOperator(userId: string): Promise<bool
 export async function isResilienceOperator(userId: string): Promise<boolean> {
   const brief = await getProfileAuthBrief(userId);
   if (!brief.ok) return false;
-  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey)) return true;
+  if (hasAdminConsoleAccess(brief.roleKey, brief.departmentKey, brief.systemAuthority)) return true;
   return normalizeDepartmentKey(brief.departmentKey) === DEPARTMENT_KEYS.ADMINISTRATION;
 }
 

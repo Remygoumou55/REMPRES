@@ -17,7 +17,11 @@ export default async function AccessDeniedPage({ searchParams }: Props) {
 
   if (user) {
     const profile = await getCachedProfileRow(user.id);
-    homeHref = resolveSafeHomeRoute(profile.roleKey, profile.departmentKey);
+    homeHref = resolveSafeHomeRoute(
+      profile.roleKey,
+      profile.departmentKey,
+      profile.systemAuthority,
+    );
     homeLabel = "Retour à l'accueil";
   }
 

@@ -23,6 +23,7 @@ import { readProfileHeaders } from "@/lib/middleware/profile-headers";
 
 export type CachedProfileRow = {
   roleKey: string | null;
+  systemAuthority: string | null;
   departmentKey: string | null;
   departmentId: string | null;
   /** Département effectif gouverné (profil + legacy) — une résolution par requête */
@@ -75,9 +76,11 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
           ? String(headerSlice.preferredLanguage).trim().toLowerCase() || null
           : null;
       const roleKey = headerSlice.roleKey;
+      const systemAuthority = headerSlice.systemAuthority ?? null;
       const departmentKey = headerSlice.departmentKey;
       return withAuthorityFields({
         roleKey,
+        systemAuthority,
         departmentKey,
         departmentId: headerSlice.departmentId,
         displayName,
@@ -91,7 +94,7 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
     const { data, error } = await supabase
       .from("profiles")
       .select(
-        "role_key, department_key, department_id, first_name, last_name, email, preferred_language",
+        "role_key, system_authority, department_key, department_id, first_name, last_name, email, preferred_language",
       )
       .eq("id", userId)
       .is("deleted_at", null)
@@ -101,6 +104,7 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
       logError("auth", "getCachedProfileRow error", { error: error.message, userId });
       return withAuthorityFields({
         roleKey: null,
+        systemAuthority: null,
         departmentKey: null,
         departmentId: null,
         displayName: "Compte",
@@ -127,6 +131,7 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
           : null;
       return withAuthorityFields({
         roleKey: null,
+        systemAuthority: null,
         departmentKey: null,
         departmentId: null,
         displayName,
@@ -137,6 +142,10 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
     }
 
     const roleKey = String(data.role_key).trim();
+    const systemAuthority =
+      "system_authority" in data && data.system_authority != null
+        ? String(data.system_authority).trim() || null
+        : null;
     const departmentKey =
       data.department_key != null ? String(data.department_key).trim() || null : null;
     const departmentId =
@@ -148,6 +157,7 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
 
     return withAuthorityFields({
       roleKey,
+      systemAuthority,
       departmentKey,
       departmentId,
       displayName: resolveDisplayName(data),
@@ -158,6 +168,7 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
   } catch {
     return withAuthorityFields({
       roleKey: null,
+      systemAuthority: null,
       departmentKey: null,
       departmentId: null,
       displayName: "Compte",

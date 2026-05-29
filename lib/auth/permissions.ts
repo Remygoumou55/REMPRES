@@ -6,6 +6,7 @@ import {
   normalizeDepartmentKey,
   type DepartmentKey,
 } from "@/lib/departments/department-config";
+import { hasSystemRootAuthority } from "@/lib/auth/system-authority";
 import { effectiveAuthRoleKey, resolveRoleKey, ROLE_KEYS } from "@/lib/auth/roles";
 import {
   ADMIN_GOVERNANCE_EXECUTIVE_PREFIXES,
@@ -56,7 +57,9 @@ const ADMIN_CONSOLE_ALLOWED_PREFIXES = [
 export function hasAdminConsoleAccess(
   roleKey: string | null | undefined,
   departmentKey: string | null | undefined,
+  systemAuthority?: string | null,
 ): boolean {
+  if (hasSystemRootAuthority({ roleKey, systemAuthority })) return true;
   const r = effectiveAuthRoleKey(roleKey);
   if (r === ROLE_KEYS.SUPER_ADMIN) return true;
   const adminDept = resolveAdminConsoleDepartmentKey(roleKey, departmentKey);
@@ -87,8 +90,16 @@ export function canAccessPathForProfile(
   pathname: string,
   roleKey: string | null | undefined,
   departmentKey: string | null | undefined,
+  systemAuthority?: string | null,
 ): boolean {
   const path = normalizePathname(pathname);
+
+  if (hasSystemRootAuthority({ roleKey, systemAuthority })) {
+    if (isSuperAdminOperationalPath(path)) return false;
+    if (isSuperAdminGovernancePath(path)) return true;
+    if (isSuperAdminReadOnlyVentePath(path)) return true;
+    return false;
+  }
 
   if (
     path === "/dashboard" ||
@@ -115,7 +126,7 @@ export function canAccessPathForProfile(
   }
 
   const adminDept = resolveAdminConsoleDepartmentKey(roleKey, departmentKey);
-  if (hasAdminConsoleAccess(roleKey, adminDept)) {
+  if (hasAdminConsoleAccess(roleKey, adminDept, systemAuthority)) {
     return pathnameMatchesAnyPrefix(path, ADMIN_CONSOLE_ALLOWED_PREFIXES);
   }
 

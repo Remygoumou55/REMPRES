@@ -69,7 +69,7 @@ export function LoginForm() {
     try {
       const { data: profile, error: profileError } = await supabase
         .from("profiles")
-        .select("role_key, department_key, is_active")
+        .select("role_key, system_authority, department_key, is_active")
         .eq("id", data.user.id)
         .is("deleted_at", null)
         .maybeSingle();
@@ -101,7 +101,13 @@ export function LoginForm() {
       document.cookie = `rempres_role=${encodeURIComponent(profile.role_key)}; path=/; SameSite=Lax`;
 
       logInfo("auth", "login success", { userId: data.user.id, role: profile.role_key });
-      router.replace(getDestinationForRole(profile.role_key, profile.department_key));
+      router.replace(
+        getDestinationForRole(
+          profile.role_key,
+          profile.department_key,
+          "system_authority" in profile ? (profile.system_authority as string | null) : null,
+        ),
+      );
     } catch (err) {
       logError("auth", "login profile fetch failed", { userId: data.user.id, error: err });
       setError("Une erreur est survenue lors de la connexion. Veuillez réessayer.");

@@ -122,7 +122,7 @@ export async function middleware(request: NextRequest) {
     const { data: profile, error: profileError } = await supabase
       .from("profiles")
       .select(
-        "role_key, is_active, department_key, department_id, first_name, last_name, email, preferred_language",
+        "role_key, system_authority, is_active, department_key, department_id, first_name, last_name, email, preferred_language",
       )
       .eq("id", user.id)
       .is("deleted_at", null)
@@ -141,9 +141,15 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(blockedUrl);
     }
 
+    const systemAuthority =
+      "system_authority" in profile && profile.system_authority != null
+        ? String(profile.system_authority).trim() || null
+        : null;
+
     applyProfileHeaders(requestHeaders, {
       userId: user.id,
       roleKey: profile.role_key ?? null,
+      systemAuthority,
       departmentKey: profile.department_key ?? null,
       departmentId: profile.department_id ?? null,
       isActive: profile.is_active !== false,
@@ -167,14 +173,14 @@ export async function middleware(request: NextRequest) {
 
     if (
       isAdminConsoleRestrictedPath(pathname) &&
-      !edgeHasAdminConsoleAccess(roleKey, deptKey)
+      !edgeHasAdminConsoleAccess(roleKey, deptKey, systemAuthority)
     ) {
       const deniedUrl = request.nextUrl.clone();
       deniedUrl.pathname = "/access-denied";
       return NextResponse.redirect(deniedUrl);
     }
 
-    if (!edgeCanAccessPathForProfile(pathname, roleKey, deptKey)) {
+    if (!edgeCanAccessPathForProfile(pathname, roleKey, deptKey, systemAuthority)) {
       const deniedUrl = request.nextUrl.clone();
       deniedUrl.pathname = "/access-denied";
       deniedUrl.search = "";

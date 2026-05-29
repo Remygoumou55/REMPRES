@@ -7,6 +7,7 @@ import {
   DEPARTMENT_KEYS,
   normalizeDepartmentKey,
 } from "@/lib/departments/department-config";
+import { hasSystemRootAuthority } from "@/lib/auth/system-authority";
 import { effectiveAuthRoleKey, ROLE_KEYS } from "@/lib/auth/roles";
 import {
   SETTINGS_LEGACY_ALIAS_REDIRECTS,
@@ -199,7 +200,9 @@ function edgeIsSuperAdminGovernancePath(pathname: string): boolean {
 export function edgeHasAdminConsoleAccess(
   roleKey: string | null | undefined,
   departmentKey: string | null | undefined,
+  systemAuthority?: string | null,
 ): boolean {
+  if (hasSystemRootAuthority({ roleKey, systemAuthority })) return true;
   const r = effectiveAuthRoleKey(roleKey);
   if (r === ROLE_KEYS.SUPER_ADMIN) return true;
   const adminDept = resolveAdminConsoleDepartmentKey(roleKey, departmentKey);
@@ -213,8 +216,16 @@ export function edgeCanAccessPathForProfile(
   pathname: string,
   roleKey: string | null | undefined,
   departmentKey: string | null | undefined,
+  systemAuthority?: string | null,
 ): boolean {
   const path = normalize(pathname);
+
+  if (hasSystemRootAuthority({ roleKey, systemAuthority })) {
+    if (edgeIsSuperAdminOperationalPath(path)) return false;
+    if (edgeIsSuperAdminGovernancePath(path)) return true;
+    if (edgeIsSuperAdminReadOnlyVentePath(path)) return true;
+    return false;
+  }
 
   if (
     path === "/dashboard" ||
@@ -240,7 +251,8 @@ export function edgeCanAccessPathForProfile(
     return false;
   }
 
-  if (edgeHasAdminConsoleAccess(roleKey, departmentKey)) {
+  const adminDept = resolveAdminConsoleDepartmentKey(roleKey, departmentKey);
+  if (edgeHasAdminConsoleAccess(roleKey, adminDept, systemAuthority)) {
     return pathnameMatchesAnyPrefix(path, ADMIN_CONSOLE_ALLOWED_PREFIXES);
   }
 

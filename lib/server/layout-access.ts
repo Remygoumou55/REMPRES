@@ -1,7 +1,7 @@
 import { cache } from "react";
 import { redirect } from "next/navigation";
 import { hasAdminConsoleAccess } from "@/lib/auth/permissions";
-import { isSuperAdminRoleKey } from "@/lib/auth/roles";
+import { hasSystemRootAuthority } from "@/lib/auth/system-authority";
 import {
   resolveShellRailVisibility,
   resolveShellVisibility,
@@ -23,7 +23,10 @@ export const getLayoutAccess = cache(async () => {
 
   const userId = user.id;
   const profile = await getCachedProfileRow(userId);
-  const isSuperAdminProfile = isSuperAdminRoleKey(profile.roleKey);
+  const isSuperAdminProfile = hasSystemRootAuthority({
+    roleKey: profile.roleKey,
+    systemAuthority: profile.systemAuthority,
+  });
 
   const supabaseForAvatar = getSupabaseServerClient();
 

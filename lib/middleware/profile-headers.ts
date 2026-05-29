@@ -8,6 +8,7 @@ export const PROFILE_HEADER_FNAME = "x-rempres-fname";
 export const PROFILE_HEADER_LNAME = "x-rempres-lname";
 export const PROFILE_HEADER_EMAIL = "x-rempres-email";
 export const PROFILE_HEADER_LANG = "x-rempres-lang";
+export const PROFILE_HEADER_SYS_AUTH = "x-rempres-sys-auth";
 
 import { decodeHeaderText, encodeHeaderText } from "@/lib/utils/display-text";
 
@@ -16,6 +17,7 @@ export { decodeHeaderText } from "@/lib/utils/display-text";
 export type MiddlewareProfileSlice = {
   userId: string;
   roleKey: string | null;
+  systemAuthority?: string | null;
   departmentKey: string | null;
   departmentId: string | null;
   isActive: boolean;
@@ -45,12 +47,14 @@ export function readProfileHeaders(
   if (!uid || uid !== expectedUserId) return null;
 
   const roleRaw = headers.get(PROFILE_HEADER_ROLE);
+  const sysAuthRaw = headers.get(PROFILE_HEADER_SYS_AUTH);
   const deptKeyRaw = headers.get(PROFILE_HEADER_DEPT_KEY);
   const deptIdRaw = headers.get(PROFILE_HEADER_DEPT_ID);
 
   return {
     userId: uid,
     roleKey: roleRaw?.trim() ? roleRaw.trim() : null,
+    systemAuthority: sysAuthRaw?.trim() ? sysAuthRaw.trim() : null,
     departmentKey: deptKeyRaw?.trim() ? deptKeyRaw.trim() : null,
     departmentId: deptIdRaw?.trim() ? deptIdRaw.trim() : null,
     isActive: headers.get(PROFILE_HEADER_ACTIVE) !== "0",

@@ -2,6 +2,14 @@
 
 import { revalidateUtilisateurs } from "@/lib/cache/revalidation-map";
 import { validateInviteRoleDepartment } from "@/lib/auth/permissions";
+import { hasSystemRootAuthority, SYSTEM_AUTHORITY } from "@/lib/auth/system-authority";
+import { isSuperAdminRoleKey } from "@/lib/auth/roles";
+import {
+  assertRootMutationAllowed,
+  coerceRootProfilePatch,
+  RootProtectionError,
+  type ProfileAuthoritySnapshot,
+} from "@/lib/governance/runtime/root-protection";
 import { normalizeDepartmentKey } from "@/lib/departments/department-config";
 import { getSupabaseAdmin, getSupabaseAdminConfigErrorMessage } from "@/lib/supabaseAdmin";
 import { isSuperAdmin } from "@/lib/server/permissions";
@@ -16,6 +24,29 @@ import { assertApprovalOrThrow } from "@/lib/approvals/approval-engine";
 
 async function revalidateUsersAfterMutation() {
   await revalidateUtilisateurs();
+}
+
+async function loadProfileAuthoritySnapshot(
+  admin: ReturnType<typeof getSupabaseAdmin>,
+  userId: string,
+): Promise<ProfileAuthoritySnapshot | null> {
+  const { data, error } = await admin
+    .from("profiles")
+    .select("id, role_key, system_authority, is_active, deleted_at")
+    .eq("id", userId)
+    .maybeSingle();
+
+  if (error || !data) return null;
+  return data as ProfileAuthoritySnapshot;
+}
+
+function rootProtectionErrorMessage(err: unknown): string {
+  if (err instanceof RootProtectionError) return err.message;
+  const msg = err instanceof Error ? err.message : String(err);
+  if (msg.includes("ROOT_PROTECTION")) {
+    return "Mutation refusée : protection du dernier compte root de la plateforme.";
+  }
+  return "Mutation refusée par la protection root.";
 }
 
 // ---------------------------------------------------------------------------
@@ -130,6 +161,9 @@ async function syncProfileAfterInvite(
     last_name: params.lastName,
     role_key: params.roleKey,
     department_key: params.departmentKey,
+    system_authority: isSuperAdminRoleKey(params.roleKey)
+      ? SYSTEM_AUTHORITY.SUPER_ADMIN
+      : SYSTEM_AUTHORITY.NONE,
     is_active: true,
     deleted_at: null as null,
   };
@@ -688,9 +722,27 @@ export async function updateUserRole(
       metadata: { targetUserId: userId, newRole: roleResolved.roleKey },
     });
 
+    const before = await loadProfileAuthoritySnapshot(admin, userId);
+    if (!before) return err("Utilisateur introuvable.");
+
+    try {
+      await assertRootMutationAllowed(admin, before, {
+        targetUserId: userId,
+        nextRoleKey: roleResolved.roleKey,
+        nextDepartmentKey: null,
+      });
+    } catch (e) {
+      return err(rootProtectionErrorMessage(e));
+    }
+
+    const patch = coerceRootProfilePatch({
+      role_key: roleResolved.roleKey,
+      department_key: null,
+    });
+
     const { error } = await admin
       .from("profiles")
-      .update({ role_key: roleResolved.roleKey, updated_at: new Date().toISOString() })
+      .update({ ...patch, updated_at: new Date().toISOString() })
       .eq("id", userId);
 
     if (error) {
@@ -740,6 +792,21 @@ export async function deactivateUser(
 
   try {
     const admin = getSupabaseAdmin();
+    const before = await loadProfileAuthoritySnapshot(admin, userId);
+    if (!before) {
+      return { success: false, error: "Utilisateur introuvable." };
+    }
+
+    try {
+      await assertRootMutationAllowed(admin, before, {
+        targetUserId: userId,
+        nextRoleKey: before.role_key ?? "agent",
+        nextDepartmentKey: null,
+        nextIsActive: false,
+      });
+    } catch (e) {
+      return { success: false, error: rootProtectionErrorMessage(e) };
+    }
 
     const { error } = await admin
       .from("profiles")
@@ -857,13 +924,41 @@ export async function updateUserAdmin(
       return err(combo.error);
     }
 
+    const before = await loadProfileAuthoritySnapshot(admin, userId);
+    if (!before) return err("Utilisateur introuvable.");
+
+    const nextSystemAuthority =
+      isSuperAdminRoleKey(roleResolved.roleKey) ||
+      hasSystemRootAuthority({
+        roleKey: before.role_key,
+        systemAuthority: before.system_authority,
+      })
+        ? SYSTEM_AUTHORITY.SUPER_ADMIN
+        : before.system_authority ?? SYSTEM_AUTHORITY.NONE;
+
+    try {
+      await assertRootMutationAllowed(admin, before, {
+        targetUserId: userId,
+        nextRoleKey: roleResolved.roleKey,
+        nextDepartmentKey: departmentNormalized,
+        nextSystemAuthority,
+      });
+    } catch (e) {
+      return err(rootProtectionErrorMessage(e));
+    }
+
+    const patch = coerceRootProfilePatch({
+      role_key: roleResolved.roleKey,
+      department_key: departmentNormalized,
+      system_authority: nextSystemAuthority,
+    });
+
     const { error } = await admin
       .from("profiles")
       .update({
         first_name: firstName,
         last_name: lastName,
-        role_key: roleResolved.roleKey,
-        department_key: departmentNormalized,
+        ...patch,
         updated_at: new Date().toISOString(),
       })
       .eq("id", userId)

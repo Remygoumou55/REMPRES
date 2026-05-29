@@ -7,8 +7,9 @@ import {
 } from "@/lib/departments/department-config";
 import { hasAdminConsoleAccess } from "@/lib/auth/permissions";
 import { resolveAuthorityDepartmentKey } from "@/lib/auth/profile-authority";
+import { hasSystemRootAuthority } from "@/lib/auth/system-authority";
 import { SUPER_ADMIN_COCKPIT_ROUTE } from "@/lib/navigation/erp-ux-architecture";
-import { effectiveAuthRoleKey, isSuperAdminRoleKey, ROLE_KEYS } from "@/lib/auth/roles";
+import { effectiveAuthRoleKey, ROLE_KEYS } from "@/lib/auth/roles";
 
 export { resolveEffectiveDepartmentKey } from "@/lib/auth/profile-authority";
 
@@ -16,7 +17,12 @@ export { resolveEffectiveDepartmentKey } from "@/lib/auth/profile-authority";
 export function resolvePostLoginRoute(
   roleKey: string | null | undefined,
   departmentKey?: string | null | undefined,
+  systemAuthority?: string | null,
 ): string {
+  if (hasSystemRootAuthority({ roleKey, systemAuthority })) {
+    return SUPER_ADMIN_COCKPIT_ROUTE;
+  }
+
   const r = effectiveAuthRoleKey(roleKey);
   const effectiveDept = resolveAuthorityDepartmentKey(roleKey, departmentKey);
 
@@ -58,14 +64,15 @@ export function resolvePostLoginRoute(
 export function resolveSafeHomeRoute(
   roleKey: string | null | undefined,
   departmentKey?: string | null | undefined,
+  systemAuthority?: string | null,
 ): string {
-  if (isSuperAdminRoleKey(roleKey)) {
+  if (hasSystemRootAuthority({ roleKey, systemAuthority })) {
     return SUPER_ADMIN_COCKPIT_ROUTE;
   }
-  if (hasAdminConsoleAccess(roleKey, departmentKey)) {
+  if (hasAdminConsoleAccess(roleKey, departmentKey, systemAuthority)) {
     return "/actions";
   }
-  const target = resolvePostLoginRoute(roleKey, departmentKey);
+  const target = resolvePostLoginRoute(roleKey, departmentKey, systemAuthority);
   return target === "/dashboard" ? "/actions" : target;
 }
 

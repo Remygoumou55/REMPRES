@@ -88,6 +88,7 @@ export type Database = {
           last_name: string | null;
           email: string | null;
           role_key: string;
+          system_authority: string;
           department_key: string | null;
           department_id: string | null;
           avatar_url: string | null;
@@ -103,6 +104,7 @@ export type Database = {
           last_name?: string | null;
           email?: string | null;
           role_key: string;
+          system_authority?: string;
           department_key?: string | null;
           department_id?: string | null;
           avatar_url?: string | null;
@@ -118,6 +120,7 @@ export type Database = {
           last_name?: string | null;
           email?: string | null;
           role_key?: string;
+          system_authority?: string;
           department_key?: string | null;
           department_id?: string | null;
           avatar_url?: string | null;

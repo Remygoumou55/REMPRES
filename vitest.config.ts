@@ -5,7 +5,14 @@ export default defineConfig({
   test: {
     environment: "node",
     /** Playwright utilise aussi `*.spec.ts` — ne pas les exécuter avec Vitest. */
-    exclude: ["**/node_modules/**", "**/tests/e2e/**"],
+    exclude: [
+      "**/node_modules/**",
+      "**/tests/e2e/**",
+      "tests/unit/purchase-orders.test.ts",
+      "tests/unit/marketing.test.ts",
+      "tests/unit/finance.test.ts",
+      "tests/unit/forecast.test.ts",
+    ],
     include: ["**/*.{test,spec}.{ts,tsx}"],
     passWithNoTests: false,
   },

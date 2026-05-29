@@ -203,7 +203,7 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
   },
   [DEPARTMENT_KEYS.ADMINISTRATION]: {
     departmentKey: DEPARTMENT_KEYS.ADMINISTRATION,
-    cockpitRoute: "/dashboard",
+    cockpitRoute: "/actions",
     operationalRoot: "/actions",
     navGroups: [
       {

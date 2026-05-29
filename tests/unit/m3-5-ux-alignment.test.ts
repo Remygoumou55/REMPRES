@@ -9,8 +9,12 @@ import {
 import { buildDepartmentSidebarGroups } from "@/lib/navigation/department-sidebar-nav";
 
 describe("M3.5 UX P0 — home routes", () => {
-  it("super_admin post-login → cockpit gouvernance /dashboard", () => {
-    expect(resolvePostLoginRoute(ROLE_KEYS.SUPER_ADMIN, null)).toBe(SUPER_ADMIN_COCKPIT_ROUTE);
+  it("super_admin post-login → console admin /admin", () => {
+    expect(resolvePostLoginRoute(ROLE_KEYS.SUPER_ADMIN, null)).toBe("/admin");
+  });
+
+  it("manager administration → hub actions (pas boucle /dashboard)", () => {
+    expect(resolvePostLoginRoute(ROLE_KEYS.MANAGER, DEPARTMENT_KEYS.ADMINISTRATION)).toBe("/actions");
   });
 
   it("manager vente → cockpit département", () => {

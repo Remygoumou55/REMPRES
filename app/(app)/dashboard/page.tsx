@@ -69,7 +69,8 @@ export default async function DashboardPage() {
   ]);
 
   if (!access.isSuperAdmin) {
-    redirect(resolvePostLoginRoute(access.roleKey, access.departmentKey));
+    const target = resolvePostLoginRoute(access.roleKey, access.departmentKey);
+    redirect(target === "/dashboard" ? "/actions" : target);
   }
 
   const superAdminCockpit = await getSuperAdminCockpitPayload(user.id, { kpis, accueil });

@@ -40,6 +40,9 @@ export function resolvePostLoginRoute(
   const nav = effectiveDept ? getDepartmentNavigationEntry(effectiveDept) : null;
 
   if (r === ROLE_KEYS.MANAGER) {
+    if (effectiveDept === DEPARTMENT_KEYS.ADMINISTRATION) {
+      return "/actions";
+    }
     return nav?.dashboardRoute ?? SUPER_ADMIN_COCKPIT_ROUTE;
   }
 

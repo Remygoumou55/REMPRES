@@ -116,8 +116,8 @@ export const DEPARTMENT_NAVIGATION: Record<DepartmentKey, DepartmentNavigationSp
   },
   [DEPARTMENT_KEYS.ADMINISTRATION]: {
     label: "Administration",
-    dashboardRoute: "/dashboard",
-    operationalRootRoute: "/dashboard",
+    dashboardRoute: "/actions",
+    operationalRootRoute: "/actions",
     routePrefixes: [],
     supervisionOnly: true,
     icon: "Building2",

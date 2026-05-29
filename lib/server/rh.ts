@@ -2,14 +2,16 @@ import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getRecentActivity } from "@/lib/server/get-recent-activity";
 import { getDeptActivityModuleKeys } from "@/lib/dept/dashboard-module-keys";
 import { safeCount, safeRows } from "@/lib/utils/safe-query";
-import type {
-  AttendanceRow,
-  CreateEmployeeInput,
-  CreateLeaveRequestInput,
-  Employee,
-  LeaveRequest,
-  RecordAttendanceInput,
-  UpdateEmployeeInput,
+import {
+  CONTRACT_TYPE_LABELS,
+  type AttendanceRow,
+  type ContractType,
+  type CreateEmployeeInput,
+  type CreateLeaveRequestInput,
+  type Employee,
+  type LeaveRequest,
+  type RecordAttendanceInput,
+  type UpdateEmployeeInput,
 } from "@/lib/types/rh";
 import type { ActivityItem } from "@/components/dashboard/activity-feed";
 import type { ChartPoint } from "@/lib/server/dept-dashboard";
@@ -554,5 +556,66 @@ export async function getRhDashboardKpis(): Promise<RhDashboardKpis> {
     newHiresThisMonth,
     chart7Days,
     recentActivity: activity,
+  };
+}
+
+export type EmployeeContractData = {
+  id: string;
+  full_name: string;
+  position: string;
+  department: string | null;
+  email: string | null;
+  contract_type: string;
+  hire_date: string;
+  trial_period_months: number;
+  work_hours_per_week: number;
+  work_location: string;
+  salary_gnf: number;
+  contract_number: string;
+  generated_at: string;
+};
+
+type EmployeeContractRow = Employee & {
+  trial_period_months?: number | null;
+  work_hours_per_week?: number | null;
+  work_location?: string | null;
+};
+
+export async function getContractData(
+  employeeId: string,
+): Promise<EmployeeContractData | null> {
+  const supabase = getSupabaseServerClient();
+
+  const { data: emp, error } = await supabase
+    .from("employees" as never)
+    .select("*")
+    .eq("id", employeeId)
+    .is("deleted_at", null)
+    .maybeSingle();
+
+  if (error || !emp) return null;
+
+  const row = emp as EmployeeContractRow;
+  const full_name = `${row.first_name} ${row.last_name}`.trim() || "Collaborateur";
+  const hire_date = row.hire_date ?? row.created_at ?? new Date().toISOString();
+  const contract_number = `CTR-${row.id.slice(-4).toUpperCase()}`;
+  const rawContract = String(row.contract_type ?? "cdi").toLowerCase() as ContractType;
+  const contract_type =
+    CONTRACT_TYPE_LABELS[rawContract] ?? rawContract.toUpperCase();
+
+  return {
+    id: row.id,
+    full_name,
+    position: row.position ?? "Collaborateur",
+    department: row.department ?? null,
+    email: row.email ?? null,
+    contract_type,
+    hire_date,
+    trial_period_months: Number(row.trial_period_months ?? 3),
+    work_hours_per_week: Number(row.work_hours_per_week ?? 40),
+    work_location: row.work_location ?? "Conakry",
+    salary_gnf: Number(row.salary_gnf ?? 0),
+    contract_number,
+    generated_at: new Date().toISOString(),
   };
 }

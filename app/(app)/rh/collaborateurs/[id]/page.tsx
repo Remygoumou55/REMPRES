@@ -5,10 +5,13 @@ import { getServerSessionUser } from "@/lib/server/auth-session";
 import { assertRhRead, canRhDelete, canRhManageLeaves } from "@/lib/server/rh-access";
 import {
   getAttendanceMonthlyStats,
+  getContractData,
   getEmployeeById,
   listAttendance,
   listLeaveRequests,
 } from "@/lib/server/rh";
+import { getUserRole, isSuperAdmin } from "@/lib/server/permissions";
+import ContratButton from "@/components/rh/ContratButton";
 import { listPayslips } from "@/lib/server/payslips";
 import { PageHeader } from "@/components/ui/page-header";
 import { FlashMessage } from "@/components/ui/flash-message";
@@ -55,11 +58,17 @@ export default async function CollaborateurDetailPage({ params, searchParams }: 
   if (!user) redirect("/login");
   await assertRhRead(user.id);
 
-  const [employee, [canDelete, canManageLeaves]] = await Promise.all([
-    getEmployeeById(params.id),
-    Promise.all([canRhDelete(user.id), canRhManageLeaves(user.id)]),
-  ]);
+  const [employee, [canDelete, canManageLeaves], roleKey, superAdmin, contractData] =
+    await Promise.all([
+      getEmployeeById(params.id),
+      Promise.all([canRhDelete(user.id), canRhManageLeaves(user.id)]),
+      getUserRole(user.id),
+      isSuperAdmin(user.id),
+      getContractData(params.id),
+    ]);
   if (!employee) notFound();
+
+  const canGenerateContract = roleKey === "responsable_rh" || superAdmin;
 
   const tab = VALID_TABS.has(searchParams?.tab ?? "") ? searchParams!.tab! : "profil";
 
@@ -100,6 +109,9 @@ export default async function CollaborateurDetailPage({ params, searchParams }: 
               <Edit className="h-4 w-4" />
               Modifier
             </Link>
+            {contractData && canGenerateContract ? (
+              <ContratButton data={contractData} />
+            ) : null}
             {canDelete ? (
               <form action={deleteEmployeeAction.bind(null, employee.id)}>
                 <button

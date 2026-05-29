@@ -3,7 +3,6 @@
  * Sidebar · Cockpit · Homepage · KPI — à respecter pour tout build département.
  */
 import { DEPARTMENT_KEYS, type DepartmentKey } from "@/lib/departments/department-config";
-import { SETTINGS_OFFICIAL_ROUTES } from "@/lib/settings/official-routes";
 
 /** Pattern sidebar officiel ERP (M3). */
 export const ERP_SIDEBAR_PATTERN = {
@@ -114,6 +113,7 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
           { href: "/finance/bilans", label: "Bilans" },
           { href: "/finance/rapprochement", label: "Rapprochement" },
           { href: "/finance/depenses", label: "Dépenses" },
+          { href: "/finance/audit", label: "Audit" },
         ],
       },
     ],
@@ -206,27 +206,6 @@ export const OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE: Partial<
           { href: "/logistique/stock", label: "Stock multi-sites" },
           { href: "/logistique/entrepots", label: "Entrepôts" },
           { href: "/logistique/dashboard", label: "Pilotage département" },
-        ],
-      },
-    ],
-  },
-  [DEPARTMENT_KEYS.ADMINISTRATION]: {
-    departmentKey: DEPARTMENT_KEYS.ADMINISTRATION,
-    cockpitRoute: "/actions",
-    operationalRoot: "/actions",
-    navGroups: [
-      {
-        id: "actions",
-        label: "Gouvernance",
-        links: [
-          { href: SETTINGS_OFFICIAL_ROUTES.users, label: "Utilisateurs" },
-          { href: "/actions", label: "Centre d'actions" },
-          { href: "/dashboard/executive", label: "Centre exécutif" },
-          { href: "/executive/rapport-hebdomadaire", label: "Rapport hebdo" },
-          { href: "/executive/previsions", label: "Prévisions CA" },
-          { href: "/admin/platform-dashboard", label: "Plateforme" },
-          { href: "/admin/approvals", label: "Approbations" },
-          { href: "/admin/activity-logs", label: "Journaux d'activité" },
         ],
       },
     ],

@@ -101,7 +101,6 @@ export const DEPT_ALLOWED_ROUTES: Record<string, string[]> = {
     "/profil",
   ],
   employe: ["/dashboard", "/dept", "/profil"],
-  auditeur: ["/dashboard", "/dept", "/admin/activity-logs", "/profil"],
   directeur_general: [
     "/dashboard",
     "/dashboard/executive",

@@ -142,7 +142,6 @@ describe("sidebar isolation matrix (Étape 3)", () => {
       DEPARTMENT_KEYS.FORMATION,
       DEPARTMENT_KEYS.MARKETING,
       DEPARTMENT_KEYS.LOGISTIQUE,
-      DEPARTMENT_KEYS.ADMINISTRATION,
     ] as const;
     for (const k of keys) {
       expect(OFFICIAL_DEPARTMENT_SIDEBAR_ARCHITECTURE[k]).toBeDefined();

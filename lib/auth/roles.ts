@@ -35,6 +35,10 @@ export const ROLE_OPTIONS_UI: readonly { key: AppRoleKey; label: string }[] = [
   { key: ROLE_KEYS.ACCOUNTANT, label: "Comptable" },
 ] as const;
 
+/** Rôles assignables via formulaires admin (hors super_admin). */
+export const ASSIGNABLE_ROLE_OPTIONS_UI: readonly { key: AppRoleKey; label: string }[] =
+  ROLE_OPTIONS_UI.filter((r) => r.key !== ROLE_KEYS.SUPER_ADMIN);
+
 export function normalizeRoleKey(roleKey: string | null | undefined): string {
   return String(roleKey ?? "").trim().toLowerCase();
 }

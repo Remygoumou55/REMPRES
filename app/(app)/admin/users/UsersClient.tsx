@@ -12,6 +12,7 @@ import {
   Send,
   CheckCircle,
   AlertCircle,
+  AlertTriangle,
   Ban,
   Pencil,
   Trash2,
@@ -41,7 +42,7 @@ import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { ConfirmDangerDialog } from "@/components/ui/confirm-danger-dialog";
-import { ROLE_OPTIONS_UI } from "@/lib/auth/roles";
+import { ASSIGNABLE_ROLE_OPTIONS_UI } from "@/lib/auth/roles";
 import { DEPARTMENT_OPTIONS_UI } from "@/lib/departments/department-config";
 
 /** Bouton action icône seule — compact, lisible au survol (title) */
@@ -146,7 +147,7 @@ function InviteModal({
             <div>
               <label className="mb-1 block text-xs font-medium text-gray-600">Rôle *</label>
               <Select name="roleKey" required>
-                {ROLE_OPTIONS_UI.map((r) => (
+                {ASSIGNABLE_ROLE_OPTIONS_UI.map((r) => (
                   <option key={r.key} value={r.key}>{r.label}</option>
                 ))}
               </Select>
@@ -263,13 +264,14 @@ function EditUserModal({
               required
               disabled={isEditingSelf}
             >
-              {ROLE_OPTIONS_UI.map((r) => (
+              {ASSIGNABLE_ROLE_OPTIONS_UI.map((r) => (
                 <option key={r.key} value={r.key}>{r.label}</option>
               ))}
             </Select>
             {isEditingSelf ? (
-              <p className="mt-1.5 text-xs text-amber-800">
-                Vous ne pouvez pas modifier votre propre rôle. Contactez un autre administrateur.
+              <p className="mt-1 flex items-center gap-1 text-xs text-amber-600">
+                <AlertTriangle className="h-3 w-3 shrink-0" />
+                Vous ne pouvez pas modifier votre propre rôle.
               </p>
             ) : null}
           </div>

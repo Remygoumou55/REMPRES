@@ -79,7 +79,7 @@ export const DEPARTMENT_NAVIGATION: Record<DepartmentKey, DepartmentNavigationSp
     supervision: { kpi: true, alerts: true, history: true, archives: true, analytics: true },
   },
   [DEPARTMENT_KEYS.FORMATION]: {
-    label: "Formation",
+    label: "Formation & Consultation",
     dashboardRoute: "/dept/formation",
     operationalRootRoute: "/formation",
     routePrefixes: ["/formation", "/consultation"],
@@ -88,12 +88,12 @@ export const DEPARTMENT_NAVIGATION: Record<DepartmentKey, DepartmentNavigationSp
     supervision: { kpi: true, alerts: true, history: true, archives: true, analytics: true },
   },
   [DEPARTMENT_KEYS.CONSULTATION]: {
-    label: "Formation",
-    dashboardRoute: "/dept/formation",
-    operationalRootRoute: "/consultation",
-    routePrefixes: ["/formation", "/consultation"],
+    label: "Opérations",
+    dashboardRoute: "/operations",
+    operationalRootRoute: "/operations",
+    routePrefixes: ["/operations", "/formation", "/consultation"],
     supervisionOnly: false,
-    icon: "GraduationCap",
+    icon: "ClipboardList",
     supervision: { kpi: true, alerts: true, history: true, archives: true, analytics: true },
   },
   [DEPARTMENT_KEYS.MARKETING]: {
@@ -142,15 +142,13 @@ export function listSupervisedDepartments(): DepartmentKey[] {
 
 /** Options formulaires invitation / édition (valeur = clé canonique). */
 export const DEPARTMENT_OPTIONS_UI: readonly { key: DepartmentKey; label: string }[] = [
-  { key: DEPARTMENT_KEYS.VENTE, label: DEPARTMENT_NAVIGATION[DEPARTMENT_KEYS.VENTE].label },
-  { key: DEPARTMENT_KEYS.FINANCE, label: DEPARTMENT_NAVIGATION[DEPARTMENT_KEYS.FINANCE].label },
-  { key: DEPARTMENT_KEYS.RH, label: DEPARTMENT_NAVIGATION[DEPARTMENT_KEYS.RH].label },
-  { key: DEPARTMENT_KEYS.FORMATION, label: DEPARTMENT_NAVIGATION[DEPARTMENT_KEYS.FORMATION].label },
-  { key: DEPARTMENT_KEYS.CONSULTATION, label: DEPARTMENT_NAVIGATION[DEPARTMENT_KEYS.CONSULTATION].label },
-  { key: DEPARTMENT_KEYS.MARKETING, label: DEPARTMENT_NAVIGATION[DEPARTMENT_KEYS.MARKETING].label },
-  { key: DEPARTMENT_KEYS.LOGISTIQUE, label: DEPARTMENT_NAVIGATION[DEPARTMENT_KEYS.LOGISTIQUE].label },
-  { key: DEPARTMENT_KEYS.ADMINISTRATION, label: DEPARTMENT_NAVIGATION[DEPARTMENT_KEYS.ADMINISTRATION].label },
-  { key: DEPARTMENT_KEYS.AUDIT, label: DEPARTMENT_NAVIGATION[DEPARTMENT_KEYS.AUDIT].label },
+  { key: DEPARTMENT_KEYS.VENTE, label: "Vente" },
+  { key: DEPARTMENT_KEYS.FINANCE, label: "Finance" },
+  { key: DEPARTMENT_KEYS.RH, label: "RH" },
+  { key: DEPARTMENT_KEYS.FORMATION, label: "Formation & Consultation" },
+  { key: DEPARTMENT_KEYS.MARKETING, label: "Marketing" },
+  { key: DEPARTMENT_KEYS.LOGISTIQUE, label: "Logistique" },
+  { key: DEPARTMENT_KEYS.CONSULTATION, label: "Opérations" },
 ] as const;
 
 export function normalizeDepartmentKey(

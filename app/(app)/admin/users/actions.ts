@@ -76,7 +76,7 @@ export async function updateUserRoleAction(
   if (userId === session?.id) {
     return {
       success: false,
-      error: "Impossible de modifier son propre rôle",
+      error: "Impossible de modifier son propre rôle.",
     };
   }
 
@@ -119,7 +119,7 @@ export async function updateUserAdminAction(
     ) {
       return {
         success: false,
-        error: "Impossible de modifier son propre rôle",
+        error: "Impossible de modifier son propre rôle.",
       };
     }
   }

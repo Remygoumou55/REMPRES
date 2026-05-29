@@ -7,7 +7,7 @@ import { loadAccueilDashboard } from "@/lib/server/dashboard/load-accueil-metric
 import { getSuperAdminCockpitPayload } from "@/lib/server/super-admin-cockpit";
 import { getLayoutAccess } from "@/lib/server/layout-access";
 import { NAV_LABELS } from "@/lib/constants/nav-labels";
-import { resolvePostLoginRoute } from "@/lib/navigation/home-route";
+import { resolveSafeHomeRoute } from "@/lib/navigation/home-route";
 import { Suspense } from "react";
 import { KpiGridSkeleton } from "@/components/dashboard/kpi-grid-skeleton";
 
@@ -69,8 +69,7 @@ export default async function DashboardPage() {
   ]);
 
   if (!access.isSuperAdmin) {
-    const target = resolvePostLoginRoute(access.roleKey, access.departmentKey);
-    redirect(target === "/dashboard" ? "/actions" : target);
+    redirect(resolveSafeHomeRoute(access.roleKey, access.departmentKey));
   }
 
   const superAdminCockpit = await getSuperAdminCockpitPayload(user.id, { kpis, accueil });

@@ -16,10 +16,17 @@ export const SUPER_ADMIN_GOVERNANCE_ALLOWED_PREFIXES: readonly string[] = [
   "/dept",
   "/actions",
   "/archives",
+  "/executive",
   "/settings",
   "/access-denied",
   "/error-profile",
   "/auth/set-password",
+] as const;
+
+/** Routes centre exécutif + gouvernance transverse (DG / admin console). */
+export const ADMIN_GOVERNANCE_EXECUTIVE_PREFIXES: readonly string[] = [
+  "/executive",
+  "/dashboard/executive",
 ] as const;
 
 /** Vente : uniquement historique / archives figées (pas de POS, CRM, CRUD actifs). */

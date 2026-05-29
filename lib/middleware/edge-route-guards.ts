@@ -13,6 +13,7 @@ import {
   SETTINGS_OFFICIAL_ROUTES,
   isSettingsOfficialPath,
 } from "@/lib/settings/official-routes";
+import { ADMIN_GOVERNANCE_EXECUTIVE_PREFIXES } from "@/lib/auth/supervision";
 import {
   canAccessDepartmentOperationalPath,
   canAccessDeptCockpitPathForProfile,
@@ -44,6 +45,7 @@ const SUPER_ADMIN_GOVERNANCE_ALLOWED_PREFIXES = [
   "/dept",
   "/actions",
   "/archives",
+  "/executive",
   "/settings",
   "/access-denied",
   "/error-profile",
@@ -73,6 +75,7 @@ const ADMIN_CONSOLE_ALLOWED_PREFIXES = [
   "/dept",
   "/actions",
   "/archives",
+  ...ADMIN_GOVERNANCE_EXECUTIVE_PREFIXES,
   "/admin/approvals",
   "/admin/alerts",
   "/admin/audit",

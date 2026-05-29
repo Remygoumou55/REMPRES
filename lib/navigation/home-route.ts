@@ -5,9 +5,10 @@ import {
   DEPARTMENT_KEYS,
   getDepartmentNavigationEntry,
 } from "@/lib/departments/department-config";
+import { hasAdminConsoleAccess } from "@/lib/auth/permissions";
 import { resolveAuthorityDepartmentKey } from "@/lib/auth/profile-authority";
 import { SUPER_ADMIN_COCKPIT_ROUTE } from "@/lib/navigation/erp-ux-architecture";
-import { effectiveAuthRoleKey, ROLE_KEYS } from "@/lib/auth/roles";
+import { effectiveAuthRoleKey, isSuperAdminRoleKey, ROLE_KEYS } from "@/lib/auth/roles";
 
 export { resolveEffectiveDepartmentKey } from "@/lib/auth/profile-authority";
 
@@ -48,7 +49,24 @@ export function resolvePostLoginRoute(
     return nav?.dashboardRoute ?? nav?.operationalRootRoute ?? SUPER_ADMIN_COCKPIT_ROUTE;
   }
 
-  return SUPER_ADMIN_COCKPIT_ROUTE;
+  return "/actions";
+}
+
+/**
+ * Destination sûre après refus d'accès — évite les boucles /dashboard pour les non-SA.
+ */
+export function resolveSafeHomeRoute(
+  roleKey: string | null | undefined,
+  departmentKey?: string | null | undefined,
+): string {
+  if (isSuperAdminRoleKey(roleKey)) {
+    return SUPER_ADMIN_COCKPIT_ROUTE;
+  }
+  if (hasAdminConsoleAccess(roleKey, departmentKey)) {
+    return "/actions";
+  }
+  const target = resolvePostLoginRoute(roleKey, departmentKey);
+  return target === "/dashboard" ? "/actions" : target;
 }
 
 /** Lien Accueil du rail métier (cockpit département). */

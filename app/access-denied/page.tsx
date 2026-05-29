@@ -2,8 +2,7 @@ import Link from "next/link";
 import { ShieldX, Ban } from "lucide-react";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getCachedProfileRow } from "@/lib/server/profile-row";
-import { ROLE_KEYS, effectiveAuthRoleKey } from "@/lib/auth/roles";
-import { resolvePostLoginRoute } from "@/lib/navigation/home-route";
+import { resolveSafeHomeRoute } from "@/lib/navigation/home-route";
 
 type Props = {
   searchParams?: { reason?: string };
@@ -18,9 +17,7 @@ export default async function AccessDeniedPage({ searchParams }: Props) {
 
   if (user) {
     const profile = await getCachedProfileRow(user.id);
-    const target = resolvePostLoginRoute(profile.roleKey, profile.departmentKey);
-    const isSuperAdmin = effectiveAuthRoleKey(profile.roleKey) === ROLE_KEYS.SUPER_ADMIN;
-    homeHref = !isSuperAdmin && target === "/dashboard" ? "/actions" : target;
+    homeHref = resolveSafeHomeRoute(profile.roleKey, profile.departmentKey);
     homeLabel = "Retour à l'accueil";
   }
 

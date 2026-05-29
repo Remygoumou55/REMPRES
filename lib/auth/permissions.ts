@@ -8,6 +8,7 @@ import {
 } from "@/lib/departments/department-config";
 import { effectiveAuthRoleKey, resolveRoleKey, ROLE_KEYS } from "@/lib/auth/roles";
 import {
+  ADMIN_GOVERNANCE_EXECUTIVE_PREFIXES,
   isSuperAdminGovernancePath,
   isSuperAdminOperationalPath,
   isSuperAdminReadOnlyVentePath,
@@ -38,6 +39,7 @@ const ADMIN_CONSOLE_ALLOWED_PREFIXES = [
   "/dept",
   "/actions",
   "/archives",
+  ...ADMIN_GOVERNANCE_EXECUTIVE_PREFIXES,
   "/admin/approvals",
   "/admin/alerts",
   "/admin/audit",

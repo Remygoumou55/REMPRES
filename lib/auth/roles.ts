@@ -13,6 +13,8 @@ export type AppRoleKey = (typeof ROLE_KEYS)[keyof typeof ROLE_KEYS];
 
 /** Alias DB courants / compat lecture — département : `LEGACY_ROLE_TO_DEPARTMENT` (profile-authority). */
 export const LEGACY_ROLE_ALIASES: Record<string, AppRoleKey> = {
+  superadmin: ROLE_KEYS.SUPER_ADMIN,
+  "super-admin": ROLE_KEYS.SUPER_ADMIN,
   employe: ROLE_KEYS.AGENT,
   directeur_general: ROLE_KEYS.MANAGER,
   responsable_vente: ROLE_KEYS.MANAGER,
@@ -61,5 +63,8 @@ export function effectiveAuthRoleKey(roleKey: string | null | undefined): AppRol
 
 /** Vrai si le profil DB est super administrateur (comparaison normalisée). */
 export function isSuperAdminRoleKey(roleKey: string | null | undefined): boolean {
-  return normalizeRoleKey(roleKey) === ROLE_KEYS.SUPER_ADMIN;
+  const k = normalizeRoleKey(roleKey);
+  if (k === ROLE_KEYS.SUPER_ADMIN) return true;
+  if (LEGACY_ROLE_ALIASES[k] === ROLE_KEYS.SUPER_ADMIN) return true;
+  return k.replace(/[\s_-]+/g, "") === "superadmin";
 }

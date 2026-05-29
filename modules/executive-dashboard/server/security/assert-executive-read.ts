@@ -1,3 +1,4 @@
+import { isSuperAdminRoleKey } from "@/lib/auth/roles";
 import { getProfileAuthBrief, isAdminRole, isSuperAdmin } from "@/lib/server/permissions";
 
 /**
@@ -11,7 +12,7 @@ export async function assertExecutiveDashboardRead(userId: string): Promise<void
     getProfileAuthBrief(userId),
   ]);
   const legacyDG = String(profileBrief.roleKey ?? "").trim().toLowerCase() === "directeur_general";
-  if (!superAdmin && !adminRole && !legacyDG) {
+  if (!superAdmin && !adminRole && !legacyDG && !isSuperAdminRoleKey(profileBrief.roleKey)) {
     throw new Error("Accès réservé au centre de commandement exécutif.");
   }
 }

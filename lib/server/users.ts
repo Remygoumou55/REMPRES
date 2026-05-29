@@ -4,10 +4,12 @@ import { revalidateUtilisateurs } from "@/lib/cache/revalidation-map";
 import { validateInviteRoleDepartment } from "@/lib/auth/permissions";
 import { hasSystemRootAuthority, SYSTEM_AUTHORITY } from "@/lib/auth/system-authority";
 import { isSuperAdminRoleKey } from "@/lib/auth/roles";
+import { recordAuthorityMutationAudit } from "@/lib/governance/runtime/authority-mutation-audit";
 import {
-  assertRootMutationAllowed,
+  assertImmutableRootPolicy,
   coerceRootProfilePatch,
   RootProtectionError,
+  type ImmutableRootContext,
   type ProfileAuthoritySnapshot,
 } from "@/lib/governance/runtime/root-protection";
 import { normalizeDepartmentKey } from "@/lib/departments/department-config";
@@ -47,6 +49,18 @@ function rootProtectionErrorMessage(err: unknown): string {
     return "Mutation refusée : protection du dernier compte root de la plateforme.";
   }
   return "Mutation refusée par la protection root.";
+}
+
+async function loadImmutableRootContext(
+  admin: ReturnType<typeof getSupabaseAdmin>,
+  callerUserId: string,
+): Promise<ImmutableRootContext> {
+  const caller = await loadProfileAuthoritySnapshot(admin, callerUserId);
+  return {
+    callerUserId,
+    callerSystemAuthority: caller?.system_authority ?? null,
+    callerRoleKey: caller?.role_key ?? null,
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -725,12 +739,15 @@ export async function updateUserRole(
     const before = await loadProfileAuthoritySnapshot(admin, userId);
     if (!before) return err("Utilisateur introuvable.");
 
+    const rootCtx = await loadImmutableRootContext(admin, callerUserId);
+    const mutationIntent = {
+      targetUserId: userId,
+      nextRoleKey: roleResolved.roleKey,
+      nextDepartmentKey: null,
+    };
+
     try {
-      await assertRootMutationAllowed(admin, before, {
-        targetUserId: userId,
-        nextRoleKey: roleResolved.roleKey,
-        nextDepartmentKey: null,
-      });
+      await assertImmutableRootPolicy(admin, rootCtx, before, mutationIntent);
     } catch (e) {
       return err(rootProtectionErrorMessage(e));
     }
@@ -749,6 +766,15 @@ export async function updateUserRole(
       logError("UPDATE_USER_ROLE", error, { userId, newRoleKey: roleResolved.roleKey });
       return err("Impossible de mettre à jour le rôle.");
     }
+
+    await recordAuthorityMutationAudit({
+      actorUserId: callerUserId,
+      actorRoleKey: rootCtx.callerRoleKey ?? null,
+      targetUserId: userId,
+      before,
+      intent: mutationIntent,
+      operation: "update_user_role",
+    });
 
     await tryActivityLog({
       actorUserId: callerUserId,
@@ -797,13 +823,16 @@ export async function deactivateUser(
       return { success: false, error: "Utilisateur introuvable." };
     }
 
+    const rootCtx = await loadImmutableRootContext(admin, callerUserId);
+    const mutationIntent = {
+      targetUserId: userId,
+      nextRoleKey: before.role_key ?? "agent",
+      nextDepartmentKey: null,
+      nextIsActive: false,
+    };
+
     try {
-      await assertRootMutationAllowed(admin, before, {
-        targetUserId: userId,
-        nextRoleKey: before.role_key ?? "agent",
-        nextDepartmentKey: null,
-        nextIsActive: false,
-      });
+      await assertImmutableRootPolicy(admin, rootCtx, before, mutationIntent);
     } catch (e) {
       return { success: false, error: rootProtectionErrorMessage(e) };
     }
@@ -817,6 +846,15 @@ export async function deactivateUser(
       logError("DEACTIVATE_USER", error, { userId });
       return { success: false, error: "Impossible de bloquer le compte." };
     }
+
+    await recordAuthorityMutationAudit({
+      actorUserId: callerUserId,
+      actorRoleKey: rootCtx.callerRoleKey ?? null,
+      targetUserId: userId,
+      before,
+      intent: mutationIntent,
+      operation: "deactivate_user",
+    });
 
     logInfo("BLOCK_USER", `User blocked: ${userId}`, { by: callerUserId });
     await tryActivityLog({
@@ -936,13 +974,16 @@ export async function updateUserAdmin(
         ? SYSTEM_AUTHORITY.SUPER_ADMIN
         : before.system_authority ?? SYSTEM_AUTHORITY.NONE;
 
+    const rootCtx = await loadImmutableRootContext(admin, callerUserId);
+    const mutationIntent = {
+      targetUserId: userId,
+      nextRoleKey: roleResolved.roleKey,
+      nextDepartmentKey: departmentNormalized,
+      nextSystemAuthority,
+    };
+
     try {
-      await assertRootMutationAllowed(admin, before, {
-        targetUserId: userId,
-        nextRoleKey: roleResolved.roleKey,
-        nextDepartmentKey: departmentNormalized,
-        nextSystemAuthority,
-      });
+      await assertImmutableRootPolicy(admin, rootCtx, before, mutationIntent);
     } catch (e) {
       return err(rootProtectionErrorMessage(e));
     }
@@ -968,6 +1009,15 @@ export async function updateUserAdmin(
       logError("UPDATE_USER_ADMIN", error, { userId });
       return err("Impossible de modifier l'utilisateur.");
     }
+
+    await recordAuthorityMutationAudit({
+      actorUserId: callerUserId,
+      actorRoleKey: rootCtx.callerRoleKey ?? null,
+      targetUserId: userId,
+      before,
+      intent: mutationIntent,
+      operation: "update_user_admin",
+    });
 
     await tryActivityLog({
       actorUserId: callerUserId,

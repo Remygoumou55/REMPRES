@@ -2,6 +2,9 @@
  * P7.1 — Mutations collaborateur gouvernées : gate → write → publisher → audit.
  */
 
+import { guardProfileAuthorityMutation } from "@/lib/governance/runtime/guard-profile-authority-mutation";
+import type { ProfileAuthoritySnapshot } from "@/lib/governance/runtime/root-protection";
+import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import {
   assertHrWriteActionAllowed,
@@ -23,13 +26,52 @@ export async function updateHrEmployeeRole(
     return { success: false, error: "Action reservee aux gestionnaires RH." };
   }
 
-  const supabase = getSupabaseServerClient();
-  const { data: before } = await supabase
+  let admin;
+  try {
+    admin = getSupabaseAdmin();
+  } catch {
+    return { success: false, error: "Configuration serveur incomplète." };
+  }
+
+  const { data: beforeRow } = await admin
     .from("profiles")
-    .select("role_key,department_key")
+    .select("id, role_key, system_authority, is_active, deleted_at, department_key")
     .eq("id", input.employeeId)
     .is("deleted_at", null)
     .maybeSingle();
+
+  if (!beforeRow?.id) {
+    return { success: false, error: "Collaborateur introuvable." };
+  }
+
+  const before = beforeRow as ProfileAuthoritySnapshot;
+  const { data: callerRow } = await admin
+    .from("profiles")
+    .select("role_key, system_authority")
+    .eq("id", userId)
+    .maybeSingle();
+
+  try {
+    await guardProfileAuthorityMutation(
+      admin,
+      {
+        callerUserId: userId,
+        callerRoleKey: callerRow?.role_key ?? null,
+        callerSystemAuthority: callerRow?.system_authority ?? null,
+      },
+      before,
+      {
+        targetUserId: input.employeeId,
+        nextRoleKey: String(input.roleKey ?? "").trim(),
+        nextDepartmentKey: input.departmentKey,
+      },
+    );
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : "Mutation refusée par la protection root.";
+    return { success: false, error: msg };
+  }
+
+  const supabase = getSupabaseServerClient();
 
   const update = await supabase
     .from("profiles")

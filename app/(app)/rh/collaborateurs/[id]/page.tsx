@@ -4,13 +4,13 @@ import { ArrowLeft, Calendar, Clock, Edit, FileText, Receipt, Trash2 } from "luc
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { assertRhRead, canRhDelete, canRhManageLeaves } from "@/lib/server/rh-access";
 import {
+  buildEmployeeContractData,
   getAttendanceMonthlyStats,
-  getContractData,
   getEmployeeById,
   listAttendance,
   listLeaveRequests,
 } from "@/lib/server/rh";
-import { getUserRole, isSuperAdmin } from "@/lib/server/permissions";
+import { canGenerateEmploymentContract } from "@/lib/server/rh-access";
 import ContratButton from "@/components/rh/ContratButton";
 import { listPayslips } from "@/lib/server/payslips";
 import { PageHeader } from "@/components/ui/page-header";
@@ -58,17 +58,14 @@ export default async function CollaborateurDetailPage({ params, searchParams }: 
   if (!user) redirect("/login");
   await assertRhRead(user.id);
 
-  const [employee, [canDelete, canManageLeaves], roleKey, superAdmin, contractData] =
-    await Promise.all([
-      getEmployeeById(params.id),
-      Promise.all([canRhDelete(user.id), canRhManageLeaves(user.id)]),
-      getUserRole(user.id),
-      isSuperAdmin(user.id),
-      getContractData(params.id),
-    ]);
+  const [employee, [canDelete, canManageLeaves], canGenerateContract] = await Promise.all([
+    getEmployeeById(params.id),
+    Promise.all([canRhDelete(user.id), canRhManageLeaves(user.id)]),
+    canGenerateEmploymentContract(user.id),
+  ]);
   if (!employee) notFound();
 
-  const canGenerateContract = roleKey === "responsable_rh" || superAdmin;
+  const contractData = canGenerateContract ? buildEmployeeContractData(employee) : null;
 
   const tab = VALID_TABS.has(searchParams?.tab ?? "") ? searchParams!.tab! : "profil";
 

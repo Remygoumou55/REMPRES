@@ -21,6 +21,9 @@ export type Employee = {
   hire_date: string;
   salary_gnf: number;
   contract_type: ContractType;
+  trial_period_months?: number | null;
+  work_hours_per_week?: number | null;
+  work_location?: string | null;
   is_active: boolean;
   user_id: string | null;
   notes: string | null;

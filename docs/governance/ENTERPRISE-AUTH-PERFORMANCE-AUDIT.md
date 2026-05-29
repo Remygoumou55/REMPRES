@@ -88,6 +88,13 @@ Fichiers migrés vers `matrix-module-access` (1× `getProfileAuthBrief` par gard
 
 **Gain :** moins d’appels redondants `isSuperAdmin` + `getUserRole` + `getProfileAuthBrief` en chaîne.
 
+### 5.4 Perf layout & fiche collaborateur (post-contrat PDF)
+
+- **`getCachedProfileRow`** : `avatar_url` inclus dans le `select` profil — évite une requête `profiles` dédiée quand le profil vient de la DB (fallback avatar si headers middleware uniquement).
+- **`getLayoutAccess`** : plus de requête avatar systématique ; fetch conditionnel seulement si `avatarUrl` absent.
+- **Fiche `/rh/collaborateurs/[id]`** : `buildEmployeeContractData(employee)` — une seule lecture `employees` (suppression du doublon `getContractData` en parallèle).
+- **`canGenerateEmploymentContract`** (`rh-access`, `cache`) : un seul `getProfileAuthBrief` pour le bouton contrat (remplace `getUserRole` + `isSuperAdmin`).
+
 ### 5.3 Déjà en place (inchangé)
 
 - Middleware → headers profil → `getCachedProfileRow` sans requête DB si headers présents

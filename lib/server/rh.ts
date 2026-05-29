@@ -575,47 +575,35 @@ export type EmployeeContractData = {
   generated_at: string;
 };
 
-type EmployeeContractRow = Employee & {
-  trial_period_months?: number | null;
-  work_hours_per_week?: number | null;
-  work_location?: string | null;
-};
-
-export async function getContractData(
-  employeeId: string,
-): Promise<EmployeeContractData | null> {
-  const supabase = getSupabaseServerClient();
-
-  const { data: emp, error } = await supabase
-    .from("employees" as never)
-    .select("*")
-    .eq("id", employeeId)
-    .is("deleted_at", null)
-    .maybeSingle();
-
-  if (error || !emp) return null;
-
-  const row = emp as EmployeeContractRow;
-  const full_name = `${row.first_name} ${row.last_name}`.trim() || "Collaborateur";
-  const hire_date = row.hire_date ?? row.created_at ?? new Date().toISOString();
-  const contract_number = `CTR-${row.id.slice(-4).toUpperCase()}`;
-  const rawContract = String(row.contract_type ?? "cdi").toLowerCase() as ContractType;
+export function buildEmployeeContractData(employee: Employee): EmployeeContractData {
+  const full_name = `${employee.first_name} ${employee.last_name}`.trim() || "Collaborateur";
+  const hire_date = employee.hire_date ?? employee.created_at ?? new Date().toISOString();
+  const contract_number = `CTR-${employee.id.slice(-4).toUpperCase()}`;
+  const rawContract = String(employee.contract_type ?? "cdi").toLowerCase() as ContractType;
   const contract_type =
     CONTRACT_TYPE_LABELS[rawContract] ?? rawContract.toUpperCase();
 
   return {
-    id: row.id,
+    id: employee.id,
     full_name,
-    position: row.position ?? "Collaborateur",
-    department: row.department ?? null,
-    email: row.email ?? null,
+    position: employee.position ?? "Collaborateur",
+    department: employee.department ?? null,
+    email: employee.email ?? null,
     contract_type,
     hire_date,
-    trial_period_months: Number(row.trial_period_months ?? 3),
-    work_hours_per_week: Number(row.work_hours_per_week ?? 40),
-    work_location: row.work_location ?? "Conakry",
-    salary_gnf: Number(row.salary_gnf ?? 0),
+    trial_period_months: Number(employee.trial_period_months ?? 3),
+    work_hours_per_week: Number(employee.work_hours_per_week ?? 40),
+    work_location: employee.work_location ?? "Conakry",
+    salary_gnf: Number(employee.salary_gnf ?? 0),
     contract_number,
     generated_at: new Date().toISOString(),
   };
+}
+
+export async function getContractData(
+  employeeId: string,
+): Promise<EmployeeContractData | null> {
+  const employee = await getEmployeeById(employeeId);
+  if (!employee) return null;
+  return buildEmployeeContractData(employee);
 }

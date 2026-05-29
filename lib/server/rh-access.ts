@@ -1,9 +1,13 @@
+import { cache } from "react";
+import { normalizeRoleKey } from "@/lib/auth/roles";
+import { hasSystemRootAuthority } from "@/lib/auth/system-authority";
 import {
   assertMatrixModuleRead,
   assertMatrixModuleWrite,
   matrixModuleCanDelete,
   matrixModulePermissions,
 } from "@/lib/server/matrix-module-access";
+import { getProfileAuthBrief } from "@/lib/server/permissions";
 
 const RH_MODULE = "rh" as const;
 
@@ -32,3 +36,18 @@ export async function canRhManageLeaves(userId: string): Promise<boolean> {
   const perms = await matrixModulePermissions(userId, RH_MODULE);
   return perms.canUpdate;
 }
+
+/** Génération contrat PDF — responsable RH legacy ou super admin (1× brief profil / requête). */
+export const canGenerateEmploymentContract = cache(async (userId: string): Promise<boolean> => {
+  const brief = await getProfileAuthBrief(userId);
+  if (!brief.ok || !brief.roleKey) return false;
+  if (
+    hasSystemRootAuthority({
+      roleKey: brief.roleKey,
+      systemAuthority: brief.systemAuthority,
+    })
+  ) {
+    return true;
+  }
+  return normalizeRoleKey(brief.roleKey) === "responsable_rh";
+});

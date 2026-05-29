@@ -31,6 +31,7 @@ export type CachedProfileRow = {
   authorityDriftFlags: readonly ProfileDriftFlag[];
   displayName: string;
   preferredLanguage: string | null;
+  avatarUrl: string | null;
   ok: boolean;
   supervisionScope: SupervisionScope;
 };
@@ -48,6 +49,11 @@ function withAuthorityFields(
     authorityDepartmentKey: slice.authorityDepartmentKey,
     authorityDriftFlags: slice.driftFlags,
   };
+}
+
+function resolveAvatarUrl(url: string | null | undefined): string | null {
+  const s = url?.trim();
+  return s && s.length > 0 ? s : null;
 }
 
 function resolveDisplayName(data: {
@@ -89,6 +95,7 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
         departmentId: headerSlice.departmentId,
         displayName,
         preferredLanguage,
+        avatarUrl: null,
         ok: true,
         supervisionScope: getSupervisionScope(roleKey, departmentKey, systemAuthority),
       });
@@ -98,7 +105,7 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
     const { data, error } = await supabase
       .from("profiles")
       .select(
-        "role_key, system_authority, department_key, department_id, first_name, last_name, email, preferred_language",
+        "role_key, system_authority, department_key, department_id, first_name, last_name, email, preferred_language, avatar_url",
       )
       .eq("id", userId)
       .is("deleted_at", null)
@@ -113,6 +120,7 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
         departmentId: null,
         displayName: "Compte",
         preferredLanguage: null,
+        avatarUrl: null,
         ok: false,
         supervisionScope: "restricted",
       });
@@ -140,6 +148,9 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
         departmentId: null,
         displayName,
         preferredLanguage,
+        avatarUrl: resolveAvatarUrl(
+          data && "avatar_url" in data ? (data.avatar_url as string | null) : null,
+        ),
         ok: true,
         supervisionScope: getSupervisionScope(null, null, null),
       });
@@ -166,6 +177,9 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
       departmentId,
       displayName: resolveDisplayName(data),
       preferredLanguage,
+      avatarUrl: resolveAvatarUrl(
+        "avatar_url" in data ? (data.avatar_url as string | null) : null,
+      ),
       ok: true,
       supervisionScope: getSupervisionScope(roleKey, departmentKey, systemAuthority),
     });
@@ -177,6 +191,7 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
       departmentId: null,
       displayName: "Compte",
       preferredLanguage: null,
+      avatarUrl: null,
       ok: false,
       supervisionScope: getSupervisionScope(null, null, null),
     });

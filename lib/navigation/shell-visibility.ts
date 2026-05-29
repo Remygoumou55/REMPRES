@@ -54,24 +54,30 @@ export type ShellVisibility = ShellRailVisibility & {
 function resolveUserDepartment(
   roleKey: string | null,
   departmentKey: string | null,
+  systemAuthority?: string | null,
 ): DepartmentKey | null {
-  return resolveAuthorityDepartmentKey(roleKey, departmentKey);
+  return resolveAuthorityDepartmentKey(roleKey, departmentKey, systemAuthority);
 }
 
 /** Département effectif pour le rail Formation & Consultation. */
 export function isFormationDepartmentKey(
   roleKey: string | null | undefined,
   departmentKey: string | null | undefined,
+  systemAuthority?: string | null,
 ): boolean {
-  const k = resolveAuthorityDepartmentKey(roleKey, departmentKey);
+  const k = resolveAuthorityDepartmentKey(roleKey, departmentKey, systemAuthority);
   return k === DEPARTMENT_KEYS.FORMATION || k === DEPARTMENT_KEYS.CONSULTATION;
 }
 
 export function isVenteDepartmentKey(
   roleKey: string | null | undefined,
   departmentKey: string | null | undefined,
+  systemAuthority?: string | null,
 ): boolean {
-  return resolveAuthorityDepartmentKey(roleKey, departmentKey) === DEPARTMENT_KEYS.VENTE;
+  return (
+    resolveAuthorityDepartmentKey(roleKey, departmentKey, systemAuthority) ===
+    DEPARTMENT_KEYS.VENTE
+  );
 }
 
 function departmentMatches(userDept: DepartmentKey | null, expected: DepartmentKey): boolean {
@@ -84,7 +90,11 @@ function departmentMatches(userDept: DepartmentKey | null, expected: DepartmentK
  */
 export function resolveShellRailVisibility(input: ShellVisibilityInput): ShellRailVisibility {
   const role = effectiveAuthRoleKey(input.roleKey);
-  const userDept = resolveUserDepartment(input.roleKey, input.departmentKey);
+  const userDept = resolveUserDepartment(
+    input.roleKey,
+    input.departmentKey,
+    input.systemAuthority,
+  );
   const isSuperAdmin =
     hasSystemRootAuthority({
       roleKey: input.roleKey,
@@ -133,7 +143,11 @@ export function resolveShellRailVisibility(input: ShellVisibilityInput): ShellRa
 
 export function resolveShellVisibility(input: ShellVisibilityInput): ShellVisibility {
   const role = effectiveAuthRoleKey(input.roleKey);
-  const userDept = resolveUserDepartment(input.roleKey, input.departmentKey);
+  const userDept = resolveUserDepartment(
+    input.roleKey,
+    input.departmentKey,
+    input.systemAuthority,
+  );
   const isSuperAdmin =
     hasSystemRootAuthority({
       roleKey: input.roleKey,
@@ -145,7 +159,11 @@ export function resolveShellVisibility(input: ShellVisibilityInput): ShellVisibi
     ...rail,
     isSuperAdmin,
     userDepartment: userDept,
-    treatsConsultationAsFormation: isFormationDepartmentKey(input.roleKey, input.departmentKey),
+    treatsConsultationAsFormation: isFormationDepartmentKey(
+      input.roleKey,
+      input.departmentKey,
+      input.systemAuthority,
+    ),
   };
 }
 

@@ -23,6 +23,17 @@ describe("profile-authority (role source lock)", () => {
     expect(resolveAuthorityDepartmentKey("manager", null)).toBeNull();
   });
 
+  it("super_admin → null (control plane, pas ADMINISTRATION)", () => {
+    expect(resolveAuthorityDepartmentKey("super_admin", null)).toBeNull();
+    expect(resolveAuthorityDepartmentKey("super_admin", DEPARTMENT_KEYS.VENTE)).toBeNull();
+  });
+
+  it("ROOT + department_key métier → null autorité département", () => {
+    expect(
+      resolveAuthorityDepartmentKey("manager", DEPARTMENT_KEYS.VENTE, "ROOT"),
+    ).toBeNull();
+  });
+
   it("consultation normalisée → FORMATION pour navigation", () => {
     expect(resolveAuthorityDepartmentKey("manager", DEPARTMENT_KEYS.CONSULTATION)).toBe(
       DEPARTMENT_KEYS.FORMATION,

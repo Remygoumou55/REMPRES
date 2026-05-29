@@ -74,4 +74,4 @@ profiles_enforce_root_protection (trigger 095)
 
 ## Phase suivante
 
-**PHASE 4** — Super Admin Isolation (control plane ERP indépendant des départements métiers).
+**PHASE 4** — [Super Admin Isolation](./PHASE4-super-admin-isolation.md) (livré).

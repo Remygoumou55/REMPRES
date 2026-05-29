@@ -20,6 +20,7 @@ export type SidebarAuthorityInput = {
   isSuperAdmin: boolean;
   roleKey: string;
   departmentKey: string | null | undefined;
+  systemAuthority?: string | null;
 };
 
 export type SidebarAuthorityResult = {
@@ -48,7 +49,11 @@ export function resolveSidebarAuthority(input: SidebarAuthorityInput): SidebarAu
   }
 
   const rawRole = normalizeRoleKey(input.roleKey);
-  const slice = buildProfileAuthoritySlice(input.roleKey, input.departmentKey);
+  const slice = buildProfileAuthoritySlice(
+    input.roleKey,
+    input.departmentKey,
+    input.systemAuthority,
+  );
 
   if (rawRole === ROLE_KEYS.SUPER_ADMIN) {
     return {
@@ -63,6 +68,7 @@ export function resolveSidebarAuthority(input: SidebarAuthorityInput): SidebarAu
   const authorityDepartmentKey = resolveAuthorityDepartmentKey(
     input.roleKey,
     input.departmentKey,
+    input.systemAuthority,
   );
 
   return {

@@ -3,7 +3,17 @@
  * UNE chaîne runtime : profile → sidebar-authority → AppShell.
  * SA : nav-config → ErpNavSidebar (gelé). super-admin-nav = dérivé validation uniquement.
  */
-export const NAVIGATION_AUTHORITY_VERSION = "nav-cockpit-unification-v1" as const;
+export const NAVIGATION_AUTHORITY_VERSION = "control-plane-isolation-v1" as const;
+
+export {
+  CONTROL_PLANE_AUTHORITY_VERSION,
+  isControlPlaneActor,
+  resolveAuthorityPlane,
+  resolveNavigationContext,
+  resolveShellDepartmentKey,
+  type AuthorityPlane,
+  type NavigationContext,
+} from "@/lib/auth/control-plane-authority";
 
 /** Source runtime Super Admin (ne pas dupliquer). */
 export const SUPER_ADMIN_NAV_RUNTIME_SOURCE = "lib/constants/nav-config.ts" as const;

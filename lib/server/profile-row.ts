@@ -38,7 +38,11 @@ export type CachedProfileRow = {
 function withAuthorityFields(
   base: Omit<CachedProfileRow, "authorityDepartmentKey" | "authorityDriftFlags">,
 ): CachedProfileRow {
-  const slice = buildProfileAuthoritySlice(base.roleKey, base.departmentKey);
+  const slice = buildProfileAuthoritySlice(
+    base.roleKey,
+    base.departmentKey,
+    base.systemAuthority,
+  );
   return {
     ...base,
     authorityDepartmentKey: slice.authorityDepartmentKey,

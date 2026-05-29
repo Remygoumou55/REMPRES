@@ -24,7 +24,11 @@ export function resolvePostLoginRoute(
   }
 
   const r = effectiveAuthRoleKey(roleKey);
-  const effectiveDept = resolveAuthorityDepartmentKey(roleKey, departmentKey);
+  const effectiveDept = resolveAuthorityDepartmentKey(
+    roleKey,
+    departmentKey,
+    systemAuthority,
+  );
 
   if (r === ROLE_KEYS.SUPER_ADMIN) {
     return SUPER_ADMIN_COCKPIT_ROUTE;

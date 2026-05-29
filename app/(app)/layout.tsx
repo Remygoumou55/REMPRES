@@ -20,7 +20,8 @@ export default async function AppRouteLayout({ children }: { children: React.Rea
         userAvatarUrl={access.userAvatarUrl}
         userEmail={access.userEmail}
         userRole={access.roleKey ?? ""}
-        departmentKey={access.departmentKey}
+        departmentKey={access.shellDepartmentKey}
+        systemAuthority={access.systemAuthority}
         isSuperAdmin={access.isSuperAdmin}
         userId={access.userId}
         pendingApprovalsCount={access.pendingApprovalsCount}

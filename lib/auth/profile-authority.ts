@@ -1,11 +1,11 @@
 /**
- * ROLE SOURCE LOCK (Bloc 1 — Étape 2)
+ * ROLE SOURCE LOCK (Bloc 1 — Étape 2) + Control plane isolation (Phase 4).
  * Source officielle unique : profiles.role_key + profiles.department_key (DB).
  * Résolution gouvernée : alias rôle (roles.ts) + département effectif (profil + legacy explicite).
  *
- * Consommateurs : sidebar-for-role, shell-visibility, home-route, dept-cockpit-route, profile-row.
- * Super Admin : branche inchangée — pas de fallback SA.
+ * Control plane (ROOT / SUPER_ADMIN) : authorityDepartmentKey = null — jamais ADMINISTRATION.
  */
+import { isControlPlaneActor } from "@/lib/auth/control-plane-authority";
 import {
   DEPARTMENT_KEYS,
   getDepartmentNavigationEntry,
@@ -80,11 +80,10 @@ function legacyDepartmentForRole(rawRoleKey: string | null): DepartmentKey | nul
 export function resolveAuthorityDepartmentKey(
   roleKey: string | null | undefined,
   departmentKey: string | null | undefined,
+  systemAuthority?: string | null,
 ): DepartmentKey | null {
-  // Super Admin est gouvernance globale mais opère le pôle Administration
-  // sans besoin d'affectation department_key explicite.
-  if (normalizeRoleKey(roleKey) === ROLE_KEYS.SUPER_ADMIN) {
-    return DEPARTMENT_KEYS.ADMINISTRATION;
+  if (isControlPlaneActor({ roleKey, systemAuthority })) {
+    return null;
   }
 
   const fromProfile = resolveEffectiveDepartmentKey(departmentKey);
@@ -100,6 +99,7 @@ export function resolveAuthorityDepartmentKey(
 export function buildProfileAuthoritySlice(
   roleKey: string | null | undefined,
   departmentKey: string | null | undefined,
+  systemAuthority?: string | null,
 ): ProfileAuthoritySlice {
   const rawRoleKey = roleKey != null && String(roleKey).trim() ? String(roleKey).trim() : null;
   const rawDepartmentKey =
@@ -108,7 +108,11 @@ export function buildProfileAuthoritySlice(
       : null;
 
   const canonicalRoleKey = effectiveAuthRoleKey(rawRoleKey);
-  const authorityDepartmentKey = resolveAuthorityDepartmentKey(rawRoleKey, rawDepartmentKey);
+  const authorityDepartmentKey = resolveAuthorityDepartmentKey(
+    rawRoleKey,
+    rawDepartmentKey,
+    systemAuthority,
+  );
 
   const driftFlags: ProfileDriftFlag[] = [];
 

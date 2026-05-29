@@ -34,5 +34,5 @@ export function getNavContextLabelFromPath(
   if (!isSuperAdmin) {
     return resolveDepartmentNavContextLabel(pathname, departmentKey);
   }
-  return "Vue ERP";
+  return "Control plane ERP";
 }

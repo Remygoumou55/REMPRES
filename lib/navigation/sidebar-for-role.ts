@@ -25,8 +25,9 @@ export type SidebarForRoleResult = {
 export function resolveSidebarDepartmentKey(
   roleKey: string,
   departmentKey: string | null | undefined,
+  systemAuthority?: string | null,
 ): DepartmentKey | null {
-  return resolveAuthorityDepartmentKey(roleKey, departmentKey);
+  return resolveAuthorityDepartmentKey(roleKey, departmentKey, systemAuthority);
 }
 
 export function resolveSidebarRenderMode(input: SidebarForRoleInput): SidebarRenderMode {

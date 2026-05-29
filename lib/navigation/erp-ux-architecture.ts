@@ -53,8 +53,17 @@ export type DepartmentCockpitArchitecture = {
   quickActionHrefs: readonly string[];
 };
 
-/** Accueil global — réservé gouvernance. */
+/** Accueil control plane — gouvernance plateforme (≠ cockpit département /dept/*). */
 export const SUPER_ADMIN_COCKPIT_ROUTE = "/dashboard" as const;
+
+/** Enveloppe routes gouvernance SA — supervision /dept/* via middleware, pas ownership métier. */
+export const CONTROL_PLANE_ROUTE_PREFIXES = [
+  "/dashboard",
+  "/actions",
+  "/archives",
+  "/settings",
+  "/admin",
+] as const;
 
 /**
  * Architecture sidebar cible par département métier (M1 + M1.5).

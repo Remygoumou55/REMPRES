@@ -1,6 +1,10 @@
 import { cache } from "react";
 import { redirect } from "next/navigation";
 import { hasAdminConsoleAccess } from "@/lib/auth/permissions";
+import {
+  isControlPlaneActor,
+  resolveShellDepartmentKey,
+} from "@/lib/auth/control-plane-authority";
 import { hasSystemRootAuthority } from "@/lib/auth/system-authority";
 import {
   resolveShellRailVisibility,
@@ -83,10 +87,17 @@ export const getLayoutAccess = cache(async () => {
   const shell = resolveShellVisibility(shellInput);
   const rail: ShellRailVisibility = resolveShellRailVisibility(shellInput);
 
-  const isSuperAdminUser = isSuperAdminProfile;
+  const isControlPlaneUser = isControlPlaneActor({
+    roleKey: profile.roleKey,
+    systemAuthority: profile.systemAuthority,
+  });
+  const shellDepartmentKey = resolveShellDepartmentKey(
+    { roleKey: profile.roleKey, systemAuthority: profile.systemAuthority },
+    profile.departmentKey,
+  );
 
   const canReadActivityLogs =
-    isSuperAdminUser ||
+    isControlPlaneUser ||
     hasAdminConsoleAccess(profile.roleKey, profile.departmentKey, profile.systemAuthority);
 
   return {
@@ -95,7 +106,9 @@ export const getLayoutAccess = cache(async () => {
     userAvatarUrl,
     userEmail: user.email ?? null,
     roleKey: profile.roleKey,
+    systemAuthority: profile.systemAuthority,
     departmentKey: profile.departmentKey,
+    shellDepartmentKey,
     canReadClients: permissions.canRead,
     canReadProducts: productsPermissions.canRead,
     canReadFinance: financePermissions.canRead,
@@ -107,7 +120,8 @@ export const getLayoutAccess = cache(async () => {
     canReadMarketing: marketingPermissions.canRead,
     canReadCrm: crmPermissions.canRead,
     canReadActivityLogs,
-    isSuperAdmin: isSuperAdminUser,
+    isSuperAdmin: isControlPlaneUser,
+    isControlPlane: isControlPlaneUser,
     shellRail: rail,
     shell,
     preferredLanguage: profile.preferredLanguage,

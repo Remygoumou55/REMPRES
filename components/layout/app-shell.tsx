@@ -63,6 +63,7 @@ type AppShellProps = {
   userEmail?: string | null;
   userRole: string;
   departmentKey: string | null;
+  systemAuthority?: string | null;
   isSuperAdmin?: boolean;
   userId?: string | null;
   pendingApprovalsCount?: number;
@@ -79,6 +80,7 @@ export function AppShell({
   userEmail = null,
   userRole,
   departmentKey,
+  systemAuthority = null,
   isSuperAdmin = false,
   userId = null,
   pendingApprovalsCount = 0,
@@ -130,8 +132,9 @@ export function AppShell({
         isSuperAdmin,
         roleKey: userRole,
         departmentKey,
+        systemAuthority,
       }),
-    [isSuperAdmin, userRole, departmentKey],
+    [isSuperAdmin, userRole, departmentKey, systemAuthority],
   );
 
   const railForDept = useMemo(() => shellRail ?? EMPTY_SHELL_RAIL, [shellRail]);

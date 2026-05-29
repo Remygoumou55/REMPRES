@@ -47,8 +47,13 @@ function isUniversalShellPath(pathname: string): boolean {
 export function resolveAuthorityRoutePrefixes(
   roleKey: string | null | undefined,
   departmentKey: string | null | undefined,
+  systemAuthority?: string | null,
 ): readonly string[] {
-  const authorityDept = resolveAuthorityDepartmentKey(roleKey, departmentKey);
+  const authorityDept = resolveAuthorityDepartmentKey(
+    roleKey,
+    departmentKey,
+    systemAuthority,
+  );
   return getDepartmentRoutePrefixes(authorityDept);
 }
 
@@ -59,16 +64,18 @@ export function canAccessDeptCockpitPathForProfile(
   pathname: string,
   roleKey: string | null | undefined,
   departmentKey: string | null | undefined,
+  systemAuthority?: string | null,
 ): boolean {
-  return canProfileAccessDeptPath(pathname, roleKey, departmentKey);
+  return canProfileAccessDeptPath(pathname, roleKey, departmentKey, systemAuthority);
 }
 
 /** Département effectif pour garde-fous console admin (DG legacy inclus). */
 export function resolveAdminConsoleDepartmentKey(
   roleKey: string | null | undefined,
   departmentKey: string | null | undefined,
+  systemAuthority?: string | null,
 ): string | null {
-  return resolveAuthorityDepartmentKey(roleKey, departmentKey);
+  return resolveAuthorityDepartmentKey(roleKey, departmentKey, systemAuthority);
 }
 
 export type RouteAccessSlice = {
@@ -81,8 +88,13 @@ export type RouteAccessSlice = {
 export function buildRouteAccessSlice(
   roleKey: string | null | undefined,
   departmentKey: string | null | undefined,
+  systemAuthority?: string | null,
 ): RouteAccessSlice {
-  const authorityDepartmentKey = resolveAuthorityDepartmentKey(roleKey, departmentKey);
+  const authorityDepartmentKey = resolveAuthorityDepartmentKey(
+    roleKey,
+    departmentKey,
+    systemAuthority,
+  );
   return {
     authorityDepartmentKey,
     canonicalRoleKey: effectiveAuthRoleKey(roleKey),
@@ -98,16 +110,17 @@ export function canAccessDepartmentOperationalPath(
   pathname: string,
   roleKey: string | null | undefined,
   departmentKey: string | null | undefined,
+  systemAuthority?: string | null,
 ): boolean {
   const path = normalizePathname(pathname);
 
   if (isUniversalShellPath(path)) return true;
 
-  if (canAccessDeptCockpitPathForProfile(pathname, roleKey, departmentKey)) {
+  if (canAccessDeptCockpitPathForProfile(pathname, roleKey, departmentKey, systemAuthority)) {
     return true;
   }
 
-  const slice = buildRouteAccessSlice(roleKey, departmentKey);
+  const slice = buildRouteAccessSlice(roleKey, departmentKey, systemAuthority);
   const { canonicalRoleKey: r, operationalPrefixes } = slice;
 
   if (r === ROLE_KEYS.ACCOUNTANT) {

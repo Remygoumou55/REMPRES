@@ -9,6 +9,12 @@ import {
   isLayoutGuardedPath,
 } from "@/lib/auth/route-utility-paths";
 import {
+  isControlPlaneActor,
+  resolveAuthorityPlane,
+  type AuthorityPlane,
+  type NavigationContext,
+} from "@/lib/auth/control-plane-authority";
+import {
   hasSystemRootAuthority,
   isRootAuthority,
   normalizeSystemAuthority,
@@ -44,7 +50,17 @@ export type AuthorityScope = {
   isPlatformRoot: boolean;
   isAdminConsole: boolean;
   departmentKey: string | null;
+  /** control = gouvernance plateforme ; business = département métier */
+  plane: AuthorityPlane;
+  isControlPlane: boolean;
 };
+
+export type { AuthorityPlane, NavigationContext };
+export {
+  isControlPlaneActor,
+  resolveAuthorityPlane,
+  resolveNavigationContext,
+} from "@/lib/auth/control-plane-authority";
 
 export {
   AUTHENTICATED_UTILITY_PREFIXES,
@@ -91,6 +107,7 @@ export function resolveAuthorityScope(profile: PlatformAuthorityProfile): Author
     profile.roleKey,
     profile.systemAuthority,
   );
+  const isControlPlane = isControlPlaneActor(profile);
   return {
     systemAuthority,
     effectiveRoleKey,
@@ -101,6 +118,8 @@ export function resolveAuthorityScope(profile: PlatformAuthorityProfile): Author
       profile.systemAuthority,
     ),
     departmentKey: profile.departmentKey,
+    plane: resolveAuthorityPlane(profile),
+    isControlPlane,
   };
 }
 

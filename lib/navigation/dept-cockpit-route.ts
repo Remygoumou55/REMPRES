@@ -40,8 +40,11 @@ export function resolveDeptCockpitPath(
 export function resolveDeptCockpitPathForProfile(
   roleKey: string | null | undefined,
   departmentKey: string | null | undefined,
+  systemAuthority?: string | null,
 ): string | null {
-  return resolveDeptCockpitPath(resolveAuthorityDepartmentKey(roleKey, departmentKey));
+  return resolveDeptCockpitPath(
+    resolveAuthorityDepartmentKey(roleKey, departmentKey, systemAuthority),
+  );
 }
 
 export function isDeptCockpitPath(pathname: string): boolean {
@@ -71,20 +74,25 @@ export function canProfileAccessDeptPath(
   pathname: string,
   roleKey: string | null | undefined,
   departmentKey: string | null | undefined,
+  systemAuthority?: string | null,
 ): boolean {
   if (!isDeptCockpitPath(pathname)) return false;
 
   const path = normalizeDeptPathname(pathname);
   if (path === "/dept") return false;
 
-  const profileCockpit = resolveDeptCockpitPathForProfile(roleKey, departmentKey);
+  const profileCockpit = resolveDeptCockpitPathForProfile(
+    roleKey,
+    departmentKey,
+    systemAuthority,
+  );
   if (!profileCockpit) return false;
 
   if (path === profileCockpit || path.startsWith(`${profileCockpit}/`)) {
     return true;
   }
 
-  const authority = resolveAuthorityDepartmentKey(roleKey, departmentKey);
+  const authority = resolveAuthorityDepartmentKey(roleKey, departmentKey, systemAuthority);
   if (
     authority === DEPARTMENT_KEYS.FORMATION &&
     (path === "/dept/consultation" || path.startsWith("/dept/consultation/"))

@@ -6,7 +6,8 @@
 | **1** | [PHASE1-authority-architecture-audit](./PHASE1-authority-architecture-audit.md) | Audit cartographie |
 | **2** | [PHASE2-root-authority-layer](./PHASE2-root-authority-layer.md) | Authorization Core + runtime unification |
 | **3** | [PHASE3-immutable-root-protection](./PHASE3-immutable-root-protection.md) | Protection root immuable + audit mutations |
-| **4–5** | *À venir* | SA isolation, matrix engine |
+| **4** | [PHASE4-super-admin-isolation](./PHASE4-super-admin-isolation.md) | Control plane isolé des départements métiers |
+| **5** | *À venir* | Authorization Matrix Engine |
 
 **Inventaire reproductible :** `npm run audit:phase1` → `docs/governance/phase1-legacy-inventory.json`
 

@@ -32,6 +32,18 @@ describe("sidebar-authority", () => {
     expect(r.authorityDepartmentKey).toBe(DEPARTMENT_KEYS.ADMINISTRATION);
   });
 
+  it("ROOT manager VENTE → ErpNavSidebar (control plane, pas dept sidebar)", () => {
+    const r = resolveSidebarAuthority({
+      isSuperAdmin: true,
+      roleKey: "manager",
+      departmentKey: DEPARTMENT_KEYS.VENTE,
+      systemAuthority: "ROOT",
+    });
+    expect(r.mode).toBe("super_admin_erp");
+    expect(r.authorityDepartmentKey).toBeNull();
+    expect(r.usesErpGlobalSidebar).toBe(true);
+  });
+
   it("manager VENTE → department_business isolé", () => {
     const r = resolveSidebarAuthority({
       isSuperAdmin: false,

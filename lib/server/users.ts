@@ -14,7 +14,7 @@ import {
 } from "@/lib/governance/runtime/root-protection";
 import { normalizeDepartmentKey } from "@/lib/departments/department-config";
 import { getSupabaseAdmin, getSupabaseAdminConfigErrorMessage } from "@/lib/supabaseAdmin";
-import { isSuperAdmin } from "@/lib/server/permissions";
+import { canManagePlatformUsers } from "@/lib/server/matrix-platform-access";
 import { logError, logInfo, logWarning } from "@/lib/logger";
 import { insertActivityLog } from "@/lib/server/insert-activity-log";
 import { ok, err, type SafeResult } from "@/lib/server/safe-result";
@@ -351,7 +351,7 @@ async function tryActivityLog(input: {
 export async function listUsers(
   callerUserId: string,
 ): Promise<SafeResult<UserListItem[]>> {
-  if (!(await isSuperAdmin(callerUserId))) {
+  if (!(await canManagePlatformUsers(callerUserId))) {
     return err("Accès refusé.");
   }
 
@@ -459,7 +459,7 @@ export async function inviteUser(
   callerUserId: string,
 ): Promise<SafeResult<{ userId: string }>> {
   try {
-    if (!(await isSuperAdmin(callerUserId))) {
+    if (!(await canManagePlatformUsers(callerUserId))) {
       return err(
         "Accès refusé. Seul un super administrateur peut inviter des utilisateurs.",
       );
@@ -621,7 +621,7 @@ export async function resendInvite(
   userId: string,
   callerUserId: string,
 ): Promise<SafeResult<null>> {
-  if (!(await isSuperAdmin(callerUserId))) {
+  if (!(await canManagePlatformUsers(callerUserId))) {
     return err("Accès refusé.");
   }
 
@@ -702,7 +702,7 @@ export async function updateUserRole(
   newRoleKey: string,
   callerUserId: string,
 ): Promise<SafeResult<null>> {
-  if (!(await isSuperAdmin(callerUserId))) {
+  if (!(await canManagePlatformUsers(callerUserId))) {
     return err("Accès refusé.");
   }
 
@@ -808,7 +808,7 @@ export async function deactivateUser(
   userId: string,
   callerUserId: string,
 ): Promise<{ success: boolean; error?: string }> {
-  if (!(await isSuperAdmin(callerUserId))) {
+  if (!(await canManagePlatformUsers(callerUserId))) {
     return { success: false, error: "Accès refusé." };
   }
 
@@ -881,7 +881,7 @@ export async function reactivateUser(
   userId: string,
   callerUserId: string,
 ): Promise<{ success: boolean; error?: string }> {
-  if (!(await isSuperAdmin(callerUserId))) {
+  if (!(await canManagePlatformUsers(callerUserId))) {
     return { success: false, error: "Accès refusé." };
   }
 
@@ -924,7 +924,7 @@ export async function updateUserAdmin(
   input: UpdateUserAdminInput,
   callerUserId: string,
 ): Promise<SafeResult<null>> {
-  if (!(await isSuperAdmin(callerUserId))) {
+  if (!(await canManagePlatformUsers(callerUserId))) {
     return err("Accès refusé.");
   }
 
@@ -1060,7 +1060,7 @@ export async function deleteUserAdmin(
   userId: string,
   callerUserId: string,
 ): Promise<SafeResult<null>> {
-  if (!(await isSuperAdmin(callerUserId))) {
+  if (!(await canManagePlatformUsers(callerUserId))) {
     return err("Accès refusé.");
   }
   if (userId === callerUserId) {

@@ -23,7 +23,7 @@ import {
   type SystemAuthority,
   type SystemAuthoritySlice,
 } from "@/lib/auth/system-authority";
-import { normalizeRoleKey, ROLE_KEYS } from "@/lib/auth/roles";
+import { matrixCanExecuteAction } from "@/lib/auth/authorization-matrix-engine";
 import {
   resolvePostLoginRoute,
   resolveSafeHomeRoute,
@@ -160,26 +160,12 @@ export type PlatformAction =
   | "finance.expense.mutate"
   | "vente.operational.mutate";
 
-/** Garde actions sensibles — étendu Phase 5 (matrix engine). */
+/** Garde actions sensibles — Phase 5 matrix engine (source unique). */
 export function canExecuteAction(
   action: PlatformAction,
   profile: PlatformAuthorityProfile,
 ): boolean {
-  const scope = resolveAuthorityScope(profile);
-
-  switch (action) {
-    case "user.admin.update":
-    case "user.role.update":
-    case "user.deactivate":
-      return scope.isPlatformRoot;
-    case "approval.decide":
-      return scope.isPlatformRoot || scope.isAdminConsole;
-    case "finance.expense.mutate":
-    case "vente.operational.mutate":
-      return !scope.isPlatformRoot && normalizeRoleKey(profile.roleKey) !== ROLE_KEYS.SUPER_ADMIN;
-    default:
-      return false;
-  }
+  return matrixCanExecuteAction(action, profile);
 }
 
 /** Destination canonique après authentification — unique point d’entrée redirects. */
@@ -207,3 +193,16 @@ export function resolveNavigationRoleKey(profile: PlatformAuthorityProfile): str
 export function isPlatformGovernanceActor(profile: PlatformAuthorityProfile): boolean {
   return hasSystemAuthority(profile);
 }
+
+export {
+  resolveMatrixScope,
+  matrixCanAccessRoute,
+  matrixCanExecuteAction,
+  createSyncMatrixEngine,
+  createAuthorizationMatrixEngine,
+  AUTHORIZATION_MATRIX_ENGINE_VERSION,
+  type SyncMatrixEngine,
+} from "@/lib/auth/authorization-matrix-engine";
+
+export type { MatrixAction } from "@/lib/auth/authorization-matrix-rules";
+export { MATRIX_RULES_VERSION, MATRIX_ACTION_RULES } from "@/lib/auth/authorization-matrix-rules";

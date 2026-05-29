@@ -57,6 +57,7 @@ export async function assertApiDeptKpiAccess(
       cockpitPath,
       profile.roleKey,
       profile.departmentKey,
+      profile.systemAuthority,
     )
   ) {
     return { ok: false, status: 403, message: "Forbidden" };

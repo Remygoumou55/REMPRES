@@ -1,46 +1,34 @@
-import { redirect } from "next/navigation";
-import { DEPARTMENT_KEYS, normalizeDepartmentKey } from "@/lib/departments/department-config";
-import { getModulePermissions, getProfileAuthBrief, getUserRole, isSuperAdmin } from "@/lib/server/permissions";
+import {
+  assertMatrixModuleRead,
+  assertMatrixModuleWrite,
+  matrixModuleCanDelete,
+  matrixModulePermissions,
+} from "@/lib/server/matrix-module-access";
 
-const RH_ROLES = new Set(["responsable_rh", "directeur_general", "super_admin", "manager"]);
+const RH_MODULE = "rh" as const;
 
-async function hasRhDepartmentAccess(userId: string): Promise<boolean> {
-  const brief = await getProfileAuthBrief(userId);
-  return normalizeDepartmentKey(brief.departmentKey) === DEPARTMENT_KEYS.RH;
-}
+const RH_LEGACY_ROLE_KEYS = [
+  "responsable_rh",
+  "directeur_general",
+  "super_admin",
+  "manager",
+] as const;
+
+const rhLegacy = { legacyRoleKeys: RH_LEGACY_ROLE_KEYS };
 
 export async function assertRhRead(userId: string): Promise<void> {
-  if (await isSuperAdmin(userId)) return;
-  const role = await getUserRole(userId);
-  if (role && RH_ROLES.has(role)) return;
-  if (await hasRhDepartmentAccess(userId)) return;
-  const perms = await getModulePermissions(userId, ["rh"]);
-  if (!perms.canRead) redirect("/access-denied");
+  await assertMatrixModuleRead(userId, RH_MODULE, rhLegacy);
 }
 
 export async function assertRhWrite(userId: string): Promise<void> {
-  if (await isSuperAdmin(userId)) return;
-  const role = await getUserRole(userId);
-  if (role && RH_ROLES.has(role)) return;
-  if (await hasRhDepartmentAccess(userId)) return;
-  const perms = await getModulePermissions(userId, ["rh"]);
-  if (!perms.canCreate && !perms.canUpdate) redirect("/access-denied");
+  await assertMatrixModuleWrite(userId, RH_MODULE, rhLegacy);
 }
 
 export async function canRhDelete(userId: string): Promise<boolean> {
-  if (await isSuperAdmin(userId)) return true;
-  const role = await getUserRole(userId);
-  if (role && RH_ROLES.has(role)) return true;
-  if (await hasRhDepartmentAccess(userId)) return true;
-  const perms = await getModulePermissions(userId, ["rh"]);
-  return perms.canDelete;
+  return matrixModuleCanDelete(userId, RH_MODULE, rhLegacy);
 }
 
 export async function canRhManageLeaves(userId: string): Promise<boolean> {
-  if (await isSuperAdmin(userId)) return true;
-  const role = await getUserRole(userId);
-  if (role && RH_ROLES.has(role)) return true;
-  if (await hasRhDepartmentAccess(userId)) return true;
-  const perms = await getModulePermissions(userId, ["rh"]);
+  const perms = await matrixModulePermissions(userId, RH_MODULE);
   return perms.canUpdate;
 }

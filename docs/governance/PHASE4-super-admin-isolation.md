@@ -76,4 +76,4 @@ Ordre :
 
 ## Phase suivante
 
-**PHASE 5** — Authorization Matrix Engine centralisé.
+**PHASE 5** — [Authorization Matrix Engine](./PHASE5-authorization-matrix-engine.md) (livré).

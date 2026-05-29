@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import dynamicImport from "next/dynamic";
-import { getSupabaseServerClient } from "@/lib/supabaseServer";
-import { assertAdminRole } from "@/lib/server/permissions";
+import { getServerSessionUser } from "@/lib/server/auth-session";
+import { canManagePlatformUsers } from "@/lib/server/matrix-platform-access";
 import { getSupabaseAdminClient } from "@/lib/supabaseAdmin";
 import { USERS_LIST_CONFIG_ERROR_CODE } from "@/lib/server/users-errors";
 import { listUsers, type UserListItem } from "@/lib/server/users";
@@ -28,21 +28,14 @@ export const metadata: Metadata = {
 };
 
 export default async function SettingsUsersPage() {
-  const supabase = getSupabaseServerClient();
+  const sessionUser = await getServerSessionUser();
+  if (!sessionUser) redirect("/login");
 
-  const { data: authData, error: authError } = await supabase.auth.getUser();
-  if (authError || !authData?.user) redirect("/login");
+  const userId = sessionUser.id;
 
-  const userId = authData.user.id;
-
-  let adminRoleOk = false;
-  try {
-    adminRoleOk = await assertAdminRole(userId);
-  } catch {
+  if (!(await canManagePlatformUsers(userId))) {
     redirect("/access-denied");
   }
-
-  if (!adminRoleOk) redirect("/access-denied");
 
   const serviceRole = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
   if (!serviceRole) {

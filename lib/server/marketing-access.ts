@@ -1,50 +1,28 @@
-import { redirect } from "next/navigation";
 import {
-  DEPARTMENT_KEYS,
-  normalizeDepartmentKey,
-} from "@/lib/departments/department-config";
-import {
-  getModulePermissions,
-  getProfileAuthBrief,
-  getUserRole,
-  isSuperAdmin,
-} from "@/lib/server/permissions";
+  assertMatrixModuleRead,
+  assertMatrixModuleWrite,
+  matrixModuleCanDelete,
+} from "@/lib/server/matrix-module-access";
 
-const MARKETING_ROLES = new Set([
+const MARKETING_MODULE = "marketing" as const;
+
+const MARKETING_LEGACY_ROLE_KEYS = [
   "responsable_marketing",
   "directeur_general",
   "super_admin",
   "manager",
-]);
+] as const;
 
-async function hasMarketingDepartmentAccess(userId: string): Promise<boolean> {
-  const brief = await getProfileAuthBrief(userId);
-  return normalizeDepartmentKey(brief.departmentKey) === DEPARTMENT_KEYS.MARKETING;
-}
+const marketingLegacy = { legacyRoleKeys: MARKETING_LEGACY_ROLE_KEYS };
 
 export async function assertMarketingRead(userId: string): Promise<void> {
-  if (await isSuperAdmin(userId)) return;
-  const role = await getUserRole(userId);
-  if (role && MARKETING_ROLES.has(role)) return;
-  if (await hasMarketingDepartmentAccess(userId)) return;
-  const perms = await getModulePermissions(userId, ["marketing"]);
-  if (!perms.canRead) redirect("/access-denied");
+  await assertMatrixModuleRead(userId, MARKETING_MODULE, marketingLegacy);
 }
 
 export async function assertMarketingWrite(userId: string): Promise<void> {
-  if (await isSuperAdmin(userId)) return;
-  const role = await getUserRole(userId);
-  if (role && MARKETING_ROLES.has(role)) return;
-  if (await hasMarketingDepartmentAccess(userId)) return;
-  const perms = await getModulePermissions(userId, ["marketing"]);
-  if (!perms.canCreate && !perms.canUpdate) redirect("/access-denied");
+  await assertMatrixModuleWrite(userId, MARKETING_MODULE, marketingLegacy);
 }
 
 export async function canMarketingDelete(userId: string): Promise<boolean> {
-  if (await isSuperAdmin(userId)) return true;
-  const role = await getUserRole(userId);
-  if (role && MARKETING_ROLES.has(role)) return true;
-  if (await hasMarketingDepartmentAccess(userId)) return true;
-  const perms = await getModulePermissions(userId, ["marketing"]);
-  return perms.canDelete;
+  return matrixModuleCanDelete(userId, MARKETING_MODULE, marketingLegacy);
 }

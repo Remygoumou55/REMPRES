@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 import { normalizeRoleKey } from "@/lib/auth/roles";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getProfileAuthBrief } from "@/lib/server/permissions";
-import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import {
   inviteUser,
   resendInvite,
@@ -24,10 +23,9 @@ import { err, type SafeResult } from "@/lib/server/safe-result";
 // ---------------------------------------------------------------------------
 
 async function getCurrentUserId(): Promise<string> {
-  const supabase = getSupabaseServerClient();
-  const { data } = await supabase.auth.getUser();
-  if (!data.user) redirect("/login");
-  return data.user.id;
+  const user = await getServerSessionUser();
+  if (!user) redirect("/login");
+  return user.id;
 }
 
 // ---------------------------------------------------------------------------

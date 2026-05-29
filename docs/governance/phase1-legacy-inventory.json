@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-05-29T08:44:19.860Z",
-  "filesScanned": 2329,
-  "filesWithHits": 219,
-  "highRiskFiles": 5,
+  "generatedAt": "2026-05-29T10:33:00.556Z",
+  "filesScanned": 2348,
+  "filesWithHits": 239,
+  "highRiskFiles": 4,
   "patternTotals": {
-    "role_key_literal": 8,
-    "super_admin_string": 1026,
-    "system_authority": 82,
-    "legacy_responsable": 194,
-    "canAccessPath": 62,
+    "role_key_literal": 7,
+    "super_admin_string": 1055,
+    "system_authority": 154,
+    "legacy_responsable": 195,
+    "canAccessPath": 67,
     "rempres_role_cookie": 5,
-    "department_key_gate": 40
+    "department_key_gate": 39
   },
   "topHighRisk": [
     {
@@ -35,14 +35,6 @@
       "hits": {
         "role_key_literal": 1,
         "super_admin_string": 1
-      },
-      "risk": "HIGH"
-    },
-    {
-      "file": "lib/server/approvals.ts",
-      "hits": {
-        "role_key_literal": 1,
-        "super_admin_string": 3
       },
       "risk": "HIGH"
     },
@@ -73,10 +65,6 @@
         "count": 1
       },
       {
-        "file": "lib/server/approvals.ts",
-        "count": 1
-      },
-      {
         "file": "lib/server/automation-executor.ts",
         "count": 1
       }
@@ -101,10 +89,6 @@
       {
         "file": "lib/constants/nav-config.ts",
         "count": 22
-      },
-      {
-        "file": "lib/server/users.ts",
-        "count": 20
       },
       {
         "file": "lib/auth/permissions.ts",
@@ -147,7 +131,15 @@
         "count": 11
       },
       {
+        "file": "lib/server/users.ts",
+        "count": 11
+      },
+      {
         "file": "supabase/sql/013_products_rls_hardening.sql",
+        "count": 11
+      },
+      {
+        "file": "supabase/sql/094_rls_governance_system_authority.sql",
         "count": 11
       },
       {
@@ -156,10 +148,6 @@
       },
       {
         "file": "lib/erp-core/approval/security.ts",
-        "count": 10
-      },
-      {
-        "file": "lib/governance/runtime/root-protection.ts",
         "count": 10
       },
       {
@@ -176,6 +164,10 @@
       },
       {
         "file": "supabase/sql/037_governance_alerts.sql",
+        "count": 10
+      },
+      {
+        "file": "tests/unit/sidebar-authority.test.ts",
         "count": 10
       },
       {
@@ -196,6 +188,10 @@
       },
       {
         "file": "supabase/sql/058_enterprise_governance_platform_maturity.sql",
+        "count": 9
+      },
+      {
+        "file": "tests/unit/immutable-root-policy.test.ts",
         "count": 9
       },
       {
@@ -227,11 +223,11 @@
         "count": 8
       },
       {
-        "file": "tests/unit/sidebar-authority.test.ts",
-        "count": 8
+        "file": "app/api/finance/export/route.ts",
+        "count": 7
       },
       {
-        "file": "app/api/finance/export/route.ts",
+        "file": "components/layout/app-shell.tsx",
         "count": 7
       },
       {
@@ -239,7 +235,7 @@
         "count": 7
       },
       {
-        "file": "lib/server/layout-access.ts",
+        "file": "lib/governance/runtime/root-protection.ts",
         "count": 7
       },
       {
@@ -263,19 +259,11 @@
         "count": 6
       },
       {
-        "file": "components/layout/app-shell.tsx",
-        "count": 6
-      },
-      {
         "file": "lib/approvals/approval-rules.ts",
         "count": 6
       },
       {
         "file": "lib/server/logistique-access.ts",
-        "count": 6
-      },
-      {
-        "file": "lib/server/rh-access.ts",
         "count": 6
       },
       {
@@ -312,6 +300,10 @@
       },
       {
         "file": "tests/unit/api-route-guard.test.ts",
+        "count": 6
+      },
+      {
+        "file": "tests/unit/control-plane-authority.test.ts",
         "count": 6
       },
       {
@@ -447,6 +439,10 @@
         "count": 4
       },
       {
+        "file": "lib/governance/runtime/immutable-root-policy.ts",
+        "count": 4
+      },
+      {
         "file": "lib/logistics/runtime/logistics-runtime-security.ts",
         "count": 4
       },
@@ -503,6 +499,10 @@
         "count": 4
       },
       {
+        "file": "supabase/sql/095_immutable_root_protection.sql",
+        "count": 4
+      },
+      {
         "file": "tests/unit/m3-5-ux-alignment.test.ts",
         "count": 4
       },
@@ -531,15 +531,19 @@
         "count": 3
       },
       {
+        "file": "lib/auth/authorization-matrix-engine.ts",
+        "count": 3
+      },
+      {
+        "file": "lib/auth/control-plane-authority.ts",
+        "count": 3
+      },
+      {
         "file": "lib/auth/profile-authority.ts",
         "count": 3
       },
       {
-        "file": "lib/server/api-route-guard.ts",
-        "count": 3
-      },
-      {
-        "file": "lib/server/approvals.ts",
+        "file": "lib/server/layout-access.ts",
         "count": 3
       },
       {
@@ -564,6 +568,10 @@
       },
       {
         "file": "supabase/sql/051_automation_engine.sql",
+        "count": 3
+      },
+      {
+        "file": "tests/unit/profile-authority.test.ts",
         "count": 3
       },
       {
@@ -651,7 +659,19 @@
         "count": 2
       },
       {
+        "file": "lib/server/api-route-guard.ts",
+        "count": 2
+      },
+      {
+        "file": "lib/server/approvals.ts",
+        "count": 2
+      },
+      {
         "file": "lib/server/auth-operational-guards.ts",
+        "count": 2
+      },
+      {
+        "file": "lib/server/platform-governance-users.ts",
         "count": 2
       },
       {
@@ -703,6 +723,10 @@
         "count": 2
       },
       {
+        "file": "supabase/sql/096_control_plane_department_isolation.sql",
+        "count": 2
+      },
+      {
         "file": "tests/unit/legacy-cleanup-matrix.test.ts",
         "count": 2
       },
@@ -732,6 +756,14 @@
       },
       {
         "file": "lib/architecture/architecture-certification-registry.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/auth/authorization-core.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/auth/authorization-matrix-rules.ts",
         "count": 1
       },
       {
@@ -783,11 +815,15 @@
         "count": 1
       },
       {
-        "file": "lib/server/notifications.ts",
+        "file": "lib/server/matrix-platform-access.ts",
         "count": 1
       },
       {
         "file": "lib/server/products.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/server/rh-access.ts",
         "count": 1
       },
       {
@@ -910,15 +946,43 @@
       },
       {
         "file": "lib/governance/runtime/root-protection.ts",
-        "count": 15
+        "count": 16
+      },
+      {
+        "file": "supabase/sql/095_immutable_root_protection.sql",
+        "count": 16
       },
       {
         "file": "lib/server/users.ts",
+        "count": 8
+      },
+      {
+        "file": "lib/governance/runtime/immutable-root-policy.ts",
         "count": 7
       },
       {
         "file": "tests/unit/root-protection.test.ts",
         "count": 7
+      },
+      {
+        "file": "lib/auth/authorization-core.ts",
+        "count": 6
+      },
+      {
+        "file": "lib/server/platform-governance-users.ts",
+        "count": 6
+      },
+      {
+        "file": "lib/auth/permissions.ts",
+        "count": 4
+      },
+      {
+        "file": "lib/governance/runtime/authority-mutation-audit.ts",
+        "count": 4
+      },
+      {
+        "file": "lib/server/matrix-module-access.ts",
+        "count": 4
       },
       {
         "file": "lib/server/profile-row.ts",
@@ -927,14 +991,6 @@
       {
         "file": "middleware.ts",
         "count": 4
-      },
-      {
-        "file": "app/login/LoginForm.tsx",
-        "count": 3
-      },
-      {
-        "file": "lib/auth/permissions.ts",
-        "count": 3
       },
       {
         "file": "lib/auth/system-authority.ts",
@@ -949,8 +1005,36 @@
         "count": 3
       },
       {
+        "file": "lib/navigation/shell-visibility.ts",
+        "count": 3
+      },
+      {
+        "file": "lib/roleRedirects.ts",
+        "count": 3
+      },
+      {
+        "file": "modules/hr/server/services/hr-employee-mutations.ts",
+        "count": 3
+      },
+      {
+        "file": "supabase/sql/094_rls_governance_system_authority.sql",
+        "count": 3
+      },
+      {
+        "file": "tests/unit/immutable-root-policy.test.ts",
+        "count": 3
+      },
+      {
         "file": "types/database.types.ts",
         "count": 3
+      },
+      {
+        "file": "lib/auth/authorization-matrix-engine.ts",
+        "count": 2
+      },
+      {
+        "file": "lib/auth/control-plane-authority.ts",
+        "count": 2
       },
       {
         "file": "lib/server/layout-access.ts",
@@ -959,6 +1043,38 @@
       {
         "file": "lib/server/permissions.ts",
         "count": 2
+      },
+      {
+        "file": "supabase/sql/096_control_plane_department_isolation.sql",
+        "count": 2
+      },
+      {
+        "file": "tests/unit/authorization-core.test.ts",
+        "count": 2
+      },
+      {
+        "file": "app/auth/callback/CallbackClient.tsx",
+        "count": 1
+      },
+      {
+        "file": "app/auth/set-password/SetPasswordForm.tsx",
+        "count": 1
+      },
+      {
+        "file": "app/login/LoginForm.tsx",
+        "count": 1
+      },
+      {
+        "file": "app/login/page.tsx",
+        "count": 1
+      },
+      {
+        "file": "app/page.tsx",
+        "count": 1
+      },
+      {
+        "file": "tests/unit/control-plane-authority.test.ts",
+        "count": 1
       }
     ],
     "legacy_responsable": [
@@ -1091,6 +1207,10 @@
         "count": 1
       },
       {
+        "file": "lib/server/matrix-module-access.ts",
+        "count": 1
+      },
+      {
         "file": "modules/analytics/aggregation/rh-dept-kpi-live.ts",
         "count": 1
       },
@@ -1133,12 +1253,20 @@
         "count": 5
       },
       {
+        "file": "tests/unit/authorization-core.test.ts",
+        "count": 4
+      },
+      {
         "file": "tests/unit/settings-legacy-route-lock.test.ts",
         "count": 4
       },
       {
-        "file": "lib/server/api-route-guard.ts",
-        "count": 3
+        "file": "lib/auth/authorization-core.ts",
+        "count": 2
+      },
+      {
+        "file": "lib/auth/authorization-matrix-engine.ts",
+        "count": 2
       },
       {
         "file": "lib/constants/role-routes.ts",
@@ -1250,10 +1378,6 @@
       },
       {
         "file": "lib/server/marketing-access.ts",
-        "count": 1
-      },
-      {
-        "file": "lib/server/rh-access.ts",
         "count": 1
       },
       {

@@ -8,6 +8,7 @@
 | **3** | [PHASE3-immutable-root-protection](./PHASE3-immutable-root-protection.md) | Protection root immuable + audit mutations |
 | **4** | [PHASE4-super-admin-isolation](./PHASE4-super-admin-isolation.md) | Control plane isolé des départements métiers |
 | **5** | [PHASE5-authorization-matrix-engine](./PHASE5-authorization-matrix-engine.md) | Matrix engine centralisé (routes + actions) |
+| **Audit** | [ENTERPRISE-AUTH-PERFORMANCE-AUDIT](./ENTERPRISE-AUTH-PERFORMANCE-AUDIT.md) | Synthèse complète + perf runtime |
 
 **Inventaire reproductible :** `npm run audit:phase1` → `docs/governance/phase1-legacy-inventory.json`
 

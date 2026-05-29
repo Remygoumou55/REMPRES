@@ -191,15 +191,18 @@ function InviteModal({
 
 function EditUserModal({
   user,
+  currentUserId,
   onClose,
   onSaved,
   onNotifyError,
 }: {
   user: UserListItem;
+  currentUserId: string;
   onClose: () => void;
   onSaved: () => void;
   onNotifyError: (message?: string) => void;
 }) {
+  const isEditingSelf = user.id === currentUserId;
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [firstName, setFirstName] = useState(user.first_name ?? "");
@@ -254,11 +257,21 @@ function EditUserModal({
           </div>
           <div>
             <label className="mb-1 block text-xs font-medium text-gray-600">Rôle *</label>
-            <Select value={roleKey} onChange={(e) => setRoleKey(e.target.value)} required>
+            <Select
+              value={roleKey}
+              onChange={(e) => setRoleKey(e.target.value)}
+              required
+              disabled={isEditingSelf}
+            >
               {ROLE_OPTIONS_UI.map((r) => (
                 <option key={r.key} value={r.key}>{r.label}</option>
               ))}
             </Select>
+            {isEditingSelf ? (
+              <p className="mt-1.5 text-xs text-amber-800">
+                Vous ne pouvez pas modifier votre propre rôle. Contactez un autre administrateur.
+              </p>
+            ) : null}
           </div>
           <div>
             <label className="mb-1 block text-xs font-medium text-gray-600">Département</label>
@@ -295,11 +308,13 @@ function EditUserModal({
 
 function UserActionsMenu({
   user,
+  currentUserId,
   onRefresh,
   onNotifySuccess,
   onNotifyError,
 }: {
   user: UserListItem;
+  currentUserId: string;
   onRefresh: () => void;
   onNotifySuccess: (message?: string) => void;
   onNotifyError: (message?: string) => void;
@@ -416,6 +431,7 @@ function UserActionsMenu({
       {editOpen && (
         <EditUserModal
           user={user}
+          currentUserId={currentUserId}
           onClose={() => setEditOpen(false)}
           onSaved={() => {
             setEditOpen(false);
@@ -455,9 +471,10 @@ function UserActionsMenu({
 
 interface Props {
   initialUsers: UserListItem[];
+  currentUserId: string;
 }
 
-export function UsersClient({ initialUsers }: Props) {
+export function UsersClient({ initialUsers, currentUserId }: Props) {
   const { showSuccess, showError } = useToast();
   const [users, setUsers]         = useState<UserListItem[]>(initialUsers);
   const [showModal, setShowModal] = useState(false);
@@ -629,6 +646,7 @@ export function UsersClient({ initialUsers }: Props) {
                   <DataTableCell className="whitespace-nowrap text-right">
                     <UserActionsMenu
                       user={user}
+                      currentUserId={currentUserId}
                       onRefresh={handleRefresh}
                       onNotifySuccess={showSuccess}
                       onNotifyError={showError}

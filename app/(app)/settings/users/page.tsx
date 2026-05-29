@@ -91,7 +91,7 @@ export default async function SettingsUsersPage() {
           {listErrorMessage}
         </div>
       ) : null}
-      <UsersClient initialUsers={users} />
+      <UsersClient initialUsers={users} currentUserId={userId} />
     </div>
   );
 }

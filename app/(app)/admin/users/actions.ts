@@ -1,6 +1,9 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { normalizeRoleKey } from "@/lib/auth/roles";
+import { getServerSessionUser } from "@/lib/server/auth-session";
+import { getProfileAuthBrief } from "@/lib/server/permissions";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import {
   inviteUser,
@@ -71,6 +74,14 @@ export async function updateUserRoleAction(
   userId: string,
   newRoleKey: string,
 ): Promise<SafeResult<null>> {
+  const session = await getServerSessionUser();
+  if (userId === session?.id) {
+    return {
+      success: false,
+      error: "Impossible de modifier son propre rôle",
+    };
+  }
+
   const callerId = await getCurrentUserId();
   return updateUserRole(userId, newRoleKey, callerId);
 }
@@ -101,6 +112,20 @@ export async function updateUserAdminAction(
   userId: string,
   input: UpdateUserAdminInput,
 ): Promise<SafeResult<null>> {
+  const session = await getServerSessionUser();
+  if (userId === session?.id) {
+    const brief = await getProfileAuthBrief(userId);
+    if (
+      brief.ok &&
+      normalizeRoleKey(input.roleKey) !== normalizeRoleKey(brief.roleKey)
+    ) {
+      return {
+        success: false,
+        error: "Impossible de modifier son propre rôle",
+      };
+    }
+  }
+
   const callerId = await getCurrentUserId();
   return updateUserAdmin(userId, input, callerId);
 }

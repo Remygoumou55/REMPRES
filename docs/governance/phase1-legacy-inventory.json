@@ -1,0 +1,1265 @@
+{
+  "generatedAt": "2026-05-29T08:44:19.860Z",
+  "filesScanned": 2329,
+  "filesWithHits": 219,
+  "highRiskFiles": 5,
+  "patternTotals": {
+    "role_key_literal": 8,
+    "super_admin_string": 1026,
+    "system_authority": 82,
+    "legacy_responsable": 194,
+    "canAccessPath": 62,
+    "rempres_role_cookie": 5,
+    "department_key_gate": 40
+  },
+  "topHighRisk": [
+    {
+      "file": "app/(app)/logistique/commandes/actions.ts",
+      "hits": {
+        "role_key_literal": 2,
+        "super_admin_string": 3,
+        "legacy_responsable": 1
+      },
+      "risk": "HIGH"
+    },
+    {
+      "file": "app/(app)/marketing/leads/actions.ts",
+      "hits": {
+        "role_key_literal": 1,
+        "legacy_responsable": 1
+      },
+      "risk": "HIGH"
+    },
+    {
+      "file": "app/api/webhooks/receive/[token]/route.ts",
+      "hits": {
+        "role_key_literal": 1,
+        "super_admin_string": 1
+      },
+      "risk": "HIGH"
+    },
+    {
+      "file": "lib/server/approvals.ts",
+      "hits": {
+        "role_key_literal": 1,
+        "super_admin_string": 3
+      },
+      "risk": "HIGH"
+    },
+    {
+      "file": "lib/server/automation-executor.ts",
+      "hits": {
+        "role_key_literal": 1
+      },
+      "risk": "HIGH"
+    }
+  ],
+  "byPattern": {
+    "role_key_literal": [
+      {
+        "file": "app/(app)/logistique/commandes/actions.ts",
+        "count": 2
+      },
+      {
+        "file": "lib/server/permissions.ts",
+        "count": 2
+      },
+      {
+        "file": "app/(app)/marketing/leads/actions.ts",
+        "count": 1
+      },
+      {
+        "file": "app/api/webhooks/receive/[token]/route.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/server/approvals.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/server/automation-executor.ts",
+        "count": 1
+      }
+    ],
+    "super_admin_string": [
+      {
+        "file": "supabase/sql/055_enterprise_multitenant_scaling.sql",
+        "count": 42
+      },
+      {
+        "file": "supabase/sql/001_core_schema.sql",
+        "count": 29
+      },
+      {
+        "file": "tests/unit/auth-matrix.test.ts",
+        "count": 28
+      },
+      {
+        "file": "tests/unit/super-admin-lockdown.test.ts",
+        "count": 26
+      },
+      {
+        "file": "lib/constants/nav-config.ts",
+        "count": 22
+      },
+      {
+        "file": "lib/server/users.ts",
+        "count": 20
+      },
+      {
+        "file": "lib/auth/permissions.ts",
+        "count": 19
+      },
+      {
+        "file": "lib/middleware/edge-route-guards.ts",
+        "count": 18
+      },
+      {
+        "file": "lib/navigation/super-admin-nav.ts",
+        "count": 18
+      },
+      {
+        "file": "lib/auth/supervision.ts",
+        "count": 16
+      },
+      {
+        "file": "lib/navigation/super-admin-lockdown.ts",
+        "count": 16
+      },
+      {
+        "file": "app/(app)/admin/archives/actions.ts",
+        "count": 15
+      },
+      {
+        "file": "supabase/sql/057_enterprise_ecosystem_partner_federation.sql",
+        "count": 15
+      },
+      {
+        "file": "supabase/sql/093_system_authority.sql",
+        "count": 15
+      },
+      {
+        "file": "tests/unit/nav-cockpit-unification-matrix.test.ts",
+        "count": 13
+      },
+      {
+        "file": "lib/navigation/sidebar-authority.ts",
+        "count": 11
+      },
+      {
+        "file": "supabase/sql/013_products_rls_hardening.sql",
+        "count": 11
+      },
+      {
+        "file": "lib/auth/roles.ts",
+        "count": 10
+      },
+      {
+        "file": "lib/erp-core/approval/security.ts",
+        "count": 10
+      },
+      {
+        "file": "lib/governance/runtime/root-protection.ts",
+        "count": 10
+      },
+      {
+        "file": "lib/navigation/cockpit-authority.ts",
+        "count": 10
+      },
+      {
+        "file": "lib/navigation/navigation-authority.ts",
+        "count": 10
+      },
+      {
+        "file": "lib/navigation/shell-visibility.ts",
+        "count": 10
+      },
+      {
+        "file": "supabase/sql/037_governance_alerts.sql",
+        "count": 10
+      },
+      {
+        "file": "app/(app)/admin/alerts/actions.ts",
+        "count": 9
+      },
+      {
+        "file": "app/(app)/admin/approvals/actions.ts",
+        "count": 9
+      },
+      {
+        "file": "app/(app)/dashboard/page.tsx",
+        "count": 9
+      },
+      {
+        "file": "hooks/useRealtimeNotifications.ts",
+        "count": 9
+      },
+      {
+        "file": "supabase/sql/058_enterprise_governance_platform_maturity.sql",
+        "count": 9
+      },
+      {
+        "file": "tests/unit/sidebar-for-role.test.ts",
+        "count": 9
+      },
+      {
+        "file": "lib/auth/system-authority.ts",
+        "count": 8
+      },
+      {
+        "file": "lib/governance/runtime/mutation-guard.ts",
+        "count": 8
+      },
+      {
+        "file": "lib/navigation/home-route.ts",
+        "count": 8
+      },
+      {
+        "file": "supabase/sql/005_vente_schema.sql",
+        "count": 8
+      },
+      {
+        "file": "tests/unit/architecture-certification-matrix.test.ts",
+        "count": 8
+      },
+      {
+        "file": "tests/unit/root-protection.test.ts",
+        "count": 8
+      },
+      {
+        "file": "tests/unit/sidebar-authority.test.ts",
+        "count": 8
+      },
+      {
+        "file": "app/api/finance/export/route.ts",
+        "count": 7
+      },
+      {
+        "file": "lib/erp-core/events/governance/hr-security-approval-model.ts",
+        "count": 7
+      },
+      {
+        "file": "lib/server/layout-access.ts",
+        "count": 7
+      },
+      {
+        "file": "lib/server/super-admin-cockpit.ts",
+        "count": 7
+      },
+      {
+        "file": "supabase/sql/056_enterprise_platform_extensibility_marketplace.sql",
+        "count": 7
+      },
+      {
+        "file": "tests/unit/rbac-hard-lock-cert.test.ts",
+        "count": 7
+      },
+      {
+        "file": "app/(app)/dept/[deptKey]/page.tsx",
+        "count": 6
+      },
+      {
+        "file": "app/(app)/finance/page.tsx",
+        "count": 6
+      },
+      {
+        "file": "components/layout/app-shell.tsx",
+        "count": 6
+      },
+      {
+        "file": "lib/approvals/approval-rules.ts",
+        "count": 6
+      },
+      {
+        "file": "lib/server/logistique-access.ts",
+        "count": 6
+      },
+      {
+        "file": "lib/server/rh-access.ts",
+        "count": 6
+      },
+      {
+        "file": "modules/executive-dashboard/server/security/assert-executive-read.ts",
+        "count": 6
+      },
+      {
+        "file": "supabase/sql/005_approval_requests.sql",
+        "count": 6
+      },
+      {
+        "file": "supabase/sql/011_expense_categories_and_phase3.sql",
+        "count": 6
+      },
+      {
+        "file": "supabase/sql/012_expenses_enterprise_enhancements.sql",
+        "count": 6
+      },
+      {
+        "file": "supabase/sql/035_authorization_generic_roles_departments.sql",
+        "count": 6
+      },
+      {
+        "file": "supabase/sql/060_enterprise_cloud_global_operations.sql",
+        "count": 6
+      },
+      {
+        "file": "supabase/sql/062_approval_requests.sql",
+        "count": 6
+      },
+      {
+        "file": "supabase/sql/074_super_admin_recovery.sql",
+        "count": 6
+      },
+      {
+        "file": "tests/unit/api-route-guard.test.ts",
+        "count": 6
+      },
+      {
+        "file": "tests/unit/sidebar-isolation-matrix.test.ts",
+        "count": 6
+      },
+      {
+        "file": "app/(app)/actions/approbations/actions.ts",
+        "count": 5
+      },
+      {
+        "file": "app/(app)/admin/automation/layout.tsx",
+        "count": 5
+      },
+      {
+        "file": "app/(app)/admin/observability/layout.tsx",
+        "count": 5
+      },
+      {
+        "file": "app/(app)/admin/platform/layout.tsx",
+        "count": 5
+      },
+      {
+        "file": "app/(app)/admin/platform-dashboard/page.tsx",
+        "count": 5
+      },
+      {
+        "file": "app/(app)/admin/suppressions/actions.ts",
+        "count": 5
+      },
+      {
+        "file": "app/(app)/logistique/governance/page.tsx",
+        "count": 5
+      },
+      {
+        "file": "app/api/dashboard/executive/snapshot/route.ts",
+        "count": 5
+      },
+      {
+        "file": "components/ui/NotificationBell.tsx",
+        "count": 5
+      },
+      {
+        "file": "lib/erp-core/events/foundation/finance-notification-candidate-map.ts",
+        "count": 5
+      },
+      {
+        "file": "lib/server/consultation-access.ts",
+        "count": 5
+      },
+      {
+        "file": "lib/server/formation-access.ts",
+        "count": 5
+      },
+      {
+        "file": "lib/server/marketing-access.ts",
+        "count": 5
+      },
+      {
+        "file": "lib/vente/runtime/vente-runtime-security.ts",
+        "count": 5
+      },
+      {
+        "file": "supabase/sql/015_sales_archive_and_soft_delete.sql",
+        "count": 5
+      },
+      {
+        "file": "supabase/sql/016_archive_restore_clients_products.sql",
+        "count": 5
+      },
+      {
+        "file": "supabase/sql/017_archives_rls_creator_only.sql",
+        "count": 5
+      },
+      {
+        "file": "supabase/sql/036_governance_approval_requests.sql",
+        "count": 5
+      },
+      {
+        "file": "app/(app)/actions/page.tsx",
+        "count": 4
+      },
+      {
+        "file": "app/(app)/admin/page.tsx",
+        "count": 4
+      },
+      {
+        "file": "app/(app)/dept/page.tsx",
+        "count": 4
+      },
+      {
+        "file": "app/(app)/direction/page.tsx",
+        "count": 4
+      },
+      {
+        "file": "app/(app)/finance/depenses/DepensesClient.tsx",
+        "count": 4
+      },
+      {
+        "file": "app/(app)/finance/enterprise/audit/page.tsx",
+        "count": 4
+      },
+      {
+        "file": "app/(app)/finance/enterprise/workflows/page.tsx",
+        "count": 4
+      },
+      {
+        "file": "app/(app)/settings/page.tsx",
+        "count": 4
+      },
+      {
+        "file": "app/api/dept/[deptKey]/kpis/route.ts",
+        "count": 4
+      },
+      {
+        "file": "app/api/finance/snapshot/route.ts",
+        "count": 4
+      },
+      {
+        "file": "components/dashboard/super-admin-cockpit/SuperAdminCockpitClient.tsx",
+        "count": 4
+      },
+      {
+        "file": "lib/erp-core/approval/mutation-policies.ts",
+        "count": 4
+      },
+      {
+        "file": "lib/erp-core/events/governance/finance-notification-governance-map.ts",
+        "count": 4
+      },
+      {
+        "file": "lib/finance/runtime/finance-runtime-security.ts",
+        "count": 4
+      },
+      {
+        "file": "lib/logistics/runtime/logistics-runtime-security.ts",
+        "count": 4
+      },
+      {
+        "file": "lib/operations/runtime/operations-runtime-security.ts",
+        "count": 4
+      },
+      {
+        "file": "lib/server/archives.ts",
+        "count": 4
+      },
+      {
+        "file": "lib/server/permissions.ts",
+        "count": 4
+      },
+      {
+        "file": "lib/server/rh-foundation.ts",
+        "count": 4
+      },
+      {
+        "file": "modules/admin-platform-dashboard/server/security/assert-admin-platform-read.ts",
+        "count": 4
+      },
+      {
+        "file": "supabase/sql/008_financial_transactions.sql",
+        "count": 4
+      },
+      {
+        "file": "supabase/sql/038_governance_audit_events.sql",
+        "count": 4
+      },
+      {
+        "file": "supabase/sql/049_crm_sales_domain_enterprise.sql",
+        "count": 4
+      },
+      {
+        "file": "supabase/sql/059_enterprise_testing_resilience_platform.sql",
+        "count": 4
+      },
+      {
+        "file": "supabase/sql/068_formation_consultation_auth_fix.sql",
+        "count": 4
+      },
+      {
+        "file": "supabase/sql/079_inventory_sessions.sql",
+        "count": 4
+      },
+      {
+        "file": "supabase/sql/089_automation_rules.sql",
+        "count": 4
+      },
+      {
+        "file": "supabase/sql/091_webhooks.sql",
+        "count": 4
+      },
+      {
+        "file": "tests/unit/m3-5-ux-alignment.test.ts",
+        "count": 4
+      },
+      {
+        "file": "tests/unit/m3-75-final-lock.test.ts",
+        "count": 4
+      },
+      {
+        "file": "tests/unit/settings-legacy-route-lock.test.ts",
+        "count": 4
+      },
+      {
+        "file": "app/(app)/admin/currency/CurrencyAdminClient.tsx",
+        "count": 3
+      },
+      {
+        "file": "app/(app)/finance/depenses/page.tsx",
+        "count": 3
+      },
+      {
+        "file": "app/(app)/logistique/commandes/actions.ts",
+        "count": 3
+      },
+      {
+        "file": "components/dashboard/dept-home-page.tsx",
+        "count": 3
+      },
+      {
+        "file": "lib/auth/profile-authority.ts",
+        "count": 3
+      },
+      {
+        "file": "lib/server/api-route-guard.ts",
+        "count": 3
+      },
+      {
+        "file": "lib/server/approvals.ts",
+        "count": 3
+      },
+      {
+        "file": "supabase/sql/006_currency_rates.sql",
+        "count": 3
+      },
+      {
+        "file": "supabase/sql/014_products_rls_soft_delete_by_role.sql",
+        "count": 3
+      },
+      {
+        "file": "supabase/sql/020_currency_system_standardization.sql",
+        "count": 3
+      },
+      {
+        "file": "supabase/sql/022_rls_roles_policies_hardening.sql",
+        "count": 3
+      },
+      {
+        "file": "supabase/sql/048_logistics_domain_enterprise.sql",
+        "count": 3
+      },
+      {
+        "file": "supabase/sql/051_automation_engine.sql",
+        "count": 3
+      },
+      {
+        "file": "tests/unit/shell-visibility.test.ts",
+        "count": 3
+      },
+      {
+        "file": "app/(app)/actions/approbations/page.tsx",
+        "count": 2
+      },
+      {
+        "file": "app/(app)/admin/alerts/page.tsx",
+        "count": 2
+      },
+      {
+        "file": "app/(app)/admin/approvals/page.tsx",
+        "count": 2
+      },
+      {
+        "file": "app/(app)/admin/archives/page.tsx",
+        "count": 2
+      },
+      {
+        "file": "app/(app)/admin/audit/page.tsx",
+        "count": 2
+      },
+      {
+        "file": "app/(app)/admin/departments/[departmentKey]/page.tsx",
+        "count": 2
+      },
+      {
+        "file": "app/(app)/admin/exports/page.tsx",
+        "count": 2
+      },
+      {
+        "file": "app/(app)/admin/global-dashboard/page.tsx",
+        "count": 2
+      },
+      {
+        "file": "app/(app)/admin/suppressions/page.tsx",
+        "count": 2
+      },
+      {
+        "file": "app/(app)/layout.tsx",
+        "count": 2
+      },
+      {
+        "file": "lib/constants/nav-context.ts",
+        "count": 2
+      },
+      {
+        "file": "lib/erp-core/events/governance/hr-notification-readiness-map.ts",
+        "count": 2
+      },
+      {
+        "file": "lib/erp-core/events/handlers/notification-finance-bridge.ts",
+        "count": 2
+      },
+      {
+        "file": "lib/erp-core/governance/standard/cockpit-standard.ts",
+        "count": 2
+      },
+      {
+        "file": "lib/erp-core/observability/security/observability-security-model.ts",
+        "count": 2
+      },
+      {
+        "file": "lib/erp-core/observability/security/observability-security.ts",
+        "count": 2
+      },
+      {
+        "file": "lib/governance/approvals/workflow.ts",
+        "count": 2
+      },
+      {
+        "file": "lib/governance/home-config.ts",
+        "count": 2
+      },
+      {
+        "file": "lib/hr/governance/hr-domain-governance.ts",
+        "count": 2
+      },
+      {
+        "file": "lib/navigation/sidebar-for-role.ts",
+        "count": 2
+      },
+      {
+        "file": "lib/server/auth-operational-guards.ts",
+        "count": 2
+      },
+      {
+        "file": "lib/settings/governance-roles.ts",
+        "count": 2
+      },
+      {
+        "file": "supabase/sql/003_seed_profiles_permissions.sql",
+        "count": 2
+      },
+      {
+        "file": "supabase/sql/006_formation_schema.sql",
+        "count": 2
+      },
+      {
+        "file": "supabase/sql/007_consultation_schema.sql",
+        "count": 2
+      },
+      {
+        "file": "supabase/sql/027_rls_step5_full_security_hardening.sql",
+        "count": 2
+      },
+      {
+        "file": "supabase/sql/054_enterprise_ai_predictive_operations.sql",
+        "count": 2
+      },
+      {
+        "file": "supabase/sql/063_profile_authority_diagnostics.sql",
+        "count": 2
+      },
+      {
+        "file": "supabase/sql/065_executive_bi_observability_domain.sql",
+        "count": 2
+      },
+      {
+        "file": "supabase/sql/067_platform_marketplace_ecosystem.sql",
+        "count": 2
+      },
+      {
+        "file": "supabase/sql/075_super_admin_set_password.sql",
+        "count": 2
+      },
+      {
+        "file": "supabase/sql/078_payslips.sql",
+        "count": 2
+      },
+      {
+        "file": "supabase/sql/087_purchase_orders.sql",
+        "count": 2
+      },
+      {
+        "file": "tests/unit/legacy-cleanup-matrix.test.ts",
+        "count": 2
+      },
+      {
+        "file": "tests/unit/route-isolation-matrix.test.ts",
+        "count": 2
+      },
+      {
+        "file": "app/(app)/settings/rates/page.tsx",
+        "count": 1
+      },
+      {
+        "file": "app/api/webhooks/receive/[token]/route.ts",
+        "count": 1
+      },
+      {
+        "file": "components/layout/app-shell/CollapsibleNavGroup.tsx",
+        "count": 1
+      },
+      {
+        "file": "components/layout/app-shell/ErpNavSidebar.tsx",
+        "count": 1
+      },
+      {
+        "file": "components/ui/AvatarDropdown.tsx",
+        "count": 1
+      },
+      {
+        "file": "lib/architecture/architecture-certification-registry.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/constants/automation.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/erp-core/events/automation/automation-legacy-coexistence.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/erp-core/events/foundation/notification-foundation.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/erp-core/events/governance/hr-notification-governance-map.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/erp-core/events/handlers/notification-approval-bridge.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/erp-core/governance/standard/security-standard.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/erp-core/observability/foundation/observability-api-map.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/erp-core/observability/foundation/observability-readiness-validation.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/erp-core/observability/observability-domain-governance.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/hr/runtime/hr-runtime-design-map.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/navigation/erp-ux-architecture.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/navigation/route-authority.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/server/notifications.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/server/products.ts",
+        "count": 1
+      },
+      {
+        "file": "modules/analytics/aggregation/rh-dept-kpi-live.ts",
+        "count": 1
+      },
+      {
+        "file": "modules/hr/employees/server/repositories/employee-repository.ts",
+        "count": 1
+      },
+      {
+        "file": "supabase/sql/002_clients_schema.sql",
+        "count": 1
+      },
+      {
+        "file": "supabase/sql/004_products_schema.sql",
+        "count": 1
+      },
+      {
+        "file": "supabase/sql/010_invite_system.sql",
+        "count": 1
+      },
+      {
+        "file": "supabase/sql/024_rls_audit_verification.sql",
+        "count": 1
+      },
+      {
+        "file": "supabase/sql/031_expenses_amount_column_compat_fix.sql",
+        "count": 1
+      },
+      {
+        "file": "supabase/sql/032_delete_expense_transaction_restore.sql",
+        "count": 1
+      },
+      {
+        "file": "supabase/sql/034_erp_sale_lifecycle_and_audit.sql",
+        "count": 1
+      },
+      {
+        "file": "supabase/sql/046_erp_analytics_snapshots.sql",
+        "count": 1
+      },
+      {
+        "file": "supabase/sql/050_infrastructure_scaling.sql",
+        "count": 1
+      },
+      {
+        "file": "supabase/sql/052_enterprise_compliance_hardening.sql",
+        "count": 1
+      },
+      {
+        "file": "supabase/sql/053_enterprise_observability_risk_intelligence.sql",
+        "count": 1
+      },
+      {
+        "file": "supabase/sql/064_ops_project_domain_enterprise.sql",
+        "count": 1
+      },
+      {
+        "file": "supabase/sql/071_marketing_schema.sql",
+        "count": 1
+      },
+      {
+        "file": "supabase/sql/086_bank_reconciliation.sql",
+        "count": 1
+      },
+      {
+        "file": "supabase/sql/088_low_stock_trigger.sql",
+        "count": 1
+      },
+      {
+        "file": "tests/unit/crm-domain-maturity-matrix.test.ts",
+        "count": 1
+      },
+      {
+        "file": "tests/unit/executive-domain-maturity-matrix.test.ts",
+        "count": 1
+      },
+      {
+        "file": "tests/unit/finance-domain-maturity-matrix.test.ts",
+        "count": 1
+      },
+      {
+        "file": "tests/unit/governance-home-config.test.ts",
+        "count": 1
+      },
+      {
+        "file": "tests/unit/ops-domain-maturity-matrix.test.ts",
+        "count": 1
+      },
+      {
+        "file": "tests/unit/p2-1-notification-approval-bridge.test.ts",
+        "count": 1
+      },
+      {
+        "file": "tests/unit/p3-notification-delivery.test.ts",
+        "count": 1
+      },
+      {
+        "file": "tests/unit/p5-finance-notification-bridge.test.ts",
+        "count": 1
+      },
+      {
+        "file": "tests/unit/p8-erp-observability.test.ts",
+        "count": 1
+      },
+      {
+        "file": "tests/unit/supply-domain-maturity-matrix.test.ts",
+        "count": 1
+      },
+      {
+        "file": "types/database.types.ts",
+        "count": 1
+      }
+    ],
+    "system_authority": [
+      {
+        "file": "supabase/sql/093_system_authority.sql",
+        "count": 23
+      },
+      {
+        "file": "lib/governance/runtime/root-protection.ts",
+        "count": 15
+      },
+      {
+        "file": "lib/server/users.ts",
+        "count": 7
+      },
+      {
+        "file": "tests/unit/root-protection.test.ts",
+        "count": 7
+      },
+      {
+        "file": "lib/server/profile-row.ts",
+        "count": 4
+      },
+      {
+        "file": "middleware.ts",
+        "count": 4
+      },
+      {
+        "file": "app/login/LoginForm.tsx",
+        "count": 3
+      },
+      {
+        "file": "lib/auth/permissions.ts",
+        "count": 3
+      },
+      {
+        "file": "lib/auth/system-authority.ts",
+        "count": 3
+      },
+      {
+        "file": "lib/middleware/edge-route-guards.ts",
+        "count": 3
+      },
+      {
+        "file": "lib/navigation/home-route.ts",
+        "count": 3
+      },
+      {
+        "file": "types/database.types.ts",
+        "count": 3
+      },
+      {
+        "file": "lib/server/layout-access.ts",
+        "count": 2
+      },
+      {
+        "file": "lib/server/permissions.ts",
+        "count": 2
+      }
+    ],
+    "legacy_responsable": [
+      {
+        "file": "supabase/sql/035_authorization_generic_roles_departments.sql",
+        "count": 36
+      },
+      {
+        "file": "lib/constants/nav-config.ts",
+        "count": 24
+      },
+      {
+        "file": "lib/constants/role-routes.ts",
+        "count": 8
+      },
+      {
+        "file": "supabase/sql/003_seed_profiles_permissions.sql",
+        "count": 8
+      },
+      {
+        "file": "supabase/sql/063_profile_authority_diagnostics.sql",
+        "count": 8
+      },
+      {
+        "file": "tests/unit/route-isolation-matrix.test.ts",
+        "count": 8
+      },
+      {
+        "file": "lib/auth/profile-authority.ts",
+        "count": 7
+      },
+      {
+        "file": "lib/auth/roles.ts",
+        "count": 7
+      },
+      {
+        "file": "supabase/sql/001_core_schema.sql",
+        "count": 7
+      },
+      {
+        "file": "supabase/sql/022_rls_roles_policies_hardening.sql",
+        "count": 7
+      },
+      {
+        "file": "app/(app)/dashboard/page.tsx",
+        "count": 6
+      },
+      {
+        "file": "components/ui/AvatarDropdown.tsx",
+        "count": 6
+      },
+      {
+        "file": "lib/constants/automation.ts",
+        "count": 6
+      },
+      {
+        "file": "tests/unit/auth-matrix.test.ts",
+        "count": 6
+      },
+      {
+        "file": "tests/unit/profile-authority.test.ts",
+        "count": 6
+      },
+      {
+        "file": "tests/unit/sidebar-for-role.test.ts",
+        "count": 5
+      },
+      {
+        "file": "tests/unit/rbac-hard-lock-cert.test.ts",
+        "count": 4
+      },
+      {
+        "file": "lib/server/consultation-access.ts",
+        "count": 3
+      },
+      {
+        "file": "lib/server/formation-access.ts",
+        "count": 3
+      },
+      {
+        "file": "lib/server/logistique-access.ts",
+        "count": 3
+      },
+      {
+        "file": "lib/server/marketing-access.ts",
+        "count": 2
+      },
+      {
+        "file": "lib/server/rh-access.ts",
+        "count": 2
+      },
+      {
+        "file": "supabase/sql/011_expense_categories_and_phase3.sql",
+        "count": 2
+      },
+      {
+        "file": "supabase/sql/012_expenses_enterprise_enhancements.sql",
+        "count": 2
+      },
+      {
+        "file": "supabase/sql/088_low_stock_trigger.sql",
+        "count": 2
+      },
+      {
+        "file": "tests/unit/shell-visibility.test.ts",
+        "count": 2
+      },
+      {
+        "file": "tests/unit/sidebar-authority.test.ts",
+        "count": 2
+      },
+      {
+        "file": "tests/unit/sidebar-isolation-matrix.test.ts",
+        "count": 2
+      },
+      {
+        "file": "app/(app)/logistique/commandes/actions.ts",
+        "count": 1
+      },
+      {
+        "file": "app/(app)/marketing/leads/actions.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/auth/permissions.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/navigation/sidebar-authority.ts",
+        "count": 1
+      },
+      {
+        "file": "modules/analytics/aggregation/rh-dept-kpi-live.ts",
+        "count": 1
+      },
+      {
+        "file": "modules/executive-dashboard/server/security/assert-executive-read.ts",
+        "count": 1
+      },
+      {
+        "file": "supabase/sql/006_formation_schema.sql",
+        "count": 1
+      },
+      {
+        "file": "supabase/sql/046_erp_analytics_snapshots.sql",
+        "count": 1
+      },
+      {
+        "file": "supabase/sql/069_rh_records_schema.sql",
+        "count": 1
+      },
+      {
+        "file": "tests/unit/api-route-guard.test.ts",
+        "count": 1
+      }
+    ],
+    "canAccessPath": [
+      {
+        "file": "tests/unit/auth-matrix.test.ts",
+        "count": 33
+      },
+      {
+        "file": "tests/unit/rbac-hard-lock-cert.test.ts",
+        "count": 7
+      },
+      {
+        "file": "lib/auth/permissions.ts",
+        "count": 5
+      },
+      {
+        "file": "tests/unit/route-isolation-matrix.test.ts",
+        "count": 5
+      },
+      {
+        "file": "tests/unit/settings-legacy-route-lock.test.ts",
+        "count": 4
+      },
+      {
+        "file": "lib/server/api-route-guard.ts",
+        "count": 3
+      },
+      {
+        "file": "lib/constants/role-routes.ts",
+        "count": 2
+      },
+      {
+        "file": "middleware.ts",
+        "count": 2
+      },
+      {
+        "file": "lib/middleware/edge-route-guards.ts",
+        "count": 1
+      }
+    ],
+    "rempres_role_cookie": [
+      {
+        "file": "app/login/LoginForm.tsx",
+        "count": 1
+      },
+      {
+        "file": "components/layout/app-shell.tsx",
+        "count": 1
+      },
+      {
+        "file": "components/ui/AvatarDropdown.tsx",
+        "count": 1
+      },
+      {
+        "file": "tests/unit/authority-drift-audit.test.ts",
+        "count": 1
+      },
+      {
+        "file": "tests/unit/rbac-hard-lock-cert.test.ts",
+        "count": 1
+      }
+    ],
+    "department_key_gate": [
+      {
+        "file": "lib/server/permissions.ts",
+        "count": 10
+      },
+      {
+        "file": "lib/auth/permissions.ts",
+        "count": 5
+      },
+      {
+        "file": "lib/erp-core/approval/security.ts",
+        "count": 3
+      },
+      {
+        "file": "lib/departments/department-config.ts",
+        "count": 2
+      },
+      {
+        "file": "lib/finance/runtime/finance-runtime-security.ts",
+        "count": 2
+      },
+      {
+        "file": "lib/governance/home/load-home-context.ts",
+        "count": 2
+      },
+      {
+        "file": "lib/vente/runtime/vente-runtime-security.ts",
+        "count": 2
+      },
+      {
+        "file": "app/(app)/admin/users/actions.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/auth/profile-authority.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/erp-core/observability/security/observability-security.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/logistics/runtime/logistics-runtime-security.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/middleware/edge-route-guards.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/navigation/dept-cockpit-route.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/operations/runtime/operations-runtime-security.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/server/administration-supervision.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/server/consultation-access.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/server/formation-access.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/server/logistique-access.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/server/marketing-access.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/server/rh-access.ts",
+        "count": 1
+      },
+      {
+        "file": "lib/server/users.ts",
+        "count": 1
+      }
+    ]
+  }
+}

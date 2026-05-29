@@ -13,7 +13,8 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "generate:favicons": "node scripts/generate-favicons.mjs",
-    "check:utf8": "node scripts/check-utf8.cjs"
+    "check:utf8": "node scripts/check-utf8.cjs",
+    "audit:phase1": "node scripts/audit/phase1-legacy-inventory.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.0",

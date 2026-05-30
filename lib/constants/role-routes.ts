@@ -6,7 +6,7 @@ const ALWAYS_ALLOWED_PREFIXES = ["/access-denied", "/error-profile", "/login", "
 
 /** @deprecated Legacy allowlist — fuite /dept cross-slug corrigée dans dept-cockpit-route. */
 export const DEPT_ALLOWED_ROUTES: Record<string, string[]> = {
-  responsable_vente: ["/dashboard", "/dept", "/vente", "/vente/statistiques", "/profil"],
+  responsable_vente: ["/dashboard", "/dept", "/vente", "/vente/statistiques", "/vente/devis", "/profil"],
   comptable: [
     "/dashboard",
     "/dept",

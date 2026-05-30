@@ -607,3 +607,153 @@ export async function getContractData(
   if (!employee) return null;
   return buildEmployeeContractData(employee);
 }
+
+// ─── Performance reviews ───────────────────────────────────────
+
+export type {
+  PerformanceReview,
+  PerformanceReviewStatus,
+  CriteriaKey,
+} from "@/lib/rh/performance-reviews-shared";
+export {
+  SCORE_LABELS,
+  CRITERIA_LABELS,
+  getOverallLabel,
+} from "@/lib/rh/performance-reviews-shared";
+
+import type {
+  PerformanceReview,
+  PerformanceReviewStatus,
+} from "@/lib/rh/performance-reviews-shared";
+
+export type CreateReviewInput = {
+  employee_id: string;
+  reviewer_id: string;
+  period_label: string;
+  score_quality: number;
+  score_punctuality: number;
+  score_teamwork: number;
+  score_initiative: number;
+  score_objectives: number;
+  comments?: string;
+  objectives_next_period?: string;
+  status: PerformanceReviewStatus;
+};
+
+type PerformanceReviewRow = {
+  id: string;
+  employee_id: string;
+  reviewer_id: string | null;
+  period_label: string;
+  score_quality: number;
+  score_punctuality: number;
+  score_teamwork: number;
+  score_initiative: number;
+  score_objectives: number;
+  overall_score: number;
+  comments: string | null;
+  objectives_next_period: string | null;
+  status: PerformanceReviewStatus;
+  created_at: string;
+  employee?: {
+    first_name: string;
+    last_name: string;
+    position: string;
+    department: string;
+  } | null;
+};
+
+function mapPerformanceReview(row: PerformanceReviewRow): PerformanceReview {
+  const emp = row.employee;
+  const employee_name = emp
+    ? `${emp.first_name} ${emp.last_name}`.trim()
+    : "Collaborateur";
+  return {
+    id: row.id,
+    employee_id: row.employee_id,
+    employee_name,
+    employee_position: emp?.position ?? "—",
+    employee_department: emp?.department ?? "—",
+    reviewer_id: row.reviewer_id,
+    period_label: row.period_label,
+    score_quality: Number(row.score_quality),
+    score_punctuality: Number(row.score_punctuality),
+    score_teamwork: Number(row.score_teamwork),
+    score_initiative: Number(row.score_initiative),
+    score_objectives: Number(row.score_objectives),
+    overall_score: Number(row.overall_score),
+    comments: row.comments,
+    objectives_next_period: row.objectives_next_period,
+    status: row.status,
+    created_at: row.created_at,
+  };
+}
+
+export async function listEmployeeReviews(employeeId: string): Promise<PerformanceReview[]> {
+  const supabase = getSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("performance_reviews" as never)
+    .select(
+      "*,employee:employees(first_name,last_name,position,department)",
+    )
+    .eq("employee_id", employeeId)
+    .is("deleted_at", null)
+    .order("created_at", { ascending: false });
+
+  if (error) return [];
+  return ((data ?? []) as PerformanceReviewRow[]).map(mapPerformanceReview);
+}
+
+export async function listAllReviews(params?: {
+  status?: PerformanceReviewStatus;
+  period?: string;
+}): Promise<PerformanceReview[]> {
+  const supabase = getSupabaseServerClient();
+  let query = supabase
+    .from("performance_reviews" as never)
+    .select(
+      "*,employee:employees(first_name,last_name,position,department)",
+    )
+    .is("deleted_at", null)
+    .order("created_at", { ascending: false });
+
+  if (params?.status) {
+    query = query.eq("status", params.status);
+  }
+  if (params?.period?.trim()) {
+    query = query.ilike("period_label", `%${params.period.trim()}%`);
+  }
+
+  const { data, error } = await query;
+  if (error) return [];
+  return ((data ?? []) as PerformanceReviewRow[]).map(mapPerformanceReview);
+}
+
+export async function createReview(
+  input: CreateReviewInput,
+): Promise<{ success: boolean; id?: string; error?: string }> {
+  const supabase = getSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("performance_reviews" as never)
+    .insert({
+      employee_id: input.employee_id,
+      reviewer_id: input.reviewer_id,
+      period_label: input.period_label.trim(),
+      score_quality: input.score_quality,
+      score_punctuality: input.score_punctuality,
+      score_teamwork: input.score_teamwork,
+      score_initiative: input.score_initiative,
+      score_objectives: input.score_objectives,
+      comments: input.comments?.trim() || null,
+      objectives_next_period: input.objectives_next_period?.trim() || null,
+      status: input.status,
+      updated_at: new Date().toISOString(),
+    } as never)
+    .select("id")
+    .single();
+
+  if (error || !data) {
+    return { success: false, error: error?.message ?? "Échec de l'enregistrement." };
+  }
+  return { success: true, id: String((data as { id: string }).id) };
+}

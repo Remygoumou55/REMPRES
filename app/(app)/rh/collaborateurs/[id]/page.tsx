@@ -8,10 +8,12 @@ import {
   getAttendanceMonthlyStats,
   getEmployeeById,
   listAttendance,
+  listEmployeeReviews,
   listLeaveRequests,
 } from "@/lib/server/rh";
 import { canGenerateEmploymentContract } from "@/lib/server/rh-access";
 import ContratButton from "@/components/rh/ContratButton";
+import { EmployeeEvaluationsBlock } from "@/components/rh/EvaluationForm";
 import { listPayslips } from "@/lib/server/payslips";
 import { PageHeader } from "@/components/ui/page-header";
 import { FlashMessage } from "@/components/ui/flash-message";
@@ -58,14 +60,17 @@ export default async function CollaborateurDetailPage({ params, searchParams }: 
   if (!user) redirect("/login");
   await assertRhRead(user.id);
 
-  const [employee, [canDelete, canManageLeaves], canGenerateContract] = await Promise.all([
-    getEmployeeById(params.id),
-    Promise.all([canRhDelete(user.id), canRhManageLeaves(user.id)]),
-    canGenerateEmploymentContract(user.id),
-  ]);
+  const [employee, [canDelete, canManageLeaves], canGenerateContract, employeeReviews] =
+    await Promise.all([
+      getEmployeeById(params.id),
+      Promise.all([canRhDelete(user.id), canRhManageLeaves(user.id)]),
+      canGenerateEmploymentContract(user.id),
+      listEmployeeReviews(params.id),
+    ]);
   if (!employee) notFound();
 
   const contractData = canGenerateContract ? buildEmployeeContractData(employee) : null;
+  const employeeName = `${employee.first_name} ${employee.last_name}`.trim();
 
   const tab = VALID_TABS.has(searchParams?.tab ?? "") ? searchParams!.tab! : "profil";
 
@@ -345,6 +350,13 @@ export default async function CollaborateurDetailPage({ params, searchParams }: 
           )}
         </section>
       ) : null}
+
+      <EmployeeEvaluationsBlock
+        employeeId={employee.id}
+        employeeName={employeeName}
+        reviews={employeeReviews}
+        canManage={canGenerateContract}
+      />
     </div>
   );
 }

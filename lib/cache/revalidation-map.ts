@@ -54,6 +54,7 @@ const REVALIDATION_MAP: Record<string, string[]> = {
     "/rh/presences",
     "/rh/presences/new",
     "/rh/contrats",
+    "/rh/evaluations",
     "/rh/recrutement",
     "/rh/dashboard",
     "/dashboard",

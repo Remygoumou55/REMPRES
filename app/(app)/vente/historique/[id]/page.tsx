@@ -1,4 +1,5 @@
 import { redirect, notFound } from "next/navigation";
+import Link from "next/link";
 import {
   Package,
   User,
@@ -6,6 +7,8 @@ import {
   CreditCard,
   Receipt,
   Printer,
+  ExternalLink,
+  FileText,
 } from "lucide-react";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getModulePermissions } from "@/lib/server/permissions";
@@ -105,6 +108,16 @@ export default async function SaleDetailPage({ params }: PageProps) {
     client = clientData as Client | null;
   }
 
+  // ── Devis d'origine (si converti) ───────────────────────────────────────
+  const { data: quoteOrigin } = await supabase
+    .from("quotes" as never)
+    .select("id, quote_number")
+    .eq("converted_to_sale_id", params.id)
+    .is("deleted_at", null)
+    .maybeSingle();
+
+  const quoteRef = quoteOrigin as { id: string; quote_number: string } | null;
+
   const statut   = STATUT_CFG[sale.payment_status] ?? { variant: "gray" as BadgeVariant };
   const currency = (sale.display_currency ?? "GNF") as SupportedCurrency;
   const rate     = Number(sale.exchange_rate) || 1;
@@ -135,6 +148,30 @@ export default async function SaleDetailPage({ params }: PageProps) {
           Imprimer
         </a>
       </div>
+
+      {quoteRef ? (
+        <div className="mb-4 flex items-center justify-between rounded-xl border border-gray-200 bg-gray-50 p-4">
+          <div className="flex items-center gap-3">
+            <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gray-100">
+              <FileText className="h-4 w-4 text-gray-500" />
+            </div>
+            <div>
+              <p className="text-sm font-medium text-gray-700">
+                Créé depuis le devis{" "}
+                <span className="font-mono">{quoteRef.quote_number}</span>
+              </p>
+              <p className="mt-0.5 text-xs text-gray-500">Traçabilité commerciale</p>
+            </div>
+          </div>
+          <Link
+            href={`/vente/devis/${quoteRef.id}`}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-50"
+          >
+            Voir le devis
+            <ExternalLink className="h-3.5 w-3.5" />
+          </Link>
+        </div>
+      ) : null}
 
       {/* ── Infos méta : Client / Date / Paiement ────────────────────────── */}
       <div className="grid gap-2.5 rounded-2xl border border-gray-100 bg-white px-3.5 py-3 shadow-sm sm:grid-cols-3">

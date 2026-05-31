@@ -2,7 +2,9 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import {
   ArrowLeft,
+  ArrowRightLeft,
   Calendar,
+  ExternalLink,
   FileText,
   Mail,
   Phone,
@@ -105,6 +107,33 @@ export default async function QuoteDetailPage({ params }: Props) {
           currentStatus={quote.status}
           quoteNumber={quote.quote_number}
         />
+
+        {quote.converted_to_sale_id ? (
+          <div className="mb-6 flex items-center justify-between rounded-xl border border-indigo-200 bg-indigo-50 p-4">
+            <div className="flex items-center gap-3">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-indigo-100">
+                <ArrowRightLeft className="h-4 w-4 text-indigo-600" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-indigo-900">
+                  Devis converti en vente
+                </p>
+                <p className="mt-0.5 text-xs text-indigo-600">
+                  {quote.converted_at
+                    ? `Converti le ${formatDate(quote.converted_at)}`
+                    : "Conversion effectuée"}
+                </p>
+              </div>
+            </div>
+            <Link
+              href={`/vente/historique/${quote.converted_to_sale_id}`}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-indigo-200 bg-white px-3 py-1.5 text-sm font-medium text-indigo-700 transition-colors hover:bg-indigo-50"
+            >
+              Voir la vente
+              <ExternalLink className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+        ) : null}
 
         <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="rounded-xl border border-gray-200 bg-white p-4">

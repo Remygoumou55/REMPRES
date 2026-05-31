@@ -48,6 +48,8 @@ export interface SaleReceiptData {
   client_name:      string | null;
   client_phone:     string | null;
   items:            SaleReceiptItem[];
+  /** Numéro de devis d'origine (ex. DV-1001) — optionnel */
+  quote_number?:    string | null;
 }
 
 // ---------------------------------------------------------------------------
@@ -116,6 +118,20 @@ const s = StyleSheet.create({
     marginTop: 4,
   },
   invoiceMeta: { fontSize: 8, color: C.muted, marginTop: 2 },
+  refRow: {
+    flexDirection: "row",
+    gap: 4,
+    marginTop: 3,
+  },
+  refLabel: {
+    fontSize: 7,
+    color: C.muted,
+  },
+  refValue: {
+    fontSize: 7,
+    fontFamily: "Helvetica-Bold",
+    color: C.text,
+  },
 
   // ── Section 2 colonnes (client + info paiement) ──────────────────────────
   metaRow: {
@@ -309,6 +325,15 @@ function buildDocumentRef(reference: string | null): string {
   return reference ?? "—";
 }
 
+function extractQuoteNumber(
+  quoteNumber: string | null | undefined,
+  notes: string | null,
+): string | null {
+  if (quoteNumber?.trim()) return quoteNumber.trim();
+  const fromNotes = notes?.match(/DV-\d+/)?.[0] ?? null;
+  return fromNotes;
+}
+
 // ---------------------------------------------------------------------------
 // Composant principal
 // ---------------------------------------------------------------------------
@@ -324,6 +349,7 @@ export function SaleReceipt({ data, logoUrl }: SaleReceiptProps) {
   const docRef = buildDocumentRef(data.reference);
   const currency = (data.display_currency as SupportedCurrency) ?? "GNF";
   const rate     = data.exchange_rate ?? 1;
+  const quoteRef = extractQuoteNumber(data.quote_number, data.notes);
 
   /** Formate un montant GNF dans la devise d'affichage de la vente */
   function fmt(amountGNF: number): string {
@@ -365,6 +391,12 @@ export function SaleReceipt({ data, logoUrl }: SaleReceiptProps) {
             )}
             <Text style={s.invoiceMeta}>Date : {fmtDate(data.created_at)}</Text>
             <Text style={s.invoiceMeta}>Devise : {currency}</Text>
+            {quoteRef ? (
+              <View style={s.refRow}>
+                <Text style={s.refLabel}>Réf. devis :</Text>
+                <Text style={s.refValue}>{quoteRef}</Text>
+              </View>
+            ) : null}
           </View>
         </View>
 

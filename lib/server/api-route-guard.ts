@@ -3,11 +3,11 @@
  * Les routes /api/* ne passent pas par middleware : chaque handler doit s’auto-protéger.
  */
 import { canAccessRoute, fromAuthBrief, hasSystemAuthority } from "@/lib/auth/authorization-core";
+import { hasSystemRootAuthority } from "@/lib/auth/system-authority";
 import { canAccessDeptCockpitPathForProfile } from "@/lib/navigation/route-authority";
 import {
   getModulePermissions,
   getProfileAuthBrief,
-  isSuperAdmin,
   type ProfileAuthBrief,
 } from "@/lib/server/permissions";
 import { getServerSessionUser } from "@/lib/server/auth-session";
@@ -47,7 +47,12 @@ export async function assertApiDeptKpiAccess(
     return { ok: false, status: 403, message: "Forbidden" };
   }
 
-  if (await isSuperAdmin(userId)) {
+  if (
+    hasSystemRootAuthority({
+      roleKey: profile.roleKey,
+      systemAuthority: profile.systemAuthority,
+    })
+  ) {
     return { ok: true, userId, brief: profile };
   }
 

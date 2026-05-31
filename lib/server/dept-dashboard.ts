@@ -1,6 +1,7 @@
 /**
  * KPIs cockpit département — source serveur pour DeptHomePage (hors Super Admin).
  */
+import { cache } from "react";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/types/database.types";
 import type { ActivityItem } from "@/components/dashboard/activity-feed";
@@ -59,11 +60,11 @@ const DEPT_META: Record<DeptKey, { label: string; color: string }> = {
   logistique: { label: "Logistique", color: "#6B7280" },
 };
 
-export async function getDeptDashboardData(
+export const getDeptDashboardData = cache(async (
   supabase: SupabaseClient<Database>,
   dept: DeptKey,
   userId: string,
-): Promise<DeptKpiData> {
+): Promise<DeptKpiData> => {
   void userId;
   switch (dept) {
     case "vente":
@@ -83,7 +84,7 @@ export async function getDeptDashboardData(
     default:
       return emptyDeptPayload(dept);
   }
-}
+});
 
 function emptyDeptPayload(dept: DeptKey): DeptKpiData {
   const meta = DEPT_META[dept] ?? { label: dept, color: "#2D7CC4" };

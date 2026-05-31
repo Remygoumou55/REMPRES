@@ -16,7 +16,6 @@ import { getShellLayoutPermissions } from "@/lib/server/permissions";
 import { getPendingCount } from "@/lib/server/notifications";
 import { getCachedProfileRow } from "@/lib/server/profile-row";
 import { avatarInitialFromDisplayName } from "@/lib/server/profile-display";
-import { getSupabaseServerClient } from "@/lib/supabaseServer";
 
 export const getLayoutAccess = cache(async () => {
   const user = await getServerSessionUser();
@@ -32,27 +31,12 @@ export const getLayoutAccess = cache(async () => {
     systemAuthority: profile.systemAuthority,
   });
 
-  const [shellPerms, pendingApprovalsCount, avatarFallback] = await Promise.all([
+  const [shellPerms, pendingApprovalsCount] = await Promise.all([
     isSuperAdminProfile ? Promise.resolve(null) : getShellLayoutPermissions(userId),
     getPendingCount(userId, profile.roleKey, profile.systemAuthority).catch(() => 0),
-    profile.avatarUrl
-      ? Promise.resolve(null)
-      : (async () => {
-          try {
-            const res = await getSupabaseServerClient()
-              .from("profiles")
-              .select("avatar_url")
-              .eq("id", userId)
-              .maybeSingle<{ avatar_url: string | null }>();
-            const raw = res.data?.avatar_url?.trim();
-            return raw && raw.length > 0 ? raw : null;
-          } catch {
-            return null;
-          }
-        })(),
   ]);
 
-  const userAvatarUrl = profile.avatarUrl ?? avatarFallback;
+  const userAvatarUrl = profile.avatarUrl;
 
   const permissions = shellPerms?.clients ?? {
     canRead: false,

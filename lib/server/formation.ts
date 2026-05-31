@@ -1,4 +1,5 @@
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import { cache } from "react";
 import { getRecentActivity } from "@/lib/server/get-recent-activity";
 import { getDeptActivityModuleKeys } from "@/lib/dept/dashboard-module-keys";
 import { safeCount, safeRows } from "@/lib/utils/safe-query";
@@ -478,7 +479,7 @@ export type FormationDashboardKpis = {
   recentActivity: ActivityItem[];
 };
 
-export async function getFormationDashboardKpis(): Promise<FormationDashboardKpis> {
+export const getFormationDashboardKpis = cache(async (): Promise<FormationDashboardKpis> => {
   const supabase = getSupabaseServerClient();
   const monthStart = monthStartIso();
   const sevenDaysAgo = sevenDaysAgoIso();
@@ -547,7 +548,7 @@ export async function getFormationDashboardKpis(): Promise<FormationDashboardKpi
     chart7Days,
     recentActivity,
   };
-}
+});
 
 export type ApprenantDetail = {
   id: string;

@@ -127,7 +127,7 @@ export async function middleware(request: NextRequest) {
     const { data: profile, error: profileError } = await supabase
       .from("profiles")
       .select(
-        "role_key, system_authority, is_active, department_key, department_id, first_name, last_name, email, preferred_language",
+        "role_key, system_authority, is_active, department_key, department_id, first_name, last_name, email, preferred_language, avatar_url",
       )
       .eq("id", user.id)
       .is("deleted_at", null)
@@ -162,6 +162,10 @@ export async function middleware(request: NextRequest) {
       lastName: profile.last_name ?? null,
       email: profile.email ?? user.email ?? null,
       preferredLanguage: profile.preferred_language ?? null,
+      avatarUrl:
+        "avatar_url" in profile && profile.avatar_url != null
+          ? String(profile.avatar_url).trim() || null
+          : null,
     });
     response = NextResponse.next({ request: { headers: requestHeaders } });
 

@@ -1,4 +1,5 @@
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
+import { cache } from "react";
 import { getSupabaseAdminClient } from "@/lib/supabaseAdmin";
 import { getRecentActivity } from "@/lib/server/get-recent-activity";
 import { getDeptActivityModuleKeys } from "@/lib/dept/dashboard-module-keys";
@@ -822,7 +823,7 @@ export type MarketingDashboardKpis = {
   alerts: AlertItem[];
 };
 
-export async function getMarketingDashboardKpis(): Promise<MarketingDashboardKpis> {
+export const getMarketingDashboardKpis = cache(async (): Promise<MarketingDashboardKpis> => {
   const supabase = getSupabaseServerClient();
   const [analytics, activity] = await Promise.all([
     getMarketingAnalytics(),
@@ -865,4 +866,4 @@ export async function getMarketingDashboardKpis(): Promise<MarketingDashboardKpi
     recentActivity: activity,
     alerts,
   };
-}
+});

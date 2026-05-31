@@ -1,14 +1,17 @@
 import { NextResponse } from "next/server";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
-import { getModulePermissions, getProfileAuthBrief, isSuperAdmin } from "@/lib/server/permissions";
+import { getModulePermissions, getProfileAuthBrief } from "@/lib/server/permissions";
 import { assertApiDeptKpiAccess } from "@/lib/server/api-route-guard";
+import { hasSystemRootAuthority } from "@/lib/auth/system-authority";
 import { DEPARTMENTS, type DepartmentKey } from "@/lib/constants/departments";
 import type { DeptKpiPayload } from "@/lib/dept/kpi-contract";
 import { buildDeptFinanceKpiPayload } from "@/lib/finance/runtime/finance-kpi-runtime";
 import { buildDeptLogistiqueKpiPayload } from "@/lib/logistics/runtime/logistics-kpi-runtime";
 import { buildDeptConsultationKpiPayload } from "@/lib/operations/runtime/operations-kpi-runtime";
 import { buildDeptVenteKpiPayload } from "@/lib/vente/runtime/vente-kpi-runtime";
+import { buildDeptFormationKpiPayload } from "@/lib/formation/runtime/formation-kpi-runtime";
+import { buildDeptMarketingKpiPayload } from "@/lib/marketing/runtime/marketing-kpi-runtime";
 import { getRecentActivity } from "@/lib/server/get-recent-activity";
 import { getDeptActivityModuleKeys } from "@/lib/dept/dashboard-module-keys";
 import { resolveRhDeptKpisCached } from "@/modules/analytics/cache/rh-dept-kpis-resolver";
@@ -28,13 +31,17 @@ export async function GET(_request: Request, { params }: RouteContext) {
     return NextResponse.json({ error: "Department not found" }, { status: 404 });
   }
 
-  const [profileBrief, deptPermission, superAdmin] = await Promise.all([
-    getProfileAuthBrief(user.id),
+  const profileBrief = await getProfileAuthBrief(user.id);
+  const superAdmin = hasSystemRootAuthority({
+    roleKey: profileBrief.roleKey,
+    systemAuthority: profileBrief.systemAuthority,
+  });
+
+  const [deptPermission, access] = await Promise.all([
     getModulePermissions(user.id, [deptKey]),
-    isSuperAdmin(user.id),
+    assertApiDeptKpiAccess(user.id, deptKey, profileBrief),
   ]);
 
-  const access = await assertApiDeptKpiAccess(user.id, deptKey, profileBrief);
   if (!access.ok) {
     return NextResponse.json({ error: access.message }, { status: access.status });
   }
@@ -84,19 +91,7 @@ export async function GET(_request: Request, { params }: RouteContext) {
     }
 
     case "formation": {
-      data = {
-        stats: [
-          { id: "activeTrainings", label: "dashboard.dept.kpi.activeTrainings", value: 0, unit: "count" },
-          { id: "totalTrainees", label: "dashboard.dept.kpi.totalTrainees", value: 0, unit: "count" },
-          { id: "certificatesIssued", label: "dashboard.dept.kpi.certificatesIssued", value: 0, unit: "count" },
-          { id: "revenueThisMonth", label: "dashboard.dept.kpi.revenueThisMonth", value: 0, unit: "currency" },
-        ],
-        charts: [],
-        alerts: [],
-        activity: [],
-        health: { status: "placeholder", notes: ["dashboard.dept.health.placeholder"] },
-        metadata: { source: "formation", generatedAt: new Date().toISOString(), placeholder: true },
-      };
+      data = await buildDeptFormationKpiPayload(now);
       break;
     }
 
@@ -106,14 +101,7 @@ export async function GET(_request: Request, { params }: RouteContext) {
     }
 
     case "marketing": {
-      data = {
-        stats: [],
-        charts: [],
-        alerts: [{ id: "placeholder", level: "info", message: "dashboard.dept.health.placeholder" }],
-        activity: [],
-        health: { status: "placeholder", notes: ["dashboard.dept.health.placeholder"] },
-        metadata: { source: "marketing", generatedAt: new Date().toISOString(), placeholder: true },
-      };
+      data = await buildDeptMarketingKpiPayload(now);
       break;
     }
 

@@ -95,7 +95,7 @@ export const getCachedProfileRow = cache(async (userId: string): Promise<CachedP
         departmentId: headerSlice.departmentId,
         displayName,
         preferredLanguage,
-        avatarUrl: null,
+        avatarUrl: resolveAvatarUrl(headerSlice.avatarUrl),
         ok: true,
         supervisionScope: getSupervisionScope(roleKey, departmentKey, systemAuthority),
       });

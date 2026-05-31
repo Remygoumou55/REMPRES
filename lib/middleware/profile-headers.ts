@@ -9,6 +9,7 @@ export const PROFILE_HEADER_LNAME = "x-rempres-lname";
 export const PROFILE_HEADER_EMAIL = "x-rempres-email";
 export const PROFILE_HEADER_LANG = "x-rempres-lang";
 export const PROFILE_HEADER_SYS_AUTH = "x-rempres-sys-auth";
+export const PROFILE_HEADER_AVATAR = "x-rempres-avatar";
 
 import { decodeHeaderText, encodeHeaderText } from "@/lib/utils/display-text";
 
@@ -25,6 +26,7 @@ export type MiddlewareProfileSlice = {
   lastName: string | null;
   email: string | null;
   preferredLanguage: string | null;
+  avatarUrl?: string | null;
 };
 
 export function applyProfileHeaders(headers: Headers, profile: MiddlewareProfileSlice): void {
@@ -37,6 +39,8 @@ export function applyProfileHeaders(headers: Headers, profile: MiddlewareProfile
   headers.set(PROFILE_HEADER_LNAME, encodeHeaderText(profile.lastName));
   headers.set(PROFILE_HEADER_EMAIL, encodeHeaderText(profile.email));
   headers.set(PROFILE_HEADER_LANG, profile.preferredLanguage ?? "");
+  headers.set(PROFILE_HEADER_SYS_AUTH, profile.systemAuthority ?? "");
+  headers.set(PROFILE_HEADER_AVATAR, encodeHeaderText(profile.avatarUrl ?? null));
 }
 
 export function readProfileHeaders(
@@ -62,5 +66,6 @@ export function readProfileHeaders(
     lastName: decodeHeaderText(headers.get(PROFILE_HEADER_LNAME)),
     email: decodeHeaderText(headers.get(PROFILE_HEADER_EMAIL)),
     preferredLanguage: headers.get(PROFILE_HEADER_LANG)?.trim() || null,
+    avatarUrl: decodeHeaderText(headers.get(PROFILE_HEADER_AVATAR)),
   };
 }

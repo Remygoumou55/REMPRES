@@ -25,7 +25,7 @@ export function AutoRecoverRouteError({
   loadingMessage = "Chargement…",
 }: AutoRecoverRouteErrorProps) {
   const router = useRouter();
-  const handled = useRef(false);
+  const recovered = useRef(false);
 
   useEffect(() => {
     logError("ui", `${scope} error boundary triggered`, {
@@ -34,8 +34,22 @@ export function AutoRecoverRouteError({
     });
     reportRouteError(scope, error, { digest: error.digest ?? null });
 
-    if (handled.current) return;
-    handled.current = true;
+    const recoveryKey = `route-error:${scope}:${error.digest ?? error.message}`;
+    const alreadyRetried =
+      typeof sessionStorage !== "undefined" && sessionStorage.getItem(recoveryKey) === "1";
+
+    if (alreadyRetried || recovered.current) {
+      if (typeof sessionStorage !== "undefined") {
+        sessionStorage.removeItem(recoveryKey);
+      }
+      router.replace(fallbackHref);
+      return;
+    }
+
+    recovered.current = true;
+    if (typeof sessionStorage !== "undefined") {
+      sessionStorage.setItem(recoveryKey, "1");
+    }
 
     try {
       reset();
@@ -45,8 +59,11 @@ export function AutoRecoverRouteError({
   }, [scope, error, reset, router, fallbackHref]);
 
   return (
-    <div className="page-wrapper flex min-h-[40vh] items-center justify-center">
+    <div className="page-wrapper flex min-h-[40vh] flex-col items-center justify-center gap-3 px-4 text-center">
       <p className="text-sm text-gray-500">{loadingMessage}</p>
+      <a href={fallbackHref} className="text-sm font-medium text-primary hover:underline">
+        Retour à un écran stable
+      </a>
     </div>
   );
 }

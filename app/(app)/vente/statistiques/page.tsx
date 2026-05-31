@@ -1,11 +1,10 @@
 import { redirect } from "next/navigation";
-import { ShoppingBag, ShoppingCart, TrendingUp, Users } from "lucide-react";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getClientsPermissions } from "@/lib/server/permissions";
 import { EMPTY_SALES_ANALYTICS, getSalesAnalytics } from "@/lib/server/sales-analytics";
 import { PageHeader } from "@/components/ui/page-header";
-import { KpiCard } from "@/components/dashboard/kpi-card";
 import { VenteStatistiquesCharts } from "@/components/vente/stats/VenteStatistiquesCharts";
+import { VenteStatistiquesKpis } from "@/components/vente/stats/VenteStatistiquesKpis";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -58,36 +57,13 @@ export default async function VenteStatistiquesPage() {
         </div>
       ) : null}
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <KpiCard
-          title="Total CA (période)"
-          value={formatGnf(analytics.totalRevenue)}
-          icon={TrendingUp}
-          color="green"
-          isEmpty={!hasData}
-        />
-        <KpiCard
-          title="Nombre de ventes"
-          value={analytics.totalSales}
-          icon={ShoppingBag}
-          color="blue"
-          isEmpty={!hasData}
-        />
-        <KpiCard
-          title="Panier moyen"
-          value={formatGnf(analytics.averageBasket)}
-          icon={ShoppingCart}
-          color="purple"
-          isEmpty={!hasData}
-        />
-        <KpiCard
-          title="Nouveaux clients"
-          value={analytics.newClientsThisMonth}
-          subtitle="Ce mois"
-          icon={Users}
-          color="teal"
-        />
-      </div>
+      <VenteStatistiquesKpis
+        totalRevenueLabel={formatGnf(analytics.totalRevenue)}
+        totalSales={analytics.totalSales}
+        averageBasketLabel={formatGnf(analytics.averageBasket)}
+        newClientsThisMonth={analytics.newClientsThisMonth}
+        hasData={hasData}
+      />
 
       <VenteStatistiquesCharts
         analytics={

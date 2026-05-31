@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import {
   acceptQuote,
+  convertQuoteToSale,
   createQuote,
   deleteQuote,
   expireQuote,
@@ -103,4 +104,21 @@ export async function getQuotePdfAction(id: string): Promise<Quote | null> {
   const user = await getServerSessionUser();
   if (!user) redirect("/login");
   return getQuoteById(id);
+}
+
+export async function convertQuoteToSaleAction(
+  quoteId: string,
+): Promise<{ success: boolean; saleId?: string; error?: string }> {
+  const user = await getServerSessionUser();
+  if (!user) redirect("/login");
+
+  const result = await convertQuoteToSale(quoteId, user.id);
+
+  if (result.success) {
+    revalidatePath("/vente/devis");
+    revalidatePath(`/vente/devis/${quoteId}`);
+    revalidatePath("/vente/ventes");
+  }
+
+  return result;
 }

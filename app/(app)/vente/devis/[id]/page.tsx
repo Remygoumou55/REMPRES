@@ -9,6 +9,7 @@ import {
   User,
 } from "lucide-react";
 import QuoteButton from "@/components/vente/QuoteButton";
+import QuoteStatusButton from "@/components/vente/QuoteStatusButton";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import {
   getQuoteById,
@@ -98,6 +99,12 @@ export default async function QuoteDetailPage({ params }: Props) {
             <QuoteButton quote={quote} variant="outline" />
           </div>
         </div>
+
+        <QuoteStatusButton
+          quoteId={quote.id}
+          currentStatus={quote.status}
+          quoteNumber={quote.quote_number}
+        />
 
         <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="rounded-xl border border-gray-200 bg-white p-4">

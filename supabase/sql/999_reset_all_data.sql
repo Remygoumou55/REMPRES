@@ -1,14 +1,15 @@
 -- ================================================
 -- REMPRES ERP — RESET COMPLET DES DONNÉES MÉTIER
--- Date : 24 Mai 2026 (v2 — compatible Supabase SQL Editor)
+-- Date : 31 Mai 2026 (v3 — quotes, RH eval, PO, payslips, ops, webhooks)
 -- ⚠️ IRRÉVERSIBLE — Exécuter avec précaution
 --
 -- IMPORTANT : sélectionner TOUT le fichier (Ctrl+A) puis Run.
--- Le dernier SELECT affiche le bilan dans l'onglet Results.
+-- Alternative CLI : node scripts/reset-all-data.mjs
 --
 -- CONSERVÉ : profiles, app_roles, permissions, departments,
 --   currency_rates, currencies, expense_categories,
---   crm_pipeline_stages, auth.users
+--   crm_pipeline_stages, finance_accounts (plan comptable seed),
+--   erp_bi_kpi_definitions, auth.users
 -- ================================================
 
 BEGIN;
@@ -19,6 +20,9 @@ DO $reset$
 DECLARE
   t text;
   optional_tables text[] := ARRAY[
+    -- Devis (Sprint 3)
+    'quote_items',
+    'quotes',
     -- Notifications & gouvernance
     'notifications',
     'governance_audit_events',
@@ -38,6 +42,9 @@ DECLARE
     'rh_employee_documents',
     'rh_leave_requests',
     'rh_attendance_events',
+    'performance_reviews',
+    'payslips',
+    'bank_reconciliations',
     -- Finance enterprise
     'finance_payment_allocations',
     'finance_ar_invoice_lines',
@@ -65,6 +72,25 @@ DECLARE
     'logistics_purchase_orders',
     'logistics_suppliers',
     'logistics_warehouses',
+    'simple_purchase_orders',
+    'purchase_order_items',
+    'purchase_orders',
+    'inventory_lines',
+    'inventory_sessions',
+    -- Ops
+    'erp_ops_task_history',
+    'erp_ops_workflow_steps',
+    'erp_ops_workflows',
+    'erp_ops_deliveries',
+    'erp_ops_tasks',
+    'erp_ops_projects',
+    'webhook_deliveries',
+    'webhooks',
+    'automation_execution_logs',
+    'automation_rules',
+    'erp_bi_kpi_snapshots',
+    'erp_executive_forecasts',
+    'erp_executive_signals',
     -- Legacy / futur
     'deliverables',
     'mission_phases',

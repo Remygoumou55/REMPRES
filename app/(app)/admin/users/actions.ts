@@ -15,6 +15,7 @@ import {
   type InviteUserInput,
   type UpdateUserAdminInput,
 } from "@/lib/server/users";
+import { parseUserAssignment } from "@/lib/auth/user-assignment-options";
 import { normalizeDepartmentKey } from "@/lib/departments/department-config";
 import { err, type SafeResult } from "@/lib/server/safe-result";
 
@@ -37,14 +38,27 @@ export async function inviteUserAction(
 ): Promise<SafeResult<{ userId: string }>> {
   const callerId = await getCurrentUserId();
 
+  const assignmentRaw = (formData.get("roleAssignment") as string | null)?.trim() ?? "";
+  const parsedAssignment = parseUserAssignment(assignmentRaw);
+
   const deptRaw = (formData.get("departmentKey") as string | null)?.trim() ?? "";
+  const roleKeyFromForm = (formData.get("roleKey") as string | null)?.trim() ?? "agent";
+
   const input: InviteUserInput = {
-    firstName:     (formData.get("firstName")     as string ?? "").trim(),
-    lastName:      (formData.get("lastName")      as string ?? "").trim(),
-    email:         (formData.get("email")          as string ?? "").trim().toLowerCase(),
-    roleKey:       (formData.get("roleKey")        as string ?? "agent"),
-    departmentKey: deptRaw ? normalizeDepartmentKey(deptRaw) : null,
+    firstName: (formData.get("firstName") as string ?? "").trim(),
+    lastName: (formData.get("lastName") as string ?? "").trim(),
+    email: (formData.get("email") as string ?? "").trim().toLowerCase(),
+    roleKey: parsedAssignment?.roleKey ?? roleKeyFromForm,
+    departmentKey: parsedAssignment
+      ? parsedAssignment.departmentKey
+      : deptRaw
+        ? normalizeDepartmentKey(deptRaw)
+        : null,
   };
+
+  if (assignmentRaw && !parsedAssignment) {
+    return err("Affectation invalide.");
+  }
 
   if (!input.firstName || !input.lastName || !input.email) {
     return err("Tous les champs obligatoires doivent être remplis.");

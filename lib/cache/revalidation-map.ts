@@ -5,6 +5,7 @@ import { SHELL_PERMISSIONS_TAG } from "@/lib/server/permissions";
 const REVALIDATION_MAP: Record<string, string[]> = {
   clients: [
     "/vente/clients",
+    "/admin/exports/clients",
     "/vente/clients/archives",
     "/vente",
     "/vente/nouvelle-vente",
@@ -15,6 +16,7 @@ const REVALIDATION_MAP: Record<string, string[]> = {
   ],
   produits: [
     "/vente/produits",
+    "/admin/exports/produits",
     "/vente/produits/archives",
     "/vente",
     "/vente/nouvelle-vente",
@@ -38,6 +40,7 @@ const REVALIDATION_MAP: Record<string, string[]> = {
   finance: [
     "/finance",
     "/finance/depenses",
+    "/admin/exports/depenses",
     "/dept/finance",
     "/finance/dashboard",
     "/finance/visual",

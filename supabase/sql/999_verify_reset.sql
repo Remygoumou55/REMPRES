@@ -18,7 +18,8 @@ WITH business AS (
   UNION ALL SELECT 'governance_alerts', COUNT(*) FROM public.governance_alerts
   UNION ALL SELECT 'governance_audit_events', COUNT(*) FROM public.governance_audit_events
   UNION ALL SELECT 'crm_leads', COUNT(*) FROM public.crm_leads
-  UNION ALL SELECT 'crm_quotes', COUNT(*) FROM public.crm_quotes
+  UNION ALL SELECT 'quotes', COUNT(*) FROM public.quotes
+  UNION ALL SELECT 'quote_items', COUNT(*) FROM public.quote_items
   UNION ALL SELECT 'crm_opportunities', COUNT(*) FROM public.crm_opportunities
   UNION ALL SELECT 'rh_leave_requests', COUNT(*) FROM public.rh_leave_requests
   UNION ALL SELECT 'rh_attendance_events', COUNT(*) FROM public.rh_attendance_events

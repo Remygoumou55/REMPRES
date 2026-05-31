@@ -42,8 +42,13 @@ import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { ConfirmDangerDialog } from "@/components/ui/confirm-danger-dialog";
-import { ASSIGNABLE_ROLE_OPTIONS_UI } from "@/lib/auth/roles";
-import { DEPARTMENT_OPTIONS_UI } from "@/lib/departments/department-config";
+import { isSuperAdminRoleKey } from "@/lib/auth/roles";
+import {
+  USER_ASSIGNMENT_OPTIONS_UI,
+  resolveUserAssignmentValue,
+  parseUserAssignment,
+  formatUserAssignmentLabel,
+} from "@/lib/auth/user-assignment-options";
 
 /** Bouton action icône seule — compact, lisible au survol (title) */
 const ACTION_ICON =
@@ -146,19 +151,9 @@ function InviteModal({
 
             <div>
               <label className="mb-1 block text-xs font-medium text-gray-600">Rôle *</label>
-              <Select name="roleKey" required>
-                {ASSIGNABLE_ROLE_OPTIONS_UI.map((r) => (
-                  <option key={r.key} value={r.key}>{r.label}</option>
-                ))}
-              </Select>
-            </div>
-
-            <div>
-              <label className="mb-1 block text-xs font-medium text-gray-600">Département</label>
-              <Select name="departmentKey">
-                <option value="">— Aucun département —</option>
-                {DEPARTMENT_OPTIONS_UI.map((d) => (
-                  <option key={d.key} value={d.key}>{d.label}</option>
+              <Select name="roleAssignment" required defaultValue={USER_ASSIGNMENT_OPTIONS_UI[0]?.value}>
+                {USER_ASSIGNMENT_OPTIONS_UI.map((option) => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
                 ))}
               </Select>
             </div>
@@ -204,22 +199,29 @@ function EditUserModal({
   onNotifyError: (message?: string) => void;
 }) {
   const isEditingSelf = user.id === currentUserId;
+  const isSuperAdmin = isSuperAdminRoleKey(user.role_key);
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [firstName, setFirstName] = useState(user.first_name ?? "");
   const [lastName, setLastName] = useState(user.last_name ?? "");
-  const [roleKey, setRoleKey] = useState(user.role_key ?? "agent");
-  const [departmentKey, setDepartmentKey] = useState(user.department_key ?? "");
+  const [roleAssignment, setRoleAssignment] = useState(
+    resolveUserAssignmentValue(user.role_key, user.department_key),
+  );
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError(null);
+    const parsed = parseUserAssignment(roleAssignment);
+    if (!parsed) {
+      setError("Affectation invalide.");
+      return;
+    }
     startTransition(async () => {
       const result = await updateUserAdminAction(user.id, {
         firstName: firstName.trim(),
         lastName: lastName.trim(),
-        roleKey,
-        departmentKey: departmentKey || null,
+        roleKey: parsed.roleKey,
+        departmentKey: parsed.departmentKey,
       });
       if (result.success) {
         onSaved();
@@ -258,31 +260,26 @@ function EditUserModal({
           </div>
           <div>
             <label className="mb-1 block text-xs font-medium text-gray-600">Rôle *</label>
-            <Select
-              value={roleKey}
-              onChange={(e) => setRoleKey(e.target.value)}
-              required
-              disabled={isEditingSelf}
-            >
-              {ASSIGNABLE_ROLE_OPTIONS_UI.map((r) => (
-                <option key={r.key} value={r.key}>{r.label}</option>
-              ))}
-            </Select>
+            {isSuperAdmin ? (
+              <Input value="Super administrateur" disabled readOnly />
+            ) : (
+              <Select
+                value={roleAssignment}
+                onChange={(e) => setRoleAssignment(e.target.value)}
+                required
+                disabled={isEditingSelf}
+              >
+                {USER_ASSIGNMENT_OPTIONS_UI.map((option) => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))}
+              </Select>
+            )}
             {isEditingSelf ? (
               <p className="mt-1 flex items-center gap-1 text-xs text-amber-600">
                 <AlertTriangle className="h-3 w-3 shrink-0" />
                 Vous ne pouvez pas modifier votre propre rôle.
               </p>
             ) : null}
-          </div>
-          <div>
-            <label className="mb-1 block text-xs font-medium text-gray-600">Département</label>
-            <Select value={departmentKey} onChange={(e) => setDepartmentKey(e.target.value)}>
-              <option value="">— Aucun département —</option>
-              {DEPARTMENT_OPTIONS_UI.map((d) => (
-                <option key={d.key} value={d.key}>{d.label}</option>
-              ))}
-            </Select>
           </div>
           {error && (
             <div className="flex items-start gap-2 rounded-lg bg-red-50 p-3 text-sm text-red-600">
@@ -589,7 +586,6 @@ export function UsersClient({ initialUsers, currentUserId }: Props) {
             <tr className="border-b border-gray-100 bg-gray-50">
               <DataTableHeaderCell>Utilisateur</DataTableHeaderCell>
               <DataTableHeaderCell>Rôle</DataTableHeaderCell>
-              <DataTableHeaderCell className="hidden sm:table-cell">Département</DataTableHeaderCell>
               <DataTableHeaderCell>Statut</DataTableHeaderCell>
               <DataTableHeaderCell className="hidden lg:table-cell">Dernière connexion</DataTableHeaderCell>
               <DataTableHeaderCell className="w-[1%] whitespace-nowrap text-right">Actions</DataTableHeaderCell>
@@ -598,7 +594,7 @@ export function UsersClient({ initialUsers, currentUserId }: Props) {
           <tbody className="divide-y divide-gray-50">
             {filtered.length === 0 ? (
               <DataTableEmpty
-                colSpan={6}
+                colSpan={5}
                 title={query ? "Aucun résultat" : "Aucun utilisateur"}
                 description={query ? "Aucun utilisateur ne correspond à votre recherche." : "Aucun utilisateur pour l'instant."}
               />
@@ -609,7 +605,12 @@ export function UsersClient({ initialUsers, currentUserId }: Props) {
                   nameForInitial.length > 0
                     ? nameForInitial.charAt(0).toUpperCase()
                     : (user.role_key ?? "?").charAt(0).toUpperCase();
-                const subline = (user.department_key ?? "").trim() || null;
+                const subline = user.email?.trim() || null;
+                const assignmentLabel = formatUserAssignmentLabel(
+                  user.role_key,
+                  user.department_key,
+                  user.role_label,
+                );
                 return (
                 <DataTableRow key={user.id}>
                   <DataTableCell>
@@ -630,11 +631,8 @@ export function UsersClient({ initialUsers, currentUserId }: Props) {
                   <DataTableCell>
                     <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
                       <ShieldCheck size={11} />
-                      {user.role_label ?? user.role_key ?? "—"}
+                      {assignmentLabel}
                     </span>
-                  </DataTableCell>
-                  <DataTableCell className="hidden text-gray-500 sm:table-cell">
-                    {user.department_key ?? <span className="text-gray-300">—</span>}
                   </DataTableCell>
                   <DataTableCell>
                     <StatusBadge status={user.status} />

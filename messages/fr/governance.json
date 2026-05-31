@@ -120,8 +120,17 @@
   "governance.analytics.trend.dailyBaseline": "Baseline journaliere",
   "governance.analytics.trend.unresolvedAlerts": "Alertes non resolues",
   "governance.analytics.trend.pendingApprovals": "Approbations en attente",
-  "governance.audit.complianceHealth.title": "Sante conformite",
+  "governance.audit.complianceHealth.title": "État de la conformité",
+  "governance.audit.complianceHealth.subtitle": "Synthèse des 7 derniers jours : événements sensibles, sécurité et alertes en cours de traitement.",
   "governance.audit.complianceHealth.critical7d": "Critiques 7j",
+  "governance.audit.complianceHealth.critical7d.label": "Événements critiques",
+  "governance.audit.complianceHealth.critical7d.hint": "Actions sensibles ou à fort impact enregistrées cette semaine",
   "governance.audit.complianceHealth.security7d": "Securite 7j",
-  "governance.audit.complianceHealth.unresolvedAlerts": "Alertes ouvertes"
+  "governance.audit.complianceHealth.security7d.label": "Incidents sécurité",
+  "governance.audit.complianceHealth.security7d.hint": "Tentatives d'accès bloquées et événements de sécurité",
+  "governance.audit.complianceHealth.unresolvedAlerts": "Alertes ouvertes",
+  "governance.audit.complianceHealth.unresolvedAlerts.label": "Alertes en attente",
+  "governance.audit.complianceHealth.unresolvedAlerts.hint": "Points nécessitant une validation ou un suivi de votre part",
+  "governance.audit.complianceHealth.status.allClear": "Situation sereine — aucun point urgent à traiter pour le moment.",
+  "governance.audit.complianceHealth.status.attention": "Un ou plusieurs indicateurs méritent votre attention. Consultez le journal ci-dessous pour le détail."
 }

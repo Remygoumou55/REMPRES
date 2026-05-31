@@ -120,8 +120,17 @@
   "governance.analytics.trend.dailyBaseline": "Daily baseline",
   "governance.analytics.trend.unresolvedAlerts": "Unresolved alerts",
   "governance.analytics.trend.pendingApprovals": "Pending approvals",
-  "governance.audit.complianceHealth.title": "Compliance health",
+  "governance.audit.complianceHealth.title": "Compliance status",
+  "governance.audit.complianceHealth.subtitle": "Last 7 days at a glance: sensitive events, security incidents, and open alerts.",
   "governance.audit.complianceHealth.critical7d": "Critical 7d",
+  "governance.audit.complianceHealth.critical7d.label": "Critical events",
+  "governance.audit.complianceHealth.critical7d.hint": "High-impact or sensitive actions recorded this week",
   "governance.audit.complianceHealth.security7d": "Security 7d",
-  "governance.audit.complianceHealth.unresolvedAlerts": "Unresolved alerts"
+  "governance.audit.complianceHealth.security7d.label": "Security incidents",
+  "governance.audit.complianceHealth.security7d.hint": "Blocked access attempts and security-related events",
+  "governance.audit.complianceHealth.unresolvedAlerts": "Unresolved alerts",
+  "governance.audit.complianceHealth.unresolvedAlerts.label": "Open alerts",
+  "governance.audit.complianceHealth.unresolvedAlerts.hint": "Items waiting for your review or follow-up",
+  "governance.audit.complianceHealth.status.allClear": "All clear — nothing urgent requires action right now.",
+  "governance.audit.complianceHealth.status.attention": "One or more indicators need your attention. See the log below for details."
 }

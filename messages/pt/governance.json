@@ -120,8 +120,17 @@
   "governance.analytics.trend.dailyBaseline": "Base diaria",
   "governance.analytics.trend.unresolvedAlerts": "Alertas nao resolvidos",
   "governance.analytics.trend.pendingApprovals": "Aprovacoes pendentes",
-  "governance.audit.complianceHealth.title": "Saude de conformidade",
+  "governance.audit.complianceHealth.title": "Estado de conformidade",
+  "governance.audit.complianceHealth.subtitle": "Resumo dos ultimos 7 dias: eventos sensiveis, seguranca e alertas em aberto.",
   "governance.audit.complianceHealth.critical7d": "Criticos 7d",
+  "governance.audit.complianceHealth.critical7d.label": "Eventos criticos",
+  "governance.audit.complianceHealth.critical7d.hint": "Acoes sensiveis ou de alto impacto registradas esta semana",
   "governance.audit.complianceHealth.security7d": "Seguranca 7d",
-  "governance.audit.complianceHealth.unresolvedAlerts": "Alertas em aberto"
+  "governance.audit.complianceHealth.security7d.label": "Incidentes de seguranca",
+  "governance.audit.complianceHealth.security7d.hint": "Tentativas de acesso bloqueadas e eventos de seguranca",
+  "governance.audit.complianceHealth.unresolvedAlerts": "Alertas em aberto",
+  "governance.audit.complianceHealth.unresolvedAlerts.label": "Alertas pendentes",
+  "governance.audit.complianceHealth.unresolvedAlerts.hint": "Itens que exigem validacao ou acompanhamento",
+  "governance.audit.complianceHealth.status.allClear": "Tudo tranquilo — nenhum ponto urgente no momento.",
+  "governance.audit.complianceHealth.status.attention": "Um ou mais indicadores merecem atencao. Consulte o registro abaixo."
 }

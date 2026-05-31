@@ -92,6 +92,24 @@ export default async function AdminAuditPage({ searchParams }: PageProps) {
         criticalEvents7d={compliance.criticalEvents7d}
         securityEvents7d={compliance.securityEvents7d}
         unresolvedAlerts={compliance.unresolvedAlerts}
+        labels={{
+          title: t("governance.audit.complianceHealth.title"),
+          subtitle: t("governance.audit.complianceHealth.subtitle"),
+          critical: {
+            label: t("governance.audit.complianceHealth.critical7d.label"),
+            hint: t("governance.audit.complianceHealth.critical7d.hint"),
+          },
+          security: {
+            label: t("governance.audit.complianceHealth.security7d.label"),
+            hint: t("governance.audit.complianceHealth.security7d.hint"),
+          },
+          alerts: {
+            label: t("governance.audit.complianceHealth.unresolvedAlerts.label"),
+            hint: t("governance.audit.complianceHealth.unresolvedAlerts.hint"),
+          },
+          statusAllClear: t("governance.audit.complianceHealth.status.allClear"),
+          statusAttention: t("governance.audit.complianceHealth.status.attention"),
+        }}
       />
 
       <FilterPanelShell>

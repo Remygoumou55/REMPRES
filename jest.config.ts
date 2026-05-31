@@ -16,6 +16,7 @@ const config: Config = {
     "<rootDir>/tests/unit/marketing.test.ts",
     "<rootDir>/tests/unit/finance.test.ts",
     "<rootDir>/tests/unit/forecast.test.ts",
+    "<rootDir>/tests/unit/quotes.test.ts",
   ],
   modulePathIgnorePatterns: ["<rootDir>/.next/", "<rootDir>/node_modules/"],
   collectCoverageFrom: [

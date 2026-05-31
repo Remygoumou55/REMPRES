@@ -23,7 +23,7 @@ test.describe.serial("Vente — parcours POS", () => {
     /* ── Client ─────────────────────────────────────── */
     await page.goto("/vente/clients");
     await expect(page.getByRole("heading", { name: "Clients" })).toBeVisible();
-    await page.getByRole("link", { name: "+ Nouveau client" }).click();
+    await page.getByRole("link", { name: /Nouveau client/i }).click();
     let dlg = page.getByRole("dialog", { name: "Nouveau client" });
     await dlg.getByPlaceholder("Malin").fill(clientFirst);
     await dlg.getByPlaceholder("Loua").fill("VenteE2E");
@@ -35,7 +35,7 @@ test.describe.serial("Vente — parcours POS", () => {
     /* ── Produit ────────────────────────────────────── */
     await page.goto("/vente/produits");
     await expect(page.getByRole("heading", { name: "Produits" })).toBeVisible();
-    await page.getByRole("link", { name: "+ Nouveau produit" }).click();
+    await page.getByRole("link", { name: /Nouveau produit/i }).click();
     dlg = page.getByRole("dialog", { name: "Nouveau produit" });
     await dlg.locator('input[name="sku"]').fill(sku);
     await dlg.locator('input[name="name"]').fill(productLabel);

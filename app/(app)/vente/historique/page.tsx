@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { PrimaryActionButton } from "@/components/ui/primary-action-button";
 import { redirect } from "next/navigation";
 import { getServerSessionUser } from "@/lib/server/auth-session";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
@@ -156,12 +156,9 @@ export default async function HistoriquePage({ searchParams }: PageProps) {
           <div className="flex flex-wrap items-center gap-2">
             <HistoriqueExportButton sales={sales} clientsById={clientsById} />
             {permissions.canCreate ? (
-              <Link
-                href="/vente/nouvelle-vente"
-                className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-white transition hover:bg-primary/90"
-              >
-                + Nouvelle vente
-              </Link>
+              <PrimaryActionButton href="/vente/nouvelle-vente">
+                Nouvelle vente
+              </PrimaryActionButton>
             ) : null}
           </div>
         }

@@ -10,6 +10,7 @@ import { ClientsRowActions } from "@/components/vente/clients/clients-row-action
 import { useGlobalSearch } from "@/lib/hooks/use-global-search";
 import { GLOBAL_LIST_SEARCH_DEBOUNCE_MS } from "@/lib/data-listing";
 import { withCreateModalQuery } from "@/lib/routing/modal-query";
+import { PrimaryActionButton } from "@/components/ui/primary-action-button";
 import { useRowSelection } from "@/lib/hooks/use-row-selection";
 import { deleteClientsFromListBulkAction } from "@/app/(app)/vente/clients/actions";
 import { useAppMutationRefresh } from "@/hooks/use-app-mutation-refresh";
@@ -216,7 +217,18 @@ export function ClientsTable({
   }, [selectedIds, clearSelection, showSuccess, showError, pushThenRefresh]);
 
   if (clients.length === 0) {
-    return <EmptyState icon={Users} title="Aucun client" description="Ajoutez votre premier client." action={<a href={withCreateModalQuery("/vente/clients")} className="bg-primary text-white px-4 py-2 rounded-xl">+ Ajouter</a>} />;
+    return (
+      <EmptyState
+        icon={Users}
+        title="Aucun client"
+        description="Ajoutez votre premier client."
+        action={
+          <PrimaryActionButton href={withCreateModalQuery("/vente/clients")}>
+            Nouveau client
+          </PrimaryActionButton>
+        }
+      />
+    );
   }
 
   return (

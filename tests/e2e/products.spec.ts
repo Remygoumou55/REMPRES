@@ -18,7 +18,7 @@ test.describe("Produits — création", () => {
 
     await expect(page.getByRole("heading", { name: "Produits" })).toBeVisible();
 
-    await page.getByRole("link", { name: "+ Nouveau produit" }).click();
+    await page.getByRole("link", { name: /Nouveau produit/i }).click();
     const dialog = page.getByRole("dialog", { name: "Nouveau produit" });
     await expect(dialog).toBeVisible();
 

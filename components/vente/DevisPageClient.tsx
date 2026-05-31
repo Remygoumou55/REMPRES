@@ -3,8 +3,9 @@
 import { memo, useMemo, useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FileText, Plus, Search, Trash2 } from "lucide-react";
+import { FileText, Search, Trash2 } from "lucide-react";
 import { Modal } from "@/components/ui/modal";
+import { PrimaryActionButton } from "@/components/ui/primary-action-button";
 import QuoteForm from "@/components/vente/QuoteForm";
 import { deleteQuoteAction, getQuotePdfAction } from "@/app/(app)/vente/devis/actions";
 import type { Quote, QuoteStatus } from "@/lib/server/quotes";
@@ -200,14 +201,9 @@ function DevisPageClientInner({ quotes, clients, products, stats }: Props) {
             );
           })}
         </div>
-        <button
-          type="button"
-          onClick={() => setShowCreateModal(true)}
-          className="btn-primary inline-flex items-center gap-2 text-sm"
-        >
-          <Plus className="h-4 w-4" />
+        <PrimaryActionButton type="button" onClick={() => setShowCreateModal(true)}>
           Nouveau devis
-        </button>
+        </PrimaryActionButton>
       </div>
 
       <div className="relative">

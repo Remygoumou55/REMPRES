@@ -10,6 +10,7 @@ import { ProductsRowActions } from "@/components/vente/produits/products-row-act
 import { useGlobalSearch } from "@/lib/hooks/use-global-search";
 import { GLOBAL_LIST_SEARCH_DEBOUNCE_MS } from "@/lib/data-listing";
 import { withCreateModalQuery } from "@/lib/routing/modal-query";
+import { PrimaryActionButton } from "@/components/ui/primary-action-button";
 import { useRowSelection } from "@/lib/hooks/use-row-selection";
 import { ConfirmDangerDialog } from "@/components/ui/confirm-danger-dialog";
 import { BulkDeleteActionBar } from "@/components/ui/bulk-delete-action-bar";
@@ -329,7 +330,18 @@ export function ProductsTable({
   const totalQty = useMemo(() => rows.reduce((s, p) => s + p.stock_quantity, 0), [rows]);
 
   if (products.length === 0) {
-    return <EmptyState icon={Package} title="Aucun produit" description="Ajoutez votre premier produit." action={<a href={withCreateModalQuery("/vente/produits")} className="bg-primary text-white px-4 py-2 rounded-xl">+ Ajouter</a>} />;
+    return (
+      <EmptyState
+        icon={Package}
+        title="Aucun produit"
+        description="Ajoutez votre premier produit."
+        action={
+          <PrimaryActionButton href={withCreateModalQuery("/vente/produits")}>
+            Nouveau produit
+          </PrimaryActionButton>
+        }
+      />
+    );
   }
 
   return (

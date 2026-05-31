@@ -21,6 +21,7 @@ import { ClientForm, type ClientFormActionResult } from "@/components/forms/clie
 import type { ClientType } from "@/types/client";
 import { mapClientError } from "@/lib/server/client-error-messages";
 import { withCreateModalQuery } from "@/lib/routing/modal-query";
+import { PrimaryActionButton } from "@/components/ui/primary-action-button";
 import { revalidateClients } from "@/lib/cache/revalidation-map";
 import { ClientsExportButton } from "@/components/vente/clients/ClientsExportButton";
 
@@ -145,12 +146,9 @@ export default async function ClientsPage({ searchParams }: ClientsPageProps) {
                 </Link>
               ) : null}
               {permissions.canCreate ? (
-                <a
-                  href={withCreateModalQuery("/vente/clients")}
-                  className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-primary-dark"
-                >
-                  + Nouveau client
-                </a>
+                <PrimaryActionButton href={withCreateModalQuery("/vente/clients")}>
+                  Nouveau client
+                </PrimaryActionButton>
               ) : null}
             </div>
           }

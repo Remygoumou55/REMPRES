@@ -15,6 +15,7 @@ import { ModulePageStack } from "@/components/ui/module-page-stack";
 import { ProductForm } from "@/components/forms/product-form";
 import { mapProductError } from "@/lib/server/product-error-messages";
 import { withCreateModalQuery } from "@/lib/routing/modal-query";
+import { PrimaryActionButton } from "@/components/ui/primary-action-button";
 import { revalidateProduits } from "@/lib/cache/revalidation-map";
 
 export const dynamic = "force-dynamic";
@@ -130,12 +131,9 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                   </Link>
                 ) : null}
                 {permissions.canCreate ? (
-                  <a
-                    href={withCreateModalQuery("/vente/produits")}
-                    className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-primary-dark"
-                  >
-                    + Nouveau produit
-                  </a>
+                  <PrimaryActionButton href={withCreateModalQuery("/vente/produits")}>
+                    Nouveau produit
+                  </PrimaryActionButton>
                 ) : null}
               </div>
             ) : null

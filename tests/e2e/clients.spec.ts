@@ -18,7 +18,7 @@ test.describe("Clients — création", () => {
 
     await expect(page.getByRole("heading", { name: "Clients" })).toBeVisible();
 
-    await page.getByRole("link", { name: "+ Nouveau client" }).click();
+    await page.getByRole("link", { name: /Nouveau client/i }).click();
     const dialog = page.getByRole("dialog", { name: "Nouveau client" });
     await expect(dialog).toBeVisible();
 

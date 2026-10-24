@@ -21,12 +21,12 @@
 
 create or replace function pg_temp.__sa_email() returns text
 language sql immutable as $$
-  select lower(trim('remygoumou55@gmail.com'))
+  select lower(trim('CHANGE_ME_EMAIL'))
 $$;
 
 create or replace function pg_temp.__sa_new_password() returns text
 language sql immutable as $$
-  select 'RemPres2026!Admin'
+  select 'CHANGE_ME_PASSWORD'
 $$;
 
 -- ---------------------------------------------------------------------------
@@ -45,6 +45,11 @@ begin
   ) then
     raise exception '⛔  L''extension pgcrypto n''est pas activée. '
       'Active-la via Supabase Dashboard → Database → Extensions → "pgcrypto".';
+  end if;
+
+  -- 1.0  Paramètres renseignés ? (ne jamais commiter les vraies valeurs)
+  if v_email = lower('CHANGE_ME_EMAIL') or v_password = 'CHANGE_ME_PASSWORD' then
+    raise exception '⛔  Renseigne __sa_email() et __sa_new_password() (section 0) avant d''exécuter. Ne commite jamais ces valeurs.';
   end if;
 
   -- 1.b  Mot de passe assez long ?
@@ -101,9 +106,8 @@ where lower(au.email) = pg_temp.__sa_email();
 -- ÉTAPES SUIVANTES
 --
 -- 1) Ouvre https://rempres.com/login
--- 2) Email   : la valeur de __sa_email() (par défaut remygoumou55@gmail.com)
--- 3) Mot de passe : la valeur de __sa_new_password() (par défaut
---    RemPres2026!Admin)
+-- 2) Email   : la valeur saisie dans __sa_email()
+-- 3) Mot de passe : la valeur saisie dans __sa_new_password()
 -- 4) Une fois connecté, change-le immédiatement depuis ton profil pour le
 --    remplacer par une valeur connue de toi seul.
 --

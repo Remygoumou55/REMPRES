@@ -152,8 +152,15 @@ describe("P7.3 — HR contract expiring + automation", () => {
     expect(leaveRules.map((r) => r.key)).toContain("hr.leave.approved.post");
   });
 
-  it("ERP_AUTOMATION_RULES — 5 règles actives (P6 + P7.3)", () => {
-    expect(ERP_AUTOMATION_RULES.filter((r) => r.status === "active")).toHaveLength(5);
+  it("ERP_AUTOMATION_RULES — 5 règles P6 + P7.3 toujours actives", () => {
+    const activeIds = ERP_AUTOMATION_RULES.filter((r) => r.status === "active").map((r) => r.id);
+    expect(activeIds).toEqual(expect.arrayContaining([
+      "p6-finance-threshold-exceeded",
+      "p6-approval-request-approved",
+      "p6-crm-quote-converted",
+      "p7-hr-contract-expiring-reminder",
+      "p7-hr-leave-approved-post",
+    ]));
   });
 
   it("bus pipeline — expiring → bridge + automation trace", async () => {

@@ -4,7 +4,6 @@ import { join } from "node:path";
 import {
   ERP_GOVERNANCE_STANDARD_VERSION,
   ERP_REFERENCE_DEPARTMENT_KEY,
-  VENTE_REFERENCE_KPI_SOURCES,
   VENTE_ERP_STANDARD_SLOTS,
 } from "@/lib/erp-core/governance/standard";
 import { COCKPIT_ZONE_ORDER } from "@/lib/navigation/erp-ux-architecture";

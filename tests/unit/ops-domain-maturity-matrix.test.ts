@@ -76,9 +76,16 @@ describe("Operations domain maturity matrix — Bloc 3 Étape 5", () => {
     },
     {
       area: "UI — task actions",
-      expected: "OpsTaskRowActions",
-      check: () =>
-        readSrc("app/(app)/operations/tasks/page.tsx").includes("OpsTaskRowActions"),
+      expected: "TaskStatusButton + deleteTaskAction",
+      check: () => {
+        const page = readSrc("app/(app)/operations/tasks/page.tsx");
+        const list = readSrc("components/operations/OperationsTasksClient.tsx");
+        return (
+          page.includes("OperationsTasksClient") &&
+          list.includes("TaskStatusButton") &&
+          list.includes("deleteTaskAction")
+        );
+      },
     },
     {
       area: "Governance — write registry",

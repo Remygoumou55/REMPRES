@@ -1,5 +1,6 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
-import { DEPARTMENT_KEYS } from "@/lib/departments/department-config";
+import { DEPARTMENT_KEYS, type DepartmentKey } from "@/lib/departments/department-config";
+import type { ProfileAuthBrief } from "@/lib/server/permissions";
 
 vi.mock("@/lib/server/auth-session", () => ({
   getServerSessionUser: vi.fn(),
@@ -18,12 +19,17 @@ import {
   assertApiRhModuleAccess,
 } from "@/lib/server/api-route-guard";
 
-const brief = (roleKey: string, departmentKey: string | null, authorityDepartmentKey: string | null = null) => ({
+const brief = (
+  roleKey: string,
+  departmentKey: DepartmentKey | null,
+  authorityDepartmentKey: DepartmentKey | null = null,
+): ProfileAuthBrief => ({
   roleKey,
+  systemAuthority: null,
   departmentKey,
   departmentId: null,
   authorityDepartmentKey: authorityDepartmentKey ?? departmentKey,
-  authorityDriftFlags: [] as const,
+  authorityDriftFlags: [],
   ok: true,
   supervisionScope: "departmental" as const,
 });

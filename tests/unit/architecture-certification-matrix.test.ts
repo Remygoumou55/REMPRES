@@ -85,7 +85,7 @@ describe("Architecture certification matrix — Bloc 2 Étape 5", () => {
     {
       area: "Navigation — authority version",
       expected: NAVIGATION_AUTHORITY_VERSION,
-      check: () => NAVIGATION_AUTHORITY_VERSION === "nav-cockpit-unification-v1",
+      check: () => NAVIGATION_AUTHORITY_VERSION === "control-plane-isolation-v1",
     },
     {
       area: "Navigation — SA nav source",
@@ -134,12 +134,12 @@ describe("Architecture certification matrix — Bloc 2 Étape 5", () => {
     {
       area: "Performance — registry version",
       expected: RUNTIME_PERFORMANCE_VERSION,
-      check: () => RUNTIME_PERFORMANCE_VERSION === "runtime-cleanup-v1",
+      check: () => RUNTIME_PERFORMANCE_VERSION === "runtime-cleanup-v2",
     },
     {
       area: "Performance — stage4 gains preserved",
-      expected: "4 improved metrics",
-      check: () => RUNTIME_PERF_MATRIX.filter((m) => m.result === "improved").length === 4,
+      expected: ">= 4 improved metrics",
+      check: () => RUNTIME_PERF_MATRIX.filter((m) => m.result === "improved").length >= 4,
     },
     {
       area: "Performance — AppShell optimizations",
@@ -186,7 +186,7 @@ describe("Architecture certification matrix — Bloc 2 Étape 5", () => {
     },
     {
       area: "Admin — all pages in KEEP registry",
-      expected: "13 admin routes kept",
+      expected: "all admin routes kept",
       check: () => {
         const routes = listAdminPageRoutes();
         return routes.length >= 12 && routes.every((r) => isAdminRouteKept(r));

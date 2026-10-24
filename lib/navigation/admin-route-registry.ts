@@ -20,6 +20,9 @@ export const ADMIN_ROUTE_KEEP_PREFIXES = [
   "/admin/suppressions",
   "/admin/users",
   "/admin/departments",
+  "/admin/platform",
+  "/admin/automation",
+  "/admin/observability",
 ] as const;
 
 export type AdminRouteDisposition = "KEEP" | "ARCHIVE" | "DELETE";
@@ -55,4 +58,7 @@ export const ADMIN_APP_SEGMENTS_KEPT = [
   "global-dashboard",
   "users",
   "departments",
+  "platform",
+  "automation",
+  "observability",
 ] as const;

@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { NAV_CONFIG } from "@/lib/constants/nav-config";
+import { NAV_CONFIG as RAW_NAV_CONFIG, type NavSection } from "@/lib/constants/nav-config";
 import { ROUTES } from "@/lib/constants/routes";
+
+const NAV_CONFIG: readonly NavSection[] = RAW_NAV_CONFIG;
 
 describe("actions hub navigation (NAV_CONFIG source)", () => {
   it("has no Métier section", () => {

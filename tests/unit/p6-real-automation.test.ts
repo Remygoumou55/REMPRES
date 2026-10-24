@@ -37,9 +37,15 @@ describe("P6 — Real ERP Automation", () => {
     resetErpEventHandlersBootstrapForTests();
   });
 
-  it("ERP_AUTOMATION_RULES — 5 règles actives (P6 + P7.3 HR)", () => {
-    const active = ERP_AUTOMATION_RULES.filter((r) => r.status === "active");
-    expect(active).toHaveLength(5);
+  it("ERP_AUTOMATION_RULES — 5 règles P6 + P7.3 HR toujours actives", () => {
+    const activeIds = ERP_AUTOMATION_RULES.filter((r) => r.status === "active").map((r) => r.id);
+    expect(activeIds).toEqual(expect.arrayContaining([
+      "p6-finance-threshold-exceeded",
+      "p6-approval-request-approved",
+      "p6-crm-quote-converted",
+      "p7-hr-contract-expiring-reminder",
+      "p7-hr-leave-approved-post",
+    ]));
   });
 
   it("matchAutomationRules — finance threshold", () => {

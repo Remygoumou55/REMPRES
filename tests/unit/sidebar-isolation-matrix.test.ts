@@ -79,7 +79,8 @@ const MATRIX: MatrixRow[] = [
     departmentKey: DEPARTMENT_KEYS.ADMINISTRATION,
     expectMode: "department_business",
     expectDept: DEPARTMENT_KEYS.ADMINISTRATION,
-    allowedGroupIds: ["actions"],
+    // Sidebar Administration retirée (845b969) — gouvernance via /actions.
+    allowedGroupIds: [],
     forbiddenGroupIds: ["commerce", "finance", "crm", "rh", "settings"],
   },
   {

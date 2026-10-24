@@ -29,7 +29,7 @@ describe("Nav + cockpit unification matrix — Bloc 2 Étape 3", () => {
     {
       area: "Navigation version",
       expected: NAVIGATION_AUTHORITY_VERSION,
-      check: () => NAVIGATION_AUTHORITY_VERSION === "nav-cockpit-unification-v1",
+      check: () => NAVIGATION_AUTHORITY_VERSION === "control-plane-isolation-v1",
     },
     {
       area: "SA nav source",
@@ -76,8 +76,10 @@ describe("Nav + cockpit unification matrix — Bloc 2 Étape 3", () => {
     },
     {
       area: "SA cockpit frozen",
-      expected: COCKPIT_SURFACES.super_admin_frozen.frozen === true,
-      check: () => COCKPIT_SURFACES.super_admin_frozen.uiComponent === "SuperAdminCockpitClient",
+      expected: "frozen SuperAdminCockpitClient",
+      check: () =>
+        COCKPIT_SURFACES.super_admin_frozen.frozen === true &&
+        COCKPIT_SURFACES.super_admin_frozen.uiComponent === "SuperAdminCockpitClient",
     },
     {
       area: "Shadow VenteCockpitClient",

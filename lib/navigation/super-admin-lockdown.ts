@@ -31,8 +31,8 @@ export function resolveGovernanceChromeBand(
 }
 
 const SIDEBAR_CHILD_COUNTS: Record<(typeof SUPER_ADMIN_OFFICIAL_RAIL_GROUP_IDS)[number], number> = {
-  actions: 2,
-  archives: 7,
+  actions: 3,
+  archives: 6,
   admin: 8,
 };
 
@@ -70,8 +70,8 @@ export function validateSuperAdminNavGroups(groups: readonly SuperAdminNavGroupD
   }
 
   const deptItem = findNavItemByKey("departements");
-  if (!deptItem?.children || deptItem.children.length !== 7) {
-    errors.push(`departements must have 7 children, got ${deptItem?.children?.length ?? 0}`);
+  if (!deptItem?.children || deptItem.children.length !== 6) {
+    errors.push(`departements must have 6 children, got ${deptItem?.children?.length ?? 0}`);
   }
 
   const adminItem = findNavItemByKey("admin");

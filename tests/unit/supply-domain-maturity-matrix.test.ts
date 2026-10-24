@@ -78,9 +78,15 @@ describe("Supply domain maturity matrix — Bloc 3 Étape 4", () => {
     },
     {
       area: "UI — PO actions",
-      expected: "LogisticsPurchaseOrderRowActions",
-      check: () =>
-        readSrc("app/(app)/logistique/achats/page.tsx").includes("LogisticsPurchaseOrderRowActions"),
+      expected: "approve / receive / cancel PO actions",
+      check: () => {
+        const src = readSrc("app/(app)/logistique/achats/page.tsx");
+        return (
+          src.includes("approvePurchaseOrderAction") &&
+          src.includes("receivePurchaseOrderAction") &&
+          src.includes("cancelPurchaseOrderAction")
+        );
+      },
     },
     {
       area: "Governance — write registry",

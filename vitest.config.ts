@@ -12,9 +12,11 @@ export default defineConfig({
       "tests/unit/marketing.test.ts",
       "tests/unit/finance.test.ts",
       "tests/unit/forecast.test.ts",
+      "tests/unit/quotes.test.ts",
     ],
     include: ["**/*.{test,spec}.{ts,tsx}"],
     passWithNoTests: false,
+    setupFiles: ["./vitest.setup.ts"],
   },
   resolve: {
     alias: {

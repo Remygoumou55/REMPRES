@@ -26,7 +26,7 @@ describe("M3.5 UX P0 — home routes", () => {
       DEPARTMENT_KEYS.FORMATION,
     );
     expect(resolvePostLoginRoute(ROLE_KEYS.MANAGER, DEPARTMENT_KEYS.CONSULTATION)).toBe(
-      "/formation/dashboard",
+      "/dept/formation",
     );
   });
 

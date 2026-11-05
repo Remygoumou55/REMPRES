@@ -241,10 +241,10 @@ ol.steps > li::before {
 .center { text-align: center; }
 .pagebreak { break-before: page; }
 .keep { break-inside: avoid; }
-.quote { font-size: 13pt; font-weight: 600; color: var(--navy); border-left: 4pt solid var(--orange); padding: 4pt 0 4pt 12pt; margin: 12pt 0; }
+.quote { break-inside: avoid; font-size: 13pt; font-weight: 600; color: var(--navy); border-left: 4pt solid var(--orange); padding: 4pt 0 4pt 12pt; margin: 12pt 0; }
 
 /* Fiches à remplir (bonus) */
-.fill td.blank { border-bottom: 1px solid #9fb0c2; min-width: 30mm; height: 16pt; background: #fff !important; }
+.fill td.blank { border-bottom: 1px solid #9fb0c2; min-width: 30mm; height: 14pt; background: #fff !important; }
 .score td.dots { white-space: nowrap; letter-spacing: 6pt; color: #9fb0c2; font-size: 11pt; }
 .lines { border-bottom: 1px solid #b9c6d4; height: 18pt; }
 table.data.gloss { font-size: 8.4pt; break-inside: auto; }

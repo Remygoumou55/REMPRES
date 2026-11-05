@@ -35,9 +35,25 @@ const CAPTURES = {
   14: 'Confirmation de paiement',
   15: 'Mon Alibaba : mes commandes',
   16: 'Registre de paiement : remboursement',
+  17: 'Profil personnel et sécurité du compte',
+  18: 'Famille 1 : carte bancaire liée à un compte',
+  19: 'Famille 2 : carte prépayée',
+  20: 'Famille 3 : carte virtuelle sur le téléphone',
+  21: 'Famille 4 : portefeuilles en ligne',
+  22: 'Famille 5 : virement bancaire international',
+  23: 'Écran « Paiement refusé »',
+  24: 'Le code de confirmation reçu par SMS',
+  25: 'Les réglages de la carte dans l\'appli bancaire',
+  26: 'Transitaire sérieux sur Facebook',
+  27: 'Transitaire douteux sur Facebook',
+  28: 'Transitaire sérieux sur TikTok',
+  29: 'Transitaire douteux sur TikTok',
+  30: 'Le lien de commande envoyé par le fournisseur',
+  31: 'Un vrai carton avec son marquage',
+  32: 'Le formulaire de demande de remboursement',
 };
 
-function captureHtml(n) {
+function captureHtml(n, variant = '') {
   const pad = String(n).padStart(2, '0');
   const label = CAPTURES[n] || '';
   const imgDir = join(ROOT, 'images');
@@ -47,11 +63,12 @@ function captureHtml(n) {
   const inner = file
     ? `<img src="../images/${file}" alt="${label}">`
     : `<div class="placeholder"><b>${pad}</b>Capture d'écran<br>« ${label} »</div>`;
-  return `<figure class="capture">${inner}<figcaption>Illustration ${pad} — ${label} (données fictives ; l'interface réelle peut différer selon la version de l'application)</figcaption></figure>`;
+  const note = variant === 'sq' ? '' : " (données fictives ; l'interface réelle peut différer)";
+  return `<figure class="capture ${variant}">${inner}<figcaption>Illustration ${pad} — ${label}${note}</figcaption></figure>`;
 }
 
 function expand(html) {
-  return html.replace(/\{\{capture:(\d+)\}\}/g, (_, n) => captureHtml(Number(n)));
+  return html.replace(/\{\{capture:(\d+)(?::(\w+))?\}\}/g, (_, n, v) => captureHtml(Number(n), v || ''));
 }
 
 function page(title, body) {
@@ -76,6 +93,7 @@ function tocPages(pdfPath) {
   for (let p = 1; p <= n; p++) {
     const txt = execFileSync('pdftotext', ['-f', String(p), '-l', String(p), '-layout', pdfPath, '-']).toString();
     for (const m of txt.matchAll(/CHAPITRE (\d\d)/g)) if (!found[m[1]]) found[m[1]] = p;
+    if (/ANNEXE/.test(txt) && !found.LX) found.LX = p;
     for (const m of txt.matchAll(/\[\[(BONUS|ANNEXE)-(\w+)\]\]/g)) if (!found[m[2]]) found[m[2]] = p;
   }
   return { found, n };

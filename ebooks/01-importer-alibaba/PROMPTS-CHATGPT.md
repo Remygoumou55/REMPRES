@@ -1,5 +1,7 @@
 # Prompts ChatGPT : captures de l'application Alibaba
 
+> **LOT 1 (images 01 à 16) : TERMINÉ.** Ces 16 images sont déjà dans le livre, il ne faut PAS les refaire. Les prompts ci-dessous sont gardés pour mémoire. **Allez directement au LOT 2 en bas du fichier.**
+
 ## Prompt de départ (à coller une seule fois)
 Tu vas générer une série d'images pour illustrer un e-book pédagogique. Chaque image est une capture d'écran réaliste de l'application mobile Alibaba.com, affichée dans un smartphone moderne (format portrait 9:16, cadre de téléphone fin, fond blanc uni autour). Interface en FRANÇAIS, couleurs fidèles à Alibaba.com (orange #FF6A00, blanc, gris clair). Textes nets, lisibles et sans fautes. Prix en dollars US ($). N'utilise aucune vraie photo de personne. Garde exactement le même style, le même téléphone et la même taille pour toutes les images de la série. Je vais te demander les écrans un par un.
 
@@ -25,7 +27,9 @@ Vérifiez l'orthographe du texte dans chaque image avant de l'envoyer.
 
 ---
 
-# LOT 2 : nouvelles images (17 à 32)
+# LOT 2 : nouvelles images (17 à 32) — À GÉNÉRER
+
+> Déjà faites et validées : 17 et 23 (à me renvoyer en fichier). **Reste à générer : 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29, 30, 31, 32 (14 images).**
 
 ## Règles à coller AVANT chaque image (ou une seule fois en début de conversation)
 Règles strictes pour toutes les images de cette série :

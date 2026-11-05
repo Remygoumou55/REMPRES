@@ -47,7 +47,7 @@ function captureHtml(n) {
   const inner = file
     ? `<img src="../images/${file}" alt="${label}">`
     : `<div class="placeholder"><b>${pad}</b>Capture d'écran<br>« ${label} »</div>`;
-  return `<figure class="capture">${inner}<figcaption>Écran ${pad} — ${label} (l'interface peut évoluer selon la version de l'application)</figcaption></figure>`;
+  return `<figure class="capture">${inner}<figcaption>Illustration ${pad} — ${label} (données fictives ; l'interface réelle peut différer selon la version de l'application)</figcaption></figure>`;
 }
 
 function expand(html) {

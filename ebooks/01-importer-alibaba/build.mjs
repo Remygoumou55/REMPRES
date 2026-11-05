@@ -90,6 +90,7 @@ async function render(browser, name, title, body, withToc) {
   const go = async (h) => {
     writeFileSync(htmlPath, h);
     await pg.goto('file://' + htmlPath, { waitUntil: 'networkidle' });
+    await pg.evaluate(() => document.fonts.ready);
     await pg.pdf({ path: pdfPath, preferCSSPageSize: true, printBackground: true });
   };
   await go(html);

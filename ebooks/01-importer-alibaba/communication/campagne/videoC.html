@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<style>
+  /* Identité C « Le débutant perdu » : indigo + jaune soleil, Poppins */
+  @font-face { font-family: "Pop"; font-weight: 800; src: url(assets/pop-800.woff2) format("woff2"); }
+  @font-face { font-family: "Pop"; font-weight: 700; src: url(assets/pop-700.woff2) format("woff2"); }
+  :root { --bg: #17134a; --y: #ffcc33; --w: #ffffff; --l: #b9b4ff; --r: #ff6b6b; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--bg); color: var(--w); font-family: "Inter", sans-serif; }
+  .bg { position: absolute; inset: 0; background: radial-gradient(70% 45% at 30% 20%, #3b2fa6 0%, transparent 70%), radial-gradient(60% 40% at 85% 80%, #5b2a8c 0%, transparent 70%), var(--bg); }
+  section { position: absolute; inset: 0; }
+  [data-in] { position: absolute; will-change: transform, opacity; }
+  .P { font-family: "Pop"; font-weight: 800; line-height: 1.05; letter-spacing: -1px; }
+  .y { color: var(--y); } .c { left: 0; right: 0; text-align: center; }
+  .vid { width: 300px; height: 380px; border-radius: 26px; background: linear-gradient(160deg, #2c2580, #120f3a); border: 3px solid rgba(255,255,255,.18);
+    box-shadow: 0 20px 50px rgba(0,0,0,.45); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; padding: 20px; text-align: center; }
+  .vid .pl { width: 90px; height: 90px; border-radius: 50%; background: rgba(255,255,255,.18); display: flex; align-items: center; justify-content: center; font-size: 44px; }
+  .vid .t { font-family: "Pop"; font-weight: 700; font-size: 34px; line-height: 1.15; }
+  .num { width: 120px; height: 120px; border-radius: 50%; background: var(--y); color: #17134a; font-family: "Pop"; font-weight: 800; font-size: 64px; display: flex; align-items: center; justify-content: center; }
+  .step { left: 50px; width: 630px; height: 128px; display: flex; align-items: center; gap: 26px; font-family: "Pop"; font-weight: 700; font-size: 44px; }
+  .step i { flex: 0 0 92px; height: 92px; border-radius: 50%; background: var(--y); color: #17134a; font-style: normal; font-weight: 800; font-size: 48px; display: flex; align-items: center; justify-content: center; font-family: "Pop"; }
+  .step b { color: #7ef0a8; font-size: 52px; margin-left: auto; }
+  .thumb { left: 690px; top: 540px; width: 340px; height: 680px; border-radius: 40px; background: #07061a; padding: 12px; box-shadow: 0 0 0 4px #3a3399, 0 30px 80px rgba(0,0,0,.6); }
+  .thumb .scr { position: relative; width: 100%; height: 100%; border-radius: 30px; overflow: hidden; background: #fff; }
+  .thumb .scr img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .btn { left: 100px; right: 100px; height: 150px; border-radius: 80px; background: var(--y); color: #17134a; font-family: "Pop"; font-weight: 800; font-size: 62px;
+    display: flex; align-items: center; justify-content: center; box-shadow: 0 20px 50px rgba(255,204,51,.3); }
+  .mm { left: 0; right: 0; text-align: center; font-size: 38px; font-weight: 700; }
+  .mm span { background: rgba(255,255,255,.1); border: 2px solid rgba(255,255,255,.25); padding: 10px 26px; border-radius: 40px; }
+  #cap { position: absolute; left: 60px; right: 60px; bottom: 210px; text-align: center; }
+  #cap span { display: inline; font-size: 50px; font-weight: 800; line-height: 1.4; background: rgba(10,8,40,.8); color: #fff; padding: 6px 18px; border-radius: 10px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+</style></head>
+<body>
+<div class="bg"></div>
+
+<!-- ACCROCHE 1 : « Tu ne manques pas de vidéos, de cours, de formation. Tu manques d'un ordre. » -->
+<section data-part="h1">
+  <div class="vid" data-in="0" data-out="2.9" data-a="pop" data-rot="-8" style="left:60px;top:240px"><div class="pl">▶</div><div class="t">Vidéo</div></div>
+  <div class="vid" data-in="0.35" data-out="2.9" data-a="pop" data-rot="6" style="left:390px;top:200px"><div class="pl">▶</div><div class="t">Cours</div></div>
+  <div class="vid" data-in="0.7" data-out="2.9" data-a="pop" data-rot="-4" style="left:720px;top:260px"><div class="pl">▶</div><div class="t">Formation</div></div>
+  <div class="c P" data-in="0" data-out="2.9" data-a="rise" style="top:760px;font-size:90px">Tu ne manques pas<br>de vidéos.</div>
+  <div class="c P" data-in="3.02" data-a="rise" style="top:640px;font-size:100px">Tu manques</div>
+  <div class="c P y" data-in="3.2" data-a="slam" data-d=".4" style="top:770px;font-size:170px">d'un ordre.</div>
+</section>
+
+<!-- ACCROCHE 2 : « 0 franc. 10 000. 100 000. Personne n'est d'accord… et toi, tu restes bloqué. » -->
+<section data-part="h2">
+  <div class="c P" data-in="0" data-out="2.55" data-a="slam" data-d=".35" style="top:300px;font-size:170px">0 F</div>
+  <div class="c P y" data-in="0.9" data-out="2.55" data-a="slam" data-d=".35" style="top:520px;font-size:170px">10 000 F</div>
+  <div class="c P" data-in="1.63" data-out="2.55" data-a="slam" data-d=".35" style="top:740px;font-size:170px;color:var(--r)">100 000 F</div>
+  <div class="c P" data-in="2.64" data-a="rise" style="top:420px;font-size:100px">Personne n'est<br>d'accord…</div>
+  <div class="c P y" data-in="3.97" data-a="shake" style="top:780px;font-size:120px">et toi, tu restes<br>bloqué.</div>
+</section>
+
+<!-- ACCROCHE 3 : « Arrête de regarder des vidéos sur l'importation… » -->
+<section data-part="h3">
+  <div class="vid" data-in="0" data-a="fade" data-y0="0" data-y1="-420" data-ys="0" data-yd="4.3" style="left:80px;top:1250px"><div class="pl">▶</div><div class="t">Importer de Chine</div></div>
+  <div class="vid" data-in="0" data-a="fade" data-y0="0" data-y1="-560" data-ys="0" data-yd="4.3" style="left:400px;top:1420px"><div class="pl">▶</div><div class="t">Alibaba facile</div></div>
+  <div class="vid" data-in="0" data-a="fade" data-y0="0" data-y1="-480" data-ys="0" data-yd="4.3" style="left:720px;top:1300px"><div class="pl">▶</div><div class="t">Le secret</div></div>
+  <div class="c P y" data-in="0" data-a="slam" data-d=".4" style="top:230px;font-size:150px">STOP.</div>
+  <div class="c P" data-in="0.8" data-a="rise" style="top:430px;font-size:84px">Arrête de regarder<br>des vidéos partout.</div>
+</section>
+
+<!-- CORPS -->
+<section data-part="body">
+  <!-- S1 : 6 étapes dans l'ordre (0 – 5,3) -->
+  <div class="c P" data-in="0" data-out="5.4" data-a="slam" data-d=".4" style="top:300px;font-size:150px">6 étapes</div>
+  <div class="c P y" data-in="1.39" data-out="5.4" data-a="rise" style="top:480px;font-size:110px">dans l'ordre</div>
+  <div class="num" data-in="2.1" data-out="5.4" data-a="pop" style="left:90px;top:780px">1</div>
+  <div class="num" data-in="2.4" data-out="5.4" data-a="pop" style="left:240px;top:780px">2</div>
+  <div class="num" data-in="2.7" data-out="5.4" data-a="pop" style="left:390px;top:780px">3</div>
+  <div class="num" data-in="3.0" data-out="5.4" data-a="pop" style="left:540px;top:780px">4</div>
+  <div class="num" data-in="3.3" data-out="5.4" data-a="pop" style="left:690px;top:780px">5</div>
+  <div class="num" data-in="3.6" data-out="5.4" data-a="pop" style="left:840px;top:780px">6</div>
+  <div class="c P" data-in="3.9" data-out="5.4" data-a="rise" style="top:980px;font-size:64px">➜ ta 1<sup>re</sup> commande</div>
+
+  <!-- S2 : le chaos (5,6 – 12,25) -->
+  <div class="vid" data-in="5.61" data-out="12.3" data-a="shake" data-rot="-6" style="left:70px;top:230px"><div class="pl">▶</div><div class="t">« Commence<br>par ici ! »</div></div>
+  <div class="vid" data-in="7.6" data-out="12.3" data-a="shake" data-rot="7" style="left:700px;top:260px"><div class="pl">▶</div><div class="t">« Non,<br>par là ! »</div></div>
+  <div class="vid" data-in="8.1" data-out="12.3" data-a="shake" data-rot="-3" style="left:390px;top:330px"><div class="pl">▶</div><div class="t">« Budget<br>100 000 F »</div></div>
+  <div class="c P" data-in="9.07" data-out="12.3" data-a="rise" style="top:800px;font-size:84px">Résultat :</div>
+  <div class="c P" data-in="9.6" data-out="12.3" data-a="slam" data-d=".4" style="top:900px;font-size:130px;color:var(--r)">0 commande</div>
+  <div class="c P y" data-in="11.28" data-out="12.3" data-a="pop" style="top:1110px;font-size:100px">Confus ?</div>
+
+  <!-- S3 : l'ordre clair (12,4 – 26,9) -->
+  <div class="c P" data-in="12.37" data-out="27.0" data-a="rise" style="top:200px;font-size:84px">Ce qu'il te faut :</div>
+  <div class="c P y" data-in="13.2" data-out="27.0" data-a="rise" style="top:300px;font-size:100px">un ordre clair</div>
+  <div class="step" data-in="14.86" data-out="27.0" data-a="left" style="top:480px"><i>1</i>Créer ton compte<b data-in="15.6" data-out="27.0" data-a="pop" style="position:static">✓</b></div>
+  <div class="step" data-in="16.52" data-out="27.0" data-a="left" style="top:620px"><i>2</i>Choisir ton produit<b data-in="17.3" data-out="27.0" data-a="pop" style="position:static">✓</b></div>
+  <div class="step" data-in="18.48" data-out="27.0" data-a="left" style="top:760px"><i>3</i>Vérifier le fournisseur<b data-in="19.4" data-out="27.0" data-a="pop" style="position:static">✓</b></div>
+  <div class="step" data-in="20.67" data-out="27.0" data-a="left" style="top:900px"><i>4</i>Payer protégé<b data-in="21.6" data-out="27.0" data-a="pop" style="position:static">✓</b></div>
+  <div class="step" data-in="23.01" data-out="27.0" data-a="left" style="top:1040px"><i>5</i>Calculer le transport<b data-in="23.9" data-out="27.0" data-a="pop" style="position:static">✓</b></div>
+  <div class="step" data-in="25.12" data-out="27.0" data-a="left" style="top:1180px"><i>6</i>Recevoir ton colis<b data-in="25.9" data-out="27.0" data-a="pop" style="position:static">✓</b></div>
+  <div class="thumb" data-in="14.86" data-out="27.0" data-a="right"><div class="scr">
+    <img data-in="14.86" data-out="16.62" data-a="fade" data-d=".3" src="assets/cap-02.jpg" alt="">
+    <img data-in="16.52" data-out="18.58" data-a="fade" data-d=".3" src="assets/cap-05.jpg" alt="">
+    <img data-in="18.48" data-out="20.77" data-a="fade" data-d=".3" src="assets/cap-08.jpg" alt="">
+    <img data-in="20.67" data-out="23.11" data-a="fade" data-d=".3" src="assets/cap-13.jpg" alt="">
+    <img data-in="23.01" data-out="25.22" data-a="fade" data-d=".3" src="assets/page-cbm.png" alt="">
+    <img data-in="25.12" data-out="27.0" data-a="fade" data-d=".3" src="assets/cap-31.jpg" alt="">
+  </div></div>
+
+  <!-- S4 : le plan du guide (27,2 – 37,9) -->
+  <div class="c P" data-in="27.16" data-out="34.5" data-a="rise" style="top:180px;font-size:72px">C'est le plan du guide</div>
+  <img data-in="27.4" data-out="34.5" data-a="zoom" src="assets/cover.png" alt="" style="left:110px;top:360px;width:400px;border-radius:10px;box-shadow:0 40px 100px rgba(0,0,0,.6)">
+  <div class="thumb" data-in="28.2" data-out="34.5" data-a="right" style="left:580px;top:330px;width:400px;height:800px"><div class="scr">
+    <img data-in="28.2" data-out="34.5" data-a="fade" data-y0="0" data-y1="-260" data-ys="30.5" data-yd="3.5" src="assets/page-plan-122.png" alt="" style="height:auto"></div></div>
+  <div class="c P y" data-in="30.47" data-out="34.5" data-a="rise" style="top:1180px;font-size:66px">Plan de 30 jours pour<br>ta 1<sup>re</sup> commande</div>
+  <div class="c P" data-in="34.64" data-out="38.0" data-a="rise" style="top:500px;font-size:110px">Arrête de<br>regarder.</div>
+  <div class="c P y" data-in="36.76" data-out="38.0" data-a="slam" data-d=".4" style="top:810px;font-size:150px">Commence.</div>
+
+  <!-- S5 : l'offre (38,1 – fin) -->
+  <div class="c P" data-in="38.07" data-a="rise" style="top:150px;font-size:80px">Le guide <span class="y">+ 3 kits</span></div>
+  <img data-in="38.1" data-a="zoom" src="assets/cover.png" alt="" style="left:350px;top:300px;width:380px;border-radius:10px;box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 0 3px rgba(255,204,51,.5)">
+  <div class="c P" data-in="38.07" data-a="fade" style="top:900px;font-size:70px;color:var(--l)"><span style="position:relative">5 000 F<span data-in="38.4" data-a="grow" style="position:absolute;left:-8px;right:-8px;top:48%;height:8px;background:var(--r);transform-origin:left"></span></span></div>
+  <div class="c P y" data-in="38.3" data-a="slam" data-d=".45" style="top:990px;font-size:190px">3 900 F</div>
+  <div class="mm" data-in="38.8" data-a="fade" style="top:1240px"><span>📱 Paiement Mobile Money</span></div>
+  <div class="btn" data-in="39.41" data-a="pop" style="top:1370px">Commander maintenant</div>
+</section>
+
+<div id="cap"></div>
+<script>
+window.CAPS = [
+ ['h1',0,2.63,"Tu ne manques pas de vidéos, de cours, de formation."],['h1',3.02,4.06,"Tu manques d'un ordre."],
+ ['h2',0,0.61,"Zéro franc."],['h2',0.9,1.46,"Dix mille."],['h2',1.63,2.29,"Cent mille."],['h2',2.64,3.66,"Personne n'est d'accord…"],['h2',3.97,5.53,"et toi, tu restes bloqué."],
+ ['h3',0,4.12,"Arrête de regarder des vidéos sur l'importation, de gauche à droite, sur toutes les plateformes."],
+ ['body',0,2.0,"Voici les six étapes, dans l'ordre,"],['body',2.13,5.14,"qui vont te permettre de passer ta première commande dès aujourd'hui."],
+ ['body',5.61,7.35,"Une vidéo dit de commencer par ici."],['body',7.6,8.77,"Une autre dit le contraire."],
+ ['body',9.07,10.95,"Résultat : tu ne commences jamais."],['body',11.28,12.0,"Tu es confus."],
+ ['body',12.37,14.45,"Ce qu'il te faut, c'est un ordre clair."],['body',14.86,16.25,"Un : créer ton compte."],
+ ['body',16.52,18.08,"Deux : choisir ton produit."],['body',18.48,20.3,"Trois : vérifier le fournisseur."],
+ ['body',20.67,22.65,"Quatre : payer en étant protégé."],['body',23.01,24.84,"Cinq : calculer le transport."],
+ ['body',25.12,26.67,"Six : recevoir ton colis."],['body',27.16,30.2,"C'est exactement le plan du guide « Briser la peur d'importer »,"],
+ ['body',30.47,34.25,"avec un plan détaillé pour passer ta première commande à partir d'aujourd'hui."],
+ ['body',34.64,36.53,"Arrête de regarder les vidéos partout."],['body',36.76,37.72,"Commence maintenant."],
+ ['body',38.07,39.05,"3 900 francs."],['body',39.41,41.0,"Clique sur Commander maintenant."]];
+</script>
+<script src="engine.js"></script>
+</body></html>

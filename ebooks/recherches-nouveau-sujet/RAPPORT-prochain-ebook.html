@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prochain e-book : rapport</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;600;700&display=swap">
+<style>
+/* Page de lecture sur téléphone : en-tête, puis sections empilées (10 domaines en cartes, top 5 en tableau, top 3 en fiches détaillées). */
+:root {
+  --bg: #f6f4ef; --surface: #ffffff; --ink: #14202b; --muted: #5d6874; --line: #e2ddd3;
+  --navy: #0f2a44; --accent: #c85a0c; --accent-soft: #fde9d8; --good: #1f8a5b; --good-soft: #e3f4ec; --bad: #c43d3d; --bad-soft: #f8e3e3;
+  --display: "Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0d141b; --surface: #16212c; --ink: #edf1f4; --muted: #9aa8b5; --line: #26333f;
+  --navy: #0a1a29; --accent: #ff8a3d; --accent-soft: #3a2414; --good: #4cc98f; --good-soft: #13302a; --bad: #ff7b7b; --bad-soft: #3a1c1c; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0d141b; --surface: #16212c; --ink: #edf1f4; --muted: #9aa8b5; --line: #26333f;
+  --navy: #0a1a29; --accent: #ff8a3d; --accent-soft: #3a2414; --good: #4cc98f; --good-soft: #13302a; --bad: #ff7b7b; --bad-soft: #3a1c1c; color-scheme: dark }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 17px/1.6 var(--body); margin: 0; }
+.wrap { max-width: 860px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header { background: var(--navy); color: #fff; }
+header .wrap { padding-block: 36px 30px; display: grid; gap: 16px; }
+.eyebrow { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: #ffb47e; font-weight: 700; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.1; }
+h1 { font-size: clamp(30px, 7vw, 48px); font-weight: 800; }
+h1 em { font-style: normal; color: #ffb47e; }
+header p { margin: 0; color: #d5dee8; }
+.verdict { background: rgba(255,255,255,.08); border-left: 4px solid #ffb47e; border-radius: 8px; padding: 12px 14px; }
+.verdict b { color: #fff; }
+nav.jump { display: flex; flex-wrap: wrap; gap: 8px; }
+nav.jump a { color: #fff; text-decoration: none; font-weight: 600; font-size: 14px; background: rgba(255,255,255,.12); padding: 7px 12px; border-radius: 8px; }
+a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+section { padding-block: 34px 6px; }
+h2 { font-size: clamp(25px, 5vw, 34px); font-weight: 800; margin-bottom: 6px; }
+.lead { color: var(--muted); margin: 0 0 18px; }
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
+.box + .box { margin-top: 12px; }
+ul.clean { margin: 6px 0 0; padding-left: 20px; }
+ul.clean li { margin: 4px 0; }
+
+/* 10 domaines */
+.dom { display: grid; gap: 12px; }
+.d { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; min-width: 0; }
+.d .hd { display: flex; gap: 12px; align-items: baseline; }
+.num { font-family: var(--display); font-weight: 800; color: var(--accent); font-size: 22px; min-width: 30px; }
+.d h3 { font-size: 20px; }
+.d p { margin: 8px 0 0; font-size: 16px; }
+.d .k { font-weight: 700; color: var(--ink); }
+.d .m { color: var(--muted); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.t { font-size: 13px; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--ink); }
+.t.g { background: var(--good-soft); color: var(--good); }
+.t.r { background: var(--bad-soft); color: var(--bad); }
+
+/* Top 5 */
+.tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 600px; font-size: 15px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+td.n { font-variant-numeric: tabular-nums; font-weight: 700; }
+tr:last-child td { border-bottom: 0; }
+tr.top td { background: var(--good-soft); }
+
+/* Top 3 */
+.pick { background: var(--surface); border: 2px solid var(--accent); border-radius: 16px; padding: 18px 16px; margin-bottom: 18px; min-width: 0; }
+.pick .rank { font-family: var(--display); font-weight: 800; color: var(--accent); letter-spacing: .06em; font-size: 14px; text-transform: uppercase; }
+.pick h3 { font-size: clamp(22px, 5vw, 28px); margin: 4px 0 4px; }
+.pick .sub { color: var(--muted); margin: 0 0 12px; font-style: italic; }
+.pick h4 { font-family: var(--display); font-size: 17px; margin: 18px 0 6px; color: var(--navy); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pick h4 { color: #ffb47e; } }
+:root[data-theme="dark"] .pick h4 { color: #ffb47e; }
+.pick p { margin: 6px 0; }
+ol.som { margin: 6px 0 0; padding-left: 22px; }
+ol.som li { margin: 3px 0; }
+.kits { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.kit { background: var(--accent-soft); border-radius: 10px; padding: 10px; font-size: 14px; min-width: 0; }
+.kit b { display: block; }
+@media (max-width: 620px) { .kits { grid-template-columns: 1fr; } }
+.hooks { margin: 6px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.hooks li { background: var(--bg); border-radius: 8px; padding: 8px 12px; font-weight: 600; }
+.risk { background: var(--bad-soft); border-radius: 10px; padding: 10px 12px; margin-top: 12px; font-size: 15px; }
+.facts2 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 10px; }
+.f2 { background: var(--bg); border-radius: 10px; padding: 8px 10px; font-size: 14px; min-width: 0; }
+.f2 b { display: block; font-size: 18px; font-family: var(--display); }
+@media (max-width: 620px) { .facts2 { grid-template-columns: 1fr 1fr; } }
+
+.steps { counter-reset: s; display: grid; gap: 10px; padding: 0; margin: 0; list-style: none; }
+.steps li { counter-increment: s; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px 12px 58px; position: relative; }
+.steps li::before { content: counter(s); position: absolute; left: 14px; top: 12px; width: 30px; height: 30px; border-radius: 50%; background: var(--navy); color: #fff; font-weight: 800; display: grid; place-items: center; font-family: var(--display); }
+.steps b { display: block; }
+.steps span { color: var(--muted); font-size: 15px; }
+footer { padding: 30px 0 50px; color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Rapport de recherche · 6 novembre 2026</div>
+    <h1>Quel sera notre <em>prochain e-book</em> ?</h1>
+    <p>3 agents ont fouillé le web : la presse africaine (Côte d'Ivoire, Sénégal, Cameroun, Bénin, Togo, Burkina, Guinée, RDC), les études (FAO, BAD, ITC), et les boutiques de produits digitaux (Chariow, Selar, Novakou…). Ils ont cherché 3 choses : <b>où les gens cherchent le plus</b>, <b>où ils perdent de l'argent</b>, et <b>où personne ne vend encore un bon guide</b>.</p>
+    <div class="verdict"><b>Mon verdict en 1 phrase :</b> le prochain livre doit être <b>« Réussir ton élevage de poulets, chiffres en main »</b>. Ensuite <b>« Acheter un terrain sans te faire arnaquer »</b>, puis <b>« Combien tu gagnes vraiment ? »</b> (gestion de petite boutique).</div>
+    <nav class="jump" aria-label="Sommaire">
+      <a href="#methode">Comment j'ai choisi</a><a href="#dix">Les 10 domaines</a><a href="#cinq">Top 5</a><a href="#trois">Mon top 3</a><a href="#eviter">À éviter</a><a href="#comment">Comment on le fabrique</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section id="methode">
+  <h2>Comment j'ai choisi</h2>
+  <p class="lead">Un bon sujet d'e-book doit cocher 4 cases en même temps. Si une case manque, on perd notre argent en pub.</p>
+  <div class="box">
+    <ul class="clean">
+      <li><b>1. Beaucoup de monde cherche.</b> Des milliers de personnes se lancent dans ce métier chaque année.</li>
+      <li><b>2. Les gens perdent de l'argent.</b> Il y a une douleur réelle, chiffrée, qu'on voit dans la presse.</li>
+      <li><b>3. Personne ne vend encore un bon guide simple.</b> L'information existe, mais elle est gratuite et compliquée (mémoires d'université, manuels de 200 pages), ou bien elle n'est pas en francs CFA.</li>
+      <li><b>4. On peut l'écrire sans mentir.</b> Pas de « deviens riche », pas de promesse qu'on ne peut pas tenir, et un sujet qui ne change pas tous les 3 mois.</li>
+    </ul>
+  </div>
+  <div class="box">
+    <b>Ce que je dois te dire honnêtement :</b>
+    <ul class="clean">
+      <li>Chariow, Selar et les autres <b>ne publient aucun classement des ventes</b>. Personne ne peut te dire « ce thème a vendu 10 000 exemplaires ». On mesure la demande avec des indices : nombre de candidats, nombre d'articles, nombre d'arnaques, nombre d'offres payantes.</li>
+      <li>Une partie des sites était bloquée pour nos agents : certains chiffres viennent des résumés des moteurs de recherche. Les chiffres importants seront revérifiés avant d'écrire le livre.</li>
+      <li>C'est pour ça que je te propose de <b>tester la demande avec une petite pub avant d'écrire</b> (voir la dernière partie).</li>
+    </ul>
+  </div>
+</section>
+
+<section id="dix">
+  <h2>Les 10 domaines les plus recherchés… où les gens ont des problèmes</h2>
+  <p class="lead">Classés du plus fort au moins fort, en mélangeant les 4 cases. Pour chaque domaine : pourquoi il est là, le problème, et la concurrence.</p>
+  <div class="dom">
+
+    <article class="d">
+      <div class="hd"><span class="num">1</span><h3>Élevage de poulets (chair et pondeuses)</h3></div>
+      <p><span class="k">Pourquoi :</span> c'est le métier n°1 que les jeunes et les salariés lancent « à côté ». Au Cameroun, la filière annonce environ 570 000 emplois et 107 505 tonnes d'œufs en 2025 (+14 %). Au Sénégal, environ 53 millions de poulets par an.</p>
+      <p><span class="k">Le problème :</span> l'aliment, c'est environ <b>75 % du coût</b> (Cameroun). Au Sénégal, 70 à 80 % du maïs et du soja sont importés, donc le prix change tout le temps. Les débutants perdent des bandes entières (Newcastle, coccidiose, mauvaise chaleur au démarrage) et vendent sans connaître leur prix de revient.</p>
+      <p><span class="k">Concurrence :</span> <span class="m">beaucoup de manuels gratuits techniques (FAO, fiches Niger), mais un seul guide payant chiffré en FCFA trouvé (manuel pondeuses à 5 000 F). Chariow, Novakou et Astuces des Pros citent tous l'élevage comme niche porteuse en 2026.</span></p>
+      <div class="tags"><span class="t g">Demande très forte</span><span class="t g">Peu servi</span><span class="t">Tous pays</span></div>
+    </article>
+
+    <article class="d">
+      <div class="hd"><span class="num">2</span><h3>Acheter un terrain et construire sa maison</h3></div>
+      <p><span class="k">Pourquoi :</span> c'est le grand projet de vie de presque tout le monde, et de toute la diaspora. En Côte d'Ivoire, il manque 600 000 à 830 000 logements.</p>
+      <p><span class="k">Le problème :</span> c'est là qu'on perd le plus d'argent d'un coup. Le ministre ivoirien a parlé de « plusieurs milliers » de terrains vendus à plusieurs personnes (août 2025). En RDC, 62 cas de spoliation en un mois (août 2026). En Guinée, environ 1 % seulement des terres rurales ont des papiers. Et sur les chantiers : maçon qui disparaît avec l'argent et le ciment.</p>
+      <p><span class="k">Concurrence :</span> <span class="m">aucun e-book payant trouvé. Seulement des articles gratuits d'agences immobilières… qui veulent te vendre leurs services.</span></p>
+      <div class="tags"><span class="t g">Douleur énorme</span><span class="t g">Aucun concurrent</span><span class="t g">Diaspora = plus gros budget</span><span class="t r">Différent par pays</span></div>
+    </article>
+
+    <article class="d">
+      <div class="hd"><span class="num">3</span><h3>Gérer sa boutique : stock, marge, prix de revient</h3></div>
+      <p><span class="k">Pourquoi :</span> des millions de petits commerçants (marché, boutique, vente WhatsApp). C'est aussi <b>exactement notre clientèle du livre Alibaba</b>.</p>
+      <p><span class="k">Le problème :</span> seulement <b>27 % des PME</b> utilisent un outil pour la comptabilité ou le stock (étude ITC / CPCCAF 2024). Les gens vendent beaucoup mais ne savent pas s'ils gagnent : ils mélangent l'argent de la boutique et celui de la maison, font crédit sans noter, ne calculent pas leur marge.</p>
+      <p><span class="k">Concurrence :</span> <span class="m">formations Excel ou comptabilité à 25 000 – 120 000 F, en salle. Rien de simple et pas cher pour un commerçant.</span></p>
+      <div class="tags"><span class="t g">Demande forte</span><span class="t g">Peu servi pas cher</span><span class="t g">Clients déjà à nous</span></div>
+    </article>
+
+    <article class="d">
+      <div class="hd"><span class="num">4</span><h3>Créer son entreprise et obtenir un financement</h3></div>
+      <p><span class="k">Pourquoi :</span> au Bénin, 68 % des 18–35 ans préfèrent entreprendre plutôt qu'être salarié (Afrobaromètre, août 2026). En Côte d'Ivoire, l'Agence Emploi Jeunes a reçu 351 millions F de demandes en 6 jours. Programmes : DER/FJ (Sénégal), PAJEC (Togo, 28 milliards F), Debout Jeunes Congolais (RDC).</p>
+      <p><span class="k">Le problème :</span> les dossiers sont rejetés (pas de business plan, pas de chiffres), et de faux « facilitateurs » demandent des frais.</p>
+      <p><span class="k">Concurrence :</span> <span class="m">moyenne (business plans sur Scribd, coachs chers).</span></p>
+      <div class="tags"><span class="t g">Demande très forte</span><span class="t r">Programmes qui changent</span><span class="t r">Risque de promesse « financement garanti »</span></div>
+    </article>
+
+    <article class="d">
+      <div class="hd"><span class="num">5</span><h3>Gérer son argent : budget, épargne, tontine</h3></div>
+      <p><span class="k">Pourquoi :</span> tout le monde est concerné, salariés comme commerçants. YouTube classe la finance personnelle parmi les niches les plus rentables en Afrique francophone (2026).</p>
+      <p><span class="k">Le problème :</span> tontines détournées (environ 10 millions F à Keur Massar), faux placements (« 500 000 F → 3 millions en un an » au Cameroun), arnaques mobile money.</p>
+      <p><span class="k">Concurrence :</span> <span class="m">un seul guide local trouvé (7 500 F en papier au Burkina). Le reste est traduit de l'américain, sans tontine ni mobile money.</span></p>
+      <div class="tags"><span class="t g">Public immense</span><span class="t g">Peu servi</span><span class="t r">Moins urgent = plus dur à vendre</span></div>
+    </article>
+
+    <article class="d">
+      <div class="hd"><span class="num">6</span><h3>Maraîchage : tomate, piment, oignon</h3></div>
+      <p><span class="k">Pourquoi :</span> activité très répandue autour des villes. Au Sud-Bénin, le piment fait 40 % du revenu par hectare, la tomate 36 %.</p>
+      <p><span class="k">Le problème :</span> la mévente. Dans les Niayes (Sénégal), oignons et tomates pourrissent faute d'acheteurs (avril 2025, mars 2026). Engrais et produits de contrebande.</p>
+      <p><span class="k">Concurrence :</span> <span class="m">seulement des mémoires d'université. Aucun e-book payant en FCFA.</span></p>
+      <div class="tags"><span class="t g">Peu servi</span><span class="t">Saisons différentes par pays</span></div>
+    </article>
+
+    <article class="d">
+      <div class="hd"><span class="num">7</span><h3>Pisciculture (tilapia, silure)</h3></div>
+      <p><span class="k">Pourquoi :</span> le poisson manque partout. Le Cameroun a importé 267 601 tonnes en 2025. La Côte d'Ivoire consomme plus de 550 000 tonnes par an et importe la majorité. La BAD finance (ProDeCAP).</p>
+      <p><span class="k">Le problème :</span> l'aliment fait environ 50 % du coût, alevins introuvables ou qui meurent, eau mal gérée. 60 % des pisciculteurs produisent moins de 6 tonnes par an.</p>
+      <p><span class="k">Concurrence :</span> <span class="m">peu servi en payant. Bon 2ᵉ tome après les poulets.</span></p>
+      <div class="tags"><span class="t g">Peu servi</span><span class="t r">Public plus petit</span><span class="t r">Investissement de départ élevé</span></div>
+    </article>
+
+    <article class="d">
+      <div class="hd"><span class="num">8</span><h3>Transformation : jus de bissap, gingembre, yaourt, attiéké</h3></div>
+      <p><span class="k">Pourquoi :</span> beaucoup de femmes et de jeunes commencent avec peu d'argent, à la maison. Chariow cite les recettes bissap / moringa / baobab comme niche qui marche.</p>
+      <p><span class="k">Le problème :</span> pas de prix de revient, produits qui tournent vite, contrôles d'hygiène (au Sénégal en 2025 : environ 23 000 établissements contrôlés, plus de 52 000 infractions).</p>
+      <p><span class="k">Concurrence :</span> <span class="m">fiches de projet publiques (CEPICI) sans calcul de rentabilité.</span></p>
+      <div class="tags"><span class="t g">Peu servi</span><span class="t">Petit budget de départ</span></div>
+    </article>
+
+    <article class="d">
+      <div class="hd"><span class="num">9</span><h3>Concours de la fonction publique et emploi</h3></div>
+      <p><span class="k">Pourquoi :</span> la plus grosse demande de toutes. Côte d'Ivoire 2025 : 142 863 candidats pour 48 353 admis. Burkina 2025 : 2 401 977 candidatures pour 7 056 postes. Sénégal : 147 845 candidats pour 2 000 enseignants.</p>
+      <p><span class="k">Le problème :</span> faux concours (plus de 120 victimes, plus de 74 millions F en Côte d'Ivoire), faux « frais de dossier » de 25 000 F (Cameroun, Sénégal).</p>
+      <p><span class="k">Concurrence :</span> <span class="m"><b>saturé</b> : annales vendues de 300 à 5 000 F, guerre des prix. Il faut un livre différent pour chaque pays et chaque concours.</span></p>
+      <div class="tags"><span class="t g">Demande géante</span><span class="t r">Saturé</span><span class="t r">1 livre par pays</span></div>
+    </article>
+
+    <article class="d">
+      <div class="hd"><span class="num">10</span><h3>Installer le solaire chez soi</h3></div>
+      <p><span class="k">Pourquoi :</span> coupures d'électricité, kits solaires partout sur les marchés.</p>
+      <p><span class="k">Le problème :</span> matériel faux ou mal dimensionné. À Ouagadougou, 150 batteries et 60 régulateurs non conformes saisis. Au Sénégal, seulement 13 fournisseurs agréés.</p>
+      <p><span class="k">Concurrence :</span> <span class="m">peu servi, mais demande moins prouvée et sujet technique (risque électrique).</span></p>
+      <div class="tags"><span class="t g">Peu servi</span><span class="t r">Demande moins prouvée</span></div>
+    </article>
+
+  </div>
+</section>
+
+<section id="cinq">
+  <h2>Les 5 meilleurs</h2>
+  <p class="lead">J'ai donné une note sur 5 à chaque critère. Le total est sur 25. Sur téléphone, fais glisser le tableau vers la gauche.</p>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Domaine</th><th>Demande</th><th>Douleur</th><th>Peu de concurrence</th><th>Facile à écrire juste</th><th>Lien avec nos clients</th><th>Total</th></tr></thead>
+      <tbody>
+        <tr class="top"><td><b>Élevage de poulets</b></td><td class="n">5</td><td class="n">5</td><td class="n">4</td><td class="n">4</td><td class="n">3</td><td class="n">21</td></tr>
+        <tr class="top"><td><b>Terrain et construction</b></td><td class="n">5</td><td class="n">5</td><td class="n">5</td><td class="n">3</td><td class="n">3</td><td class="n">21</td></tr>
+        <tr class="top"><td><b>Gérer sa boutique</b></td><td class="n">4</td><td class="n">4</td><td class="n">4</td><td class="n">5</td><td class="n">5</td><td class="n">22</td></tr>
+        <tr><td>Créer son entreprise + financement</td><td class="n">5</td><td class="n">4</td><td class="n">3</td><td class="n">2</td><td class="n">3</td><td class="n">17</td></tr>
+        <tr><td>Gérer son argent / tontine</td><td class="n">4</td><td class="n">3</td><td class="n">4</td><td class="n">4</td><td class="n">2</td><td class="n">17</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="box" style="margin-top:12px">
+    <b>Pourquoi le 4 et le 5 ne sont pas dans mon top 3 :</b>
+    <ul class="clean">
+      <li><b>Financement :</b> les programmes changent souvent et sont différents dans chaque pays. Et un livre sur le financement donne envie de promettre « tu vas avoir l'argent », ce qu'on ne peut pas garantir. On peut en faire un <b>chapitre</b> dans d'autres livres (« monter ton dossier »).</li>
+      <li><b>Gérer son argent :</b> très utile, mais moins urgent. Les gens achètent quand ils ont mal maintenant. On le garde pour plus tard, peut-être comme bonus.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="trois">
+  <h2>Mon top 3</h2>
+  <p class="lead">Pour chacun : pourquoi on y va, pourquoi un e-book, et comment on le fabrique. Même méthode que le livre Alibaba (version téléphone + version A4, français très simple, cas concrets, 3 kits bonus).</p>
+
+  <article class="pick">
+    <div class="rank">N°1 · à faire en premier</div>
+    <h3>« Réussir ton élevage de poulets, chiffres en main »</h3>
+    <p class="sub">Calcule, démarre et vends ta première bande sans perdre ton argent</p>
+    <div class="facts2">
+      <div class="f2"><b>3 900 F</b>prix conseillé</div>
+      <div class="f2"><b>60–70 p.</b>A4 + téléphone</div>
+      <div class="f2"><b>Tous pays</b>un seul livre</div>
+    </div>
+
+    <h4>Pourquoi on y va</h4>
+    <p>C'est le seul domaine qui coche les 4 cases à fond : beaucoup de débutants chaque année, une douleur chiffrée (l'aliment = 75 % du coût, des bandes perdues), presque pas de guide payant sérieux, et un sujet qui marche dans <b>tous les pays</b> francophones. Les techniques d'élevage ne changent pas d'un pays à l'autre : on écrit un seul livre et on le vend partout.</p>
+
+    <h4>Pourquoi un e-book (et pas une vidéo YouTube)</h4>
+    <p>Les vidéos montrent un poulailler, mais personne ne donne <b>les calculs</b> : combien de sacs d'aliment pour 100 poulets, le vrai prix de revient d'un poulet, à quel prix vendre pour ne pas perdre. Un livre qu'on garde sur son téléphone, avec des tableaux et un calendrier jour par jour, c'est ce que l'éleveur ouvre dans le poulailler. C'est le même déclic que le livre Alibaba : <b>« les autres te montrent, nous on te fait calculer »</b>.</p>
+
+    <h4>À qui on le vend (3 avatars)</h4>
+    <ul class="clean">
+      <li><b>Le débutant qui rêve de se lancer</b> avec 300 000 – 500 000 F et qui a peur de tout perdre.</li>
+      <li><b>Celui qui a déjà perdu une bande</b> (maladie, chaleur, poulets vendus à perte) et qui veut comprendre pourquoi.</li>
+      <li><b>Le salarié ou la personne de la diaspora</b> qui finance un élevage chez lui et veut contrôler les chiffres du gérant.</li>
+    </ul>
+
+    <h4>Le sommaire</h4>
+    <ol class="som">
+      <li>Poulet de chair, pondeuse ou poulet local : lequel choisir avec ton budget ?</li>
+      <li>Le poulailler : taille, aération, nombre de poulets par m², matériel</li>
+      <li>Combien ça coûte vraiment : le budget complet d'une bande de 100, 300 et 500</li>
+      <li>Acheter de bons poussins (et repérer un mauvais couvoir)</li>
+      <li>Les 7 premiers jours : chaleur, eau, lumière (là où on perd le plus)</li>
+      <li>L'aliment : combien, quand, et comment ne pas se faire voler sur le sac</li>
+      <li>Le calendrier de vaccination et d'hygiène, jour par jour</li>
+      <li>Reconnaître les maladies (Newcastle, coccidiose…) et réagir vite</li>
+      <li>Le cahier d'élevage : noter la mortalité, l'aliment, le poids</li>
+      <li>Calculer ton prix de revient et ton prix de vente</li>
+      <li>Vendre : restaurants, maquis, marché, fêtes (Tabaski, Noël, Pâques)</li>
+      <li>Les 15 erreurs qui ruinent les débutants</li>
+      <li>Ton plan sur 60 jours + passer de 100 à 500 poulets</li>
+    </ol>
+
+    <h4>Les 3 kits bonus</h4>
+    <div class="kits">
+      <div class="kit"><b>Kit 1 · Calculs</b>Budget d'une bande, prix de revient, prix de vente, seuil si l'aliment monte de 20 % ou 50 %.</div>
+      <div class="kit"><b>Kit 2 · Fiches du poulailler</b>Calendrier vaccins, fiche de suivi journalier, checklist « avant d'acheter les poussins ».</div>
+      <div class="kit"><b>Kit 3 · Vendre</b>Messages WhatsApp pour restaurants et clients, carnet de commandes, fiche « prix de fête ».</div>
+    </div>
+
+    <h4>L'angle des publicités</h4>
+    <ul class="hooks">
+      <li>« 100 poulets, combien tu gagnes vraiment ? Fais le calcul avant d'acheter tes poussins. »</li>
+      <li>« Tu as perdu ta bande la première semaine ? Ce n'est pas la chance. C'est la chaleur. »</li>
+      <li>« L'aliment, c'est 3 francs sur 4 que tu dépenses. Si tu ne le calcules pas, tu travailles à perte. »</li>
+    </ul>
+
+    <div class="risk"><b>Attention :</b> la partie vaccins et médicaments doit être relue par un vétérinaire ou un technicien d'élevage avant la vente. Je l'écris à partir des guides officiels (FAO, fiches techniques), mais un professionnel doit valider. Et on ne promet jamais un bénéfice : on apprend à calculer.</div>
+  </article>
+
+  <article class="pick">
+    <div class="rank">N°2</div>
+    <h3>« Acheter un terrain sans te faire arnaquer »</h3>
+    <p class="sub">Les papiers à exiger, les vérifications à faire, et construire sans que le maçon parte avec ton argent</p>
+    <div class="facts2">
+      <div class="f2"><b>5 000–7 500 F</b>prix conseillé</div>
+      <div class="f2"><b>60–70 p.</b>+ fiches pays</div>
+      <div class="f2"><b>Diaspora</b>cible n°1</div>
+    </div>
+
+    <h4>Pourquoi on y va</h4>
+    <p>C'est la douleur la plus chère : on ne perd pas 200 000 F, on perd 3, 5 ou 10 millions. Les arnaques touchent au moins 5 pays dans nos recherches (Côte d'Ivoire, RDC, Guinée, Gabon, Sénégal). <b>Aucun e-book payant</b> n'existe. Et la diaspora (France, Canada, USA) a un plus gros budget, paie en euros sans problème, et a encore plus peur parce qu'elle ne peut pas aller voir le terrain.</p>
+
+    <h4>Pourquoi un e-book</h4>
+    <p>Pour acheter un terrain, il faut une <b>liste de contrôle</b> : quel papier demander, où aller le vérifier, quelles questions poser, quand payer. C'est exactement ce qu'un livre fait mieux qu'une vidéo : on le suit étape par étape, on coche, on garde les modèles. Un notaire coûte cher et beaucoup de gens n'osent pas le consulter avant ; ce livre les prépare.</p>
+
+    <h4>Comment on gère « chaque pays est différent »</h4>
+    <p>Une <b>méthode commune</b> (80 % du livre : les 10 arnaques, les vérifications, le chantier) + <b>des fiches pays</b> à la fin (papiers et bureaux à vérifier). On commence avec 3 pays : Côte d'Ivoire (ACD, ADU, titre foncier), Sénégal et Guinée. On ajoute un pays à chaque mise à jour. Chaque fiche pays est vérifiée sur les textes officiels avant publication.</p>
+
+    <h4>Le sommaire</h4>
+    <ol class="som">
+      <li>Les 10 arnaques au terrain qu'on voit partout (vente à plusieurs, faux papiers, terrain coutumier…)</li>
+      <li>Les papiers d'un terrain expliqués simplement (du plus faible au plus sûr)</li>
+      <li>Les 12 vérifications avant de payer 1 franc</li>
+      <li>Le rôle du notaire, du géomètre, du cadastre : qui fait quoi, combien ça coûte</li>
+      <li>Payer sans risque : acompte, reçu, jamais en liquide sans papier</li>
+      <li>Acheter depuis l'étranger : la personne de confiance, la procuration, les photos et la vidéo du terrain</li>
+      <li>Le budget de la maison : fondation, élévation, toit, finitions</li>
+      <li>Choisir un maçon ou un entrepreneur, et signer un contrat simple</li>
+      <li>Acheter et surveiller les matériaux (ciment, fer, sable)</li>
+      <li>Payer le chantier par étapes, jamais tout d'avance</li>
+      <li>Les fiches pays</li>
+    </ol>
+
+    <h4>Les 3 kits bonus</h4>
+    <div class="kits">
+      <div class="kit"><b>Kit 1 · Checklists</b>Les 12 vérifications, la visite du terrain, les papiers à exiger par pays.</div>
+      <div class="kit"><b>Kit 2 · Modèles</b>Reçu d'acompte, contrat de maçon simple, procuration (à faire valider par un notaire).</div>
+      <div class="kit"><b>Kit 3 · Calculs du chantier</b>Budget maison étape par étape, quantités de ciment et de fer, suivi des paiements.</div>
+    </div>
+
+    <h4>L'angle des publicités</h4>
+    <ul class="hooks">
+      <li>« Ce terrain a déjà été vendu 3 fois. Le vendeur ne te le dira pas. »</li>
+      <li>« Tu construis au pays depuis la France ? Voici comment ton argent disparaît. »</li>
+      <li>« Avant de payer un terrain, demande ces 3 papiers. »</li>
+    </ul>
+
+    <div class="risk"><b>Attention :</b> c'est un sujet juridique. Le livre explique et prépare ; il ne remplace pas le notaire, et il le dit clairement. Les fiches pays doivent être vérifiées sur les sources officielles, et idéalement relues par un notaire ou un juriste. Ça prend plus de temps que le livre poulets, c'est pour ça qu'il est N°2.</div>
+  </article>
+
+  <article class="pick">
+    <div class="rank">N°3 · le plus rapide à faire</div>
+    <h3>« Combien tu gagnes vraiment ? »</h3>
+    <p class="sub">Gérer ta boutique, ton stock et ta marge avec ton téléphone</p>
+    <div class="facts2">
+      <div class="f2"><b>3 900 F</b>prix conseillé</div>
+      <div class="f2"><b>55–65 p.</b>A4 + téléphone</div>
+      <div class="f2"><b>Nos clients</b>vente en pack</div>
+    </div>
+
+    <h4>Pourquoi on y va</h4>
+    <p>3 commerçants sur 4 n'ont aucun outil de gestion. Ils vendent, mais l'argent « disparaît ». Et surtout : <b>ce sont exactement les gens qui achètent notre livre Alibaba</b>. Quand quelqu'un importe, la question suivante est toujours : « est-ce que je gagne ? ». On peut lui vendre ce 2ᵉ livre directement, sans repayer de pub (message WhatsApp, offre pack « Alibaba + Boutique »). C'est le livre le plus rentable pour nous.</p>
+
+    <h4>Pourquoi un e-book</h4>
+    <p>Les formations Excel coûtent 25 000 à 120 000 F et se font en salle. Le commerçant n'a ni le temps ni l'argent. Un petit livre avec des fiches à recopier dans un cahier ou à remplir sur le téléphone, c'est la bonne taille. Le sujet ne change pas avec le pays : la marge est la même à Conakry et à Abidjan.</p>
+
+    <h4>Le sommaire</h4>
+    <ol class="som">
+      <li>Pourquoi tu vends beaucoup mais tu n'as jamais d'argent</li>
+      <li>Séparer l'argent de la boutique et l'argent de la maison (te payer un salaire)</li>
+      <li>Calculer ton prix de revient et ta vraie marge</li>
+      <li>Fixer ton prix de vente sans perdre tes clients</li>
+      <li>Le cahier de caisse en 5 minutes par jour</li>
+      <li>Le stock : savoir ce qui se vend et ce qui dort</li>
+      <li>Le crédit aux clients sans te faire manger</li>
+      <li>Mobile money : suivre tes encaissements et éviter les arnaques</li>
+      <li>Les outils gratuits sur ton téléphone</li>
+      <li>Réinvestir : quand recommander, combien garder</li>
+    </ol>
+
+    <h4>Les 3 kits bonus</h4>
+    <div class="kits">
+      <div class="kit"><b>Kit 1 · Calculs</b>Prix de revient, marge, prix de vente, bénéfice du mois.</div>
+      <div class="kit"><b>Kit 2 · Cahiers</b>Cahier de caisse, fiche de stock, carnet de crédit clients.</div>
+      <div class="kit"><b>Kit 3 · Messages</b>Relancer un client qui doit de l'argent, annoncer une hausse de prix.</div>
+    </div>
+
+    <h4>L'angle des publicités</h4>
+    <ul class="hooks">
+      <li>« Tu vends tous les jours. Mais combien tu gagnes vraiment ? »</li>
+      <li>« Le crédit à tes clients, c'est ta boutique qui meurt doucement. »</li>
+      <li>« L'argent de la boutique n'est pas ton argent. »</li>
+    </ul>
+
+    <div class="risk"><b>Point faible :</b> la douleur est moins « urgente » que perdre une bande de poulets ou un terrain. C'est pour ça qu'on le vend surtout à nos clients existants et en pack, plutôt qu'avec beaucoup de pub froide.</div>
+  </article>
+</section>
+
+<section id="eviter">
+  <h2>Les domaines à éviter</h2>
+  <p class="lead">Ils sont très demandés, mais on perdrait notre argent ou notre réputation.</p>
+  <div class="box">
+    <ul class="clean">
+      <li><b>E-commerce, dropshipping :</b> saturé, plein de faux prix barrés (22 500 → 2 250 F).</li>
+      <li><b>Marketing digital, pub Facebook/TikTok :</b> saturé, formations de 50 000 à 600 000 F, gratuit partout sur YouTube.</li>
+      <li><b>« Gagner de l'argent en ligne » :</b> le monde des « vendeurs de rêve ». Packs de 3 000 e-books revendus, 0 à 3 ventes. Mauvaise image.</li>
+      <li><b>Immigration au Canada :</b> beaucoup d'arnaques signalées par Africa Check, règles qui changent sans arrêt.</li>
+      <li><b>Annales de concours :</b> guerre des prix (300 à 5 000 F) et un livre par pays.</li>
+      <li><b>Élevage de porcs :</b> la peste porcine a tué environ 90 000 porcs sur 400 000 dans l'Ouest du Cameroun en 2021. Trop risqué pour un débutant.</li>
+      <li><b>Savon et cosmétiques :</b> beaucoup de PDF gratuits, et des risques pour la santé si la recette est mal faite.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="comment">
+  <h2>Comment on le fabrique (étape par étape)</h2>
+  <p class="lead">Exemple avec le livre poulets. Même chaîne que le livre Alibaba, mais avec un test de la demande <b>avant</b> d'écrire.</p>
+  <ol class="steps">
+    <li><b>Test de la demande (3 à 5 jours, environ 10 000 à 15 000 F)</b><span>On fait une couverture, une page Chariow « bientôt disponible » ou en précommande, et 2 petites pubs avec les accroches ci-dessus. On regarde combien de personnes cliquent et laissent leur numéro. Si le coût par clic est bon, on écrit. Sinon, on teste le N°2 avant d'avoir dépensé du temps.</span></li>
+    <li><b>Recherche approfondie (1 à 2 jours)</b><span>Les agents lisent les guides officiels (FAO, fiches techniques, guides des souches) et relèvent les prix réels en FCFA (poussins, aliment, vaccins, prix de vente) dans 3 ou 4 pays.</span></li>
+    <li><b>Écriture du texte (2 à 3 jours)</b><span>Français très simple, définitions simples + pro, encadrés Débutant / Expert, un cas concret par chapitre (ex. « Awa démarre avec 100 poulets à Bouaké »), chaque chapitre sur une nouvelle page.</span></li>
+    <li><b>Relecture par un professionnel</b><span>Un vétérinaire ou technicien d'élevage relit la partie vaccins et maladies. Tu peux en trouver un près de chez toi ; je prépare la liste de ce qu'il doit vérifier.</span></li>
+    <li><b>Mise en page et illustrations (1 à 2 jours)</b><span>Version A4 imprimable + version téléphone, environ 30 illustrations (poulailler, calendrier, tableaux), couverture, 3 kits.</span></li>
+    <li><b>Ta validation</b><span>Je t'envoie la maquette avant les grands choix visuels, comme pour Alibaba.</span></li>
+    <li><b>Lancement</b><span>Page Chariow, 3 vidéos (3 accroches chacune), visuels boutique et pubs. On réutilise toute la machine vidéo déjà construite.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2>Ma recommandation finale</h2>
+  <div class="box">
+    <p style="margin:0 0 8px"><b>1. On fait le livre poulets maintenant.</b> Le plus de demande, le moins de concurrence sérieuse, un seul livre pour tous les pays.</p>
+    <p style="margin:0 0 8px"><b>2. En parallèle, on prépare le livre terrain</b> (il demande plus de vérifications pays par pays).</p>
+    <p style="margin:0 0 8px"><b>3. Le livre boutique, on peut l'écrire vite</b> et l'offrir en pack aux acheteurs du livre Alibaba.</p>
+    <p style="margin:0"><b>Ce qu'il me faut de toi :</b> ton accord sur le N°1, et dans quel pays tu vis et vends le plus (pour choisir les prix d'exemple et le premier pays des fiches terrain).</p>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="wrap">Sources : 3 rapports de recherche du 6 novembre 2026 (demande par métier, problèmes par secteur, marché des produits digitaux), avec les liens de chaque chiffre. Ils sont rangés dans le dossier du projet : ebooks/recherches-nouveau-sujet/.</div>
+</footer>
+</body>
+</html>

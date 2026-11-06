@@ -1,0 +1,61 @@
+=====================================================================
+VIDEO 3 - "Ton colis est en retard... encore ?"
+Profil vise : l'importateur qui a deja eu des problemes
+(arnaque, retard, colis perdu, remboursement refuse, transitaire qui gonfle la facture)
+Format : vertical 9:16 - environ 50 s - Prix : 5 000 F barre -> 3 900 F CFA
+=====================================================================
+
+---------------------------------------------------------------------
+ETAPE 1 - LE PERSONNAGE (a generer avec ChatGPT, nom : V3-MOUSSA)
+---------------------------------------------------------------------
+Portrait photo realiste, format vertical 9:16. Un homme africain de 38 ans, peau foncee, crane rase, barbe courte bien taillee, chemise a manches longues bleu ciel retroussees, montre argentee. Il se tient dans sa boutique d'electromenager (ventilateurs, mixeurs et petits appareils sans marque sur des etageres derriere lui). Regard droit vers l'objectif, expression serieuse et un peu fatiguee, bras le long du corps. Lumiere naturelle du jour. Aucun texte, aucun logo, aucune marque visible. Style photo de reportage, tres naturel.
+
+---------------------------------------------------------------------
+ETAPE 2 - LES 4 SCENES GOOGLE FLOW (ingredient : V3-MOUSSA pour toutes)
+Chaque scene : vertical 9:16, 8 secondes.
+---------------------------------------------------------------------
+
+=== SCENE V3-S1 ===
+(En francais : dans sa boutique, Moussa est au telephone, enerve. Il raccroche, regarde le calendrier au mur, souffle et secoue la tete : son colis est encore en retard.)
+Vertical 9:16, 8 seconds, photorealistic. Inside a small home appliance shop in West Africa, shelves of unbranded fans and blenders in the background. The man from the reference image (sky-blue long-sleeved shirt with rolled sleeves, silver watch, shaved head, short beard) talks on his phone, visibly annoyed. He hangs up, turns to look at a paper wall calendar, exhales heavily and shakes his head in frustration. Slow camera push-in, natural daylight. The calendar has no readable text. No text, no logos, no brand names, no dialogue, ambient shop sound only.
+
+=== SCENE V3-S2 ===
+(En francais : a l'agence du transitaire, on tend une facture a Moussa au comptoir. Il la lit, ses yeux s'ecarquillent, il pose la main sur son front, choque. Derriere lui, des piles de cartons.)
+Vertical 9:16, 8 seconds, photorealistic. Inside a busy freight forwarding agency in West Africa, stacks of brown cardboard boxes and a service counter. The man from the reference image (sky-blue shirt, silver watch) receives a paper invoice from an employee across the counter. He reads it, his eyes widen in shock, and he puts his hand on his forehead. Slow camera push-in on his face. Fluorescent office light, realistic. No readable text on the invoice, no logos, no dialogue, ambient office sound only.
+
+=== SCENE V3-S3 ===
+(En francais : dans l'arriere-boutique, Moussa est assis sur un carton, les coudes sur les genoux, decourage. Il regarde son telephone puis le pose a cote de lui.)
+Vertical 9:16, 8 seconds, photorealistic, cinematic. Evening, in the back room of a small shop filled with brown cardboard boxes. The man from the reference image (sky-blue shirt, silver watch) sits on a box, elbows on his knees, looking discouraged. He glances at his phone, sighs, then puts it down beside him and stares at the floor. Static camera, warm dim light from a single bulb, melancholic mood. The phone screen is not readable. No text, no logos, no dialogue, quiet ambient sound only.
+
+=== SCENE V3-S4 ===
+(En francais : le jour, Moussa est serein a son comptoir. Il verifie une commande sur son telephone, avec un guide imprime ouvert a cote de lui, hoche la tete et sourit : il a repris le controle.)
+Vertical 9:16, 8 seconds, photorealistic. Bright daytime, the same home appliance shop, now tidy. The man from the reference image (sky-blue shirt, silver watch), calm and confident, stands at his counter checking an order on his smartphone, with an open printed guide beside him. He compares, nods with satisfaction and smiles. Slow camera orbit, warm natural light, positive mood. The phone screen and the guide pages are not readable. No text, no logos, no dialogue, soft ambient sound only.
+
+---------------------------------------------------------------------
+ETAPE 3 - LA VOIX OFF (nom du fichier : V3-VOIX.mp3)
+Voix conseillee : homme africain francophone, voix grave et posee qui inspire confiance.
+Rythme calme au debut, plus energique a partir de la solution. Petite pause a chaque ligne.
+---------------------------------------------------------------------
+Ton colis est en retard... encore ? Ce n'est pas un hasard.
+La cause, et la solution, sont dans ce guide : "Briser la peur d'importer".
+Un fournisseur qui disparait. Un transitaire qui gonfle la facture. Un remboursement refuse. Des cartons perdus a l'entrepot.
+Tu penses qu'Alibaba, c'est toujours complique. En realite, chaque probleme vient d'une erreur precise.
+Un fournisseur jamais verifie. Une commande trop floue. Des cartons mal marques. Une reception confirmee trop vite.
+Dans ce guide, on decortique les quinze erreurs qui ruinent les importateurs, avec une situation concrete et une solution pour chacune. Et les dix signaux qui annoncent une arnaque, avant qu'il soit trop tard.
+Arrete de subir. Reprends le controle de tes commandes.
+Le guide et ses trois kits : au lieu de cinq mille francs, seulement trois mille neuf cents francs CFA.
+Clique sur "Commander maintenant".
+
+---------------------------------------------------------------------
+LE MONTAGE (fait par moi, pour information)
+---------------------------------------------------------------------
+0-3 s    V3-S1 + "TON COLIS EST EN RETARD... ENCORE ?"
+3-6 s    Couverture du livre en grand + "La cause et la solution"
+6-13 s   V3-S2 + "Facture gonflee - Colis perdu - Remboursement refuse"
+13-18 s  V3-S3 + "Alibaba, c'est toujours complique ?"
+18-30 s  Motion : 4 cartes d'erreurs avec croix rouges
+30-40 s  Motion : pages "15 erreurs" et "10 signaux d'arnaque"
+40-45 s  V3-S4 + "Reprends le controle"
+45-50 s  Pack, 5 000 F barre -> 3 900 F CFA, bouton COMMANDER MAINTENANT
+
+A M'ENVOYER : V3-MOUSSA, V3-S1, V3-S2, V3-S3, V3-S4, V3-VOIX.mp3

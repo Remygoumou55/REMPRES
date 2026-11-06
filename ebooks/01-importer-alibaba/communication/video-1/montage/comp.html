@@ -120,6 +120,7 @@ W.forEach(c=>{const t=c.w.map(x=>x[0]).join(' ');
  if(t.startsWith('au lieu de cinq')){const s=c.s,e=c.e;const d=['au','lieu','de','5 000 F,','seulement','3 900','F CFA.'];const ts=[0,.06,.12,.18,.42,.6,.85,1];c.w=d.map((w,i)=>[w,s+(e-s)*ts[i],s+(e-s)*ts[i+1]]);}
  if(t.startsWith('Le guide et ses trois')){c.w=c.w.map(x=>[x[0]=='trois'?'3':x[0],x[1],x[2]]);}
 });
+W.forEach(c=>{const o=[];c.w.forEach(w=>{const s=w[0].replace(/[«»"]/g,'').trim();if(!s)return;if(/^[.,:;?!…]+$/.test(s)&&o.length){o[o.length-1][0]+=s;o[o.length-1][2]=w[2];return}o.push([s,w[1],w[2]])});c.w=o});
 // split chunks into pages <=34 chars
 const PAGES=[];W.forEach(c=>{let cur=[],len=0;c.w.forEach(w=>{const l=w[0].length+1;if(len+l>34&&cur.length){PAGES.push(cur);cur=[];len=0}cur.push(w);len+=l});if(cur.length)PAGES.push(cur)});
 PAGES.forEach((p,i)=>{p.s=p[0][1];p.e=(i+1<PAGES.length)?Math.min(PAGES[i+1][0][1],p[p.length-1][2]+0.6):p[p.length-1][2]+1.5});

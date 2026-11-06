@@ -1,7 +1,7 @@
 # COMMUNICATION — « Briser la peur d'importer » (version 2)
 
 **Produit :** le guide Alibaba pas à pas (64 pages, 32 illustrations, exercices corrigés, 15 erreurs, 10 signaux d'arnaque, lexique) + 3 kits bonus, en version imprimable et téléphone.
-**Prix :** 3 900 F CFA · **Vente :** sur Chariow (dans les vidéos et visuels, on dit seulement « Commander maintenant »)
+**Prix :** ~~5 000 F CFA~~ 3 900 F CFA (prix barré) · **Vente :** sur Chariow (dans les vidéos et visuels, on dit seulement « Commander maintenant »)
 **Pays :** toute l'Afrique francophone (Côte d'Ivoire, Guinée, Sénégal, Cameroun, Togo, Gabon, Bénin…)
 
 ---

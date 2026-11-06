@@ -1,0 +1,57 @@
+=====================================================================
+VIDEO 5 - "Tu importes depuis des annees, mais..."
+Profil vise : l'importateur experimente (expert)
+Format : vertical 9:16 - environ 35 s - Prix : 5 000 F barre -> 3 900 F CFA
+Identite de la video : noir + or, titres en police Playfair Display (elegante),
+ambiance premium (cordes douces, piano), effets : sons metalliques discrets.
+=====================================================================
+
+---------------------------------------------------------------------
+ETAPE 1 - LE PERSONNAGE (a generer avec ChatGPT, nom : V5-KOUAME)
+---------------------------------------------------------------------
+Portrait photo realiste, format vertical 9:16. Un homme africain d'environ 52 ans, peau foncee, cheveux courts grisonnants, barbe courte poivre et sel, lunettes a fine monture doree, chemise noire unie bien repassee, montre doree classique. Il se tient dans un grand entrepot ordonne, avec des rangees de cartons sur des etageres metalliques derriere lui. Regard droit vers l'objectif, expression calme, sure d'elle et exigeante, bras le long du corps. Lumiere chaude et contrastee, ambiance haut de gamme. Aucun texte, aucun logo, aucune marque visible. Style photo de reportage, tres naturel.
+
+---------------------------------------------------------------------
+ETAPE 2 - LES 3 SCENES GOOGLE FLOW (ingredient : V5-KOUAME pour les 3)
+Chaque scene : vertical 9:16, 8 secondes.
+---------------------------------------------------------------------
+
+=== SCENE V5-S1 ===
+(En francais : dans son grand entrepot, Kouame marche lentement entre les rangees de cartons, puis s'arrete, se tourne vers la camera et la regarde fixement, l'air de dire "et toi, tu sais vraiment ?".)
+Vertical 9:16, 8 seconds, photorealistic, cinematic. A large, well-organized warehouse with long rows of brown cardboard boxes on metal shelves. The man from the reference image (black plain shirt, thin gold-rimmed glasses, grey short hair, salt-and-pepper beard, gold watch), arms relaxed, walks slowly between the rows, then stops, turns toward the camera and looks straight into the lens with a calm, challenging expression. Slow tracking shot, warm contrasted light, premium mood. Box labels are blurred and unreadable. No text, no logos, no dialogue, quiet ambient warehouse sound only.
+
+=== SCENE V5-S2 ===
+(En francais : Kouame est assis a son bureau dans l'entrepot. Il regarde une facture de transport, sort une calculatrice, fait un calcul, puis fronce les sourcils : les chiffres ne collent pas.)
+Vertical 9:16, 8 seconds, photorealistic. In a small glass office inside the warehouse, the man from the reference image (black shirt, gold-rimmed glasses, gold watch) sits at a wooden desk. He studies a paper freight invoice, takes a calculator, types a calculation, then frowns, realizing the numbers do not add up. Close-up on his face and hands, warm desk-lamp light, slow push-in. No readable text on the invoice or calculator, no logos, no dialogue, soft ambient sound only.
+
+=== SCENE V5-S3 ===
+(En francais : Kouame, debout dans l'entrepot, explique quelque chose a deux jeunes employes (un homme et une femme) en leur montrant un guide imprime. Les employes hochent la tete et prennent des notes : il forme son equipe.)
+Vertical 9:16, 8 seconds, photorealistic. In the same warehouse, the man from the reference image (black shirt, gold-rimmed glasses) stands and explains something to two young West African employees, a man and a woman in simple work clothes, while showing them an open printed guide. The employees nod and take notes on small notebooks. Medium shot, slow camera orbit, warm light, confident and positive mood. The guide pages are not readable. No text, no logos, no dialogue, soft ambient sound only.
+
+---------------------------------------------------------------------
+ETAPE 3 - LA VOIX OFF (nom du fichier : V5-VOIX.mp3)
+Voix conseillee : homme africain francophone, voix mature et grave, ton direct et respectueux,
+comme un pair qui parle a un autre pair. Rythme pose. Petite pause a chaque ligne.
+IMPORTANT : generer TOUTE la voix jusqu'a "Clique sur Commander maintenant", verifier a l'ecoute.
+---------------------------------------------------------------------
+Tu importes depuis des annees. Mais sais-tu calculer ton transport sans ton transitaire ?
+"Briser la peur d'importer" te donne les formules.
+Volume, poids volumetrique, valeur en douane, cout de revient reel : c'est la que se cache ta marge.
+Et c'est souvent la qu'on te la prend, sans que tu le voies.
+Dans ce guide, tu trouves les formules, des exercices corriges, et des checklists pretes a l'emploi pour former ton equipe.
+Le guide et ses trois kits : au lieu de cinq mille francs, seulement trois mille neuf cents francs CFA. Le prix d'une seule erreur de calcul.
+Clique sur "Commander maintenant".
+
+---------------------------------------------------------------------
+LE MONTAGE (fait par moi, pour information)
+---------------------------------------------------------------------
+Accroche   V5-S1 + "TU SAIS VRAIMENT CALCULER ?"
+Produit    Couverture du livre en grand, effet or
+Calculs    Motion : carton 3D 60 x 40 x 40 cm, les formules du CBM et du poids
+           volumetrique s'ecrivent, puis "COUT DE REVIENT REEL"
+Marge      V5-S2 (la facture qui ne colle pas) + "C'EST LA QU'ON TE PREND TA MARGE"
+Equipe     V5-S3 (il forme son equipe) + pages des exercices corriges et des kits
+Fin        Pack, 5 000 F barre -> 3 900 F CFA, "Le prix d'une seule erreur de calcul",
+           bouton COMMANDER MAINTENANT
+
+A M'ENVOYER : V5-KOUAME, V5-S1, V5-S2, V5-S3, V5-VOIX.mp3

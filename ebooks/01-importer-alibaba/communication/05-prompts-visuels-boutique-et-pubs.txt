@@ -1,0 +1,114 @@
+=====================================================================
+PROMPTS CHATGPT - VISUELS DE LA BOUTIQUE (Chariow) + VISUELS PUBLICITAIRES
+"Briser la peur d'importer - Le guide Alibaba pas a pas" - 3 900 F CFA
+=====================================================================
+
+COMMENT FAIRE
+1. Ouvre une NOUVELLE conversation ChatGPT.
+2. Colle d'abord le bloc "REGLES STRICTES" ci-dessous (une seule fois).
+3. Pour chaque visuel : joins les images indiquees (dossier
+   communication/visuels-a-joindre/), puis colle le prompt.
+4. Envoie-moi chaque image numerotee (V01, V02...) : je controle tout
+   (fautes, chiffres, couverture deformee) avant que tu la publies.
+
+---------------------------------------------------------------------
+REGLES STRICTES (a coller en premier)
+---------------------------------------------------------------------
+Tu vas creer une serie de visuels professionnels pour vendre un e-book en Afrique francophone. Respecte ces regles pour CHAQUE image :
+1. Tout le texte est en FRANCAIS, sans aucune faute. Ecris EXACTEMENT les textes que je donne entre guillemets, ni plus ni moins. Relis chaque mot avant de livrer.
+2. Quand je joins la couverture du livre ou des kits, reproduis-la FIDELEMENT (meme titre, memes couleurs, meme mise en page) sur un mockup realiste. Ne la redessine pas, ne change aucun mot.
+3. Style : moderne, premium, tres lisible sur telephone. Gros titres en gras plein. Fort contraste.
+4. Couleurs de la marque : bleu nuit #0F2A44, orange #FF7A1A, blanc. Pas d'autres couleurs dominantes.
+5. Personnes eventuelles : africaines, naturelles, realistes, sans visage de celebrite.
+6. AUCUN logo de marque : pas de logo Alibaba, Facebook, TikTok, Visa, Mastercard, banque ou operateur telephonique. Le mot "Alibaba" peut apparaitre seulement dans les textes que je donne.
+7. Interdit : faux avis clients, etoiles de notation, "garanti", "devenir riche", "argent facile", faux compte a rebours.
+8. Pas de petits textes illisibles inventes en arriere-plan.
+
+---------------------------------------------------------------------
+PARTIE 1 - LA BOUTIQUE CHARIOW
+---------------------------------------------------------------------
+
+=== V01 - IMAGE PRINCIPALE DU PRODUIT (carree 1:1, 1080 x 1080) ===
+Joindre : couverture-livre-01.png, couverture-kit-1-calculs-1.png, couverture-kit-2-checklists-1.png, couverture-kit-3-messages-1.png
+Prompt :
+Image produit carree 1:1, fond bleu nuit #0F2A44 avec un leger halo orange derriere le produit. Au centre, un mockup 3D realiste du livre (couverture jointe), legerement incline, pose devant les 3 kits joints disposes en eventail derriere lui, et a droite un smartphone moderne qui affiche la meme couverture. Ombres douces et realistes, rendu premium. En haut, en blanc, gras : "LE GUIDE + 3 KITS BONUS". En bas a gauche, une pastille orange ronde : "3 900 F". En bas, une ligne de 3 petites etiquettes blanches arrondies : "Version telephone" - "Version imprimable" - "Acces immediat". Rien d'autre.
+
+=== V02 - BANNIERE DE LA BOUTIQUE (large 3:1, 1500 x 500) ===
+Joindre : couverture-livre-01.png
+Prompt :
+Banniere horizontale 3:1, fond bleu nuit #0F2A44 avec de fines lignes de route en pointilles orange qui partent de la gauche vers la droite (evocation du trajet Chine -> Afrique, sans carte detaillee). A gauche, texte en blanc tres gras : "BRISER LA PEUR D'IMPORTER" et dessous en orange : "Le guide Alibaba pas a pas". A droite, mockup realiste du livre (couverture jointe) a cote d'un carton brun ferme. Sobre, premium, beaucoup d'espace.
+
+=== V03 - "CE QUE TU VAS APPRENDRE" (carre 1:1) ===
+Joindre : couverture-livre-01.png
+Prompt :
+Visuel carre 1:1, fond blanc casse, titre bleu nuit tres gras en haut : "CE QUE TU VAS APPRENDRE". En dessous, une liste de 6 lignes, chacune precedee d'un rond orange avec une coche blanche, texte bleu nuit gras :
+"Trouver un produit qui se vend"
+"Verifier un fournisseur en 11 points"
+"Payer sans risque, meme par Mobile Money"
+"Choisir un transitaire serieux"
+"Calculer CBM, poids, douane et cout de revient"
+"Te faire rembourser en cas de probleme"
+Petit mockup du livre (couverture jointe) en bas a droite. Rien d'autre.
+
+=== V04 - "A L'INTERIEUR DU GUIDE" (carre 1:1) ===
+Joindre : page-calcul-cbm.png, page-kit1-cout-de-revient.png, page-plan-30-jours.png
+Prompt :
+Visuel carre 1:1, fond bleu nuit #0F2A44. Titre blanc tres gras en haut : "A L'INTERIEUR DU GUIDE". Au centre, trois smartphones modernes cote a cote, legerement decales en profondeur, qui affichent chacun UNE des trois pages jointes, de maniere fidele et nette. Sous chaque telephone, une etiquette orange : "Exercices corriges" - "Fiche cout de revient" - "Plan de 30 jours". En bas en blanc : "64 pages - 32 illustrations - francais simple".
+
+=== V05 - "LES 3 KITS BONUS" (carre 1:1) ===
+Joindre : couverture-kit-1-calculs-1.png, couverture-kit-2-checklists-1.png, couverture-kit-3-messages-1.png
+Prompt :
+Visuel carre 1:1, fond blanc casse. Titre bleu nuit tres gras : "3 KITS BONUS INCLUS". Les 3 couvertures jointes en mockup realiste, alignees, avec une legende orange sous chacune :
+"Kit 1 : Calculs" / "Kit 2 : Checklists" / "Kit 3 : Messages FR/EN"
+En bas, bandeau bleu nuit avec texte blanc : "Prets a imprimer ou a utiliser sur ton telephone".
+
+=== V06 - "POUR QUI ?" (carre 1:1) ===
+Prompt :
+Visuel carre 1:1, fond bleu nuit #0F2A44, titre blanc tres gras : "CE GUIDE EST POUR TOI SI...". Trois cartes blanches arrondies empilees verticalement, chacune avec une petite icone simple orange a gauche (pas de photo) et un texte bleu nuit gras :
+Carte 1 (icone telephone avec plusieurs videos) : "Tu regardes plein de videos mais tu n'as jamais commande"
+Carte 2 (icone etal de marche) : "Tu achetes au marche local et tu veux passer a Alibaba"
+Carte 3 (icone carton + calculatrice) : "Tu importes deja mais ton transitaire fait tous les calculs"
+
+=== V07 - "PAIEMENT ET ACCES" (carre 1:1) ===
+Joindre : couverture-livre-01.png
+Prompt :
+Visuel carre 1:1, fond blanc casse. Une main africaine tient un smartphone qui affiche un ecran generique de paiement mobile (sans logo d'operateur) avec le texte "Paiement reussi" et une coche verte, et juste en dessous la couverture jointe en petit. Titre bleu nuit tres gras en haut : "PAYE PAR MOBILE MONEY". Dessous, en orange : "Recois ton guide tout de suite". En bas, 3 petites icones avec texte : "Paiement securise" - "Telechargement immediat" - "Telephone + PDF imprimable".
+
+---------------------------------------------------------------------
+PARTIE 2 - VISUELS PUBLICITAIRES (4:5, 1080 x 1350)
+---------------------------------------------------------------------
+
+=== P01 - "TON TRANSITAIRE CALCULE" ===
+Joindre : couverture-livre-01.png
+Prompt :
+Visuel publicitaire 4:5, fond presque noir avec une fine grille. En haut, texte tres gras, majuscules : ligne 1 en blanc "TON TRANSITAIRE CALCULE." ; ligne 2 en jaune vif "TOI, TU PAIES." Au centre, une facture de fret papier realiste et lisible avec ces lignes exactes : "Cartons : 3" / "Volume facture : 1 CBM" / "Total : 230 000 F". La ligne "1 CBM" est entouree d'un gros cercle rouge dessine a la main, avec a cote en rouge : "Reel : 0,29 m3 ?". En bas a gauche, mockup du livre (couverture jointe). En bas a droite, pastille jaune : "3 900 F". Bouton blanc en bas : "Commander maintenant".
+
+=== P02 - "CALCULE TON CBM EN 2 MINUTES" ===
+Joindre : couverture-livre-01.png
+Prompt :
+Visuel publicitaire 4:5, fond bleu nuit #0F2A44. Titre blanc tres gras : "CALCULE TON CBM" et en orange : "EN 2 MINUTES". Au centre, un carton brun realiste avec les cotes dessinees en orange : "60 cm", "40 cm", "40 cm". A cote, la formule en gros chiffres blancs : "0,60 x 0,40 x 0,40 = 0,096 m3". En bas : "Avant de payer ton transitaire." Mockup du livre en bas a gauche, pastille orange "3 900 F", bouton blanc "Commander maintenant".
+
+=== P03 - "TON GROSSISTE ACHETE SUR ALIBABA" ===
+Joindre : couverture-livre-01.png
+Prompt :
+Visuel publicitaire 4:5. Photo realiste d'un grand marche africain anime avec des piles de cartons bruns, legerement floutee. Bandeau bleu nuit en haut avec texte blanc tres gras : "TON GROSSISTE ACHETE SUR ALIBABA." et en orange, encore plus gros : "POURQUOI PAS TOI ?". Au premier plan en bas, une main africaine tient un smartphone qui affiche une fiche produit generique d'un sac a main marron (sans logo). Mockup du livre (couverture jointe) en bas a droite, pastille orange "3 900 F", bouton blanc "Commander maintenant".
+
+=== P04 - "NI COACHING A 200 000 F" ===
+Joindre : couverture-livre-01.png, les 3 couvertures des kits
+Prompt :
+Visuel publicitaire 4:5, fond bleu nuit #0F2A44. Titre blanc tres gras sur 2 lignes : "NI COACHING A 200 000 F." / "NI SERVICE CACHE." Puis en orange : "JUSTE LA METHODE." Au centre, le livre et les 3 kits joints en mockup realiste. Sous le produit, en tres gros chiffres orange : "3 900 F". Bouton blanc : "Commander maintenant".
+
+=== P05 - "15 ERREURS QUI COUTENT CHER" ===
+Joindre : couverture-livre-01.png
+Prompt :
+Visuel publicitaire 4:5, fond blanc casse. Titre bleu nuit tres gras : "15 ERREURS QUI COUTENT CHER SUR ALIBABA". Une liste de 5 lignes, chacune precedee d'une croix rouge, texte bleu nuit :
+"Payer hors d'Alibaba"
+"Croire un changement de compte bancaire"
+"Commander sans echantillon"
+"Oublier le poids volumetrique"
+"Choisir le transitaire le moins cher"
+Sous la liste, en orange gras : "... et 10 autres, avec leurs solutions." Mockup du livre (couverture jointe) a droite, pastille orange "3 900 F", bouton bleu nuit "Commander maintenant".
+
+=====================================================================
+A M'ENVOYER : V01 a V07 (boutique) et P01 a P05 (publicites)
+=====================================================================

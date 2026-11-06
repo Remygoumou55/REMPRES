@@ -1,0 +1,235 @@
+<title>Kit de lancement Briser la peur</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;600;700&display=swap">
+<style>
+/* Mise en page : bandeau d'en-tête, puis sections empilées ; grilles de cartes vidéo qui passent à 1 colonne sur téléphone. */
+:root {
+  --bg: #f6f4ef; --surface: #ffffff; --ink: #14202b; --muted: #5d6874; --line: #e2ddd3;
+  --navy: #0f2a44; --accent: #e86a12; --accent-soft: #fde9d8; --good: #1f8a5b; --good-soft: #e3f4ec; --bad: #c43d3d;
+  --display: "Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0d141b; --surface: #16212c; --ink: #edf1f4; --muted: #9aa8b5; --line: #26333f;
+  --navy: #0a1a29; --accent: #ff8a3d; --accent-soft: #3a2414; --good: #4cc98f; --good-soft: #13302a; --bad: #ff7b7b; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0d141b; --surface: #16212c; --ink: #edf1f4; --muted: #9aa8b5; --line: #26333f;
+  --navy: #0a1a29; --accent: #ff8a3d; --accent-soft: #3a2414; --good: #4cc98f; --good-soft: #13302a; --bad: #ff7b7b; color-scheme: dark }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 16px/1.55 var(--body); margin: 0; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header { background: var(--navy); color: #fff; }
+header .wrap { padding-block: 40px 34px; display: grid; gap: 18px; }
+.eyebrow { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: #ffb47e; font-weight: 700; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.08; }
+h1 { font-size: clamp(30px, 6vw, 52px); font-weight: 800; }
+h1 em { font-style: normal; color: #ffb47e; }
+header p { margin: 0; max-width: 62ch; color: #d5dee8; }
+.facts { display: flex; flex-wrap: wrap; gap: 10px; }
+.fact { border: 1px solid rgba(255,255,255,.25); border-radius: 999px; padding: 6px 14px; font-size: 14px; }
+.fact s { opacity: .7; }
+section { padding-block: 36px 8px; }
+h2 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; margin-bottom: 6px; }
+.lead { color: var(--muted); margin: 0 0 20px; max-width: 70ch; }
+nav.jump { display: flex; flex-wrap: wrap; gap: 8px; }
+nav.jump a { color: #fff; text-decoration: none; font-weight: 600; font-size: 14px; background: rgba(255,255,255,.1); padding: 6px 12px; border-radius: 8px; }
+nav.jump a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* Favoris */
+.favs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.fav { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.rank { font-family: var(--display); font-weight: 800; font-size: 15px; color: var(--accent); letter-spacing: .04em; }
+.fav h3 { font-size: 21px; }
+.fav p { margin: 0; color: var(--muted); font-size: 15px; }
+
+video { width: 100%; aspect-ratio: 9/16; max-width: 100%; border-radius: 10px; background: #000; display: block; object-fit: cover; }
+
+/* Plan */
+.steps { counter-reset: s; display: grid; gap: 12px; padding: 0; margin: 0; list-style: none; }
+.steps li { counter-increment: s; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px 14px 62px; position: relative; min-width: 0; }
+.steps li::before { content: counter(s); position: absolute; left: 16px; top: 14px; width: 32px; height: 32px; border-radius: 50%; background: var(--navy); color: #fff; font-weight: 800; display: grid; place-items: center; font-family: var(--display); }
+.steps b { display: block; font-size: 17px; margin-bottom: 2px; }
+.steps p { margin: 4px 0 0; color: var(--muted); font-size: 15px; }
+.adsets { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+.adset { background: var(--accent-soft); border-radius: 10px; padding: 10px 12px; font-size: 14px; min-width: 0; }
+.adset strong { display: block; color: var(--ink); }
+
+/* Tableau de décision */
+.tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 15px; }
+th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+tr:last-child td { border-bottom: 0; }
+.pill { display: inline-block; font-weight: 700; font-size: 13px; padding: 2px 10px; border-radius: 999px; }
+.pill.keep { background: var(--good-soft); color: var(--good); }
+.pill.cut { background: color-mix(in srgb, var(--bad) 15%, transparent); color: var(--bad); }
+
+/* Cartes vidéo */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.filters button { font: 600 14px var(--body); border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: 7px 14px; border-radius: 999px; cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--navy); color: #fff; border-color: var(--navy); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.card .top { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 12px; align-items: start; }
+.card .top video { border-radius: 8px; }
+.tag { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.card h3 { font-size: 19px; margin: 2px 0 6px; }
+.hook { font-size: 14px; color: var(--muted); margin: 0; }
+.meta { font-size: 13px; color: var(--muted); margin-top: 6px; }
+.field { border-top: 1px dashed var(--line); padding-top: 10px; display: grid; gap: 6px; min-width: 0; }
+.field .lab { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.field pre { margin: 0; white-space: pre-wrap; word-break: break-word; font: 15px/1.5 var(--body); color: var(--ink); background: var(--bg); border-radius: 8px; padding: 10px 12px; }
+.copy { font: 700 13px var(--body); border: 0; background: var(--accent); color: #fff; padding: 5px 12px; border-radius: 6px; cursor: pointer; }
+.copy.ok { background: var(--good); }
+.note { background: var(--surface); border-left: 4px solid var(--accent); border-radius: 8px; padding: 12px 16px; color: var(--ink); font-size: 15px; margin: 16px 0 0; }
+footer { padding-block: 30px 40px; color: var(--muted); font-size: 14px; }
+@media (max-width: 760px) { .favs, .adsets { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Campagne publicitaire · guide Alibaba</div>
+    <h1>Briser la peur <em>d'importer</em> : le kit de lancement</h1>
+    <p>Les 14 vidéos, les textes à copier pour chaque publication, le plan de lancement pas à pas et mes 3 favorites pour vendre le guide.</p>
+    <div class="facts">
+      <span class="fact">14 vidéos</span><span class="fact"><s>5 000 F</s> 3 900 F CFA</span><span class="fact">Vente sur Chariow</span><span class="fact">Afrique francophone</span>
+    </div>
+    <nav class="jump" aria-label="Sections">
+      <a href="#favoris">Mes favoris</a><a href="#plan">Comment publier</a><a href="#regles">Garder ou couper</a><a href="#videos">Toutes les vidéos</a><a href="#gratuit">Publications gratuites</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="favoris">
+    <h2>Mes 3 favorites</h2>
+    <p class="lead">Celles que je lancerais en premier avec ton budget. Elles portent une preuve concrète et parlent à une peur précise.</p>
+    <div class="favs" id="favs"></div>
+  </section>
+
+  <section id="plan">
+    <h2>Comment publier, étape par étape</h2>
+    <p class="lead">Dans le Gestionnaire de publicités Meta (Facebook et Instagram). Compte environ 30 minutes pour tout installer.</p>
+    <ol class="steps">
+      <li><b>Prépare la boutique avant tout</b><p>Sur Chariow : prix normal 5 000 F avec promotion à 3 900 F (pour que le prix barré soit vrai), la couverture, les visuels V01 à V07, et le paiement Mobile Money activé. Fais toi-même un achat test pour vérifier que le lien et le téléchargement marchent.</p></li>
+      <li><b>Vérifie ton moyen de paiement Meta</b><p>Ajoute une carte dans les paramètres de paiement du Gestionnaire de publicités. Certaines cartes locales sont refusées : prévois une carte virtuelle en dollars si besoin.</p></li>
+      <li><b>Crée la campagne</b><p>Objectif « Ventes » si tu as pu installer le pixel Meta sur ta boutique Chariow. Sinon, objectif « Trafic » vers ta page produit. Choisis le budget au niveau de chaque ensemble de publicités (pas au niveau de la campagne) pour le test.</p></li>
+      <li><b>Crée 3 ensembles de publicités, un par profil</b>
+        <p>Budget : 2 500 F par jour chacun (7 500 F par jour au total), pendant 3 jours.</p>
+        <div class="adsets">
+          <div class="adset"><strong>Ensemble A · Transitaire</strong>A-COMBINÉE + A2</div>
+          <div class="adset"><strong>Ensemble B · Grossiste</strong>B-COMBINÉE + B1</div>
+          <div class="adset"><strong>Ensemble C · Débutant</strong>C-COMBINÉE + C1</div>
+        </div>
+      </li>
+      <li><b>Règle l'audience de chaque ensemble</b><p>Pays : Côte d'Ivoire, Sénégal, Cameroun, Bénin, Togo, Guinée, Gabon. Âge : 21 à 50 ans. Langue : français. Laisse l'audience large, ou ajoute des centres d'intérêt comme commerce en ligne, import-export, entrepreneuriat, Alibaba, AliExpress. Placements : laisse « Advantage+ » ; les Reels et les Stories sont les plus importants pour ces vidéos verticales.</p></li>
+      <li><b>Crée les publicités</b><p>Pour chaque vidéo : importe le fichier, colle le texte principal, le titre et la description de sa carte ci-dessous, choisis le bouton « Acheter » et colle le lien de ta page Chariow. Vérifie l'aperçu Reels : les sous-titres ne doivent pas être cachés par les boutons.</p></li>
+      <li><b>Laisse tourner 3 jours sans toucher</b><p>Ne modifie rien pendant 48 à 72 heures : chaque modification relance l'apprentissage de Meta. Ensuite, applique le tableau « Garder ou couper ».</p></li>
+      <li><b>Augmente le budget de la gagnante</b><p>Sur la vidéo qui vend le moins cher : +20 à 30 % de budget tous les 2 jours, pas plus d'un coup. Puis teste les autres versions (A1, A3, B2, B3, C2, C3, V3, V5) contre elle, une ou deux à la fois.</p></li>
+    </ol>
+  </section>
+
+  <section id="regles">
+    <h2>Garder ou couper une publicité</h2>
+    <p class="lead">Juge sur le coût par vente, pas sur le nombre de vues. Ces seuils sont des repères de départ, à ajuster avec tes vrais chiffres.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Ce que tu observes</th><th>Décision</th><th>Pourquoi</th></tr></thead>
+      <tbody>
+        <tr><td>Environ 8 000 F dépensés (2 fois le prix du guide) et aucune vente</td><td><span class="pill cut">Couper</span></td><td>La vidéo attire, mais ne convainc pas d'acheter.</td></tr>
+        <tr><td>Moins de 25 % des gens regardent les 3 premières secondes</td><td><span class="pill cut">Couper</span></td><td>L'accroche n'arrête pas le pouce.</td></tr>
+        <tr><td>Taux de clic sous 1 % après 1 000 vues</td><td><span class="pill cut">Couper ou changer le texte</span></td><td>Les gens regardent mais ne cliquent pas.</td></tr>
+        <tr><td>Des ventes, avec un coût par vente sous 3 900 F</td><td><span class="pill keep">Garder et augmenter</span></td><td>Chaque vente rapporte plus que la pub ne coûte.</td></tr>
+        <tr><td>Beaucoup de clics, mais peu de ventes</td><td><span class="pill keep">Garder, revoir la page Chariow</span></td><td>La vidéo marche ; c'est la page de vente qui bloque.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Les commentaires sont une mine d'or : réponds à chaque question rapidement, et note les mots que les gens utilisent. Ils te donneront tes prochaines accroches.</p>
+  </section>
+
+  <section id="videos">
+    <h2>Toutes les vidéos et leurs textes</h2>
+    <p class="lead">Chaque carte contient la vidéo et les 4 textes à copier dans la publicité : texte principal, titre, description et bouton.</p>
+    <div class="filters" role="group" aria-label="Filtrer les vidéos" id="filters"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section id="gratuit">
+    <h2>Publications gratuites</h2>
+    <p class="lead">En plus des pubs, poste une vidéo par jour sur ta page Facebook, ton TikTok et ton statut WhatsApp. C'est gratuit, et ça donne confiance à ceux qui voient la pub et vont regarder ton profil.</p>
+    <div class="grid">
+      <div class="card"><div class="tag">TikTok et Reels</div><div class="field"><div class="lab">Légende <button class="copy" data-copy="tt">Copier</button></div><pre id="tt">Ton transitaire calcule. Toi, tu paies. Tu sais vérifier ? 📦
+Le guide complet pour importer d'Alibaba sans te faire avoir : calculs, fournisseurs, paiement, douane.
+👉 Lien dans ma bio · 3 900 F
+#importation #alibaba #ecommerceafrique #entrepreneuriat #chine #transitaire #abidjan #dakar #douala #cotonou #lome #conakry</pre></div></div>
+      <div class="card"><div class="tag">Statut WhatsApp</div><div class="field"><div class="lab">Texte <button class="copy" data-copy="wa">Copier</button></div><pre id="wa">Ton grossiste achète sur Alibaba. Pourquoi pas toi ? 🤔
+J'ai sorti le guide « Briser la peur d'importer » : tout ce qu'il faut savoir avant ta première commande en Chine.
+3 900 F au lieu de 5 000 F, paiement Mobile Money.
+Écris-moi « GUIDE » pour l'avoir 👇</pre></div></div>
+      <div class="card"><div class="tag">Réponse type en message privé</div><div class="field"><div class="lab">Message <button class="copy" data-copy="dm">Copier</button></div><pre id="dm">Bonjour 👋 Merci pour ton intérêt !
+Le guide « Briser la peur d'importer » coûte 3 900 F (au lieu de 5 000 F). Tu reçois tout de suite le guide de 64 pages + 3 kits, en version téléphone et imprimable.
+Tu peux payer par Mobile Money ici : [colle ton lien Chariow]
+Si tu as une question avant d'acheter, je suis là.</pre></div></div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">Vidéos en qualité allégée pour le téléphone. Les fichiers en pleine qualité pour la publicité sont ceux que je t'ai envoyés dans la conversation.</footer>
+
+<script>
+const END = "\n\n📘 Guide de 64 pages + 3 kits (calculs, checklists, messages)\n📱 Version téléphone + version imprimable\n💳 Paiement Mobile Money, accès immédiat\n\n👉 3 900 F au lieu de 5 000 F. Clique sur « Acheter ».";
+const BODY = {
+  A: "Tu envoies tes cartons, on te donne un chiffre… et tu paies sans comprendre.\n\nLe guide « Briser la peur d'importer » t'apprend à calculer toi-même :\n✅ le volume (CBM) et le poids volumétrique\n✅ la douane et ton vrai coût de revient\n✅ avec des exercices corrigés, même si tu n'aimes pas les maths" + END,
+  B: "Tu revends déjà des produits du marché ? Tu as fait le plus dur. Ce guide te donne tout ce qu'il faut savoir avant ta première commande :\n✅ vérifier un fournisseur en 11 points\n✅ payer en étant protégé\n✅ calculer ton vrai coût (transport + douane)\n✅ commencer avec une petite commande test" + END,
+  C: "Une vidéo dit une chose, une autre dit le contraire… et tu ne commences jamais. Ce guide te donne les 6 étapes, dans l'ordre :\n1️⃣ Créer ton compte\n2️⃣ Choisir ton produit\n3️⃣ Vérifier le fournisseur\n4️⃣ Payer protégé\n5️⃣ Calculer le transport\n6️⃣ Recevoir ton colis\n+ un plan de 30 jours pour ta première commande." + END,
+  V3: "Un fournisseur qui disparaît. Un transitaire qui gonfle la facture. Un remboursement refusé. Des cartons perdus.\n\nCe n'est pas la faute d'Alibaba : chaque problème vient d'une erreur précise. Le guide « Briser la peur d'importer » décortique les 15 erreurs qui ruinent les importateurs, avec une solution pour chacune, et les 10 signaux d'une arnaque." + END,
+  V5: "Volume, poids volumétrique, valeur en douane, coût de revient réel : c'est là que se cache ta marge… et c'est souvent là qu'on te la prend.\n\nLe guide « Briser la peur d'importer » te donne les formules, des exercices corrigés et des checklists pour former ton équipe." + END,
+};
+const TITLE = { A: "Calcule toi-même ce que tu paies", B: "Achète là où ton grossiste achète", C: "Les 6 étapes, dans l'ordre", V3: "15 erreurs, 15 solutions", V5: "Le prix d'une seule erreur de calcul" };
+const V = [
+  { id: "A-combinee", g: "Combinées", p: "A", name: "A · Combinée", prof: "Celui qui confie tout au transitaire", hook: "« Ne paie plus jamais ton transitaire sans vérifier ce calcul. » + « Ton transitaire calcule. Toi, tu paies. Mais qui vérifie ? »", first: "Ne paie plus jamais ton transitaire sans vérifier ce calcul.", dur: "42 s", use: "Publicité · ensemble A" },
+  { id: "B-combinee", g: "Combinées", p: "B", name: "B · Combinée", prof: "Vendeur de produits du marché local", hook: "« Ton grossiste achète sur Alibaba. Pourquoi pas toi ? » + « Il n'est pas plus malin que toi. »", first: "Ton grossiste achète sur Alibaba. Pourquoi pas toi ? Il n'est pas plus malin que toi : il sait juste commander en Chine.", dur: "40 s", use: "Publicité · ensemble B" },
+  { id: "C-combinee", g: "Combinées", p: "C", name: "C · Combinée", prof: "Débutant perdu", hook: "« Tu ne manques pas de vidéos. Tu manques d'un ordre. » + « Arrête de regarder des vidéos… »", first: "Tu ne manques pas de vidéos. Tu manques d'un ordre.", dur: "51 s", use: "Publicité · ensemble C" },
+  { id: "A1", g: "Vidéo A", p: "A", name: "A1", prof: "Transitaire", hook: "« Ne paie plus jamais ton transitaire sans vérifier ce calcul. »", first: "Ne paie plus jamais ton transitaire sans vérifier ce calcul.", dur: "39 s", use: "Test après la phase 1" },
+  { id: "A2", g: "Vidéo A", p: "A", name: "A2", prof: "Transitaire", hook: "« Trois cartons. 0,29 m³. Et on t'en facture un entier ? »", first: "Trois cartons. 0,29 m³. Et on t'en facture un mètre cube entier ?", dur: "40 s", use: "Publicité · ensemble A" },
+  { id: "A3", g: "Vidéo A", p: "A", name: "A3", prof: "Transitaire", hook: "« Ton transitaire calcule. Toi, tu paies. Mais qui vérifie ? »", first: "Ton transitaire calcule. Toi, tu paies. Mais qui vérifie ?", dur: "39 s", use: "Test après la phase 1" },
+  { id: "B1", g: "Vidéo B", p: "B", name: "B1", prof: "Grossiste", hook: "« Ton grossiste achète sur Alibaba. Pourquoi pas toi ? »", first: "Ton grossiste achète sur Alibaba. Pourquoi pas toi ?", dur: "37 s", use: "Publicité · ensemble B" },
+  { id: "B2", g: "Vidéo B", p: "B", name: "B2", prof: "Grossiste", hook: "« Il n'est pas plus malin que toi. Il sait juste commander en Chine. »", first: "Ton grossiste n'est pas plus malin que toi. Il sait juste commander en Chine.", dur: "39 s", use: "Test après la phase 1" },
+  { id: "B3", g: "Vidéo B", p: "B", name: "B3", prof: "Grossiste", hook: "« Le sac que tu achètes au marché vient d'Alibaba. »", first: "Le sac que tu achètes au marché vient d'Alibaba. Va le chercher à la source.", dur: "38 s", use: "Test après la phase 1" },
+  { id: "C1", g: "Vidéo C", p: "C", name: "C1", prof: "Débutant", hook: "« Tu ne manques pas de vidéos. Tu manques d'un ordre. »", first: "Tu ne manques pas de vidéos. Tu manques d'un ordre.", dur: "47 s", use: "Publicité · ensemble C" },
+  { id: "C2", g: "Vidéo C", p: "C", name: "C2", prof: "Débutant", hook: "« 0 F, 10 000 F, 100 000 F… Personne n'est d'accord. »", first: "0 F, 10 000 F, 100 000 F… Personne n'est d'accord sur le budget pour commencer. Et toi, tu restes bloqué.", dur: "48 s", use: "Test après la phase 1" },
+  { id: "C3", g: "Vidéo C", p: "C", name: "C3", prof: "Débutant", hook: "« Arrête de regarder des vidéos sur l'importation. »", first: "Arrête de regarder des vidéos sur l'importation de gauche à droite. Suis une méthode.", dur: "47 s", use: "Test après la phase 1" },
+  { id: "V3", g: "Première série", p: "V3", name: "V3 · Colis en retard", prof: "Importateur qui a des problèmes", hook: "« Ton colis est en retard… encore ? »", first: "Ton colis est en retard… encore ? Ce n'est pas un hasard.", dur: "51 s", use: "Test après la phase 1" },
+  { id: "V5", g: "Première série", p: "V5", name: "V5 · Expert", prof: "Importateur expérimenté", hook: "« Tu importes depuis des années. Mais sais-tu calculer ton transport ? »", first: "Tu importes depuis des années. Mais sais-tu calculer ton transport sans ton transitaire ?", dur: "34 s", use: "Public expérimenté, plus tard" },
+];
+const FAV = [
+  { id: "A-combinee", r: "N° 1", t: "A · Combinée, le transitaire", why: "C'est notre angle unique : aucun concurrent n'apprend à vérifier la facture du transitaire. La vidéo montre une vraie preuve (0,29 m³ facturé 1 m³) et parle à quelqu'un qui perd déjà de l'argent : il a une raison d'acheter tout de suite." },
+  { id: "B-combinee", r: "N° 2", t: "B · Combinée, le grossiste", why: "Elle touche le plus grand groupe : ceux qui achètent déjà au marché. L'accroche pique l'orgueil sans insulter, et les personnages animés rendent la situation réelle. C'est celle qui peut le mieux élargir ta clientèle." },
+  { id: "A2", r: "N° 3", t: "A2, le chiffre choc", why: "« Trois cartons. 0,29 m³. Et on t'en facture un entier ? » : un chiffre précis arrête le pouce mieux qu'une question générale. Je la mets en concurrence directe avec la combinée A pour voir laquelle vend le moins cher." },
+];
+const el = (t, a = {}, h = "") => { const e = document.createElement(t); Object.entries(a).forEach(([k, v]) => e.setAttribute(k, v)); e.innerHTML = h; return e; };
+const vid = (id) => `<video controls playsinline preload="none" poster="posters/${id}.jpg" src="videos/${id}.mp4"></video>`;
+const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+document.getElementById("favs").append(...FAV.map((f) => el("article", { class: "fav" }, `${vid(f.id)}<div class="rank">${f.r}</div><h3>${f.t}</h3><p>${f.why}</p>`)));
+let n = 0;
+function field(label, text) { const id = "t" + (n++); return `<div class="field"><div class="lab">${label}<button class="copy" data-copy="${id}">Copier</button></div><pre id="${id}">${esc(text)}</pre></div>`; }
+function render(filter) {
+  const g = document.getElementById("grid"); g.innerHTML = "";
+  V.filter((v) => filter === "Toutes" || v.g === filter).forEach((v) => {
+    g.append(el("article", { class: "card" },
+      `<div class="top">${vid(v.id)}<div><div class="tag">${v.g}</div><h3>${v.name}</h3><p class="hook">${v.hook}</p><div class="meta">${v.prof} · ${v.dur}<br>${v.use}</div></div></div>` +
+      field("Texte principal", v.first + "\n\n" + BODY[v.p]) + field("Titre", TITLE[v.p]) + field("Description", "Guide + 3 kits · 3 900 F CFA") + field("Bouton", "Acheter")));
+  });
+}
+const groups = ["Toutes", "Combinées", "Vidéo A", "Vidéo B", "Vidéo C", "Première série"];
+const fbox = document.getElementById("filters");
+groups.forEach((g, i) => { const b = el("button", { type: "button", "aria-pressed": i === 0 ? "true" : "false" }, g); b.addEventListener("click", () => { fbox.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", "false")); b.setAttribute("aria-pressed", "true"); render(g); }); fbox.append(b); });
+render("Toutes");
+document.addEventListener("click", async (e) => {
+  const b = e.target.closest(".copy"); if (!b) return;
+  const pre = document.getElementById(b.dataset.copy);
+  try { await navigator.clipboard.writeText(pre.textContent); b.textContent = "Copié"; b.classList.add("ok"); }
+  catch { const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = "Sélectionné"; }
+  setTimeout(() => { b.textContent = "Copier"; b.classList.remove("ok"); }, 1800);
+});
+</script>

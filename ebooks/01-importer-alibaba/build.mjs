@@ -67,7 +67,12 @@ function captureHtml(n, variant = '') {
   return `<figure class="capture ${variant}">${inner}<figcaption>Illustration ${pad} — ${label}${note}</figcaption></figure>`;
 }
 
+function addThead(html) {
+  return html.replace(/(<table class="data[^"]*"[^>]*>\s*)(<tr>(?:(?!<\/tr>)[\s\S])*?<th[\s\S]*?<\/tr>)/g, '$1<thead>$2</thead>');
+}
+
 function expand(html) {
+  html = addThead(html);
   return html.replace(/\{\{capture:(\d+)(?::(\w+))?\}\}/g, (_, n, v) => captureHtml(Number(n), v || ''));
 }
 

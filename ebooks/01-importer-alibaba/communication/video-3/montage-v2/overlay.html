@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<style>
+  @font-face { font-family: "Bebas"; src: url(assets/bebas.woff2) format("woff2"); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: transparent; font-family: "Inter", sans-serif; }
+  .cap { position: absolute; left: 70px; right: 70px; bottom: 170px; text-align: center; }
+  .cap span { display: inline; font-size: 50px; font-weight: 800; line-height: 1.38; color: #fff; padding: 6px 18px;
+    background: rgba(18,21,25,.78); border-radius: 12px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .head { position: absolute; left: 60px; right: 60px; }
+  .head .l { display: inline-block; font-family: "Bebas"; letter-spacing: 2px; text-transform: uppercase; line-height: 1; color: #fff;
+    background: #1b1f24; padding: 14px 26px 8px; border-left: 12px solid #ff5a4e; border-radius: 6px; box-shadow: 0 16px 40px rgba(0,0,0,.45); }
+  .head .l.c { background: #ff5a4e; border-left-color: #fff; }
+</style></head>
+<body>
+<div id="root"></div>
+<script>
+// Sous-titres calés sur les pauses mesurées de la voix off (secondes)
+const CAPS = [
+  [0.12, 2.14, "Ton colis est en retard… encore ?"],
+  [2.56, 3.67, "Ce n'est pas un hasard."],
+  [4.05, 5.63, "La cause, et la solution,"],
+  [5.79, 8.28, "sont dans ce guide : « Briser la peur d'importer »."],
+  [8.83, 10.32, "Un fournisseur qui disparaît."],
+  [10.70, 12.59, "Un transitaire qui gonfle la facture."],
+  [12.92, 14.32, "Un remboursement refusé."],
+  [14.66, 16.24, "Des cartons perdus à l'entrepôt."],
+  [16.70, 19.09, "Tu penses qu'Alibaba, c'est toujours compliqué."],
+  [19.50, 22.67, "En réalité, chaque problème vient d'une erreur précise."],
+  [23.04, 24.73, "Un fournisseur jamais vérifié."],
+  [25.07, 26.15, "Une commande trop floue."],
+  [26.43, 27.68, "Des cartons mal marqués."],
+  [27.99, 29.79, "Une réception confirmée trop vite."],
+  [30.19, 33.96, "Dans ce guide, on décortique les 15 erreurs qui ruinent les importateurs,"],
+  [34.16, 37.05, "avec une situation concrète et une solution pour chacune."],
+  [37.42, 40.66, "Et les 10 signaux qui annoncent une arnaque, avant qu'il soit trop tard."],
+  [41.10, 42.12, "Arrête de subir."],
+  [42.31, 43.88, "Reprends le contrôle de tes commandes."],
+  [44.23, 45.57, "Le guide et ses 3 kits :"],
+  [45.81, 46.80, "au lieu de 5 000 francs,"],
+  [46.90, 49.72, "seulement 3 900 francs CFA."],
+];
+// Titres sur les scènes filmées (zone basse, jamais sur le visage) : [début, fin, y, taille, lignes]
+const HEADS = [
+  [0.12, 4.05, 1180, 128, [["Ton colis est en retard…", ""], ["Encore ?", "c", 1.57]]],
+  [8.83, 16.24, 1090, 92, [["Fournisseur qui disparaît", ""], ["Facture gonflée", "", 10.70], ["Remboursement refusé", "", 12.92], ["Cartons perdus", "c", 14.66]]],
+  [16.70, 19.40, 1240, 104, [["« Alibaba, c'est", ""], ["toujours compliqué ? »", ""]]],
+  [19.50, 22.67, 1240, 104, [["En réalité :", ""], ["une erreur précise", "c", 20.45]]],
+  [42.31, 44.23, 1280, 130, [["Reprends", ""], ["le contrôle", "c"]]],
+];
+const ease = (x) => 1 - Math.pow(1 - Math.min(Math.max(x, 0), 1), 3);
+window.render = (t) => {
+  let html = '';
+  for (const [a, b, txt] of CAPS) {
+    if (t >= a - 0.05 && t <= b + 0.3) {
+      const o = Math.min(ease((t - a + 0.05) / 0.25), 1 - ease((t - b - 0.05) / 0.25));
+      html += `<div class="cap" style="opacity:${o}"><span>${txt}</span></div>`;
+    }
+  }
+  for (const [a, b, y, size, lines] of HEADS) {
+    if (t < a || t > b) continue;
+    const out = 1 - ease((t - (b - 0.35)) / 0.35);
+    html += `<div class="head" style="top:${y}px;opacity:${out}">`;
+    lines.forEach(([txt, cls, at]) => {
+      const s = at ?? a; if (t < s) return;
+      const p = ease((t - s) / 0.7);
+      html += `<div style="margin-bottom:14px;opacity:${p};transform:translateY(${(1 - p) * 40}px)"><span class="l ${cls}" style="font-size:${size}px">${txt}</span></div>`;
+    });
+    html += '</div>';
+  }
+  document.getElementById('root').innerHTML = html;
+};
+</script>
+</body></html>

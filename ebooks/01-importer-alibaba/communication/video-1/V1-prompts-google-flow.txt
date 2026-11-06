@@ -1,0 +1,28 @@
+VIDEO 1 - "Ton grossiste achete sur Alibaba" - 5 scenes Google Flow
+Format : vertical 9:16 - 8 secondes par scene
+Ingredients (images de reference) : V1-FATOU / V1-GROSSISTE
+
+==================================================================
+SCENE V1-S1  |  Ingredient : V1-GROSSISTE
+==================================================================
+Vertical 9:16, 8 seconds, photorealistic, documentary style. A busy African wholesale market in the daytime. The man from the reference image, a confident wholesaler in a white short-sleeved shirt and gold watch, arms relaxed, stands in front of tall stacks of brown cardboard import boxes. He talks on his phone with a satisfied smile while two porters place more boxes behind him. Slow camera push-in toward his face. Warm natural light, vivid market colors. Shipping labels on the boxes are blurred and unreadable. No text, no logos, no brand names, no dialogue, ambient market sound only.
+
+==================================================================
+SCENE V1-S2  |  Ingredients : V1-FATOU + V1-GROSSISTE
+==================================================================
+Vertical 9:16, 8 seconds, photorealistic. In a crowded African wholesale market, the woman from the first reference image (orange and navy wax-print top, braided bun, gold earrings), arms relaxed, stands at the counter of the wholesaler from the second reference image (white short-sleeved shirt, gold watch). She hands him a thick stack of cash and receives a large bag filled with handbags. She looks tired and resigned; he counts the money with a small satisfied smile. Medium shot, handheld camera, natural daylight. No readable text, no logos, no dialogue, ambient market noise only.
+
+==================================================================
+SCENE V1-S3  |  Ingredient : V1-FATOU
+==================================================================
+Vertical 9:16, 8 seconds, photorealistic. Evening, inside a modest but tidy African living room. The woman from the reference image (orange and navy wax-print top, braided bun, gold earrings), arms relaxed, hands free, photographs a brown handbag on a small table with her smartphone. Then she sits down, opens a small cash box, counts the few banknotes left inside and sighs with disappointment. Warm lamp light, intimate atmosphere, slow camera movement. The phone screen is not readable. No text, no logos, no dialogue, quiet ambient sound only.
+
+==================================================================
+SCENE V1-S4  |  Ingredient : V1-FATOU
+==================================================================
+Vertical 9:16, 8 seconds, photorealistic, cinematic. Night, the woman from the reference image (orange and navy wax-print top, braided bun, gold earrings) sits at a small desk, her face lit only by her smartphone. Close-up: her thumb hovers above the screen, hesitating; she bites her lip, worried and unsure, then puts the phone down slowly. Slow dolly-in, moody blue and warm orange tones. The phone screen is not readable. No text, no logos, no dialogue, quiet night ambience only.
+
+==================================================================
+SCENE V1-S5  |  Ingredient : V1-FATOU
+==================================================================
+Vertical 9:16, 8 seconds, photorealistic. Bright daytime, in front of a small handbag boutique on a lively African street. A delivery man places several brown cardboard boxes on the ground. The woman from the reference image (orange and navy wax-print top, braided bun, gold earrings), arms relaxed, smiling proudly, signs a delivery paper, then rests her hand on top of the boxes and looks satisfied. Slow camera orbit, warm sunny light, joyful mood. Box labels are blurred and unreadable. No text, no logos, no dialogue, ambient street sound only.

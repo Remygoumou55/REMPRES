@@ -1,213 +1,250 @@
-# COMMUNICATION — « Briser la peur d'importer »
+# COMMUNICATION — « Briser la peur d'importer » (version 2)
 
-Produit : le guide Alibaba pas à pas (64 pages, 32 illustrations, 6 exercices corrigés, 15 erreurs, 10 signaux d'arnaque, lexique) + 3 kits bonus, en version imprimable et téléphone.
-Prix : **3 900 F CFA** · Vente : plateforme de vente en ligne (lien en bio / bouton « Acheter »)
-Cible : Afrique francophone (Côte d'Ivoire, Guinée, Sénégal, Cameroun, Togo, Gabon, Bénin…)
-
----
-
-## PARTIE 1 · Le positionnement (ce qu'on vend vraiment)
-
-**On ne vend pas un livre. On vend la fin de la peur.**
-
-Le client ne se dit pas « je veux un e-book sur Alibaba ». Il se dit :
-- « J'ai peur d'envoyer mon argent en Chine et de tout perdre. »
-- « Je ne comprends rien au CBM, au poids, à la douane : c'est le transitaire qui décide pour moi. »
-- « Mon grossiste gagne sur mon dos, mais je n'ose pas acheter à la source. »
-
-**Notre promesse :** *Achetez à la source, calculez vous-même, et ne vous faites plus arnaquer.*
-
-**Pourquoi payer alors que TikTok est gratuit ?** (argument à répéter partout)
-1. TikTok donne des **morceaux**. Le guide donne **la méthode complète, dans l'ordre**, de la carte de paiement jusqu'au colis en main.
-2. TikTok montre. Le guide **fait faire** : exercices corrigés, grilles, checklists, messages prêts à copier.
-3. Personne sur TikTok ne fait **les calculs avec vous** : transport, douane, coût de revient, prix de vente.
-4. **3 900 F, c'est moins que le prix d'une seule erreur** de transport ou de douane.
-
-**Les 3 lecteurs et ce qu'on leur dit :**
-| Lecteur | Sa peur | Notre message |
-|---|---|---|
-| Débutant | « Je ne sais pas par où commencer » | « Le pas à pas complet, expliqué simplement » |
-| Commerçant qui achète au marché | « Alibaba, c'est risqué pour moi » | « Ton grossiste achète là-bas. Achète à la source, sans risque » |
-| Importateur confirmé | « Je dépends du transitaire pour les calculs » | « Calcule tout toi-même et reprends le contrôle de ta marge » |
-
-**Règles de communication (à respecter dans toutes les vidéos et visuels) :**
-- Jamais « devenir riche », « argent facile » ou « garanti » : c'est faux, et les publicités sont refusées.
-- Jamais de faux témoignage présenté comme vrai. Les personnages des vidéos sont des mises en situation.
-- Toujours un chiffre concret du livre (4,50 $ → 9,48 $, 6 kg payés 25 kg, 15 erreurs…) : les chiffres arrêtent le pouce.
-- Le mot « Alibaba » est permis dans le texte, mais pas le logo officiel en grand dans nos visuels.
+**Produit :** le guide Alibaba pas à pas (64 pages, 32 illustrations, exercices corrigés, 15 erreurs, 10 signaux d'arnaque, lexique) + 3 kits bonus, en version imprimable et téléphone.
+**Prix :** 3 900 F CFA · **Vente :** sur Chariow (lien en bio / bouton « Acheter »)
+**Pays :** toute l'Afrique francophone (Côte d'Ivoire, Guinée, Sénégal, Cameroun, Togo, Gabon, Bénin…)
 
 ---
 
-## PARTIE 2 · Les 20 accroches (les 3 premières secondes)
+## 1. À QUI ON PARLE : LES 4 PROFILS
 
-Chaque accroche = une phrase courte, un choc ou une question qui touche une douleur précise.
+On ne parle pas « à tout le monde ». Chaque vidéo et chaque visuel parle **à un seul profil**, avec **sa** peur et **ses** mots.
 
-**Angle 1 · L'argent perdu (calculs)**
-1. « Ce sac coûte 4,50 $ sur Alibaba. Chez toi, il te coûte 9,48 $. »
-2. « Tu vends 10 $ un sac acheté 4,50 $ ? Tu gagnes… 52 centimes. »
-3. « 6 kilos de coussins… facturés comme 25 kilos. Personne ne t'a expliqué pourquoi ? »
-4. « Tu ne sais pas calculer un CBM ? Ton transitaire, lui, sait très bien. »
-5. « La douane te fait peur ? Dans 2 minutes, tu vas comprendre ce que tu paies. »
+### Profil 1 · Le débutant perdu
+- **Qui ?** Il aime le commerce, il veut se lancer. Il regarde des dizaines de vidéos TikTok et Facebook sur l'importation.
+- **Son problème :** chaque vidéo dit une chose différente. Il a des morceaux, mais pas la méthode. Il est **confus** et il ne commence jamais.
+- **Ce qu'il pense :** « Je ne sais pas par où commencer. »
+- **Notre message :** « Arrête de collectionner des vidéos. Voici la méthode complète, dans l'ordre, de A à Z. »
 
-**Angle 2 · L'arnaque**
-6. « 5 % de remise si tu paies hors d'Alibaba… C'est comme ça qu'on perd tout. »
-7. « Ton fournisseur t'écrit "notre compte bancaire a changé" ? Arrête tout. »
-8. « Fret à 5 $ le kilo depuis la Chine ? Regarde bien ce qui va suivre. »
-9. « Cette page de transitaire a 3 semaines et 180 abonnés. Tu lui confies ton argent ? »
-10. « Ne clique jamais sur "Confirmer la réception" avant d'avoir fait ça. »
+### Profil 2 · Le vendeur de produits du marché local
+- **Qui ?** Il fait déjà de l'e-commerce. Il achète au grand marché de sa ville (chez les grossistes) et il revend en ligne.
+- **Son problème :** on lui a appris qu'il faut d'abord vendre des produits locaux avant d'aller sur Alibaba. C'est vrai, et **il l'a déjà fait**. Mais il reste bloqué : il a peur de passer à l'étape suivante.
+- **Ce qu'il pense :** « Alibaba, ce n'est pas encore pour moi. J'ai peur de me faire arnaquer. »
+- **Notre message :** « Tu as déjà fait le plus dur : acheter et revendre. Ton grossiste, lui, achète en Chine. Le guide te donne tout ce qu'il faut savoir **avant** ta première commande sur Alibaba, pour commencer petit et sans risque. »
 
-**Angle 3 · Le commerçant de marché**
-11. « Ton grossiste achète sur Alibaba. Pourquoi pas toi ? »
-12. « On t'a dit qu'Alibaba, c'est pour les gros commerçants ? C'est faux. »
-13. « Tu paies ton grossiste 14 $ ce que tu pourrais avoir à 9,50 $. »
+### Profil 3 · L'importateur qui a déjà eu des problèmes
+- **Qui ?** Il importe déjà, mais il a eu des soucis : arnaque, colis en retard ou perdu, remboursement refusé, mauvais fournisseur, transitaire qui gonfle la facture.
+- **Son problème :** il ne sait pas **pourquoi** ça lui arrive, donc ça recommence.
+- **Ce qu'il pense :** « Alibaba, c'est compliqué. Il y a toujours un problème. »
+- **Notre message :** « Ce n'est pas la faute d'Alibaba. Ce sont des erreurs précises, et chacune a une solution. »
 
-**Angle 4 · La peur (émotion)**
-14. « Tu n'as jamais commandé en Chine par peur de l'arnaque ? Regarde ça. »
-15. « Ton paiement est refusé sur Alibaba ? Ce n'est pas une arnaque. Voici pourquoi. »
-16. « Tu sais vraiment lire un lien de commande Alibaba ? »
-17. « Les 3 erreurs qui font perdre de l'argent dès la première commande. »
-
-**Angle 5 · L'offre**
-18. « Tout ce que TikTok ne t'explique jamais sur Alibaba, dans un seul guide. »
-19. « Moins cher qu'une seule erreur de transport : 3 900 F. »
-20. « 15 erreurs qui ruinent les importateurs. Tu en fais au moins 3. »
+### Profil 4 · L'expert (profil secondaire)
+- **Qui ?** Il importe depuis longtemps. Il connaît le métier.
+- **Notre message :** « Tu sais déjà importer. Mais sais-tu faire tes calculs seul, sans le transitaire ? Et former ton équipe avec une méthode écrite ? » On en parle peu : une seule vidéo courte.
 
 ---
 
-## PARTIE 3 · Comment on fabrique les vidéos
+## 2. LES ACCROCHES (les 3 premières secondes)
 
-**Les 3 ingrédients de chaque vidéo :**
-1. **Séquences vidéo IA (Google Flow)** : les scènes humaines et émotionnelles (le commerçant qui hésite, la cliente au marché, le colis à l'agence). C'est toi qui les génères avec mes prompts.
-2. **Voix off** : je te donne le texte exact et le ton ; tu la génères (ElevenLabs ou autre) et tu me l'envoies.
-3. **Motion design** : c'est moi qui le fais au montage. Chiffres qui s'animent (4,50 $ → 9,48 $), pages du livre qui défilent, captures du livre, encadrés d'erreurs, prix et bouton d'achat.
+**Règle :** une accroche doit être comprise **sans réfléchir**, en 3 secondes, par quelqu'un qui fait défiler son téléphone. Elle pose une **question qui fait réfléchir**, comme : *« Ton grossiste achète sur Alibaba. Pourquoi pas toi ? »*
+(Les accroches avec des calculs, comme « 4,50 $ → 9,48 $ », étaient trop compliquées pour une première phrase : je les ai retirées des accroches. Les chiffres viennent **après**, dans la vidéo.)
 
-**Format :** vertical 9:16 (1080 × 1920), 35 à 45 secondes, sous-titres incrustés (80 % des gens regardent sans le son).
+### Pour le profil 1 · Le débutant perdu
+1. « Tu as regardé 100 vidéos sur l'importation… et tu n'as toujours pas commencé ? »
+2. « Tu veux importer de Chine, mais tu ne sais pas par où commencer ? »
+3. « Chaque vidéo TikTok te dit une chose différente. Normal que tu sois perdu. »
+4. « Tu n'as pas besoin d'une vidéo de plus. Tu as besoin d'une méthode. »
+5. « Importer de Chine, de A à Z, sans rien sauter. C'est possible. »
 
-**Structure de vente de chaque vidéo :**
-| Temps | Rôle | Ce qui se passe |
-|---|---|---|
-| 0–3 s | **Accroche** | Le choc ou la question : on arrête le pouce |
-| 3–15 s | **Douleur** | On montre le problème et ce qu'il coûte |
-| 15–25 s | **Solution** | Le guide, avec des preuves visibles (pages, chiffres, captures) |
-| 25–35 s | **Valeur** | Tout ce qu'il y a dans le pack |
-| 35–42 s | **Action** | Le prix, pourquoi maintenant, le bouton |
+### Pour le profil 2 · Le vendeur du marché local
+6. **« Ton grossiste achète sur Alibaba. Pourquoi pas toi ? »** ⭐ (accroche principale)
+7. « Tu achètes au marché ce que ton grossiste a acheté en Chine. »
+8. « Tu revends déjà des produits du marché ? Tu es prêt pour Alibaba. »
+9. « On t'a dit de commencer par le marché local. C'est fait. Et maintenant ? »
+10. « Pourquoi ton grossiste gagne plus que toi sur le même produit ? »
 
-**Règles pour tes générations Google Flow (à respecter pour chaque prompt) :**
-- Colle les prompts **en anglais** tels quels (Flow comprend mieux l'anglais). Chaque prompt = 1 plan de 8 secondes.
-- Format **vertical 9:16**. Si Flow propose plusieurs versions, garde la plus réaliste (mains et visages naturels).
-- **Aucun texte, aucun logo** dans la vidéo : j'ajoute tous les textes au montage.
-- **Pas de dialogue** : seulement le son d'ambiance (je mets la voix off et la musique).
-- Pour garder **les mêmes personnages** d'un plan à l'autre, génère d'abord une image du personnage, puis utilise-la comme référence (« ingrédient ») dans Flow.
-- Nomme tes fichiers comme dans le script : V1-P1, V1-P2, etc.
+### Pour le profil 3 · L'importateur qui a des problèmes
+11. « Ton colis est en retard… encore ? Ce n'est pas un hasard. »
+12. « Tu t'es déjà fait arnaquer sur Alibaba ? Voici l'erreur que tu as faite. »
+13. « Ton remboursement a été refusé ? Il y a une raison précise. »
+14. « Ton transitaire t'a facturé plus que prévu ? Voici comment il a fait. »
+15. « Toujours un problème avec tes commandes en Chine ? Lis ça. »
 
----
+### Pour la vidéo « Les erreurs à éviter »
+16. « 3 erreurs qui font perdre de l'argent dès la première commande sur Alibaba. »
+17. « Si ton fournisseur te demande de payer hors d'Alibaba, arrête tout. »
+18. « Ne confirme jamais la réception de ta commande avant d'avoir fait ça. »
 
-## PARTIE 4 · Vidéo 1 — « Le sac à 4,50 $ » (angle calculs)
-
-**Objectif :** toucher ceux qui ont peur des calculs, du transport et de la douane.
-**Durée :** environ 42 s · **Ton de la voix off :** voix masculine ou féminine africaine francophone, posée, confiante, comme un grand frère qui explique. Rythme dynamique, pauses courtes avant les chiffres.
-
-**Personnage (à générer d'abord en image, puis à utiliser comme référence dans Flow) :**
-> Photorealistic portrait of a 32-year-old West African woman shop owner, dark skin, neat braids tied up, wearing a bright orange and navy wax-print top, warm confident expression, standing in her small handbag boutique in Abidjan, natural daylight, shelves with handbags softly blurred behind her, no text, no logos.
-
-| # | Temps | Voix off (texte exact) | Image | Texte à l'écran |
-|---|---|---|---|---|
-| P1 | 0–3 s | « Ce sac coûte quatre dollars cinquante sur Alibaba… » | **Flow V1-P1** | 4,50 $ ? |
-| P2 | 3–8 s | « …mais arrivé chez toi, il te coûte presque neuf dollars cinquante. » | Motion : compteur 4,50 $ → 9,48 $ + barres transport / douane / frais | 9,48 $ 😳 |
-| P3 | 8–15 s | « Le transport, la douane, les frais… personne ne te l'explique. Alors tu le vends dix dollars, et tu crois gagner. » | **Flow V1-P3** | Bénéfice réel : 0,52 $ |
-| P4 | 15–21 s | « Et quand le transitaire te facture le double à l'arrivée… c'est trop tard. » | **Flow V1-P4** | Facture : 2 fois plus 😤 |
-| P5 | 21–30 s | « Dans "Briser la peur d'importer", on fait tous les calculs avec toi : volume, poids, douane, prix de vente. Six exercices corrigés, avec de petits chiffres. Même si tu détestes les maths. » | Motion : pages du livre (chapitres 12 et 13), exercices surlignés | 6 exercices corrigés |
-| P6 | 30–36 s | « Plus les quinze erreurs qui ruinent les importateurs, et trois kits prêts à l'emploi. » | Motion : le pack (livre + 3 kits) en version téléphone et imprimable | Livre + 3 kits |
-| P7 | 36–42 s | « Tout le guide pour trois mille neuf cents francs. Moins cher qu'une seule erreur de transport. Clique sur le lien, et commence aujourd'hui. » | Motion : carte prix + bouton | 3 900 F · Lien en bio 👇 |
-
-**Prompts Google Flow (8 s chacun, 9:16, sans texte, sans dialogue) :**
-
-**V1-P1**
-> Vertical 9:16, 8 seconds, photorealistic. Extreme close-up: the hands of a West African woman slowly turning a brown faux-leather handbag with a small gold lock under warm boutique lighting. The camera slowly pushes in on the bag, shallow depth of field, elegant and premium feel. Then she looks at the bag with a doubtful, thinking expression. No text, no logos, no brand names, no dialogue, soft ambient boutique sound only.
-
-**V1-P3**
-> Vertical 9:16, 8 seconds, photorealistic. A lively outdoor market in Dakar at golden hour. The same West African woman shop owner (orange and navy wax-print top) smiles as she hands a brown handbag to a customer and receives cash. Then, as the customer leaves, she counts the few bills left in her hand and her smile slowly fades into worry. Handheld documentary camera, natural colors. No text, no logos, no dialogue, ambient market sounds only.
-
-**V1-P4**
-> Vertical 9:16, 8 seconds, photorealistic. Inside a busy freight forwarding agency in West Africa, stacks of brown cardboard boxes and a counter in the background. A West African man in his thirties wearing a light blue shirt reads a paper invoice handed to him over the counter; his eyes widen in shock, he puts a hand on his forehead. Slow camera push-in on his face. Fluorescent office light, realistic. No readable text on the invoice, no logos, no dialogue, ambient office sound only.
+### Pour le profil 4 · L'expert
+19. « Tu importes depuis des années. Mais sais-tu calculer ton transport sans ton transitaire ? »
+20. « Ton équipe fait encore les mêmes erreurs ? Donne-leur une méthode écrite. »
 
 ---
 
-## PARTIE 5 · Vidéo 2 — « Les 5 % de remise » (angle arnaque)
+## 3. LES VIDÉOS : COMMENT ÇA MARCHE (expliqué simplement)
 
-**Objectif :** toucher la peur n°1 (perdre son argent) et montrer que le guide protège.
-**Durée :** environ 42 s · **Ton :** grave au début (tension), puis rassurant et énergique à partir de la solution.
+**Une vidéo = une publicité de 45 à 60 secondes**, au format vertical (pour TikTok, Reels Facebook/Instagram, statut WhatsApp).
 
-**Personnage :**
-> Photorealistic portrait of a 28-year-old West African man entrepreneur, short hair, slim beard, wearing a dark green polo shirt, sitting in a small shop in Conakry at night, lit by the glow of his smartphone, thoughtful expression, no text, no logos.
+Chaque vidéo est faite de **3 éléments** que je monte ensemble :
+1. **Des scènes filmées par l'IA (Google Flow)** : des personnes, des lieux, des émotions (un vendeur au marché, un homme inquiet devant son téléphone…). **Chaque scène dure 8 secondes.** Tu les génères avec mes prompts.
+2. **Une voix off** : une voix qui raconte et qui vend, du début à la fin. Je te donne le texte exact ; tu le génères et tu me l'envoies.
+3. **Du motion design** : c'est moi qui le fais. Les textes qui apparaissent, les chiffres qui bougent, les pages du livre, les captures d'écran, le prix et le bouton.
 
-| # | Temps | Voix off (texte exact) | Image | Texte à l'écran |
-|---|---|---|---|---|
-| P1 | 0–3 s | « Le fournisseur te propose cinq pour cent de remise… si tu paies hors d'Alibaba. » | **Flow V2-P1** | -5 % si tu paies « en direct » |
-| P2 | 3–7 s | « Tu acceptes. Tu envoies deux mille dollars. » | Motion : bulle de discussion + transfert 2 000 $ qui part | 2 000 $ envoyés |
-| P3 | 7–12 s | « Le lendemain… plus de réponse. Plus rien. » | **Flow V2-P3** | Plus de réponse… |
-| P4 | 12–18 s | « Hors d'Alibaba, aucune protection, aucun remboursement. C'est l'erreur numéro un… et ce n'est pas la seule. » | Motion : bouclier Trade Assurance qui se brise | Erreur n°1 sur 15 |
-| P5 | 18–28 s | « Faux changement de compte bancaire, transitaire à cinq dollars le kilo, faux lien de commande… Dans "Briser la peur d'importer", tu apprends à repérer les dix signaux d'arnaque, avec des exemples à l'écran. » | Motion : captures du livre (transitaire douteux, lien de commande) avec tampons rouges ✕ | 10 signaux d'arnaque |
-| P6 | 28–36 s | « Et surtout : comment payer en sécurité, étape par étape, et te faire rembourser si quelque chose tourne mal. » | **Flow V2-P6** puis motion : écrans paiement + remboursement | Payer · Vérifier · Être remboursé |
-| P7 | 36–42 s | « Le guide complet pour trois mille neuf cents francs. C'est moins que ce que coûte une seule arnaque. Clique sur le lien. » | Motion : carte prix + bouton | 3 900 F · Lien en bio 👇 |
+**Le chemin de chaque vidéo (pour transformer le curieux en client) :**
+1. **Accroche** (0–3 s) : la phrase qui arrête le pouce.
+2. **Le problème** : on montre ce que la personne vit.
+3. **La cause** : on explique pourquoi ça lui arrive.
+4. **La solution** : le guide, avec des preuves à l'écran (pages, exemples).
+5. **L'action** : le prix, Chariow, « clique maintenant ».
 
-**Prompts Google Flow :**
-
-**V2-P1**
-> Vertical 9:16, 8 seconds, photorealistic, cinematic. Night, inside a small closed shop in Conakry. A 28-year-old West African man in a dark green polo shirt sits alone, his face lit only by his smartphone screen. Close-up: his thumb hovers above the screen, hesitating; his eyes show temptation and doubt. Slow dolly-in, moody blue and orange tones. The phone screen is not readable. No text, no logos, no dialogue, quiet ambient night sound only.
-
-**V2-P3**
-> Vertical 9:16, 8 seconds, photorealistic. Morning light, the same young man in the dark green polo shirt sits on a plastic chair in his small shop, staring at his phone, scrolling again and again, then slowly lowers the phone and stares into the void with a defeated expression, hands on his head. Static camera, natural light, realistic emotion. No readable screen, no text, no logos, no dialogue, ambient street sound only.
-
-**V2-P6**
-> Vertical 9:16, 8 seconds, photorealistic. The same young man, now confident and smiling, sits at a clean desk in his shop during the day, holding a printed guide while checking his smartphone, nodding with relief. Behind him, neatly stacked brown cardboard boxes. Warm daylight, positive mood, slow camera orbit. No text, no logos, no dialogue, soft ambient sound only.
+Ci-dessous : **5 vidéos**, une par profil + la vidéo des erreurs. Pour chacune : la voix off complète, puis **chaque scène décrite en français**. Quand tu valides, je te donne les prompts Google Flow en anglais, scène par scène.
 
 ---
 
-## PARTIE 6 · Les 8 visuels publicitaires (prompts ChatGPT)
+## VIDÉO 1 · « Ton grossiste achète sur Alibaba » (profil 2) ⭐ prioritaire
 
-### Règles strictes à coller AVANT chaque visuel
-> Règles pour ce visuel publicitaire :
-> 1. Format exact : 1080 × 1350 pixels (4:5), qualité professionnelle de publicité Facebook/Instagram.
-> 2. Tout le texte est en FRANÇAIS, sans aucune faute. Écris EXACTEMENT les textes que je donne, ni plus ni moins, et relis chaque mot.
-> 3. Le texte principal doit être lisible sur un téléphone : très gros, gras, contrasté.
-> 4. Utilise l'image de couverture que je joins pour représenter le livre (mockup réaliste : livre ou écran de téléphone). Ne modifie pas la couverture.
-> 5. Couleurs de la marque : bleu nuit (#0F2A44), orange (#FF7A1A), blanc.
-> 6. Personnes : africaines, réalistes, naturelles. Aucun logo de marque (pas de logo Alibaba, Facebook, TikTok, banque), aucun produit de marque.
-> 7. Pas de faux avis clients, pas de mots « garanti », « riche », « argent facile ».
+**Durée :** environ 50 s · **Voix :** voix d'homme africain francophone, chaleureuse, comme un grand frère qui conseille. Rythme vif.
 
-**Fichiers à joindre** (dossier `communication/visuels-a-joindre/`) : `couverture-livre-01.png` pour tous ; les couvertures des kits pour le visuel 7 ; les deux captures de transitaires pour le visuel 5.
+**Personnage principal : Fatou**, 30 ans, vendeuse en ligne de sacs. Elle achète au grand marché et revend sur Facebook et WhatsApp.
 
-**Visuel 1 · Le sac à 4,50 $**
-> Visuel publicitaire 4:5. Fond bleu nuit. En haut, très gros, en blanc : « CE SAC À 4,50 $ » puis en orange : « TE COÛTE 9,48 $ ». Au centre, une photo réaliste d'un sac à main marron en similicuir, sans marque, avec deux étiquettes de prix : une petite étiquette blanche barrée « 4,50 $ » et une grande étiquette rouge « 9,48 $ ». En dessous, petit texte blanc : « Transport + douane + frais : le guide fait tous les calculs avec toi. » En bas à gauche, le livre (couverture jointe) en mockup réaliste. En bas à droite, un badge rond orange : « 3 900 F ». Bouton blanc en bas : « Je veux le guide ».
+**Voix off complète :**
+> Ton grossiste achète sur Alibaba. Pourquoi pas toi ?
+> Tous les jours, tu vas au marché. Tu achètes chez le grossiste. Tu revends un peu plus cher. Et ta marge est toute petite.
+> Pendant ce temps, ton grossiste commande les mêmes produits en Chine, directement à l'usine. Et c'est lui qui gagne le plus.
+> On t'a dit de commencer par le marché local. Tu l'as fait. Tu sais déjà acheter et revendre. Tu as fait le plus dur.
+> Ce qui te bloque maintenant, c'est la peur : peur de l'arnaque, peur des calculs, peur de la douane.
+> « Briser la peur d'importer », c'est le guide qui te donne tout ce qu'il faut savoir avant ta première commande : trouver un fournisseur sérieux, payer sans risque, calculer le transport, passer la douane. Avec des exemples, des captures d'écran et des modèles de messages prêts à copier.
+> Commence petit, comme ton grossiste a commencé.
+> Le guide et ses 3 kits, c'est 3 900 francs CFA sur Chariow. Clique sur le lien, et achète enfin à la source.
 
-**Visuel 2 · L'arnaque des 5 %**
-> Visuel publicitaire 4:5. Fond sombre bleu nuit. Au centre, un smartphone tenu par une main d'homme africain, l'écran montre une bulle de discussion : « Payez directement, -5 % pour vous 😉 ». Sur le téléphone, un grand tampon rouge incliné : « PIÈGE ». Titre en haut, blanc, très gros : « -5 % DE REMISE… » puis en orange : « ET TU PERDS TOUT. » En bas, texte blanc : « Les 10 signaux d'arnaque expliqués dans le guide. » Mockup du livre (couverture jointe) en bas à droite, badge orange « 3 900 F », bouton : « Me protéger maintenant ».
-
-**Visuel 3 · Le commerçant de marché**
-> Visuel publicitaire 4:5. Photo réaliste d'une commerçante africaine d'environ 35 ans, tenue en wax orange et bleu, dans sa boutique de sacs dans un marché animé, elle regarde son téléphone avec un air déterminé. Bandeau bleu nuit en haut avec texte blanc très gros : « TON GROSSISTE ACHÈTE EN CHINE. » et en orange : « ET TOI ? » En bas, sur fond bleu nuit : « Achète à la source, sans te faire arnaquer. » Mockup du livre (couverture jointe) en bas à droite, badge orange « 3 900 F ».
-
-**Visuel 4 · Les 15 erreurs**
-> Visuel publicitaire 4:5. Fond bleu nuit. Titre blanc très gros : « 15 ERREURS QUI RUINENT » puis en orange : « LES IMPORTATEURS ». Dessous, une liste de 5 lignes, chacune avec une croix rouge : « Payer hors d'Alibaba » · « Croire un changement de compte bancaire » · « Commander sans échantillon » · « Oublier le poids volumétrique » · « Choisir le transitaire le moins cher ». Sous la liste, en orange : « … et 10 autres, avec leurs solutions. » Mockup du livre (couverture jointe) à droite, badge « 3 900 F », bouton : « Éviter ces erreurs ».
-
-**Visuel 5 · Le transitaire**
-> Visuel publicitaire 4:5. Fond blanc cassé. Deux smartphones côte à côte, chacun affiche une des deux captures jointes (page de transitaire sérieuse à gauche, douteuse à droite). Au-dessus du téléphone de gauche, une étiquette verte « ✓ SÉRIEUX », au-dessus de celui de droite une étiquette rouge « ✕ ARNAQUE ». Titre en haut, bleu nuit, très gros : « SAIS-TU RECONNAÎTRE » puis en orange : « UN FAUX TRANSITAIRE ? » En bas : « La méthode en 7 vérifications est dans le guide. » Mockup du livre, badge « 3 900 F ».
-
-**Visuel 6 · Le calcul CBM**
-> Visuel publicitaire 4:5. Fond bleu nuit. Au centre, un carton brun réaliste avec les cotes dessinées en orange : « 60 cm », « 40 cm », « 40 cm ». À côté, un grand point d'interrogation orange. Titre blanc très gros : « TU SAIS CALCULER » puis en orange : « CE CARTON ? » Sous l'image : « Sinon, c'est ton transitaire qui décide combien tu paies. » En bas : « 6 exercices corrigés dans le guide, même si tu détestes les maths. » Mockup du livre, badge « 3 900 F », bouton : « J'apprends à calculer ».
-
-**Visuel 7 · Le pack complet (offre)**
-> Visuel publicitaire 4:5. Fond bleu nuit avec un léger halo orange. Au centre, une composition premium : le livre (couverture jointe) au premier plan, et derrière lui les 3 kits (couvertures jointes) en éventail, plus un smartphone qui affiche la couverture. Titre blanc : « LE PACK COMPLET » et en orange : « POUR IMPORTER SANS PEUR ». Liste avec coches orange : « Guide de 64 pages · 32 illustrations » · « 6 exercices corrigés » · « 15 erreurs + 10 signaux d'arnaque » · « 3 kits : calculs, checklists, messages » · « Version imprimable + version téléphone ». Grand badge orange : « 3 900 F ». Bouton blanc : « Télécharger maintenant ».
-
-**Visuel 8 · La peur (émotion)**
-> Visuel publicitaire 4:5. Photo réaliste et émotionnelle d'un jeune homme africain d'environ 28 ans, polo vert foncé, assis dans sa petite boutique, le pouce hésitant au-dessus du bouton de paiement de son téléphone (écran non lisible), lumière chaude. Titre en haut, blanc très gros sur bandeau bleu nuit : « PEUR DE COMMANDER » puis en orange : « EN CHINE ? » En bas : « C'est normal. Ce guide te montre chaque étape, de la carte de paiement au colis en main. » Mockup du livre, badge « 3 900 F », bouton : « Briser la peur ».
+| Scène | Durée | Ce qu'on voit | Texte à l'écran |
+|---|---|---|---|
+| 1 | 0–4 s | **[Flow]** Un grossiste dans un grand marché africain, entouré de cartons marqués en chinois, sourit au téléphone. | TON GROSSISTE ACHÈTE SUR ALIBABA. |
+| 2 | 4–8 s | **[Flow]** Fatou, dans le même marché, paie le grossiste en billets, l'air fatigué. | Et toi ? |
+| 3 | 8–16 s | **[Flow]** Fatou chez elle photographie un sac pour sa page Facebook, puis compte le peu de billets qui lui restent. | Ta marge : toute petite |
+| 4 | 16–22 s | **[Motion]** Schéma animé : Usine Chine → Grossiste → Toi → Client, avec la part de chacun qui grossit chez le grossiste. | Qui gagne le plus ? |
+| 5 | 22–28 s | **[Flow]** Fatou devant son téléphone, le pouce hésitant, l'air inquiet. | Peur de l'arnaque · des calculs · de la douane |
+| 6 | 28–40 s | **[Motion]** Le livre s'ouvre, les pages défilent : fournisseur, paiement, transport, douane. Captures du livre. | Tout ce qu'il faut AVANT ta 1re commande |
+| 7 | 40–45 s | **[Flow]** Fatou, souriante et confiante, reçoit des cartons livrés devant sa boutique. | Commence petit |
+| 8 | 45–50 s | **[Motion]** Le pack (livre + 3 kits, téléphone + version imprimable), prix, bouton. | 3 900 F CFA · Sur Chariow 👇 |
 
 ---
 
-## PARTIE 7 · Ce que tu me renvoies
+## VIDÉO 2 · « 100 vidéos et toujours pas commencé » (profil 1)
 
-1. Les **plans vidéo** générés dans Flow, nommés V1-P1, V1-P3, V1-P4, V2-P1, V2-P3, V2-P6.
-2. Les **2 voix off** (V1 et V2), en MP3, générées avec le texte exact des tableaux.
-3. Les **8 visuels**, numérotés de 1 à 8.
+**Durée :** environ 45 s · **Voix :** voix de femme africaine francophone, dynamique et bienveillante.
 
-Je contrôle tout, je fais le motion design et le montage complet (sous-titres, musique, rythme), et je te rends des vidéos prêtes à publier.
+**Personnage : Ibrahim**, 24 ans, étudiant ou jeune employé, passionné de commerce.
+
+**Voix off complète :**
+> Tu as regardé cent vidéos sur l'importation… et tu n'as toujours pas commencé ?
+> Une vidéo te dit de commencer par ici. Une autre te dit le contraire. Tu notes, tu enregistres, tu te perds.
+> Ce n'est pas ta faute. Ce qu'il te manque, ce n'est pas une vidéo de plus. C'est une méthode, du début à la fin, dans le bon ordre.
+> « Briser la peur d'importer », c'est ça : seize étapes claires. Créer ton compte. Trouver ton produit. Choisir ton fournisseur. Payer. Calculer le transport. Recevoir ton colis.
+> Chaque mot est expliqué simplement. Chaque étape a son exemple et sa checklist. Et à la fin, un plan d'action de trente jours pour passer ta première commande.
+> 3 900 francs CFA, sur Chariow. Arrête de regarder. Commence.
+
+| Scène | Durée | Ce qu'on voit | Texte à l'écran |
+|---|---|---|---|
+| 1 | 0–4 s | **[Flow]** Ibrahim, la nuit, allongé sur son lit, fait défiler des vidéos sur son téléphone, les yeux fatigués. | 100 VIDÉOS… ET TOUJOURS RIEN ? |
+| 2 | 4–10 s | **[Motion]** Avalanche de notifications et de vidéos qui s'empilent, avec des phrases contradictoires. | « Commence par ici ! » · « Non, par là ! » |
+| 3 | 10–16 s | **[Flow]** Ibrahim referme son cahier rempli de notes et se prend la tête dans les mains. | Perdu ? Normal. |
+| 4 | 16–30 s | **[Motion]** La carte des 10 étapes du livre s'allume étape par étape, puis le sommaire défile. | Une méthode. Dans l'ordre. |
+| 5 | 30–38 s | **[Motion]** Pages du livre : encadré « Niveau débutant », checklist, plan 30 jours. | Simple. Clair. Pas à pas. |
+| 6 | 38–41 s | **[Flow]** Ibrahim, le matin, motivé, prend des notes avec le guide ouvert sur son téléphone. | — |
+| 7 | 41–45 s | **[Motion]** Pack + prix + bouton. | 3 900 F CFA · Sur Chariow 👇 |
+
+---
+
+## VIDÉO 3 · « Ton colis est en retard… encore ? » (profil 3)
+
+**Durée :** environ 50 s · **Voix :** voix d'homme grave et posée, qui inspire confiance.
+
+**Personnage : Moussa**, 38 ans, importateur depuis 2 ans, boutique d'électroménager.
+
+**Voix off complète :**
+> Ton colis est en retard… encore ? Ce n'est pas un hasard.
+> Un fournisseur qui disparaît. Un transitaire qui gonfle la facture. Un remboursement refusé. Des cartons perdus à l'entrepôt.
+> Tu penses qu'Alibaba, c'est toujours compliqué. En réalité, chaque problème vient d'une erreur précise.
+> Un fournisseur jamais vérifié. Une commande trop floue. Des cartons mal marqués. Une réception confirmée trop vite.
+> Dans « Briser la peur d'importer », on décortique les 15 erreurs qui ruinent les importateurs, avec une situation concrète et une solution pour chacune. Et les 10 signaux qui annoncent une arnaque, avant qu'il soit trop tard.
+> Arrête de subir. Reprends le contrôle de tes commandes.
+> Le guide et ses 3 kits, 3 900 francs CFA sur Chariow. Clique sur le lien.
+
+| Scène | Durée | Ce qu'on voit | Texte à l'écran |
+|---|---|---|---|
+| 1 | 0–4 s | **[Flow]** Moussa dans sa boutique, au téléphone, l'air énervé, regarde le calendrier au mur. | TON COLIS EST EN RETARD… ENCORE ? |
+| 2 | 4–12 s | **[Flow]** Moussa à l'agence du transitaire, devant une facture, choqué ; derrière lui des cartons. | Facture gonflée · Colis perdu · Remboursement refusé |
+| 3 | 12–18 s | **[Flow]** Moussa assis sur un carton dans son arrière-boutique, découragé. | « Alibaba, c'est toujours compliqué » |
+| 4 | 18–30 s | **[Motion]** 4 cartes d'erreurs qui tombent une à une, chacune avec sa croix rouge. | Fournisseur pas vérifié · Commande floue · Cartons mal marqués · Réception confirmée trop vite |
+| 5 | 30–40 s | **[Motion]** Pages du chapitre « 15 erreurs » et du tableau « 10 signaux d'arnaque ». | 15 erreurs · 10 signaux · 1 solution chacun |
+| 6 | 40–45 s | **[Flow]** Moussa, serein, vérifie une commande sur son téléphone avec le guide à côté, puis hoche la tête. | Reprends le contrôle |
+| 7 | 45–50 s | **[Motion]** Pack + prix + bouton. | 3 900 F CFA · Sur Chariow 👇 |
+
+---
+
+## VIDÉO 4 · « Les 5 erreurs à éviter » (tous profils, vidéo longue)
+
+**Durée :** environ 60 à 70 s · **Voix :** voix de femme posée et sûre d'elle, ton de formatrice.
+**Format :** vidéo « éducative » : elle donne de vraies solutions gratuitement, puis montre que le guide en contient beaucoup plus. C'est ce qui crée la confiance.
+
+**Voix off complète :**
+> 5 erreurs qui font perdre de l'argent dès la première commande sur Alibaba.
+> Erreur numéro 1 : payer en dehors d'Alibaba. Le fournisseur te propose une remise si tu paies directement ? Refuse. Hors d'Alibaba, aucune protection. Réponds simplement : « Je paie uniquement sur Alibaba. »
+> Erreur numéro 2 : ne pas vérifier le fournisseur. Regarde son ancienneté, ses avis, son badge vérifié. Demande-lui une vidéo de son produit en main. Un vrai fournisseur accepte toujours.
+> Erreur numéro 3 : choisir le transitaire le moins cher. Un bon transitaire a un bureau que tu peux visiter, des tarifs écrits, des avis réels. Un mauvais te promet 5 dollars le kilo et te demande de payer avant ce soir.
+> Erreur numéro 4 : commander sans échantillon. Achète d'abord une seule pièce. Une photo peut mentir, un échantillon non.
+> Erreur numéro 5 : confirmer la réception trop vite. Ouvre tes cartons en filmant, vérifie tout, puis confirme. Sinon, plus de remboursement possible.
+> Ces 5 erreurs, ce n'est qu'un début. Dans « Briser la peur d'importer », il y en a 15, avec des exemples de conversations avec le fournisseur et le transitaire, prêtes à copier.
+> 3 900 francs CFA sur Chariow. Clique sur le lien.
+
+| Scène | Durée | Ce qu'on voit | Texte à l'écran |
+|---|---|---|---|
+| 1 | 0–4 s | **[Flow]** Une jeune femme commerçante regarde la caméra face à des cartons, l'air sérieux (sans parler). | 5 ERREURS QUI COÛTENT CHER |
+| 2 | 4–14 s | **[Motion]** Conversation animée : bulle « -5 % si vous payez en direct » → réponse « Je paie uniquement sur Alibaba ». | Erreur 1 : payer hors d'Alibaba |
+| 3 | 14–24 s | **[Motion]** Capture du profil fournisseur du livre : on entoure l'ancienneté, les avis, le badge ; puis la capture de la vidéo du sac en main. | Erreur 2 : fournisseur non vérifié |
+| 4 | 24–36 s | **[Motion]** Les 2 pages Facebook de transitaires du livre côte à côte : « ✓ Sérieux » et « ✕ Douteux ». | Erreur 3 : le transitaire le moins cher |
+| 5 | 36–44 s | **[Flow]** Gros plan : des mains déballent un sac échantillon et l'examinent sous toutes les coutures. | Erreur 4 : pas d'échantillon |
+| 6 | 44–52 s | **[Flow]** Une main filme au téléphone l'ouverture d'un carton marqué. | Erreur 5 : confirmer trop vite |
+| 7 | 52–62 s | **[Motion]** Pages du livre : les 15 erreurs, le Kit 3 des messages, une conversation de réclamation. | 15 erreurs · Conversations prêtes à copier |
+| 8 | 62–68 s | **[Motion]** Pack + prix + bouton. | 3 900 F CFA · Sur Chariow 👇 |
+
+---
+
+## VIDÉO 5 · « Tu importes depuis des années, mais… » (profil 4, courte)
+
+**Durée :** environ 30 s · **Voix :** voix d'homme mature, ton direct.
+
+**Voix off complète :**
+> Tu importes depuis des années. Mais sais-tu calculer ton transport sans ton transitaire ?
+> Volume, poids volumétrique, valeur de douane, coût de revient réel : c'est là que se cache ta marge.
+> « Briser la peur d'importer » te donne les formules, avec des exercices corrigés, et des checklists pour former ton équipe.
+> 3 900 francs CFA sur Chariow. Le prix d'une seule erreur de calcul.
+
+| Scène | Durée | Ce qu'on voit | Texte à l'écran |
+|---|---|---|---|
+| 1 | 0–4 s | **[Flow]** Un importateur expérimenté (50 ans) dans son entrepôt rempli de cartons, bras croisés, regarde la caméra. | Tu sais vraiment calculer ? |
+| 2 | 4–14 s | **[Motion]** Le carton du livre (60 × 40 × 40 cm) en 3D, les formules du CBM et du poids volumétrique s'écrivent. | CBM · Poids volumétrique · Coût de revient |
+| 3 | 14–24 s | **[Motion]** Pages des exercices corrigés et des kits. | Exercices corrigés · Checklists d'équipe |
+| 4 | 24–30 s | **[Motion]** Pack + prix + bouton. | 3 900 F CFA · Sur Chariow 👇 |
+
+---
+
+## 4. LES VISUELS PUBLICITAIRES (images fixes)
+
+Nouvelle liste, alignée sur les profils. Comme pour les vidéos : **tu valides d'abord les idées**, je te donne ensuite les prompts ChatGPT complets, avec les règles strictes.
+
+| # | Profil | Accroche principale (gros texte) | Ce qu'on voit |
+|---|---|---|---|
+| 1 | 2 · Marché local ⭐ | « TON GROSSISTE ACHÈTE SUR ALIBABA. POURQUOI PAS TOI ? » | Un grossiste devant des cartons de Chine ; à côté, une vendeuse qui le regarde, pensive. Le livre en bas. |
+| 2 | 2 · Marché local | « TU REVENDS DÉJÀ DES PRODUITS DU MARCHÉ ? TU ES PRÊT POUR ALIBABA. » | Une vendeuse dans sa boutique, téléphone à la main, sourire déterminé. |
+| 3 | 1 · Débutant | « 100 VIDÉOS… ET TOUJOURS PAS COMMENCÉ ? » | Un jeune homme noyé sous des écrans de vidéos ; à droite, le livre comme « sortie ». |
+| 4 | 1 · Débutant | « IMPORTER DE CHINE, ÉTAPE PAR ÉTAPE. » | La carte des 10 étapes du livre + le livre. |
+| 5 | 3 · Problèmes | « TON COLIS EST EN RETARD… ENCORE ? » | Un homme inquiet à l'agence du transitaire, cartons derrière lui. |
+| 6 | 3 · Problèmes | « SAIS-TU RECONNAÎTRE UN FAUX TRANSITAIRE ? » | Les 2 pages de transitaires du livre : « ✓ Sérieux » / « ✕ Arnaque ». |
+| 7 | Erreurs | « 5 ERREURS QUI COÛTENT CHER SUR ALIBABA » | Liste des 5 erreurs avec croix rouges + le livre. |
+| 8 | Offre | « LE PACK COMPLET POUR IMPORTER SANS PEUR » | Livre + 3 kits + téléphone, liste du contenu, prix 3 900 F CFA. |
+
+**Sur tous les visuels :** le livre en mockup, le badge « 3 900 F CFA », le bouton « Disponible sur Chariow ».
+
+---
+
+## 5. CE QUE J'ATTENDS DE TOI MAINTENANT
+
+1. Lis les **accroches** : garde, retire ou modifie.
+2. Lis les **5 voix off** et les **scènes en français** : dis-moi ce qui te plaît et ce qui ne va pas.
+3. Valide les **8 idées de visuels**.
+
+Ensuite seulement, je te donne :
+- les **prompts Google Flow en anglais**, scène par scène, pour les vidéos validées ;
+- les **prompts ChatGPT** complets pour les visuels validés.

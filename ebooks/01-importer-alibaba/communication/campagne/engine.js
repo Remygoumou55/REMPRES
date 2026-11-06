@@ -13,6 +13,7 @@
   window.SETUP = { H: 0, hook: 'h1' };
   window.render = function (t) {
     const { H, hook } = window.SETUP;
+    const waits = [];
     document.querySelectorAll('section[data-part]').forEach((sec) => {
       const part = sec.dataset.part;
       const on = part === 'body' || part === hook;
@@ -27,6 +28,12 @@
         const o = lt < tin ? 0 : Math.min(ease(p), 1 - ease((lt - (tout - 0.35)) / 0.35));
         if (lt < tin - 0.01 || lt > tout + 0.01) { el.style.visibility = 'hidden'; return; }
         el.style.visibility = 'visible';
+        if (el.dataset.seq) {   // séquence d'images (scène vidéo animée)
+          const n = parseInt(el.dataset.seqn), st = parseFloat(el.dataset.seqst || '0');
+          const k = Math.min(n, Math.max(1, Math.floor((lt - parseFloat(el.dataset.in) + st) * 30) + 1));
+          const src = `${el.dataset.seq}f${String(k).padStart(4, '0')}.jpg`;
+          if (!el.src.endsWith(src)) { el.src = src; waits.push(el.decode().catch(() => {})); }
+        }
         let tr = '';
         switch (a) {
           case 'rise': tr = `translateY(${(1 - ease(p)) * 60}px)`; break;
@@ -66,5 +73,6 @@
     }
     cap.innerHTML = txt ? `<span>${txt}</span>` : '';
     cap.style.opacity = op;
+    return Promise.all(waits);
   };
 })();

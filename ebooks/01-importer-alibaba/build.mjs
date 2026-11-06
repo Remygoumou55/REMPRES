@@ -16,7 +16,7 @@ const DIST = join(ROOT, 'dist');
 mkdirSync(BUILD, { recursive: true });
 mkdirSync(DIST, { recursive: true });
 
-const BOOK_TITLE = 'Importer de Chine sans se faire arnaquer';
+const BOOK_TITLE = "Briser la peur d'importer";
 
 const CAPTURES = {
   1: "Page d'accueil de l'application",
@@ -128,7 +128,7 @@ async function render(browser, name, title, body, withToc) {
 }
 
 const browser = await chromium.launch();
-await render(browser, 'Importer-de-Chine-sans-se-faire-arnaquer', BOOK_TITLE, readFragments(join(ROOT, 'src/book')), true);
+await render(browser, 'Briser-la-peur-d-importer', BOOK_TITLE, readFragments(join(ROOT, 'src/book')), true);
 for (const f of readdirSync(join(ROOT, 'src/bonus')).filter((f) => f.endsWith('.html')).sort()) {
   const body = readFileSync(join(ROOT, 'src/bonus', f), 'utf8');
   const title = /<!--\s*title:\s*(.*?)\s*-->/.exec(body)?.[1] ?? f;

@@ -1,9 +1,9 @@
-# E-book n°1 : Importer de Chine sans se faire arnaquer
+# E-book n°1 : Briser la peur d'importer (le guide Alibaba pas à pas)
 
 Collection Playbooks E-commerce, volume 1. Livre principal + 3 kits bonus, en PDF.
 
 ## Fichiers prêts à vendre (`dist/`)
-- `Importer-de-Chine-sans-se-faire-arnaquer.pdf` : le livre (54 pages, 16 chapitres)
+- `Briser-la-peur-d-importer.pdf` : le livre (60 pages, 16 chapitres)
 - `kit-1-calculs.pdf` : coût de revient, prix de vente, CBM, poids volumétrique
 - `kit-2-checklists.pdf` : produit gagnant, fournisseur, transitaire, suivi de commande
 - `kit-3-messages.pdf` : 15 messages FR/EN, modèle de réclamation, glossaire

@@ -309,3 +309,9 @@ figure.capture.land img { max-width: 100%; max-height: 105mm; border-radius: 8pt
 .cover-phones .ph1 { left: 0; top: 10mm; transform: rotate(-7deg); }
 .cover-phones .ph2 { right: 0; top: 0; transform: rotate(6deg); }
 .chapter-head { break-inside: avoid; }
+
+/* Couverture : titre validé (version A) */
+.cover h1.cv-title { font-family: "Inter"; font-weight: 900; font-size: 44pt; text-transform: uppercase; line-height: 1.0; letter-spacing: -1pt; margin: 8mm 0 4mm; max-width: 175mm; }
+.cover h1.cv-title em { display: block; font-style: normal; color: var(--orange); }
+.cover .cv-sub { font-weight: 800; font-size: 16pt; color: #fff; }
+.cover .cv-sub em { font-style: normal; color: var(--orange); }

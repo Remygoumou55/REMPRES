@@ -15,6 +15,9 @@ Les prompts à donner à ChatGPT sont dans `PROMPTS-CHATGPT.md`.
 
 ## Régénérer les PDF
 ```
-node ebooks/01-importer-alibaba/build.mjs
+node ebooks/01-importer-alibaba/build.mjs            # version imprimable A4
+PHONE=1 node ebooks/01-importer-alibaba/build.mjs    # version téléphone
 ```
 Le texte est dans `src/book/` (un fichier par partie) et `src/bonus/`, la mise en page dans `styles/book.css`.
+
+Les PDF utilisent des copies JPEG des images : `images-print/` (A4) et `images-phone/` (téléphone, allégées). Après avoir changé une image dans `images/`, régénérez ces copies.

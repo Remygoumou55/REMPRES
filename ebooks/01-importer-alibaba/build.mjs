@@ -17,6 +17,10 @@ mkdirSync(BUILD, { recursive: true });
 mkdirSync(DIST, { recursive: true });
 
 const BOOK_TITLE = "Briser la peur d'importer";
+// PHONE=1 : version téléphone (petites pages, une colonne, images allégées)
+const PHONE = process.env.PHONE === '1';
+const SUFFIX = PHONE ? '-telephone' : '';
+const IMG_DIR = PHONE ? 'images-phone' : 'images-print'; // copies JPEG des images/ (fichiers PDF plus légers)
 
 const CAPTURES = {
   1: "Page d'accueil de l'application",
@@ -56,12 +60,12 @@ const CAPTURES = {
 function captureHtml(n, variant = '') {
   const pad = String(n).padStart(2, '0');
   const label = CAPTURES[n] || '';
-  const imgDir = join(ROOT, 'images');
+  const imgDir = join(ROOT, IMG_DIR);
   const file = ['png', 'jpg', 'jpeg', 'webp']
     .map((ext) => `capture-${pad}.${ext}`)
     .find((f) => existsSync(join(imgDir, f)));
   const inner = file
-    ? `<img src="../images/${file}" alt="${label}">`
+    ? `<img src="../${IMG_DIR}/${file}" alt="${label}">`
     : `<div class="placeholder"><b>${pad}</b>Capture d'écran<br>« ${label} »</div>`;
   const note = variant === 'sq' ? '' : " (données fictives ; l'interface réelle peut différer)";
   return `<figure class="capture ${variant}">${inner}<figcaption>Illustration ${pad} — ${label}${note}</figcaption></figure>`;
@@ -78,7 +82,7 @@ function expand(html) {
 
 function page(title, body) {
   return `<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>${title}</title>
-<link rel="stylesheet" href="../styles/book.css"></head><body>
+<link rel="stylesheet" href="../styles/book.css">${PHONE ? '<link rel="stylesheet" href="../styles/phone.css">' : ''}</head><body>
 <span class="booktitle-marker">${title}</span>
 ${body}</body></html>`;
 }
@@ -105,9 +109,12 @@ function tocPages(pdfPath) {
 }
 
 async function render(browser, name, title, body, withToc) {
+  name = name + SUFFIX;
   const htmlPath = join(BUILD, `${name}.html`);
   const pdfPath = join(DIST, `${name}.pdf`);
   let html = page(title, expand(body));
+  html = html.replace(/\.\.\/images\/([\w-]+)\.(webp|png|jpe?g)/g, `../${IMG_DIR}/$1.jpg`);
+  if (PHONE) html = html.replaceAll('preserveAspectRatio="xMidYMid slice"', 'preserveAspectRatio="xMidYMid meet"');
   const ctx = await browser.newContext();
   const pg = await ctx.newPage();
   const go = async (h) => {

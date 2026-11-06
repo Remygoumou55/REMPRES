@@ -1,0 +1,59 @@
+/* ===== Version téléphone : petite page, une seule colonne, texte lisible ===== */
+@page {
+  size: 108mm 192mm;
+  margin: 9mm 7mm 11mm 7mm;
+  @bottom-left { content: none; }
+  @bottom-right { content: none; }
+}
+@page cover { size: 108mm 192mm; margin: 0; }
+body { font-size: 9.4pt; line-height: 1.45; hyphens: auto; }
+h2 { font-size: 12.5pt; margin: 12pt 0 5pt; }
+h3 { font-size: 10.8pt; }
+.chapter-head h1 { font-size: 17pt; }
+.chapter-head .lead { font-size: 9.8pt; }
+
+/* Tout en une colonne */
+.grid2, .grid3, .levels, .side-by-side { display: block !important; }
+.grid2 > *, .grid3 > *, .levels > *, .side-by-side > * { margin-bottom: 7pt !important; width: auto !important; }
+.levels .box { margin: 0 0 7pt; }
+.caprow { flex-wrap: wrap; gap: 6pt; }
+.caprow > figure.capture, .caprow > div { flex: 0 0 47% !important; }
+.caprow.five > figure.capture { flex: 0 0 47% !important; }
+.side-by-side > figure.capture { margin: 6pt auto; }
+figure.capture img { max-height: 120mm; max-width: 62mm; }
+figure.capture.small img { max-height: 92mm; max-width: 100%; }
+figure.capture.land img { max-height: 70mm; }
+figure.capture.wide img { max-height: 130mm; max-width: 80mm; }
+.caprow.three figure.capture.small img { max-height: 80mm; }
+figure.illu svg { max-width: 100% !important; }
+
+/* Tableaux plus compacts */
+table.data { font-size: 7.6pt; }
+table.data th, table.data td { padding: 3pt 4pt; }
+.box .words table, .words table { font-size: 7.8pt; }
+.words td:first-child { width: 26%; }
+table.lex { font-size: 6.9pt; }
+.chat .b { max-width: 92%; font-size: 8.8pt; }
+.msg.en { font-size: 7.6pt; }
+.formula { font-size: 9.5pt; padding: 7pt 8pt; }
+.divider h1 { font-size: 17pt; }
+.divider .num { font-size: 70pt; top: -6pt; }
+.toc h1 { font-size: 20pt; }
+.toc .row { font-size: 9.2pt; }
+
+/* Couverture adaptée à l'écran */
+.cover { width: 108mm; height: 192mm; }
+.cover .cover-inner { left: 8mm; right: 8mm; top: 10mm; bottom: 9mm; }
+.cover .collection { font-size: 6pt; letter-spacing: 1.5pt; }
+.cover h1.cv-title { font-size: 25pt; margin: 4mm 0 2mm; }
+.cover .cv-sub { font-size: 10.5pt; }
+.cover-hook { font-size: 7.6pt; margin-top: 3mm; padding-left: 6pt; }
+.cover-mid { margin-top: 4mm; gap: 2mm; }
+.cover-list li { font-size: 6.4pt; margin-bottom: 5pt; gap: 5pt; }
+.cover-list strong { font-size: 7.4pt; }
+.cover-list b { flex: 0 0 14pt; height: 14pt; font-size: 7.5pt; }
+.cover-phones { flex: 0 0 34mm; height: 58mm; }
+.cover-phones img { width: 21mm; border-radius: 7pt; }
+.cover .badges { gap: 3pt; }
+.cover .badges span { font-size: 5.6pt; padding: 2pt 5pt; }
+.cover .edition { font-size: 5.6pt; margin-top: 3mm; }

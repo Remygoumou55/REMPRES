@@ -13,7 +13,7 @@ const ff = (a) => execFileSync('ffmpeg', ['-v', 'error', '-y', ...a]);
 
 // Segments de la voix (secondes dans le fichier complet), mesurés sur les pauses.
 const CFG = {
-  A: { hooks: { h1: [[0, 3.05]], h2: [[3.47, 9.47]], h3: [[9.75, 13.22]] }, body: [13.42, 46.15], style: 'A', name: 'transitaire', scenes: [5.99, 12.08, 15.16, 18.21, 27.32], prix: 29.76 },
+  A: { hooks: { h1: [[0, 3.05]], h2: [[3.47, 7.88]], h3: [[8.34, 11.84]] }, body: [12.26, 46.15], style: 'A', name: 'transitaire', scenes: [4.48, 9.89, 15.4, 19.37, 28.48], prix: 30.92 },
   B: { hooks: { h1: [[0.12, 2.73]], h2: [[0.12, 1.68], [3.12, 5.98]], h3: [[6.47, 10.19]] }, body: [10.72, 43.15], style: 'B', name: 'grossiste', scenes: [6.11, 13.35, 25.57, 29.25], prix: 29.25 },
   C: { hooks: { h1: [[0.10, 4.16]], h2: [[4.52, 10.05]], h3: [[10.42, 14.54]] }, body: [14.86, 55.95], style: 'C', name: 'debutant', scenes: [5.61, 12.37, 27.16, 38.07], prix: 38.07 },
 };
@@ -67,7 +67,7 @@ for (const h of ['h1', 'h2', 'h3']) {
     '-filter_complex',
     `[0:v][1:v]concat=n=2:v=1:a=0,format=yuv420p[v];` +
     `[2:a]apad=whole_dur=${H[h]}[ha];[ha][3:a]concat=n=2:v=0:a=1,apad=whole_dur=${tot}[voice0];` +
-    `[voice0]asplit=2[voice][key];[4:a]atrim=0:${tot},volume=0.24[mus];` +
+    `[voice0]asplit=2[voice][key];[4:a]atrim=0:${tot},volume=0.17[mus];` +
     `[mus][key]sidechaincompress=threshold=0.03:ratio=6:attack=40:release=450[musd];` +
     `[voice][musd]amix=inputs=2:normalize=0,alimiter=limit=0.95,loudnorm=I=-15:TP=-1.5:LRA=9[a]`,
     '-map', '[v]', '-map', '[a]', '-c:v', 'libx264', '-crf', '19', '-preset', 'medium', '-profile:v', 'high', '-r', String(FPS),

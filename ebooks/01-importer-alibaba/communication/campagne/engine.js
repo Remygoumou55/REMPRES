@@ -20,8 +20,8 @@
       if (!on) return;
       const lt = part === 'body' ? t - H : t;
       sec.querySelectorAll('[data-in]').forEach((el) => {
-        const tin = parseFloat(el.dataset.in), tout = el.dataset.out !== undefined ? parseFloat(el.dataset.out) : 1e9;
-        const d = parseFloat(el.dataset.d || '0.7');
+        const tin = parseFloat(el.dataset.in) - 0.12, tout = el.dataset.out !== undefined ? parseFloat(el.dataset.out) : 1e9;
+        const d = Math.min(parseFloat(el.dataset.d || '0.45'), 0.5);
         const a = el.dataset.a || 'rise';
         const p = (lt - tin) / d;
         const o = lt < tin ? 0 : Math.min(ease(p), 1 - ease((lt - (tout - 0.35)) / 0.35));

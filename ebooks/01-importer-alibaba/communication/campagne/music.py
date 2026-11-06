@@ -66,10 +66,10 @@ mus /= np.abs(mus).max() + 1e-9
 sfx = np.zeros(N)
 def whoosh(d=.7):
     n = int(SR * d); x = rng.standard_normal(n); return lp(x, .06) * np.sin(np.pi * np.arange(n) / n) ** 2 * 3
-for t in trans: add(sfx, whoosh(), max(0, t - .35), .25)
+for t in trans: add(sfx, whoosh(), max(0, t - .35), .08)
 if prix is not None:
     t = np.arange(int(SR * 1.2)) / SR
-    add(sfx, (np.sin(2 * np.pi * 1318 * t) + .5 * np.sin(2 * np.pi * 1976 * t)) * np.exp(-t * 4), prix, .18)
+    add(sfx, (np.sin(2 * np.pi * 1318 * t) + .5 * np.sin(2 * np.pi * 1976 * t)) * np.exp(-t * 4), prix, .06)
 x = mus * .8 + sfx
 x = x / (np.abs(x).max() + 1e-9) * .9
 st = np.repeat((x * 32767).astype(np.int16)[:, None], 2, axis=1)

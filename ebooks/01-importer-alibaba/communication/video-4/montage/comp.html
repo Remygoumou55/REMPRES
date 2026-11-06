@@ -1,0 +1,245 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:O;src:url(fonts/outfit-latin-500-normal.woff2);font-weight:500}
+@font-face{font-family:O;src:url(fonts/outfit-latin-700-normal.woff2);font-weight:700}
+@font-face{font-family:O;src:url(fonts/outfit-latin-800-normal.woff2);font-weight:800}
+@font-face{font-family:O;src:url(fonts/outfit-latin-900-normal.woff2);font-weight:900}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:transparent;font-family:O,sans-serif;color:#1B1B2F}
+.abs{position:absolute}.layer{position:absolute;inset:0;opacity:0}
+.bg{position:absolute;inset:0;background:#F4EFE6}
+.bg:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(27,27,47,.05) 2px,transparent 2px);background-size:100% 64px}
+.bg:after{content:"";position:absolute;left:96px;top:0;bottom:0;width:3px;background:rgba(229,72,77,.25)}
+.co{color:#E5484D}.te{color:#0E8A8C}
+.card{position:absolute;border-radius:22px;overflow:hidden;box-shadow:0 24px 60px rgba(27,27,47,.22),0 0 0 2px rgba(27,27,47,.06)}
+.card img{width:100%;display:block}
+.ec{position:absolute;left:60px;right:60px;top:120px;height:230px;background:#fff;border-radius:28px;box-shadow:0 18px 50px rgba(27,27,47,.18);display:flex;align-items:center;gap:30px;padding:0 40px;overflow:hidden}
+.ec .n{font-weight:900;font-size:150px;color:#E5484D;line-height:1;letter-spacing:-6px;flex:none}
+.ec .lb{font-weight:800;font-size:30px;letter-spacing:6px;color:#E5484D}
+.ec .tx{font-weight:800;font-size:54px;line-height:1.05;margin-top:6px}
+.chip{display:inline-flex;align-items:center;gap:14px;background:#fff;border-radius:999px;padding:14px 30px;font-weight:800;font-size:42px;box-shadow:0 12px 30px rgba(27,27,47,.18)}
+.chip.ok{background:#0E8A8C;color:#fff}.chip.ko{background:#E5484D;color:#fff}
+.bub{position:absolute;max-width:720px;padding:26px 34px;border-radius:30px;font-weight:700;font-size:46px;line-height:1.2;box-shadow:0 14px 34px rgba(27,27,47,.14)}
+.hl{position:absolute;border:7px solid #0E8A8C;border-radius:18px;box-shadow:0 0 0 9999px rgba(27,27,47,0)}
+.tag{position:absolute;font-weight:900;font-size:40px;padding:8px 26px;border-radius:14px;color:#fff;letter-spacing:2px}
+#sub{position:absolute;left:80px;right:80px;top:1560px;text-align:center;font-weight:800;font-size:58px;line-height:1.22}
+#sub.ft{color:#fff;text-shadow:0 3px 0 rgba(0,0,0,.45),0 0 22px rgba(0,0,0,.65),0 0 4px rgba(0,0,0,.8)}
+#sub.lt{color:#1B1B2F}
+#sub .k{background:linear-gradient(transparent 62%,rgba(229,72,77,.55) 62%);padding:0 4px}
+#sub.ft .k{background:linear-gradient(transparent 62%,rgba(229,72,77,.85) 62%)}
+.btn{position:absolute;left:110px;right:110px;height:146px;border-radius:26px;background:#0E8A8C;color:#fff;display:flex;align-items:center;justify-content:center;gap:20px;font-weight:900;font-size:56px;white-space:nowrap;box-shadow:0 20px 50px rgba(14,138,140,.4)}
+</style></head><body>
+<!-- B cover -->
+<div id="B" class="layer"><div class="abs" style="inset:0;background:rgba(244,239,230,.78)"></div>
+  <div class="abs" id="Bt" style="left:60px;right:60px;top:170px;text-align:center;font-weight:900;font-size:72px;line-height:1.05">Toutes expliquées<br>dans <span class="co">ce guide</span></div>
+  <div id="Bcov" class="card" style="left:270px;top:430px;width:540px;border-radius:10px"><img src="assets/cover.png"></div>
+  <div id="Bv" class="abs" style="left:0;right:0;top:1270px;text-align:center"><span class="chip ko" style="font-size:52px">Les voici ↓</span></div>
+</div>
+<!-- E1 chat -->
+<div id="E1" class="layer"><div class="bg"></div>
+  <div class="abs" style="left:90px;right:90px;top:420px;height:900px;background:#fff;border-radius:40px;box-shadow:0 24px 60px rgba(27,27,47,.15)"></div>
+  <div class="abs" style="left:90px;right:90px;top:420px;height:110px;border-radius:40px 40px 0 0;background:#1B1B2F;color:#fff;display:flex;align-items:center;gap:22px;padding:0 40px;font-weight:700;font-size:38px"><div style="width:62px;height:62px;border-radius:50%;background:#E5484D;display:flex;align-items:center;justify-content:center;font-weight:900">F</div>Fournisseur</div>
+  <div id="B1" class="bub" style="left:130px;top:580px;background:#EEE9E0;border-radius:8px 30px 30px 30px">Payez-moi directement,<br>hors plateforme :<br><b class="co">−5 % pour vous !</b></div>
+  <div id="X1" class="abs" style="left:560px;top:600px;transform:rotate(-12deg)"><span class="tag" style="position:relative;background:#E5484D;font-size:64px;padding:10px 34px">REFUSE</span></div>
+  <div id="W1" class="abs" style="left:0;right:0;top:880px;text-align:center"><span class="chip" style="border:4px solid #E5484D;color:#E5484D"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#E5484D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M4 4l16 16"/></svg> Hors d'Alibaba : aucune protection</span></div>
+  <div id="R1" class="bub" style="right:130px;top:1060px;background:#0E8A8C;color:#fff;border-radius:30px 8px 30px 30px">Je paie uniquement<br>sur Alibaba. ✓</div>
+</div>
+<!-- E2 supplier -->
+<div id="E2" class="layer"><div class="bg"></div>
+  <div id="C08" class="card" style="left:250px;top:400px;width:580px"><img src="assets/c08.jpg">
+    <div id="H0" class="hl" style="left:16.5%;top:40.2%;width:18%;height:11%"></div>
+    <div id="H1" class="hl" style="left:67%;top:40.2%;width:18%;height:11%"></div>
+    <div id="H2" class="hl" style="left:16.2%;top:35.8%;width:15%;height:4.4%"></div>
+  </div>
+  <div id="T0" class="abs" style="left:60px;top:700px"><span class="chip ok" style="font-size:36px">Ancienneté</span></div>
+  <div id="T1" class="abs" style="right:40px;top:700px"><span class="chip ok" style="font-size:36px">Avis</span></div>
+  <div id="T2" class="abs" style="left:40px;top:560px"><span class="chip ok" style="font-size:36px">Badge vérifié</span></div>
+  <div id="C09" class="card" style="left:250px;top:400px;width:580px"><img src="assets/c09.jpg">
+    <div id="H3" class="hl" style="left:13%;top:78%;width:42%;height:15%"></div></div>
+  <div id="T3" class="abs" style="left:0;right:0;top:1300px;text-align:center"><span class="chip ok">✓ Un vrai fournisseur accepte toujours</span></div>
+</div>
+<!-- E3 transitaires -->
+<div id="E3" class="layer"><div class="bg"></div>
+  <div id="G26" class="card" style="left:40px;top:420px;width:490px"><img src="assets/c26.jpg"></div>
+  <div id="G27" class="card" style="left:550px;top:420px;width:490px"><img src="assets/c27.jpg"></div>
+  <div id="Gok" class="abs" style="left:40px;width:490px;top:380px;text-align:center"><span class="tag" style="position:relative;background:#0E8A8C">✓ SÉRIEUX</span></div>
+  <div id="Gko" class="abs" style="left:550px;width:490px;top:380px;text-align:center"><span class="tag" style="position:relative;background:#E5484D">✕ DOUTEUX</span></div>
+  <div class="abs" style="left:40px;width:490px;top:990px;display:flex;flex-direction:column;align-items:center;gap:18px">
+    <span id="Ga" class="chip ok" style="font-size:34px">Bureau à visiter</span><span id="Gb" class="chip ok" style="font-size:34px">Tarifs écrits</span><span id="Gc" class="chip ok" style="font-size:34px">Avis réels</span></div>
+  <div class="abs" style="left:550px;width:490px;top:990px;display:flex;flex-direction:column;align-items:center;gap:18px">
+    <span id="Gd" class="chip ko" style="font-size:34px">« 5 $ le kilo »</span><span id="Ge" class="chip ko" style="font-size:34px">« Paie avant ce soir ! »</span></div>
+</div>
+<!-- F E4 overlays on sample scene -->
+<div id="F" class="layer">
+  <div class="abs" style="left:0;right:0;top:1050px;display:flex;flex-direction:column;align-items:center;gap:22px">
+    <span id="Fa" class="chip ok">1 seule pièce d'abord</span>
+    <span id="Fb" class="chip">Une photo peut mentir…</span>
+    <span id="Fc" class="chip ok">…un échantillon, non ✓</span></div>
+</div>
+<!-- G E5 overlays on carton scene -->
+<div id="G" class="layer">
+  <div class="abs" style="left:0;right:0;top:1060px;display:flex;flex-direction:column;align-items:center;gap:22px">
+    <span id="Ka" class="chip ok">1 · Filme l'ouverture</span><span id="Kb_" class="chip ok">2 · Vérifie tout</span><span id="Kc" class="chip ok">3 · Puis confirme</span></div>
+</div>
+<div id="G2" class="layer"><div class="bg"></div>
+  <div id="G2x" class="abs" style="left:0;right:0;top:470px;text-align:center"><div style="display:inline-flex;width:300px;height:300px;border-radius:50%;background:#E5484D;align-items:center;justify-content:center;box-shadow:0 30px 70px rgba(229,72,77,.35)"><svg width="160" height="160" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div></div>
+  <div id="G2t" class="abs" style="left:60px;right:60px;top:880px;text-align:center;font-weight:900;font-size:84px;line-height:1.05">Sinon :<br><span class="co">plus de remboursement</span></div>
+</div>
+<!-- H overlays on guide scene -->
+<div id="H" class="layer">
+  <div id="Hb" class="abs" style="left:0;right:0;top:960px;text-align:center"><span style="display:inline-block;background:#fff;border-radius:30px;padding:18px 40px 22px;box-shadow:0 20px 50px rgba(0,0,0,.3)"><span style="font-weight:900;font-size:130px;color:#E5484D;line-height:1">15</span><span style="font-weight:800;font-size:54px"> erreurs<br>dans le guide</span></span></div>
+</div>
+<!-- I pages -->
+<div id="I" class="layer"><div class="bg"></div>
+  <div id="Ip0" class="card" style="left:50px;top:300px;width:480px;border-radius:12px"><img src="assets/p57.png"></div>
+  <div id="Ip1" class="card" style="left:550px;top:300px;width:480px;border-radius:12px"><img src="assets/k3p2.png"></div>
+  <div id="Il0" class="abs" style="left:50px;width:480px;top:1000px;text-align:center"><span class="chip ko" style="font-size:38px">Les 15 erreurs</span></div>
+  <div id="Il1" class="abs" style="left:550px;width:480px;top:1000px;text-align:center"><span class="chip ok" style="font-size:38px">Prêt à copier</span></div>
+  <div id="Il2" class="abs" style="left:0;right:0;top:1130px;display:flex;justify-content:center;gap:20px"><span class="chip" style="font-size:40px">Fournisseur</span><span class="chip" style="font-size:40px">Transitaire</span></div>
+</div>
+<!-- J pack over smile -->
+<div id="J" class="layer">
+  <div id="Jp" class="abs" style="left:0;right:0;top:1080px;height:420px">
+    <div class="card" style="left:210px;top:60px;width:200px;transform:rotate(-8deg)"><img src="assets/kit1-calculs.png"></div>
+    <div class="card" style="left:670px;top:60px;width:200px;transform:rotate(8deg)"><img src="assets/kit3-messages.png"></div>
+    <div class="card" style="left:440px;top:20px;width:200px"><img src="assets/kit2-checklists.png"></div>
+    <div class="card" style="left:405px;top:70px;width:270px;border-radius:8px"><img src="assets/cover.png"></div>
+  </div>
+</div>
+<!-- K offer -->
+<div id="K" class="layer"><div class="bg"></div>
+  <div class="abs" style="left:0;right:0;top:140px;text-align:center;font-weight:900;font-size:62px">Le guide <span class="te">+ 3 kits</span></div>
+  <div class="card" style="left:110px;top:340px;width:260px;transform:rotate(-7deg)"><img src="assets/kit1-calculs.png"></div>
+  <div class="card" style="left:710px;top:340px;width:260px;transform:rotate(7deg)"><img src="assets/kit3-messages.png"></div>
+  <div class="card" style="left:410px;top:290px;width:260px"><img src="assets/kit2-checklists.png"></div>
+  <div class="card" style="left:360px;top:360px;width:360px;border-radius:8px"><img src="assets/cover.png"></div>
+  <div id="Knew" class="abs" style="left:0;right:0;top:920px;text-align:center"><span style="font-weight:900;font-size:180px;letter-spacing:-6px;line-height:1">3 900 <span class="co" style="font-size:.38em;letter-spacing:0">F CFA</span></span></div>
+  <div id="Kold" class="abs" style="left:0;right:0;top:1110px;text-align:center;font-weight:700;font-size:54px;color:#6b6b80">au lieu de <span style="position:relative;display:inline-block">5 000 F<span id="Kstrike" class="abs" style="left:-6px;top:52%;height:7px;background:#E5484D;border-radius:4px;transform:rotate(-6deg)"></span></span></div>
+  <div id="Kbtn" class="btn" style="top:1250px">COMMANDER MAINTENANT</div>
+  <div id="Kleg" class="abs" style="left:0;right:0;top:1430px;text-align:center;font-size:26px;font-weight:500;color:#6b6b80">Guide indépendant, non affilié à Alibaba.com</div>
+</div>
+<!-- error title card (shared) -->
+<div id="EC" class="ec" style="opacity:0"><div class="n" id="ECn">01</div><div><div class="lb">ERREUR</div><div class="tx" id="ECt"></div></div></div>
+<!-- hook -->
+<div id="hook" class="abs" style="left:50px;right:50px;top:1130px;text-align:center;color:#fff">
+  <div id="h1" style="display:flex;align-items:center;justify-content:center;gap:24px"><span style="font-weight:900;font-size:260px;line-height:.9;color:#fff;text-shadow:0 10px 40px rgba(0,0,0,.5)">5</span><span style="display:inline-block;background:#E5484D;border-radius:18px;padding:10px 30px 16px;font-weight:900;font-size:96px;letter-spacing:2px">ERREURS</span></div>
+  <div id="h2" style="margin-top:20px;font-weight:800;font-size:58px;line-height:1.15;text-shadow:0 4px 24px rgba(0,0,0,.8),0 0 6px rgba(0,0,0,.6)">qui vident ton compte dès ta<br>1<sup style="font-size:.55em">re</sup> commande sur Alibaba</div>
+</div>
+<div id="sub"></div>
+<script>
+const PH=[[0.0,3.52,"5 erreurs qui vident ton compte dès ta première commande sur Alibaba."],
+[4.01,6.33,"Toutes sont expliquées dans Briser la peur d'importer."],
+[6.71,7.75,"Les voici."],
+[7.81,9.2,"Erreur n°1 :"],
+[9.23,11.28,"payer en dehors d'Alibaba."],
+[11.30,14.05,"Le fournisseur te propose une remise si tu paies directement ?"],
+[14.07,15.08,"Refuse."],
+[15.10,17.35,"Hors d'Alibaba, aucune protection."],
+[17.37,18.42,"Réponds simplement :"],
+[18.44,20.6,"Je paie uniquement sur Alibaba."],
+[20.67,22.04,"Erreur n°2 :"],
+[22.06,24.1,"ne pas vérifier le fournisseur."],
+[24.15,25.45,"Regarde son ancienneté,"],
+[25.48,27.45,"ses avis, son badge vérifié."],
+[27.50,29.64,"Demande-lui une vidéo de son produit en main."],
+[29.66,32.38,"Un vrai fournisseur accepte toujours."],
+[32.43,33.8,"Erreur n°3 :"],
+[33.83,36.2,"choisir le transitaire le moins cher."],
+[36.22,38.82,"Un bon transitaire a un bureau que tu peux visiter,"],
+[38.84,41.32,"des tarifs écrits, des avis réels."],
+[41.35,43.15,"Un mauvais te promet 5 $ le kilo"],
+[43.15,45.7,"et te demande de payer avant ce soir."],
+[45.75,47.17,"Erreur n°4 :"],
+[47.19,49.0,"commander sans échantillon."],
+[49.04,50.94,"Achète d'abord une seule pièce."],
+[50.96,52.15,"Une photo peut mentir,"],
+[52.2,53.95,"un échantillon, non."],
+[53.98,55.43,"Erreur n°5 :"],
+[55.45,57.6,"confirmer la réception trop vite."],
+[57.62,59.18,"Ouvre tes cartons en filmant,"],
+[59.20,61.3,"vérifie tout, puis confirme."],
+[61.34,63.68,"Sinon, plus de remboursement possible."],
+[63.70,65.8,"Ces 5 erreurs, ce n'est qu'un début."],
+[65.81,67.48,"Dans le guide, il y en a 15,"],
+[67.50,69.16,"avec des conversations prêtes à copier"],
+[69.18,71.66,"pour parler au fournisseur et au transitaire."],
+[71.69,73.14,"Le guide et ses 3 kits :"],
+[73.16,75.5,"3 900 F au lieu de 5 000."],
+[75.55,77.6,"Clique sur Commander maintenant."]]
+;
+const KEY=/^(guide|importer|alibaba|refuse|protection|uniquement|fournisseur|ancienneté|avis|badge|vérifié|vidéo|toujours|transitaire|cher|bureau|écrits|réels|kilo|soir|échantillon|pièce|mentir|non|vite|filmant|confirme|remboursement|début|15|copier|kits|900|maintenant)$/i;
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const pr=(t,a,b)=>cl((t-a)/(b-a));
+const io=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const eo=x=>1-Math.pow(1-x,3);
+const bk=x=>{const c=1.2,d=c+1;return 1+d*Math.pow(x-1,3)+c*Math.pow(x-1,2)};
+function st(id,o,tf){const e=$(id);e.style.opacity=o;if(tf!==undefined)e.style.transform=tf}
+const fin=(t,a,d=.7)=>eo(pr(t,a,a+d));
+const win=(t,a,b,f=.5)=>Math.min(pr(t,a,a+f),1-pr(t,b-f,b));
+const pop=(id,t,a,extra='')=>{const p=pr(t,a,a+.55);st(id,eo(p),`scale(${p<=0?.85:.85+.15*bk(p)}) ${extra}`)};
+const ERR=[[7.81,9.23,20.55,'01',"Payer en dehors d'Alibaba"],[20.67,22.06,32.35,'02','Ne pas vérifier le fournisseur'],[32.43,33.83,45.65,'03','Choisir le transitaire le moins cher'],[45.75,47.19,53.85,'04','Commander sans échantillon'],[53.98,55.45,61.85,'05','Confirmer la réception trop vite']];
+const LIGHT=[[3.55,7.8],[7.8,45.7],[61.9,63.6],[67.6,71.6],[73.1,80]];
+let last=-1,lastE=-1;
+function render(t){
+ // hook
+ const h1=fin(t,0.1,.8),h2=fin(t,0.9,.8),hk=1-pr(t,3.2,3.55);
+ st('h1',h1*hk,`scale(${.9+.1*h1})`);st('h2',h2*hk,`translateY(${(1-h2)*24}px)`);
+ // subtitles
+ let pi=-1;if(t>=3.55)PH.forEach((p,i)=>{if(t>=p[0]-0.05&&t<p[1])pi=i});
+ if(t>=73.1)pi=-1;
+ const sub=$('sub');
+ if(pi!==last){sub.innerHTML=pi<0?'':PH[pi][2].split(' ').map(w=>{const b=w.replace(/[.,:;?!…»«]+$/,'').replace(/^[«]/,'').replace(/^.*'/,'').toLowerCase();return KEY.test(b)?`<span class="k">${w}</span>`:w}).join(' ');last=pi}
+ if(pi>=0){const q=pr(t,PH[pi][0]-0.05,PH[pi][0]+0.25);sub.style.opacity=eo(q);sub.style.transform=`translateY(${(1-eo(q))*16}px)`}
+ const light=LIGHT.some(([a,b])=>t>=a&&t<b);sub.className=light?'lt':'ft';
+ sub.style.top=(t>=3.55&&t<7.8)?'1420px':(t>=71.6&&t<73.1)?'1560px':(t>=45.7&&t<61.9)?'1520px':(t>=63.6&&t<67.6)?'1560px':'1500px';
+ // B
+ $('B').style.opacity=win(t,3.5,7.85,.4);
+ const bc=io(pr(t,3.6,4.5));st('Bcov',1,`translateY(${(1-bc)*600}px) rotate(${(1-bc)*4}deg) scale(${.94+.06*bc+.03*pr(t,4.5,7.8)})`);
+ const bt=fin(t,4.0,.8);st('Bt',bt,`translateY(${(1-bt)*30}px)`);pop('Bv',t,6.71);
+ // error card
+ let ei=-1;ERR.forEach((e,i)=>{if(t>=e[0]-.1&&t<e[2])ei=i});
+ const ec=$('EC');
+ if(ei>=0){const e=ERR[ei];if(ei!==lastE){$('ECn').textContent=e[3];$('ECt').textContent=e[4];lastE=ei}
+   const p=pr(t,e[0],e[0]+.6),o=1-pr(t,e[2]-.3,e[2]);ec.style.opacity=eo(p)*o;ec.style.transform=`translateY(${(1-eo(p))*-60}px)`;
+   $('ECt').style.opacity=fin(t,e[1]-.05,.6);$('ECt').style.transform=`translateX(${(1-fin(t,e[1]-.05,.6))*40}px)`;}
+ else ec.style.opacity=0;
+ // E1
+ $('E1').style.opacity=win(t,7.75,20.6,.45);
+ const b1=fin(t,11.3,.6);st('B1',b1,`translateY(${(1-b1)*40}px)`);
+ const x1=pr(t,14.07,14.5);st('X1',eo(x1),`rotate(-12deg) scale(${x1<=0?1.6:1.6-.6*eo(x1)})`);$('B1').style.filter=`grayscale(${pr(t,14.1,14.5)}) opacity(${1-.45*pr(t,14.1,14.5)})`;
+ pop('W1',t,15.1);
+ const r1=fin(t,18.44,.6);st('R1',r1,`translateY(${(1-r1)*40}px)`);
+ // E2
+ $('E2').style.opacity=win(t,20.6,32.4,.45);
+ const c8=io(pr(t,22.2,23.0)),c8o=io(pr(t,27.4,27.9));st('C08',c8*(1-c8o),`translateY(${(1-c8)*200}px) translateX(${-c8o*300}px)`);
+ [[0,24.68],[1,25.6],[2,26.3]].forEach(([i,a])=>{const p=pr(t,a-.1,a+.4);st('H'+i,eo(p),`scale(${1.15-.15*eo(p)})`);st('T'+i,eo(p)*(1-c8o),`scale(${.85+.15*eo(p)})`)});
+ const c9=io(pr(t,27.5,28.2));st('C09',c9,`translateX(${(1-c9)*400}px)`);const h3=pr(t,28.1,28.5);st('H3',eo(h3),`scale(${1.15-.15*eo(h3)})`);
+ pop('T3',t,29.66);
+ // E3
+ $('E3').style.opacity=win(t,32.35,45.75,.45);
+ const g6=io(pr(t,36.2,36.9));st('G26',g6,`translateY(${(1-g6)*160}px)`);pop('Gok',t,36.6);
+ [['Ga',37.44],['Gb',38.96],['Gc',40.0]].forEach(([id,a])=>pop(id,t,a));
+ const g7=io(pr(t,41.3,42.0));st('G27',g7,`translateY(${(1-g7)*160}px)`);pop('Gko',t,41.7);
+ pop('Gd',t,42.2);pop('Ge',t,43.6);
+ // F (E4 over sample scene)
+ $('F').style.opacity=win(t,45.7,53.95,.3);pop('Fa',t,49.04);pop('Fb',t,50.96);pop('Fc',t,52.2);
+ // G (E5 over carton)
+ $('G').style.opacity=win(t,53.9,61.95,.3);pop('Ka',t,57.62);pop('Kb_',t,59.32);pop('Kc',t,60.18);
+ $('G2').style.opacity=win(t,61.85,63.7,.35);const gx=pr(t,61.9,62.4);st('G2x',eo(gx),`scale(${gx<=0?.7:.7+.3*bk(gx)})`);const gt=fin(t,62.1,.6);st('G2t',gt,`translateY(${(1-gt)*30}px)`);
+ // H
+ $('H').style.opacity=win(t,63.6,67.65,.3);pop('Hb',t,65.81);
+ // I
+ $('I').style.opacity=win(t,67.55,71.65,.4);
+ const i0=io(pr(t,67.6,68.3)),i1=io(pr(t,67.9,68.6));st('Ip0',i0,`translateY(${(1-i0)*150}px) rotate(${-2*i0}deg)`);st('Ip1',i1,`translateY(${(1-i1)*150}px) rotate(${2*i1}deg)`);
+ pop('Il0',t,68.2);pop('Il1',t,68.8);pop('Il2',t,69.8);
+ // J
+ $('J').style.opacity=win(t,71.6,73.15,.25);const jp=io(pr(t,71.69,72.4));st('Jp',jp,`translateY(${(1-jp)*300}px)`);
+ // K
+ $('K').style.opacity=pr(t,73.05,73.4);
+ const kn=pr(t,73.16,73.8);st('Knew',eo(kn),`scale(${kn<=0?.8:.8+.2*bk(kn)})`);
+ st('Kold',fin(t,74.24,.5));$('Kstrike').style.width=`calc(${io(pr(t,74.6,75.0))*100}% + 12px)`;
+ const kb=pr(t,75.46,76.06);const pulse=t>76.1?1+.025*Math.sin((t-76.1)*4):1;st('Kbtn',eo(kb),`scale(${(.85+.15*eo(kb))*pulse})`);
+ st('Kleg',pr(t,76,76.6));
+}
+window.render=render;
+</script></body></html>

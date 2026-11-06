@@ -1,0 +1,196 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:I;src:local('Inter');}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:transparent;font-family:Inter,sans-serif;color:#fff}
+.abs{position:absolute}
+.layer{position:absolute;inset:0;opacity:0}
+.navy{background:radial-gradient(120% 80% at 50% 30%,#163a5e 0%,#0F2A44 55%,#08182a 100%)}
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:60px 60px}
+.o{color:#FF7A1A}
+/* subtitles */
+#sub{position:absolute;left:60px;right:60px;top:1250px;text-align:center;font-weight:900;font-size:66px;line-height:1.18;letter-spacing:-.5px}
+#sub span{display:inline-block;margin:4px 0;padding:0 .1em;border-radius:12px;text-shadow:0 4px 0 rgba(0,0,0,.55),0 0 18px rgba(0,0,0,.6),-3px 0 0 #000,3px 0 0 #000,0 -3px 0 #000,0 3px 0 #000,-2px -2px 0 #000,2px 2px 0 #000,-2px 2px 0 #000,2px -2px 0 #000}
+#sub span.on{background:#FF7A1A;text-shadow:0 3px 0 rgba(0,0,0,.35)}
+#sub span.k{color:#FFB37A}
+#sub span.on.k{color:#fff}
+/* hook */
+#hook{position:absolute;left:50px;right:50px;top:1020px;text-align:center}
+.hk{font-weight:900;font-size:96px;line-height:1.02;letter-spacing:-2px;text-transform:uppercase;text-shadow:0 6px 0 rgba(0,0,0,.45),0 0 30px rgba(0,0,0,.5)}
+.pill{display:inline-block;background:#FF7A1A;color:#fff;border-radius:22px;padding:14px 34px 18px;font-weight:900;box-shadow:0 18px 40px rgba(0,0,0,.4)}
+.chip{position:absolute;left:60px;top:150px;background:rgba(15,42,68,.92);border:3px solid #FF7A1A;border-radius:999px;padding:16px 34px;font-weight:800;font-size:40px;box-shadow:0 12px 30px rgba(0,0,0,.35)}
+.card{background:#fff;border-radius:18px;box-shadow:0 40px 80px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.1)}
+.node{position:absolute;left:140px;width:800px;height:150px;border-radius:28px;background:rgba(255,255,255,.06);border:3px solid rgba(255,255,255,.18);display:flex;align-items:center;padding:0 36px;gap:30px}
+.node .ic{width:96px;height:96px;border-radius:22px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center}
+.node .t{font-weight:900;font-size:52px;letter-spacing:-.5px}
+.node .s{font-weight:600;font-size:30px;opacity:.7}
+.bar{position:absolute;right:36px;top:50%;height:30px;border-radius:15px;background:#FF7A1A;transform:translateY(-50%)}
+.arrow{position:absolute;left:530px;width:20px;height:70px}
+.ttl{position:absolute;left:60px;right:60px;text-align:center;font-weight:900;letter-spacing:-1.5px;line-height:1.05}
+.check{display:flex;align-items:center;gap:34px;font-weight:900;font-size:88px;margin:26px 0}
+.cb{width:110px;height:110px;border-radius:26px;background:#FF7A1A;display:flex;align-items:center;justify-content:center}
+.fear{position:absolute;left:110px;right:110px;height:150px;border-radius:30px;background:rgba(8,24,42,.88);border:3px solid #FF7A1A;display:flex;align-items:center;gap:30px;padding:0 40px;font-weight:900;font-size:64px;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.page{position:absolute;width:640px;left:220px;top:380px;border-radius:14px;overflow:hidden;box-shadow:0 50px 90px rgba(0,0,0,.6)}
+.page img{width:100%;display:block}
+.lab{position:absolute;left:0;right:0;top:1180px;text-align:center}
+.lab .pill{font-size:60px}
+.btn{position:absolute;left:110px;right:110px;height:150px;border-radius:80px;background:linear-gradient(180deg,#ff8c3a,#FF7A1A 60%,#e8650a);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:56px;white-space:nowrap;letter-spacing:.5px;box-shadow:0 20px 50px rgba(255,122,26,.45),inset 0 -6px 0 rgba(0,0,0,.15)}
+</style></head><body>
+<!-- B: cover reveal (over blurred S1) -->
+<div id="B" class="layer">
+  <div class="ttl" id="Bt" style="top:150px;font-size:70px">LA RÉPONSE EST ICI</div>
+  <svg id="Barr" class="abs" style="left:500px;top:250px" width="80" height="90" viewBox="0 0 80 90"><path d="M40 5v65M12 45l28 30 28-30" stroke="#FF7A1A" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div id="Bcov" class="abs card" style="left:215px;top:360px;width:650px;height:919px;overflow:hidden;border-radius:10px"><img src="assets/cover.png" style="width:100%"></div>
+  <div id="Bglow" class="abs" style="left:215px;top:360px;width:650px;height:919px;border-radius:10px;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.35) 45%,transparent 60%);background-size:300% 100%"></div>
+</div>
+<!-- E: chain -->
+<div id="E" class="layer navy"><div class="grid"></div>
+  <div class="ttl" id="Et" style="top:150px;font-size:66px">QUI GAGNE LE PLUS ?</div>
+  <div id="En0" class="node" style="top:330px"><div class="ic"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#FF7A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20V9l-6 4V9l-6 4V4H2z"/><path d="M6 16h2M11 16h2M16 16h2"/></svg></div><div><div class="t">L'usine</div><div class="s">en Chine</div></div></div>
+  <div id="En1" class="node" style="top:560px"><div class="ic"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#FF7A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M3 9h18v11H3zM3 9c0 2 4 2 4 0 0 2 5 2 5 0 0 2 5 2 5 0 0 2 4 2 4 0M9 20v-6h6v6"/></svg></div><div><div class="t">Le grossiste</div><div class="s">achète à l'usine</div></div><div id="Eb1" class="bar"></div></div>
+  <div id="En2" class="node" style="top:790px"><div class="ic"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#FF7A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div><div><div class="t">Toi</div><div class="s">achètes au grossiste</div></div><div id="Eb2" class="bar" style="background:#8aa4bd"></div></div>
+  <div id="En3" class="node" style="top:1020px"><div class="ic"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#FF7A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 13H6zM9 8V6a3 3 0 0 1 6 0v2"/></svg></div><div><div class="t">Ton client</div><div class="s">achète chez toi</div></div></div>
+  <svg id="Ea0" class="abs" style="left:515px;top:485px" width="50" height="70"><path d="M25 4v50M8 38l17 18 17-18" stroke="#FF7A1A" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <svg id="Ea1" class="abs" style="left:515px;top:715px" width="50" height="70"><path d="M25 4v50M8 38l17 18 17-18" stroke="#FF7A1A" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <svg id="Ea2" class="abs" style="left:515px;top:945px" width="50" height="70"><path d="M25 4v50M8 38l17 18 17-18" stroke="#FF7A1A" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div id="Ecrown" class="abs" style="left:700px;top:520px;background:#FF7A1A;border-radius:16px;padding:8px 20px;font-weight:900;font-size:30px">GROSSE MARGE</div>
+  <div id="Esmall" class="abs" style="left:700px;top:750px;background:#8aa4bd;border-radius:16px;padding:8px 20px;font-weight:900;font-size:30px;color:#0F2A44">PETITE MARGE</div>
+</div>
+<!-- G: checklist -->
+<div id="G" class="layer navy"><div class="grid"></div>
+  <div class="ttl" style="top:230px;font-size:58px;font-weight:700;opacity:.8">Le marché local, tu connais déjà :</div>
+  <div class="abs" style="left:170px;top:420px">
+    <div class="check" id="G0"><div class="cb"><svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>Acheter</div>
+    <div class="check" id="G1"><div class="cb"><svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>Revendre</div>
+  </div>
+  <div id="Gst" class="abs" style="left:120px;right:120px;top:800px;text-align:center;border:8px solid #FF7A1A;border-radius:30px;padding:28px 10px 36px;font-weight:900;font-size:84px;line-height:1.05;color:#FF7A1A">LE PLUS DUR :<br><span style="color:#fff">C'EST FAIT</span></div>
+</div>
+<!-- H: fear -->
+<div id="H" class="layer"><div id="Hdim" class="abs" style="inset:0;background:linear-gradient(180deg,rgba(8,24,42,.75),rgba(8,24,42,.45) 60%,rgba(8,24,42,.2))"></div>
+  <div class="ttl" id="Ht" style="top:170px;font-size:92px;text-shadow:0 6px 0 rgba(0,0,0,.5),0 0 30px rgba(0,0,0,.6)">LA PEUR…</div>
+  <div class="fear" id="H0" style="top:330px"><svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#FF7A1A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L2 20h20zM12 10v4M12 17h.01"/></svg> de l'arnaque</div>
+  <div class="fear" id="H1" style="top:510px"><svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#FF7A1A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L2 20h20zM12 10v4M12 17h.01"/></svg> des calculs</div>
+  <div class="fear" id="H2" style="top:690px"><svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#FF7A1A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L2 20h20zM12 10v4M12 17h.01"/></svg> de la douane</div>
+</div>
+<!-- I: pages -->
+<div id="I" class="layer navy"><div class="grid"></div>
+  <div class="ttl" id="It" style="top:140px;font-size:60px">TOUT, <span class="o">AVANT</span> TA 1<sup style="font-size:.55em">re</sup> COMMANDE</div>
+  <div id="Icov" class="page" style="width:520px;left:280px;top:330px"><img src="assets/cover.png"></div>
+  <div id="P0" class="page"><img src="assets/p28.png"></div>
+  <div id="P1" class="page"><img src="assets/p38.png"></div>
+  <div id="P2" class="page"><img src="assets/p46.png"></div>
+  <div id="P3" class="page"><img src="assets/p50.png"></div>
+  <div id="L0" class="lab"><span class="pill">Trouver un fournisseur sérieux</span></div>
+  <div id="L1" class="lab"><span class="pill">Payer sans risque</span></div>
+  <div id="L2" class="lab"><span class="pill">Calculer le transport</span></div>
+  <div id="L3" class="lab"><span class="pill">Passer la douane</span></div>
+  <div id="X" class="abs" style="left:0;right:0;top:330px;height:900px">
+    <div id="X0" class="page" style="width:470px;left:40px;top:30px"><img src="assets/p29.png"></div>
+    <div id="X1" class="page" style="width:470px;left:570px;top:30px"><img src="assets/p39.png"></div>
+    <div id="X2" class="page" style="width:470px;left:305px;top:180px"><img src="assets/kit3-messages.png"></div>
+  </div>
+  <div id="XL" class="abs" style="left:60px;right:60px;top:1160px;display:flex;justify-content:center;gap:14px;flex-wrap:wrap">
+    <span class="pill" id="XL0" style="font-size:38px;padding:12px 24px 14px">Exemples</span><span class="pill" id="XL1" style="font-size:38px;padding:12px 24px 14px">Captures d'écran</span><span class="pill" id="XL2" style="font-size:38px;padding:12px 24px 14px">Messages prêts</span>
+  </div>
+</div>
+<!-- K: offer -->
+<div id="K" class="layer navy"><div class="grid"></div>
+  <div class="ttl" id="Kt" style="top:120px;font-size:60px">LE GUIDE <span class="o">+ 3 KITS</span></div>
+  <div id="Kk0" class="page" style="width:300px;left:100px;top:330px"><img src="assets/kit1-calculs.png"></div>
+  <div id="Kk1" class="page" style="width:300px;left:390px;top:300px"><img src="assets/kit2-checklists.png"></div>
+  <div id="Kk2" class="page" style="width:300px;left:680px;top:330px"><img src="assets/kit3-messages.png"></div>
+  <div id="Kb" class="page" style="width:440px;left:320px;top:400px"><img src="assets/cover.png"></div>
+  <div id="Kold" class="abs" style="left:0;right:0;top:1070px;text-align:center;font-weight:800;font-size:64px;color:#c9d6e3"><span style="position:relative;display:inline-block">5 000 F CFA<span id="Kstrike" class="abs" style="left:-8px;top:50%;height:9px;background:#ff3b3b;border-radius:5px;transform:rotate(-8deg)"></span></span></div>
+  <div id="Knew" class="abs" style="left:0;right:0;top:1150px;text-align:center"><span style="display:inline-block;font-weight:900;font-size:150px;letter-spacing:-4px;color:#fff;line-height:1">3 900 <span class="o" style="font-size:.5em;letter-spacing:0">F CFA</span></span></div>
+  <div id="Kbtn" class="btn" style="top:1360px">COMMANDER MAINTENANT</div>
+  <svg id="Khand" class="abs" style="left:850px;top:1470px" width="120" height="120" viewBox="0 0 24 24"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11m0-1.5a1.5 1.5 0 0 1 3 0V11m0-.5a1.5 1.5 0 0 1 3 0V15a6 6 0 0 1-6 6h-1.2a6 6 0 0 1-4.6-2.2L4.4 15.6a1.5 1.5 0 0 1 2.3-1.9L9 16" fill="#fff" stroke="#0F2A44" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"/></svg>
+  <div id="Kleg" class="abs" style="left:0;right:0;top:1560px;text-align:center;font-size:26px;font-weight:500;opacity:.6">Guide indépendant, non affilié à Alibaba.com</div>
+</div>
+<!-- chips over footage -->
+<div id="C1" class="chip">Au marché, chez le grossiste</div>
+<div id="C2" class="chip">Tu vends déjà ✓</div>
+<div id="C3" class="chip" style="font-size:46px">Commence petit</div>
+<!-- hook -->
+<div id="hook"><div class="hk" id="h1">Ton grossiste<br>achète sur <span class="o">Alibaba</span>.</div><div style="height:40px"></div><div class="hk" id="h2"><span class="pill" style="font-size:100px">Pourquoi pas toi ?</span></div></div>
+<div id="sub"></div>
+<script>
+const W=[{"s": 0.0, "e": 1.78322, "w": [["Ton", 0.0, 0.178], ["grossiste", 0.178, 0.535], ["achète", 0.535, 0.892], ["sur", 0.892, 1.07], ["Alibaba.", 1.07, 1.783]]}, {"s": 2.16252, "e": 2.77177, "w": [["Pourquoi", 2.163, 2.467], ["pas", 2.467, 2.619], ["toi", 2.619, 2.772], ["?", 2.772, 2.772]]}, {"s": 3.19211, "e": 4.86637, "w": [["La", 3.192, 3.401], ["réponse", 3.401, 3.82], ["tient", 3.82, 4.029], ["dans", 4.029, 4.239], ["un", 4.239, 4.448], ["seul", 4.448, 4.657], ["guide", 4.657, 4.866], [":", 4.866, 4.866]]}, {"s": 5.16878, "e": 6.62297, "w": [["«", 5.169, 5.169], ["Briser", 5.169, 5.584], ["la", 5.584, 5.792], ["peur", 5.792, 6.0], ["d'importer", 6.0, 6.623], ["».", 6.623, 6.623]]}, {"s": 7.15313, "e": 8.62134, "w": [["Tous", 7.153, 7.337], ["les", 7.337, 7.52], ["jours,", 7.52, 7.704], ["tu", 7.704, 7.887], ["vas", 7.887, 8.071], ["au", 8.071, 8.254], ["marché.", 8.254, 8.621]]}, {"s": 9.052, "e": 10.2661, "w": [["Tu", 9.052, 9.225], ["achètes", 9.225, 9.572], ["chez", 9.572, 9.746], ["le", 9.746, 9.919], ["grossiste.", 9.919, 10.266]]}, {"s": 10.6112, "e": 12.0541, "w": [["Tu", 10.611, 10.817], ["revends", 10.817, 11.23], ["un", 11.23, 11.436], ["peu", 11.436, 11.642], ["plus", 11.642, 11.848], ["cher…", 11.848, 12.054]]}, {"s": 12.3868, "e": 13.9751, "w": [["et", 12.387, 12.614], ["ta", 12.614, 12.841], ["marge", 12.841, 13.068], ["est", 13.068, 13.294], ["toute", 13.294, 13.521], ["petite.", 13.521, 13.975]]}, {"s": 14.3763, "e": 14.982, "w": [["Pendant", 14.376, 14.679], ["ce", 14.679, 14.831], ["temps,", 14.831, 14.982]]}, {"s": 15.2481, "e": 18.666, "w": [["ton", 15.248, 15.438], ["grossiste", 15.438, 15.818], ["commande", 15.818, 16.198], ["les", 16.198, 16.387], ["mêmes", 16.387, 16.577], ["produits", 16.577, 16.957], ["en", 16.957, 17.147], ["Chine,", 17.147, 17.337], ["directement", 17.337, 18.096], ["à", 18.096, 18.286], ["l'usine.", 18.286, 18.666]]}, {"s": 18.9457, "e": 20.4795, "w": [["Et", 18.946, 19.165], ["c'est", 19.165, 19.384], ["lui", 19.384, 19.603], ["qui", 19.603, 19.822], ["gagne", 19.822, 20.041], ["le", 20.041, 20.26], ["plus.", 20.26, 20.48]]}, {"s": 20.9197, "e": 22.7372, "w": [["On", 20.92, 21.06], ["t'a", 21.06, 21.199], ["dit", 21.199, 21.339], ["de", 21.339, 21.479], ["commencer", 21.479, 21.898], ["par", 21.898, 22.038], ["le", 22.038, 22.178], ["marché", 22.178, 22.458], ["local.", 22.458, 22.737]]}, {"s": 23.0725, "e": 23.469, "w": [["Tu", 23.073, 23.205], ["l'as", 23.205, 23.337], ["fait.", 23.337, 23.469]]}, {"s": 23.8202, "e": 25.4048, "w": [["Tu", 23.82, 23.979], ["sais", 23.979, 24.137], ["déjà", 24.137, 24.454], ["acheter", 24.454, 24.929], ["et", 24.929, 25.088], ["revendre.", 25.088, 25.405]]}, {"s": 25.6516, "e": 26.5203, "w": [["Tu", 25.652, 25.796], ["as", 25.796, 25.941], ["fait", 25.941, 26.086], ["le", 26.086, 26.231], ["plus", 26.231, 26.376], ["dur.", 26.376, 26.52]]}, {"s": 26.982, "e": 28.908, "w": [["Ce", 26.982, 27.175], ["qui", 27.175, 27.367], ["te", 27.367, 27.56], ["bloque", 27.56, 27.752], ["maintenant,", 27.752, 28.33], ["c'est", 28.33, 28.523], ["la", 28.523, 28.715], ["peur", 28.715, 28.908], [":", 28.908, 28.908]]}, {"s": 29.2848, "e": 30.0495, "w": [["peur", 29.285, 29.476], ["de", 29.476, 29.667], ["l'arnaque,", 29.667, 30.049]]}, {"s": 30.3259, "e": 31.1536, "w": [["peur", 30.326, 30.533], ["des", 30.533, 30.74], ["calculs,", 30.74, 31.154]]}, {"s": 31.3539, "e": 32.0904, "w": [["peur", 31.354, 31.538], ["de", 31.538, 31.722], ["la", 31.722, 31.906], ["douane.", 31.906, 32.09]]}, {"s": 32.533, "e": 35.8419, "w": [["Ce", 32.533, 32.717], ["guide", 32.717, 32.901], ["te", 32.901, 33.084], ["donne", 33.084, 33.268], ["tout", 33.268, 33.452], ["ce", 33.452, 33.636], ["qu'il", 33.636, 34.004], ["faut", 34.004, 34.187], ["savoir", 34.187, 34.555], ["avant", 34.555, 34.923], ["ta", 34.923, 35.107], ["première", 35.107, 35.474], ["commande", 35.474, 35.842], [":", 35.842, 35.842]]}, {"s": 36.2237, "e": 37.591, "w": [["trouver", 36.224, 36.566], ["un", 36.566, 36.736], ["fournisseur", 36.736, 37.249], ["sérieux,", 37.249, 37.591]]}, {"s": 37.8841, "e": 38.7202, "w": [["payer", 37.884, 38.163], ["sans", 38.163, 38.441], ["risque,", 38.441, 38.72]]}, {"s": 38.9436, "e": 40.0349, "w": [["calculer", 38.944, 39.489], ["le", 39.489, 39.671], ["transport,", 39.671, 40.035]]}, {"s": 40.2476, "e": 40.9488, "w": [["passer", 40.248, 40.598], ["la", 40.598, 40.773], ["douane.", 40.773, 40.949]]}, {"s": 41.3109, "e": 44.6658, "w": [["Avec", 41.311, 41.684], ["des", 41.684, 41.87], ["exemples,", 41.87, 42.243], ["des", 42.243, 42.429], ["captures", 42.429, 42.802], ["d'écran", 42.802, 43.175], ["et", 43.175, 43.361], ["des", 43.361, 43.547], ["messages", 43.547, 43.92], ["prêts", 43.92, 44.107], ["à", 44.107, 44.293], ["copier.", 44.293, 44.666]]}, {"s": 45.0728, "e": 45.8232, "w": [["Commence", 45.073, 45.448], ["petit,", 45.448, 45.823]]}, {"s": 46.0674, "e": 47.4022, "w": [["comme", 46.067, 46.234], ["ton", 46.234, 46.401], ["grossiste", 46.401, 46.735], ["a", 46.735, 46.902], ["commencé.", 46.902, 47.402]]}, {"s": 47.8241, "e": 49.1238, "w": [["Le", 47.824, 48.041], ["guide", 48.041, 48.257], ["et", 48.257, 48.474], ["ses", 48.474, 48.691], ["trois", 48.691, 48.907], ["kits", 48.907, 49.124], [":", 49.124, 49.124]]}, {"s": 49.3443, "e": 52.258, "w": [["au", 49.344, 49.552], ["lieu", 49.552, 49.761], ["de", 49.761, 49.969], ["cinq", 49.969, 50.177], ["mille", 50.177, 50.385], ["francs,", 50.385, 50.593], ["seulement", 50.593, 51.009], ["trois", 51.009, 51.217], ["mille", 51.217, 51.426], ["neuf", 51.426, 51.634], ["cents", 51.634, 51.842], ["francs", 51.842, 52.05], ["CFA.", 52.05, 52.258]]}, {"s": 52.6271, "e": 55.7967, "w": [["Clique", 52.627, 52.825], ["sur", 52.825, 53.023], ["«", 53.023, 53.023], ["Commander", 53.023, 53.618], ["maintenant", 53.618, 54.212], ["»,", 54.212, 54.212], ["et", 54.212, 54.41], ["achète", 54.41, 54.806], ["enfin", 54.806, 55.202], ["à", 55.202, 55.4], ["la", 55.4, 55.599], ["source.", 55.599, 55.797]]}];
+const KEY=/^(alibaba|toi|peur|importer|toute|petite|lui|plus|dur|arnaque|calculs|douane|avant|petit|kits|3 900|cfa|commander|maintenant|source|usine|chine|sérieux|risque|transport)$/i;
+// display override for price chunk
+W.forEach(c=>{const t=c.w.map(x=>x[0]).join(' ');
+ if(t.startsWith('au lieu de cinq')){const s=c.s,e=c.e;const d=['au','lieu','de','5 000 F,','seulement','3 900','F CFA.'];const ts=[0,.06,.12,.18,.42,.6,.85,1];c.w=d.map((w,i)=>[w,s+(e-s)*ts[i],s+(e-s)*ts[i+1]]);}
+ if(t.startsWith('Le guide et ses trois')){c.w=c.w.map(x=>[x[0]=='trois'?'3':x[0],x[1],x[2]]);}
+});
+W.forEach(c=>{const o=[];c.w.forEach(w=>{const s=w[0].replace(/[«»"]/g,'').trim();if(!s)return;if(/^[.,:;?!…]+$/.test(s)&&o.length){o[o.length-1][0]+=s;o[o.length-1][2]=w[2];return}o.push([s,w[1],w[2]])});c.w=o});
+// split chunks into pages <=34 chars
+const PAGES=[];W.forEach(c=>{let cur=[],len=0;c.w.forEach(w=>{const l=w[0].length+1;if(len+l>34&&cur.length){PAGES.push(cur);cur=[];len=0}cur.push(w);len+=l});if(cur.length)PAGES.push(cur)});
+PAGES.forEach((p,i)=>{p.s=p[0][1];p.e=(i+1<PAGES.length)?Math.min(PAGES[i+1][0][1],p[p.length-1][2]+0.6):p[p.length-1][2]+1.5});
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const pr=(t,a,b)=>cl((t-a)/(b-a));
+const eo=x=>1-Math.pow(1-x,3);
+const eb=x=>{const c=1.70158,d=c+1;return 1+d*Math.pow(x-1,3)+c*Math.pow(x-1,2)};
+const win=(t,a,b,f=.25)=>Math.min(pr(t,a,a+f),1-pr(t,b-f,b));
+function st(id,o,tf){const e=$(id);e.style.opacity=o;if(tf!==undefined)e.style.transform=tf}
+function pop(t,a,dur=.35){const p=pr(t,a,a+dur);return {o:cl(p*3),s:p<=0?0.6:eb(p)*0.4+0.6}}
+let lastPage=-1;
+function render(t){
+ // hook 0-3
+ const h1=pop(t,0.05,.4),h2=pop(t,2.1,.35),hk=1-pr(t,2.85,3.05);
+ st('h1',h1.o*hk,`scale(${h1.s})`);st('h2',h2.o*hk,`scale(${h2.s})`);
+ // subtitles (hidden during hook)
+ const sub=$('sub');let pi=-1;if(t>=3.05)PAGES.forEach((p,i)=>{if(t>=p.s&&t<p.e)pi=i});
+ if(pi!==lastPage){sub.innerHTML=pi<0?'':PAGES[pi].map(w=>{const c=w[0].replace(/[«»"]/g,'').trim();const bare=c.replace(/[.,:;?!…]+$/,'').toLowerCase();return `<span class="${KEY.test(bare)?'k':''}">${c}</span>`}).join(' ');lastPage=pi;}
+ if(pi>=0){const ps=PAGES[pi];const sp=sub.children;ps.forEach((w,j)=>{if(sp[j])sp[j].classList.toggle('on',t>=w[1]&&t<w[2]+0.05)});const q=pr(t,ps.s,ps.s+.15);sub.style.transform=`scale(${0.92+0.08*eo(q)})`;sub.style.opacity=cl(q*2);}
+ // sub position: lower for motion pages
+ sub.style.top=(t>=47.75?'1680px':(t>=32.4&&t<45)?'1360px':'1250px');
+ if(t>=47.75) sub.style.opacity=0; // offer screen speaks for itself
+ // B cover 3.0-7.05
+ const bw=win(t,3.0,7.05,.3);$('B').style.opacity=bw;
+ const bc=eo(pr(t,3.05,3.75));st('Bcov',1,`translateY(${(1-bc)*500}px) rotate(${(1-bc)*-8}deg) scale(${0.8+0.2*bc+0.04*pr(t,3.75,7)})`);
+ st('Bglow',bc,`scale(${0.8+0.2*bc+0.04*pr(t,3.75,7)})`);$('Bglow').style.backgroundPosition=`${100-pr(t,3.8,4.8)*100}% 0`;
+ const bt=pop(t,3.2);st('Bt',bt.o,`scale(${bt.s})`);st('Barr',bt.o,`translateY(${Math.sin(t*7)*10}px)`);
+ // chips
+ st('C1',win(t,7.3,12.0,.2),`translateX(${(1-eo(pr(t,7.3,7.6)))*-500}px)`);
+ st('C2',win(t,20.9,23.7,.2),`translateX(${(1-eo(pr(t,20.9,21.2)))*-500}px)`);
+ st('C3',win(t,45.1,47.7,.2),`translateX(${(1-eo(pr(t,45.1,45.4)))*-500}px)`);
+ // E chain 14.3-20.75
+ $('E').style.opacity=win(t,14.3,20.75,.25);
+ const et=pop(t,14.4);st('Et',et.o,`scale(${et.s})`);
+ [[0,15.25],[1,16.4],[2,19.0],[3,19.5]].forEach(([i,a])=>{const p=eo(pr(t,a,a+.4));st('En'+i,p,`translateX(${(1-p)*(i%2?300:-300)}px)`)});
+ [[0,16.0],[1,18.8],[2,19.3]].forEach(([i,a])=>{const p=pr(t,a,a+.3);st('Ea'+i,p,`translateY(${(1-p)*-20}px)`)});
+ const g=eo(pr(t,18.95,19.6));$('Eb1').style.width=(g*260)+'px';$('Eb2').style.width=(eo(pr(t,19.3,19.9))*40)+'px';
+ $('En1').style.borderColor=g>0?`rgba(255,122,26,${g})`:'';$('En1').style.background=`rgba(255,122,26,${0.06+g*.14})`;
+ const cr=pop(t,19.6);st('Ecrown',cr.o,`scale(${cr.s}) rotate(-4deg)`);const sm=pop(t,20.0);st('Esmall',sm.o,`scale(${sm.s}) rotate(3deg)`);
+ // G checklist 23.75-26.85
+ $('G').style.opacity=win(t,23.75,26.85,.2);
+ [[0,23.85],[1,24.6]].forEach(([i,a])=>{const p=pop(t,a);st('G'+i,p.o,`scale(${p.s})`)});
+ const gs=pr(t,25.6,25.9);st('Gst',cl(gs*3),`scale(${1.6-0.6*eo(gs)}) rotate(-4deg)`);
+ // H fear 26.85-32.4
+ $('H').style.opacity=win(t,26.85,32.4,.2);
+ const ht=pop(t,27.6);st('Ht',ht.o,`scale(${ht.s})`);
+ [[0,29.28],[1,30.33],[2,31.35]].forEach(([i,a])=>{const p=eo(pr(t,a,a+.3));st('H'+i,p,`translateX(${(1-p)*600}px) rotate(${(1-p)*4}deg)`)});
+ st('Hdim',eo(pr(t,29.0,29.5)));
+ // I pages 32.4-45.0
+ $('I').style.opacity=win(t,32.4,45.0,.25);
+ const it=pop(t,32.6);st('It',it.o,`scale(${it.s})`);
+ const ic=eo(pr(t,32.5,33.1));const icOut=pr(t,35.9,36.3);st('Icov',ic*(1-icOut),`translateY(${(1-ic)*300+icOut*-200}px) scale(${0.9+0.1*ic+0.05*pr(t,33,36)}) rotate(${-3+3*ic}deg)`);
+ const PT=[36.22,37.88,38.94,40.25,41.31];
+ for(let i=0;i<4;i++){const a=PT[i],b=PT[i+1];const pin=eo(pr(t,a-.05,a+.3)),pout=eo(pr(t,b-.1,b+.2));
+   st('P'+i,pin*(1-pout*0.0)*(t<b+.2?1:0),`translateX(${(1-pin)*900 - pout*900}px) rotate(${(1-pin)*8 - pout*8}deg) scale(${1+0.03*pr(t,a,b)})`);
+   const l=pop(t,a+.1,.3);st('L'+i,l.o*(t<b?1:0),`scale(${l.s})`);}
+ const xa=41.31;$('X').style.opacity=pr(t,xa-.05,xa+.2);
+ [[0,xa],[1,xa+.25],[2,xa+.5]].forEach(([i,a])=>{const p=eo(pr(t,a,a+.4));st('X'+i,p,`translateY(${(1-p)*400}px) rotate(${[-6,6,0][i]*p}deg) scale(${0.9+0.1*p})`)});
+ [[0,41.4],[1,42.2],[2,43.3]].forEach(([i,a])=>{const p=pop(t,a);st('XL'+i,p.o*(t>=xa?1:0),`scale(${p.s})`)});
+ // K offer 47.75-end
+ $('K').style.opacity=pr(t,47.75,48.0);
+ const kt=pop(t,47.85);st('Kt',kt.o,`scale(${kt.s})`);
+ const kb=eo(pr(t,47.8,48.3));st('Kb',kb,`translateY(${(1-kb)*600}px) scale(${1+0.02*Math.sin(t*2)})`);
+ [[0,48.3,-10],[1,48.45,0],[2,48.6,10]].forEach(([i,a,r])=>{const p=eo(pr(t,a,a+.4));st('Kk'+i,p,`translateY(${(1-p)*200}px) rotate(${r*p}deg)`)});
+ const ko=pop(t,49.9);st('Kold',ko.o);$('Kstrike').style.width=`calc(${eo(pr(t,50.5,50.8))*100}% + 16px)`;
+ const kn=pop(t,51.1,.4);st('Knew',kn.o,`scale(${kn.s})`);
+ const bb=pop(t,52.6,.4);const pulse=t>53?1+0.04*Math.sin((t-53)*6):1;st('Kbtn',bb.o,`scale(${bb.s*pulse})`);
+ const hd=pr(t,53.3,53.6);st('Khand',hd,`translate(${(1-hd)*80+Math.max(0,Math.sin((t-53.6)*6))*-14}px,${(1-hd)*80+Math.max(0,Math.sin((t-53.6)*6))*-14}px)`);
+ st('Kleg',pr(t,53.5,54));
+}
+window.render=render;
+</script></body></html>

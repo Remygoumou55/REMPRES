@@ -1,9 +1,11 @@
-# Montage vidéo 1 : comment c'est fabriqué
+# Vidéo 1 · version 2 (refaite avec la méthode de la vidéo 2)
 
-- `align.py` / `words.py` : calent les sous-titres sur la voix (V1-VOIX.mp3), à partir des silences → `words.json`.
-- `comp.html` : tout le motion design (accroche, couverture, schéma, cartes, pages, offre, sous-titres). `render(t)` dessine l'image au temps t.
-- `render.js` : rend les images transparentes 1080×1920 à 30 i/s avec Playwright (`node render.js 0 57.5 30 ov`). Les images du livre sont dans `assets/` (cover.png, p28, p29, p38, p39, p46, p50, kits), rendues depuis les PDF de `dist/` avec pdftoppm.
-- `music.py` : musique originale composée par programme (84 BPM, Do majeur, douce) + effets sonores (whoosh, pops, impacts, ding) → `music.wav`, `sfx.wav`. Aucun droit d'auteur.
-- Mixage ffmpeg : voix compressée, musique baissée automatiquement sous la voix (sidechain), ambiance des scènes à 12 %, normalisation −14 LUFS.
+**Identité propre « Marché doré » :** vert profond (#0f3b2e → #1f6b51) avec motif tissé discret, or #F2B640, terre cuite #D2603A, crème #FFF4E2. Police Bricolage Grotesque. Sous-titres en étiquette crème avec les mots clés en terre cuite.
 
-Découpage : S1 0–3 s · couverture 3–7 s (S1 floutée) · S2 7–12,2 · S3 12,2–14,3 · schéma 14,3–20,75 · S3 20,75–23,75 · checklist 23,75–26,85 · S4 + peurs 26,85–32,4 · pages du livre 32,4–45 · S5 45–47,75 · offre 47,75–57,5.
+**Musique :** afro douce et chaleureuse, originale (100 BPM, ré majeur, kalimba, shaker, congas, basse ronde). **Effets :** bois, kalimba, djembé, shaker. Aucun son commun avec la vidéo 2.
+
+**Synchronisation :** voix transcrite mot par mot (`transcription-voix.json`) + silences réels → `phrases.json`. Chaque animation part sur le mot prononcé.
+
+**Règles appliquées :** aucun texte sur les visages (accroche en bas sur S1, cartes « peur » en bas sur S4), animations lentes (0,6 à 0,9 s), on ne montre que ce qui est dit (le schéma n'a plus de « client » : Usine → Grossiste → Toi).
+
+**Volumes :** voix −19 LUFS, musique environ 18 dB dessous, effets environ 14 dB dessous, final à −14 LUFS.

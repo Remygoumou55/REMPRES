@@ -1,7 +1,13 @@
-# Montage vidéo 2 : « Arrête de regarder. Commence. » (profil 1, débutant perdu)
+# Vidéo 2 · version 2 (refaite complètement)
 
-Même méthode que la vidéo 1 (voir ../../video-1/montage/LISEZMOI.md).
+**Identité propre à la vidéo 2 :** fond nuit violette (#1d1446 → #3a2a86), accent jaune lumière #FFC94A, police Poppins, sous-titres en bandeau sombre arrondi. Musique lo-fi originale (76 BPM, la mineur, piano électrique, vinyle) et effets propres (souffle d'air, marimba, bulles, cloche douce).
 
-Scènes (4 s chacune) : S1 lit 0–3,65 s puis au ralenti et floutée sous la couverture (3,65–8 s) · avalanche de vidéos contradictoires 8–15 s · S3 cahier 15–19 s · méthode (sommaire, 16 étapes, 6 étapes clés) 19–31,9 s · S6 notes 31,9–35,9 s (page checklist par-dessus) · pages exemple et checklist, puis plan 30 jours 35,9–39,6 s · S7 livraison 39,6–43,6 s (prix barré qui apparaît dessus) · offre et bouton 43,6–50,4 s.
+**Synchronisation :** la voix est transcrite mot par mot (`asr.py` → `transcription-voix.json`), puis chaque phrase est calée sur les silences réels de la voix (`phrases.json`). Chaque animation démarre exactement quand la phrase est dite.
 
-Son : musique plus douce que la vidéo 1 (volume 0,26 au lieu de 0,55, baisse plus forte sous la voix), effets à environ 35 % de la vidéo 1, filtrés et plus feutrés. Normalisation à −14 LUFS.
+**Corrections demandées par le client :**
+- S3 : le sourire du début est coupé (départ à 1,4 s, ralenti doux).
+- « 16 étapes » supprimé : la voix ne le dit pas. Seules les 6 étapes prononcées s'affichent, chacune au moment exact où elle est dite.
+- La capture checklist sur S6 est placée en haut, au-dessus de la tête.
+- Le pack sur S7 est réduit et placé dans le ciel. L'ancien prix n'apparaît qu'une fois le fond violet revenu.
+- Animations plus lentes (0,6 à 0,9 s, courbes douces).
+- Volumes : voix −19 LUFS (avant normalisation), musique −37 LUFS (18 dB sous la voix), effets environ 14 dB sous la voix. Final à −14 LUFS.

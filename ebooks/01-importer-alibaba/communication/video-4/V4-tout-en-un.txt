@@ -1,0 +1,69 @@
+=====================================================================
+VIDEO 4 - "5 erreurs qui vident ton compte"
+Profil vise : tout le monde (debutants, vendeurs du marche local, importateurs)
+Format : vertical 9:16 - environ 65 s - Prix : 5 000 F barre -> 3 900 F CFA
+Identite de la video : bleu petrole + orange, titres en police Anton,
+musique rythmee style "compte a rebours", effets : buzzers legers, coches.
+=====================================================================
+
+---------------------------------------------------------------------
+ETAPE 1 - LE PERSONNAGE (a generer avec ChatGPT, nom : V4-AICHA)
+---------------------------------------------------------------------
+Portrait photo realiste, format vertical 9:16. Une femme africaine de 29 ans, peau foncee, cheveux naturels courts coiffes en afro puff, petit collier dore discret, chemisier bleu petrole uni, sans motif. Elle se tient dans une reserve de marchandises, devant des etageres de cartons bruns. Regard droit vers l'objectif, expression serieuse, sure d'elle et bienveillante, comme une formatrice. Bras le long du corps, mains libres. Lumiere naturelle douce. Aucun texte, aucun logo, aucune marque visible. Style photo de reportage, tres naturel.
+
+---------------------------------------------------------------------
+ETAPE 2 - LES 4 SCENES GOOGLE FLOW
+Chaque scene : vertical 9:16, 8 secondes.
+Ingredient V4-AICHA pour S1 et S4 uniquement (S2 et S3 ne montrent que des mains).
+---------------------------------------------------------------------
+
+=== SCENE V4-S1 | Ingredient : V4-AICHA ===
+(En francais : dans sa reserve, Aicha regarde la camera, l'air serieux. Elle fait un pas vers la camera et hoche la tete, comme pour dire "ecoute bien".)
+Vertical 9:16, 8 seconds, photorealistic. Inside a stockroom filled with shelves of brown cardboard boxes. The woman from the reference image (petrol-blue plain blouse, short natural afro puff hair, small gold necklace), arms relaxed, looks straight into the camera with a serious, confident expression, takes one slow step toward the camera and nods once, as if saying "listen carefully". Slow camera push-in, soft natural light. No text, no logos, no brand names, no dialogue, quiet ambient sound only.
+
+=== SCENE V4-S2 | Pas d'ingredient (seulement des mains) ===
+(En francais : gros plan sur une table. Des mains de femme africaine ouvrent un petit colis et en sortent un sac a main marron. Elles l'examinent de pres : les coutures, la fermeture eclair, l'interieur.)
+Vertical 9:16, 8 seconds, photorealistic, close-up. On a wooden table, the hands of a West African woman open a small courier package and take out a brown faux-leather handbag without any brand. Her hands carefully inspect it: they run a finger along the stitching, open and close the zipper, and look inside the bag. Shallow depth of field, warm natural light, slow camera movement. No readable labels, no text, no logos, no dialogue, soft ambient sound only.
+
+=== SCENE V4-S3 | Pas d'ingredient (seulement des mains) ===
+(En francais : une main tient un smartphone qui filme pendant que l'autre main ouvre un carton brun ferme avec du ruban adhesif : elle coupe le ruban et ouvre les rabats. On voit des produits emballes a l'interieur.)
+Vertical 9:16, 8 seconds, photorealistic. Point-of-view shot: one hand holds a smartphone filming, while the other hand uses a box cutter to slice the tape of a sealed brown cardboard box, then opens the flaps to reveal neatly packed handbags in plastic bags inside. The phone screen shows the recording but nothing readable. Natural daylight, steady camera. The box label is blurred and unreadable. No text, no logos, no dialogue, ambient sound of tape being cut.
+
+=== SCENE V4-S4 | Ingredient : V4-AICHA ===
+(En francais : Aicha, souriante, tient un guide imprime dans sa reserve. Elle le feuillette, puis leve les yeux vers la camera avec un sourire confiant.)
+Vertical 9:16, 8 seconds, photorealistic. In the same stockroom with shelves of brown cardboard boxes, the woman from the reference image (petrol-blue plain blouse, short natural afro puff hair, small gold necklace), smiling, holds a printed guide and slowly flips through its pages, then looks up at the camera with a warm, confident smile. Slow camera orbit, soft natural light, positive mood. The guide pages are not readable. No text, no logos, no dialogue, quiet ambient sound only.
+
+---------------------------------------------------------------------
+ETAPE 3 - LA VOIX OFF (nom du fichier : V4-VOIX.mp3)
+Voix conseillee : femme africaine francophone, posee et sure d'elle, ton de formatrice.
+Rythme clair, une petite pause apres chaque "Erreur numero...".
+IMPORTANT : genere bien TOUTE la voix, jusqu'a la derniere phrase
+("Clique sur Commander maintenant"). Verifie a l'ecoute avant de m'envoyer.
+---------------------------------------------------------------------
+5 erreurs qui vident ton compte des ta premiere commande sur Alibaba.
+Toutes sont expliquees dans "Briser la peur d'importer". Les voici.
+Erreur numero 1 : payer en dehors d'Alibaba. Le fournisseur te propose une remise si tu paies directement ? Refuse. Hors d'Alibaba, aucune protection. Reponds simplement : "Je paie uniquement sur Alibaba."
+Erreur numero 2 : ne pas verifier le fournisseur. Regarde son anciennete, ses avis, son badge verifie. Demande-lui une video de son produit en main. Un vrai fournisseur accepte toujours.
+Erreur numero 3 : choisir le transitaire le moins cher. Un bon transitaire a un bureau que tu peux visiter, des tarifs ecrits, des avis reels. Un mauvais te promet 5 dollars le kilo et te demande de payer avant ce soir.
+Erreur numero 4 : commander sans echantillon. Achete d'abord une seule piece. Une photo peut mentir, un echantillon, non.
+Erreur numero 5 : confirmer la reception trop vite. Ouvre tes cartons en filmant, verifie tout, puis confirme. Sinon, plus de remboursement possible.
+Ces 5 erreurs, ce n'est qu'un debut. Dans le guide, il y en a 15, avec des conversations pretes a copier pour parler au fournisseur et au transitaire.
+Le guide et ses trois kits : au lieu de cinq mille francs, seulement trois mille neuf cents francs CFA.
+Clique sur "Commander maintenant".
+
+---------------------------------------------------------------------
+LE MONTAGE (fait par moi, pour information)
+---------------------------------------------------------------------
+Accroche      V4-S1 + "5 ERREURS QUI VIDENT TON COMPTE"
+Produit       Couverture du livre en grand + "Toutes expliquees dans ce guide"
+Erreur 1      Motion : conversation animee "-5 % si vous payez en direct"
+              -> reponse "Je paie uniquement sur Alibaba" (capture du livre)
+Erreur 2      Motion : profil fournisseur du livre, on entoure anciennete, avis, badge
+Erreur 3      Motion : les 2 pages de transitaires du livre, "Serieux" / "Douteux"
+Erreur 4      V4-S2 (l'echantillon examine)
+Erreur 5      V4-S3 (ouverture du carton filmee)
+Suite         V4-S4 + pages "15 erreurs" et "Kit 3 messages"
+Fin           Pack, 5 000 F barre -> 3 900 F CFA, bouton COMMANDER MAINTENANT
+Compteur "1/5, 2/5..." en haut de l'ecran pendant les erreurs.
+
+A M'ENVOYER : V4-AICHA, V4-S1, V4-S2, V4-S3, V4-S4, V4-VOIX.mp3

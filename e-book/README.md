@@ -12,7 +12,7 @@ Le client (francophone, Guinée, il tutoie et dit « mec ») transforme des form
 | # | Livre | État | Dossier |
 |---|---|---|---|
 | 1 | **Briser la peur d'importer — Le guide Alibaba pas à pas** (3 900 F) | ✅ Livre + kits + ZIP terminés. ✅ 14 vidéos pub faites, dont 3 « combinées » finales. ⏳ 12 visuels générés par le client, **pas encore contrôlés**. ⏳ Décision en attente : faire des versions courtes 25–30 s des vidéos. | `01-alibaba-briser-la-peur/` |
-| 2 | **Acheter un terrain et construire au pays sans te faire arnaquer** | ✅ Enquête, plan, maquette validés. ✍️ **Écriture en cours** : ch. 1 à 7 écrits (partie 1 + partie 2 complètes). Reste : ch. 8 à 17, 7 fiches pays, lexique, sommaire, mentions, kits, ZIP. | `02-terrain-construction/` |
+| 2 | **Acheter un terrain et construire au pays sans te faire arnaquer** | ✅ Enquête, plan, maquette validés. ✍️ **Écriture en cours** : ch. 1 à 10 écrits (parties 1, 2, 3 complètes). Reste : ch. 11 à 17, 7 fiches pays, lexique, sommaire, mentions, kits, ZIP. | `02-terrain-construction/` |
 | 3 | **Élevage de poulets, chiffres en main** | ⏸ Pas commencé (sera fait après le livre 2, même méthode). | `03-elevage-poulets/` |
 | 4 | **Créer son entreprise + obtenir un financement** | ⏸ Pas commencé (après le livre 3). | `04-entreprise-financement/` |
 
@@ -20,8 +20,8 @@ Ordre choisi par le client : **2 Terrain → 3 Poulets → 4 Entreprise/financem
 
 ## 3. La prochaine action exacte
 0. **Agent qui reprend : le client t'a sûrement donné le message de `02-terrain-construction/MESSAGE-POUR-AGENT-SUIVANT.md`. Suis-le.** Décision du client (7 nov.) : écrire TOUT le livre 2 + kits d'abord ; il relira lui-même ensuite, puis donnera l'adresse Gmail (laisser « [adresse e-mail à ajouter] »).
-1. **État de l'écriture (mis à jour à chaque étape)** : voir `02-terrain-construction/livre/README.md`, section « Avancement ». Fait : couverture, mode d'emploi, ch. 1 à 7.
-2. **Prochaine étape exacte : écrire la partie 3** (`src/book/30-partie3.html` = bandeau partie 3 + ch. 8 ; `31-ch09.html` ; `32-ch10.html`), puis partie 4 (ch. 11 à 16, fichiers `40-…` à `46-…`), partie 5 (ch. 17, `50-…`), fiches pays (`60-…`), lexique (`70-…`), mentions, sommaire (`02-sommaire.html`), kits (`src/bonus/`), ZIP.
+1. **État de l'écriture (mis à jour à chaque étape)** : voir `02-terrain-construction/livre/README.md`, section « Avancement ». Fait : couverture, mode d'emploi, ch. 1 à 10.
+2. **Prochaine étape exacte : écrire la partie 4** (ch. 11 à 16 ; partie 3 faite : `30-partie3.html`, `31-ch09.html`, `32-ch10.html`), puis partie 4 (ch. 11 à 16, fichiers `40-…` à `46-…`), partie 5 (ch. 17, `50-…`), fiches pays (`60-…`), lexique (`70-…`), mentions, sommaire (`02-sommaire.html`), kits (`src/bonus/`), ZIP.
 3. Après chaque étape : construire A4 + téléphone, contrôler les pages (script de contrôle décrit dans le README du livre), mettre à jour les README, commit + push sur `main` et `claude/livres-ebooks-transformation-7t016a`.
 4. Plus tard : interviews du client (`02-terrain-construction/QUESTIONNAIRE-interviews-terrain.md`) pour compléter les chiffres de Guinée.
 

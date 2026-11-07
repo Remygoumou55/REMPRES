@@ -37,3 +37,6 @@ Le détail mot pour mot est dans `conversations/HISTORIQUE-CONVERSATIONS.md`.
 
 ## 7 novembre — Sauvegarde
 - Le client craint la fin de l'abonnement : tout est rangé dans le dossier `e-book/` (ancien `ebooks/`) sur GitHub, avec l'historique complet des conversations, pour qu'un autre agent reprenne exactement ici.
+
+## 7 novembre — Retour du client sur le plan du livre 2
+- Titre/sous-titre/couverture/couleurs provisoires ; pages et nombre de kits non fixés (selon le contenu) ; prix visé 9 à 20 $ (5 000 F jugé trop bas) ; tout doit être réel ; français très simple (niveau 10e année) ; mots expliqués en simple et en pro ; personnages Mamadou et Aïcha validés. Détail : `02-terrain-construction/PLAN-DU-LIVRE.md` (section « Décisions du client »).

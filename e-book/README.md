@@ -19,7 +19,7 @@ Le client (francophone, Guinée, il tutoie et dit « mec ») transforme des form
 Ordre choisi par le client : **2 Terrain → 3 Poulets → 4 Entreprise/financement.**
 
 ## 3. La prochaine action exacte
-1. Le **plan détaillé v2** du livre Terrain a été envoyé au client le 7 nov. 2026 (`02-terrain-construction/PLAN-DU-LIVRE.md`). Attendre son accord / ses remarques et sur la question : « je commence l'écriture pendant que tu fais tes interviews ? ».
+1. Plan détaillé v2 du livre Terrain envoyé ; le client a donné ses décisions le 7 nov. 2026 (titre provisoire, pages/kits libres, prix 9–20 $, tout réel, français très simple — voir section « Décisions du client » de `02-terrain-construction/PLAN-DU-LIVRE.md`). **Attendre son avis sur le détail des chapitres et son feu vert pour écrire.** Avant d'écrire : passe de vérification des faits chapitre par chapitre (tout doit être réel).
 2. Recevoir ses **interviews** (notes vocales) selon `02-terrain-construction/QUESTIONNAIRE-interviews-terrain.md`, les intégrer comme cas réels.
 3. Écrire le livre avec la même chaîne technique que le livre 1 (`01-alibaba-briser-la-peur/build.mjs`, HTML → PDF via Playwright).
 

@@ -1,5 +1,15 @@
 # PLAN DÉTAILLÉ — Livre 2 (version 2, 7 nov. 2026) — EN ATTENTE DE L'ACCORD DU CLIENT
 
+## DÉCISIONS DU CLIENT SUR LE PLAN (7 nov. 2026)
+- Titre, sous-titre, phrase de couverture et couleurs : **gardés mais provisoires**.
+- **Nombre de pages : pas fixé** — il dépend des informations. **Nombre de kits : pas fixé** (3, 4 ou plus selon le contenu).
+- **Prix : 5 000 F refusé (trop bas, le livre doit inspirer le respect). Viser 9 $ à 20 $** ; prix final selon le contenu.
+- Exigences rappelées : **tout doit être réel** (informations, cas, chiffres) ; français **très, très simple** (un élève de 10e année doit tout comprendre) ; cas réels, situations réelles, solutions, astuces ; **presque tous les mots difficiles ou importants expliqués en simple ET en pro**. Le livre doit être « les yeux » et « le guide parfait » de la diaspora qui veut investir au pays.
+- Publics validés : diaspora qui doute ; personne au pays qui achète son 1er terrain ; personne qui a un terrain et veut construire ; experts.
+- Pays validés : Guinée, Côte d'Ivoire, Sénégal, Cameroun, Bénin, Gabon, Togo (une fiche chacun) + conseils valables pour le reste de l'Afrique.
+- Personnages validés : Mamadou (38 ans, Guinéen à Paris) et Aïcha (31 ans, commerçante à Abidjan) — fictifs, annoncés comme tels ; toutes les « vraies affaires » sont réelles et sourcées.
+- En attente : avis du client sur le détail des chapitres, puis feu vert pour écrire.
+
 ## La carte d'identité du livre
 - **Titre :** ACHETER UN TERRAIN ET CONSTRUIRE AU PAYS SANS TE FAIRE ARNAQUER
 - **Sous-titre :** La méthode pas à pas pour vérifier, payer et contrôler — même depuis l'étranger

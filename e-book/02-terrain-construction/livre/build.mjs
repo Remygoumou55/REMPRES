@@ -27,7 +27,7 @@ function addThead(html) {
 
 function page(title, body) {
   return `<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>${title}</title>
-<link rel="stylesheet" href="../styles/book.css"><link rel="stylesheet" href="../styles/terrain.css">${PHONE ? '<link rel="stylesheet" href="../styles/phone.css">' : ''}</head><body>
+<link rel="stylesheet" href="../styles/carnet.css">${PHONE ? '<link rel="stylesheet" href="../styles/carnet-phone.css">' : ''}</head><body>
 <span class="booktitle-marker">${title}</span>
 ${body}</body></html>`;
 }

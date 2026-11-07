@@ -1,0 +1,46 @@
+/* Version téléphone du style « Carnet de terrain » : petite page, gros texte. */
+@page { size: 108mm 192mm; margin: 9mm 7mm 12mm 7mm; @bottom-left { content: none; } @bottom-center { font-size: 10pt; } }
+@page cover { size: 108mm 192mm; margin: 0; }
+body { font-size: 12pt; line-height: 1.5; }
+h2 { font-size: 15pt; margin: 16pt 0 7pt; }
+h4 { font-size: 12.5pt; }
+.chapter-head h1 { font-size: 21pt; }
+.chapter-head .lead { font-size: 12.5pt; }
+.chapter-head .kicker, .divider .kicker { font-size: 9.5pt; letter-spacing: 3pt; }
+.divider { padding: 14pt 14pt 12pt; }
+.divider h1 { font-size: 21pt; }
+.divider p, .divider li { font-size: 11.5pt; }
+.divider .num { font-size: 80pt; }
+.box { padding: 18pt 11pt 7pt; margin: 16pt 0 12pt; }
+.box .box-title { font-size: 9pt; letter-spacing: 1.2pt; left: 10pt; padding: 2pt 9pt; }
+.words td:first-child { font-size: 12.5pt; }
+.words td:nth-child(3) { font-size: 11pt; }
+.grid3.mini { display: block; }
+.voix { padding-left: 30pt; margin: 14pt 0; }
+.voix::before { font-size: 48pt; top: -10pt; }
+.voix p { font-size: 13pt; }
+.voix .qui, .vraie .src { font-size: 9.5pt; }
+.arnaque { padding: 9pt 10pt 5pt 46pt; }
+.arnaque h4 { font-size: 13pt; }
+.arnaque h4 b { left: 10pt; width: 26pt; height: 26pt; font-size: 13pt; }
+.arnaque .ex { font-size: 11pt; }
+.mythe .faux, .mythe .vrai { padding-left: 11pt; padding-right: 11pt; }
+.mythe .faux p { font-size: 13.5pt; }
+.mythe .lbl { font-size: 9pt; }
+.verif .vh { padding: 7pt 10pt; gap: 9pt; }
+.verif .vh b { flex: 0 0 24pt; height: 24pt; font-size: 12pt; }
+.verif .vh span { font-size: 13pt; }
+.verif .vb, .verif .alerte { padding-left: 10pt; padding-right: 10pt; }
+figure.illu figcaption, .note-src { font-size: 10pt; }
+
+.cover { width: 108mm; height: 192mm; }
+.cover .cover-inner { left: 8mm; right: 8mm; top: 11mm; bottom: 9mm; }
+.cover .collection { font-size: 7pt; letter-spacing: 2pt; }
+.cover h1.cv-title { font-size: 26pt; margin: 5mm 0 2mm; }
+.cover .cv-sub { font-size: 15pt; }
+.cover-hook { font-size: 10pt; margin-top: 4mm; padding-left: 8pt; }
+.cover .badges { gap: 3pt; }
+.cover .badges span { font-size: 7.5pt; padding: 1.5pt 6pt; }
+.cover .edition { font-size: 7pt; margin-top: 3mm; }
+.box { padding: 9pt 11pt 7pt; margin: 12pt 0 12pt; }
+.box .box-title { margin-bottom: 6pt; }

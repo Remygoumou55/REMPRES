@@ -1,0 +1,195 @@
+/* ==========================================================
+   Livre 2 — style « CARNET DE TERRAIN »
+   Police : Times New Roman (ou Liberation Serif, même dessin et mêmes mesures).
+   Règles : grande police, une seule colonne, aucun tableau coupé,
+   chaque encadré reste entier sur sa page.
+   ========================================================== */
+:root {
+  --navy: #0f2a44;
+  --navy-2: #1d4268;
+  --orange: #e2650c;
+  --orange-soft: #fdf0e4;
+  --green: #1f7a52;
+  --green-soft: #e8f4ee;
+  --red: #b8322a;
+  --red-soft: #fbeceb;
+  --violet: #4b3a8f;
+  --violet-soft: #f2effa;
+  --teal: #0b7680;
+  --teal-soft: #e6f4f5;
+  --ink: #1b2430;
+  --muted: #5a6573;
+  --line: #e3dccf;
+  --paper: #fffdf8;
+  --serif: "Times New Roman", "Liberation Serif", Tinos, Times, serif;
+}
+
+@page {
+  size: A4;
+  margin: 20mm 20mm 20mm 20mm;
+  background: var(--paper);
+  @bottom-center { content: counter(page); font-family: "Times New Roman", "Liberation Serif", serif; font-size: 11pt; color: #e2650c; font-weight: 700; }
+  @bottom-left { content: string(booktitle); font-family: "Times New Roman", "Liberation Serif", serif; font-style: italic; font-size: 9pt; color: #8a8f96; }
+}
+@page cover { margin: 0; @bottom-center { content: none; } @bottom-left { content: none; } }
+
+* { box-sizing: border-box; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { margin: 0; font-family: var(--serif); font-size: 13pt; line-height: 1.55; color: var(--ink); background: var(--paper); hyphens: auto; text-align: left; }
+.booktitle-marker { string-set: booktitle content(); position: absolute; height: 0; overflow: hidden; font-size: 1px; color: transparent; }
+p { margin: 0 0 9pt; }
+strong { color: var(--navy); }
+h1, h2, h3, h4 { font-family: var(--serif); color: var(--navy); line-height: 1.2; margin: 0; }
+h2 { font-size: 18pt; margin: 20pt 0 9pt; padding-bottom: 4pt; border-bottom: 1.5pt solid var(--orange); break-after: avoid; }
+h4 { font-size: 13.5pt; margin-bottom: 4pt; }
+ul, ol { margin: 0 0 9pt; padding-left: 18pt; }
+li { margin-bottom: 4pt; }
+
+/* ---------- Couverture ---------- */
+.cover { page: cover; position: relative; width: 210mm; height: 297mm; overflow: hidden; background: var(--navy); color: #fff; }
+.cover svg.cover-art { position: absolute; inset: 0; width: 100%; height: 100%; }
+.cover .cover-inner { position: absolute; left: 20mm; right: 20mm; top: 24mm; bottom: 20mm; display: flex; flex-direction: column; }
+.cover .collection { font-size: 11pt; letter-spacing: 4pt; text-transform: uppercase; color: #ffb27a; }
+.cover h1.cv-title { color: #fff; font-size: 46pt; font-weight: 700; line-height: 1.02; margin: 10mm 0 4mm; text-transform: uppercase; }
+.cover h1.cv-title em { font-style: normal; color: #ff8a3a; }
+.cover .cv-sub { font-size: 24pt; font-style: italic; color: #fff; }
+.cover .cv-sub em { color: #ff8a3a; font-weight: 700; }
+.cover-hook { margin-top: 8mm; font-size: 15pt; line-height: 1.4; color: #e9eef4; border-left: 3pt solid #ff8a3a; padding-left: 12pt; max-width: 150mm; }
+.cover .badges { margin-top: auto; display: flex; flex-wrap: wrap; gap: 7pt; }
+.cover .badges span { border: 1px solid rgba(255,255,255,.45); border-radius: 20pt; padding: 3pt 11pt; font-size: 11pt; background: rgba(15,42,68,.6); }
+.cover .edition { margin-top: 6mm; font-size: 10pt; font-style: italic; color: #b9c7d6; }
+
+/* ---------- Ouverture de partie ---------- */
+.divider { break-before: page; background: var(--navy); color: #fff; border-radius: 10pt; padding: 18pt 22pt 16pt; margin: 0 0 22pt; position: relative; overflow: hidden; }
+.divider .num { position: absolute; right: 16pt; top: -10pt; font-size: 120pt; font-weight: 700; color: rgba(255,255,255,.08); line-height: 1; }
+.divider .kicker { color: #ffb27a; letter-spacing: 4pt; font-size: 11pt; text-transform: uppercase; }
+.divider h1 { color: #fff; font-size: 28pt; margin: 4pt 0 8pt; }
+.divider p { color: #dce5ee; font-size: 13pt; margin-bottom: 8pt; }
+.divider ul { list-style: none; padding: 0; margin: 0; }
+.divider li { font-size: 13pt; color: #fff; margin: 3pt 0; }
+.divider li b { color: #ffb27a; margin-right: 8pt; }
+
+/* ---------- Ouverture de chapitre ---------- */
+.chapter { break-before: page; }
+.divider + .chapter { break-before: avoid; }
+.chapter-head, .intro > .chapter-head { margin-bottom: 16pt; break-inside: avoid; break-after: avoid; }
+.chapter-head .kicker { display: block; font-size: 11pt; letter-spacing: 4pt; color: var(--orange); font-weight: 700; }
+.chapter-head h1 { font-size: 28pt; margin: 6pt 0 8pt; string-set: chapter content(); }
+.chapter-head .lead { font-size: 14.5pt; font-style: italic; color: var(--muted); margin: 0 0 10pt; }
+/* la ligne de bornes : la signature visuelle du livre */
+.chapter-head::after { content: ""; display: block; height: 10pt; background:
+  linear-gradient(var(--orange), var(--orange)) 0 50% / 100% 1.5pt no-repeat,
+  radial-gradient(circle, var(--orange) 0 3.5pt, transparent 4pt) 0 0 / 40pt 10pt repeat-x; }
+
+/* ---------- Encadrés : des cartes entières, jamais coupées ---------- */
+.box { position: relative; border-radius: 10pt; padding: 22pt 16pt 10pt; margin: 18pt 0 14pt; break-inside: avoid; background: #fff; border: 1.2pt solid var(--line); }
+.box .box-title { position: absolute; top: -10pt; left: 14pt; font-size: 10.5pt; font-weight: 700; letter-spacing: 2pt; text-transform: uppercase; color: #fff; background: var(--navy); border-radius: 20pt; padding: 3pt 12pt; display: flex; align-items: center; gap: 6pt; }
+.box .box-title .ico { display: none; }
+.box p:last-child, .box ul:last-child { margin-bottom: 4pt; }
+
+.brief { background: var(--navy); border-color: var(--navy); color: #fff; }
+.brief strong { color: #ffb27a; }
+.brief .box-title { background: var(--orange); }
+.brief li::marker { color: #ffb27a; }
+
+.words { break-inside: auto; background: #fbf8f2; }
+.words .box-title { background: var(--navy-2); }
+.words table, .words tbody, .words thead, .words tr, .words td { display: block; width: auto !important; }
+.words tr:first-child { display: none; } /* ligne d'en-tête « Mot / En simple / En pro » */
+.words tr { break-inside: avoid; padding: 8pt 0 7pt; border-bottom: 1px dashed #d8cfbf; }
+.words tr:last-child { border-bottom: none; }
+.words td:first-child { font-weight: 700; font-size: 14pt; color: var(--navy); margin-bottom: 2pt; }
+.words td:nth-child(2)::before { content: "En simple : "; font-weight: 700; color: var(--green); }
+.words td:nth-child(3)::before { content: "En pro : "; font-weight: 700; font-style: normal; color: var(--violet); }
+.words td:nth-child(3) { color: var(--muted); font-style: italic; font-size: 12pt; margin-top: 2pt; }
+
+.case { background: var(--orange-soft); border-color: #f2d6bd; }
+.case .box-title { background: #b8560c; }
+.debutant { background: var(--teal-soft); border-color: #bfe0e3; }
+.debutant .box-title { background: var(--teal); }
+.expert { background: var(--violet-soft); border-color: #d9d2f0; }
+.expert .box-title { background: var(--violet); }
+.avoid { background: var(--red-soft); border-color: #efc7c3; }
+.avoid .box-title { background: var(--red); }
+.tip { background: var(--green-soft); border-color: #c4e2d3; }
+.tip .box-title { background: var(--green); }
+.check { background: #fff; border: 1.5pt dashed var(--orange); }
+.check .box-title { background: var(--orange); }
+.check ul { list-style: none; padding-left: 0; }
+.check li { padding-left: 24pt; position: relative; margin-bottom: 6pt; break-inside: avoid; }
+.check li::before { content: ""; position: absolute; left: 0; top: 3pt; width: 13pt; height: 13pt; border: 1.6pt solid var(--orange); border-radius: 3pt; background: #fff; }
+
+.vraie { background: #fff; border: 1.2pt solid #d9d2f0; border-left: 6pt solid var(--violet); }
+.vraie .box-title { background: var(--violet); }
+.vraie .src { display: block; margin-top: 4pt; font-size: 10.5pt; font-style: italic; color: var(--muted); }
+
+.levels .box { margin: 18pt 0 0; }
+.levels { margin-bottom: 14pt; }
+
+/* ---------- Petites cartes (mode d'emploi) ---------- */
+.grid3 { display: block; }
+.grid3 .card { break-inside: avoid; border-left: 4pt solid var(--orange); padding: 4pt 0 4pt 12pt; margin: 0 0 10pt; }
+.grid3 .card h4 { font-size: 14pt; margin: 0 0 2pt; }
+.grid3 .card p { margin: 0; }
+.grid3.mini { display: grid; grid-template-columns: 1fr 1fr; gap: 4pt 16pt; }
+.grid3.mini .card { margin: 0 0 6pt; }
+.grid3.mini .card h4 { font-size: 13pt; }
+.grid3.mini .card p { font-size: 12pt; }
+
+/* ---------- Phrase de la diaspora ---------- */
+.voix { margin: 16pt 6pt; padding: 4pt 4pt 4pt 40pt; position: relative; break-inside: avoid; }
+.voix::before { content: "“"; position: absolute; left: 0; top: -14pt; font-size: 64pt; font-weight: 700; color: var(--orange); line-height: 1; }
+.voix p { margin: 0 0 4pt; font-size: 15pt; font-style: italic; line-height: 1.45; color: var(--navy); }
+.voix .qui { font-size: 10.5pt; color: var(--muted); letter-spacing: .5pt; }
+
+/* ---------- Les 9 pièges : une carte par piège ---------- */
+.arnaques { display: block; margin: 8pt 0; }
+.arnaque { break-inside: avoid; border: 1.2pt solid var(--line); background: #fff; border-radius: 10pt; padding: 10pt 14pt 6pt 58pt; margin: 0 0 10pt; position: relative; }
+.arnaque h4 { font-size: 15pt; margin: 0 0 4pt; }
+.arnaque h4 b { position: absolute; left: 14pt; top: 11pt; width: 32pt; height: 32pt; border-radius: 50%; background: var(--red); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 16pt; }
+.arnaque p { margin: 0 0 5pt; }
+.arnaque .ex { font-size: 12pt; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 5pt; }
+.arnaque .ex strong { color: var(--violet); }
+.arnaque[style] h4 b { background: var(--orange) !important; }
+
+/* ---------- Idées fausses ---------- */
+.mythe { break-inside: avoid; border-radius: 10pt; overflow: hidden; border: 1.2pt solid var(--line); margin: 0 0 14pt; background: #fff; }
+.mythe .faux { background: var(--red-soft); padding: 10pt 16pt; border-bottom: 1.2pt solid #efc7c3; }
+.mythe .vrai { padding: 10pt 16pt 4pt; }
+.mythe .lbl { display: block; font-size: 10.5pt; font-weight: 700; letter-spacing: 2pt; text-transform: uppercase; margin-bottom: 3pt; }
+.mythe .faux .lbl { color: var(--red); }
+.mythe .vrai .lbl { color: var(--green); }
+.mythe .faux p { font-size: 16pt; font-weight: 700; font-style: italic; color: var(--navy); margin: 0; }
+
+/* ---------- Les 12 vérifications : fiches verticales ---------- */
+.verif { break-inside: avoid; border: 1.2pt solid var(--line); border-radius: 10pt; overflow: hidden; margin: 0 0 14pt; background: #fff; }
+.verif .vh { background: var(--navy); color: #fff; padding: 8pt 14pt; display: flex; gap: 12pt; align-items: center; }
+.verif .vh b { flex: 0 0 30pt; height: 30pt; border-radius: 50%; background: var(--orange); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 15pt; }
+.verif .vh span { font-size: 15.5pt; font-weight: 700; line-height: 1.25; }
+.verif .vb { padding: 8pt 14pt 2pt; }
+.verif .vb div { margin-bottom: 6pt; }
+.verif .vb i { font-style: normal; font-weight: 700; color: var(--orange); }
+.verif .vb i::after { content: " : "; }
+.verif .alerte { background: var(--red-soft); padding: 7pt 14pt; border-top: 1px solid #efc7c3; }
+.verif .alerte strong { color: var(--red); }
+
+/* ---------- Tableau simple (rare) ---------- */
+table.data { width: 100%; border-collapse: collapse; margin: 8pt 0 12pt; font-size: 12pt; }
+table.data tr { break-inside: avoid; }
+table.data th { background: var(--navy); color: #fff; text-align: left; padding: 6pt 8pt; }
+table.data td { padding: 6pt 8pt; border-bottom: 1px solid var(--line); vertical-align: top; }
+
+/* ---------- Illustrations ---------- */
+figure.illu { margin: 12pt 0 14pt; break-inside: avoid; text-align: center; }
+figure.illu svg { width: 100%; height: auto; display: block; }
+figure.illu svg text { font-family: "Times New Roman", "Liberation Serif", serif; }
+figure.illu figcaption { font-size: 11.5pt; font-style: italic; color: var(--muted); margin-top: 6pt; }
+figure.illu figcaption b { color: var(--orange); font-style: normal; }
+
+.note-src { font-size: 10.5pt; font-style: italic; color: var(--muted); margin-top: 16pt; border-top: 1px solid var(--line); padding-top: 6pt; }
+
+/* Corrections : titres jamais coupés, étiquettes d'encadré dans le flux (ne débordent plus d'une page à l'autre) */
+h1, h2, h3, h4, .cover h1.cv-title, .box .box-title, .voix p { hyphens: manual; }
+.box { padding: 12pt 16pt 10pt; margin: 14pt 0 14pt; }
+.box .box-title { position: static; display: inline-block; margin: 0 0 8pt; }
+.divider { break-inside: avoid; }

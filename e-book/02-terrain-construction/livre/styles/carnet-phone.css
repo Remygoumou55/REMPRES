@@ -112,3 +112,5 @@ figure.photo figcaption { font-size: 9pt; }
 .cv2-photo { top: 30%; }
 .cv2-top { height: 37%; }
 .cv2-photo { top: 31%; }
+.cv2-bg-a4 { display: none; }
+.cv2-bg-phone { display: block; }

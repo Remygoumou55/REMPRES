@@ -25,6 +25,14 @@ function addThead(html) {
   return html.replace(/(<table class="data[^"]*"[^>]*>\s*)(<tr>(?:(?!<\/tr>)[\s\S])*?<th[\s\S]*?<\/tr>)/g, '$1<thead>$2</thead>');
 }
 
+function addLinks(html) {
+  html = html.replace(/<span class="kicker">CHAPITRE (\d\d)<\/span>/g, '<span class="kicker" id="k$1">CHAPITRE $1</span>');
+  html = html.replace(/<span class="kicker">FICHE PAYS (\d)<\/span>/g, '<span class="kicker" id="kF$1">FICHE PAYS $1</span>');
+  html = html.replace('<span class="kicker">ANNEXE · LEXIQUE</span>', '<span class="kicker" id="kLX">ANNEXE · LEXIQUE</span>');
+  html = html.replace('<span class="kicker">ANNEXE · MENTIONS ET AVERTISSEMENTS</span>', '<span class="kicker" id="kMN">ANNEXE · MENTIONS ET AVERTISSEMENTS</span>');
+  return html.replace(/<div class="tl( star)?">([\s\S]*?data-ch="(\w+)"[\s\S]*?)<\/div>/g, '<a class="tl$1" href="#k$3">$2</a>');
+}
+
 function page(title, body) {
   return `<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>${title}</title>
 <link rel="stylesheet" href="../styles/carnet.css">${PHONE ? '<link rel="stylesheet" href="../styles/carnet-phone.css">' : ''}</head><body>
@@ -44,6 +52,7 @@ function tocPages(pdfPath) {
     const tight = txt.replace(/\s+/g, '');
     for (const m of tight.matchAll(/FICHEPAYS(\d)/g)) if (!found['F' + m[1]] && p > 6) found['F' + m[1]] = p;
     if (/ANNEXE·LEXIQUE/.test(tight) && !found.LX) found.LX = p;
+    if (/LIREENPREMIER/.test(tight) && !found.ES && p > 3) found.ES = p;
     if (/ANNEXE·MENTIONS/.test(tight) && !found.MN) found.MN = p;
   }
   return found;
@@ -53,7 +62,7 @@ async function render(browser, name, title, body, withToc) {
   name += SUFFIX;
   const htmlPath = join(BUILD, `${name}.html`);
   const pdfPath = join(DIST, `${name}.pdf`);
-  let html = page(title, addThead(body));
+  let html = page(title, addLinks(addThead(body)));
   if (PHONE) html = html.replaceAll('preserveAspectRatio="xMidYMid slice"', 'preserveAspectRatio="xMidYMid meet"');
   const ctx = await browser.newContext();
   const pg = await ctx.newPage();

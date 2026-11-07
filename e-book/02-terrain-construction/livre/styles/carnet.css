@@ -273,3 +273,23 @@ h2 { margin: 16pt 0 8pt; }
 .fiche ol.steps > li { margin-bottom: 4pt; }
 .fiche .sec h3 { margin-top: 9pt; }
 .fiche table.data { font-size: 11pt; }
+/* Corrections du client (relecture du 7 nov.) */
+/* « Les mots à connaître » : un seul encadré par chapitre ; il peut continuer sur la page suivante, mais chaque mot reste entier */
+.box.words { break-inside: auto; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.words .box-title { break-after: avoid; }
+.words tr { break-inside: avoid; }
+.words td:first-child { font-weight: 900; color: #000; font-size: 14.5pt; }
+.words td:nth-child(2)::before, .lex .s::before { content: "Définition simple : "; }
+.words td:nth-child(3)::before, .lex .pro::before { content: "En jargon professionnel : "; }
+.lex .m { font-weight: 900; color: #000; }
+/* Idées fausses : niveau de gravité */
+.gravite { display: inline-block; margin-left: 8pt; padding: 1pt 9pt; border-radius: 20pt; color: #fff; letter-spacing: 1pt; font-size: 9.5pt; vertical-align: 1pt; }
+.gravite.g1 { background: #d9822b; }
+.gravite.g2 { background: #c0392b; }
+.gravite.g3 { background: #8e1b12; }
+a.tl { display: flex; color: inherit; text-decoration: none; }
+.toc .tl.star { background: var(--orange-soft); border: 1.5pt solid var(--orange); border-radius: 8pt; padding: 5pt 8pt; margin: 4pt 0 8pt; font-weight: 700; color: var(--navy); }
+.essentiel h2 { font-size: 16pt; margin-top: 12pt; }
+.box .box-title { display: block; width: fit-content; }
+.words table { break-before: avoid; }
+.words tr:nth-child(2) { break-before: avoid; }

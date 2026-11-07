@@ -307,3 +307,24 @@ ul.srcs li { margin-bottom: 2pt; }
 .toc .chapter-head h1 { font-size: 24pt; margin: 2pt 0 4pt; }
 .mentions { font-size: 12pt; line-height: 1.4; }
 .mentions h3 { margin: 8pt 0 3pt; font-size: 13pt; }
+/* Photos (illustrations générées) */
+figure.photo { margin: 0 0 12pt; break-inside: avoid; }
+figure.photo img { display: block; width: 100%; height: 62mm; object-fit: cover; border-radius: 10pt; }
+figure.photo figcaption { font-size: 10.5pt; font-style: italic; color: var(--muted); margin-top: 4pt; text-align: center; }
+.chapter-head + figure.photo { margin-top: -6pt; }
+/* Couverture avec photo */
+.cover-photo .cover-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
+.cover-photo .cover-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,42,68,.93) 0%, rgba(15,42,68,.80) 34%, rgba(15,42,68,0) 55%, rgba(15,42,68,0) 70%, rgba(15,42,68,.92) 86%); }
+.cover-photo .cover-inner { z-index: 2; }
+.cover-photo .cover-bottom { margin-top: auto; }
+.cover-photo .cover-promise { font-size: 14pt; color: #fff; margin-bottom: 8pt; }
+.cover-photo .cover-promise b { color: #ffb27a; }
+.cover-photo .cover-hook { text-shadow: 0 1px 4px rgba(0,0,0,.5); }
+.cover-photo .cover-shade { background: linear-gradient(180deg, rgba(15,42,68,.90) 0%, rgba(15,42,68,.62) 26%, rgba(15,42,68,.15) 42%, rgba(15,42,68,0) 50%, rgba(15,42,68,0) 72%, rgba(15,42,68,.92) 88%); }
+.cover-photo h1.cv-title, .cover-photo .cv-sub { text-shadow: 0 2px 8px rgba(0,0,0,.55); }
+.cover-photo .cover-bg { object-position: 50% 45%; }
+.cover-photo .cover-hook { background: rgba(15,42,68,.6); padding: 6pt 10pt; border-radius: 6pt; }
+figure.photo img { height: 54mm; }
+.mentions { font-size: 11.5pt; line-height: 1.35; }
+.mentions h3 { margin: 6pt 0 2pt; font-size: 12.5pt; }
+.mentions p { margin-bottom: 5pt; }

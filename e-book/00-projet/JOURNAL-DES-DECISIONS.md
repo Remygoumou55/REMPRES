@@ -40,3 +40,7 @@ Le détail mot pour mot est dans `conversations/HISTORIQUE-CONVERSATIONS.md`.
 
 ## 7 novembre — Retour du client sur le plan du livre 2
 - Titre/sous-titre/couverture/couleurs provisoires ; pages et nombre de kits non fixés (selon le contenu) ; prix visé 9 à 20 $ (5 000 F jugé trop bas) ; tout doit être réel ; français très simple (niveau 10e année) ; mots expliqués en simple et en pro ; personnages Mamadou et Aïcha validés. Détail : `02-terrain-construction/PLAN-DU-LIVRE.md` (section « Décisions du client »).
+
+## 7 novembre — Le client n'a pas les moyens de payer un avocat
+- Le client (élève, jeune, sans moyens) ne peut pas payer de relecture juridique et exige zéro risque de poursuite.
+- Proposition faite : **option B « faits réels anonymisés »** pour toutes les affaires qui touchent des personnes (sans pays, sans ville, sans nom, sans montant exact, sans source nommée : « dans un pays d'Afrique de l'Ouest, en 2026… », montants arrondis en ordre de grandeur), en gardant les **fiches pays** sur les lois et procédures (information publique, sans risque), et aucune mention de démolitions/décisions d'État nommées. Option A (pays + source, sans noms) jugée à risque très faible mais non nul. **En attente du choix du client.**

@@ -92,7 +92,7 @@ li { margin-bottom: 4pt; }
 .brief .box-title { background: var(--orange); }
 .brief li::marker { color: #ffb27a; }
 
-.words { break-inside: auto; background: #fbf8f2; }
+.words { break-inside: avoid; background: #fbf8f2; }
 .words .box-title { background: var(--navy-2); }
 .words table, .words tbody, .words thead, .words tr, .words td { display: block; width: auto !important; }
 .words tr:first-child { display: none; } /* ligne d'en-tête « Mot / En simple / En pro » */

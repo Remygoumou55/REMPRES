@@ -7,13 +7,20 @@
 - Exigences rappelées : **tout doit être réel** (informations, cas, chiffres) ; français **très, très simple** (un élève de 10e année doit tout comprendre) ; cas réels, situations réelles, solutions, astuces ; **presque tous les mots difficiles ou importants expliqués en simple ET en pro**. Le livre doit être « les yeux » et « le guide parfait » de la diaspora qui veut investir au pays.
 - Publics validés : diaspora qui doute ; personne au pays qui achète son 1er terrain ; personne qui a un terrain et veut construire ; experts.
 - Pays validés : Guinée, Côte d'Ivoire, Sénégal, Cameroun, Bénin, Gabon, Togo (une fiche chacun) + conseils valables pour le reste de l'Afrique.
-- Personnages validés : Mamadou (38 ans, Guinéen à Paris) et Aïcha (31 ans, commerçante à Abidjan) — fictifs, annoncés comme tels ; toutes les « vraies affaires » sont réelles et sourcées.
+- Personnages validés : Mamadou (38 ans, Guinéen à Paris) et Aïcha (31 ans, commerçante à Abidjan) — fictifs, annoncés comme tels ; toutes les « faits réels » sont réelles et sourcées.
 - En attente : avis du client sur le détail des chapitres, puis feu vert pour écrire.
+
+## Corrections du client sur la maquette (7 nov. 2026)
+- Rendu « Carnet de terrain » (Times, grande police) **validé**.
+- « Les mots à connaître » ne doit **jamais** être coupé entre 2 pages (au besoin : plusieurs encadrés 1/2, 2/2 de 3 mots, chacun entier).
+- Les « 9 pièges » deviennent **10 pièges** (10e : la fausse annonce sur les réseaux / faux communiqué).
+- « Vraie affaire » est remplacé partout par **« Fait réel »**.
+- Question du client avant de continuer : risque juridique d'utiliser des faits réels de pays nommés → recherche juridique lancée (`recherches/J*`).
 
 ## La carte d'identité du livre
 - **Titre :** ACHETER UN TERRAIN ET CONSTRUIRE AU PAYS SANS TE FAIRE ARNAQUER
 - **Sous-titre :** La méthode pas à pas pour vérifier, payer et contrôler — même depuis l'étranger
-- **Accroche de couverture :** « Plus de 100 vraies affaires étudiées dans 7 pays. »
+- **Accroche de couverture :** « Plus de 100 faits réels étudiées dans 7 pays. »
 - **Collection :** Playbooks · Volume 2 (même charte que le livre 1 : bleu nuit #0F2A44, orange #FF7A1A, blanc).
 - **Format :** environ 78 pages A4 + version téléphone + 3 kits + ZIP. Chaque chapitre sur une nouvelle page.
 - **Prix conseillé :** 5 000 F (prix barré 7 500 F) — le public diaspora a un plus gros budget, et le sujet engage des millions.
@@ -27,7 +34,7 @@ On les suit du chapitre 1 au chapitre 17 : leurs erreurs, puis la bonne méthode
 
 ## Les règles d'écriture (comme le livre 1)
 - Français très simple, phrases courtes. Chaque mot technique expliqué « en simple » et « en pro ».
-- Dans chaque chapitre : **En bref** · **Les mots à connaître** · **Vraie affaire** (cas réel de la presse, avec pays, date, montant — sans nom de victime) · **Cas concret** (Mamadou ou Aïcha) · **Niveau débutant / Niveau expert** · **Erreur à éviter** · **Checklist**.
+- Dans chaque chapitre : **En bref** · **Les mots à connaître** · **Fait réel** (cas réel de la presse, avec pays, date, montant — sans nom de victime) · **Cas concret** (Mamadou ou Aïcha) · **Niveau débutant / Niveau expert** · **Erreur à éviter** · **Checklist**.
 - Une **« Phrase de la diaspora »** par chapitre (vraies citations relevées sur les forums et YouTube).
 - Les chiffres sont des ordres de grandeur datés ; les fiches pays disent « à faire confirmer par le notaire ».
 - Interdits : promettre qu'on ne se fera jamais arnaquer, « garanti », faux témoignages.
@@ -36,7 +43,7 @@ On les suit du chapitre 1 au chapitre 17 : leurs erreurs, puis la bonne méthode
 
 ## PAGES D'OUVERTURE (4 pages)
 - Couverture.
-- **Comment lire ce livre** : à qui il s'adresse, comment utiliser les fiches pays et les kits, la différence entre « vraies affaires » (réelles, tirées de la presse) et « cas concrets » (Mamadou et Aïcha, fictifs).
+- **Comment lire ce livre** : à qui il s'adresse, comment utiliser les fiches pays et les kits, la différence entre « faits réels » (réelles, tirées de la presse) et « cas concrets » (Mamadou et Aïcha, fictifs).
 - **Avertissement honnête** : ce livre prépare et protège, il ne remplace pas le notaire ; les lois changent (date de mise à jour).
 - **Sommaire.**
 
@@ -48,7 +55,7 @@ On les suit du chapitre 1 au chapitre 17 : leurs erreurs, puis la bonne méthode
 **Objectif :** que le lecteur comprenne que l'arnaque n'est pas de la malchance mais un système, avec des schémas qui se répètent.
 **Contenu :**
 - Les chiffres qui font peur : en Côte d'Ivoire, 8 recours sur 10 au Conseil d'État seraient fonciers ; en Guinée, plus de 10 000 dossiers fonciers en justice ; les démolitions (176 sites à Abidjan en 2024, Kaporo-Rails, Camayenne).
-- **Les 9 arnaques**, chacune en une demi-page avec un schéma simple et une vraie affaire :
+- **Les 9 arnaques**, chacune en une demi-page avec un schéma simple et une fait réel :
   1. Le terrain de quelqu'un d'autre (Conakry 2025 : faux titre, 4,25 milliards GNF)
   2. La double vente (Keur Massar : 5 acheteurs pour les mêmes parcelles, 102 M F)
   3. Les faux papiers (Abidjan : faux ACD sur 490 ha ; Sénégal : faux maire avec 14 cachets)
@@ -100,7 +107,7 @@ On les suit du chapitre 1 au chapitre 17 : leurs erreurs, puis la bonne méthode
 11. Les annonces de perte de titre / oppositions
 12. Le prix : trop bas = alerte
 Pour chaque vérification : où aller, quoi demander, combien ça coûte environ, combien de temps, et ce qu'on fait si la réponse est mauvaise.
-**Vraie affaire :** l'acheteur de Conakry qui avait signé chez un notaire — c'est la Conservation foncière qui a découvert le faux.
+**Fait réel :** l'acheteur de Conakry qui avait signé chez un notaire — c'est la Conservation foncière qui a découvert le faux.
 **Illustration :** le parcours des 12 étapes. **Renvoi :** Kit 1 (checklist à cocher).
 
 ### Chapitre 5 — Le géomètre et le notaire : qui fait quoi, combien, comment bien les choisir (4 p.)
@@ -126,7 +133,7 @@ Pour chaque vérification : où aller, quoi demander, combien ça coûte environ
 - Mobile money et virement : avantages et pièges.
 - Le calendrier de paiement idéal (acompte → vérifications → signature → mutation).
 - **Modèle :** reçu d'acompte (Kit 2).
-**Vraie affaire :** la notaire de Libreville condamnée pour avoir pris du liquide hors comptabilité.
+**Fait réel :** la notaire de Libreville condamnée pour avoir pris du liquide hors comptabilité.
 
 ---
 
@@ -147,7 +154,7 @@ Pour chaque vérification : où aller, quoi demander, combien ça coûte environ
 - Pourquoi on ne peut pas acheter à distance sans procuration (aucun des pays ne permet de signer la vente en ligne).
 - **Procuration spéciale et limitée** : un seul terrain, une seule opération, une durée, interdiction d'encaisser l'argent ou de revendre.
 - Où la signer : notaire du pays d'accueil, consulat ; **apostille** (Sénégal oui ; Togo en cours ; CI, Cameroun, Bénin, Gabon, Guinée : légalisation) ; accords avec la France (à vérifier).
-- Vraie affaire : 272 lots attribués avec de fausses procurations à Abidjan.
+- Fait réel : 272 lots attribués avec de fausses procurations à Abidjan.
 **Modèle :** procuration limitée (Kit 2, à faire valider par un notaire).
 
 ### Chapitre 10 — Protéger son terrain vide (2 p.)
@@ -173,15 +180,15 @@ Pour chaque vérification : où aller, quoi demander, combien ça coûte environ
 
 ### Chapitre 13 — Choisir le maçon ou l'entrepreneur et signer un contrat simple (4 p.)
 **Contenu :** les 8 questions à poser ; demander 3 devis et les comparer ; visiter un ancien chantier du maçon ; forfait ou « régie » (à la tâche) : avantages et pièges ; ce que doit contenir le contrat (prix, étapes, délais, qualité des matériaux, pénalités de retard, paiement par étapes) ; garantie de 10 ans selon les pays.
-**Vraie affaire :** Dixinn 2025 — « de la terre au lieu de briques », 402 M GNF facturés pour 146 M estimés.
+**Fait réel :** Dixinn 2025 — « de la terre au lieu de briques », 402 M GNF facturés pour 146 M estimés.
 **Modèle :** contrat simple avec le maçon (Kit 2).
 
 ### Chapitre 14 — Les matériaux : acheter soi-même et ne pas se faire voler (3 p.)
 **Contenu :** acheter directement chez le fournisseur et faire livrer ; tenir un cahier de stock ; repérer le **fer non conforme** (diamètre, marquage — 50 t saisies à Keur Massar en 2025) ; le bon ciment ; les vols sur chantier (gardien, revente d'étais) et comment les éviter.
 
 ### Chapitre 15 — Payer le chantier par étapes, contre preuves (3 p.)
-**Contenu :** le tableau des paiements liés aux étapes (fondation finie = X %, etc.) ; ne jamais payer une grosse avance (vraie affaire : 58 M F d'avance au Sénégal) ; les preuves à exiger : photos datées et géolocalisées, vidéo en direct, facture des matériaux ; la réception des travaux.
-**Vraie affaire :** l'émigré qui a reçu des photos venant d'autres chantiers (33 M F).
+**Contenu :** le tableau des paiements liés aux étapes (fondation finie = X %, etc.) ; ne jamais payer une grosse avance (fait réel : 58 M F d'avance au Sénégal) ; les preuves à exiger : photos datées et géolocalisées, vidéo en direct, facture des matériaux ; la réception des travaux.
+**Fait réel :** l'émigré qui a reçu des photos venant d'autres chantiers (33 M F).
 **Renvoi :** Kit 3 (tableau des paiements) et Kit 2 (cahier de suivi).
 
 ### Chapitre 16 — Suivre un chantier à distance (2 p.)

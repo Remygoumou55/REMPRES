@@ -1,0 +1,71 @@
+NOUVEAUX SCRIPTS - 6 VIDEOS - version 2 (7 nov. 2026)
+Chaque video a son propre format, sa propre histoire, sa propre fin.
+UN SEUL fichier par video : T1.mp3 ... T6.mp3.
+Les balises <break time="0.7s" /> servent a caler les images sur la voix : il faut les garder.
+(Si ta voix ElevenLabs ne les accepte pas, remplace chaque balise par « ... ».)
+
+==================================================================
+T1 - LA PHOTO  (format : conversation sur telephone)
+==================================================================
+« Grand frère, le chantier avance bien. Regarde la photo. » <break time="0.7s" />
+Tu regardes. Un mur, du ciment, des ouvriers. <break time="0.7s" />
+Mais ce mur... il est où ? Et il date de quand ? <break time="0.7s" />
+Une photo ne prouve rien. Elle peut venir de n'importe quel chantier. <break time="0.7s" />
+Demande plutôt un appel vidéo en direct : on te montre la borne de ton terrain, la rue, puis le travail. <break time="0.7s" />
+Le message pour demander ces preuves, sans vexer ta famille, est déjà écrit dans le guide. <break time="0.7s" />
+Le guide complet et ses quatre kits : douze mille neuf cents francs. Le lien est juste en dessous.
+
+==================================================================
+T2 - MAMADOU  (format : histoire racontee)
+==================================================================
+Voici Mamadou. Il vit loin du pays. Et son histoire ressemble à beaucoup d'autres. <break time="0.7s" />
+Chaque mois, il envoie de l'argent à son cousin. Pour le terrain, pour le ciment, pour le maçon. <break time="0.7s" />
+Pas de reçu. Pas de papier. Juste : « T'inquiète, ça avance. » <break time="0.7s" />
+Un jour, il apprend que l'avance a été versée pour un terrain... déjà vendu à quelqu'un d'autre. <break time="0.7s" />
+Le problème, ce n'était pas l'amour. C'était une seule personne avec l'argent, les papiers et le chantier. <break time="0.7s" />
+Dans le guide, tu suis Mamadou jusqu'au bout. Et tu apprends la règle des trois clés : jamais les trois dans la même main. <break time="0.7s" />
+Aime ta famille, mais paie contre des preuves. Le guide et ses quatre kits : douze mille neuf cents francs.
+
+==================================================================
+T3 - DEUX ACHETEURS  (format : enquete)
+==================================================================
+Deux familles. Un seul terrain. Et les deux ont un reçu. <break time="0.7s" />
+Qui est le propriétaire ? Peut-être... aucune des deux. <break time="0.7s" />
+Un reçu prouve que tu as payé. Il ne prouve pas que le vendeur avait le droit de vendre. <break time="0.7s" />
+Avant de payer un seul franc, il y a douze vérifications à faire. <break time="0.7s" />
+Au bureau foncier. Chez ton notaire. Avec ton géomètre. Et chez les voisins. <break time="0.7s" />
+Les douze sont dans le guide, en liste à cocher. Avec la fiche de ton pays, parmi sept pays. <break time="0.7s" />
+Vérifie avant, pas après. Douze mille neuf cents francs, le guide et ses quatre kits.
+
+==================================================================
+T4 - LE CLASSEMENT DES PAPIERS  (format : classement, du plus faible au plus fort)
+==================================================================
+Les papiers de terrain, classés du plus faible au plus solide. <break time="0.7s" />
+Tout en bas : le simple reçu. Il prouve un paiement. C'est tout. <break time="0.7s" />
+Ensuite : l'attestation du quartier ou du village. Utile, mais ce n'est pas un papier de l'État. <break time="0.7s" />
+Plus haut : la lettre d'attribution, puis les papiers intermédiaires. Ce sont des étapes, pas encore la propriété. <break time="0.7s" />
+Puis le titre foncier au nom du vendeur. <break time="0.7s" />
+Et tout en haut, la seule marche qui fait de toi le propriétaire : le titre à TON nom. <break time="0.7s" />
+Le guide te donne cet escalier complet, pays par pays. Douze mille neuf cents francs, avec les quatre kits.
+
+==================================================================
+T5 - LE MACON  (format : quiz)
+==================================================================
+Ton maçon te demande une grosse avance avant de commencer. Tu fais quoi ? <break time="0.7s" />
+Réponse A : tu paies, il faut bien qu'il démarre. Réponse B : tu paies étape par étape. <break time="0.7s" />
+La bonne réponse, c'est B. Avec une grosse avance, tu perds ton seul moyen de pression. <break time="0.7s" />
+Une petite somme pour démarrer. Puis tu paies chaque étape finie : les fondations, les murs, la dalle. Toujours après la preuve. <break time="0.7s" />
+Et le fer, tu le paies directement au fournisseur. Pas au maçon. <break time="0.7s" />
+Le modèle de contrat avec le maçon est prêt à remplir, dans le guide. <break time="0.7s" />
+Paie ce qui est fait, pas ce qui est promis. Le guide et ses quatre kits : douze mille neuf cents francs.
+
+==================================================================
+T6 - DIX MINUTES  (format : chrono)
+==================================================================
+Tu vas acheter un terrain ? Donne-moi dix minutes avant. <break time="0.7s" />
+D'abord, les trois règles d'or. Vérifie avant de payer. Jamais tout dans une seule main. Pas de papier, pas de paiement. <break time="0.7s" />
+Ensuite, le seul papier vraiment solide, pays par pays. <break time="0.7s" />
+Et les dix phrases qui doivent t'arrêter net. Par exemple : « Il faut payer aujourd'hui, d'autres acheteurs attendent. » <break time="0.7s" />
+C'est « L'essentiel en dix minutes », au tout début du guide. <break time="0.7s" />
+Puis tout le détail, étape par étape, avec les kits prêts à remplir. <break time="0.7s" />
+Dix minutes maintenant, ou des années de problèmes après ? Douze mille neuf cents francs.

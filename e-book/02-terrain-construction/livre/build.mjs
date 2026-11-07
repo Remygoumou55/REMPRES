@@ -39,8 +39,12 @@ function tocPages(pdfPath) {
   const found = {};
   for (let p = 1; p <= n; p++) {
     const txt = execFileSync('pdftotext', ['-f', String(p), '-l', String(p), '-layout', pdfPath, '-']).toString();
-    for (const m of txt.matchAll(/CHAPITRE (\d\d)/g)) if (!found[m[1]]) found[m[1]] = p;
-    if (/ANNEXE/.test(txt) && !found.LX) found.LX = p;
+    const flat = txt.replace(/\s+/g, ' ');
+    for (const m of flat.matchAll(/CHAPITRE (\d\d)/g)) if (!found[m[1]]) found[m[1]] = p;
+    const tight = txt.replace(/\s+/g, '');
+    for (const m of tight.matchAll(/FICHEPAYS(\d)/g)) if (!found['F' + m[1]] && p > 6) found['F' + m[1]] = p;
+    if (/ANNEXE·LEXIQUE/.test(tight) && !found.LX) found.LX = p;
+    if (/ANNEXE·MENTIONS/.test(tight) && !found.MN) found.MN = p;
   }
   return found;
 }

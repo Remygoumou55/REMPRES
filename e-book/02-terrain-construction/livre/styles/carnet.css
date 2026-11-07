@@ -220,7 +220,7 @@ ol.steps > li::before { content: counter(st); position: absolute; left: 0; top: 
 .calc p { margin: 0 0 3pt; }
 /* Fiches pays */
 .fiche-meta { font-size: 11pt; font-style: italic; color: var(--muted); margin: -6pt 0 10pt; }
-.sec { break-inside: avoid; margin: 0 0 10pt; }
+.sec { margin: 0 0 10pt; }
 .sec h3 { font-size: 14.5pt; color: var(--navy); margin: 12pt 0 5pt; padding-left: 10pt; border-left: 4pt solid var(--orange); break-after: avoid; }
 .confirm { font-size: 11pt; font-style: italic; color: var(--red); }
 /* Sommaire */
@@ -253,3 +253,9 @@ h3 { font-size: 15pt; margin: 14pt 0 6pt; break-after: avoid; }
 /* Après une ouverture de partie : on autorise la coupure entre le titre du chapitre et « En bref » (sinon Chrome coupe l'encadré) */
 .divider + .chapter > .chapter-head { break-after: auto; }
 .box, .verif, .pays, .mythe, .arnaque, .lex, table.data.keep, .modele, table.form { break-inside: avoid; }
+.toc .tl { margin-bottom: 2pt; font-size: 12pt; }
+.toc h3 { margin: 8pt 0 3pt; font-size: 11.5pt; }
+.toc .chapter-head { margin-bottom: 8pt; }
+.toc .tl { font-size: 11.5pt; margin-bottom: 1pt; line-height: 1.35; }
+.toc h3 { margin: 6pt 0 2pt; }
+.toc .note-src { margin-top: 6pt; }

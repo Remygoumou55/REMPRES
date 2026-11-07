@@ -82,6 +82,6 @@ table.data.stack td:first-child { font-weight: 700; color: var(--navy); font-siz
 table.data.stack td:not(:first-child)::before { content: attr(data-label) " : "; font-weight: 700; color: var(--orange); }
 table.data.stack.keep { break-inside: auto; }
 table.data.stack tr.total { background: var(--orange-soft); }
-figure.photo img { height: 46mm; border-radius: 7pt; }
+figure.photo img { width: auto; max-width: 100%; height: 46mm; object-fit: contain; margin: 0 auto; border-radius: 7pt; }
 figure.photo figcaption { font-size: 9pt; }
 .cover-photo .cover-promise { font-size: 9.5pt; margin-bottom: 5pt; }

@@ -19,6 +19,8 @@ Le client (francophone, Guinée, il tutoie et dit « mec ») transforme des form
 Ordre choisi par le client : **2 Terrain → 3 Poulets → 4 Entreprise/financement.**
 
 ## 3. La prochaine action exacte
+**Dernière correction (7 nov., fin de soirée) : images illustratives du livre 2 affichées EN ENTIER (plus de zoom ni de recadrage) — A4 : hauteur 66 mm, image entière centrée (150 p.) ; téléphone : hauteur 46 mm, image entière centrée (278 p.). Règle CSS `figure.photo img { object-fit: contain; }` dans `livre/styles/carnet.css` (fin) et `carnet-phone.css`. Ne jamais remettre `object-fit: cover`. PDF + ZIP refaits.**
+
 **Agent qui reprend (passation du 7 nov. 2026, 20 h 30) : lis d'abord `02-terrain-construction/communication/RAPPORT-COMPLET-ET-PASSATION.md`.** Tout y est : règles, état du livre, étude de marché, histoire des vidéos (V1–V6 refusées et pourquoi), méthode qui marche (voix ElevenLabs du client → minutage → prompts Google Flow → clips du client → montage `videos/tN/index.html` + `audio.py`), état exact T1–T6, styles déjà utilisés (à ne pas répéter), scripts T3–T6, commandes.
 1. Demander au client son avis sur **T1** (`communication/videos/T1-la-photo.mp4`) et **T2** (`communication/videos/T2-mamadou.mp4`), corriger.
 2. Lui reposer 2 questions : « au lieu de 15 000 » = vrai prix après lancement + date de fin ? ; la voix T2 dit-elle bien « arnaquer » ?

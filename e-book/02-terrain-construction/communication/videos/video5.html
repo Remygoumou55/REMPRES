@@ -1,0 +1,59 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><style>
+@font-face { font-family: "Anton"; src: url(assets/anton.woff2) format("woff2"); }
+@font-face { font-family: "Pop"; src: url(assets/pop-800.woff2) format("woff2"); font-weight: 800; }
+@font-face { font-family: "Pop"; src: url(assets/pop-700.woff2) format("woff2"); font-weight: 700; }
+:root { --bg:#0f2a44; --o:#ff8a3a; --r:#ff5a4f; --w:#f7f3ec; --m:#a9b6c4; }
+* { box-sizing:border-box; margin:0; padding:0; }
+html,body { width:1080px; height:1920px; overflow:hidden; background:var(--bg); color:var(--w); font-family:"Pop",sans-serif; }
+.bg { position:absolute; inset:0; background: radial-gradient(70% 45% at 50% 35%, #1d4268 0%, transparent 70%),
+  radial-gradient(circle, rgba(255,138,58,.10) 0 3px, transparent 4px) 0 0/60px 60px, var(--bg); }
+section { position:absolute; inset:0; }
+[data-in] { position:absolute; will-change:transform,opacity; }
+.A { font-family:"Anton"; text-transform:uppercase; letter-spacing:1px; line-height:1; }
+.o { color:var(--o); } .r { color:var(--r); }
+.c { left:0; right:0; text-align:center; padding:0 40px; }
+.P { color:var(--w); }
+.tape { height:46px; background:repeating-linear-gradient(135deg,var(--o) 0 40px,#0f2a44 40px 80px); transform-origin:left; }
+.chip { font-family:"Anton"; font-size:46px; line-height:1.1; padding:16px 26px; border-radius:14px; background:var(--o); color:#10223a; }
+.chip.o { background:transparent; color:var(--w); border:4px solid rgba(255,255,255,.45); font-size:56px; }
+.phone { width:560px; height:1040px; border-radius:60px; background:#050608; padding:18px; box-shadow:0 0 0 4px #2a3a4e,0 50px 120px rgba(0,0,0,.6); overflow:hidden; }
+.phone .scr { width:100%; height:100%; border-radius:44px; overflow:hidden; background:#fffdf8; position:relative; }
+.phone .scr img { width:100%; display:block; }
+.card { width:480px; border-radius:16px; overflow:hidden; box-shadow:0 40px 100px rgba(0,0,0,.6); } .card img { width:100%; display:block; }
+.btn { left:90px; right:90px; height:150px; border-radius:24px; background:var(--o); color:#10223a; font-family:"Anton"; font-size:84px; letter-spacing:2px; display:flex; align-items:center; justify-content:center; text-transform:uppercase; }
+.mm { left:0; right:0; text-align:center; font-size:38px; font-weight:700; }
+.mm span { background:rgba(255,255,255,.1); border:2px solid rgba(255,255,255,.3); padding:10px 28px; border-radius:40px; }
+#cap { position:absolute; left:60px; right:60px; bottom:200px; text-align:center; }
+#cap span { display:inline; font-size:48px; font-weight:800; line-height:1.4; background:rgba(0,0,0,.72); color:#fff; padding:6px 18px; border-radius:10px; -webkit-box-decoration-break:clone; box-decoration-break:clone; }
+</style></head><body><div class="bg"></div>
+<section data-part="body">
+<img data-in="0" data-out="3.18" data-a="kb" src="assets/img7.jpg" style="left:0;top:0;width:1080px;height:960px;object-fit:cover">
+<div class="" data-in="0.00" data-out="3.18" data-a="fade" style="left:0;top:700px;width:1080px;height:262px;background:linear-gradient(transparent,#0f2a44)"></div>
+<div class="c A " data-in="0.00" data-out="3.18" data-a="slam" style="top:1010px;font-size:100px">Le maçon veut</div>
+<div class="c A o" data-in="0.25" data-out="3.18" data-a="rise" style="top:1124px;font-size:86px">une grosse avance ?</div>
+<div class="c A " data-in="1.84" data-out="3.18" data-a="rise" style="top:1244px;font-size:86px">Écoute ça d&#x27;abord.</div>
+<img data-in="3.18" data-out="6.69" data-a="zoom" src="assets/cover.jpg" style="left:290px;top:250px;width:500px;border-radius:12px;box-shadow:0 40px 100px rgba(0,0,0,.6)">
+<div class="c A o" data-in="3.48" data-out="6.69" data-a="rise" style="top:1040px;font-size:62px">Le guide pas à pas</div>
+<div class="c P" data-in="3.88" data-out="6.69" data-a="rise" style="top:1130px;font-size:42px;font-weight:700">Livre + 4 kits · 7 pays · résumé de 10 min</div>
+<div class="c A " data-in="6.69" data-out="9.90" data-a="rise" style="top:520px;font-size:104px">Grosse avance =</div>
+<div class="c A r" data-in="7.04" data-out="9.90" data-a="slam" style="top:654px;font-size:104px">plus aucun moyen</div>
+<div class="c A r" data-in="7.39" data-out="9.90" data-a="slam" style="top:788px;font-size:104px">de pression.</div>
+<div class="tape" data-in="6.69" data-out="9.90" data-a="grow" style="top:952px;left:-40px;right:-40px;height:46px"></div>
+<div class="" data-in="9.90" data-out="17.96" data-a="rise" style="left:470px;top:300px"><div class="phone"><div class="scr"><div data-in="9.90" data-out="17.96" data-a="fade" data-y0="0" data-y1="-1792" data-ys="11.10" data-yd="6.46" style="position:absolute;left:0;top:0;width:100%"><img src="assets/page-182.png" alt=""><img src="assets/page-174.png" alt=""><img src="assets/k2b-07.png" alt=""></div></div></div></div>
+<div class="c A" data-in="9.90" data-out="17.96" data-a="rise" style="top:150px;font-size:76px">Le guide te montre</div>
+<div class="chip" data-in="9.90" data-out="17.96" data-a="left" style="left:50px;top:360px;max-width:430px">Payer par étapes</div>
+<div class="chip" data-in="11.74" data-out="17.96" data-a="left" style="left:50px;top:535px;max-width:430px">1 étape = 1 preuve</div>
+<div class="chip" data-in="13.87" data-out="17.96" data-a="left" style="left:50px;top:710px;max-width:430px">Vérifier le fer</div>
+<div class="chip" data-in="15.70" data-out="17.96" data-a="left" style="left:50px;top:885px;max-width:430px">Contrat avec le maçon</div>
+<img data-in="17.96" data-out="20.62" data-a="kb" src="assets/img9.jpg" style="left:0;top:300px;width:1080px;height:860px;object-fit:cover">
+<div class="c A o" data-in="18.26" data-out="20.62" data-a="rise" style="top:1200px;font-size:96px">Finis ta maison.</div>
+<div class="" data-in="20.42" data-out="99.00" data-a="zoom" style="left:380px;top:170px"><img src="assets/cover.jpg" style="width:320px;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.6)"></div>
+<div class="c A o" data-in="20.62" data-out="99.00" data-a="slam" style="top:660px;font-size:210px">12 900 F</div>
+<div class="c P" data-in="20.92" data-out="99.00" data-a="rise" style="top:900px;font-size:56px;font-weight:800">Livre + 4 kits</div>
+<div class="mm" data-in="21.22" data-out="99.00" data-a="fade" style="top:1000px"><span>Mobile money · Carte bancaire</span></div>
+<div class="c P" data-in="21.42" data-out="99.00" data-a="fade" style="top:1080px;font-size:34px;color:#a9b6c4">Versions ordinateur et téléphone</div>
+<div class="btn" data-in="22.14" data-out="99.00" data-a="pop" style="top:1170px">Commander maintenant</div>
+</section>
+<div id="cap"></div>
+<script>window.CAPS = [["body", 3.18, 6.31, "Acheter un terrain et construire au pays, sans te faire arnaquer."], ["body", 6.69, 9.47, "Avec une grosse avance, tu perds ton seul moyen de pression."], ["body", 9.9, 13.58, "Le guide te montre comment payer par étapes, chaque étape contre une preuve,"], ["body", 13.87, 17.52, "comment vérifier le fer, et il te donne un modèle de contrat avec le maçon."], ["body", 17.96, 20.22, "Pour finir ta maison, pas la laisser inachevée."], ["body", 20.62, 21.68, "12 900 francs."], ["body", 22.14, 23.72, "Clique sur « Commander maintenant »."]];</script>
+<script src="engine.js"></script></body></html>

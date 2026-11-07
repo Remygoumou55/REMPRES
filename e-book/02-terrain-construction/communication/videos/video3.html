@@ -1,0 +1,67 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><style>
+@font-face { font-family: "Anton"; src: url(assets/anton.woff2) format("woff2"); }
+@font-face { font-family: "Pop"; src: url(assets/pop-800.woff2) format("woff2"); font-weight: 800; }
+@font-face { font-family: "Pop"; src: url(assets/pop-700.woff2) format("woff2"); font-weight: 700; }
+:root { --bg:#0f2a44; --o:#ff8a3a; --r:#ff5a4f; --w:#f7f3ec; --m:#a9b6c4; }
+* { box-sizing:border-box; margin:0; padding:0; }
+html,body { width:1080px; height:1920px; overflow:hidden; background:var(--bg); color:var(--w); font-family:"Pop",sans-serif; }
+.bg { position:absolute; inset:0; background: radial-gradient(70% 45% at 50% 35%, #1d4268 0%, transparent 70%),
+  radial-gradient(circle, rgba(255,138,58,.10) 0 3px, transparent 4px) 0 0/60px 60px, var(--bg); }
+section { position:absolute; inset:0; }
+[data-in] { position:absolute; will-change:transform,opacity; }
+.A { font-family:"Anton"; text-transform:uppercase; letter-spacing:1px; line-height:1; }
+.o { color:var(--o); } .r { color:var(--r); }
+.c { left:0; right:0; text-align:center; padding:0 40px; }
+.P { color:var(--w); }
+.tape { height:46px; background:repeating-linear-gradient(135deg,var(--o) 0 40px,#0f2a44 40px 80px); transform-origin:left; }
+.chip { font-family:"Anton"; font-size:46px; line-height:1.1; padding:16px 26px; border-radius:14px; background:var(--o); color:#10223a; }
+.chip.o { background:transparent; color:var(--w); border:4px solid rgba(255,255,255,.45); font-size:56px; }
+.phone { width:560px; height:1040px; border-radius:60px; background:#050608; padding:18px; box-shadow:0 0 0 4px #2a3a4e,0 50px 120px rgba(0,0,0,.6); overflow:hidden; }
+.phone .scr { width:100%; height:100%; border-radius:44px; overflow:hidden; background:#fffdf8; position:relative; }
+.phone .scr img { width:100%; display:block; }
+.card { width:480px; border-radius:16px; overflow:hidden; box-shadow:0 40px 100px rgba(0,0,0,.6); } .card img { width:100%; display:block; }
+.btn { left:90px; right:90px; height:150px; border-radius:24px; background:var(--o); color:#10223a; font-family:"Anton"; font-size:84px; letter-spacing:2px; display:flex; align-items:center; justify-content:center; text-transform:uppercase; }
+.mm { left:0; right:0; text-align:center; font-size:38px; font-weight:700; }
+.mm span { background:rgba(255,255,255,.1); border:2px solid rgba(255,255,255,.3); padding:10px 28px; border-radius:40px; }
+#cap { position:absolute; left:60px; right:60px; bottom:200px; text-align:center; }
+#cap span { display:inline; font-size:48px; font-weight:800; line-height:1.4; background:rgba(0,0,0,.72); color:#fff; padding:6px 18px; border-radius:10px; -webkit-box-decoration-break:clone; box-decoration-break:clone; }
+</style></head><body><div class="bg"></div>
+<section data-part="body">
+<img data-in="0" data-out="3.65" data-a="kb" src="assets/img5.jpg" style="left:0;top:0;width:1080px;height:960px;object-fit:cover">
+<div class="" data-in="0.00" data-out="3.65" data-a="fade" style="left:0;top:700px;width:1080px;height:262px;background:linear-gradient(transparent,#0f2a44)"></div>
+<div class="c A " data-in="0.00" data-out="3.65" data-a="slam" style="top:1010px;font-size:100px">Même terrain,</div>
+<div class="c A o" data-in="0.25" data-out="3.65" data-a="rise" style="top:1124px;font-size:100px">deux acheteurs ?</div>
+<div class="c A " data-in="1.96" data-out="3.65" data-a="rise" style="top:1258px;font-size:72px">Vérifie avant de payer.</div>
+<img data-in="3.65" data-out="7.24" data-a="zoom" src="assets/cover.jpg" style="left:290px;top:250px;width:500px;border-radius:12px;box-shadow:0 40px 100px rgba(0,0,0,.6)">
+<div class="c A o" data-in="3.95" data-out="7.24" data-a="rise" style="top:1040px;font-size:62px">Le guide pas à pas</div>
+<div class="c P" data-in="4.35" data-out="7.24" data-a="rise" style="top:1130px;font-size:42px;font-weight:700">Livre + 4 kits · 7 pays · résumé de 10 min</div>
+<div class="c A " data-in="7.24" data-out="9.58" data-a="rise" style="top:600px;font-size:130px">Vendu</div>
+<div class="c A r" data-in="7.59" data-out="9.58" data-a="slam" style="top:760px;font-size:130px">deux fois.</div>
+<div class="tape" data-in="7.24" data-out="9.58" data-a="grow" style="top:950px;left:-40px;right:-40px;height:46px"></div>
+<div class="c A " data-in="9.58" data-out="12.51" data-a="rise" style="top:600px;font-size:84px">Un reçu ne prouve pas</div>
+<div class="c A r" data-in="9.93" data-out="12.51" data-a="slam" style="top:714px;font-size:104px">la propriété.</div>
+<div class="" data-in="12.51" data-out="21.02" data-a="rise" style="left:470px;top:300px"><div class="phone"><div class="scr"><div data-in="12.51" data-out="21.02" data-a="fade" data-y0="0" data-y1="-860" data-ys="13.71" data-yd="6.91" style="position:absolute;left:0;top:0;width:100%"><img src="assets/page-55.png" alt=""><img src="assets/page-56.png" alt=""></div></div></div></div>
+<div class="c A" data-in="12.51" data-out="21.02" data-a="rise" style="top:150px;font-size:76px">Le guide te montre</div>
+<div class="chip" data-in="12.51" data-out="21.02" data-a="left" style="left:50px;top:360px;max-width:430px">12 vérifications</div>
+<div class="chip" data-in="16.75" data-out="21.02" data-a="left" style="left:50px;top:535px;max-width:430px">Bureau foncier</div>
+<div class="chip" data-in="17.72" data-out="21.02" data-a="left" style="left:50px;top:710px;max-width:430px">Ton notaire</div>
+<div class="chip" data-in="18.69" data-out="21.02" data-a="left" style="left:50px;top:885px;max-width:430px">Ton géomètre</div>
+<div class="chip" data-in="19.65" data-out="21.02" data-a="left" style="left:50px;top:1060px;max-width:430px">Les voisins</div>
+<div class="c A o" data-in="21.02" data-out="23.49" data-a="rise" style="top:330px;font-size:96px">7 fiches pays</div>
+<div class="chip o" data-in="21.02" data-out="23.49" data-a="pop" style="left:90px;top:520px;width:440px;text-align:center">Guinée</div>
+<div class="chip o" data-in="21.17" data-out="23.49" data-a="pop" style="left:550px;top:520px;width:440px;text-align:center">Côte d'Ivoire</div>
+<div class="chip o" data-in="21.32" data-out="23.49" data-a="pop" style="left:90px;top:670px;width:440px;text-align:center">Sénégal</div>
+<div class="chip o" data-in="21.47" data-out="23.49" data-a="pop" style="left:550px;top:670px;width:440px;text-align:center">Cameroun</div>
+<div class="chip o" data-in="21.62" data-out="23.49" data-a="pop" style="left:90px;top:820px;width:440px;text-align:center">Bénin</div>
+<div class="chip o" data-in="21.77" data-out="23.49" data-a="pop" style="left:550px;top:820px;width:440px;text-align:center">Gabon</div>
+<div class="chip o" data-in="21.92" data-out="23.49" data-a="pop" style="left:90px;top:970px;width:440px;text-align:center">Togo</div>
+<div class="" data-in="23.29" data-out="99.00" data-a="zoom" style="left:380px;top:170px"><img src="assets/cover.jpg" style="width:320px;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.6)"></div>
+<div class="c A o" data-in="23.49" data-out="99.00" data-a="slam" style="top:660px;font-size:210px">12 900 F</div>
+<div class="c P" data-in="23.79" data-out="99.00" data-a="rise" style="top:900px;font-size:56px;font-weight:800">Livre + 4 kits</div>
+<div class="mm" data-in="24.09" data-out="99.00" data-a="fade" style="top:1000px"><span>Mobile money · Carte bancaire</span></div>
+<div class="c P" data-in="24.29" data-out="99.00" data-a="fade" style="top:1080px;font-size:34px;color:#a9b6c4">Versions ordinateur et téléphone</div>
+<div class="btn" data-in="25.05" data-out="99.00" data-a="pop" style="top:1170px">Commander maintenant</div>
+</section>
+<div id="cap"></div>
+<script>window.CAPS = [["body", 3.65, 6.76, "Acheter un terrain et construire au pays, sans te faire arnaquer."], ["body", 7.24, 9.19, "Le même terrain peut être vendu deux fois."], ["body", 9.58, 12.03, "Un reçu ne prouve pas que le vendeur est propriétaire."], ["body", 12.51, 16.32, "Le guide te donne les 12 vérifications à faire avant de payer un seul franc :"], ["body", 16.75, 20.62, "au bureau foncier, avec ton notaire, ton géomètre, et les voisins."], ["body", 21.02, 23.08, "Avec une fiche pour chacun des 7 pays."], ["body", 23.49, 24.66, "12 900 francs."], ["body", 25.05, 26.61, "Clique sur « Commander maintenant »."]];</script>
+<script src="engine.js"></script></body></html>

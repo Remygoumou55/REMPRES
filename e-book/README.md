@@ -12,7 +12,7 @@ Le client (francophone, Guinée, il tutoie et dit « mec ») transforme des form
 | # | Livre | État | Dossier |
 |---|---|---|---|
 | 1 | **Briser la peur d'importer — Le guide Alibaba pas à pas** (3 900 F) | ✅ Livre + kits + ZIP terminés. ✅ 14 vidéos pub faites, dont 3 « combinées » finales. ⏳ 12 visuels générés par le client, **pas encore contrôlés**. ⏳ Décision en attente : faire des versions courtes 25–30 s des vidéos. | `01-alibaba-briser-la-peur/` |
-| 2 | **Acheter un terrain et construire au pays sans te faire arnaquer** | ✅ Enquête, plan, maquette validés. ✍️ **Écriture en cours** : **livre complet écrit** (17 chapitres, 7 fiches pays, lexique, sommaire, mentions). Reste : 7 fiches pays, lexique, sommaire, mentions, kits, ZIP. | `02-terrain-construction/` |
+| 2 | **Acheter un terrain et construire au pays sans te faire arnaquer** | ✅ **Livre complet écrit** (7 nov. 2026) : 17 chapitres, 7 fiches pays, lexique (72 mots), sommaire, mentions — A4 139 p., téléphone 252 p. ✅ 4 kits (checklists, modèles, calculs, carnets). ✅ ZIP. ⏳ **Relecture du client** en cours ; adresse Gmail à mettre à la place de « [adresse e-mail à ajouter] » ; prix (9-20 $) à décider. | `02-terrain-construction/` |
 | 3 | **Élevage de poulets, chiffres en main** | ⏸ Pas commencé (sera fait après le livre 2, même méthode). | `03-elevage-poulets/` |
 | 4 | **Créer son entreprise + obtenir un financement** | ⏸ Pas commencé (après le livre 3). | `04-entreprise-financement/` |
 
@@ -20,10 +20,10 @@ Ordre choisi par le client : **2 Terrain → 3 Poulets → 4 Entreprise/financem
 
 ## 3. La prochaine action exacte
 0. **Agent qui reprend : le client t'a sûrement donné le message de `02-terrain-construction/MESSAGE-POUR-AGENT-SUIVANT.md`. Suis-le.** Décision du client (7 nov.) : écrire TOUT le livre 2 + kits d'abord ; il relira lui-même ensuite, puis donnera l'adresse Gmail (laisser « [adresse e-mail à ajouter] »).
-1. **État de l'écriture (mis à jour à chaque étape)** : voir `02-terrain-construction/livre/README.md`, section « Avancement ». Fait : couverture, mode d'emploi, ch. 1 à 17.
-2. **Prochaine étape exacte : écrire les kits** dans `src/bonus/` (Kit 1 checklists, Kit 2 modèles, Kit 3 calculs, Kit 4 carnets de suivi ; ils ne contiennent que ce qui est expliqué dans le livre), puis relecture de mise en page et ZIP.
-3. Après chaque étape : construire A4 + téléphone, contrôler les pages (script de contrôle décrit dans le README du livre), mettre à jour les README, commit + push sur `main` et `claude/livres-ebooks-transformation-7t016a`.
-4. Plus tard : interviews du client (`02-terrain-construction/QUESTIONNAIRE-interviews-terrain.md`) pour compléter les chiffres de Guinée.
+1. **État** : le livre 2 est entièrement écrit et mis en page (voir `02-terrain-construction/livre/README.md`, section « Avancement »). PDF, kits et ZIP dans `02-terrain-construction/livre/dist/`.
+2. **Prochaine action exacte : attendre la relecture du client** et appliquer ses corrections (ne jamais retirer de contenu, seulement simplifier/ajouter). Puis : remplacer « [adresse e-mail à ajouter] » (dans `src/book/01-intro.html` et `src/book/80-mentions.html`) par son adresse Gmail, reconstruire A4 + téléphone, refaire le ZIP (`cd dist && zip Terrain-et-construction-pack-complet.zip Terrain-et-construction*.pdf kit-*.pdf`).
+3. Ensuite : prix (9 à 20 $), couverture définitive, communication (comme le livre 1) ; interviews du client (`02-terrain-construction/QUESTIONNAIRE-interviews-terrain.md`) pour compléter les chiffres de Guinée ; puis livre 3 (poulets).
+4. Après chaque étape : construire, contrôler les pages (`livre/controle-pages.py`), mettre à jour les README, commit + push sur `main` et `claude/livres-ebooks-transformation-7t016a`.
 
 ## 4. Plan du dossier
 ```

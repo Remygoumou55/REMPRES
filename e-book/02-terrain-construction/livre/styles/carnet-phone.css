@@ -69,3 +69,4 @@ ol.steps > li::before { width: 20pt; height: 20pt; font-size: 10.5pt; }
 .divider p { font-size: 11pt; margin-bottom: 2pt; }
 .divider { padding: 10pt 12pt 8pt; margin-bottom: 14pt; }
 .check.two ul { columns: 1; }
+.box { padding: 8pt 10pt 6pt; margin: 10pt 0 10pt; }

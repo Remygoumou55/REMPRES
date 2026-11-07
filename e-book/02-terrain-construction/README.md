@@ -4,7 +4,7 @@
 - ✅ Enquête terminée : 11 rapports dans `recherches/` (+100 cas réels, règles de 7 pays, frais, procuration, chantier, diaspora, 55+ citations réelles, vidéos YouTube).
 - ✅ Synthèse : `SYNTHESE-ENQUETE.md`. ✅ Plan proposé : `PLAN-DU-LIVRE.md`.
 - ✅ Questionnaire d'interviews remis au client : `QUESTIONNAIRE-interviews-terrain.md`.
-- ⏳ **En attente du client** : validation du plan ; ses interviews (surtout notaire + maçon de Conakry) ; accord pour commencer l'écriture.
+- ✅ **Livre écrit en entier + 4 kits + ZIP (7 nov. 2026)**, voir `livre/`. ⏳ Relecture du client, adresse e-mail, prix ; interviews (notaire + maçon de Conakry) pour compléter la Guinée.
 - ⏳ À faire avant la vente : relecture des fiches pays par un notaire/juriste ; test de pub (10 000–15 000 F) avec la couverture.
 
 ## Les fichiers de recherche

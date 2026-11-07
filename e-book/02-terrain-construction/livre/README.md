@@ -16,5 +16,6 @@ Tutoiement, français très simple, chaque mot difficile en simple + en pro. **F
 - 7 nov. 2026 (agent 2) : **ch. 8, 9, 10 écrits** → partie 3 complète (A4 74 p., téléphone 125 p.).
 - 7 nov. 2026 (agent 2) : **ch. 11 à 17 écrits** (`40-partie4.html` … `45-ch16.html`, `50-partie5.html`) → tous les chapitres faits (A4 120 p., téléphone 201 p.).
 - 7 nov. 2026 (agent 2) : **fiches pays** (`60-fiches.html`), **lexique** 72 mots avec l'anglais (`70-lexique.html`, généré par un petit script Python), **mentions** (`80-mentions.html`), **sommaire automatique** (`02-sommaire.html` ; `build.mjs` repère « CHAPITRE NN », « FICHE PAYS N », « ANNEXE · LEXIQUE », « ANNEXE · MENTIONS ») → A4 150 p., téléphone 253 p.
-- **À faire** (kits, ZIP) — ancienne liste : fiches pays, lexique, mentions, sommaire, kits (prévu : Kit 1 checklists, Kit 2 modèles, Kit 3 calculs, Kit 4 carnets de suivi), ZIP.
+- 7 nov. 2026 (agent 2) : **4 kits** (`src/bonus/kit-1-checklists`, `kit-2-modeles`, `kit-3-calculs`, `kit-4-carnets`), resserrage de la mise en page (A4 139 p., téléphone 252 p.), **ZIP** `dist/Terrain-et-construction-pack-complet.zip`. Contrôle : 37 faits réels, aucun pays/ville/nom dedans ; aucun encadré coupé.
+- **Reste** : relecture du client, adresse Gmail, prix. Ancienne liste : fiches pays, lexique, mentions, sommaire, kits (prévu : Kit 1 checklists, Kit 2 modèles, Kit 3 calculs, Kit 4 carnets de suivi), ZIP.
 - Faits utilisés : vérifiés sur les pages sources (T7, T10, T11 en priorité), rendus anonymes.

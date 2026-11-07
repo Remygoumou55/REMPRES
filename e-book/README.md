@@ -19,7 +19,7 @@ Le client (francophone, Guinée, il tutoie et dit « mec ») transforme des form
 Ordre choisi par le client : **2 Terrain → 3 Poulets → 4 Entreprise/financement.**
 
 ## 3. La prochaine action exacte
-**NOUVEAU TITRE choisi par le client (7 nov., fin de soirée) : « 10 erreurs à éviter avant d'investir au pays » + accroche « Que tu vives au pays ou à l'étranger : acheter un terrain et construire ta maison sans te faire arnaquer. » → PAS ENCORE APPLIQUÉ au livre. Liste exacte des changements dans `02-terrain-construction/NOTES-COMMUNICATION.md` (fin du fichier). À faire en premier par l'agent suivant (après confirmation de l'orthographe par le client).**
+**TITRE DÉFINITIF APPLIQUÉ (7 nov. 2026, 22 h) : « Les erreurs à éviter avant d'investir au pays » + accroche « Que tu vives au pays ou à l'étranger : acheter un terrain et construire ta maison sans te faire arnaquer. » Couverture, kits, métadonnées PDF et noms dans le ZIP mis à jour ; PDF A4 (150 p.) + téléphone (278 p.) + ZIP refaits. « 10 erreurs » = seulement comme accroche de pub (décision du client : un chiffre sur la couverture dévalorise le livre face au prix). Chapitre 1 inchangé (« 10 pièges »). Vidéos T3–T6 et page de vente : utiliser ce titre ; la voix T2 dit l'ancien titre (demander au client).**
 
 **Dernière correction (7 nov., fin de soirée) : images illustratives du livre 2 affichées EN ENTIER (plus de zoom ni de recadrage) — A4 : hauteur 66 mm, image entière centrée (150 p.) ; téléphone : hauteur 46 mm, image entière centrée (278 p.). Règle CSS `figure.photo img { object-fit: contain; }` dans `livre/styles/carnet.css` (fin) et `carnet-phone.css`. Ne jamais remettre `object-fit: cover`. PDF + ZIP refaits.**
 

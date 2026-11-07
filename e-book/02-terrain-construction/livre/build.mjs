@@ -16,7 +16,7 @@ const DIST = join(ROOT, 'dist');
 mkdirSync(BUILD, { recursive: true });
 mkdirSync(DIST, { recursive: true });
 
-const BOOK_TITLE = 'Acheter un terrain et construire au pays';
+const BOOK_TITLE = "Les erreurs à éviter avant d'investir au pays";
 const FILE = process.env.OUT || 'Terrain-et-construction';
 const PHONE = process.env.PHONE === '1';
 const SUFFIX = PHONE ? '-telephone' : '';

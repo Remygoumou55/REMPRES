@@ -23,3 +23,9 @@ Décisions du client (7 nov. 2026) :
   4. **Chapitre 1** : il parle des « 10 pièges ». Le renommer et l'adapter en « 10 erreurs », pour que le titre tienne sa promesse. Le contenu reste le même ; seule la façon de le présenter change (chaque piège devient l'erreur de tomber dedans). Mettre à jour le sommaire et « L'essentiel ».
   5. Rebuild A4 (150 pages au maximum) + téléphone + kits, puis `make-zip.sh`. Les noms des fichiers PDF peuvent rester tels quels.
   6. Vidéos : la voix de T2 dit l'ancien titre. Demander au client s'il refait cette phrase. Utiliser le nouveau titre dans T3 à T6, et le mettre sur les fins de vidéo et la page de vente.
+
+## TITRE DÉFINITIF (7 nov. 2026, 22 h) — APPLIQUÉ
+- Après discussion avec son équipe, le client a choisi **« Les erreurs à éviter avant d'investir au pays »**, sans chiffre : avec « 10 erreurs », les gens « calculent » et trouvent que 12 900 F, c'est cher pour 10 conseils.
+- L'accroche reste la même : « Que tu vives au pays ou à l'étranger : acheter un terrain et construire ta maison sans te faire arnaquer. »
+- « 10 erreurs » sert seulement d'accroche dans les pubs et les vidéos.
+- Déjà fait : la couverture (A4 + téléphone), l'en-tête et la note des 4 kits, le titre des PDF, les noms des fichiers dans le ZIP. Le chapitre 1 n'a pas changé : la section précédente (« 10 erreurs », points 1 à 6) est donc ANNULÉE.

@@ -1,5 +1,7 @@
 # CONTEXTE COMPLET DU PROJET — à lire en entier avant de continuer
 
+> Point d'entrée : `e-book/README.md`. Historique complet : `e-book/00-projet/conversations/HISTORIQUE-CONVERSATIONS.md`.
+
 Tu reprends un projet en cours avec un client francophone (Afrique de l'Ouest). Réponds-lui **toujours en français**, de façon claire, chaleureuse et directe (il te tutoie, dit « mec »). Ce document résume tout ce qui a été fait et toutes les règles fixées. Respecte-les à la lettre.
 
 ---
@@ -64,7 +66,7 @@ Transformer **10 à 15 formations/documents** du client en **e-books PDF premium
 Dépôt : `/home/user/REMPRES` — branche de travail : **`claude/livres-ebooks-transformation-7t016a`** (commit + push à chaque étape ; ne pas pousser ailleurs ; pas de PR sauf demande).
 
 ```
-ebooks/01-importer-alibaba/
+e-book/01-alibaba-briser-la-peur/
   build.mjs                 # génère les PDF (Node + Playwright/Chromium)
   styles/book.css           # charte + mise en page A4
   styles/phone.css          # surcouche version téléphone (108 x 192 mm)
@@ -82,8 +84,8 @@ ebooks/01-importer-alibaba/
 ```
 
 **Commandes :**
-- `node ebooks/01-importer-alibaba/build.mjs` → version A4
-- `PHONE=1 node ebooks/01-importer-alibaba/build.mjs` → version téléphone
+- `node e-book/01-alibaba-briser-la-peur/build.mjs` → version A4
+- `PHONE=1 node e-book/01-alibaba-briser-la-peur/build.mjs` → version téléphone
 - Le sommaire se remplit automatiquement (repère « CHAPITRE NN » et « ANNEXE »).
 - Captures dans le HTML : `{{capture:N}}`, variantes `:small`, `:sq`, `:land`, `:wide`. Groupes côte à côte : `<div class="caprow">…</div>` (`caprow three` pour 3).
 - Après changement d'une image dans `images/`, regénérer les copies JPEG (script Python PIL : images-print qualité 88 ; images-phone max 700 px qualité 80).
@@ -98,24 +100,25 @@ ebooks/01-importer-alibaba/
 
 ## 5. RECHERCHES DÉJÀ FAITES
 
-Notes sourcées dans `/tmp/claude-0/-home-user-REMPRES/6bbd149b-e2d6-53b6-9e9f-a0ab7a562a84/scratchpad/research/` (01 Alibaba plateforme, 02 logistique/douane, 03 paiements Guinée, 04 produit/fournisseur, 05 familles de produits Afrique 2026). Ce dossier peut avoir disparu dans une nouvelle session ; les infos utiles sont déjà dans le livre. Limite connue : beaucoup de pages n'ont pas pu être ouvertes (réseau), les chiffres venaient d'extraits de recherche.
+Toutes rangées dans le dépôt (plus dans le scratchpad) :
+- Livre 1 : `e-book/01-alibaba-briser-la-peur/recherches-du-livre/` (01 à 05) et `communication/recherches/` (06 à 08).
+- Choix du prochain sujet : `e-book/00-choix-des-sujets/` (09 à 11 + rapport).
+- Livre 2 Terrain : `e-book/02-terrain-construction/recherches/` (T1 à T11) + `SYNTHESE-ENQUETE.md`.
+Astuce réseau : WebFetch est refusé sur les sites africains, utiliser `curl` (voir `e-book/README.md`).
 
 ---
 
-## 6. ÉTAT ACTUEL ET PROCHAINES ÉTAPES
+## 6. ÉTAT ACTUEL ET PROCHAINES ÉTAPES (mis à jour le 7 nov. 2026)
 
-✅ Livre 1 + kits + ZIP (A4 + téléphone) : **terminé et livré**.
-🔄 **En cours : la communication du livre 1**, en commençant par la **VIDÉO 1**.
+**→ L'état à jour et la prochaine action sont dans `e-book/README.md` (sections 2 et 3). Toujours le mettre à jour.**
 
-**Où on en est sur la vidéo 1 :**
-- ✅ Les 2 portraits de référence sont validés : `communication/video-1/sources/V1-FATOU.webp` et `V1-GROSSISTE.webp`.
-- ✅ Les 5 prompts Google Flow sont dans `communication/video-1/V1-prompts-google-flow.txt` (conseil donné : générer S1 avec grossiste, S2 avec les deux, S3–S5 avec Fatou).
-- ⏳ **Le client doit envoyer** : V1-S1 à V1-S5 (vidéos 8 s, 9:16) + la voix off `V1-VOIX.mp3`.
-- ⏳ **Ensuite toi** : contrôler chaque scène (mains, visages, cohérence de Fatou, texte parasite), puis faire le **montage complet** avec ffmpeg (disponible) + motion design (rendu d'animations HTML/CSS via Playwright → frames → vidéo) : couverture qui apparaît à 3 s, schéma « Usine → Grossiste → Toi → Client », pages du livre qui défilent, prix barré, bouton, sous-titres gros sur toute la vidéo, musique discrète. Plan de montage détaillé dans `communication/02-video-1-production.md`.
-
-**Après la vidéo 1 :** vidéos 2 à 5 (scènes déjà décrites en français dans le plan ; donner d'abord la description française au client, puis les prompts Flow en anglais **après validation**), puis les **8 visuels publicitaires** (idées validables dans le plan ; donner ensuite les prompts ChatGPT avec le bloc de règles strictes ; images à joindre dans `communication/visuels-a-joindre/` : couverture du livre, couvertures des kits, captures de transitaires).
-
-**Plus tard :** livre n°2 (le client enverra le prochain document) avec la même méthode et toutes les règles ci-dessus.
+Résumé :
+- ✅ Livre 1 + kits + ZIP terminés.
+- ✅ Communication livre 1 : 14 vidéos (A1–A3, B1–B3, C1–C3, 3 COMBINÉES, V3, V5) dans `communication/campagne/`, `video-3/`, `video-5/` ; kit de lancement `communication/06-kit-de-lancement.html` ; 12 prompts visuels `communication/05-prompts-visuels-boutique-et-pubs.txt`.
+- ⏳ Livre 1 : contrôler les 12 visuels quand le client les envoie ; décision sur les versions courtes 25–30 s ; lien Chariow demandé.
+- ⏳ Livre 2 Terrain : plan à valider (`e-book/02-terrain-construction/PLAN-DU-LIVRE.md`), interviews du client, puis écriture.
+- ⏸ Livre 3 Poulets, livre 4 Entreprise/financement : après.
+- La section vidéo 1 / Google Flow ci-dessous est l'historique de départ ; la méthode finale retenue pour les vidéos = motion design maison (`communication/campagne/engine.js`, `build.mjs`, `combo.mjs`, `music.py`) + voix off ElevenLabs « Hugo ».
 
 ---
 

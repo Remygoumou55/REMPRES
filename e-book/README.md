@@ -19,7 +19,7 @@ Le client (francophone, Guinée, il tutoie et dit « mec ») transforme des form
 Ordre choisi par le client : **2 Terrain → 3 Poulets → 4 Entreprise/financement.**
 
 ## 3. La prochaine action exacte
-1. Maquette validée par le client (rendu « Carnet de terrain », Times, grande police) le 7 nov. 2026 ; corrections faites (« Fait réel », 10 pièges, mots à connaître jamais coupés). **Avant d'écrire la suite, le client exige une étude juridique** : peut-on être poursuivi pour avoir cité des faits réels de ces pays ? 3 agents lancés → `02-terrain-construction/recherches/J1, J2, J3`. Faire le rapport complet au client, puis continuer l'écriture (chapitre 3, puis 5, 6, 7…).
+1. Maquette validée (rendu « Carnet de terrain ») ; corrections faites. Étude juridique terminée → `02-terrain-construction/RAPPORT-JURIDIQUE.md` (risque faible si on applique **la Charte du livre** : pas de noms, pas de politique, montants exacts, sources, présomption d'innocence, relecture avocat avant vente). **Attendre l'accord du client sur le rapport juridique, puis écrire la suite (chapitre 3, puis 5, 6, 7…) en appliquant la Charte.**
 2. Recevoir ses **interviews** (notes vocales) selon `02-terrain-construction/QUESTIONNAIRE-interviews-terrain.md`, les intégrer comme cas réels.
 3. Écrire le livre avec la même chaîne technique que le livre 1 (`01-alibaba-briser-la-peur/build.mjs`, HTML → PDF via Playwright).
 

@@ -1,0 +1,53 @@
+/* Ajouts propres au livre 2 (terrain et construction) */
+
+/* Vraie affaire : cas réel tiré de la presse */
+.vraie { background: #f4f1fb; border: 1px solid #ddd3f3; border-left: 4pt solid #4b3a8f; }
+.vraie .box-title { color: #4b3a8f; }
+.vraie .box-title .ico { background: #4b3a8f; }
+.vraie .src { display: block; margin-top: 3pt; font-size: 7.8pt; color: var(--muted); font-style: italic; }
+
+/* Phrase de la diaspora : vraie citation */
+.voix { margin: 9pt 0; padding: 8pt 12pt 8pt 34pt; position: relative; background: #fff8ef; border-radius: 6pt; break-inside: avoid; }
+.voix::before { content: "“"; position: absolute; left: 9pt; top: -4pt; font-size: 40pt; font-weight: 900; color: var(--orange); line-height: 1; }
+.voix p { margin: 0 0 2pt; font-size: 10.2pt; font-style: italic; color: var(--navy); }
+.voix .qui { font-size: 7.8pt; color: var(--muted); font-style: normal; letter-spacing: .3pt; }
+
+/* Les 9 arnaques en cartes */
+.arnaques { display: grid; grid-template-columns: 1fr 1fr; gap: 7pt; margin: 6pt 0 10pt; }
+.arnaque { border: 1px solid var(--line); border-radius: 6pt; padding: 7pt 9pt; break-inside: avoid; background: #fff; }
+.arnaque h4 { margin: 0 0 3pt; font-size: 10.4pt; display: flex; gap: 6pt; align-items: baseline; }
+.arnaque h4 b { color: #fff; background: var(--red); border-radius: 50%; min-width: 15pt; height: 15pt; display: inline-flex; align-items: center; justify-content: center; font-size: 8.5pt; }
+.arnaque p { margin: 0 0 3pt; font-size: 9.2pt; }
+.arnaque .ex { font-size: 8.4pt; color: var(--muted); }
+.arnaque .ex strong { color: #4b3a8f; }
+
+/* Idées fausses : faux / vrai */
+.mythe { display: grid; grid-template-columns: 1fr 1.6fr; gap: 0; border: 1px solid var(--line); border-radius: 6pt; overflow: hidden; margin: 7pt 0; break-inside: avoid; }
+.mythe .faux { background: var(--red-soft); padding: 8pt 10pt; }
+.mythe .vrai { background: #fff; padding: 8pt 10pt; }
+.mythe .lbl { font-size: 7.6pt; font-weight: 800; letter-spacing: 1.2pt; text-transform: uppercase; display: block; margin-bottom: 3pt; }
+.mythe .faux .lbl { color: var(--red); }
+.mythe .vrai .lbl { color: var(--green); }
+.mythe .faux p { font-weight: 700; color: var(--navy); margin: 0; font-size: 10.4pt; }
+.mythe .vrai p { margin: 0 0 3pt; font-size: 9.4pt; }
+
+/* Les 12 vérifications */
+.verif { border: 1px solid var(--line); border-radius: 6pt; margin: 7pt 0; break-inside: avoid; overflow: hidden; }
+.verif .vh { background: var(--navy); color: #fff; padding: 5pt 10pt; display: flex; gap: 8pt; align-items: center; }
+.verif .vh b { background: var(--orange); color: #fff; border-radius: 50%; width: 18pt; height: 18pt; display: inline-flex; align-items: center; justify-content: center; font-size: 9.5pt; flex: 0 0 18pt; }
+.verif .vh span { font-weight: 700; font-size: 10.4pt; }
+.verif .vb { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+.verif .vb div { padding: 6pt 8pt; font-size: 8.8pt; border-right: 1px solid var(--line); }
+.verif .vb div:last-child { border-right: 0; }
+.verif .vb i { display: block; font-style: normal; font-size: 7.2pt; font-weight: 800; letter-spacing: 1pt; text-transform: uppercase; color: var(--orange); margin-bottom: 2pt; }
+.verif .alerte { background: var(--red-soft); padding: 5pt 10pt; font-size: 8.8pt; border-top: 1px solid #f3cccc; }
+.verif .alerte strong { color: var(--red); }
+
+.note-src { font-size: 7.8pt; color: var(--muted); margin-top: 10pt; border-top: 1px solid var(--line); padding-top: 5pt; }
+
+.grid3.mini .card { padding: 6pt 8pt; }
+.grid3.mini .card h4 { font-size: 9.6pt; margin-bottom: 2pt; }
+.grid3.mini .card p { font-size: 8.8pt; margin: 0; }
+.grid3.mini { gap: 6pt; margin-bottom: 6pt; }
+.check.two ul { columns: 2; column-gap: 16pt; }
+.check.two li { break-inside: avoid; }

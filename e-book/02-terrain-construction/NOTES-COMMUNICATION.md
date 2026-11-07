@@ -7,3 +7,7 @@ Décisions du client (7 nov. 2026) :
 - Le ZIP vendu contient **2 dossiers seulement** : « Version ordinateur (imprimable) » et « Version telephone », chacun avec le livre + les 4 kits (Kit 1 à Kit 4).
 - Interdits (rappel) : « garanti », « zéro risque », « devenir riche », faux témoignages. Prix visé : 9 à 20 $ (à décider).
 - Idées d'accroches déjà proposées : « Ce terrain a déjà été vendu 3 fois », « Ta famille n'est pas une garantie ».
+
+## Décisions du 7 nov. 2026 (après l'étude de marché)
+- **Prix : 12 900 F CFA** (livre + 4 kits), choisi par le client.
+- 6 vidéos de 25-30 s : scripts dans `communication/01-SIX-VIDEOS-scripts.md` (en attente de validation du client, puis voix ElevenLabs « Hugo » générée par le client, puis montage par l'agent avec le moteur du livre 1 : `01-alibaba-briser-la-peur/communication/campagne/engine.js`).

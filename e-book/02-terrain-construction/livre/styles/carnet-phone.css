@@ -87,3 +87,21 @@ figure.photo figcaption { font-size: 9pt; }
 .cover-photo .cover-promise { font-size: 9.5pt; margin-bottom: 5pt; }
 
 .cover-photo .cv-sub { font-size: 11.5pt; line-height: 1.3; }
+/* Couverture v2 (téléphone) */
+.cv2-top { height: 50%; padding: 11mm 8mm 0; }
+.cv2-col { font-size: 5.8pt; letter-spacing: 1.8pt; }
+.cv2-title { font-size: 23pt; margin-top: 5mm; letter-spacing: -0.4pt; }
+.cv2-rule { width: 16mm; height: 1.3mm; margin: 4.5mm 0 4mm; }
+.cv2-acc { font-size: 9.6pt; line-height: 1.35; }
+.cv2-photo { top: 46%; }
+.cv2-photo::before { height: 16mm; }
+.cv2-photo::after { height: 40mm; }
+.cv2-bottom { left: 8mm; right: 8mm; bottom: 8mm; }
+.cv2-value { font-size: 7pt; gap: 1.3mm; }
+.cv2-value span { padding: 1.3mm 2.2mm; border-radius: 1.2mm; }
+.cv2-value i { font-size: 8.5pt; }
+.cv2-pays { margin-top: 3mm; font-size: 6.4pt; }
+.cv2-ed { font-size: 5.5pt; margin-top: 1.2mm; }
+.cv2-top { height: 49%; }
+.cv2-photo { top: 42%; }
+.cv2-acc { font-size: 10pt; }

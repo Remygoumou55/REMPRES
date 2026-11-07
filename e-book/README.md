@@ -19,6 +19,7 @@ Le client (francophone, Guinée, il tutoie et dit « mec ») transforme des form
 Ordre choisi par le client : **2 Terrain → 3 Poulets → 4 Entreprise/financement.**
 
 ## 3. La prochaine action exacte
+0. **Agent qui reprend : le client t'a sûrement donné le message de `02-terrain-construction/MESSAGE-POUR-AGENT-SUIVANT.md`. Suis-le. Décision du client (7 nov.) : écrire TOUT le livre 2 + kits d'abord ; il relira lui-même ensuite, puis donnera l'adresse Gmail à mettre dans l'avertissement.**
 1. Maquette validée (rendu « Carnet de terrain »). **Règle n°1 décidée le 7 nov. 2026 : FAITS RÉELS ANONYMES** (pas de pays/ville/nom/montant exact/journal dans les faits réels ; fiches pays sur les lois conservées) — voir `02-terrain-construction/RAPPORT-JURIDIQUE.md`, section « Décision finale ». Chapitres 1, 2, 4 réécrits ainsi ; maquette envoyée. **Prochaine étape : écrire le chapitre 3, puis 5, 6, 7, etc., avec cette règle.** L'adresse e-mail de correction est à demander au client.
 2. Recevoir ses **interviews** (notes vocales) selon `02-terrain-construction/QUESTIONNAIRE-interviews-terrain.md`, les intégrer comme cas réels.
 3. Écrire le livre avec la même chaîne technique que le livre 1 (`01-alibaba-briser-la-peur/build.mjs`, HTML → PDF via Playwright).

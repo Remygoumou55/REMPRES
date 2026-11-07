@@ -63,7 +63,7 @@ Transformer **10 à 15 formations/documents** du client en **e-books PDF premium
 
 ## 4. OÙ SONT LES FICHIERS (dépôt git)
 
-Dépôt : `/home/user/REMPRES` — branche de travail : **`claude/livres-ebooks-transformation-7t016a`** (commit + push à chaque étape ; ne pas pousser ailleurs ; pas de PR sauf demande).
+Dépôt : `/home/user/REMPRES` — le dossier `e-book/` est sur **`main`** (demande du client) et sur la branche de travail **`claude/livres-ebooks-transformation-7t016a`** : commit + push sur les deux à chaque étape, sans toucher au reste du dépôt (l'application du client). Pas de PR sauf demande.
 
 ```
 e-book/01-alibaba-briser-la-peur/

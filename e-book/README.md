@@ -2,7 +2,7 @@
 
 > **Agent qui reprend ce projet : lis ce fichier en entier, puis `00-projet/CONTEXTE-PROJET.md`, puis le README du livre en cours. Tu sauras exactement où on en est. Ne recommence rien à zéro.**
 
-Dernière mise à jour : **7 novembre 2026**.
+Dernière mise à jour : **7 novembre 2026, 20 h 30 (passation vidéos)**.
 
 ## 1. Le projet en 3 lignes
 Le client (francophone, Guinée, il tutoie et dit « mec ») transforme des formations en **e-books PDF premium** vendus en Afrique francophone et à la diaspora (sur Chariow, paiement mobile money). Chaque livre = version A4 + version téléphone + 3 kits bonus, français très simple. Ensuite on fait la **communication** (vidéos pub, visuels). **Réponds-lui toujours en français, très clairement ; il lit sur téléphone ; il veut le détail complet dans le chat (pas seulement un lien).**
@@ -12,18 +12,21 @@ Le client (francophone, Guinée, il tutoie et dit « mec ») transforme des form
 | # | Livre | État | Dossier |
 |---|---|---|---|
 | 1 | **Briser la peur d'importer — Le guide Alibaba pas à pas** (3 900 F) | ✅ Livre + kits + ZIP terminés. ✅ 14 vidéos pub faites, dont 3 « combinées » finales. ⏳ 12 visuels générés par le client, **pas encore contrôlés**. ⏳ Décision en attente : faire des versions courtes 25–30 s des vidéos. | `01-alibaba-briser-la-peur/` |
-| 2 | **Acheter un terrain et construire au pays sans te faire arnaquer** | ✅ **Livre complet écrit** (7 nov. 2026) : 17 chapitres, 7 fiches pays, lexique (72 mots), sommaire, mentions — A4 139 p., téléphone 252 p. ✅ 4 kits (checklists, modèles, calculs, carnets) ; résumé « L'essentiel en 10 minutes » au début du livre (Kit 0 retiré, doublon). ✅ ZIP en 2 dossiers (ordinateur imprimable / téléphone), fait par `livre/make-zip.sh`. ⏳ **Relecture du client** en cours ; adresse Gmail à mettre à la place de « [adresse e-mail à ajouter] » ; prix (9-20 $) à décider. | `02-terrain-construction/` |
+| 2 | **Acheter un terrain et construire au pays sans te faire arnaquer** (12 900 F CFA) | ✅ **Livre v1.0 terminé** (A4 150 p. max, téléphone ~278 p., 4 kits, ZIP 2 dossiers). ✅ Étude de marché + prix. ❌ Vidéos V1–V6 **refusées** par le client (trop identiques, pas synchro). ✅ **Nouvelles vidéos : T1 « La photo » et T2 « Mamadou » faites** (scènes Google Flow + motion design + musique propre), envoyées, **avis du client en attente**. ⏳ T3–T6 à faire. **→ Tout est dans `02-terrain-construction/communication/RAPPORT-COMPLET-ET-PASSATION.md`.** | `02-terrain-construction/` |
 | 3 | **Élevage de poulets, chiffres en main** | ⏸ Pas commencé (sera fait après le livre 2, même méthode). | `03-elevage-poulets/` |
 | 4 | **Créer son entreprise + obtenir un financement** | ⏸ Pas commencé (après le livre 3). | `04-entreprise-financement/` |
 
 Ordre choisi par le client : **2 Terrain → 3 Poulets → 4 Entreprise/financement.**
 
 ## 3. La prochaine action exacte
-0. **Agent qui reprend : le client t'a sûrement donné le message de `02-terrain-construction/MESSAGE-POUR-AGENT-SUIVANT.md`. Suis-le.** Décision du client (7 nov.) : écrire TOUT le livre 2 + kits d'abord ; il relira lui-même ensuite, puis donnera l'adresse Gmail (laisser « [adresse e-mail à ajouter] »).
-1. **État** : le livre 2 est entièrement écrit et mis en page (voir `02-terrain-construction/livre/README.md`, section « Avancement »). PDF, kits et ZIP dans `02-terrain-construction/livre/dist/`.
-2. **Étude de marché FAITE (7 nov.)** : rapports `02-terrain-construction/marketing/M1…M4` + **synthèse `marketing/SYNTHESE-MARKETING.md`** (concurrence, positionnement, cibles, prix, canaux, plan de lancement, accroches). **Prix choisi : 12 900 F CFA.** **Voix off reçues (7 nov.) ; 6 vidéos fabriquées dans `02-terrain-construction/communication/videos/` (V1…V6 .mp4). Refaire une vidéo : `node e-book/02-terrain-construction/communication/videos/render.mjs N` (gen.py = mise en page, phrases.json = textes, voix/TN.mp3). Prochaine action : retours du client sur les vidéos, puis visuels fixes et page de vente.** Le client doit aussi vérifier les points de la section 8 de la synthèse (paiement Chariow Guinée, pixel…). Adresse Gmail : le client attend. **Critique sévère faite ET corrigée (version 1.0, 148 p. A4)** ; en attente : images du client (prompts dans `02-terrain-construction/livre/PROMPTS-IMAGES.md`), couverture définitive, adresse e-mail. Ancienne note : **Critique sévère du livre faite** (`02-terrain-construction/CRITIQUE-SEVERE-LIVRE.md`, avec la liste des priorités) : **attendre que le client choisisse quoi corriger**. **Prochaine action exacte : suite de la relecture du client** (1re série de corrections faite le 7 nov., voir README du livre) et appliquer ses corrections (ne jamais retirer de contenu, seulement simplifier/ajouter). Puis : remplacer « [adresse e-mail à ajouter] » (dans `src/book/01-intro.html` et `src/book/80-mentions.html`) par son adresse Gmail, reconstruire A4 + téléphone, refaire le ZIP avec `bash e-book/02-terrain-construction/livre/make-zip.sh`.
-3. Ensuite : prix (9 à 20 $), couverture définitive, communication (règles dans `02-terrain-construction/NOTES-COMMUNICATION.md` : ne pas annoncer le nombre de pages) ; interviews du client (`02-terrain-construction/QUESTIONNAIRE-interviews-terrain.md`) pour compléter les chiffres de Guinée ; puis livre 3 (poulets).
-4. Après chaque étape : construire, contrôler les pages (`livre/controle-pages.py`), mettre à jour les README, commit + push sur `main` et `claude/livres-ebooks-transformation-7t016a`.
+**Agent qui reprend (passation du 7 nov. 2026, 20 h 30) : lis d'abord `02-terrain-construction/communication/RAPPORT-COMPLET-ET-PASSATION.md`.** Tout y est : règles, état du livre, étude de marché, histoire des vidéos (V1–V6 refusées et pourquoi), méthode qui marche (voix ElevenLabs du client → minutage → prompts Google Flow → clips du client → montage `videos/tN/index.html` + `audio.py`), état exact T1–T6, styles déjà utilisés (à ne pas répéter), scripts T3–T6, commandes.
+1. Demander au client son avis sur **T1** (`communication/videos/T1-la-photo.mp4`) et **T2** (`communication/videos/T2-mamadou.mp4`), corriger.
+2. Lui reposer 2 questions : « au lieu de 15 000 » = vrai prix après lancement + date de fin ? ; la voix T2 dit-elle bien « arnaquer » ?
+3. Puis **T3 « Deux acheteurs »** : quand il envoie `T3.mp3` → mesurer → écrire `communication/06-T3-SCENES-GOOGLE-FLOW.md` (prompts dans des blocs de code, comme T1/T2) → montage dans `communication/videos/t3/`. Idem T4, T5, T6.
+4. Ensuite : visuels fixes, page de vente, adresse Gmail dans le livre (puis rebuild + ZIP), livre 3.
+5. Après chaque étape : mettre à jour ce README + commit + push sur `main` et `claude/livres-ebooks-transformation-7t016a`. Ne toucher qu'à `e-book/`.
+
+Historique mot pour mot : `00-projet/conversations/HISTORIQUE-CONVERSATIONS.md` + `HISTORIQUE-CONVERSATIONS-SUITE.md`.
 
 ## 4. Plan du dossier
 ```

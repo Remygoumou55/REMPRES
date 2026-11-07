@@ -361,3 +361,14 @@ figure.photo img { width: auto; max-width: 100%; height: 66mm; object-fit: conta
 .cv2-photo { top: 40%; }
 .cv2-acc { font-size: 16.5pt; }
 .cv2-acc { hyphens: none; -webkit-hyphens: none; }
+/* Couverture v2b : bandeau plus court pour bien voir la maison au fond */
+.cv2-top { height: 34%; padding-top: 14mm; background: linear-gradient(180deg, #0F2A44 0%, #0F2A44 78%, rgba(15,42,68,0) 100%); }
+.cv2-title { font-size: 39pt; margin-top: 6mm; }
+.cv2-rule { margin: 5mm 0 4.5mm; height: 1.8mm; }
+.cv2-acc { font-size: 14.5pt; line-height: 1.32; }
+.cv2-photo { top: 27%; }
+.cv2-photo img { object-position: 60% 20%; }
+.cv2-photo::before { display: none; }
+.cv2-top { height: 37%; }
+.cv2-photo { top: 30%; }
+.cv2-photo img { object-position: 60% 16%; }

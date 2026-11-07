@@ -105,3 +105,10 @@ figure.photo figcaption { font-size: 9pt; }
 .cv2-top { height: 49%; }
 .cv2-photo { top: 42%; }
 .cv2-acc { font-size: 10pt; }
+.cv2-top { height: 36%; padding-top: 8mm; }
+.cv2-title { font-size: 20.5pt; margin-top: 3.5mm; }
+.cv2-rule { margin: 3mm 0 2.8mm; height: 1.1mm; }
+.cv2-acc { font-size: 9pt; }
+.cv2-photo { top: 30%; }
+.cv2-top { height: 37%; }
+.cv2-photo { top: 31%; }

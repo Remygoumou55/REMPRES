@@ -19,7 +19,7 @@ Le client (francophone, Guinée, il tutoie et dit « mec ») transforme des form
 Ordre choisi par le client : **2 Terrain → 3 Poulets → 4 Entreprise/financement.**
 
 ## 3. La prochaine action exacte
-1. Attendre la réponse du client sur le **plan du livre Terrain** (`02-terrain-construction/PLAN-DU-LIVRE.md`) et sur la question : « je commence l'écriture pendant que tu fais tes interviews ? ».
+1. Le **plan détaillé v2** du livre Terrain a été envoyé au client le 7 nov. 2026 (`02-terrain-construction/PLAN-DU-LIVRE.md`). Attendre son accord / ses remarques et sur la question : « je commence l'écriture pendant que tu fais tes interviews ? ».
 2. Recevoir ses **interviews** (notes vocales) selon `02-terrain-construction/QUESTIONNAIRE-interviews-terrain.md`, les intégrer comme cas réels.
 3. Écrire le livre avec la même chaîne technique que le livre 1 (`01-alibaba-briser-la-peur/build.mjs`, HTML → PDF via Playwright).
 
@@ -38,7 +38,8 @@ e-book/
 └── 04-entreprise-financement/     ← livre 4 (à venir)
 ```
 
-## 5. Règles de travail à respecter (résumé, détail dans CONTEXTE-PROJET.md)
+## 5. Règles de travail à respecter
+- **À CHAQUE RÉPONSE au client (demande du 7 nov. 2026) : mettre à jour le dossier `e-book/` (README état + fichiers produits) puis commit + push sur `main` et sur la branche de travail.** (résumé, détail dans CONTEXTE-PROJET.md)
 - Git : dépôt `remygoumou55/rempres`. Le dossier `e-book/` est sur la **branche principale `main`** (demande du client, 7 nov. 2026) ET sur la branche de travail `claude/livres-ebooks-transformation-7t016a`. **Commit + push sur les deux après chaque étape** (`git push origin HEAD:main` puis push de la branche ; ne toucher qu'au dossier `e-book/`) et **mettre à jour ce README** (section 2 et 3) à chaque avancée. Pas de PR sauf demande.
 - Recherches : plusieurs agents en parallèle, chaque fait avec URL + date, rien d'inventé, incertitudes marquées. Les rapports vont dans le dossier du livre (`recherches/`).
 - **Astuce réseau** : l'outil WebFetch est refusé sur la plupart des sites africains, mais `curl` passe par le proxy (sites ajoutés par le client dans les réglages réseau : guineenews, guineematin, ledjely, seneweb, abidjan.net, dakaractu, lesoleil.sn, allafrica, camer.be, gabonreview, otr.tg, andf.bj, jeuneafrique, youtube, expat.com…). Lire une page : `curl -sL -A "Mozilla/5.0" URL | python3 -c "import sys,html,re;t=sys.stdin.read();t=re.sub(r'(?s)<(script|style).*?</\1>','',t);print(html.unescape(re.sub(r'<[^>]+>',' ',t))[:20000])"`.

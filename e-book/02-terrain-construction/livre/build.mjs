@@ -33,11 +33,21 @@ function addLinks(html) {
   return html.replace(/<div class="tl( star)?">([\s\S]*?data-ch="(\w+)"[\s\S]*?)<\/div>/g, '<a class="tl$1" href="#k$3">$2</a>');
 }
 
+// Téléphone : les tableaux de 3 colonnes ou plus deviennent des fiches empilées (une ligne = un bloc)
+const STACK = `<script>
+for (const t of document.querySelectorAll('table.data')) {
+  const head = [...t.querySelectorAll('tr:first-child th')].map((th) => th.textContent.trim());
+  if (head.length < 3) continue;
+  t.classList.add('stack');
+  for (const tr of t.querySelectorAll('tr')) [...tr.children].forEach((td, i) => { if (td.tagName === 'TD') td.setAttribute('data-label', head[i] || ''); });
+}
+</script>`;
+
 function page(title, body) {
   return `<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>${title}</title>
 <link rel="stylesheet" href="../styles/carnet.css">${PHONE ? '<link rel="stylesheet" href="../styles/carnet-phone.css">' : ''}</head><body>
 <span class="booktitle-marker">${title}</span>
-${body}</body></html>`;
+${body}${PHONE ? STACK : ''}</body></html>`;
 }
 
 const readFragments = (dir) => readdirSync(dir).filter((f) => f.endsWith('.html')).sort().map((f) => readFileSync(join(dir, f), 'utf8')).join('\n');

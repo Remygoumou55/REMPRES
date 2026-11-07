@@ -72,3 +72,13 @@ ol.steps > li::before { width: 20pt; height: 20pt; font-size: 10.5pt; }
 .box { padding: 8pt 10pt 6pt; margin: 10pt 0 10pt; }
 .words td:first-child { font-size: 13pt; }
 .gravite { font-size: 8pt; margin-left: 4pt; padding: 1pt 6pt; }
+.lexique { font-size: 11pt; }
+.lex .m { font-size: 12pt; }
+table.data.stack, table.data.stack tbody, table.data.stack tr, table.data.stack td { display: block; width: auto; }
+table.data.stack thead, table.data.stack tr:first-child:has(th) { display: none; }
+table.data.stack tr { border: 1px solid var(--line); border-radius: 6pt; margin: 0 0 6pt; padding: 4pt 7pt; background: #fff; break-inside: avoid; }
+table.data.stack td { border: none; padding: 1pt 0; font-size: 11pt; }
+table.data.stack td:first-child { font-weight: 700; color: var(--navy); font-size: 12pt; }
+table.data.stack td:not(:first-child)::before { content: attr(data-label) " : "; font-weight: 700; color: var(--orange); }
+table.data.stack.keep { break-inside: auto; }
+table.data.stack tr.total { background: var(--orange-soft); }

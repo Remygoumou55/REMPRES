@@ -66,3 +66,19 @@ Bon guide, utile et honnête. Mais il n'est pas encore « le guide parfait ».
 4. Compléter la Guinée par les interviews (notaire et maçon de Conakry).
 5. Faire relire les fiches pays par un notaire, même une seule fiche (Guinée) si le budget est limité.
 6. Ajouter des illustrations (prompts ChatGPT, comme pour le livre 1) et une couverture définitive.
+
+## SUIVI — corrections appliquées (7 nov. 2026, version 1.0)
+- A1/A3 Prix : **supprimés** pour le ciment, le fer, les briques, la main-d'œuvre, le coût au m², les géomètres, et les notaires sans texte officiel. Remplacés par la méthode « où et comment obtenir les vrais prix » (ch. 11) et par les **taux officiels avec leur source** (ch. 5, ch. 6, fiches, Kit 3). Restent seulement : les taux et barèmes officiels (avec source), les tarifs de portails officiels (permis CI 50 000 F, ACD), les prix affichés par les sociétés de suivi (avec leur site), et des chiffres d'exercice signalés comme tels.
+- A2 Guinée « d'au moins 3 mois » : formule exacte du décret citée avec sa source (fiche Guinée) ; partout ailleurs « certificat récent, demandé juste avant la signature ».
+- A4 Citations : 2 étiquettes corrigées (ch. 5, ch. 17).
+- A5 Fiches : prix non officiels retirés ; partie « 8. Vérifie toi-même » avec les sources officielles de chaque pays + points incertains.
+- A6 Mises à jour : version 1.0 ; révision tous les 6 mois (mai et novembre) + tout de suite si une loi importante change (page Mentions, couverture). Liste de surveillance : `livre/README.md`.
+- B Manques : nouveaux ch. 18 (promoteur, coopérative, maison construite), ch. 19 (au nom de qui, héritage, argent, transferts, terrain rural), ch. 20 (un an après + plan d'action) ; eau/électricité au ch. 11.
+- C1 Images : 9 prompts dans `livre/PROMPTS-IMAGES.md` (en attente des images du client). C3 couverture : à refaire avec l'image 01.
+- C4 Tableaux téléphone : les tableaux de 3 colonnes deviennent des fiches empilées (version téléphone).
+- C5 « Afrique de l'Ouest » ×33 : chaque fait réel a maintenant un titre parlant + l'année.
+- C6 Moule : histoire en ouverture de plusieurs chapitres (3, 8, 13, 15, 18, 19), conclusion sans encadrés obligatoires.
+- D Mots difficiles expliqués dans le texte + 15 mots ajoutés au lexique (87 mots) ; répétitions réduites (9 citations en double retirées, paragraphes doublons raccourcis, notes de fin répétées retirées).
+- E Personnages : arc sur un an (intro → ch. 20), ch. 17 réécrit (plus de contradiction).
+- Pages : A4 148 (objectif ≤ 150), téléphone 277.
+- Limite : les sites web étaient bloqués dans la session du 7 nov. (après-midi) : aucune nouvelle vérification en ligne n'a été possible ; tout vient des rapports `recherches/`.

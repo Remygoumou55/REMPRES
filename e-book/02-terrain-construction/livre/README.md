@@ -14,5 +14,6 @@ Tutoiement, français très simple, chaque mot difficile en simple + en pro. **F
 - 7 nov. 2026 : maquette validée (couverture, mode d'emploi, ch. 1, 2, 4).
 - 7 nov. 2026 (agent 2) : corrections de la maquette (titre « 10 pièges », mention « MAQUETTE » retirée), **ch. 3, 5, 6, 7 écrits** → parties 1 et 2 complètes (A4 56 p., téléphone 95 p.). Réglages de mise en page : plus d'encadré « En bref » coupé après un bandeau de partie, version téléphone plus compacte.
 - 7 nov. 2026 (agent 2) : **ch. 8, 9, 10 écrits** → partie 3 complète (A4 74 p., téléphone 125 p.).
-- **À faire** : ch. 11 à 17, fiches pays, lexique, mentions, sommaire, kits (prévu : Kit 1 checklists, Kit 2 modèles, Kit 3 calculs, Kit 4 carnets de suivi), ZIP.
+- 7 nov. 2026 (agent 2) : **ch. 11 à 17 écrits** (`40-partie4.html` … `45-ch16.html`, `50-partie5.html`) → tous les chapitres faits (A4 120 p., téléphone 201 p.).
+- **À faire** : fiches pays, lexique, mentions, sommaire, kits (prévu : Kit 1 checklists, Kit 2 modèles, Kit 3 calculs, Kit 4 carnets de suivi), ZIP.
 - Faits utilisés : vérifiés sur les pages sources (T7, T10, T11 en priorité), rendus anonymes.

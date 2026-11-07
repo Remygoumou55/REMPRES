@@ -3,6 +3,17 @@
 Sources détaillées : `recherches/J1_droit_publier_guinee_ci_senegal.md`, `J2_droit_publier_cameroun_benin_gabon_togo.md`, `J3_droit_auteur_france_bonnes_pratiques.md`.
 **Ce n'est pas un avis d'avocat.** Les sites officiels (journaux officiels, bases de lois) étaient bloqués : les articles de loi viennent d'extraits et de la presse. À faire relire par un avocat avant la vente.
 
+## DÉCISION FINALE DU CLIENT (7 nov. 2026) — RÈGLE N°1 DU LIVRE
+Le client n'a pas les moyens de payer un avocat. Il a choisi les **« faits réels anonymes »** :
+- **aucun pays, aucune ville, aucun quartier** dans les faits réels (« dans un pays d'Afrique de l'Ouest », « dans une capitale d'Afrique centrale », « en Europe ») ;
+- **aucun nom**, aucune fonction précise (« un agent de l'administration », « un notaire », « un organisme public ») ;
+- **montants en ordre de grandeur** (« plusieurs centaines de millions », « plus de trente millions de francs CFA ») ;
+- **pas de journal cité dans les encadrés** ; une phrase générale : « tirés d'affaires publiées dans la presse africaine entre 2022 et 2026, rendus anonymes » (les sources restent archivées dans `recherches/`) ;
+- **aucune démolition, décision d'État ou responsable nommés** ; citations de forums sans pseudo ni nom de site, lieux remplacés par « au pays » / « sur place » ;
+- **les fiches pays restent** (lois, papiers, bureaux, procédures, frais) : information publique, sans accusation ;
+- les personnages Mamadou (Guinéen à Paris) et Aïcha (Abidjan) restent : fictifs, annoncés comme tels ;
+- page d'avertissement + adresse e-mail de correction (à fournir par le client).
+
 ## La réponse courte
 - **Aucun texte trouvé, dans aucun des 7 pays ni en France, n'interdit de nommer un pays ou une ville, de citer un fait publié par la presse avec sa source, ou de parler d'un jugement public.** La « diffamation d'un pays » n'existe pas. En France, un État ne peut pas agir en diffamation (Cour de cassation, assemblée plénière, 10/05/2019, affaire du Maroc).
 - **Les faits, les lois, les jugements et les nouvelles du jour ne sont pas protégés par le droit d'auteur** (OAPI, Accord de Bangui, annexe VII ; France, CPI L122-5). Les courtes citations avec la source sont permises.

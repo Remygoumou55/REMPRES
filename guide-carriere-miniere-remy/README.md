@@ -16,6 +16,8 @@
 | 5 | [Sécurité, anglais, Excel, entretien](05-securite-anglais-entretien.md) | Les règles de sécurité à savoir par cœur, le vocabulaire anglais des mines, la radio, la présentation en anglais, Excel, les questions d'entretien avec les réponses. |
 | 6 | [Plan d'action 30 jours](06-plan-30-jours.md) | Ce qu'il faut faire semaine par semaine avant le retour, puis dès le retour en Guinée. Le dossier papier type. |
 | 7 | [CV et lettres](07-cv-et-lettres.md) | Ton CV en français et en anglais (texte) et les lettres de motivation modèles. Les versions PDF ont été envoyées directement à Rémy (elles ne sont pas sur GitHub, car le dépôt est public). |
+| 8 | [Devenir chef d'équipe](08-devenir-chef-d-equipe.md) | Tâches d'un chef d'équipe, compétences, formations à faire, outils (réunion de sécurité, rapport de poste), préparation de l'entretien. |
+| 9 | [Excel pour la mine](09-excel-pour-la-mine.md) | Ce qu'on utilise vraiment dans les mines, et des exercices du débutant à l'avancé, avec le fichier [`excel/Exercices_Excel_Mine_Remy.xlsx`](excel/Exercices_Excel_Mine_Remy.xlsx). |
 
 ---
 

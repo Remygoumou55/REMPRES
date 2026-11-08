@@ -1,9 +1,9 @@
-"""T2 v2 « Mamadou » (PASA) : musique + bruitages calés sur voix3/T2.mp3 (47,6 s).
-Kora la mineur (problème) -> cœur + bourdon (aggravation) -> silence sur « Et toi ? » ->
-espoir do majeur + percussions douces (solution), boîte à musique sur « Aime ta famille », accord final."""
+"""T2 v2 « Mamadou » (PASA) — NOUVELLE MUSIQUE (8 nov., demande du client : douce, inspirante, pas aiguë).
+Piano feutré + nappe chaude + violoncelle, si bémol majeur / sol mineur, 72 bpm. Un thème de 5 notes au piano
+(l'accroche) ouvre la vidéo, revient sur « Et toi non plus » puis en entier à la fin. Tout est filtré pour rester doux."""
 import numpy as np, wave
 from scipy.signal import butter, sosfilt
-SR = 44100; DUR = 49.8; N = int(SR * DUR)
+SR = 44100; DUR = 50.2; N = int(SR * DUR)
 rng = np.random.default_rng(21)
 hz = lambda m: 440 * 2 ** ((m - 69) / 12)
 def T(d): return np.arange(int(SR * d)) / SR
@@ -21,69 +21,75 @@ def add(buf, s, at, g=1.0, pan=0.0):
     if i >= N or j <= 0 or i < 0: return
     s = s[:j - i] * g; buf[0, i:j] += s * (1 - max(0, pan)); buf[1, i:j] += s * (1 + min(0, pan))
 mus = np.zeros((2, N)); sfx = np.zeros((2, N))
-
-def kora(m, d=1.6):  # corde pincée (Karplus-Strong simplifié)
-    f = hz(m); n = int(SR * d); p = max(2, int(SR / f))
-    buf = rng.uniform(-1, 1, p); out = np.zeros(n)
-    for i in range(n):
-        out[i] = buf[i % p]; buf[i % p] = 0.5 * (buf[i % p] + buf[(i + 1) % p]) * 0.996
-    return out * env(n, .002, .2)
-def strings(ms, d, a=1.5, r=1.5):
+spb = 60 / 72
+def piano(m, d=2.5, vel=1.0):          # piano feutré : peu d'harmoniques, attaque douce
+    t = T(d); f = hz(m)
+    s = np.sin(2*np.pi*f*t) + .35*np.sin(2*np.pi*2*f*t)*np.exp(-t*2.5) + .12*np.sin(2*np.pi*3*f*t)*np.exp(-t*4)
+    s *= np.exp(-t*(1.1 + (m-60)*.03)) * env(len(t), .008, .4)
+    return filt(s, 2600) * vel
+def pad(ms, d, a=1.6, r=1.8):            # nappe chaude (scies filtrées très bas)
     t = T(d); s = np.zeros(len(t))
     for m in ms:
-        for det in (-0.06, 0.0, 0.07):
-            ph = rng.uniform(0, 6.28); s += np.sin(2 * np.pi * hz(m + det) * t + ph) + .3 * np.sin(2 * np.pi * 2 * hz(m + det) * t + ph)
-    vib = 1 + 0.003 * np.sin(2 * np.pi * 5 * t)
-    return filt(s * vib, 2200) * env(len(t), a, r) / (3 * len(ms))
-def heart():
-    t = T(.5); b = lambda: np.sin(2 * np.pi * (45 + 30 * np.exp(-t * 20)) * t) * np.exp(-t * 14)
-    x = b(); y = np.zeros(int(SR * .75)); y[:len(x)] += x; y[int(SR * .22):int(SR * .22) + len(x)] += .7 * x; return y
-def bell(m, d=1.5):
-    t = T(d); f = hz(m); return (np.sin(2 * np.pi * f * t) + .4 * np.sin(2 * np.pi * f * 2.76 * t) * np.exp(-t * 4)) * np.exp(-t * 2.5) * env(len(t), .002, .3)
-def tom(f=110):
-    t = T(.5); return np.sin(2 * np.pi * (f + 60 * np.exp(-t * 25)) * t) * np.exp(-t * 8)
-def shk():
-    n = filt(rng.standard_normal(int(SR * .07)), 5000, 'high'); return n * np.exp(-np.arange(len(n)) / SR * 50)
+        for det in (-0.07, 0.07):
+            ph = rng.uniform(0, 1); s += 2*((hz(m+det)*t + ph) % 1) - 1
+    return filt(filt(s, 850), 120, 'high') * env(len(t), a, r) / (2*len(ms))
+def cello(m, d, a=.35, r=.6):           # violoncelle doux avec vibrato
+    t = T(d); f = hz(m) * (1 + .004*np.sin(2*np.pi*5.2*t)*np.clip(t/.6, 0, 1))
+    ph = 2*np.pi*np.cumsum(f)/SR; s = np.sin(ph) + .5*np.sin(2*ph) + .25*np.sin(3*ph) + .12*np.sin(4*ph)
+    return filt(s, 1300) * env(len(t), a, r)
+def sub(m, d):
+    t = T(d); return np.sin(2*np.pi*hz(m)*t) * env(len(t), .05, .4)
+def softkick():
+    t = T(.4); return np.sin(2*np.pi*(52 + 40*np.exp(-t*30))*t) * np.exp(-t*9)
+def brush():
+    n = filt(filt(rng.standard_normal(int(SR*.12)), 900, 'high'), 3500); return n * np.exp(-np.arange(len(n))/SR*28)
+# accords (si bémol majeur) : Solm Mib Sib Fa / Do m / Ré
+Gm, Eb, Bb, F, Cm, D7 = (55,58,62), (51,55,58), (50,53,58), (53,57,60), (48,51,55), (50,54,57)
+MOTIF = [(0, 70), (.5, 74), (1.0, 77), (1.75, 75), (2.25, 74)]   # Sib Ré Fa Mib Ré : l'accroche
 
-spb = 60 / 80
-# 1) ACCROCHE + PROBLÈME (0 – 14.5) : kora la mineur
-prog1 = [(57, 60, 64), (53, 57, 60), (48, 52, 55), (55, 59, 62)]
-pat = [0, 1, 2, 1, 3, 2, 1, 2]
-add(mus, kora(45, 3.0), 0.0, .5); add(mus, kora(57, 2.5), 0.0, .35)
-for bi, b in enumerate(np.arange(0.0, 14.5, spb * 4)):
-    ch = prog1[bi % 4]; notes = list(ch) + [ch[0] + 12]
-    add(mus, strings([c - 12 for c in ch], spb * 4 + 1.2, .8, 1.0), b, .45 if b > 6 else .35)
-    for k in range(8):
-        x = b + k * spb / 2
-        if x < 14.4 and not (2.9 < x < 4.1): add(mus, kora(notes[pat[k]] + 12, 1.4), x, .2 if x > 6 else .15, (-.4, .4)[k % 2])
-    add(mus, kora(ch[0] - 12, 2.0), b, .35)
-# 2) AGGRAVATION (14.5 – 27.0) : cœur + bourdon, puis tension
-for b in np.arange(14.55, 21.6, .85): add(mus, heart(), b, .45)
-t = T(7.2); add(mus, (np.sin(2*np.pi*hz(33)*t) + .4*np.sin(2*np.pi*hz(45)*t)) * env(len(t), .8, .6), 14.5, .2)
-add(mus, strings((57, 58, 64), 7.0, 1.2, .6), 14.5, .33)
-for bi, b in enumerate(np.arange(21.6, 25.6, spb * 2)):
-    ch = [(53, 57, 60), (52, 55, 59)][bi % 2]
-    add(mus, strings(ch, spb * 2 + .6, .3, .5), b, .35)
-    for k in range(4): add(mus, kora(ch[k % 3] + 12, 1.0), b + k * spb / 2, .12)
-add(mus, strings((57, 60, 64), 1.6, .4, 1.0), 25.6, .25)
-t = T(2.5); add(mus, np.sin(2*np.pi*(32+45*np.exp(-t*5))*t)*np.exp(-t*1.6), 27.04, .7)
-# 3) SOLUTION + ACTION (28.0 – fin) : espoir do majeur
-prog2 = [(48, 52, 55, 60), (55, 59, 62, 67), (57, 60, 64, 69), (53, 57, 60, 65)]
-for bi, b in enumerate(np.arange(28.0, 46.6, spb * 4)):
-    ch = prog2[bi % 4]
-    add(mus, strings([c - 12 for c in ch], spb * 4 + 1.0, .6, 1.0), b, .5)
-    add(mus, kora(ch[0] - 12, 2.5), b, .35)
-    for k in range(8):
-        x = b + k * spb / 2
-        if x > 46.6: break
-        add(mus, kora(ch[[0, 2, 1, 3, 2, 1, 3, 2][k]] + 12, 1.2), x, .2, (-.4, .4)[k % 2])
-        if b > 31.0:
-            if k in (0, 3, 6): add(mus, tom(100), x, .35)
-            add(mus, shk(), x + spb / 4, .06, .3)
-for k, m in enumerate([76, 79, 84, 83, 79, 76]): add(mus, bell(m, 1.4), 41.03 + k * .2, .12, (k % 3 - 1) * .4)
-for k, m in enumerate((72, 76, 79, 84)): add(mus, bell(m, 2.5), 46.65 + k * .06, .14, (k - 1.5) * .3)
-add(mus, strings((48, 55, 60, 64, 67), 2.2, .1, 1.6), 46.6, .5)
-mus *= np.clip(np.arange(N) / SR / .05, 0, 1) * np.clip((DUR - np.arange(N) / SR) / 1.2, 0, 1)
+def chords(seq, start, stop, padg=.5, arp=False, pg=.11):
+    b = start; k = 0
+    while b < stop - .2:
+        ch = seq[k % len(seq)]; d = min(spb*4, stop-b)
+        add(mus, pad(ch, d + 1.2, .8, 1.2), b, padg)
+        add(mus, sub(ch[0]-12, d), b, .22)
+        if arp:
+            for q, n in enumerate([0, 1, 2, 1, 2, 1, 0, 2]):
+                x = b + q*spb/2
+                if x < stop: add(mus, piano(ch[n]+12, 1.6, .55), x, pg, (-.3, .3)[q % 2])
+        else:
+            add(mus, piano(ch[0], 3.0, .7), b, pg); add(mus, piano(ch[1]+12, 2.5, .5), b + spb, pg*.8, .2); add(mus, piano(ch[2]+12, 2.5, .5), b + spb*2, pg*.8, -.2)
+        b += spb*4; k += 1
+
+# 1) ACCROCHE + PROBLÈME (0 – 14.5) : le thème au piano, puis accords doux
+for dt, m in MOTIF: add(mus, piano(m, 3.0, .9), 0.05 + dt*spb, .2, .1)
+add(mus, pad(Bb, 4.0, .4, 1.5), 0.0, .35)
+chords([Gm, Eb, Bb, F], 3.4, 14.5, .45)
+for dt, m in MOTIF[:3]: add(mus, piano(m, 2.5, .6), 10.0 + dt*spb, .12, .2)
+# 2) AGGRAVATION (14.5 – 25.6) : plus sombre, battement grave doux
+chords([Gm, Cm, Eb, D7], 14.5, 25.6, .5, pg=.09)
+b = 14.55
+while b < 25.4: add(mus, softkick(), b, .35); add(mus, softkick(), b + .28, .18); b += spb*2
+add(mus, cello(43, 5.5, .8, 1.2), 17.0, .07); add(mus, cello(46, 4.5, .8, 1.0), 21.7, .07)
+# 3) « Et toi non plus » : presque le silence, puis un fragment du thème
+add(mus, pad(Gm, 2.4, .3, 1.5), 25.6, .25)
+for dt, m in MOTIF[:3]: add(mus, piano(m - 12, 2.5, .8), 27.04 + dt*spb*.8, .16)
+# 4) SOLUTION (28 – 43.5) : montée inspirante, arpèges + violoncelle + rythme doux
+chords([Eb, Bb, F, Gm], 28.0, 36.9, .5, arp=True, pg=.09)
+chords([Bb, F, Gm, Eb], 36.9, 46.6, .55, arp=True, pg=.10)
+cel = [(28.3, 63, 3.2), (31.6, 62, 3.2), (34.9, 65, 3.0), (38.0, 67, 3.2), (41.3, 65, 2.4)]
+for at, m, d in cel: add(mus, cello(m - 12, d), at, .07)
+b = 31.2; q = 0
+while b < 46.4:
+    if q % 2 == 0: add(mus, softkick(), b, .3)
+    add(mus, brush(), b + spb/2, .05, .3); b += spb; q += 1
+for dt, m in MOTIF: add(mus, piano(m, 3.0, .8), 41.03 + dt*spb, .14, .1)   # le thème revient sur « Aime ta famille »
+# 5) FIN : le thème complet et l'accord final
+for dt, m in MOTIF: add(mus, piano(m + 12, 3.0, .6), 44.0 + dt*spb, .1, -.1)
+for k, m in enumerate((46, 58, 62, 65, 70)): add(mus, piano(m, 4.0, .6), 46.65 + k*.04, .12, (k-2)*.2)
+add(mus, pad(Bb, 3.0, .2, 2.0), 46.6, .5)
+mus = filt(mus, 4800)
+mus *= np.clip(np.arange(N)/SR/.05, 0, 1) * np.clip((DUR - np.arange(N)/SR)/1.4, 0, 1)
 
 # ---------- BRUITAGES ----------
 def whoosh(d=.5):

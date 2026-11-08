@@ -38,3 +38,31 @@ S10 — La vérité, trop tard
 Vertical 9:16 cinematic shot, harsh midday sun. The same West African man, now wearing a light short-sleeve shirt and carrying a travel bag on his shoulder, arrives on a plot of red earth in a West African town. There is no house: only tall dry weeds and the remains of an old, abandoned, unfinished low cement-block foundation. He stops, slowly lets the bag slide to the ground and stares in shock and disbelief. Slow push-in on his face. Warm, dusty, slightly desaturated tones. No text, no logos.
 ```
 Nommer les fichiers `S8.mp4`, `S9.mp4`, `S10.mp4`.
+
+## Version « image puis vidéo » (8 nov., demande du client : Flow lui donne des images)
+Le personnage est décrit en entier dans chaque prompt. Étape 1 : générer l'IMAGE. Étape 2 : mettre cette image comme point de départ (« Images to Video » / « Frames to Video ») et coller le prompt d'animation.
+
+S8 image :
+```
+Vertical 9:16 cinematic photo, night. Extreme close-up of a West African man, about 38 years old, short black hair, light short beard, dark grey sweater, sitting in a small cosy European apartment. He holds a smartphone in one hand, his thumb frozen just above the screen, about to press. Tense, hesitant expression, partly visible in the background. Warm lamp light mixed with cold blue light from a rainy window, very shallow depth of field. The phone screen is softly blurred and unreadable. Realistic, natural skin tones. No text, no logos.
+```
+S8 animation :
+```
+Slow motion. The man's thumb moves toward the phone screen to press, then suddenly freezes a few millimetres above it and slowly pulls back. His face tightens with doubt. Very slight camera push-in. Rain on the window behind. Keep the screen blurred and unreadable. No text, no logos.
+```
+S9 image :
+```
+Vertical 9:16 cinematic photo, night. A West African man, about 38 years old, short black hair, light short beard, working a night shift in a large cold warehouse in Europe. He wears a plain dark work jacket over a dark grey sweater and a plain high-visibility vest without any writing. He holds a heavy cardboard box, tired but determined, his breath visible in the cold air. Harsh industrial lights, blue-grey tones, shallow depth of field. Realistic. No text, no logos, no brand names on the boxes.
+```
+S9 animation :
+```
+The man lifts the heavy cardboard box onto a pallet, stops for a second, wipes his forehead with the back of his hand and breathes out a cloud of cold air. Slow handheld camera movement. Keep the vest and boxes completely blank. No text, no logos.
+```
+S10 image :
+```
+Vertical 9:16 cinematic photo, harsh midday sun. A West African man, about 38 years old, short black hair, light short beard, wearing a light beige short-sleeve shirt, a travel bag on his shoulder, standing on a plot of red earth in a West African town. In front of him there is no house: only tall dry weeds and the remains of an old, abandoned, unfinished low cement-block foundation. He stares in shock and disbelief. Warm, dusty, slightly desaturated tones. Realistic. No text, no logos.
+```
+S10 animation :
+```
+The man stands still, then slowly lets the travel bag slide from his shoulder to the ground, staring at the empty plot in shock. Dust moves in the hot wind, the dry weeds sway. Slow camera push-in on his face. No text, no logos.
+```

@@ -3,7 +3,7 @@ Kora la mineur (problème) -> cœur + bourdon (aggravation) -> silence sur « Et
 espoir do majeur + percussions douces (solution), boîte à musique sur « Aime ta famille », accord final."""
 import numpy as np, wave
 from scipy.signal import butter, sosfilt
-SR = 44100; DUR = 49.4; N = int(SR * DUR)
+SR = 44100; DUR = 49.8; N = int(SR * DUR)
 rng = np.random.default_rng(21)
 hz = lambda m: 440 * 2 ** ((m - 69) / 12)
 def T(d): return np.arange(int(SR * d)) / SR
@@ -14,7 +14,8 @@ def env(n, a, r):
 def W(at):
     if at < 25.83: return at
     if at < 27.63: return float(np.interp(at, [25.83, 26.86, 27.04, 27.63], [25.83, 26.93, 27.34, 28.23]))
-    return at + 0.6
+    x = at + 0.6
+    return x if x < 44.27 else (44.27 + (x - 44.27) * 2.49 / 2.08 if x < 46.35 else x + 0.41)
 def add(buf, s, at, g=1.0, pan=0.0):
     i = int(W(at) * SR); j = min(N, i + len(s))
     if i >= N or j <= 0 or i < 0: return
@@ -108,47 +109,17 @@ def boom():
     t = T(1.5); return np.sin(2 * np.pi * (35 + 50 * np.exp(-t * 6)) * t) * np.exp(-t * 2.5)
 
 
-add(sfx, shimmer(1.2), 0.0, .12); add(sfx, thud(.7), 0.0, .5)
-for i in range(7): add(sfx, coin(), 0.08 + i * .09, .05, (-.3, .3)[i % 2])
-add(sfx, shimmer(1.0), 0.8, .1)
-add(sfx, whoosh(.4), 2.1, .25); add(sfx, paper(), 2.25, .3)
-add(sfx, pop(500), 2.9, .25); add(sfx, thud(1.1), 3.18, .7); add(sfx, boom(), 3.18, .35)
-add(sfx, whoosh(.4), 4.0, .2)
-add(sfx, shimmer(.8), 5.29, .1)
-add(sfx, whoosh(.45), 5.9, .2)
-for k, at in enumerate((7.51, 8.25, 8.95)): add(sfx, pop(700 + 150 * k), at, .3, .3)
-add(sfx, whoosh(.45), 9.8, .2)
-t = T(1.0); ring = np.sin(2*np.pi*np.where((t*4).astype(int) % 2 == 0, 880, 660)*t) * env(len(t), .01, .1)
-add(sfx, ring, 10.55, .07)
-for at in (11.35, 11.75, 12.05): add(sfx, pop(1000), at, .25); add(sfx, paper(.2), at, .15)
-add(sfx, whoosh(.4), 12.65, .2)
-for at in (12.95, 13.1, 13.25): add(sfx, paper(.2), at, .2)
-add(sfx, thud(.8), 13.45, .5)
-add(sfx, whoosh(.5), 14.4, .25); add(sfx, thud(1.2), 15.4, .7); add(sfx, boom(), 15.4, .4)
-add(sfx, whoosh(.5), 16.95, .2)
-t = T(1.6); add(sfx, filt(rng.standard_normal(len(t)), 900) * np.exp(-t * 1.5) * .5, 18.2, .15)
-add(sfx, thud(1.2), 19.45, .7)
-add(sfx, paper(.8), 20.55, .45); add(sfx, thud(.7), 20.6, .3)
-add(sfx, whoosh(.5), 21.5, .2)
-add(sfx, thud(.9), 22.75, .5)
-for i in range(9): add(sfx, paper(.35), 23.85 + i * .16, .12, ((i * 3) % 5 - 2) / 3)
-add(sfx, whoosh(.6), 25.6, .2)
-add(sfx, thud(1.2), 27.04, .6)
-add(sfx, whoosh(.5), 27.9, .3); add(sfx, shimmer(1.2), 28.9, .14)
-add(sfx, whoosh(.5), 31.1, .25); add(sfx, paper(.3), 31.2, .35); add(sfx, paper(.3), 32.6, .35)
-add(sfx, pop(1000), 33.2, .25)
-for at in (34.48, 35.24, 36.11): add(sfx, keys(), at, .15)
-for k, at in enumerate((36.95, 37.05, 37.15)): add(sfx, pop(900 + 100 * k), at, .22)
-add(sfx, whoosh(.45), 38.85, .25); add(sfx, thud(.8), 39.02, .4)
-for k, at in enumerate((39.5, 39.68, 39.86, 40.04)): add(sfx, paper(.2), at, .3)
-add(sfx, shimmer(1.2), 40.95, .12)
-for k, at in enumerate((42.3, 42.55, 42.8)): add(sfx, tick(1800 + 300 * k), at, .3)
-add(sfx, whoosh(.5), 43.45, .3)
-for at in (44.0, 44.15, 44.3, 44.45): add(sfx, paper(.2), at, .22)
-for at in (43.67, 43.85, 44.1, 44.35, 44.55): add(sfx, tick(2200), at, .25)
-t = T(.35); add(sfx, filt(rng.standard_normal(len(t)), 2500, 'high') * np.exp(-t * 10), 45.4, .2)
-add(sfx, pop(600), 45.95, .3)
-t = T(.08); add(sfx, filt(rng.standard_normal(len(t)), 1500, 'high') * np.exp(-t * 80), 46.7, .35)
+# ----- bruitages : PEU nombreux et doux (demande du client, 8 nov.) -----
+add(sfx, shimmer(1.2), 0.0, .06)          # ouverture
+add(sfx, thud(.6), 3.18, .35)             # tampon JAMAIS VU
+add(sfx, paper(.5), 12.95, .08)           # tout dans une seule main
+add(sfx, thud(.6), 15.4, .3)              # le piège de la diaspora
+add(sfx, thud(.6), 19.45, .3)             # ARRÊTÉ
+add(sfx, paper(.8), 20.55, .12)           # la photo se déchire
+add(sfx, thud(.7), 27.04, .35)            # et toi non plus
+add(sfx, shimmer(1.2), 28.9, .06)         # le guide
+for at in (34.48, 35.24, 36.11): add(sfx, keys(), at, .05)   # les 3 clés (très doux)
+add(sfx, shimmer(1.0), 40.95, .05)        # aime ta famille
 
 def save(name, x):
     x = x / max(1e-9, np.abs(x).max()) * 0.9

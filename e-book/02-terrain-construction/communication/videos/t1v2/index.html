@@ -480,5 +480,5 @@ const R0=async function(t){
   caps(t);
   await Promise.all(imgs.map(e=>e.complete&&e.naturalWidth?null:e.decode().catch(()=>null)));
 };
-const LEAD=0.6;window.render=t=>R0(t-LEAD);
+const LEAD=0.6;const PW2=u=>u<41.53?u:u<44.02?41.53+(u-41.53)*(2.12/2.49):u-0.37;window.render=t=>R0(PW2(t-LEAD));
 </script></body></html>

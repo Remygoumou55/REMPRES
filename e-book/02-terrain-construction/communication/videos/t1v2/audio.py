@@ -4,7 +4,7 @@ entrepôt (bourdonnement), argent aspiré, « trop tard » : boom puis silence ;
 Sortie : music.wav et sfx.wav (stéréo 44,1 kHz)."""
 import numpy as np, wave
 from scipy.signal import butter, sosfilt
-SR = 44100; DUR = 48.2; N = int(SR * DUR)
+SR = 44100; DUR = 48.6; N = int(SR * DUR)
 rng = np.random.default_rng(7)
 hz = lambda m: 440 * 2 ** ((m - 69) / 12)
 def T(d): return np.arange(int(SR * d)) / SR
@@ -14,7 +14,7 @@ def env(n, a, r):
     t = np.arange(n) / SR; d = n / SR
     return np.clip(t / max(a, 1e-4), 0, 1) * np.clip((d - t) / max(r, 1e-4), 0, 1)
 def add(buf, s, at, g=1.0, pan=0.0):
-    at = at + 0.6  # 0,6 s d'entrée avant « Arrête »
+    at = (at if at < 41.53 else (41.53 + (at - 41.53) * 2.49 / 2.12 if at < 43.65 else at + 0.37)) + 0.6  # prix 9 900 collé + 0,6 s d'entrée
     i = int(at * SR); j = min(N, i + len(s))
     if i >= N or j <= 0: return
     s = s[:j - i] * g

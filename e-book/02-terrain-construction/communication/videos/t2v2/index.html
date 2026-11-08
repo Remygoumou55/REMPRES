@@ -68,10 +68,10 @@ body{font-family:'Caladea','Liberation Serif','Noto Color Emoji',serif;color:#FF
 #etoi b{display:block;font-size:200px;font-style:italic;color:#FFC072;line-height:1;margin-top:10px}
 /* 10 couverture */
 #cbg{background:radial-gradient(circle at 50% 38%,#5A2E17,#2A150B 60%,#120B07)}
-#cov{position:absolute;left:250px;top:210px;width:580px;height:1031px;border-radius:10px;overflow:hidden;box-shadow:0 50px 100px rgba(0,0,0,.75)}
+#cov{position:absolute;left:110px;top:220px;width:860px;height:992px;filter:drop-shadow(0 50px 70px rgba(0,0,0,.7));transform-origin:50% 100%}
 #cov img{width:100%;height:100%}
 .shine{position:absolute;top:0;bottom:0;width:200px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-18deg)}
-#covtag{position:absolute;left:0;right:0;top:1300px;text-align:center;font-size:54px;font-style:italic;color:#F2D7A6}
+#covtag{position:absolute;left:0;right:0;top:1290px;text-align:center;font-size:54px;font-style:italic;color:#F2D7A6}
 #covtag b{display:block;font-style:normal;font-family:'Inter';font-weight:800;font-size:34px;letter-spacing:8px;color:#E8B04B;margin-bottom:12px}
 /* 11 pages */
 .pg{position:absolute;left:110px;top:240px;width:860px;border-radius:14px;overflow:hidden;background:#FDFBF6;box-shadow:0 30px 70px rgba(0,0,0,.6)}
@@ -105,7 +105,7 @@ body{font-family:'Caladea','Liberation Serif','Noto Color Emoji',serif;color:#FF
 #aime{position:absolute;left:0;right:0;top:1180px;text-align:center;font-size:120px;font-style:italic;font-weight:700;text-shadow:0 10px 40px rgba(0,0,0,.8)}
 /* 16 produit */
 #pbg{background:linear-gradient(180deg,#F8F1E4,#EFE2CC)}
-#pcov{position:absolute;left:80px;top:150px;width:470px;height:836px;border-radius:10px;overflow:hidden;box-shadow:0 40px 80px rgba(60,30,10,.45);transform-origin:50% 100%}
+#pcov{position:absolute;left:30px;top:180px;width:570px;height:658px;filter:drop-shadow(0 34px 44px rgba(60,30,10,.45));transform-origin:50% 100%}
 #pcov img{width:100%;height:100%}
 .pk{position:absolute;left:600px;width:400px;height:150px;border-radius:16px;background:#0F2A44;border-left:12px solid #E2650C;padding:22px 26px;box-shadow:0 14px 34px rgba(30,20,10,.35)}
 .pk small{display:block;font-family:'Inter';font-weight:800;font-size:24px;letter-spacing:4px;color:#F3A15E}
@@ -151,7 +151,7 @@ body{font-family:'Caladea','Liberation Serif','Noto Color Emoji',serif;color:#FF
   <div class="L" id="L7"><div class="stamp" id="arrete">ARRÊTÉ</div><div id="cw"><small id="cws">fait disparaître</small><span id="cwt"></span></div></div>
   <div class="L" id="L8"><div id="seule">tout à<b>1</b>seule personne</div><div id="bns"></div></div>
   <div class="L" id="L9"><div id="etoi"><i>Mamadou ne le sait pas.</i><b>Et toi<br>non plus.</b></div></div>
-  <div class="L" id="L10"><div class="L" id="cbg"></div><div id="cov"><img src="cover.jpg"><div class="shine" id="sh1"></div></div>
+  <div class="L" id="L10"><div class="L" id="cbg"></div><div id="cov"><img src="guide-3d.png"></div>
     <div id="covtag"><b>LE GUIDE</b>Le guide + 4 kits · 7 pays</div></div>
   <div class="L" id="L11"><div class="L" style="background:radial-gradient(circle at 50% 38%,#5A2E17,#2A150B 60%,#120B07)"></div>
     <div class="pg" id="pg1"><img src="p26.png"><div id="hl26"></div></div>
@@ -178,7 +178,7 @@ body{font-family:'Caladea','Liberation Serif','Noto Color Emoji',serif;color:#FF
     <div class="pk" id="k2" style="top:370px"><small>KIT 2</small><b>Les modèles</b></div>
     <div class="pk" id="k3" style="top:550px"><small>KIT 3</small><b>Les calculs</b></div>
     <div class="pk" id="k4" style="top:730px"><small>KIT 4</small><b>Les carnets de suivi</b></div>
-    <div id="pcov"><img src="cover.jpg"></div>
+    <div id="pcov"><img src="guide-3d.png"></div>
     <div id="ptxt"><div class="lg" id="lg">Le guide et ses 4 kits</div>
       <div id="num"><span>9</span><span>&nbsp;</span><span>9</span><span>0</span><span>0</span> <small>F CFA</small></div>
       <div id="old">au lieu de 15 000 F<i id="strike"></i></div></div>
@@ -310,8 +310,8 @@ const R0=async function(t){
   // 11 : le guide (27.95 – 31.15)
   if(t>=27.95&&t<29.0){vid('vA','S11',pw(t,[[27.95,5.4],[29.0,7.0]]),'scale(1.05)','',P(t,27.95,28.1));leak(27.98,.3,.8)}
   if(t>=28.85&&t<31.2){show('L10',true);$('L10').style.opacity=P(t,28.85,29.0)*(1-P(t,31.0,31.2));
-    const c=eo(P(t,28.9,29.5));$('cov').style.transform=`perspective(1800px) translateY(${(1-c)*700}px) rotateY(${(1-c)*25+3*Math.sin(t*1.1)}deg) scale(${1+0.03*P(t,29.5,31)})`;
-    $('sh1').style.left=lerp(-260,900,P(t,29.6,30.5))+'px';
+    const c=eo(P(t,28.9,29.5));$('cov').style.transform=`perspective(1800px) translateY(${(1-c)*700}px) rotateY(${(1-c)*25+1.5*Math.sin(t*1.1)}deg) scale(${1+0.03*P(t,29.5,31)})`;
+    
     const g=P(t,30.0,30.3);$('covtag').style.opacity=g;$('covtag').style.transform=`translateY(${(1-eo(g))*30}px)`;}
   // 12 : pages (31.15 – 34.3)
   if(t>=31.15&&t<34.35){show('L11',true);$('L11').style.opacity=P(t,31.15,31.3)*(1-P(t,34.15,34.35));
@@ -344,7 +344,7 @@ const R0=async function(t){
     [['ok1',42.3],['ok2',42.55],['ok3',42.8]].forEach(([id,s])=>{const a=P(t,s,s+.22);$(id).style.opacity=a;$(id).style.transform=`translateX(${(1-eb(a))*-400}px)`});}
   // 17 : produit (43.55 – fin)
   if(t>=43.5){show('L16',true);$('L16').style.opacity=P(t,43.5,43.75);$('bars').style.opacity=1-P(t,43.5,43.75);$('vig').style.opacity=.2;$('grade').style.opacity=0;leak(43.55,.3,.6);
-    const c=eo(P(t,43.55,44.1));$('pcov').style.transform=`perspective(1800px) translateX(${(1-c)*-600}px) rotateY(${12+(1-c)*30+2*Math.sin(t*1.2)}deg)`;
+    const c=eo(P(t,43.55,44.1));$('pcov').style.transform=`perspective(1800px) translateX(${(1-c)*-600}px) rotateY(${(1-c)*30+1.5*Math.sin(t*1.2)}deg)`;
     [['k1',44.0],['k2',44.15],['k3',44.3],['k4',44.45]].forEach(([id,s],i)=>{const a=P(t,s,s+.3);$(id).style.opacity=a;$(id).style.transform=`translateX(${(1-eb(a))*450}px) rotate(${(1-a)*8}deg)`});
     $('lg').style.opacity=P(t,43.7,43.95);
     const ds=[43.67,43.67,44.0,44.25,44.5];[...$('num').querySelectorAll('span')].forEach((s,i)=>{const a=P(t,ds[i],ds[i]+.15);s.style.opacity=a;s.style.transform=`translateY(${(1-eo(a))*-60}px)`});
@@ -358,5 +358,5 @@ const R0=async function(t){
   await Promise.all(imgs.map(e=>e.complete&&e.naturalWidth?null:e.decode().catch(()=>null)));
 };
 const WARP=t=>t<25.83?t:t<28.23?pw(t,[[25.83,25.83],[26.93,26.86],[27.34,27.04],[28.23,27.63]]):t-0.6;
-window.render=t=>R0(WARP(t));
+const PW2=t=>t<44.27?t:t<46.76?44.27+(t-44.27)*(2.08/2.49):t-0.41;window.render=t=>R0(WARP(PW2(t-0.4)));
 </script></body></html>

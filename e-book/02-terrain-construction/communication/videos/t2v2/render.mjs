@@ -7,7 +7,7 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
 const DIR = dirname(fileURLToPath(import.meta.url));
-const FPS = 30, DUR = 49.4;
+const FPS = 30, DUR = 50.2;
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1080, height: 1920 } });
 await page.goto('file://' + join(DIR, 'index.html'), { waitUntil: 'networkidle' });

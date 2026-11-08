@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#120B07}
+body{font-family:'Caladea','Liberation Serif','Noto Color Emoji',serif;color:#FFF4E0}
+#st{position:absolute;inset:0;overflow:hidden;background:#120B07}
+.L{position:absolute;inset:0}
+.full{position:absolute;left:0;top:0;width:1080px;height:1920px;object-fit:cover;transform-origin:50% 50%}
+#grade{background:linear-gradient(180deg,rgba(40,18,6,.25),rgba(0,0,0,0) 30%,rgba(0,0,0,0) 60%,rgba(25,10,4,.55));pointer-events:none}
+#vig{background:radial-gradient(ellipse at 50% 45%,rgba(0,0,0,0) 50%,rgba(0,0,0,.6) 100%)}
+#grain{background-size:540px 960px;mix-blend-mode:overlay;opacity:.16}
+#leak{background:radial-gradient(circle at 85% 20%,rgba(255,170,80,.95),rgba(255,90,30,.5) 30%,rgba(0,0,0,0) 65%);mix-blend-mode:screen;opacity:0}
+#black{background:#000;opacity:0}
+.bar{position:absolute;left:0;right:0;height:86px;background:#000}
+/* 1 mois + nom */
+#months{position:absolute;right:50px;top:150px;width:420px}
+.mo{display:flex;justify-content:space-between;align-items:center;background:rgba(255,244,224,.94);color:#3A2416;border-radius:18px;padding:14px 24px;margin-bottom:12px;font-size:34px;font-weight:700;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.mo span{font-family:'Inter';font-size:24px;font-weight:700;color:#2E7D4F}
+#name{position:absolute;left:0;right:0;top:1180px;text-align:center}
+#name b{display:block;font-size:160px;letter-spacing:22px;font-weight:700;text-shadow:0 8px 30px rgba(0,0,0,.7)}
+#name i{display:block;font-size:60px;color:#F2D7A6}
+#nline{width:520px;height:4px;margin:16px auto 0;background:#E8B04B;transform-origin:50% 50%}
+/* 2 papier jamais vu */
+#deed{position:absolute;left:150px;top:300px;width:780px;height:900px;background:#FBF3E4;color:#3A2416;border-radius:10px;box-shadow:0 40px 90px rgba(0,0,0,.6);padding:60px 64px;overflow:hidden}
+#deed h6{font-size:52px;letter-spacing:6px;text-align:center}
+#deed .sub{text-align:center;font-style:italic;font-size:34px;color:#8C6A4E;margin-top:10px}
+#deed .ln{height:6px;background:#D9C9AE;margin-top:46px;border-radius:3px}
+#deed .seal{position:absolute;right:80px;bottom:90px;width:150px;height:150px;border-radius:50%;border:8px double #C4572B;opacity:.6}
+#deedblur{position:absolute;inset:0;backdrop-filter:blur(16px);background:rgba(251,243,228,.25)}
+#deedq{position:absolute;left:0;right:0;top:260px;text-align:center;font-size:330px;font-weight:700;color:#C4572B;opacity:.9}
+.stamp{position:absolute;padding:14px 34px;border:10px solid #C0392B;color:#C0392B;border-radius:14px;font-family:'Inter Display';font-weight:900;font-size:96px;letter-spacing:2px;white-space:nowrap;background:rgba(251,243,228,.85)}
+/* 3 comme toi */
+#toi{position:absolute;left:0;right:0;top:1250px;text-align:center;font-size:170px;font-style:italic;font-weight:700;color:#FFC072;text-shadow:0 10px 40px rgba(0,0,0,.8)}
+/* 4 étiquettes */
+.lab{position:absolute;right:50px;display:flex;align-items:center;gap:18px;background:#FBF3E4;color:#3A2416;border-radius:60px;padding:16px 36px 16px 18px;font-size:52px;font-weight:700;box-shadow:0 14px 40px rgba(0,0,0,.45)}
+.lab .e{width:78px;height:78px;border-radius:50%;background:#C4572B;display:flex;align-items:center;justify-content:center;font-size:40px}
+#one{position:absolute;left:0;right:0;top:1180px;text-align:center;font-size:92px;font-style:italic;text-shadow:0 6px 30px rgba(0,0,0,.85)}
+#one b{color:#FFC072;font-style:normal}
+/* 5 appels + photos */
+#callc{position:absolute;left:60px;right:60px;top:190px;display:flex;align-items:center;gap:26px;background:rgba(251,243,228,.95);color:#3A2416;border-radius:40px;padding:26px 34px;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+#callc .av{width:96px;height:96px;border-radius:50%;background:#C4572B;display:flex;align-items:center;justify-content:center;font-size:52px}
+#callc b{display:block;font-size:46px}
+#callc small{display:block;font-family:'Inter';font-size:28px;color:#8C6A4E;font-weight:600}
+#callc .ac{margin-left:auto;width:96px;height:96px;border-radius:50%;background:#2E7D4F;color:#fff;display:flex;align-items:center;justify-content:center;font-size:46px}
+.ph{position:absolute;width:300px;height:400px;padding:12px 12px 50px;background:#FBF3E4;border-radius:6px;box-shadow:0 20px 50px rgba(0,0,0,.55)}
+.ph img{width:276px;height:338px;object-fit:cover;display:block}
+.ph span{position:absolute;left:0;right:0;bottom:10px;text-align:center;font-family:'Inter';font-weight:700;font-size:22px;color:#2E7D4F}
+/* 6 piège */
+#trap{position:absolute;left:60px;right:60px;top:560px;text-align:center;text-shadow:0 10px 40px rgba(0,0,0,.85)}
+#trap i{display:block;font-size:70px;color:#F2D7A6}
+#trap b{display:block;font-size:150px;line-height:1;letter-spacing:-2px}
+#trap b em{color:#FFC072}
+#trline{width:640px;height:6px;margin:30px auto 0;background:#C4572B;transform-origin:50% 50%}
+/* 7 conséquences */
+#cw{position:absolute;left:0;right:0;top:1200px;text-align:center;font-size:150px;font-style:italic;font-weight:700;line-height:1;text-shadow:0 10px 40px rgba(0,0,0,.85)}
+#cw small{display:block;font-size:56px;font-style:normal;color:#F2D7A6;margin-bottom:8px}
+#arrete{position:absolute;left:50%;top:620px}
+.half{position:absolute;top:0;width:540px;height:1920px;overflow:hidden}
+.half img{position:absolute;top:0;width:1080px;height:1920px;object-fit:cover}
+/* 8 fenêtre */
+.bn{position:absolute;width:250px;height:126px;background:linear-gradient(135deg,#E9DDBF,#CDBB92);border:3px solid #9C8456;border-radius:8px;box-shadow:0 12px 30px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;color:#6B5530;font-size:54px;font-weight:700}
+#seule{position:absolute;left:0;right:0;top:300px;text-align:center;font-size:120px;font-weight:700;line-height:1;text-shadow:0 10px 40px rgba(0,0,0,.85)}
+#seule b{display:block;font-size:330px;color:#FFC072;line-height:.9}
+/* 9 et toi */
+#etoi{position:absolute;left:0;right:0;top:760px;text-align:center}
+#etoi i{display:block;font-size:72px;color:#C9B79C}
+#etoi b{display:block;font-size:250px;font-style:italic;color:#FFC072;line-height:1;margin-top:10px}
+/* 10 couverture */
+#cbg{background:radial-gradient(circle at 50% 38%,#5A2E17,#2A150B 60%,#120B07)}
+#cov{position:absolute;left:250px;top:210px;width:580px;height:1031px;border-radius:10px;overflow:hidden;box-shadow:0 50px 100px rgba(0,0,0,.75)}
+#cov img{width:100%;height:100%}
+.shine{position:absolute;top:0;bottom:0;width:200px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-18deg)}
+#covtag{position:absolute;left:0;right:0;top:1300px;text-align:center;font-size:54px;font-style:italic;color:#F2D7A6}
+#covtag b{display:block;font-style:normal;font-family:'Inter';font-weight:800;font-size:34px;letter-spacing:8px;color:#E8B04B;margin-bottom:12px}
+/* 11 pages */
+.pg{position:absolute;left:110px;top:240px;width:860px;border-radius:14px;overflow:hidden;background:#FDFBF6;box-shadow:0 30px 70px rgba(0,0,0,.6)}
+.pg img{width:860px;display:block}
+#pg1{height:560px}#pg2{height:1180px}
+#pgchip{position:absolute;left:50%;top:1300px;transform:translateX(-50%);background:#2E7D4F;color:#fff;font-family:'Inter';font-weight:800;font-size:38px;padding:18px 36px;border-radius:40px;white-space:nowrap}
+#hl26{position:absolute;left:30px;top:250px;width:770px;height:64px;background:rgba(232,176,75,.45);mix-blend-mode:multiply;border-radius:6px;transform-origin:0 50%}
+/* 12 clés */
+.key{position:absolute;left:60px;top:220px;display:flex;align-items:center;gap:18px;background:rgba(18,11,7,.75);border:3px solid #E8B04B;border-radius:60px;padding:16px 38px 16px 18px;font-size:58px;font-weight:700}
+.key .k{width:84px;height:84px;border-radius:50%;background:#E8B04B;display:flex;align-items:center;justify-content:center;font-size:46px}
+#kn{position:absolute;right:60px;top:220px;font-family:'Inter';font-weight:800;font-size:40px;color:#E8B04B;padding:20px 30px;border-radius:40px;background:rgba(18,11,7,.7)}
+/* 13 mains */
+#hbg{background:#F6EEDF}
+#hands{position:absolute;left:0;top:300px;width:1080px;height:607px;overflow:hidden}
+#hands img{width:1080px;height:607px;transform-origin:50% 50%}
+.hl3{position:absolute;top:940px;width:300px;text-align:center;color:#3A2416;font-size:50px;font-weight:700}
+.hl3 i{display:block;width:16px;height:16px;border-radius:50%;background:#C4572B;margin:0 auto 14px}
+#never{position:absolute;left:70px;right:70px;top:1130px;text-align:center;color:#2A150B;font-size:100px;line-height:1.08}
+#never span{display:inline-block;opacity:0;margin:0 .1em}
+#never .r{color:#C4572B;font-style:italic}
+/* 14 kits */
+#kbg{background:radial-gradient(circle at 50% 40%,#4A2614,#1E0F07 70%)}
+#kh{position:absolute;left:0;right:0;top:230px;text-align:center}
+#kh b{display:block;font-size:330px;line-height:.9;color:#FFC072}
+#kh i{display:block;font-size:84px}
+.kc{position:absolute;width:440px;height:200px;border-radius:18px;background:#0F2A44;border-left:14px solid #E2650C;padding:30px 30px;box-shadow:0 20px 44px rgba(0,0,0,.5)}
+.kc small{display:block;font-family:'Inter';font-weight:800;font-size:28px;letter-spacing:4px;color:#F3A15E}
+.kc b{display:block;font-size:52px;line-height:1.05;margin-top:10px;color:#fff}
+/* 15 preuves */
+.ok{position:absolute;left:60px;display:flex;align-items:center;gap:14px;background:#FBF3E4;color:#2E7D4F;border-radius:40px;padding:14px 30px;font-family:'Inter';font-weight:800;font-size:38px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#aime{position:absolute;left:0;right:0;top:1180px;text-align:center;font-size:120px;font-style:italic;font-weight:700;text-shadow:0 10px 40px rgba(0,0,0,.8)}
+/* 16 produit */
+#pbg{background:linear-gradient(180deg,#F8F1E4,#EFE2CC)}
+#pcov{position:absolute;left:80px;top:150px;width:470px;height:836px;border-radius:10px;overflow:hidden;box-shadow:0 40px 80px rgba(60,30,10,.45);transform-origin:50% 100%}
+#pcov img{width:100%;height:100%}
+.pk{position:absolute;left:600px;width:400px;height:150px;border-radius:16px;background:#0F2A44;border-left:12px solid #E2650C;padding:22px 26px;box-shadow:0 14px 34px rgba(30,20,10,.35)}
+.pk small{display:block;font-family:'Inter';font-weight:800;font-size:24px;letter-spacing:4px;color:#F3A15E}
+.pk b{display:block;font-size:40px;line-height:1.05;margin-top:6px;color:#fff}
+#ptxt{position:absolute;left:0;right:0;top:1030px;text-align:center;color:#2A150B}
+#ptxt .lg{font-size:50px;font-style:italic;color:#7A4A2A}
+#num{font-size:210px;font-weight:700;line-height:1;letter-spacing:-4px;color:#2A150B;margin-top:4px}
+#num small{font-size:80px;letter-spacing:0;color:#C4572B}
+#num span{display:inline-block}
+#old{display:inline-block;position:relative;font-size:60px;color:#8C7562}
+#old i{position:absolute;left:-8px;right:-8px;top:52%;height:7px;background:#C0392B;border-radius:4px;transform-origin:0 50%}
+#cta{position:absolute;left:90px;right:90px;top:1530px;height:160px;border-radius:80px;background:#C4572B;color:#FFF4E0;font-family:'Inter';font-weight:800;font-size:54px;display:flex;align-items:center;justify-content:center;gap:20px;box-shadow:0 20px 50px rgba(196,87,43,.45);overflow:hidden}
+#rip{position:absolute;left:50%;top:50%;width:40px;height:40px;margin:-20px;border-radius:50%;background:rgba(255,255,255,.6)}
+#down{position:absolute;left:0;right:0;top:1715px;text-align:center;font-size:80px;color:#C4572B;line-height:.5;font-family:'Inter';font-weight:900}
+/* sous-titres */
+#cap{position:absolute;left:70px;right:70px;top:1440px;text-align:center;font-size:64px;line-height:1.2;font-weight:700;text-shadow:0 4px 24px rgba(0,0,0,.95),0 0 4px rgba(0,0,0,.8)}
+#cap span{display:inline-block;margin:0 .12em}
+#cap span.g{color:#FFC072;font-style:italic}
+</style></head><body>
+<div id="st">
+  <div class="L" id="vA"><img class="full" id="iA"></div>
+  <div class="L" id="vB"><img class="full" id="iB"></div>
+  <div class="L" id="grade"></div>
+
+  <div class="L" id="L1"><div id="months"></div><div id="name"><i>Tous les mois,</i><b>MAMADOU</b><div id="nline"></div></div></div>
+  <div class="L" id="L2"><div id="deed"><h6>TITRE DU TERRAIN</h6><div class="sub">au nom de : ………………</div>
+      <div class="ln"></div><div class="ln"></div><div class="ln" style="width:70%"></div><div class="ln"></div><div class="ln" style="width:55%"></div><div class="ln"></div><div class="ln" style="width:80%"></div><div class="seal"></div>
+      <div id="deedblur"></div><div id="deedq">?</div></div>
+    <div class="stamp" id="jv" style="left:170px;top:1010px">JAMAIS VU</div></div>
+  <div class="L" id="L3"><div id="toi">comme toi.</div></div>
+  <div class="L" id="L4">
+    <div class="lab" id="l1" style="top:240px"><div class="e">💰</div>L'argent</div>
+    <div class="lab" id="l2" style="top:390px"><div class="e">📁</div>Les papiers</div>
+    <div class="lab" id="l3" style="top:540px"><div class="e">⛑️</div>Le chantier</div>
+    <div id="one">… dans <b>une seule</b> main.</div>
+  </div>
+  <div class="L" id="L5"><div id="callc"><div class="av">👨🏾</div><div><b>Mon frère</b><small>Appel WhatsApp entrant…</small></div><div class="ac">📞</div></div>
+    <div class="ph" id="ph1"><img id="ph1i"><span>📷 Photo</span></div>
+    <div class="ph" id="ph2"><img id="ph2i"><span>📷 Photo</span></div>
+    <div class="ph" id="ph3"><img id="ph3i"><span>📷 Photo</span></div></div>
+  <div class="L" id="L6"><div id="trap"><i>c'est exactement</i><b>le piège<br>de la <em>diaspora</em></b><div id="trline"></div></div></div>
+  <div class="L" id="LH2"><div class="half" id="hA" style="left:0"><img id="hAi" style="left:0"></div><div class="half" id="hB" style="left:540px"><img id="hBi" style="left:-540px"></div></div>
+  <div class="L" id="L7"><div class="stamp" id="arrete">ARRÊTÉ</div><div id="cw"><small id="cws">fait disparaître</small><span id="cwt"></span></div></div>
+  <div class="L" id="L8"><div id="seule">tout à<b>1</b>seule personne</div><div id="bns"></div></div>
+  <div class="L" id="L9"><div id="etoi"><i>Mamadou ne le sait pas.</i><b>Et toi ?</b></div></div>
+  <div class="L" id="L10"><div class="L" id="cbg"></div><div id="cov"><img src="cover.jpg"><div class="shine" id="sh1"></div></div>
+    <div id="covtag"><b>LE GUIDE</b>Le guide + 4 kits · 7 pays</div></div>
+  <div class="L" id="L11"><div class="L" style="background:radial-gradient(circle at 50% 38%,#5A2E17,#2A150B 60%,#120B07)"></div>
+    <div class="pg" id="pg1"><img src="p26.png"><div id="hl26"></div></div>
+    <div class="pg" id="pg2"><img src="p107.png"></div>
+    <div id="pgchip">Chapitre 8 · la règle des 3 clés</div></div>
+  <div class="L" id="L12"><div class="key" id="key"><div class="k">🔑</div><span id="keyt"></span></div><div id="kn"></div></div>
+  <div class="L" id="L13"><div class="L" id="hbg"></div>
+    <div id="hands"><img src="img6.jpg"></div>
+    <div class="hl3" id="hl1" style="left:30px"><i></i>L'argent</div>
+    <div class="hl3" id="hl2" style="left:390px"><i></i>Les papiers</div>
+    <div class="hl3" id="hl3" style="left:750px"><i></i>Le chantier</div>
+    <div id="never"><span>Jamais</span><span>les</span><span class="r">trois</span><span>dans</span><span>la</span><span>même</span><span class="r">main.</span></div></div>
+  <div class="L" id="L14"><div class="L" id="kbg"></div><div id="kh"><b>+ 4</b><i>kits prêts à remplir</i></div>
+    <div class="kc" id="q1"><small>KIT 1</small><b>Les checklists</b></div>
+    <div class="kc" id="q2"><small>KIT 2</small><b>Les modèles</b></div>
+    <div class="kc" id="q3"><small>KIT 3</small><b>Les calculs</b></div>
+    <div class="kc" id="q4"><small>KIT 4</small><b>Les carnets de suivi</b></div></div>
+  <div class="L" id="L15"><div id="aime">Aime ta famille,</div>
+    <div class="ok" id="ok1" style="top:220px">✓ Vidéo en direct</div>
+    <div class="ok" id="ok2" style="top:320px">✓ Photos datées</div>
+    <div class="ok" id="ok3" style="top:420px">✓ Reçus</div></div>
+  <div class="L" id="L16"><div class="L" id="pbg"></div>
+    <div class="pk" id="k1" style="top:190px"><small>KIT 1</small><b>Les checklists</b></div>
+    <div class="pk" id="k2" style="top:370px"><small>KIT 2</small><b>Les modèles</b></div>
+    <div class="pk" id="k3" style="top:550px"><small>KIT 3</small><b>Les calculs</b></div>
+    <div class="pk" id="k4" style="top:730px"><small>KIT 4</small><b>Les carnets de suivi</b></div>
+    <div id="pcov"><img src="cover.jpg"></div>
+    <div id="ptxt"><div class="lg" id="lg">Le guide et ses 4 kits</div>
+      <div id="num"><span>1</span><span>2</span><span>&nbsp;</span><span>9</span><span>0</span><span>0</span> <small>F CFA</small></div>
+      <div id="old">au lieu de 15 000 F<i id="strike"></i></div></div>
+    <div id="cta">Le lien est juste en dessous<div id="rip"></div></div>
+    <div id="down"><div id="d1">⌄</div><div id="d2">⌄</div></div></div>
+
+  <div class="L" id="vig"></div>
+  <div class="L" id="leak"></div>
+  <div class="L" id="grain"></div>
+  <div class="L" id="bars"><div class="bar" style="top:0"></div><div class="bar" style="bottom:0"></div></div>
+  <div id="cap"></div>
+  <div class="L" id="black"></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>cl((t-a)/(b-a));
+const eo=x=>1-Math.pow(1-x,3), eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const eb=x=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const lerp=(a,b,x)=>a+(b-a)*x;
+const pw=(t,pts)=>{for(let i=0;i<pts.length-1;i++){const[a,x]=pts[i],[b,y]=pts[i+1];if(t<=b)return lerp(x,y,P(t,a,b))}return pts[pts.length-1][1]};
+const fp=(c,lt)=>`fr/${c}/${String(cl(1+Math.floor(lt*30),1,300)).padStart(4,'0')}.jpg`;
+const show=(id,on)=>{$(id).style.display=on?'block':'none'};
+const imgs=[];
+function setImg(e,src){if(e.getAttribute('src')!==src)e.setAttribute('src',src);imgs.push(e)}
+function vid(layer,clip,lt,tf,filt,op){show(layer,true);const e=$(layer==='vA'?'iA':'iB');setImg(e,fp(clip,lt));e.style.transform=tf||'';e.style.filter=filt||'';$(layer).style.opacity=op===undefined?1:op}
+const shake=(t,at,d=.25,amp=12)=>(t>at&&t<at+d)?Math.sin(t*170)*amp*(1-P(t,at,at+d)):0;
+
+// ---- paroles mesurées sur voix3/T2.mp3 ----
+const GOLD=new Set(['terrain...','papier.','frère','appels','photos','WhatsApp.','tout','confier','seule','personne,','fenêtre.','preuves.','trois','clés','étape']);
+const CH=[
+ [2.27,3.70,"dont il n'a jamais vu le papier.",'a'],
+ [4.19,5.06,'Il vit loin du pays,','b'],
+ [6.06,7.17,"Son frère s'occupe de tout :",'c'],
+ [9.95,10.26,'Lui,','d'],[10.51,12.48,'il reçoit des appels et des photos sur WhatsApp.','d'],
+ [12.87,14.18,'tous dans la main de son frère.','e'],
+ [21.71,23.60,'Vouloir tout confier à une seule personne,','f'],[23.77,25.40,"c'est jeter son argent par la fenêtre.",'g'],
+ [28.07,30.86,"Dans le guide « Les erreurs à éviter avant d'investir au pays ».",'h'],
+ [31.27,34.00,'Tu vas suivre étape par étape, la règle des trois clés :','i'],
+ [42.04,43.30,'mais paie contre des preuves.','j'],
+];
+const W=[];CH.forEach(([s,e,tx,g])=>{const ws=tx.split(' ');const tot=ws.reduce((a,w)=>a+w.length+2,0);let acc=s;ws.forEach(w=>{const d=(e-s)*(w.length+2)/tot;W.push({w,s:acc,e:acc+d,g});acc+=d})});
+const GW={};W.forEach(x=>{(GW[x.g]=GW[x.g]||[]).push(x)});
+const GR={};for(const g in GW){GR[g]=[GW[g][0].s-.1,GW[g][GW[g].length-1].e+.3]}
+GR.f[1]=23.7;
+const CT={a:1500,b:1450,c:1450,d:1500,e:1500,f:1560,g:1560,h:1480,i:1480,j:1420,k:1260};
+let capKey='';
+function caps(t){
+  let g=null;for(const k in GR){if(t>=GR[k][0]&&t<GR[k][1])g=k}
+  const c=$('cap');
+  if(!g){c.innerHTML='';capKey='';return}
+  if(capKey!==g){c.innerHTML=GW[g].map(x=>`<span class="${GOLD.has(x.w)?'g':''}">${x.w}</span>`).join(' ');capKey=g}
+  [...c.children].forEach((sp,i)=>{const x=GW[g][i];const a=P(t,x.s-.04,x.s+.18);sp.style.opacity=a;sp.style.transform=`translateY(${(1-eo(a))*18}px)`;sp.style.filter=`blur(${(1-a)*6}px)`});
+  c.style.opacity=1-P(t,GR[g][1]-.15,GR[g][1]);
+  c.style.top=CT[g]+'px';c.style.color=(g==='k')?'#2A150B':'#FFF4E0';c.style.textShadow=g==='k'?'none':'';
+  c.style.fontSize=(g==='h'?56:64)+'px';
+}
+const MO=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet'];
+$('months').innerHTML=MO.map(m=>`<div class="mo">${m}<span>✓ payé</span></div>`).join('');
+const BN=[];for(let i=0;i<9;i++){const d=document.createElement('div');d.className='bn';d.textContent='F';$('bns').appendChild(d);BN.push({e:d,s:23.85+i*0.16,y:900+((i*173)%600),r:(i*37)%50-25})}
+
+const LAY=['vA','vB','L1','L2','L3','L4','L5','L6','LH2','L7','L8','L9','L10','L11','L12','L13','L14','L15','L16'];
+window.render=async function(t){
+  imgs.length=0;LAY.forEach(i=>show(i,false));
+  $('leak').style.opacity=0;$('black').style.opacity=0;$('grade').style.opacity=1;$('bars').style.opacity=1;$('vig').style.opacity=1;
+  const fr=Math.floor(t*24);$('grain').style.backgroundImage=`url(noise${fr%4}.png)`;$('grain').style.backgroundPosition=`${(fr*137)%540}px ${(fr*91)%960}px`;
+  const leak=(c,w=.35,o=.9)=>{$('leak').style.opacity=Math.max(parseFloat($('leak').style.opacity)||0,o*Math.max(0,1-Math.abs(t-c)/w))};
+
+  // 1 : Tous les mois, Mamadou paie (0 – 2.2)
+  if(t<2.3){vid('vA','S4',pw(t,[[0,1.6],[2.3,4.6]]),`scale(${1.1-0.05*P(t,0,2.2)})`,'saturate(.9)');
+    show('L1',true);$('L1').style.opacity=1-P(t,2.1,2.3);$('black').style.opacity=1-P(t,0,0.12);
+    [...$('months').children].forEach((m,i)=>{const s=0.02+i*0.09;const a=P(t,s,s+.14);m.style.opacity=a;m.style.transform=`translateX(${(1-eb(a))*480}px)`});
+    const n=P(t,0.78,1.15);$('name').querySelector('b').style.opacity=n;$('name').querySelector('b').style.letterSpacing=lerp(70,22,eo(n))+'px';
+    $('name').querySelector('i').style.opacity=P(t,0.0,0.3);$('nline').style.transform=`scaleX(${eo(P(t,1.1,1.6))})`;}
+  // 2 : jamais vu le papier (2.2 – 4.1)
+  if(t>=2.15&&t<4.2){vid('vB','S5A',pw(t,[[2.15,0.5],[4.2,3.5]]),'scale(1.06)','brightness(.55) saturate(.9)',P(t,2.15,2.3));leak(2.2,.3,.6);
+    show('L2',true);$('L2').style.opacity=1-P(t,4.0,4.2);
+    const d=eo(P(t,2.2,2.6));$('deed').style.transform=`perspective(1600px) translateY(${(1-d)*900}px) rotateX(${(1-d)*30}deg) rotate(-2deg)`;
+    $('deedq').style.opacity=P(t,2.9,3.1);$('deedq').style.transform=`scale(${lerp(1.6,1,eo(P(t,2.9,3.1)))})`;
+    const s=P(t,3.18,3.32);$('jv').style.opacity=s>0?1:0;$('jv').style.transform=`rotate(-10deg) scale(${lerp(2.4,1,eo(s))}) translateX(${shake(t,3.32,.2,10)}px)`;}
+  // 3 : il vit loin, comme toi (4.1 – 6.0)
+  if(t>=4.1&&t<6.05){vid('vA','S1',pw(t,[[4.1,3.6],[5.2,5.4],[6.05,8.4]]),`scale(${1.12-0.06*P(t,4.1,6)})`,'',P(t,4.1,4.25));
+    show('L3',true);const a=P(t,5.29,5.5);$('toi').style.opacity=a;$('toi').style.transform=`scale(${lerp(1.3,1,eo(a))})`;$('L3').style.opacity=1-P(t,5.9,6.05);}
+  // 4 : son frère s'occupe de tout (6.0 – 9.9)
+  if(t>=6.0&&t<9.95){vid('vB','S6',pw(t,[[6.0,2.4],[9.95,7.6]]),`scale(${1.05+0.05*P(t,6,9.9)})`,'',P(t,6.0,6.2));leak(6.05,.35,.7);
+    show('L4',true);$('L4').style.opacity=1-P(t,9.75,9.95);
+    [['l1',7.51],['l2',8.25],['l3',8.95]].forEach(([id,s])=>{const a=P(t,s,s+.25);$(id).style.opacity=a;$(id).style.transform=`translateX(${(1-eb(a))*500}px)`});
+    $('one').style.opacity=0;}
+  // 5 : appels et photos (9.9 – 12.75)
+  if(t>=9.9&&t<12.8){vid('vA','S2',pw(t,[[9.9,1.8],[12.8,6.0]]),`scale(${1.04+0.05*P(t,9.9,12.8)})`,'brightness(.85)',P(t,9.9,10.05));
+    show('L5',true);$('L5').style.opacity=1-P(t,12.6,12.8);
+    const c=eb(P(t,10.55,10.85));$('callc').style.transform=`translateY(${(1-c)*-300}px) translateX(${t>10.9&&t<11.6?Math.sin(t*60)*4:0}px)`;$('callc').style.opacity=P(t,10.55,10.6);
+    [['ph1','S5C',11.35,[90,640,-8]],['ph2','S5B',11.75,[400,700,5]],['ph3','S5A',12.05,[690,620,-3]]].forEach(([id,c,s,[x,y,r]])=>{const a=P(t,s,s+.25);setImg($(id+'i'),fp(c,1.2));$(id).style.left=x+'px';$(id).style.top=y+'px';$(id).style.opacity=a>0?1:0;$(id).style.transform=`rotate(${r}deg) scale(${eb(a)})`});}
+  // 6 : dans la main de son frère (12.75 – 14.5)
+  if(t>=12.7&&t<14.55){vid('vB','S10',pw(t,[[12.7,1.5],[14.55,5.0]]),`scale(${1.04+0.08*P(t,12.7,14.5)})`,'',P(t,12.7,12.85));
+    show('L4',true);$('L4').style.opacity=P(t,12.7,12.85)*(1-P(t,14.35,14.55));
+    [['l1',0],['l2',1],['l3',2]].forEach(([id,i])=>{const m=eio(P(t,12.9,13.4));$(id).style.opacity=1;$(id).style.transform=`translateY(${m*(150*(1-i))+m*(560+i*0)+m*(i-1)*-150+m*(i-1)*40}px) translateX(${-m*(270-(i-1)*40)}px) rotate(${m*(i-1)*5}deg) scale(${1-0.2*m})`});
+    const o=P(t,13.45,13.7);$('one').style.opacity=o;$('one').style.transform=`scale(${lerp(1.2,1,eo(o))})`;}
+  // 7 : le piège de la diaspora (14.5 – 17.0)
+  if(t>=14.5&&t<17.05){vid('vA','S3',pw(t,[[14.5,0.5],[17.05,4.5]]),`scale(${1.06+0.04*P(t,14.5,17)})`,'brightness(.5) saturate(.7)',P(t,14.5,14.65));
+    show('L6',true);$('L6').style.opacity=1-P(t,16.85,17.05);
+    const a=P(t,14.62,14.85),b=P(t,15.4,15.75);$('trap').querySelector('i').style.opacity=a;
+    $('trap').querySelector('b').style.opacity=b;$('trap').querySelector('b').style.transform=`scale(${lerp(1.4,1,eo(b))}) translateX(${shake(t,15.75,.25,10)}px)`;
+    $('trline').style.transform=`scaleX(${eo(P(t,15.9,16.3))})`;}
+  // 8 : économies / chantiers / familles (17.0 – 21.6)
+  if(t>=17.0&&t<19.15){const g=P(t,17.3,18.9);vid('vB','S4',pw(t,[[17.0,6.0],[19.15,9.5]]),'scale(1.06)',`grayscale(${g}) brightness(${1-.35*g})`,P(t,17.0,17.15))}
+  if(t>=19.1&&t<20.25){vid('vA','S5C',2.0,`scale(${1.08+0.02*P(t,19.1,20.2)})`,'grayscale(.85) brightness(.6) contrast(1.1)')}
+  if(t>=20.2&&t<21.65){show('LH2',true);setImg($('hAi'),fp('S9',3.2));setImg($('hBi'),fp('S9',3.2));
+    const sp=eio(P(t,20.55,21.3));$('hA').style.transform=`translateX(${-sp*90}px) rotate(${-sp*4}deg)`;$('hB').style.transform=`translateX(${sp*90}px) rotate(${sp*4}deg)`;
+    const f=`grayscale(${sp*.8}) brightness(${1-.3*sp})`;$('hAi').style.filter=f;$('hBi').style.filter=f;}
+  if(t>=17.0&&t<21.6){show('L7',true);$('L7').style.opacity=1-P(t,21.4,21.6);
+    const seg=t<19.15?0:t<20.25?1:2;const s=[17.08,19.19,20.30][seg];const a=P(t,s,s+.22);
+    $('cws').textContent=['fait disparaître','arrête','et brise'][seg];$('cwt').textContent=['des économies','des chantiers','des familles'][seg];
+    $('cw').style.opacity=a;$('cw').style.transform=`translateY(${(1-eo(a))*40}px)`;
+    if(seg===0){$('cwt').style.opacity=1-0.85*P(t,18.2,19.0);$('cwt').style.filter=`blur(${10*P(t,18.2,19.0)}px)`}else{$('cwt').style.opacity=1;$('cwt').style.filter=''}
+    const ar=P(t,19.45,19.6);$('arrete').style.display=seg===1?'block':'none';$('arrete').style.opacity=ar>0?1:0;$('arrete').style.transform=`translateX(-50%) rotate(-10deg) scale(${lerp(2.4,1,eo(ar))})`;}
+  // 9 : une seule personne / par la fenêtre (21.6 – 25.65)
+  if(t>=21.55&&t<25.7){vid('vA','S7',pw(t,[[21.55,0.3],[25.7,5.0]]),`scale(${1.04+0.1*eio(P(t,21.6,25.6))})`,'saturate(.85)',P(t,21.55,21.7));
+    show('L8',true);$('L8').style.opacity=1-P(t,25.5,25.7);
+    const a=P(t,22.75,23.0);$('seule').style.opacity=a*(1-P(t,23.65,23.85));$('seule').style.transform=`scale(${lerp(1.3,1,eo(a))})`;
+    BN.forEach(b=>{const k=P(t,b.s,b.s+1.3);const x=lerp(380+((b.y*7)%300),1250,eio(k)),y=b.y-260*Math.sin(k*Math.PI)+120*k;b.e.style.left=x+'px';b.e.style.top=y+'px';b.e.style.opacity=k>0&&k<1?1:0;b.e.style.transform=`rotate(${b.r+k*160}deg) scale(${.7+.3*Math.sin(k*Math.PI)})`});}
+  // 10 : Mamadou ne le sait pas... et toi ? (25.65 – 27.95)
+  if(t>=25.65&&t<26.95){vid('vB','S7',pw(t,[[25.65,7.4],[26.95,9.4]]),'scale(1.16)','saturate(.6) brightness(.8)')}
+  if(t>=25.7&&t<28.0){show('L9',true);$('bars').style.opacity=1;
+    const dk=P(t,26.85,27.0);if(t>=26.85){$('vB').style.opacity=1-dk}
+    $('L9').style.opacity=1-P(t,27.85,28.0);
+    $('etoi').querySelector('i').style.opacity=P(t,25.83,26.1);
+    const b=P(t,27.04,27.2);$('etoi').querySelector('b').style.opacity=b;$('etoi').querySelector('b').style.transform=`scale(${lerp(1.6,1,eo(b))})`;}
+  // 11 : le guide (27.95 – 31.15)
+  if(t>=27.95&&t<29.0){vid('vA','S11',pw(t,[[27.95,5.4],[29.0,7.0]]),'scale(1.05)','',P(t,27.95,28.1));leak(27.98,.3,.8)}
+  if(t>=28.85&&t<31.2){show('L10',true);$('L10').style.opacity=P(t,28.85,29.0)*(1-P(t,31.0,31.2));
+    const c=eo(P(t,28.9,29.5));$('cov').style.transform=`perspective(1800px) translateY(${(1-c)*700}px) rotateY(${(1-c)*25+3*Math.sin(t*1.1)}deg) scale(${1+0.03*P(t,29.5,31)})`;
+    $('sh1').style.left=lerp(-260,900,P(t,29.6,30.5))+'px';
+    const g=P(t,30.0,30.3);$('covtag').style.opacity=g;$('covtag').style.transform=`translateY(${(1-eo(g))*30}px)`;}
+  // 12 : pages (31.15 – 34.3)
+  if(t>=31.15&&t<34.35){show('L11',true);$('L11').style.opacity=P(t,31.15,31.3)*(1-P(t,34.15,34.35));
+    const a1=eo(P(t,31.2,31.6)),o1=eio(P(t,32.55,32.9));
+    $('pg1').style.opacity=a1*(1-o1);$('pg1').style.transform=`perspective(1600px) translateX(${(1-a1)*800-o1*900}px) rotateY(${(1-a1)*-30+o1*25}deg) rotate(-1deg)`;
+    $('hl26').style.transform=`scaleX(${eio(P(t,31.8,32.3))})`;
+    const a2=eo(P(t,32.6,33.0));$('pg2').style.opacity=a2;$('pg2').style.transform=`perspective(1600px) translateX(${(1-a2)*800}px) rotateY(${(1-a2)*-30}deg) scale(${1-0.02*P(t,33,34.3)})`;
+    const ch=eb(P(t,33.2,33.45));$('pgchip').style.opacity=P(t,33.2,33.25);$('pgchip').style.transform=`translateX(-50%) scale(${ch})`;}
+  // 13 : trois clés (34.3 – 36.95)
+  if(t>=34.3&&t<36.95){const seg=t<35.15?0:t<36.0?1:2;const lt=[pw(t,[[34.3,0.2],[35.15,1.6]]),pw(t,[[35.15,3.0],[36.0,4.4]]),pw(t,[[36.0,6.2],[36.95,7.8]])][seg];
+    vid(seg===1?'vB':'vA','S12',lt,'scale(1.06)');leak([34.32,35.17,36.02][seg],.15,.5);
+    show('L12',true);const s=[34.48,35.24,36.11][seg];const a=P(t,s,s+.22);
+    $('keyt').textContent=["L'argent",'Les papiers','Le chantier'][seg];$('key').style.transform=`scale(${eb(a)})`;$('key').style.transformOrigin='0 50%';$('key').style.opacity=a>0?1:0;
+    $('kn').textContent=`Clé ${seg+1} / 3`;}
+  // 14 : jamais les trois (36.95 – 38.95)
+  if(t>=36.9&&t<39.0){show('L13',true);$('L13').style.opacity=P(t,36.9,37.05)*(1-P(t,38.8,39.0));$('bars').style.opacity=0;$('vig').style.opacity=.25;$('grade').style.opacity=0;
+    $('hands').querySelector('img').style.transform=`scale(${1.04+0.06*P(t,36.9,38.9)})`;
+    [['hl1',36.95],['hl2',37.05],['hl3',37.15]].forEach(([id,s])=>{const a=P(t,s,s+.2);$(id).style.opacity=a;$(id).style.transform=`translateY(${(1-eo(a))*30}px)`});
+    const ws=[37.08,37.42,37.6,37.9,38.05,38.15,38.32];[...$('never').children].forEach((s,i)=>{const a=P(t,ws[i],ws[i]+.15);s.style.opacity=a;s.style.transform=`translateY(${(1-eo(a))*24}px)`});}
+  // 15 : 4 kits (38.95 – 40.95)
+  if(t>=38.95&&t<41.0){show('L14',true);$('L14').style.opacity=P(t,38.95,39.1)*(1-P(t,40.8,41.0));
+    const h=P(t,39.02,39.25);$('kh').style.opacity=h;$('kh').style.transform=`scale(${lerp(1.5,1,eo(h))})`;
+    const ps=[[60,880],[580,880],[60,1120],[580,1120]];
+    [['q1',39.5],['q2',39.68],['q3',39.86],['q4',40.04]].forEach(([id,s],i)=>{const a=P(t,s,s+.3);const e=$(id);e.style.left=ps[i][0]+'px';e.style.top=ps[i][1]+'px';e.style.opacity=a>0?1:0;e.style.transform=`translateY(${(1-eb(a))*220}px) rotate(${(i%2?3:-3)*(1-a)}deg)`});}
+  // 16 : aime ta famille, paie contre des preuves (40.95 – 43.55)
+  if(t>=40.95&&t<42.1){vid('vA','S9',pw(t,[[40.95,2.6],[42.1,4.3]]),`scale(${1.03+0.03*P(t,40.95,42.1)})`,'brightness(1.06) saturate(1.1)',P(t,40.95,41.1));leak(40.98,.4,.8);
+    show('L15',true);const a=P(t,41.03,41.25);$('aime').style.opacity=a*(1-P(t,41.9,42.05));$('aime').style.transform=`translateY(${(1-eo(a))*30}px)`;['ok1','ok2','ok3'].forEach(id=>$(id).style.opacity=0)}
+  if(t>=42.0&&t<43.6){vid('vB','S13',pw(t,[[42.0,5.4],[43.6,7.8]]),`scale(${1.05+0.04*P(t,42,43.6)})`,'',P(t,42.0,42.15));
+    show('L15',true);$('L15').style.opacity=1-P(t,43.4,43.6);$('aime').style.opacity=0;
+    [['ok1',42.3],['ok2',42.55],['ok3',42.8]].forEach(([id,s])=>{const a=P(t,s,s+.22);$(id).style.opacity=a;$(id).style.transform=`translateX(${(1-eb(a))*-400}px)`});}
+  // 17 : produit (43.55 – fin)
+  if(t>=43.5){show('L16',true);$('L16').style.opacity=P(t,43.5,43.75);$('bars').style.opacity=1-P(t,43.5,43.75);$('vig').style.opacity=.2;$('grade').style.opacity=0;leak(43.55,.3,.6);
+    const c=eo(P(t,43.55,44.1));$('pcov').style.transform=`perspective(1800px) translateX(${(1-c)*-600}px) rotateY(${12+(1-c)*30+2*Math.sin(t*1.2)}deg)`;
+    [['k1',44.0],['k2',44.15],['k3',44.3],['k4',44.45]].forEach(([id,s],i)=>{const a=P(t,s,s+.3);$(id).style.opacity=a;$(id).style.transform=`translateX(${(1-eb(a))*450}px) rotate(${(1-a)*8}deg)`});
+    $('lg').style.opacity=P(t,43.7,43.95);
+    const ds=[43.67,43.85,43.85,44.1,44.35,44.55];[...$('num').querySelectorAll('span')].forEach((s,i)=>{const a=P(t,ds[i],ds[i]+.15);s.style.opacity=a;s.style.transform=`translateY(${(1-eo(a))*-60}px)`});
+    $('num').querySelector('small').style.opacity=P(t,44.6,44.8);
+    $('old').style.opacity=P(t,44.95,45.1);$('strike').style.transform=`scaleX(${eo(P(t,45.4,45.75))})`;
+    const b=P(t,45.95,46.25);const press=Math.max(0,1-Math.abs(t-46.7)/0.12);
+    $('cta').style.opacity=b;$('cta').style.transform=`scale(${eb(b)*(1-0.06*press)+(t>46.9?0.025*Math.sin((t-46.9)*7):0)})`;
+    const rp=P(t,46.65,47.3);$('rip').style.transform=`scale(${rp*34})`;$('rip').style.opacity=rp>0?(1-rp)*.7:0;
+    $('down').style.opacity=P(t,46.4,46.6);$('d1').style.transform=`translateY(${Math.sin(t*8)*8}px)`;$('d2').style.transform=`translateY(${Math.sin(t*8-1)*8}px)`;$('d2').style.opacity=.55;}
+  caps(t);
+  await Promise.all(imgs.map(e=>e.complete&&e.naturalWidth?null:e.decode().catch(()=>null)));
+};
+</script></body></html>

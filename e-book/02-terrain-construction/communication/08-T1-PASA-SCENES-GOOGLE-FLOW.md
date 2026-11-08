@@ -66,3 +66,18 @@ S10 animation :
 ```
 The man stands still, then slowly lets the travel bag slide from his shoulder to the ground, staring at the empty plot in shock. Dust moves in the hot wind, the dry weeds sway. Slow camera push-in on his face. No text, no logos.
 ```
+
+## Contrôle des clips S8, S9, S10 (reçus le 8 nov.)
+- S8 (pouce qui se fige) : très bon. Pas de texte. Téléphone sans logo visible.
+- S9 (entrepôt) : bon. Gilet sans écriture. Petites étiquettes illisibles sur les étagères → recadrage léger au montage.
+- S10 (terrain vide) : très bon. Le sac est posé vite (1re seconde) ; le visage choqué de 3 à 9 s est parfait.
+- **Problème :** Flow a créé un homme plus âgé, AVEC LUNETTES, différent de l'homme des anciens S1/S6 (sans lunettes). Pour garder UN seul personnage : refaire **S1b** (le message arrive) et **S6b** (rassuré pendant l'appel vidéo) avec l'homme à lunettes, en partant des images `videos/t1/ref/depart-S1b.jpg` et `depart-S6b.jpg` (tirées de S8). S7 (mains seules) reste.
+
+S1b animation (image de départ : depart-S1b.jpg)
+```
+Night, cosy European apartment, rain on the window. The phone in the man's hands lights up with a new message. He reads it, and a small hopeful smile appears on his face. Slow camera push-in, shallow depth of field. Keep the phone screen blurred and unreadable. No text, no logos.
+```
+S6b animation (image de départ : depart-S6b.jpg)
+```
+Night, cosy European apartment, rain on the window. The man raises his phone in front of him at arm's length, as in a live video call; the light of the screen falls on his face. He watches very carefully, then slowly nods and breathes out, relieved, with a calm smile. The phone screen faces away from the camera. Shallow depth of field. No text, no logos.
+```

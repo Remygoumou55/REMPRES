@@ -125,3 +125,32 @@ He stands still, then slowly lets the backpack slide from his shoulder to the gr
 
 ## T2 : « et même toi » → « et toi non plus »
 Le client régénère seulement la phrase « Mamadou ne le sait pas, et toi non plus. » ; je la remplace dans `voix3/T2.mp3` (25,8 – 27,6 s).
+
+## S8c, S9c, S10c reçus (8 nov.) : REFUSÉS
+Flow a encore créé un homme plus âgé à barbe grise (et des lunettes dans S8c) : il ressemble toujours à Mamadou. Le client l'a vu aussi.
+**Solution définitive : ne plus montrer de visage dans les 3 scènes nouvelles** (mains en gros plan, homme vu de dos). Ainsi aucun risque de ressemblance. Les seuls visages de T1 = l'homme de l'ancien T1 (S1, S6, S7, déjà validés). Faire les scènes dans un NOUVEAU projet Flow, sans aucun ingrédient.
+
+S8d (image puis animation)
+```
+Vertical 9:16 cinematic extreme close-up, night. Only two hands are visible, no face: the hands of a young West African man in a dark grey knitted sweater hold a smartphone. The thumb is about to press the screen. Background: blurred cosy apartment, warm lamp light and cold blue light from a rainy window. Very shallow depth of field. The screen is softly blurred and unreadable. Realistic. No face, no text, no logos.
+```
+```
+Slow motion. The thumb moves toward the screen to press, then suddenly freezes a few millimetres above it, trembles slightly, and slowly pulls back. The hands tighten around the phone. Slight camera push-in. No face visible. Screen blurred and unreadable. No text, no logos.
+```
+S9d
+```
+Vertical 9:16 cinematic shot, night, seen from behind. A young West African man in a plain dark green work jacket and a plain high-visibility vest without any writing carries a heavy cardboard box down a long aisle of a cold European warehouse. We only see his back and shoulders, never his face. Harsh industrial lights, blue-grey tones, breath visible in the cold air. Realistic. No face, no text, no logos, no labels.
+```
+```
+He walks slowly away from the camera carrying the heavy box, then stops, puts the box down on a pallet and stretches his tired back with one hand. The camera follows him from behind. His face is never visible. No text, no logos.
+```
+S10d
+```
+Vertical 9:16 cinematic shot, harsh midday sun, seen from behind. A young West African man in a plain white t-shirt and jeans, with a black backpack on one shoulder, stands on a plot of red earth in a West African town. We only see his back. In front of him there is no house: only tall dry weeds and the remains of an old, abandoned, unfinished low cement-block foundation. Warm, dusty, slightly desaturated tones. Realistic. No face, no text, no logos.
+```
+```
+Seen from behind: the backpack slowly slides from his shoulder and falls to the ground, then he puts both hands on his head in shock, looking at the empty plot. Dust moves in the hot wind, the dry weeds sway. Slow camera push-in toward his back. His face is never visible. No text, no logos.
+```
+
+## T2 : phrase corrigée (8 nov.)
+`voix3/T2-phrase.mp3` collée à la place de 25,83–27,63 s → `voix3/T2.mp3` (48,2 s) ; l'ancienne voix est gardée dans `voix3/T2-avant-correction.mp3`. Images et sons décalés avec une fonction WARP (index.html) et W() (audio.py). Écran : « Et toi non plus. ».

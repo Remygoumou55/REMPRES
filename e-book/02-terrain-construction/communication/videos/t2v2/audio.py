@@ -3,7 +3,7 @@ Kora la mineur (problème) -> cœur + bourdon (aggravation) -> silence sur « Et
 espoir do majeur + percussions douces (solution), boîte à musique sur « Aime ta famille », accord final."""
 import numpy as np, wave
 from scipy.signal import butter, sosfilt
-SR = 44100; DUR = 48.8; N = int(SR * DUR)
+SR = 44100; DUR = 49.4; N = int(SR * DUR)
 rng = np.random.default_rng(21)
 hz = lambda m: 440 * 2 ** ((m - 69) / 12)
 def T(d): return np.arange(int(SR * d)) / SR
@@ -11,8 +11,12 @@ def filt(x, f, kind='low', o=2): return sosfilt(butter(o, f, kind, fs=SR, output
 def env(n, a, r):
     t = np.arange(n) / SR; d = n / SR
     return np.clip(t / max(a, 1e-4), 0, 1) * np.clip((d - t) / max(r, 1e-4), 0, 1)
+def W(at):
+    if at < 25.83: return at
+    if at < 27.63: return float(np.interp(at, [25.83, 26.86, 27.04, 27.63], [25.83, 26.93, 27.34, 28.23]))
+    return at + 0.6
 def add(buf, s, at, g=1.0, pan=0.0):
-    i = int(at * SR); j = min(N, i + len(s))
+    i = int(W(at) * SR); j = min(N, i + len(s))
     if i >= N or j <= 0 or i < 0: return
     s = s[:j - i] * g; buf[0, i:j] += s * (1 - max(0, pan)); buf[1, i:j] += s * (1 + min(0, pan))
 mus = np.zeros((2, N)); sfx = np.zeros((2, N))

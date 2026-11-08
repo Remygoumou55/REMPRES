@@ -65,7 +65,7 @@ body{font-family:'Caladea','Liberation Serif','Noto Color Emoji',serif;color:#FF
 /* 9 et toi */
 #etoi{position:absolute;left:0;right:0;top:760px;text-align:center}
 #etoi i{display:block;font-size:72px;color:#C9B79C}
-#etoi b{display:block;font-size:250px;font-style:italic;color:#FFC072;line-height:1;margin-top:10px}
+#etoi b{display:block;font-size:200px;font-style:italic;color:#FFC072;line-height:1;margin-top:10px}
 /* 10 couverture */
 #cbg{background:radial-gradient(circle at 50% 38%,#5A2E17,#2A150B 60%,#120B07)}
 #cov{position:absolute;left:250px;top:210px;width:580px;height:1031px;border-radius:10px;overflow:hidden;box-shadow:0 50px 100px rgba(0,0,0,.75)}
@@ -150,7 +150,7 @@ body{font-family:'Caladea','Liberation Serif','Noto Color Emoji',serif;color:#FF
   <div class="L" id="LH2"><div class="half" id="hA" style="left:0"><img id="hAi" style="left:0"></div><div class="half" id="hB" style="left:540px"><img id="hBi" style="left:-540px"></div></div>
   <div class="L" id="L7"><div class="stamp" id="arrete">ARRÊTÉ</div><div id="cw"><small id="cws">fait disparaître</small><span id="cwt"></span></div></div>
   <div class="L" id="L8"><div id="seule">tout à<b>1</b>seule personne</div><div id="bns"></div></div>
-  <div class="L" id="L9"><div id="etoi"><i>Mamadou ne le sait pas.</i><b>Et toi ?</b></div></div>
+  <div class="L" id="L9"><div id="etoi"><i>Mamadou ne le sait pas.</i><b>Et toi<br>non plus.</b></div></div>
   <div class="L" id="L10"><div class="L" id="cbg"></div><div id="cov"><img src="cover.jpg"><div class="shine" id="sh1"></div></div>
     <div id="covtag"><b>LE GUIDE</b>Le guide + 4 kits · 7 pays</div></div>
   <div class="L" id="L11"><div class="L" style="background:radial-gradient(circle at 50% 38%,#5A2E17,#2A150B 60%,#120B07)"></div>
@@ -241,7 +241,7 @@ $('months').innerHTML=MO.map(m=>`<div class="mo">${m}<span>✓ payé</span></div
 const BN=[];for(let i=0;i<9;i++){const d=document.createElement('div');d.className='bn';d.textContent='F';$('bns').appendChild(d);BN.push({e:d,s:23.85+i*0.16,y:900+((i*173)%600),r:(i*37)%50-25})}
 
 const LAY=['vA','vB','L1','L2','L3','L4','L5','L6','LH2','L7','L8','L9','L10','L11','L12','L13','L14','L15','L16'];
-window.render=async function(t){
+const R0=async function(t){
   imgs.length=0;LAY.forEach(i=>show(i,false));
   $('leak').style.opacity=0;$('black').style.opacity=0;$('grade').style.opacity=1;$('bars').style.opacity=1;$('vig').style.opacity=1;
   const fr=Math.floor(t*24);$('grain').style.backgroundImage=`url(noise${fr%4}.png)`;$('grain').style.backgroundPosition=`${(fr*137)%540}px ${(fr*91)%960}px`;
@@ -357,4 +357,6 @@ window.render=async function(t){
   caps(t);
   await Promise.all(imgs.map(e=>e.complete&&e.naturalWidth?null:e.decode().catch(()=>null)));
 };
+const WARP=t=>t<25.83?t:t<28.23?pw(t,[[25.83,25.83],[26.93,26.86],[27.34,27.04],[28.23,27.63]]):t-0.6;
+window.render=t=>R0(WARP(t));
 </script></body></html>

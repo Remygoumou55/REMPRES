@@ -275,7 +275,7 @@ const CH=[
  [23.51,24.60,'Pour éviter ces erreurs,','S1'],[24.81,27.63,"le guide « Les erreurs à éviter avant d'investir au pays »",'S2'],
  [27.79,29.87,'te montre quoi exiger avant chaque paiement :','S3'],
  [34.80,37.50,'Et le message pour demander ces preuves sans vexer personne,','S8'],
- [41.53,43.65,'Douze mille neuf cents francs au lieu de 15 000.','C2'],
+ [41.53,43.65,'Neuf mille neuf cents francs au lieu de 15 000.','C2'],
 ];
 const SY=w=>((w.toLowerCase().replace(/e$|es$|ent$/,'').match(/[aeiouyàâéèêëîïôûùü]+/g)||[]).length||1)+0.4;
 const W=[];CH.forEach(([s,e,tx,g])=>{const ws=tx.split(' ');const tot=ws.reduce((a,w)=>a+SY(w),0);let acc=s;ws.forEach(w=>{const d=(e-s)*SY(w)/tot;W.push({w,s:acc,e:acc+d,g});acc+=d})});

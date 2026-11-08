@@ -91,3 +91,37 @@ Night, cosy European apartment, rain on the window. The man raises his phone in 
 - Vraies pages : nouvelle couverture v3 (page 1 du PDF téléphone), page 187 « Checklist : avant chaque paiement » (chapitre 15), Kit 2 page 5 (message pour demander les preuves).
 - Musique : impact + coupure (accroche) → pluie + Rhodes ré mineur (problème) → bourdon + pulsation 100→130 bpm, bourdonnement d'entrepôt, boom « trop tard » (aggravation) → groove fa majeur 92 bpm + mélodie (solution/action).
 - Vidéo finale : `videos/T1-la-photo-v2.mp4` (47,6 s).
+
+## Correction demandée par le client (8 nov.) : l'homme à lunettes ressemble à Mamadou (T2)
+Solution : revenir à l'homme de l'ancien T1 (jeune, SANS lunettes, cheveux très courts, barbe courte noire, pull gris foncé), déjà présent dans S1, S6, S7.
+À refaire avec lui : **S8c, S9c, S10c**. Images de référence : `videos/t1/ref/homme-T1-visage.jpg` et `homme-T1-entier.jpg` (à mettre en « ingrédient » / image de référence).
+S1b → remplacé par l'ancien S1 ; la fin rassurée → ancien S6.
+Prompts : voir le message du 8 nov. (identiques ci-dessous).
+
+S8c image
+```
+Vertical 9:16 cinematic photo, night. Extreme close-up of the same man as in the reference image: a West African man about 35 years old, NO glasses, very short black hair, short black beard without any grey, dark grey sweater, sitting in a small cosy European apartment. He holds a smartphone, his thumb frozen just above the screen, about to press. Tense, hesitant expression. Warm lamp light and cold blue light from a rainy window, very shallow depth of field. Phone screen blurred and unreadable. Realistic. No glasses, no text, no logos.
+```
+S8c animation
+```
+Slow motion. His thumb moves toward the phone screen to press, then suddenly freezes a few millimetres above it and slowly pulls back. His face tightens with doubt. Very slight camera push-in, rain on the window behind. He does not wear glasses. Screen blurred and unreadable. No text, no logos.
+```
+S9c image
+```
+Vertical 9:16 cinematic photo, night. The same man as in the reference image: a West African man about 35 years old, NO glasses, very short black hair, short black beard without any grey, working a night shift in a large cold warehouse in Europe. He wears a plain dark green work jacket and a plain high-visibility vest without any writing, and holds a heavy cardboard box, tired but determined, breath visible in the cold air. Harsh industrial lights, blue-grey tones, shallow depth of field. Realistic. No glasses, no text, no logos, no labels.
+```
+S9c animation
+```
+He lifts the heavy cardboard box onto a pallet, stops for a second, wipes his forehead with the back of his hand and breathes out a cloud of cold air. Slow handheld camera movement. He does not wear glasses. Keep the vest and boxes completely blank. No text, no logos.
+```
+S10c image
+```
+Vertical 9:16 cinematic photo, harsh midday sun. The same man as in the reference image: a West African man about 35 years old, NO glasses, very short black hair, short black beard without any grey, wearing a plain white t-shirt and jeans, a black backpack on one shoulder, standing on a plot of red earth in a West African town. In front of him there is no house: only tall dry weeds and the remains of an old, abandoned, unfinished low cement-block foundation. He stares in shock and disbelief. Warm, dusty, slightly desaturated tones. Realistic. No glasses, no text, no logos.
+```
+S10c animation
+```
+He stands still, then slowly lets the backpack slide from his shoulder to the ground, staring at the empty plot in shock, one hand on his head. Dust moves in the hot wind, the dry weeds sway. Slow camera push-in on his face. He does not wear glasses. No text, no logos.
+```
+
+## T2 : « et même toi » → « et toi non plus »
+Le client régénère seulement la phrase « Mamadou ne le sait pas, et toi non plus. » ; je la remplace dans `voix3/T2.mp3` (25,8 – 27,6 s).

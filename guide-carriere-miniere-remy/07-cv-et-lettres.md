@@ -8,8 +8,8 @@
 
 ## Ce qu'il faut vérifier ou ajouter
 
-1. **Les numéros de téléphone** (repris de ton ancien CV) : sont-ils toujours actifs, et lequel a WhatsApp ? Si tu as un numéro ghanéen pendant ton séjour, on peut l'ajouter.
-2. **Les années à l'université** : le CV dit seulement « 2 années d'études ». Donne-moi les années exactes.
+1. ✅ Numéros de téléphone confirmés (le premier a WhatsApp).
+2. ✅ Université : 2021-2022, une seule ligne sur le CV (pour éviter un trou de 4 ans).
 3. **Une photo professionnelle** (fond clair, chemise, visage de face) : beaucoup de recruteurs guinéens aiment voir une photo. Je pourrai l'ajouter.
 4. **Dès que tu fais une formation de secourisme ou HSE**, envoie-moi le certificat : je l'ajoute tout en haut de la formation.
 5. **Règles de vérité respectées** : le CV ne parle d'aucune expérience que tu n'as pas. Il présente ta formation honnêtement (« entry-level », « premier poste »). N'ajoute jamais une expérience inventée.

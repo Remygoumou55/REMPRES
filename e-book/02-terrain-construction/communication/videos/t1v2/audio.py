@@ -4,7 +4,7 @@ entrepôt (bourdonnement), argent aspiré, « trop tard » : boom puis silence ;
 Sortie : music.wav et sfx.wav (stéréo 44,1 kHz)."""
 import numpy as np, wave
 from scipy.signal import butter, sosfilt
-SR = 44100; DUR = 47.6; N = int(SR * DUR)
+SR = 44100; DUR = 48.2; N = int(SR * DUR)
 rng = np.random.default_rng(7)
 hz = lambda m: 440 * 2 ** ((m - 69) / 12)
 def T(d): return np.arange(int(SR * d)) / SR
@@ -14,6 +14,7 @@ def env(n, a, r):
     t = np.arange(n) / SR; d = n / SR
     return np.clip(t / max(a, 1e-4), 0, 1) * np.clip((d - t) / max(r, 1e-4), 0, 1)
 def add(buf, s, at, g=1.0, pan=0.0):
+    at = at + 0.6  # 0,6 s d'entrée avant « Arrête »
     i = int(at * SR); j = min(N, i + len(s))
     if i >= N or j <= 0: return
     s = s[:j - i] * g
@@ -50,7 +51,7 @@ def rim():
 
 # 0) ACCROCHE (0 – 3) : impact grave + tenue grinçante, coupée net à 2.45
 t = T(2.6); hit = (np.sin(2*np.pi*(36+70*np.exp(-t*7))*t)*np.exp(-t*2.2))
-add(mus, hit, 0.0, .9)
+add(mus, hit, 0.0, .35)
 add(mus, pad((50, 51, 57), 2.45, .05, .02), 0.0, .16)
 t = T(2.4); stg = np.sin(2*np.pi*hz(74)*t + 3*np.sin(2*np.pi*5.5*t)) * (t/2.4)**2
 add(mus, stg, 0.05, .05, .3)
@@ -132,60 +133,16 @@ def marker(d=.18):
     t = T(d); return filt(filt(rng.standard_normal(len(t)), 3000, 'high'), 7000) * np.sin(np.pi * t / d)
 
 
-# ----- placement des bruitages (temps = image) -----
-add(sfx, boom(), 0.0, .7); add(sfx, thud(1.2), 0.0)
-add(sfx, whoosh(.4), 0.6, .3); add(sfx, pop(700), 0.85, .3)
-add(sfx, pop(1100), 2.1, .2)
-t = T(.35); add(sfx, filt(rng.standard_normal(len(t)), 900) * np.exp(-t*8) * np.sin(2*np.pi*(300-500*t)*t), 2.3, .45)   # rayure
-add(sfx, thud(1.0), 2.45)
-add(sfx, whoosh(.5), 2.8, .3)
-add(sfx, ding(), 3.22, .30)
-add(sfx, whoosh(.45), 4.15, .25)
-add(sfx, pop(800), 4.4, .3); add(sfx, pop(950), 5.56, .3); add(sfx, pop(700), 5.96, .3)
-for at, f in ((6.40, 900), (7.05, 1050), (7.75, 1200)): add(sfx, pop(f), at, .28, .2)
-add(sfx, tone2(880, 1320, .25), 9.25, .2); add(sfx, check(), 9.3, .25)
-add(sfx, whoosh(.5), 9.75, .3)
-add(sfx, boom(), 11.55, .5); add(sfx, boom(), 12.66, .45)
-for at in np.arange(11.57, 12.3, 1/12): add(sfx, tick(2600), at, .06, .3)
-for at in np.arange(12.68, 13.3, 1/12): add(sfx, tick(3000), at, .06, -.3)
-add(sfx, whoosh(.4), 13.6, .25)
-for k, at in enumerate((13.8, 14.15, 14.5, 14.85)): add(sfx, shutter(), at, .28, (-.5, .5, -.3, .3)[k])
-add(sfx, whoosh(.45), 15.3, .22)
-add(sfx, whoosh(.5), 16.05, .3)
-t = T(.5); add(sfx, filt(rng.standard_normal(len(t)), 300) * np.exp(-t*6), 17.0, .3)   # carton posé
-add(sfx, whoosh(.45), 17.9, .3)
-for i in range(14):
-    at = 18.1 + i*0.13; t = T(.9); sw = filt(rng.standard_normal(len(t)), 3000, 'high') * np.sin(np.pi*t/.9)**2 * (1 - t/.9)
-    add(sfx, sw, at, .05, ((i*37) % 10 - 5)/6)
-t = T(1.2); add(sfx, np.sin(2*np.pi*(900*np.exp(-t*2.5))*t)*np.exp(-t*2), 19.0, .12)   # aspiration
-add(sfx, whoosh(.4), 20.15, .25)
-add(sfx, thud(1.2), 22.14); add(sfx, thud(1.0), 22.55)
-add(sfx, whoosh(.6, up=False), 23.3, .35)
-add(sfx, pop(600), 23.6, .25)
-add(sfx, whoosh(.5), 24.65, .3)
-add(sfx, whoosh(.4), 27.55, .25)
-for at in (28.55, 28.85, 29.15, 29.45): add(sfx, check(), at, .2); add(sfx, marker(.2), at, .07)
-t = T(.3); add(sfx, np.sin(2*np.pi*np.where(t < .12, 660, 990)*t)*np.exp(-t*6), 29.95, .22)
-for at in (30.25, 31.8, 33.15, 33.85): add(sfx, check(), at, .22)
-kt = 34.6
-while kt < 35.6: add(sfx, key(), kt, .16, rng.uniform(-.3, .3)); kt += rng.uniform(.07, .15)
-add(sfx, whoosh(.4), 35.5, .25)
-for at in (35.95, 36.2, 36.36, 36.52, 36.7, 36.86): add(sfx, marker(.16), at, .10)
-add(sfx, thud(.9), 36.75)
-add(sfx, whoosh(.4), 37.55, .25); add(sfx, boom(), 37.7, .25)
-for k, at in enumerate((38.05, 38.25, 38.45, 38.65)): add(sfx, pop(800 + 150*k), at, .28, (-.4, -.15, .15, .4)[k])
-add(sfx, whoosh(.4), 39.45, .25)
-for at in (39.69, 40.15): add(sfx, thud(.8), at)
-add(sfx, thud(1.2), 40.6); add(sfx, boom(), 40.6, .3)
-add(sfx, whoosh(.45), 41.25, .3)
-for at in np.arange(41.55, 42.9, .05): add(sfx, tick(2200), at, .05)
-add(sfx, ding(), 42.9, .22)
-t = T(.35); add(sfx, filt(rng.standard_normal(len(t)), 2500, 'high') * np.exp(-t*10), 43.2, .2)   # trait qui barre
-add(sfx, pop(600), 43.95, .3)
-t = T(.08); add(sfx, filt(rng.standard_normal(len(t)), 1500, 'high') * np.exp(-t*80), 44.6, .35)
-add(sfx, check(), 44.65, .25)
-add(sfx, pop(900), 45.4, .2)
-
+# ----- bruitages : PEU nombreux et doux (demande du client, 8 nov.) -----
+add(sfx, thud(.6), 0.0, .5)                      # « Arrête »
+add(sfx, thud(.5), 2.45, .4)                     # STOP
+add(sfx, ding(), 3.22, .18)                      # message du frère
+add(sfx, check(), 9.3, .15)                      # argent envoyé
+add(sfx, whoosh(.6), 13.6, .12)                  # galerie
+add(sfx, thud(.7), 22.14, .45)                   # trop tard
+add(sfx, whoosh(.7), 23.3, .12)                  # la solution
+for at in (30.25, 31.8, 33.15, 33.85): add(sfx, check(), at, .08)   # cases cochées (très doux)
+add(sfx, ding(), 42.9, .12)                      # prix
 def save(name, x):
     x = x / max(1e-9, np.abs(x).max()) * 0.9
     with wave.open(name, 'wb') as w:

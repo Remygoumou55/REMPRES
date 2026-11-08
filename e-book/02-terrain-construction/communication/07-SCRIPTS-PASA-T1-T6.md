@@ -1,4 +1,4 @@
-# Nouveaux scripts T3 à T6 — structure PASA, cible diaspora (8 nov. 2026)
+# Nouveaux scripts T1 à T6 — structure PASA, cible diaspora (8 nov. 2026)
 
 Le client a montré une conversation avec une autre IA : 6 structures de pub (PAS, AIDA, BAB, 4C, QUEST, FAB), puis PASA, et 5 voix off « diaspora » (confiance, rêve, famille, sacrifices, distance).
 **Il veut :** une pub qui met la personne de la diaspora dans SA situation, puis Problème → Aggravation → Solution (le guide arrive comme solution, pas comme sujet) → bénéfices + bonus → appel à l'action. La personne ne doit pas sentir la pub au début.
@@ -14,17 +14,31 @@ Le client a montré une conversation avec une autre IA : 6 structures de pub (PA
 4. Accroches trop lentes (« Tu vis en Europe, aux États-Unis ou ailleurs… ») : la personne doit se reconnaître en 2 secondes.
 5. « véritables garanties » : on évite toute la famille du mot « garanti ».
 
+**8 nov. 2026 : le client décide de REFAIRE AUSSI T1 et T2 dans cette direction → les 6 vidéos sont refaites en PASA. Les scènes Google Flow déjà générées pour T1 et T2 (`videos/t1/src`, `videos/t2/src`) sont réutilisables ; on complète seulement si la nouvelle voix l'exige. Les montages T1/T2 actuels deviennent des archives.**
+
+Note d'honnêteté T2 : dans le livre, Mamadou ne perd PAS son terrain (il a « les 3 ingrédients du piège », puis remet tout en ordre : « Mamadou, un an après »). L'ancienne voix T2 disait « déjà vendu à quelqu'un d'autre » : retiré dans la nouvelle version.
+
 ## Répartition des angles (chaque vidéo = un angle différent)
 | Vidéo | Angle PASA | Ce qui est vérifié dans le livre |
 |---|---|---|
-| T1 « La photo » (faite) | méfiance : les photos qui ne prouvent rien | ch. 15-16, Kit 2 |
-| T2 « Mamadou » (faite) | famille / confiance : tout dans une seule main | ch. 8 (3 clés) |
+| T1 « La photo » (à refaire) | méfiance : les photos qui ne prouvent rien | ch. 15-16, Kit 2 |
+| T2 « Mamadou » (à refaire) | famille / confiance : tout dans une seule main | ch. 8 (3 clés) |
 | T3 « Deux acheteurs » | sacrifices : le reçu qui ne prouve rien | ch. 3, ch. 4, Kit 1 (12 vérifications) |
 | T4 « Au nom de qui ? » (remplace « Le classement ») | famille : le titre au nom du cousin | ch. 19 (+ escalier du ch. 3 à l'image) |
 | T5 « Le maçon » | distance : la grosse avance, l'argent du fer | ch. 14, 15, Kit 2 (contrat) |
 | T6 « Le retour » (remplace « Dix minutes ») | rêve : rentrer un jour chez soi | L'essentiel en 10 min (3 règles, 10 phrases) |
 
 ## Les textes à coller dans ElevenLabs (voix Hugo)
+
+### T1 — La photo (méfiance)
+```
+Tu es loin du pays. Ton téléphone vibre. « Grand frère, le chantier avance bien. Regarde la photo. » <break time="0.7s" /> Un mur, du ciment, des ouvriers. Tu souris. Et tu envoies la suite de l'argent. <break time="0.7s" /> Mais ce mur... il est où ? Et il date de quand ? Cette photo peut venir de n'importe quel chantier. <break time="0.7s" /> Et toi, à des milliers de kilomètres, tu paies sur la parole d'une image. <break time="0.7s" /> Avant chaque paiement, demande un appel vidéo en direct. La borne de ton terrain, la rue, puis les murs. Tu vois tout, maintenant. <break time="0.7s" /> Le message pour demander ces preuves sans vexer personne est prêt dans le guide « Les erreurs à éviter avant d'investir au pays », avec quatre kits prêts à remplir. <break time="0.7s" /> Une photo ne prouve rien. Une preuve en direct, si. Douze mille neuf cents francs. Le lien est juste en dessous.
+```
+
+### T2 — Mamadou (famille, tout dans une seule main)
+```
+Voici Mamadou. Il vit loin du pays, comme toi. Et son histoire ressemble à beaucoup d'autres. <break time="0.7s" /> Chaque mois, il envoie de l'argent à son cousin. Pour le terrain, pour les fondations. Il n'a jamais vu le papier du terrain. Il reçoit juste des photos sur WhatsApp. <break time="0.7s" /> Il ne le sait pas encore, mais tous les ingrédients du piège sont là. L'argent, les papiers et le chantier, dans une seule main. <break time="0.7s" /> C'est comme ça que l'argent disparaît. Que des chantiers s'arrêtent. Et que des familles ne se parlent plus. <break time="0.7s" /> Dans le guide « Les erreurs à éviter avant d'investir au pays », tu suis Mamadou étape par étape, jusqu'à ce qu'il remette tout en ordre. Avec la règle des trois clés, et quatre kits prêts à remplir. <break time="0.7s" /> Aime ta famille. Mais paie contre des preuves. Douze mille neuf cents francs. Le lien est juste en dessous.
+```
 
 ### T3 — Deux acheteurs (sacrifices)
 ```

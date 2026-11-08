@@ -81,3 +81,13 @@ S6b animation (image de départ : depart-S6b.jpg)
 ```
 Night, cosy European apartment, rain on the window. The man raises his phone in front of him at arm's length, as in a live video call; the light of the screen falls on his face. He watches very carefully, then slowly nods and breathes out, relieved, with a calm smile. The phone screen faces away from the camera. Shallow depth of field. No text, no logos.
 ```
+
+## S1b et S6b reçus (8 nov.)
+- S1b : bon (même homme à lunettes), mais en 16:9 → recadré 9:16 (crop 360x640 à x=390, y=40).
+- S6b : en 16:9 ET l'homme porte le manteau bleu marine + écharpe beige de MAMADOU (T2) → **non utilisé** (sinon T1 ressemble à T2). Remplacé par la fin de S1b (sourire) à 39,7 s.
+
+## Montage T1 v2 : `videos/t1v2/` (index.html, audio.py, render.mjs)
+- Images : `fr/<clip>/` extraites de `../t1/src/` (commande en haut du rapport ; S1b avec crop=360:640:390:40).
+- Vraies pages : nouvelle couverture v3 (page 1 du PDF téléphone), page 187 « Checklist : avant chaque paiement » (chapitre 15), Kit 2 page 5 (message pour demander les preuves).
+- Musique : impact + coupure (accroche) → pluie + Rhodes ré mineur (problème) → bourdon + pulsation 100→130 bpm, bourdonnement d'entrepôt, boom « trop tard » (aggravation) → groove fa majeur 92 bpm + mélodie (solution/action).
+- Vidéo finale : `videos/T1-la-photo-v2.mp4` (47,6 s).

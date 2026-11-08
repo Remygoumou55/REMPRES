@@ -2,7 +2,7 @@
 
 > **Agent qui reprend ce projet : lis ce fichier en entier, puis `00-projet/CONTEXTE-PROJET.md`, puis le README du livre en cours. Tu sauras exactement où on en est. Ne recommence rien à zéro.**
 
-Dernière mise à jour : **7 novembre 2026, 20 h 30 (passation vidéos)**.
+Dernière mise à jour : **8 novembre 2026 (reprise par un nouvel agent : tout relu, on attend la voix T3.mp3 du client)**.
 
 ## 1. Le projet en 3 lignes
 Le client (francophone, Guinée, il tutoie et dit « mec ») transforme des formations en **e-books PDF premium** vendus en Afrique francophone et à la diaspora (sur Chariow, paiement mobile money). Chaque livre = version A4 + version téléphone + 3 kits bonus, français très simple. Ensuite on fait la **communication** (vidéos pub, visuels). **Réponds-lui toujours en français, très clairement ; il lit sur téléphone ; il veut le détail complet dans le chat (pas seulement un lien).**
@@ -19,6 +19,8 @@ Le client (francophone, Guinée, il tutoie et dit « mec ») transforme des form
 Ordre choisi par le client : **2 Terrain → 3 Poulets → 4 Entreprise/financement.**
 
 ## 3. La prochaine action exacte
+**8 nov. 2026 — REPRISE : nouvel agent, rapport + fichiers relus. Mission : T3 → T4 → T5 → T6, une à la fois, même méthode que T1/T2. On attend que le client envoie `T3.mp3` (voix ElevenLabs). Question posée au client : la voix T3 doit-elle dire le nouveau titre « Les erreurs à éviter avant d'investir au pays » ? (la couverture des vidéos T1/T2 est l'ancienne ; pour T3+ utiliser la couverture v3).**
+
 **TITRE DÉFINITIF APPLIQUÉ (7 nov. 2026, 22 h) : « Les erreurs à éviter avant d'investir au pays » + accroche « Que tu vives au pays ou à l'étranger : acheter un terrain et construire ta maison sans te faire arnaquer. » Couverture REFAITE (v3 : fond = UNE image fusionnée bleu + photo, fabriquée par `livre/make-cover-bg.py` (à relancer si on change img-01) ; accroche entre « » en italique ; pays + « et partout en Afrique » ; bandeau bleu court pour bien voir la maison au fond et le coucher de soleil, « Collection Playbooks » sans « Volume 2 » avec titre Inter Display Black + accroche, photo en bas, 3 étiquettes « 1 résumé de 10 min + le guide complet + 4 kits pratiques », pays, version ; ancienne couverture abandonnée car texte illisible sur la photo), kits, métadonnées PDF et noms dans le ZIP mis à jour ; PDF A4 (150 p.) + téléphone (278 p.) + ZIP refaits. « 10 erreurs » = seulement comme accroche de pub (décision du client : un chiffre sur la couverture dévalorise le livre face au prix). Chapitre 1 inchangé (« 10 pièges »). Vidéos T3–T6 et page de vente : utiliser ce titre ; la voix T2 dit l'ancien titre (demander au client).**
 
 **Dernière correction (7 nov., fin de soirée) : images illustratives du livre 2 affichées EN ENTIER (plus de zoom ni de recadrage) — A4 : hauteur 66 mm, image entière centrée (150 p.) ; téléphone : hauteur 46 mm, image entière centrée (278 p.). Règle CSS `figure.photo img { object-fit: contain; }` dans `livre/styles/carnet.css` (fin) et `carnet-phone.css`. Ne jamais remettre `object-fit: cover`. PDF + ZIP refaits.**

@@ -120,22 +120,51 @@ Dans une mine, **la sécurité passe avant la production**. En entretien, on te 
 | "Emergency, emergency, emergency" | Urgence (toujours répété 3 fois) |
 
 ### Te présenter en anglais (entretien)
-> *"Good morning. My name is Rémy Goumou. I am a certified mining equipment operator from Guinea. I was trained on three machines: the drill rig, the hydraulic excavator and the haul truck. I completed theory and practical training. I also speak intermediate English and I have basic computer and Excel skills. Safety is my first priority. I am available to work on rotation, day and night shifts, anywhere in Guinea. I want to grow with your company, from operator to team leader and supervisor."*
+> *"Good morning. My name is Cécé Rémy Goumou. I am Guinean, from Lola and Kérouané. I hold a CAP certificate in heavy equipment operation for mining, construction and material handling from CMI-Guinée in Conakry. My training lasted seven months, from March to September 2025, on three Caterpillar machines: the wheel loader, the hydraulic excavator and the dump truck. I also have a driving licence for categories B, C, D and E. I studied mechanical engineering for two years at Gamal Abdel Nasser University, and I am now improving my English in Accra, Ghana. I am a beginner in the mining industry, but I learn fast and safety is my first priority. I am available for rotation, day and night shifts, anywhere in Guinea."*
 
-En français : « Bonjour. Je m'appelle Rémy Goumou. Je suis opérateur d'engins miniers certifié, guinéen. J'ai été formé sur trois engins : la foreuse, la pelle hydraulique et le camion benne. J'ai suivi une formation théorique et pratique. Je parle aussi l'anglais (niveau intermédiaire) et j'ai des bases en informatique et en Excel. La sécurité est ma première priorité. Je suis disponible pour travailler en rotation, de jour comme de nuit, partout en Guinée. Je veux évoluer avec votre entreprise, d'opérateur à chef d'équipe puis superviseur. »
+En français : « Bonjour. Je m'appelle Cécé Rémy Goumou. Je suis guinéen, originaire de Lola et de Kérouané. J'ai un CAP en conduite des engins lourds de mine, BTP et manutention, obtenu au CMI-Guinée à Conakry. Ma formation a duré sept mois, de mars à septembre 2025, sur trois engins Caterpillar : la chargeuse, la pelle hydraulique et le camion benne. J'ai aussi le permis de conduire B, C, D et E. J'ai fait deux ans d'études en génie mécanique à l'Université Gamal Abdel Nasser, et j'améliore actuellement mon anglais à Accra, au Ghana. Je débute dans les mines, mais j'apprends vite et la sécurité est ma première priorité. Je suis disponible pour la rotation, de jour comme de nuit, partout en Guinée. »
+
+**Important** : ne dis jamais que tu as de l'expérience en mine. Dis la vérité (« je débute ») et insiste sur ce qui te rend différent : **CAP + permis poids lourd + études de mécanique + anglais + Excel**.
 
 ---
 
-## 3. Excel : ce qu'il faut savoir faire pour monter
+## 3. L'informatique : ce qu'on attend vraiment de toi dans une mine
 
-Pour un opérateur, Excel n'est pas obligatoire. Pour un **chef d'équipe, un dispatcher ou un superviseur**, c'est **indispensable**. Voici ce qu'il faut apprendre, dans l'ordre :
+Tu m'as demandé de « décortiquer » l'informatique. Voici **exactement** ce qu'on utilise, poste par poste.
+
+### a) Pour un opérateur (ton premier poste)
+| Compétence | Pourquoi | Niveau à avoir |
+|---|---|---|
+| **Écran tactile dans la cabine** | Les gros engins ont un écran du système de gestion de flotte (*Modular, Wenco, CAT MineStar*). L'opérateur touche des boutons : « chargé », « vide », « en attente », « panne », et lit les messages du dispatcher (souvent **en anglais**). | Savoir lire les mots anglais de base (Partie 5, section 2). |
+| **Tablette ou formulaire de contrôle** | Certaines mines font la checklist avant démarrage sur tablette. | Savoir cocher, écrire un commentaire court. |
+| **Téléphone et e-mail** | Recevoir les convocations, envoyer ton CV, répondre aux RH. | Savoir écrire un e-mail propre avec pièce jointe (tu l'as appris chez 2H Consulting). |
+| **Candidature en ligne** | AngloGold, Rio Tinto, Nordgold, Mota-Engil : il faut créer un compte et remplir un formulaire. | Savoir créer un compte, joindre un PDF. |
+
+### b) Pour un chef d'équipe ou un superviseur (plus tard)
+| Compétence | Pourquoi |
+|---|---|
+| **Excel** | Rapport de poste, suivi des heures, de la production, du carburant, des présences. |
+| **Word** | Rapports d'incident, notes, comptes rendus. |
+| **Outlook / e-mail professionnel** | Communiquer avec la maintenance, la HSE, les chefs (souvent en anglais). |
+| **PowerPoint (simple)** | Présenter les résultats de la semaine. |
+| **Logiciel de flotte** (*Modular, Wenco, MineStar*) | Suivre les engins en temps réel. Appris sur place. |
+
+### c) Ce que tu as déjà
+- Formation **Windows, Word, Excel** (BIT Solution, 2020).
+- Formation **Excel avancé pour les gestionnaires** (GPRES Consulting, octobre-décembre 2025).
+- Formation **AutoCAD** (dessin technique, Université Gamal Abdel Nasser, 2021, selon ton ancien CV).
+- Formation **insertion professionnelle** : e-mail, CV, entretien (2H Consulting, octobre 2025).
+
+👉 Sur le papier, tu as plus que ce qui est demandé à un opérateur. **Le vrai risque** : un recruteur peut te faire un petit test Excel parce que ton certificat dit « avancé ». Révise donc la liste ci-dessous jusqu'à la faire **sans hésiter**.
+
+## 4. Excel : ce qu'il faut savoir faire pour monter
 
 1. Créer un tableau, mettre des titres, une couleur, une bordure.
 2. Les formules de base : `=SOMME()`, `=MOYENNE()`, `=MAX()`, `=MIN()`, `=NB()`.
 3. Calculer un pourcentage : `=réalisé/objectif` puis le format « % ».
 4. Trier et filtrer une liste.
 5. Faire un graphique simple (barres) de la production par jour.
-6. Plus tard : `=SI()`, `=NB.SI()`, `=SOMME.SI()`, les tableaux croisés dynamiques.
+6. Niveau « avancé » (ton certificat) : `=SI()`, `=NB.SI()`, `=SOMME.SI()`, `=RECHERCHEV()`, les tableaux croisés dynamiques.
 
 **Exercice à faire pendant tes 30 jours** : crée un fichier « Rapport de poste » avec ces colonnes :
 
@@ -146,7 +175,7 @@ Remplis 10 lignes avec des chiffres inventés, puis calcule le total des tonnes,
 
 ---
 
-## 4. Les questions d'entretien qu'on va te poser (avec les bonnes réponses)
+## 5. Les questions d'entretien qu'on va te poser (avec les bonnes réponses)
 
 ### Pour un poste d'opérateur
 
@@ -171,8 +200,8 @@ Remplis 10 lignes avec des chiffres inventés, puis calcule le total des tonnes,
 **7. (Pelle) « Comment chargez-vous un camion de façon optimale ? »**
 → « Je respecte le nombre de godets prévu, je verse au centre de la benne sans choc, je ne surcharge pas. Le camion est placé pour que je tourne le moins possible. Je garde mon front propre pour que le camion suivant soit vite chargé. »
 
-**8. (Foreuse) « Que faites-vous si vous trouvez de l'eau ou un vide dans un trou ? »**
-→ « Je le note dans le journal de forage et je préviens le boutefeu et le superviseur, parce que ça change le chargement des explosifs. »
+**8. (Chargeuse) « Comment chargez-vous un camion avec une chargeuse ? »**
+→ « Je fais un mouvement en V : je remplis le godet bien à plat dans le tas, je recule, je tourne vers le camion qui est placé à environ 45°, je lève le godet et je verse doucement au centre de la benne, sans choc. Je ne surcharge pas, je garde le sol du stock propre et je fais attention aux pneus. »
 
 **9. « Racontez une fois où vous avez arrêté un travail pour la sécurité. »**
 → Prépare un exemple vrai tiré de ta formation (par exemple : une personne trop près de l'engin, un défaut sur la machine).
@@ -198,7 +227,7 @@ Remplis 10 lignes avec des chiffres inventés, puis calcule le total des tonnes,
 
 ---
 
-## 5. Les pièges à éviter
+## 6. Les pièges à éviter
 
 1. **Ne paie jamais pour un recrutement.** La CBG et Rio Tinto ont dénoncé de **fausses annonces**. Une vraie société minière ne demande pas d'argent.
 2. Ne postule que par les **canaux officiels** (site carrières, e-mail officiel, AGUIPE, dépôt au bureau RH).

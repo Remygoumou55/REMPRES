@@ -4,23 +4,40 @@
 
 ---
 
-## Semaine 1 : préparer les documents
+## ⭐ La priorité de ce mois : profiter d'Accra pour combler tes manques
 
-- [ ] Répondre à toutes les questions de Claude (identité, certificat, pratique, permis, études, expérience).
-- [ ] Prendre en photo, bien éclairés et bien lisibles :
-  - certificat de conduite d'engins ;
-  - permis de conduire ;
-  - carte d'identité ou passeport ;
-  - diplômes (BEPC, Bac…) ;
-  - attestation de la formation d'anglais (à demander à l'école **avant de partir**).
-- [ ] Demander au centre de formation des engins une **attestation détaillée** avec, pour chaque engin (foreuse, pelle, camion) : la **marque**, le **modèle** et le **nombre d'heures** de pratique. C'est très important : les recruteurs veulent des heures.
+Ton plus gros manque est l'**expérience pratique** et les **certificats de sécurité**. Accra offre des solutions courtes. Les prix ne sont presque jamais publiés en ligne : **appelle ou passe sur place** pour demander le prix et la durée.
+
+| Priorité | Formation | Où (à Accra) | Durée | Pourquoi |
+|---|---|---|---|---|
+| 1 | **Premiers secours / secourisme** (*First Aid, CPR*) | **International SOS (WARA)**, centre de formation d'Accra : « Emergency First Aid », 1 jour (certificat valable 2 ans). **St John Ambulance Ghana** (forme le personnel de nombreuses mines avec la Chambre des Mines du Ghana ; P.O. Box M117, Ministries, Accra). **Croix-Rouge du Ghana** (non vérifié). | 1 jour (ou 3 jours pour « First Aid at Work ») | Demandé dans presque toutes les mines. Bon marché et rapide. |
+| 2 | **Heures de pratique sur engins** | **Chafas Forklift & Excavator Training**, Teshie 1st Junction (en face de la station Shell), Accra : pelle, chariot élévateur, tractopelle. Tél. 020 491 2967, WhatsApp 020 566 2765 (selon GhanaWeb, à confirmer). | 1 à 3 semaines selon le budget | Plus d'heures = plus de chances au test pratique. **Demande une attestation écrite avec le nombre d'heures et le type d'engin.** |
+| 3 | **IOSH Working Safely** (sécurité de base, reconnu dans le monde entier) | Organismes HSE d'Accra (par exemple Rigworld Training Centre, WHSO/RRC). Prix au Ghana non trouvé. | 1 jour | Montre que tu connais la sécurité. À faire si le prix est raisonnable. |
+| 4 | **Cours gratuits en ligne** (sécurité dans les mines) | Alison (2 cours gratuits « mining health and safety »), SafetyCulture Training (modules EPI et sécurité gratuits), edX « Health, Safety and Wellness in Mining » | Quelques heures | Gratuit. Ça compte moins qu'un vrai certificat, mais ça montre ta motivation et t'apprend le vocabulaire anglais. |
+
+**À éviter** : le NEBOSH (trop long et trop cher pour l'instant), les formations « management » à plusieurs milliers de dollars.
+
+**À savoir** : la Regional Maritime University (RMU), avec l'association ghanéenne des opérateurs d'engins (NAHEOG), propose une formation de 8 semaines, trop longue pour tes 30 jours. Mantrac (Caterpillar Ghana) ne propose pas de formation d'opérateur au public.
+
+---
+
+## Semaine 1 : préparer les documents et appeler les centres
+
+- [x] Répondre aux questions de Claude et envoyer les documents (fait).
+- [ ] **Appeler International SOS / St John Ambulance** pour le secourisme, et **Chafas** pour la pratique sur engins (prix, dates).
+- [ ] Demander à **BIT Solution** de corriger la date de naissance sur l'attestation (1998 → 1997).
+- [ ] Confirmer à Claude tes numéros de téléphone et tes années d'université.
+- [ ] Scanner tous tes documents en PDF (avec une application comme « Adobe Scan » ou « CamScanner ») : CAP, attestation CMI, permis (recto et verso), carte d'identité, acte de naissance, Bac, BEPC, certificats Excel et insertion. Les ranger dans un dossier Google Drive.
+- [ ] Demander à l'école d'anglais d'Accra une **attestation avec le niveau (B1)** **avant de partir**.
+- [ ] Demander une copie certifiée de ton **relevé de notes ou attestation d'inscription** à l'Université Gamal Abdel Nasser (preuve des 2 années).
+- [ ] Demander au **CMI-Guinée** (par téléphone : +224 626 56 43 00 / 625 25 51 08, ou info@cmi-gn.com, coordonnées imprimées sur ton certificat) une **attestation détaillée** avec, pour chaque engin (chargeuse, pelle, camion benne) : la **marque** (Caterpillar), le **modèle** et le **nombre d'heures** de pratique. Le CMI fait aussi du placement de personnel via 2H Consulting : **demande-leur s'ils ont des offres en cours dans les mines**.
 - [ ] Faire une photo d'identité professionnelle (fond clair, chemise, visage souriant) pour le CV.
-- [ ] Créer une adresse e-mail sérieuse, par exemple `remy.goumou@gmail.com` (pas de surnom).
+- [x] Ton adresse e-mail actuelle est correcte, tu peux la garder.
 
 ## Semaine 2 : CV et lettres
 
-- [ ] Finaliser le **CV en français** (avec Claude).
-- [ ] Finaliser le **CV en anglais** (pour Rio Tinto, AngloGold, Nordgold, Capital, Predictive).
+- [x] **CV en français** et **CV en anglais** prêts (PDF envoyés par Claude).
+- [ ] Ajouter la photo et les nouveaux certificats (secourisme, pratique) dès que tu les as.
 - [ ] Préparer une **lettre de motivation modèle** à adapter à chaque société.
 - [ ] Créer un profil **LinkedIn** avec le même contenu que le CV, et suivre les pages : CBG, Rio Tinto, AngloGold Ashanti, Nordgold, Mota-Engil, Capital Limited, Neemba, Predictive Discovery.
 - [ ] Faire le fichier Excel « Rapport de poste » (Partie 5, section 3).
@@ -44,6 +61,7 @@ Ce que tu peux faire **avant même de rentrer** :
 - [ ] Apprendre les mots anglais (Partie 5) : 10 mots par jour.
 - [ ] Imprimer **10 dossiers papier** complets pour le retour (voir ci-dessous).
 - [ ] Faire une visite médicale si possible (aptitude, vue, audition) : on te la demandera.
+- [ ] Apprendre 10 phrases de **chinois** de base pour les sociétés chinoises (bonjour 你好 nǐ hǎo, merci 谢谢 xièxie, d'accord 好的 hǎo de, attention 小心 xiǎoxīn, danger 危险 wēixiǎn, arrête 停 tíng, camion 卡车 kǎchē, chef 老板 lǎobǎn…).
 
 ---
 

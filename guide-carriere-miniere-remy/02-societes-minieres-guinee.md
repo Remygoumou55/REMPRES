@@ -174,7 +174,7 @@
 | **Minerai** | **Or.** |
 | **Où** | **Kiniero** (en production depuis début 2026) et **Bankan** (construction prévue en 2026, production en 2028), préfecture de **Kouroussa**, à 30 km l'un de l'autre. |
 | **Propriétaire** | Predictive Discovery (Australie), fusionnée avec Robex le 15 avril 2026. |
-| **Pourquoi c'est intéressant** | Le **chantier de Bankan** va recruter. Le foreur **Capital Limited** a un contrat de 3 ans à Kiniero (avril 2026) : intéressant pour ton expérience de **foreuse**. |
+| **Pourquoi c'est intéressant** | Le **chantier de Bankan** va recruter. Le foreur **Capital Limited** a un contrat de 3 ans à Kiniero (avril 2026) : les foreurs embauchent aussi des aides et des chauffeurs. |
 
 **Contacts** : ❌ pas de page carrières guinéenne trouvée. Suivre leurs pages LinkedIn et les annonces locales à Kouroussa.
 

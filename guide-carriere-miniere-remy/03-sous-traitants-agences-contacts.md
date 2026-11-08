@@ -44,7 +44,7 @@
 
 ---
 
-## 2. Les entreprises de forage (pour ton expérience de foreuse)
+## 2. Les entreprises de forage (elles embauchent aussi des aides-foreurs et des chauffeurs)
 
 | Entreprise | En Guinée ? | Détails |
 |---|---|---|

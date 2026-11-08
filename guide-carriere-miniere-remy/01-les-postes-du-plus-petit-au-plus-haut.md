@@ -5,14 +5,16 @@
 
 ---
 
-## 0. D'abord, un mot important : la « sargeuse »
+## 0. Tes trois engins
 
-Le mot « sargeuse » n'existe pas dans le vocabulaire des mines. L'engin dont tu parles est très probablement :
+D'après ton **CAP du CMI-Guinée** (46e session, mars-septembre 2025), tu as été formé sur :
+- la **chargeuse** (*wheel loader*) ;
+- la **pelle hydraulique / pelle excavatrice** (*excavator*) ;
+- le **camion benne** (*dump truck / haul truck*).
 
-- la **foreuse** (en anglais : *drill rig* ou *blasthole drill*). C'est l'engin qui fait des trous dans la roche pour mettre les explosifs ;
-- ou la **sondeuse**, qui fait des trous pour l'exploration (pour savoir où se trouve le minerai).
+Tes engins de formation étaient des **Caterpillar**. Tu as fait **6 semaines de pratique** (2 semaines par engin) sur une aire de formation.
 
-**Sur ton CV, il faut écrire « foreuse » (ou « foreuse / sondeuse »), jamais « sargeuse »**, sinon le recruteur ne comprendra pas.
+La **foreuse** est décrite plus bas parce qu'elle fait partie de l'échelle des postes, mais **tu n'as pas été formé dessus** : ne la mets pas sur ton CV.
 
 ---
 
@@ -25,7 +27,8 @@ Imagine un escalier. Chaque marche est un poste. On monte une marche à la fois.
 | 1 | Aide-opérateur / opérateur stagiaire | Trainee operator | 0 an |
 | 2 | Opérateur camion benne (tombereau) | Haul truck / dump truck operator | 0 à 2 ans |
 | 3 | Opérateur foreuse | Drill rig operator / blast hole driller | 1 à 3 ans |
-| 3 | Opérateur engins auxiliaires (bulldozer, niveleuse, chargeuse, arroseuse) | Dozer / grader / loader / water cart operator | 2 à 3 ans |
+| 2-3 | **Opérateur chargeuse** (ton engin) | Wheel loader operator | 0 à 3 ans |
+| 3 | Opérateur engins auxiliaires (bulldozer, niveleuse, arroseuse) | Dozer / grader / water cart operator | 2 à 3 ans |
 | 4 | Opérateur pelle hydraulique de production | Excavator / shovel operator | 2 à 5 ans |
 | 4 | Opérateur multi-engins (polyvalent) | Multi-skilled operator | 3 à 5 ans |
 | 5 | Opérateur senior | Senior operator | 5 ans et plus |
@@ -87,7 +90,8 @@ Pour chaque poste tu trouveras :
 **Comment on te juge** : tu réussis tes évaluations, **zéro incident**.
 
 **Mon guide pour toi**
-- Avec ton certificat et tes 2-3 mois de pratique, **tu es déjà au-dessus de cette marche**. Mais si une grande mine (CBG, SAG, Rio Tinto) te propose un poste de stagiaire, **accepte** : c'est une porte d'entrée dans une grande société, et on y monte vite.
+- Avec ton CAP mais seulement **6 semaines de pratique et aucune expérience en mine**, **c'est probablement par cette marche (ou la suivante) que tu vas entrer**. Ce n'est pas une honte : beaucoup de grandes mines (CBG, SAG, Rio Tinto, Nordgold) forment leurs opérateurs ainsi.
+- Si une grande société te propose un poste de stagiaire ou d'aide-opérateur, **accepte** : c'est une porte d'entrée, et on y monte vite quand on est sérieux.
 
 ---
 
@@ -131,7 +135,7 @@ C'est le poste d'entrée **le plus courant** dans les mines guinéennes. C'est p
 
 ### MARCHE 3 — Opérateur foreuse (*Drill rig operator*)
 
-Tu as été formé sur cet engin. C'est un poste plus technique que le camion, donc mieux considéré.
+Tu n'as pas été formé sur cet engin, mais c'est un poste courant dans les mines (et une formation possible plus tard). C'est un poste plus technique que le camion, donc mieux considéré.
 
 **Ce qu'on fait chaque jour**
 - Contrôle avant démarrage de la foreuse : mât, tiges, taillant (la pointe qui creuse), compresseur, circuit hydraulique.
@@ -161,12 +165,32 @@ Tu as été formé sur cet engin. C'est un poste plus technique que le camion, d
 
 ---
 
-### MARCHE 3 — Opérateur engins auxiliaires (bulldozer, niveleuse, chargeuse, arroseuse)
+### MARCHE 2-3 — Opérateur chargeuse (*Wheel loader operator*) — TON ENGIN
+
+La chargeuse sur pneus est **très utilisée en Guinée**, surtout dans la **bauxite** : sur les stocks de minerai, aux ports (Kamsar, Dapilon), aux concasseurs, sur les plateformes de chargement des trains et des barges. C'est un **bon poste d'entrée** pour toi.
+
+**Ce qu'on fait chaque jour**
+- Contrôle avant démarrage : pneus, godet et dents, vérins et flexibles hydrauliques, niveaux, freins, lumières, klaxon de recul, ceinture, extincteur.
+- **Charger les camions** au stock ou au front : se placer en « V » ou en « Y » par rapport au camion, remplir le godet, verser **au centre de la benne**, sans choc ni surcharge.
+- **Alimenter le concasseur** ou la trémie.
+- **Gérer les stocks** : pousser, remonter et ranger les tas de minerai, garder le sol propre et plat.
+- Nettoyer les débris sur les pistes et autour des installations.
+- Respecter les priorités et les distances avec les camions et les piétons.
+
+**Engins courants** : CAT 966, 980, 988, 992, 994 ; Komatsu WA470, WA600, WA900 ; Liebherr L580 ; en Guinée aussi des chargeuses chinoises (SDLG, LiuGong, XCMG, Sany).
+
+**Compétences** : « manœuvrage » précis (tu l'as appris au CMI), bien remplir le godet du premier coup, lire le terrain, ne pas abîmer les pneus (ils coûtent très cher), voir autour de soi (angles morts).
+**Comment on te juge** : tonnes chargées par heure, temps de chargement d'un camion, nombre de godets par camion, propreté du stock et du sol, **usure des pneus**, aucune collision.
+
+**Mon guide pour toi**
+- Révise les **positions de chargement** (« V », godet à plat, remplissage) et sache les expliquer en entretien.
+- Vise les sociétés de bauxite et les **ports** (Boké, Kamsar, Boffa, et AGL au port de Conakry).
+
+### MARCHE 3 — Opérateur engins auxiliaires (bulldozer, niveleuse, arroseuse)
 
 **Ce qu'on fait**
-- **Bulldozer** : pousser la terre, entretenir les verses et les merlons, nettoyer les fronts de taille, préparer les plateformes pour la foreuse.
+- **Bulldozer** : pousser la terre, entretenir les verses et les merlons, nettoyer les fronts de taille, préparer les plateformes de forage.
 - **Niveleuse** : entretenir les **pistes** (la forme de la route, les fossés pour l'eau). Très important en saison des pluies.
-- **Chargeuse** : charger les camions, alimenter le concasseur, gérer les stocks.
 - **Arroseuse** : arroser les pistes contre la poussière, **sans** arroser les virages ni les descentes, qui deviendraient glissants.
 
 **Comment on te juge** : état des pistes, mètres de piste entretenus, aucune collision.
@@ -213,7 +237,7 @@ La pelle, c'est le **cœur de la production** : si la pelle s'arrête, tous les 
 
 **Ce qu'on fait** : on conduit au moins 3 engins selon les besoins (camion, pelle, foreuse, bulldozer…). On remplace les absents. On aide les nouveaux.
 
-**Pourquoi c'est important pour toi** : tu as **déjà été formé sur 3 engins** (foreuse, pelle, camion). C'est **ton titre principal** pour le CV : **« Opérateur multi-engins miniers (foreuse, pelle hydraulique, camion benne) »**.
+**Pourquoi c'est important pour toi** : tu as **déjà été formé sur 3 engins** (chargeuse, pelle, camion), c'est-à-dire en **« polyvalence »**, comme le dit ton CAP. Mais pour être un vrai « opérateur multi-engins », il faut des **heures réelles** sur chaque engin. Ton titre de CV sera donc : **« Conducteur d'engins lourds polyvalent (CAP) : chargeuse, pelle hydraulique, camion benne »**. Le mot « multi-engins » viendra avec l'expérience.
 
 **Comment on te juge** : nombre d'engins validés par le site, productivité sur chacun, présence, aucun dommage.
 
@@ -339,7 +363,7 @@ Exemple réel en Guinée (profil d'un superviseur de la **SMB** à Boké) : « a
 ### Boutefeu, puis superviseur forage-minage
 - **Boutefeu** : charge les trous avec les explosifs, fait évacuer la zone, déclenche le tir, contrôle après le tir et traite les **ratés** (trous qui n'ont pas explosé), tient le registre des explosifs.
 - **Papiers** : habilitation de boutefeu (formation agréée, souvent donnée par le fournisseur d'explosifs comme Orica ou Maxam).
-- **Pour toi** : c'est la suite logique de ton expérience de **foreuse**.
+- **Pour toi** : chemin possible plus tard si tu passes par la foreuse.
 
 ### Agent HSE, puis superviseur HSE
 - Inspections, formation sécurité des nouveaux, contrôle des permis de travail, enquêtes après accident, statistiques.
@@ -351,8 +375,8 @@ Exemple réel en Guinée (profil d'un superviseur de la **SMB** à Boké) : « a
 
 | Période | Objectif | Ce que tu fais |
 |---|---|---|
-| Maintenant → 1 an | Entrer dans une mine comme **opérateur** (camion, pelle ou foreuse) | Zéro accident, apprendre le site, noter tes heures |
-| 1 à 3 ans | **Opérateur multi-engins** validé sur 3 engins ou plus | Devenir excellent sur la pelle ou la foreuse, aider les nouveaux |
+| Maintenant → 1 an | Entrer dans une mine comme **stagiaire / aide-opérateur / opérateur** (camion benne ou chargeuse), ou comme **chauffeur poids lourd** grâce à ton permis C-D-E | Zéro accident, apprendre le site, noter tes heures |
+| 1 à 3 ans | **Opérateur multi-engins** validé sur 3 engins ou plus | Devenir excellent sur la pelle ou la chargeuse, aider les nouveaux |
 | 3 à 5 ans | **Opérateur senior / remplaçant du chef d'équipe** | Excel, rapports, anglais B2, secourisme |
 | 5 à 7 ans | **Chef d'équipe** (ou dispatcher) | Commander une équipe, formations en leadership |
 | 6 à 10 ans | **Superviseur de production** | Peut-être un BTS ou une licence en mines en cours d'emploi |

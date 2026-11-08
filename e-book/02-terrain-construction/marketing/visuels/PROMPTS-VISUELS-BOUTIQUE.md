@@ -32,7 +32,7 @@ Montre le pack complet comme un produit premium posé sur une table en bois somb
 Fond : bleu nuit dégradé, léger flou d'un terrain avec des bornes orange au loin.
 En haut, en grand : "LE PACK COMPLET".
 En bas, une bande avec 3 étiquettes blanches arrondies : "Guide complet" + "Résumé de 10 min" + "4 kits pratiques".
-Dans le coin en bas à droite, une pastille orange ronde : "12 900 F CFA".
+Dans le coin en bas à droite, une pastille orange ronde : "9 900 F CFA".
 ```
 
 ## 2. Le problème (accroche émotionnelle)
@@ -115,7 +115,7 @@ Fond dégradé bleu nuit vers coucher de soleil orange en bas.
 À gauche, la couverture du livre (exactement l'image jointe) en 3D avec une ombre, et derrière elle 4 petits livrets "KIT 1", "KIT 2", "KIT 3", "KIT 4" en éventail.
 À droite, empilés :
 - "TON TERRAIN. TA MAISON. TON ARGENT." (blanc, gras)
-- "12 900 F CFA" (très grand, orange)
+- "9 900 F CFA" (très grand, orange)
 - "Livre + résumé de 10 min + 4 kits" (blanc)
 - un gros bouton orange arrondi avec le texte blanc : "COMMANDER MAINTENANT"
 - dessous, petite ligne : "Mobile Money · Carte bancaire · Téléchargement immédiat"

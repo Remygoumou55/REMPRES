@@ -19,6 +19,8 @@ Le client (francophone, Guinée, il tutoie et dit « mec ») transforme des form
 Ordre choisi par le client : **2 Terrain → 3 Poulets → 4 Entreprise/financement.**
 
 ## 3. La prochaine action exacte
+**NOUVEAU PRIX (8 nov., décision du client et de son équipe) : 9 900 F CFA pour tout le guide (livre + 4 kits), prix barré 15 000 F (à confirmer). Mis à jour : scripts 07, textes de vente, prompts visuels, écrans de T1/T2 v2. Les voix T1/T2 disent encore « Douze mille neuf cents » → le client doit générer la phrase « Neuf mille neuf cents francs au lieu de 15000. » pour la coller.**
+
 **RÈGLES VIDÉO AJOUTÉES PAR LE CLIENT (8 nov.) : partout où on parle du guide, montrer en grand l'image 3D `videos/assets/guide-3d.png` ; PEU de bruitages et à volume TRÈS bas (sfx ×0,22 + passe-bas 5,5 kHz dans le mixage) ; musique et bruitages propres à chaque vidéo ; un personnage ne doit jamais ressembler à celui d'une autre vidéo ; laisser ~0,6 s avant le premier mot. Le badge de l'image dit « +4 Guides Bonus » alors que ce sont 4 kits : signalé au client.**
 
 **8 nov. 2026 — REPRISE : nouvel agent, rapport + fichiers relus. Mission : T3 → T4 → T5 → T6, une à la fois, même méthode que T1/T2. On attend que le client envoie `T3.mp3` (voix ElevenLabs). Question posée au client : la voix T3 doit-elle dire le nouveau titre « Les erreurs à éviter avant d'investir au pays » ? (la couverture des vidéos T1/T2 est l'ancienne ; pour T3+ utiliser la couverture v3).**

@@ -32,7 +32,7 @@
 - **Mots interdits :** « garanti », « zéro risque », « devenir riche ». Pas de faux témoignage.
   - Mamadou et Aïcha sont des **personnages du livre**. On le dit, par exemple « son histoire ressemble à beaucoup d'autres » ou « dans le guide, tu suis Mamadou ».
 - **Dans les pubs, ne jamais dire le nombre de pages.**
-- **Prix choisi : 12 900 F CFA**, pour le livre + 4 kits.
+- **Prix : 9 900 F CFA** depuis le 8 nov. 2026 (avant : 12 900 F), pour le livre + 4 kits.
   - Le client a ajouté **« au lieu de 15 000 »** dans les voix T1 et T2. Je l'ai prévenu : ce n'est honnête que si 15 000 F est vraiment le prix après le lancement, avec une **vraie date de fin**. Sinon c'est un faux prix barré : Meta peut refuser la pub, et c'est interdit pour la clientèle en France.
   - **Il n'a pas encore répondu.** Repose-lui la question avant de lancer la pub.
 - **Adresse e-mail :** garder « [adresse e-mail à ajouter] » dans le livre. Le client donnera son Gmail plus tard ; il a dit d'attendre.

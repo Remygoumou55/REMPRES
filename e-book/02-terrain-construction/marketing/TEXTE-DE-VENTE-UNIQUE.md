@@ -23,7 +23,7 @@ Dans le pack :
 📱 Version téléphone + version ordinateur à imprimer
 
 Ton terrain, ta maison, ton argent : vérifie avant de payer.
-👉 12 900 F CFA, par Mobile Money ou carte bancaire.
+👉 9 900 F CFA, par Mobile Money ou carte bancaire.
 Commande maintenant et télécharge ton pack dès le paiement.
 ```
 

@@ -180,7 +180,7 @@ body{font-family:'Caladea','Liberation Serif','Noto Color Emoji',serif;color:#FF
     <div class="pk" id="k4" style="top:730px"><small>KIT 4</small><b>Les carnets de suivi</b></div>
     <div id="pcov"><img src="cover.jpg"></div>
     <div id="ptxt"><div class="lg" id="lg">Le guide et ses 4 kits</div>
-      <div id="num"><span>1</span><span>2</span><span>&nbsp;</span><span>9</span><span>0</span><span>0</span> <small>F CFA</small></div>
+      <div id="num"><span>9</span><span>&nbsp;</span><span>9</span><span>0</span><span>0</span> <small>F CFA</small></div>
       <div id="old">au lieu de 15 000 F<i id="strike"></i></div></div>
     <div id="cta">Le lien est juste en dessous<div id="rip"></div></div>
     <div id="down"><div id="d1">⌄</div><div id="d2">⌄</div></div></div>
@@ -347,7 +347,7 @@ const R0=async function(t){
     const c=eo(P(t,43.55,44.1));$('pcov').style.transform=`perspective(1800px) translateX(${(1-c)*-600}px) rotateY(${12+(1-c)*30+2*Math.sin(t*1.2)}deg)`;
     [['k1',44.0],['k2',44.15],['k3',44.3],['k4',44.45]].forEach(([id,s],i)=>{const a=P(t,s,s+.3);$(id).style.opacity=a;$(id).style.transform=`translateX(${(1-eb(a))*450}px) rotate(${(1-a)*8}deg)`});
     $('lg').style.opacity=P(t,43.7,43.95);
-    const ds=[43.67,43.85,43.85,44.1,44.35,44.55];[...$('num').querySelectorAll('span')].forEach((s,i)=>{const a=P(t,ds[i],ds[i]+.15);s.style.opacity=a;s.style.transform=`translateY(${(1-eo(a))*-60}px)`});
+    const ds=[43.67,43.67,44.0,44.25,44.5];[...$('num').querySelectorAll('span')].forEach((s,i)=>{const a=P(t,ds[i],ds[i]+.15);s.style.opacity=a;s.style.transform=`translateY(${(1-eo(a))*-60}px)`});
     $('num').querySelector('small').style.opacity=P(t,44.6,44.8);
     $('old').style.opacity=P(t,44.95,45.1);$('strike').style.transform=`scaleX(${eo(P(t,45.4,45.75))})`;
     const b=P(t,45.95,46.25);const press=Math.max(0,1-Math.abs(t-46.7)/0.12);

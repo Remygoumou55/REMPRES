@@ -19,7 +19,7 @@ Si tu n'es pas sûr de toutes tes réponses, ce guide est pour toi.
 🌍 Fiches Guinée, Côte d'Ivoire, Sénégal, Cameroun, Bénin, Gabon, Togo, et une méthode valable partout en Afrique
 📱 Version téléphone + version ordinateur à imprimer
 
-👉 12 900 F CFA, par Mobile Money ou carte bancaire.
+👉 9 900 F CFA, par Mobile Money ou carte bancaire.
 Vérifie avant de payer. Commande maintenant.
 ```
 
@@ -42,7 +42,7 @@ Ce guide te donne la méthode, étape par étape :
 
 Dans le pack : le guide complet + un résumé de 10 minutes + 4 kits (checklists, modèles, calculs, carnets) + les fiches de 7 pays. Version téléphone et ordinateur.
 
-👉 12 900 F CFA, par Mobile Money ou carte bancaire. Commande maintenant.
+👉 9 900 F CFA, par Mobile Money ou carte bancaire. Commande maintenant.
 ```
 
 ## Variante 3 — Spécial diaspora (mais ouvert à tous)
@@ -65,7 +65,7 @@ Et si tu vis au pays : les mêmes vérifications te protègent contre les double
 🧰 4 kits : checklists, modèles (procuration, contrats, messages), calculs, carnets
 🌍 7 fiches pays, et une méthode valable partout en Afrique
 
-👉 12 900 F CFA, par Mobile Money ou carte bancaire. Commande maintenant.
+👉 9 900 F CFA, par Mobile Money ou carte bancaire. Commande maintenant.
 ```
 
 ## Variante 4 — Courte et directe (idéale pour la pub)
@@ -82,7 +82,7 @@ Ce pack te montre quoi vérifier, qui payer et comment contrôler, étape par é
 🌍 7 fiches pays, et une méthode valable partout en Afrique
 📱 Version téléphone et ordinateur
 
-👉 12 900 F CFA, par Mobile Money ou carte bancaire.
+👉 9 900 F CFA, par Mobile Money ou carte bancaire.
 Vérifie avant de payer. Commande maintenant.
 ```
 
@@ -102,6 +102,6 @@ Ce guide te donne l'ordre exact à suivre :
 
 Dans le pack : le guide complet, un résumé de 10 minutes, 4 kits prêts à l'emploi et 7 fiches pays (Guinée, Côte d'Ivoire, Sénégal, Cameroun, Bénin, Gabon, Togo), avec une méthode valable partout en Afrique.
 
-👉 12 900 F CFA, par Mobile Money ou carte bancaire.
+👉 9 900 F CFA, par Mobile Money ou carte bancaire.
 Vérifie d'abord. Paie ensuite. Commande maintenant.
 ```

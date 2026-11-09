@@ -232,6 +232,28 @@ La famille n'est pas seulement un obstacle. C'est aussi **ta plus grande force**
 
 Traite chaque décideur avec respect, même s'il dit non aujourd'hui. Demain, c'est peut-être lui qui t'enverra dix clients.
 
+## 7. Et si le décideur dit non ?
+
+Ça arrive. Le mari trouve que ce n'est pas le moment, la mère préfère une autre couleur, le directeur choisit un autre fournisseur. Que faire ?
+
+**1. Respecte la décision, devant ton client.** Ne dis jamais « ton mari ne comprend rien » ou « ta mère est trop dure ». Tu mettrais ton client dans une position impossible.
+
+**2. Demande la raison, gentiment, à travers ton client.**
+> « Pas de souci. Il a dit pourquoi ? C'est le prix, le moment, ou le modèle ? »
+
+Souvent, le « non » du décideur est lui aussi un **rideau** ou un **mur** : il trouve que c'est cher (chapitre 12), ce n'est pas le bon moment (chapitre 13), il a peur que ce ne soit pas sérieux (chapitre 14).
+
+**3. Propose une porte qui répond à SA raison.**
+
+| Le décideur a dit… | La porte possible |
+|---|---|
+| « C'est trop cher. » | Un modèle plus simple, ou un paiement en 2 fois. |
+| « Ce n'est pas le moment. » | Une réservation pour plus tard, avec une date. |
+| « Ce n'est pas sérieux, ces trucs d'internet. » | Ta preuve de confiance, un appel à trois, un module gratuit à regarder ensemble. |
+| « Je n'aime pas cette couleur. » | Une autre couleur, une photo des autres modèles. |
+
+**4. Garde la porte ouverte.** Si c'est non, c'est non. Remercie, reste aimable : « Merci d'en avoir parlé avec lui. Si un jour vous voulez revoir mes nouveaux modèles, je suis là. » Ce client, et peut-être son décideur, reviendront plus facilement chez quelqu'un qui les a respectés.
+
 <div class="profils" markdown="1">
 ### 👥 Dans ta situation
 

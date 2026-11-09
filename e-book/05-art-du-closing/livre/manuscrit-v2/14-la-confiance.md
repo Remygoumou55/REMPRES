@@ -246,6 +246,22 @@ Fanta construit sa confiance autrement :
 - **un échange possible** si la taille ne va pas ;
 - **toujours la même place**, tous les jours : les clientes savent où la retrouver.
 
+## 7. Quand la confiance est déjà abîmée : réparer
+
+Parfois, la peur du client ne vient pas des autres vendeurs : elle vient **de toi**. Une livraison en retard, une couleur un peu différente, une taille qui ne va pas… Le client se plaint. C'est le moment le plus important pour ta réputation.
+
+Rappelle-toi l'histoire de la cliente bloquée par sa vendeuse (chapitre 3) : après ça, elle a arrêté d'acheter en ligne, et elle l'a raconté publiquement. **Ce n'est pas l'erreur qui détruit la confiance. C'est la façon de réagir à l'erreur.**
+
+Les 3 gestes qui réparent :
+
+1. **Reconnaître** : « Vous avez raison, la couleur n'est pas exactement celle de la vidéo. »
+2. **S'excuser**, simplement, sans se justifier pendant dix minutes : « Je suis désolée. »
+3. **Réparer**, vite et concrètement : « Je vous l'échange à mes frais », ou « Je vous rembourse la différence », ou « Je vous envoie l'autre modèle demain. »
+
+Un client dont le problème a été **bien réglé** devient souvent **plus fidèle** qu'un client qui n'a jamais eu de problème : il sait maintenant que, chez toi, il ne risque rien. Et c'est **cette histoire-là** qu'il racontera autour de lui.
+
+> **Un problème bien réglé est la meilleure preuve de confiance que tu puisses avoir.**
+
 <div class="profils" markdown="1">
 ### 👥 Dans ta situation
 

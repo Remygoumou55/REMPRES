@@ -158,3 +158,22 @@ Le titre est provisoire, à décider avec le client.
 3. **Le nombre de pages.** Le contenu est riche, peut-être 120 à 150 pages en A4. À décider : un seul livre, ou un livre plus court avec les kits plus gros.
 4. **La vérification de la marque « méthode RIDEAU »** avant la couverture.
 5. **La version anglaise** (le nom de la méthode à adapter).
+
+---
+
+# PLAN v2 (après les traqueurs, 9 nov. 2026) — c'est CETTE version qui fait foi
+
+**Changements :**
+- Ajout de 2 chapitres tirés du terrain : « Ils demandent le prix puis repartent » (plainte n° 1 des vendeurs, dans 8 pays) et « Le crédit : dire non sans perdre le client » (regrets réels de boutiquiers).
+- Les techniques réelles du terrain sont intégrées dans le chapitre Apaiser et dans les chapitres d'objections : le silence, « ajoute un peu et je fais de toi ma cliente », le cadeau à la place de la remise, la remise justifiée par la fidélité, le prix d'achat dit honnêtement, relancer jusqu'au « non » clair, mettre de côté, « pour qui tu achètes ? », la porte laissée ouverte.
+- Les phrases orales introuvables par écrit (« je demande à mon mari », « je vais réfléchir ») sont présentées comme des phrases universelles, sans fausse citation.
+
+| Partie | Chapitres |
+|---|---|
+| **1. Comprendre** | 1 La vente commence au premier « non » · 2 Le rideau et le mur · 3 Le client africain : ce qu'il pense vraiment · 4 Les 20 erreurs du vendeur africain |
+| **2. La méthode RIDEAU** | 5 Relation · 6 Interroger · 7 Démasquer · 8 Écouter · 9 Apaiser · 10 Unir |
+| **3. Les objections une par une** | 11 Le prix · 12 L'argent et le moment · 13 La confiance · 14 La famille et le décideur · 15 Le temps et la priorité · **16 « Ils demandent le prix puis repartent »** · **17 Le crédit : dire non sans perdre le client** |
+| **4. Selon le canal** | 18 Boutique et marché · 19 WhatsApp, Facebook, TikTok · 20 Au téléphone · 21 Produits digitaux et formations · 22 Commercial en entreprise · 23 Le client de la diaspora |
+| **5. Devenir un closer** | 24 La boîte à histoires · 25 L'éthique et la loi · 26 Plan d'entraînement de 30 jours · Lexique · Sources |
+
+**Méthode d'écriture :** manuscrit en Markdown dans `livre/manuscrit/` (facile à relire sur téléphone). Mise en page PDF (A4 + téléphone) seulement quand le texte est validé. Échantillon : Partie 1 (ch. 1 à 4), à valider pour le ton avant la suite.

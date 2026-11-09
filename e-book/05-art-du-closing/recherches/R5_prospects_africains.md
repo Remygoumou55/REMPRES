@@ -618,3 +618,193 @@ Sources du tableau : voir §§ 1-2 et :
 - https://kolonell.com/fr/blog/vendre-immobilier-senegal-diaspora-en-ligne-2026
 - https://nation.africa/kenya/news/off-plan-scams-from-dream-homes-to-dust-5347430
 - https://www.bladi.net/on-arnaque-bien-les-mre.html
+
+---
+
+## COMPLÉMENT V2 (accès complet, 9 nov. 2026)
+
+*Toutes les URL ci-dessous ont été consultées le 9 novembre 2026. Mention « ouvert et lu » : page ou PDF lu directement. Mention « extrait de recherche » : seul le résumé du moteur a été vu. Niveaux de preuve : PROUVÉ / OBSERVÉ / DÉDUIT. Environ 20 recherches web ont été utilisées pour R5 et R6 ensemble. web.archive.org était injoignable depuis la session.*
+
+### V2.1 Chiffres clés : vérifiés, corrigés, à retirer
+
+| Chiffre (V1) | Statut V2 | Ce que dit la source | URL (ouvert et lu sauf mention) |
+|---|---|---|---|
+| OIT : 85,8 % d'informel en Afrique ; Afrique de l'Ouest 92,4 %, de l'Est 91,6 %, centrale 91,0 %, du Nord 67,3 % | **PROUVÉ, date corrigée** | Rapport OIT 2018, 3e éd. (agriculture comprise). Note OIT d'oct. 2026 : > 85 % ; ~90 % en Afrique centrale, de l'Ouest et de l'Est ; ~39 % en Afrique australe ; ~63 % en Afrique du Nord | https://www.ilo.org/sites/default/files/wcmsp5/groups/public/@dgreports/@dcomm/documents/publication/wcms_626831.pdf ; https://www.ilo.org/sites/default/files/2026-10/Research%20Brief_Engaging%20informal%20economy%20actors%20in%20trade%20and%20labour%20policy%20in%20Africa.pdf |
+| Findex 2025 : épargne formelle 35 % (Afrique subsaharienne) | **PROUVÉ** | 34,7 % (2024), contre 23,0 % en 2021 | https://thedocs.worldbank.org/en/doc/be6615202d1f08a25855c8ac2d615122-0050012025/related/Little-Data-Book-2025-Web.pdf |
+| Findex 2025 : 31 % « uniquement famille » (Afrique subsaharienne) | **CORRIGÉ** | 31 % (dont 21 % « uniquement ») = pays à revenu faible et intermédiaire. Afrique subsaharienne : plus de 45 % empruntent uniquement de façon informelle, 12 % de façon formelle | https://openknowledge.worldbank.org/bitstreams/9288bdc5-7a9b-42de-a47c-3746fd68f22a/download (p. 152-154) |
+| PLCC CI : escroqueries 802 → 2 326 (+190 %) | **2 326 PROUVÉ ; 802 et +190 % NON CONFIRMÉS, à retirer** | 2 326 escroqueries sur internet en 2024, 1re infraction par le préjudice (2,36 milliards FCFA). Le préjudice total **baisse** de 9,2 à 6,96 milliards FCFA | https://cio-mag.com/cybercriminalite-en-cote-divoire-en-2024-les-points-saillants-du-rapport-de-lanssi-et-lanalyse-du-colonel-major-guelpetchin-ouattara/ ; Koaci (voir § 2.1) |
+| Visa Kenya : 58 % des arnaques sur les réseaux sociaux | **PROUVÉ, secondaire** | Tribune d'un dirigeant de Visa, 14 juin 2026 | https://www.businessdailyafrica.com/bd/opinion-analysis/columnists/why-trust-will-define-the-future-of-digital-commerce-in-kenya-5496174 |
+| Kantar 2025 : confiance et prix | **PROUVÉ** (via la presse) | Jusqu'à +14 % payés pour une marque perçue comme « vraiment différente » ; WhatsApp 1er canal d'achat au Sénégal, en CI et au Nigeria | https://www.businessday.co.za/redzone/news-insights/2025-07-14-new-study-says-trusted-brands-trump-price-for-constrained-consumers/ |
+| Afrobarometer : 58 % font beaucoup confiance aux proches | **PROUVÉ** (39 pays) ; les détails sur les ruraux et les musulmans ne sont **pas retrouvés** | | https://www.afrobarometer.org/articles/africans-embrace-diversity-but-perceive-widespread-discrimination-afrobarometer-surveys-show/ |
+| DHS : décision des gros achats | **PROUVÉ, données ajoutées** | Guinée 48,2 % (2018, gros achats) ; Sénégal 18,4 % ; Cameroun 56,9 % ; CI 38,1 % (2012) | https://api.worldbank.org/v2/country/GIN/indicator/SG.DMK.PRCH.FN.ZS?format=json |
+| Jumia : 25 % des commandes COD échouées | **PROUVÉ** | Rapport 20-F 2025 | https://www.sec.gov/Archives/edgar/data/1756708/000175670826000015/jmia-20251231.htm |
+| Nielsen : bouche-à-oreille ~90 % | **PROUVÉ, mais périmètre corrigé** | 90 % pour « Moyen-Orient/Afrique » (pour l'Afrique : Égypte et Afrique du Sud seulement), internautes, 2011 | https://develop.nielsen.com/wp-content/uploads/sites/2/2019/04/global-trust-in-advertising-2012.pdf |
+| Sagaci 2024 : 54 % ont fait du commerce social | **PROUVÉ** (internautes seulement) | 8 801 utilisateurs de réseaux sociaux, 28 pays ; TikTok 5 % | https://sagaciresearch.com/rise-of-social-commerce-in-africa/ |
+| 92 % des PME kényanes | **OBSERVÉ, secondaire, juin 2020** | Rapport d'origine introuvable | https://dabafinance.com/en/insights/social-commerce-in-africa-the-28bn-opportunity |
+| Jakiela & Ozier 2016 | **PROUVÉ** | Kenya rural ; « taxe » anticipée > 4 %, presque doublée quand les proches observent | https://owenozier.github.io/publication/2016-01-01-rotten-kin |
+
+### V2.2 La Guinée côté clients (prospects guinéens)
+
+**a) Le décor financier (PROUVÉ, Global Findex 2025, données 2024, Little Data Book p. 69, ouvert et lu)**
+
+| Indicateur (adultes de 15 ans et plus) | Guinée | Afrique subsaharienne |
+|---|---|---|
+| Possèdent un compte | **36,0 %** (30,4 % en 2021, 3,7 % en 2011) | 58,2 % |
+| Compte bancaire ou institution financière | 16,9 % | 37,8 % |
+| Compte mobile money | **25,8 %** | 40,0 % |
+| Ont payé un commerçant en numérique (2024) | **8,4 %** | 19,5 % |
+| Ont épargné via un compte | 23,3 % | 34,7 % |
+| Ont épargné de façon informelle (club, tontine, personne hors de la famille) | **28,8 %** | 28,1 % |
+| Ont emprunté (toutes sources) | **75,6 %** | 70,4 % |
+| Ont emprunté de façon formelle | **10,8 %** | 12,4 % |
+| Peuvent trouver une somme d'urgence en 30 jours sans difficulté | 34,2 % | 41,3 % |
+| Ont un téléphone portable | 82,2 % | 74,7 % |
+| Ont un smartphone | **26,6 %** | 32,9 % |
+
+- **DÉDUIT :** en Guinée, environ trois adultes sur quatre ont emprunté dans l'année, mais seulement un sur dix auprès d'une institution. **Le crédit est donc surtout relationnel** (famille, amis, boutiquier, tontine). Seuls 8,4 % paient un commerçant en numérique : à Conakry, **le cash et le paiement à la livraison restent la norme**. Le mobile money sert d'abord au transfert.
+- **[PROUVÉ, ARPT via Ecofin, article du 18 févr. 2026, ouvert et lu]** Orange détenait **92 %** des 3,2 millions d'abonnés mobile money de Guinée en juin 2025. On compte 1,44 milliard de transactions en 2024, pour 198 489 milliards GNF. Coris Bank a lancé Coris Money le 16 févr. 2026. https://www.ecofinagency.com/news-digital/1802-53017-coris-bank-enters-guinea-s-mobile-money-market
+- **[PROUVÉ / OBSERVÉ, Financial Afrik, 13 mars 2026, ouvert et lu]** En 2025, la BCRG a reconnu qu'environ **94 % des billets émis circulent hors du système bancaire**. Les banques décrivent pourtant une grave pénurie de cash aux guichets, que l'auteur attribue à un problème de **confiance**. https://www.financialafrik.com/2026/03/13/le-paradoxe-du-cash-en-guinee-pourquoi-94-des-billets-hors-du-systeme-bancaire-laissent-malgre-tout-leconomie-informelle-a-sec/ . Témoignage à Conakry : « quand vous venez avec un chèque de 5 millions, on vous dit que c'est 1 million GNF que vous pouvez prendre » (Guineematin, 1er janv. 2026, ouvert et lu : https://guineematin.com/2026/01/01/fete-de-fin-dannee-a-conakry-entre-peur-manque-de-loisirs-et-penurie-de-liquidite/).
+- **[PROUVÉ, OIT/ILOSTAT via l'API Banque mondiale]** En 2025, 81,9 % des emplois en Guinée sont des emplois indépendants (estimation modélisée de l'OIT, indicateur SL.EMP.SELF.ZS). Ledjely (13 avr. 2026) cite la BAD : le secteur informel ferait **96 % des emplois** et 42 % du PIB, pour un taux d'alphabétisation des adultes de 45 % (2021). Ces chiffres sont relayés, la source primaire n'a pas été lue.
+
+**b) Le numérique (PROUVÉ, DataReportal *Digital 2026 Guinea*, ouvert et lu)**
+- 4,02 millions d'internautes fin 2025 (26,5 % de la population).
+- 12,8 millions de connexions mobiles.
+- Facebook : 3,70 millions d'utilisateurs.
+- **TikTok : 3,05 millions d'adultes** de 18 ans et plus touchés par la publicité fin 2025, contre 2,00 millions début 2025.
+- Instagram : seulement 199 000.
+- Les chiffres de WhatsApp ne sont pas publiés.
+- https://datareportal.com/reports/digital-2026-guinea ; https://datareportal.com/reports/digital-2025-guinea
+- **DÉDUIT :** en Guinée, la vente en ligne se joue sur **Facebook et TikTok, puis se conclut sur WhatsApp**. Instagram compte peu.
+
+**c) Ce que disent les acheteurs et vendeurs de Conakry (OBSERVÉ, Guineematin, « Conakry : immersion dans le monde complexe de la vente en ligne », 31 mai 2024, ouvert et lu)** https://guineematin.com/2024/05/31/conakry-immersion-dans-le-monde-complexe-de-la-vente-en-ligne-ou-le-commerce-virtuel/
+- Un client, Ibrahim Bayo, décrit le décalage entre photo et produit : « avec l'achat en ligne, il n'y a pas de possibilités de voir le produit avant de le payer » ; « Souvent, les photos sont différentes des produits réels » ; « En ligne, ce que l'on propose n'est pas le plus souvent le vrai produit ». Le livreur a refusé l'échange de ses chaussures et de son casque Bluetooth : « depuis lors, j'ai préféré faire des achats dans les boutiques ». Il note aussi des prix en ligne inférieurs de 20 000 à 30 000 GNF (« 230 000 GNF à la boutique … 200 000 ou même 180 000 GNF en ligne »).
+- Un vendeur d'électronique, Alpha Mamoudou Bah, décrit le prix à la tête du client : « On n'a pas de prix fixe sur le marché guinéen. On va en fonction de la possibilité du client à payer » ; « il y a des clients qui ont peur, qui se disent qu'avec les pages en ligne, on les arnaque, surtout sur le prix » ; « les vendeurs en ligne qui font de l'arnaque … n'ont pas de boutiques physiques. Ils n'ont pas un lieu stable où on peut les trouver ».
+- Un vendeur, Thierno Hamid Sow, sur le prix unique et la perte du client : « je n'ai pas mis de différence entre les prix de la vente en ligne et ceux à la boutique » ; « Le temps pour toi de te reconnecter, le client a changé d'avis ».
+- Au marché Madina, une vendeuse : « les clients viennent rarement et d'autres ne demandent que les prix. Et quand on leur dit les prix, ils partent » ; « ce sont des prix à discuter » (Guineematin, 29 déc. 2022, ouvert et lu : https://guineematin.com/2022/12/29/fete-de-fin-dannee-a-conakry-des-vendeurs-du-marche-madina-se-plaignent-de-la-rarete-des-clients/).
+- Toujours à Madina : « Les femmes qui ont l'habitude de payer 2 à 3 paires, cette fois-ci, elles se contentent d'une seule paire » ; une cliente : « J'ai été obligée de payer de la chinoiserie parce que les choses de qualité ne sont pas abordables » (Ledjely, 29 avr. 2022, ouvert et lu : https://ledjely.com/2022/04/29/au-marche-madina-la-cherte-de-la-vie-est-la-chose-la-mieux-partagee/).
+- **DÉDUIT pour le closing en Guinée :**
+  1. « Vous êtes où ? » est la question centrale. Le vendeur sans lieu fixe est perçu comme suspect par ses propres concurrents.
+  2. Il faut accepter l'échange **par écrit, avant** la vente.
+  3. Pratiquer **le même prix en ligne et en boutique**.
+  4. Le client qui « demande le prix et part » n'est pas perdu : c'est un moment de **Clarifier** (« pour quelle occasion ? quel budget ? »).
+
+**d) Arnaques signalées en Guinée (PROUVÉ = faits rapportés par la police ou la justice ; OBSERVÉ = témoignage)**
+- **Orange Money, réseau démantelé le 4 déc. 2025 [PROUVÉ]** : vol des codes et des téléphones des gérants de kiosques, **919 557 000 GNF** détournés, 25 victimes connues (Police nationale, via Guinéenews, ouvert et lu). https://guineenews.org/2025/12/04/cybercriminalite-en-guinee-un-reseau-darnaqueurs-demantele-apres-avoir-vole-plus-de-900-millions-gf/ . Un cas comparable en août 2024 (près de 500 millions GNF) n'a été vu qu'en extrait de recherche : https://guineenews.org/2024/08/26/arnaque-a-conakry-pres-de-500-millions-gnf-voles-aux-gerants-orange-money-par-des-eleves/
+- **Escroquerie via Orange Money entre commerçants de Wanindara (procès, juin 2025) [PROUVÉ, faits jugés, ouvert et lu]**. Le prévenu : « C'est un boutiquier de notre quartier. J'ai l'habitude de faire des transactions ou du crédit chez lui. 10 000, 15 000 GNF… ». Le plaignant : « Il m'a demandé de faire une transaction de 15 millions GNF, et qu'à 20 heures, il allait m'envoyer l'argent ». https://guineematin.com/2025/06/30/escroquerie-via-orange-money-ousmane-barry-juge-pour-plus-de-75-millions-de-francs-guineens/
+- **Fausse plateforme d'achat (Sonfonia, août 2026) [OBSERVÉ]** : un jeune commerçant perd plus de 12 millions GNF empruntés à un ami, malgré une formation d'achat en ligne suivie au préalable. Le formateur Amadou Keïta : « Dans des espaces de vente locaux sur Meta, plusieurs personnes sont souvent victimes ». https://ledjely.com/2026/08/31/achats-en-ligne-la-mesaventure-de-mohamed-camara-qui-interpelle/
+- **Réseau de type QNet, Dabompa (Tombolia), 28 juill. 2026 [PROUVÉ, police]** : 57 personnes interpellées. https://ledjely.com/2026/07/28/dabompa-un-presume-reseau-descroquerie-demantele-57-personnes-interpellees/ . Cela s'ajoute aux plaintes plus anciennes contre QNet à Labé en 2019 (extrait de recherche).
+- **Fausses ventes aux enchères de véhicules sur les réseaux sociaux (16 août 2024) [OBSERVÉ]**. Selon la douane, le réseau serait basé au Cameroun et a utilisé une signature imitée. L'article donne à la fois « 300 millions GNF » et « 300 milliards GNF », un chiffre incohérent à ne pas citer. https://www.visionguinee.info/fausse-vente-aux-encheres-de-vehicules-un-reseau-camerounais-arnaque-des-centaines-de-millions-gnf-a-des-guineens/
+- **Fausse page de prêt « de la Première dame » (févr. 2024) [OBSERVÉ, fact-check Ledjely]**. https://ledjely.com/2024/02/24/attention-cest-une-arnaque-qui-se-cache-derriere-cette-publication/
+
+**e) Droit guinéen de la consommation (voir aussi R6, § V2.2)**
+- **[OBSERVÉ, tribune juridique, Ledjely, 13 avr. 2026, ouvert et lu]** Selon l'auteur, la Guinée « ne dispose pas, à ce jour, d'un Code de la consommation ». Le cadre existant, la loi L/94/003/CTRN de 1994 et la loi L/2018/020/AN du 9 juill. 2018 sur la liberté des prix, est jugé « fragmenté, vieillissant ». Selon lui, **aucune garantie légale de conformité** n'oblige le vendeur à reprendre un article défectueux : « l'article a été porté, il ne peut être repris ». C'est l'analyse d'un auteur, pas une décision de justice. https://ledjely.com/2026/04/13/protection-des-consommateurs-guinee-diagnostic-juridique-etude-comparative-et-plaidoyer-pour-un-droit-effectif-au-service-de-chaque-citoyen/
+- **DÉDUIT :** puisque la loi protège peu l'acheteur guinéen, **la garantie offerte volontairement par le vendeur** (échange, remboursement) a une forte valeur de réassurance. C'est un argument de closing.
+
+**f) Le crédit chez le boutiquier**
+- **[PROUVÉ, Le360, 12 juin 2021, ouvert et lu]** À Dakar, « le Guinéen qui tient l'épicerie du coin a toujours un livre ouvert pour les pères de famille qui désirent s'y approvisionner jusqu'à la fin du mois avant de régler la note ».
+- **[OBSERVÉ]** À Conakry (Wanindara), le procès cité plus haut montre le « crédit chez le boutiquier » et le service Orange Money assuré par le boutiquier lui-même (Guineematin, 2025).
+- **Lacune :** aucune enquête chiffrée sur le crédit de quartier en Guinée n'a été trouvée. Le Findex donne seulement 75,6 % d'emprunteurs, dont 10,8 % de façon formelle.
+
+**g) La diaspora guinéenne comme acheteur**
+- **[PROUVÉ, Banque mondiale, API BX.TRF.PWKR]** Transferts personnels reçus par la Guinée : **616 millions USD en 2024, soit 2,5 % du PIB**. Pour comparaison : Sénégal 3,27 milliards USD (10,6 % du PIB, 2023), Côte d'Ivoire 1,77 milliard (2,0 %), Cameroun 0,69 milliard (1,3 %), RDC 3,32 milliards (3,6 %, 2025).
+- **[OBSERVÉ, Seneweb 2019 et Le360 2021, ouverts et lus]** Les Guinéens tiennent une grande partie du petit commerce de Dakar : boutiques, fruits, café, cartes de recharge. https://www.seneweb.com/fr/news/Economie/le-petit-commerce-territoire-guineen-au-senegal_n_294387.html
+- **Lacune :** aucune source guinéenne trouvée sur les arnaques visant spécifiquement la diaspora guinéenne (terrains, chantiers). Les recherches sur Guinéenews, Guineematin et Ledjely n'ont rien donné. Ne pas extrapoler à partir des cas sénégalais ou kényans.
+
+**h) Calendrier des dépenses en Guinée [OBSERVÉ]**
+- Tabaski à Conakry : mouton entre **1 200 000 et 3 500 000 GNF** au marché à bétail de Camélia en 2023 (titre Guineematin, extrait de recherche) ; « flambée des prix » en 2025. https://guineematin.com/2023/06/22/tabaski-a-conakry-le-prix-du-mouton-varie-entre-1-200-000-et-3-500-000-gnf-au-marche-a-betail-de-camelia-dixinn/ ; https://guineematin.com/2025/06/04/fete-de-tabaski-a-conakry-le-marche-de-betail-fait-face-a-une-flambee-des-prix/
+- Fin 2025, des fêtes moroses en raison de l'élection présidentielle et de la pénurie de liquidités (Guineematin, 1er janv. 2026).
+
+### V2.3 Afrique centrale (côté clients)
+
+- **Comptes et mobile money (PROUVÉ, Findex 2025, Little Data Book)**
+
+  | Pays | Possèdent un compte | Compte mobile money | Smartphone |
+  |---|---|---|---|
+  | Cameroun | 60,9 % | 55,1 % | 41,6 % |
+  | RDC | 39,2 % | 35,1 % | 20,6 % |
+  | Congo | 55,6 % | 51,6 % | 26,6 % |
+  | Gabon | 68,2 % | 61,6 % | 59,9 % |
+
+  L'emprunt formel est très faible : 6,4 % au Congo, 6,5 % au Gabon, 10,1 % au Cameroun.
+- **RDC [PROUVÉ, sondage Target, 3-13 août 2022, 1 540 abonnés mobiles, méthode des quotas ; Actualite.cd, ouvert et lu]** : seuls **20 %** des abonnés mobiles achètent en ligne, surtout via des groupes WhatsApp et des pages Facebook, à Kinshasa et dans le Grand Katanga. Le directeur de Target : « Les congolais priorisent plus les achats en présentiel parce qu'ils ont le contrôle sur les produits (voir, toucher voire même essayer, marchander) » ; il évoque un « manque de confiance dû à … Arnaques, les biens achetés ne correspondent pas à ceux qui ont été commandés ». https://actualite.cd/2022/09/08/rdc-seuls-20-des-abonnes-de-la-telephonie-mobile-font-des-achats-en-ligne-et
+- **RDC [OBSERVÉ, MediaCongo, 2026, ouvert et lu]** : « je lance un live [TikTok] en mentionnant mon numéro WhatsApp pour que les intéressés m'écrivent en privé » ; « Les cas de fraude, d'arnaques ou de produits non conformes sont régulièrement signalés ». https://www.mediacongo.net/article-actualite-163578_les_reseaux_sociaux_comme_voie_de_survie_des_jeunes_kinois.html . Radio Okapi (sept. 2026, via AllAfrica, **extrait de recherche**, page bloquée) parle d'une cliente qui a versé un acompte pour des chaussures jamais reçues : https://fr.allafrica.com/stories/202609200024.html
+- **Cameroun [OBSERVÉ, Cameroon Tribune, 2024, ouvert et lu en partie, réservé aux abonnés]** : une revendeuse de Yaoundé commande sur Facebook 7 pyjamas pour 20 000 F. Le vendeur demande **la moitié par Orange Money et le reste à la livraison**, puis devient injoignable. Elle dit : « Le monsieur était très doux, rassurant et persuasif ». https://cameroon-tribune.cm/article.html/66081/fr.html/commerce-en-ligne-larnaque-tisse-sa-toile
+- **Gabon [OBSERVÉ, Le360, 7 mars 2025, ouvert et lu]** : « Les escroqueries en ligne prennent le pas sur les vols ». On y trouve des cas de faux comptes Facebook « qui fructifient » l'argent, et une robe vue en photo puis « à la livraison, j'ai découvert l'horreur ». https://afrique.le360.ma/societe/gabon-arnaques-en-ligne-modes-demploi_2P5BIUUBFFGJ7MHOOI4CPQPGUA/ . Les cas Airtel Money (Gabonreview, Gabonmediatime) n'ont été vus qu'en extrait de recherche.
+- **Congo-Brazzaville : lacune** (seulement Findex et DHS).
+- **DHS (PROUVÉ)** : la femme participe aux trois décisions dans 46,7 % des cas au Cameroun (2018), 33,5 % en RDC (2014), 28,4 % au Congo (2012) et 61,6 % au Gabon (2021).
+- **DÉDUIT :** le schéma « moitié d'acompte par mobile money, reste à la livraison » sert aussi aux escrocs. **Demander un acompte à un inconnu déclenche donc la méfiance.** Pour une première vente, mieux vaut le paiement intégral à la livraison, ou un acompte versé dans un lieu physique contre reçu.
+
+### V2.4 TikTok, live et messages vocaux (côté clients)
+
+- **[PROUVÉ]** TikTok n'est encore qu'un canal secondaire pour acheter ou vendre (5 % des internautes africains utilisent TikTok pour le commerce social, Sagaci 2024). Mais son audience adulte en Guinée a augmenté de plus de 50 % en 2025 (DataReportal).
+- **[OBSERVÉ]** Schéma courant : **live TikTok → numéro WhatsApp → négociation en privé** (Kinshasa, MediaCongo).
+- **TikTok Shop :** je n'ai trouvé **aucune annonce officielle** d'un lancement en Afrique subsaharienne francophone. Les sources sur le Kenya et le Nigeria (blogs de prestataires) se contredisent (extrait de recherche). Ne pas écrire que TikTok Shop existe en Guinée ou en Côte d'Ivoire.
+- **Messages vocaux [OBSERVÉ, Techtrends Kenya, 2026, ouvert et lu]** : « A customer sends a message asking about price or availability. The merchant responds with photos or voice notes. Payment instructions follow, often through mobile money » (le client demande le prix ou la disponibilité, le vendeur répond par photos ou notes vocales, puis viennent les instructions de paiement, souvent par mobile money). https://techtrendske.co.ke/?p=68160 . **Aucune étude chiffrée** sur l'usage des vocaux dans la vente africaine n'a été trouvée. Un blog de prestataire avance 60 à 70 % de conversations vocales au Sénégal, en CI et au Mali, sans source : ne pas citer.
+- **DÉDUIT :** avec un taux d'alphabétisation d'environ 45 % en Guinée (chiffre relayé par Ledjely), le **message vocal** est sans doute le canal le plus inclusif pour **Clarifier** et rassurer. C'est une hypothèse à tester sur le terrain.
+
+### V2.5 Phrases réelles de clients, en français d'Afrique (sourcées)
+
+| Phrase (verbatim) | Pays | Source (ouverte et lue) | Niveau |
+|---|---|---|---|
+| « Souvent, les photos sont différentes des produits réels. » | Guinée (Conakry) | Guineematin, 31/05/2024 | OBSERVÉ (témoignage de presse) |
+| « En ligne, ce que l'on propose n'est pas le plus souvent le vrai produit. » | Guinée | idem | OBSERVÉ |
+| « Je lui ai dit de garder l'argent, que j'irai moi-même faire mon choix. » | Guinée | idem | OBSERVÉ |
+| « Les clients … ne demandent que les prix. Et quand on leur dit les prix, ils partent. » (vendeuse) | Guinée (Madina) | Guineematin, 29/12/2022 | OBSERVÉ |
+| « Ce sont des prix à discuter. » (vendeuse) | Guinée (Madina) | idem | OBSERVÉ |
+| « J'ai été obligée de payer de la chinoiserie parce que les choses de qualité ne sont pas abordables. » | Guinée (Madina) | Ledjely, 29/04/2022 | OBSERVÉ |
+| « Il y a des clients qui ont peur, qui se disent qu'avec les pages en ligne, on les arnaque, surtout sur le prix. » (vendeur) | Guinée | Guineematin, 31/05/2024 | OBSERVÉ |
+| « Le monsieur était très doux, rassurant et persuasif. » (victime) | Cameroun (Yaoundé) | Cameroon Tribune, 2024 | OBSERVÉ |
+| « Sur des photos des réseaux sociaux, j'ai été particulièrement attirée par une robe … mais à la livraison, j'ai découvert l'horreur. » | Gabon | Le360, 07/03/2025 | OBSERVÉ |
+| « Les congolais priorisent plus les achats en présentiel parce qu'ils ont le contrôle sur les produits (voir, toucher … marchander). » (directeur d'institut de sondage) | RDC | Actualite.cd, 08/09/2022 | OBSERVÉ (analyse d'un sondeur) |
+
+**Expressions demandées par le client, statut V2 :**
+- « **Dernier prix** » et « **faire un prix** » sont du **français standard** : le *Dictionnaire de l'Académie française* donne « C'est un prix à débattre, c'est mon dernier prix » et « Faire un prix à quelqu'un, lui concéder une réduction » (extrait de recherche, entrée https://dictionnaire-academie.fr/article/A9P4367, non relue). Ce ne sont donc pas des africanismes, mais des formules courantes dans le marchandage.
+- « **Gâter le nom** », « **c'est combien combien ?** », « **faut diminuer un peu** », « **on va voir** » : **NON SOURCÉS**. Ces formulations n'ont été trouvées dans aucune source publiée consultée en V2 (presse guinéenne, ivoirienne, camerounaise ; recherches ciblées ; Wiktionnaire bloqué par une limite de requêtes ; Dictionnaire des francophones illisible sans JavaScript). Elles sont plausibles, mais **ne pas les présenter comme attestées**.
+- **Nouchi** : un glossaire grand public existe (annuaireci.com : « avoir gbê » = avoir raison), ainsi qu'un dictionnaire publié en 2017 (*Le nouchi de Côte d'Ivoire*, L'Harmattan, ISBN 9782343104232, fiche éditeur en extrait de recherche). Aucune expression commerciale nouchi n'a été vérifiée : il faut toujours une relecture par un locuteur.
+
+### V2.6 Conséquences supplémentaires pour le closing [DÉDUIT]
+
+1. **Guinée :** le client paie en cash ou à la livraison (8,4 % de paiements numériques aux commerçants). Il emprunte à son entourage (75,6 % d'emprunteurs, 10,8 % en formel), et la loi le protège peu en cas de non-conformité. La **garantie d'échange écrite**, le **lieu physique** et le **prix identique en ligne et en boutique** sont les trois leviers de confiance les plus directement soutenus par les témoignages.
+2. **Acompte :** comme c'est le mode opératoire des escrocs (Cameroun, RDC, CI), un acompte ne se demande **qu'avec une preuve d'existence** : boutique, reçu, tiers connu.
+3. **TikTok sert à attirer, WhatsApp sert à conclure.** Le script CDD doit tenir dans une conversation WhatsApp, vocaux compris.
+
+### V2.7 URL ajoutées en V2 (consultées le 9 nov. 2026)
+
+**Ouvertes et lues**
+- https://www.ilo.org/sites/default/files/wcmsp5/groups/public/@dgreports/@dcomm/documents/publication/wcms_626831.pdf
+- https://thedocs.worldbank.org/en/doc/be6615202d1f08a25855c8ac2d615122-0050012025/related/Little-Data-Book-2025-Web.pdf
+- https://openknowledge.worldbank.org/bitstreams/9288bdc5-7a9b-42de-a47c-3746fd68f22a/download
+- https://www.koaci.com/index.php/article/2025/05/27/cote-divoire/societe/cote-divoire-cybercriminalite-la-plcc-a-enregistre-12100-affaires-en-2024-pour-un-prejudice-de-pres-de-7-milliards-fcfa_187200.html
+- https://www.afrobarometer.org/articles/africans-embrace-diversity-but-perceive-widespread-discrimination-afrobarometer-surveys-show/
+- https://api.worldbank.org/v2/country/GIN/indicator/SG.DMK.PRCH.FN.ZS?format=json (même requête pour SEN, CIV, CMR ; indicateur SG.DMK.ALLD.FN.ZS pour 13 pays)
+- https://api.worldbank.org/v2/country/GIN/indicator/BX.TRF.PWKR.CD.DT?format=json (et BX.TRF.PWKR.DT.GD.ZS ; SL.EMP.SELF.ZS)
+- https://www.sec.gov/Archives/edgar/data/1756708/000175670826000015/jmia-20251231.htm
+- https://datareportal.com/reports/digital-2026-guinea
+- https://datareportal.com/reports/digital-2025-guinea
+- https://www.ecofinagency.com/news-digital/1802-53017-coris-bank-enters-guinea-s-mobile-money-market
+- https://www.financialafrik.com/2026/03/13/le-paradoxe-du-cash-en-guinee-pourquoi-94-des-billets-hors-du-systeme-bancaire-laissent-malgre-tout-leconomie-informelle-a-sec/
+- https://guineematin.com/2024/05/31/conakry-immersion-dans-le-monde-complexe-de-la-vente-en-ligne-ou-le-commerce-virtuel/
+- https://guineematin.com/2022/12/29/fete-de-fin-dannee-a-conakry-des-vendeurs-du-marche-madina-se-plaignent-de-la-rarete-des-clients/
+- https://guineematin.com/2026/01/01/fete-de-fin-dannee-a-conakry-entre-peur-manque-de-loisirs-et-penurie-de-liquidite/
+- https://guineematin.com/2025/06/30/escroquerie-via-orange-money-ousmane-barry-juge-pour-plus-de-75-millions-de-francs-guineens/
+- https://ledjely.com/2022/04/29/au-marche-madina-la-cherte-de-la-vie-est-la-chose-la-mieux-partagee/
+- https://ledjely.com/2026/04/13/protection-des-consommateurs-guinee-diagnostic-juridique-etude-comparative-et-plaidoyer-pour-un-droit-effectif-au-service-de-chaque-citoyen/
+- https://ledjely.com/2026/08/31/achats-en-ligne-la-mesaventure-de-mohamed-camara-qui-interpelle/
+- https://ledjely.com/2026/07/28/dabompa-un-presume-reseau-descroquerie-demantele-57-personnes-interpellees/
+- https://ledjely.com/2024/02/24/attention-cest-une-arnaque-qui-se-cache-derriere-cette-publication/
+- https://guineenews.org/2025/12/04/cybercriminalite-en-guinee-un-reseau-darnaqueurs-demantele-apres-avoir-vole-plus-de-900-millions-gf/
+- https://www.visionguinee.info/fausse-vente-aux-encheres-de-vehicules-un-reseau-camerounais-arnaque-des-centaines-de-millions-gnf-a-des-guineens/
+- https://www.seneweb.com/fr/news/Economie/le-petit-commerce-territoire-guineen-au-senegal_n_294387.html
+- https://actualite.cd/2022/09/08/rdc-seuls-20-des-abonnes-de-la-telephonie-mobile-font-des-achats-en-ligne-et
+- https://www.mediacongo.net/article-actualite-163578_les_reseaux_sociaux_comme_voie_de_survie_des_jeunes_kinois.html
+- https://cameroon-tribune.cm/article.html/66081/fr.html/commerce-en-ligne-larnaque-tisse-sa-toile
+- https://afrique.le360.ma/societe/gabon-arnaques-en-ligne-modes-demploi_2P5BIUUBFFGJ7MHOOI4CPQPGUA/
+- https://techtrendske.co.ke/?p=68160
+
+**Extraits de recherche seulement (non relus)**
+- https://guineenews.org/2024/08/26/arnaque-a-conakry-pres-de-500-millions-gnf-voles-aux-gerants-orange-money-par-des-eleves/
+- https://guineematin.com/2023/06/22/tabaski-a-conakry-le-prix-du-mouton-varie-entre-1-200-000-et-3-500-000-gnf-au-marche-a-betail-de-camelia-dixinn/
+- https://fr.allafrica.com/stories/202609200024.html
+- https://dictionnaire-academie.fr/article/A9P4367
+- https://annuaireci.com/blog/le-nouchi-largot-ivoirien-qui-fait-vibrer-la-cote-divoire-et-seduit-le-monde/
+- https://export.side.fr/en/9782343104232-le-nouchi-de-c%C3%B4te-divoire

@@ -1,7 +1,9 @@
 # Synthèse des recherches — « L'Art du Closing » (9 novembre 2026)
 
 > Synthèse des 6 rapports : `recherches/R1` à `R6` (environ 2 160 lignes, environ 400 URL).
-> ⚠️ **Limite importante :** le réseau de la session a bloqué l'ouverture directe de la plupart des sites (Wikipédia, sites officiels, presse africaine). Les agents ont travaillé à partir des **extraits du moteur de recherche**, avec environ 30 à 50 recherches chacun. Chaque fait porte un niveau (PROUVÉ / OBSERVÉ / DÉDUIT, ou [vérifié] / [à vérifier]). **Rien ne sera imprimé sans revérification** des points listés en section 7.
+> ✅ **Mise à jour V2 (accès internet complet) :** les 6 rapports ont été complétés en ouvrant les vraies pages (sections « COMPLÉMENT V2 » à la fin de chaque rapport). Corrections intégrées ci-dessous.
+>
+> ⚠️ **Limite de la 1ʳᵉ passe :** le réseau de la session a bloqué l'ouverture directe de la plupart des sites (Wikipédia, sites officiels, presse africaine). Les agents ont travaillé à partir des **extraits du moteur de recherche**, avec environ 30 à 50 recherches chacun. Chaque fait porte un niveau (PROUVÉ / OBSERVÉ / DÉDUIT, ou [vérifié] / [à vérifier]). **Rien ne sera imprimé sans revérification** des points listés en section 7.
 
 ---
 
@@ -11,10 +13,12 @@
 |---|---|
 | Formateur en vente, créateur de contenu, prospection LinkedIn | ✅ Confirmé : « Académie des Vendeurs Super-Conscients », newsletter, ancien profil « LinkedCloser » |
 | « Vendeur le plus suivi de France », environ 1 M d'abonnés | ⚠️ Slogan. Environ 0,75 à 0,9 M en 2023 ; environ 1,2 M selon Favikon en janvier 2026 (TikTok environ 778 k, Instagram environ 150 k, YouTube plus de 100 k) |
-| Travaille avec Jordan Belfort | ❌ Non confirmé : aucune preuve publique de collaboration |
-| Clients Hop, Notion, Snapchat, Orange, Amazon | ❌ Non confirmé : aucune trace publique |
+| Travaille avec Jordan Belfort | ❌ Non confirmé. Il a seulement fait la **promotion** d'événements Belfort (lien d'affiliation, places offertes en bonus de son académie) |
+| Clients Hop, Notion, Snapchat, Orange, Amazon | ❌ Non confirmé. Sa page cite « Orange, Amazon, Notion, Pipedrive » (ni Hop ni Snapchat), sans source indépendante |
 | Le « framework CDD » | ⚠️ Pas trouvé ailleurs sous ce nom, mais ses vidéos reprennent l'écran de fumée et « Ok John, mais concrètement… » |
-| Un livre | ⚠️ Un livre sur la vente serait sorti vers 2026 (titre non trouvé) |
+| Un livre | ✅ *Et tes clients te diront oui ! Apprendre à déclencher l'envie d'acheter sans forcer* (J'ai Lu, 8 avril 2026, 352 p.) |
+| Le CDD | ✅ Sa méthode : présent dès avril 2023. Vidéo originale de la conférence sur sa chaîne YouTube (9 juin 2024), chapitres : Clarifier 6:32, Discuter 31:42, Démonter 38:48 |
+| Société, académie | ✅ LINKEDCLOSER (SARL, Marseille, 2020) ; académie à 997 € (promo 597 €) ; « 300 M de vues » dans la conférence contre « 130 M » sur sa page de vente |
 
 👉 **Règle pour le livre :** on le cite au conditionnel (« il affirme… ») et on analyse sa méthode. On ne recopie pas sa conférence.
 
@@ -22,17 +26,17 @@
 
 | Élément du CDD | Vraie origine | Ce qu'il faut corriger |
 |---|---|---|
-| Ligne droite, boucle, objection écran de fumée | **Jordan Belfort**, *Way of the Wolf* (2017). L'objection cache un manque de certitude sur le **produit**, le **vendeur** et l'**entreprise**. | Chez Belfort, la boucle sert à **redemander la vente**. Chez Pelissier, elle sert à **faire dire la vraie peur**. Le « 99 % » est de Pelissier. |
+| Ligne droite, boucle, objection écran de fumée | **Jordan Belfort**, *Way of the Wolf* (2017), en français *Vendre. Les secrets de ma méthode* (Talent Éditions, 2019). Sa phrase après une objection : « Est-ce que l'idée a du sens pour vous ? Elle vous plaît ? ». L'objection cache un manque de certitude sur le **produit**, le **vendeur** et l'**entreprise**. | Chez Belfort, la boucle sert à **redemander la vente**. Chez Pelissier, elle sert à **faire dire la vraie peur**. Le « 99 % » est de Pelissier. |
 | « Ce n'est jamais le prix » | **Grant Cardone** : « It's almost never price » (Entrepreneur.com) | Faux en Afrique s'il est pris à la lettre (voir section 4) |
 | Clarifier par une question | **Brian Tracy** : « Que voulez-vous dire, exactement ? » ; « Si vous aviez l'argent, est-ce que ça vous conviendrait ? » ; les objections montrent de l'intérêt | — |
-| Les 5 freins | **Zig Ziglar** : pas besoin, pas d'argent, pas pressé, pas envie, pas confiance | [à vérifier] : section Ziglar non sourcée |
+| Les 5 freins | **Zig Ziglar**, *Secrets of Closing the Sale* (1984, p. 28 ; en français *Les secrets pour conclure la vente*, 1985) : pas besoin, pas d'argent, pas pressé, pas envie, pas confiance | ✅ Vérifié. ❌ « People don't care how much you know… » et la perceuse ne sont PAS de Ziglar |
 | « Étiquetage » et l'histoire du braqueur | **Chris Voss**, *Never Split the Difference* (2016), en français « Ne coupez jamais la poire en deux » (Belfond) | ❌ « Le FBI n'avait pas de négociateurs » est FAUX : l'équipe de la police de New York date de 1973. ❌ Le dialogue « Richard… pas un assassin » n'est pas dans le livre. ❌ Rappeler au client ses propres mots, c'est la **cohérence de Cialdini**. L'étiquetage de Voss, c'est « On dirait que… ». |
 | Biais de cohérence | **Cialdini**, *Influence* ; pied-dans-la-porte (Freedman et Fraser, 1966 : 17 % contre 76 %) | ✅ Réel |
 | « Les gens adorent parler d'eux » | ✅ Tamir et Mitchell (Harvard, 2012) : parler de soi active le circuit de la récompense ; Huang et al. (2017) : poser des questions rend sympathique ; Carnegie (1936) | ✅ |
 | « Les gens adorent acheter, mais détestent qu'on leur vende » | Phrase de **Jeffrey Gitomer** | ✅ À attribuer correctement |
-| Écoute 80/20 | Pas de source. Gong 2016 : 43 % de parole et 57 % d'écoute ; Gong 2025 : environ 60/40 | ⚠️ Écrire « écoute plus que tu ne parles » |
-| L'amygdale « glande qui sécrète des hormones » | ❌ L'amygdale n'est pas une glande. « Une histoire est 22 fois plus mémorable » : sans source. | Remplacer par des faits vérifiés (travaux sur l'attention et la mémoire) |
-| Mont Blanc, JFK, James Bond | ⚠️ Confus. Le stylo-grenade de Bond est un **Parker** (*GoldenEye*). | Ne pas reprendre |
+| Écoute 80/20 | Pas de source. Gong 2016 : 43/57 ; Gong 2025 (326 000 appels) : le vendeur parle 57 % dans les ventes gagnées contre 62 % dans les perdues | ⚠️ Écrire « écoute plus que tu ne parles » |
+| L'amygdale « glande qui sécrète des hormones » | ❌ L'amygdale n'est pas une glande. « 22 fois plus mémorable » : fausse attribution à Bruner. | Remplacer par des faits vérifiés (travaux sur l'attention et la mémoire) |
+| Mont Blanc, JFK, James Bond | ⚠️ Confus. Dans l'anecdote, c'est Kennedy qui prête son stylo à Adenauer, et l'anecdote n'a pas de source d'archives. Le stylo-grenade de Bond est un **Parker** (*GoldenEye*). | Ne pas reprendre |
 | Kellogg's, jus d'orange | ⚠️ Simplifié. Le jus d'orange vient de Sunkist et Lasker, pas de Bernays. | Raconter juste, ou ne pas raconter |
 
 ## 3. Ce que disent les meilleures méthodes du monde (R4)
@@ -51,12 +55,12 @@
 ### 4.1 La découverte n° 1
 > **En Afrique, beaucoup d'objections « prix » et « temps » sont en réalité des objections de CONFIANCE.** [DÉDUIT, appuyé par des preuves]
 
-- **Les arnaques :** les plaintes pour escroquerie ont augmenté de **190 %** en Côte d'Ivoire entre 2023 et 2024 (de 802 à 2 326). Au Kenya, **58 %** des arnaques se passent sur les réseaux sociaux (Visa). Il y a eu des scandales pyramidaux : CBEX (Nigeria, 2025), Liyeplimal (Cameroun), une affaire au Sénégal (2023), QNET (Côte d'Ivoire, 2026).
+- **Les arnaques :** **2 326** escroqueries en ligne traitées par la PLCC en Côte d'Ivoire (le « +190 % » est introuvable : ne pas l'écrire). Au Kenya, **58 %** des arnaques se passent sur les réseaux sociaux (Visa). Il y a eu des scandales pyramidaux : CBEX (Nigeria, 2025), Liyeplimal (Cameroun), une affaire au Sénégal (2023), QNET (Côte d'Ivoire, 2026).
 - Les consommateurs **paient plus cher les marques en qui ils ont confiance** (Kantar, 2025, 5 pays).
-- Le **paiement à la livraison** est l'outil n° 1 pour rassurer (Nigeria, Maroc, Jumia).
+- Le **paiement à la livraison** est l'outil n° 1 pour rassurer (Nigeria, Maroc, Jumia). Mais il a un coût : **25 %** des commandes payables à la livraison échouent chez Jumia (rapport annuel 2025, vérifié).
 
 ### 4.2 La découverte n° 2 : souvent, ce n'est PAS un rideau, c'est un vrai MUR
-- **Argent :** environ **86 %** d'emploi informel en Afrique, environ 92 % en Afrique de l'Ouest (OIT). Seuls **35 %** épargnent dans une institution (Findex 2025). « Quand j'aurai l'argent » est donc souvent **vrai**. On ne conteste pas : on **réorganise le paiement** (acompte, tranches, date de paie ou de tontine).
+- **Argent :** **85,8 %** d'emploi informel en Afrique, 92,4 % en Afrique de l'Ouest (OIT 2018). Seuls **34,7 %** épargnent dans une institution (Findex 2025). En Afrique subsaharienne, plus de 45 % empruntent seulement en informel, contre 12 % en formel. **Guinée :** 36 % ont un compte ; 75,6 % empruntent, mais 10,8 % seulement en formel. « Quand j'aurai l'argent » est donc souvent **vrai**. On ne conteste pas : on **réorganise le paiement** (acompte, tranches, date de paie ou de tontine).
 - **Famille :** les proches sont le seul groupe en qui une majorité (58 %) a « beaucoup » confiance (Afrobarometer). La façon de décider des gros achats change beaucoup selon le pays (enquêtes DHS). On **inclut le décideur** (appel à trois, message vocal à transférer) au lieu de l'écarter.
 - **Moments de forte dépense :** Tabaski, rentrée, fêtes, deuils. On fixe une date au lieu de culpabiliser le client.
 
@@ -134,9 +138,11 @@ Le CDD de Bastien est au cœur de cette méthode (D-E-A) : on le cite et on le c
 8. L'éthique et la loi (ce qui est interdit)
 9. Plan d'entraînement de 30 jours, lexique, kits (fiches réponses, scripts WhatsApp, grille d'objections)
 
-## 7. À revérifier avant impression (liste prioritaire)
-- Section **Zig Ziglar** (R2) : rien n'est sourcé.
-- Phrases exactes de Belfort (*Way of the Wolf*) et de Voss : à recopier depuis les livres.
-- Chiffres : Jumia (25 % de livraisons échouées), Nielsen (bouche-à-oreille environ 90 %), Gong, PLCC CI (+190 %), Visa Kenya (58 %), DHS par pays.
-- Lois : Guinée (loi de 1994 et loi sur la publicité de 2024), directive UEMOA 01/2023.
-- **Manques à combler :** la Guinée en particulier, TikTok et les messages vocaux, la RDC, le Gabon et le Congo, les commerçants dioula et peuls, les **vraies phrases en français local** (pas de corpus publié : à collecter sur le terrain par le client, 30 à 50 objections réelles).
+## 7. Ce qui reste incertain après la V2
+- **Voss :** les histoires exactes du livre (braquage de la Chase Manhattan 1993, Harlem) ; le livre lui-même n'a pas été lu.
+- **Pelissier :** #SDPARIS23 non identifié ; pas de transcription YouTube (captcha). Le client peut copier la transcription depuis son téléphone si besoin.
+- **Lois :** Kenya, Côte d'Ivoire, Sénégal, Maroc à lire en texte intégral ; Guinée : loi publicité 2024 vue dans la presse, pas de Code de la consommation trouvé.
+- **Gartner et FTC :** sites qui refusent les robots.
+- **Origines incertaines :** SONCAS, CRAC, Feel-Felt-Found, dicton « le mauvais vendeur a réponse à tout ».
+- **Afrique :** Congo-Brazzaville ; TikTok Shop et messages vocaux (aucune étude chiffrée) ; un seul coach francophone solide (Richard Siayojie, Cameroun).
+- **Phrases en français local :** « gâter le nom », « combien combien », « faut diminuer un peu » et « on va voir » restent **non sourcées**. → La **collecte terrain** du client (30 à 50 objections réelles) reste indispensable.

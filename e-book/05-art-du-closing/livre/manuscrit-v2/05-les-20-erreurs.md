@@ -316,6 +316,19 @@ La semaine prochaine, refais le test et choisis 3 nouvelles erreurs.
 Lire cette liste en pensant : « Ça, c'est les autres vendeurs, pas moi. » Tout le monde fait au moins quelques-unes de ces erreurs. **Le bon vendeur, c'est celui qui les cherche chez lui.**
 </div>
 
+<div class="check" markdown="1">
+### ✅ Ta checklist
+
+- ☐ J'ai fait mon autodiagnostic et compté mes « Oui ».
+- ☐ J'ai choisi 3 erreurs à corriger cette semaine.
+- ☐ Mes prix sont affichés et annoncés en total.
+- ☐ Je réponds vite, même juste « bien reçu ».
+- ☐ Mes photos et vidéos montrent mes vrais produits.
+- ☐ Je ne promets jamais de richesse et je n'invente jamais d'urgence.
+- ☐ J'ai une politique d'échange écrite.
+- ☐ Je relance à une date convenue et je prends des nouvelles après la vente.
+</div>
+
 <div class="suite" markdown="1">
 ### ➡️ Et maintenant ?
 

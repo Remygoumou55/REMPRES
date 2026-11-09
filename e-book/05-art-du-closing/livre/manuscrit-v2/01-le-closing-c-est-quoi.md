@@ -294,6 +294,17 @@ Si tu as coché « Non », ne t'inquiète pas. C'est le cas de presque tous les 
 Penser que le client qui dit « c'est cher » n'est pas intéressé. **Au contraire** : un client qui n'est pas intéressé ne demande même pas le prix. S'il discute, c'est qu'une partie de lui veut acheter.
 </div>
 
+<div class="check" markdown="1">
+### ✅ Ta checklist
+
+- ☐ Je sais expliquer avec mes mots ce qu'est le closing.
+- ☐ Je connais les 6 étapes de la vente.
+- ☐ Je sais à quelle étape je perds le plus de clients.
+- ☐ Je sais que « oui » et « payé », ce n'est pas la même chose.
+- ☐ Quand un client veut partir, je ne le retiens pas : je pose une question courte.
+- ☐ Je ne force jamais un client.
+</div>
+
 <div class="suite" markdown="1">
 ### ➡️ Et maintenant ?
 

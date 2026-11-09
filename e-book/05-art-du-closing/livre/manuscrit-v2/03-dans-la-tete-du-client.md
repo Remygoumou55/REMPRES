@@ -353,6 +353,18 @@ Attention : une même phrase peut parfois cacher **une autre** réalité. « C'e
 Te vexer quand un client te demande si c'est une arnaque, ou le **bloquer** quand il se plaint. Il ne t'accuse pas, toi : il se protège, parce que lui ou un proche s'est déjà fait avoir. **Le client qui se méfie n'est pas ton ennemi. C'est un client qui veut être sûr.**
 </div>
 
+<div class="check" markdown="1">
+### ✅ Ta checklist
+
+- ☐ Je connais les 4 réalités : confiance, argent, famille, négociation.
+- ☐ Quand un client dit « c'est cher », je me demande s'il a peur.
+- ☐ J'ai préparé ma « preuve de confiance » (vidéo, adresse, avis vérifiables).
+- ☐ Je sais quand l'argent arrive chez mes clients (paie, tontine, fêtes).
+- ☐ J'inclus la personne qui décide au lieu de la contourner.
+- ☐ Je négocie avec un petit plus, pas en baissant mon prix.
+- ☐ Mon prix est le même pour tout le monde.
+</div>
+
 <div class="suite" markdown="1">
 ### ➡️ Et maintenant ?
 

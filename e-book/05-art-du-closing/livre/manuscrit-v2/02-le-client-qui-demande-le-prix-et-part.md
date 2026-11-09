@@ -5,16 +5,16 @@
 </div>
 
 <div class="scene" markdown="1">
-### 🎬 Scène A — Au marché, avec Fanta
+### 🎬 Exemple 1 — Au marché, avec Fanta
 
-Un homme passe devant l'étal de Fanta. Il montre un pagne du doigt, sans s'arrêter vraiment.
+Un homme passe devant l'étal de Fanta. Il montre une robe du doigt, sans s'arrêter vraiment.
 — C'est combien ?
 — 15 000.
-Il hoche la tête et continue son chemin. Toute la scène a duré **quatre secondes**.
+Il hoche la tête et continue son chemin. Tout a duré **quatre secondes**.
 </div>
 
 <div class="scene" markdown="1">
-### 🎬 Scène B — Sur WhatsApp, avec Amina
+### 🎬 Exemple 2 — Sur WhatsApp, avec Amina
 
 **Client :** Bjr. Les baskets blanches c combien ?
 **Amina :** Bonjour, 25 000 F.
@@ -23,7 +23,7 @@ Il hoche la tête et continue son chemin. Toute la scène a duré **quatre secon
 </div>
 
 <div class="scene" markdown="1">
-### 🎬 Scène C — En ligne, avec Ibrahima
+### 🎬 Exemple 3 — En ligne, avec Ibrahima
 
 **Prospect :** Slt, votre formation c'est combien ?
 **Ibrahima :** Bonjour ! Elle coûte 15 000 F.
@@ -32,7 +32,7 @@ Il hoche la tête et continue son chemin. Toute la scène a duré **quatre secon
 </div>
 
 <div class="scene" markdown="1">
-### 🎬 Scène D — Au bureau, avec Koffi
+### 🎬 Exemple 4 — Au bureau, avec Koffi
 
 **La responsable des achats :** Envoyez-moi votre devis par mail, je regarde.
 Koffi envoie le devis le soir même. Il relance une semaine plus tard. Pas de réponse.
@@ -41,7 +41,7 @@ Koffi envoie le devis le soir même. Il relance une semaine plus tard. Pas de r�
 <div class="remarque" markdown="1">
 ### 👀 Tu as remarqué ?
 
-Dans les quatre scènes, **le vendeur a fait exactement ce qu'on lui a demandé** : il a donné le prix. Et dans les quatre scènes, **la vente est morte juste après**.
+Dans les quatre exemples, **le vendeur a fait exactement ce qu'on lui a demandé** : il a donné le prix. Et dans les quatre scènes, **la vente est morte juste après**.
 
 Ce n'est pas un hasard. C'est le piège le plus fréquent de la vente en Afrique. Et c'est un piège dans lequel tombent même les bons vendeurs.
 </div>
@@ -85,7 +85,7 @@ Quand tu donnes le prix et que tu te tais, tu fermes toi-même la conversation. 
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer
 
-Relis la **scène B** (Amina sur WhatsApp). D'après toi, laquelle de ces raisons a fait partir le client ? Tu peux en choisir plusieurs.
+Relis l'**exemple 2** (Amina sur WhatsApp). D'après toi, laquelle de ces raisons a fait partir le client ? Tu peux en choisir plusieurs.
 
 - **A.** Le prix est tombé tout nu (raison 1).
 - **B.** Il n'a pas confiance (raison 5).
@@ -129,7 +129,7 @@ Tu donnes le prix, puis tu enchaînes **immédiatement** avec **une question fac
 
 | Au lieu de dire… | Dis… |
 |---|---|
-| « 15 000. » | « 15 000 les 6 yards. C'est pour une cérémonie ou pour tous les jours ? » |
+| « 15 000. » | « 15 000. C'est pour une cérémonie ou pour tous les jours ? » |
 | « 25 000 F. » | « 25 000 F, livraison comprise. Tu fais quelle pointure ? » |
 | « 15 000 F. » | « 15 000 F, à payer une seule fois. Tu veux apprendre ça pour lancer ton propre business, ou pour ton travail actuel ? » |
 | « Je vous envoie le devis. » | « Je vous l'envoie ce soir. Pour qu'il soit juste : vous commandez combien de ramettes par mois aujourd'hui ? » |
@@ -171,7 +171,11 @@ Ibrahima reçoit ce message : « Slt, votre formation c'est combien ? » Quelle 
 <div class="reponse" markdown="1">
 ### ✅ La bonne réponse : C
 
-**A** est un prix tout nu. **B** cache le prix et juge le client (« si vous êtes sérieux ») : il va se vexer et partir. **C** donne le prix tout de suite, rassure sur le paiement, et pose une question facile, utile pour la suite et centrée sur le client.
+Elle donne **le prix tout de suite**, sans le cacher. Elle **rassure sur le paiement** (Orange Money ou Wave, une seule fois). Et elle termine par **une question facile**, centrée sur le client, dont la réponse va servir pour la suite.
+
+**❌ Pourquoi pas A ?** C'est un prix « tout nu » : rien n'invite le prospect à répondre.
+
+**❌ Pourquoi pas B ?** Ibrahima cache son prix et **juge** le client (« si vous êtes sérieux »). Le prospect va se vexer et partir.
 
 **👉 La bonne action :** prépare **à l'avance** ta phrase PRIX + QUESTION pour tes produits les plus demandés. Tu ne dois pas l'inventer à chaque fois.
 </div>
@@ -198,11 +202,11 @@ Remarque que **toutes** ces questions laissent le client partir s'il le veut. Tu
 C'est ce qui fait la différence entre un **closer** et un **racoleur**. Le racoleur retient le client. Le closer lui **ouvre une porte**.
 
 <div class="scene" markdown="1">
-### 🎬 La scène A, rejouée
+### 🎬 L'exemple 1, rejoué
 
 L'homme passe devant l'étal de Fanta.
 — C'est combien ?
-— 15 000 les 6 yards. C'est pour une cérémonie ?
+— 15 000. C'est pour une cérémonie ?
 — Non, non… je regarde seulement. *(il continue à marcher)*
 — Pas de souci, grand frère. Tu cherches pour toi ou pour offrir ?
 *(Il ralentit.)* — Pour ma mère. Elle aime le bleu.
@@ -255,7 +259,7 @@ Après le 3ᵉ message, **tu arrêtes**. Au-delà, ça devient du harcèlement.
 <div class="erreur" markdown="1">
 ### ⚠️ Attention : jamais de fausse urgence
 
-« Il n'en reste plus qu'un ! », « Promo jusqu'à ce soir minuit ! »… **seulement si c'est vrai.** Le client finit toujours par découvrir le mensonge. Et dans plusieurs pays africains, la fausse urgence est **interdite par la loi**. On en reparle au chapitre 25.
+« Il n'en reste plus qu'un ! », « Promo jusqu'à ce soir minuit ! »… **seulement si c'est vrai.** Le client finit toujours par découvrir le mensonge. Et dans plusieurs pays africains, la fausse urgence est **interdite par la loi**. On en reparle au chapitre 27.
 </div>
 
 ## 6. Règle n° 4 — Accepte de perdre, mais apprends à chaque fois
@@ -268,8 +272,8 @@ Mais chaque client qui part peut **t'apprendre quelque chose**, à une condition
 
 | Date | Produit | Ce qu'il a dit | Ce que j'ai répondu | La raison (si je la connais) |
 |---|---|---|---|---|
-| Lundi | Pagne bleu | « C'est cher » | « Ça te plaît ? » | Il voulait 2 pagnes pour 20 000 |
-| Lundi | Pagne vert | « Je vais faire le tour » | Rien | ? |
+| Lundi | Robe bleue | « C'est cher » | « Ça te plaît ? » | Elle voulait 2 robes pour 20 000 |
+| Lundi | Robe verte | « Je vais faire le tour » | Rien | ? |
 | Mardi | Basket 42 | (vu, pas de réponse) | Relance le lendemain | Pas encore payé |
 
 Au bout d'une semaine, tu verras **des choses revenir**. Par exemple : « Beaucoup de gens demandent des lots de 2 » ou « On me demande souvent si ça déteint ». Ces informations valent de l'or : elles te disent **quoi améliorer** et **quoi dire avant même qu'on te le demande**.
@@ -277,7 +281,7 @@ Au bout d'une semaine, tu verras **des choses revenir**. Par exemple : « Beauco
 <div class="profils" markdown="1">
 ### 👥 Dans ta situation : ta phrase PRIX + QUESTION
 
-**A — Fanta (marché)** : « 15 000 les 6 yards. C'est pour une cérémonie ou pour tous les jours ? »
+**A — Fanta (marché)** : « 15 000. C'est pour une cérémonie ou pour tous les jours ? »
 
 **B — Amina (en ligne)** : « ✅ Disponible. 25 000 F livraison comprise. 📹 *(vidéo)* Tu fais quelle pointure ? »
 

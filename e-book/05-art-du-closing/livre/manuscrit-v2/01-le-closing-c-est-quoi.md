@@ -5,17 +5,17 @@ Le client était intéressé. Il a posé des questions. Il a peut-être même di
 </div>
 
 <div class="scene" markdown="1">
-### 🎬 Scène A — Fanta, au marché
+### 🎬 Exemple 1 — Fanta, au marché
 
-Une femme prend un pagne bleu dans ses mains, le regarde à la lumière, le touche.
+Une femme prend une robe bleue dans ses mains, la regarde à la lumière, la touche.
 — C'est combien, celui-là ?
 — 15 000 F, ma sœur.
 — Hum… C'est cher. Je vais faire le tour.
-Elle repose le pagne et fait déjà un pas pour partir.
+Elle repose la robe et fait déjà un pas pour partir.
 </div>
 
 <div class="scene" markdown="1">
-### 🎬 Scène B — Amina, sur WhatsApp
+### 🎬 Exemple 2 — Amina, sur WhatsApp
 
 Une cliente pose dix questions sur un sac : la couleur, la taille, la matière. Amina envoie trois vidéos.
 **Cliente :** Il est trop beau 😍 Je vais voir et je te reviens.
@@ -23,7 +23,7 @@ Une cliente pose dix questions sur un sac : la couleur, la taille, la matière. 
 </div>
 
 <div class="scene" markdown="1">
-### 🎬 Scène C — Ibrahima, avec sa formation en ligne
+### 🎬 Exemple 3 — Ibrahima, avec sa formation en ligne
 
 **Prospect :** Ça m'intéresse beaucoup. Mais c'est pas encore une arnaque comme les autres ?
 Ibrahima envoie un long message pour se défendre.
@@ -31,7 +31,7 @@ Ibrahima envoie un long message pour se défendre.
 </div>
 
 <div class="scene" markdown="1">
-### 🎬 Scène D — Koffi, au bureau
+### 🎬 Exemple 4 — Koffi, au bureau
 
 **La responsable des achats :** Votre offre est intéressante. Je dois en parler à mon directeur.
 Koffi dit : « Très bien, j'attends votre retour. »
@@ -39,7 +39,7 @@ Koffi dit : « Très bien, j'attends votre retour. »
 </div>
 
 <div class="scene" markdown="1">
-### 🎬 Scène E — Sékou, le livreur
+### 🎬 Exemple 5 — Sékou, le livreur
 
 Sékou arrive devant la maison avec le colis. Le client a dit « oui » hier. Il descend, ouvre le colis, regarde.
 **Client :** Hum… Finalement, c'est trop cher pour moi. Repars avec.
@@ -49,7 +49,7 @@ Sékou repart avec le colis. Son carburant, son temps : perdus.
 <div class="remarque" markdown="1">
 ### 👀 Tu as remarqué ?
 
-Dans ces cinq scènes, **le client était intéressé**. Il a touché le produit, posé des questions, parfois même dit « oui ». Puis, en quelques secondes, **tout s'est arrêté**. Et dans les cinq scènes, le vendeur (ou le livreur) n'a **rien fait** de ce moment-là : il a laissé partir, il s'est défendu, ou il a attendu.
+Dans ces cinq exemples, **le client était intéressé**. Il a touché le produit, posé des questions, parfois même dit « oui ». Puis, en quelques secondes, **tout s'est arrêté**. Et dans les cinq scènes, le vendeur (ou le livreur) n'a **rien fait** de ce moment-là : il a laissé partir, il s'est défendu, ou il a attendu.
 
 Ce moment-là, le moment où le client hésite, a un nom : c'est le moment du **closing**. Et c'est là que se gagnent ou se perdent la plupart des ventes.
 </div>
@@ -65,7 +65,7 @@ Ce moment-là, le moment où le client hésite, a un nom : c'est le moment du **
 
 ## 1. Revenons à Fanta
 
-Reprenons la scène A. La femme a reposé le pagne. Elle fait déjà un pas pour partir. Stop : on arrête la scène ici. Fanta a **trois secondes** pour dire quelque chose.
+Reprenons l'exemple 1. La femme a reposé la robe. Elle fait déjà un pas pour partir. Stop : on arrête l'histoire ici. Fanta a **trois secondes** pour dire quelque chose.
 
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer
@@ -73,21 +73,23 @@ Reprenons la scène A. La femme a reposé le pagne. Elle fait déjà un pas pour
 **Si tu étais Fanta, tu dirais quoi ?**
 
 - **A.** « D'accord ma sœur, à tout à l'heure. »
-- **B.** « Non, ce n'est pas cher ! C'est du vrai wax, regarde la qualité, ailleurs c'est 20 000 ! Je te le fais à 13 000, prends-le ! »
-- **C.** « Pas de souci, fais le tour. Mais avant, dis-moi juste : le pagne, il te plaît ? »
+- **B.** « Non, ce n'est pas cher ! C'est du bon tissu, regarde la qualité, ailleurs c'est 20 000 ! Je te la fais à 13 000, prends-la ! »
+- **C.** « Pas de souci, fais le tour. Mais avant, dis-moi juste : la robe, elle te plaît ? »
 </div>
 
 <div class="reponse" markdown="1">
 ### ✅ La bonne réponse : C
 
-**Pourquoi pas A ?** Fanta laisse partir la cliente sans rien savoir. La cliente ne reviendra sans doute pas, et Fanta ne saura jamais pourquoi.
+Fanta ne retient pas la cliente de force. Elle lui laisse sa liberté (« fais le tour »), puis elle pose **une seule question, courte et gentille**. Avec cette question, la cliente va peut-être dire :
+- « Oui, elle me plaît, mais je n'ai que 12 000 sur moi. » → Fanta sait maintenant que c'est une question d'argent du moment.
+- « Elle me plaît, mais j'ai peur qu'elle déteigne. » → Fanta sait que c'est une question de qualité.
+- « Pas trop, je cherchais plutôt du vert. » → Fanta peut lui montrer sa robe verte.
 
-**Pourquoi pas B ?** Fanta parle trop, se défend, et baisse son prix **sans savoir si le prix était vraiment le problème**. Peut-être que la cliente n'aimait pas la couleur. Fanta perd 2 000 F, et peut-être quand même la vente.
+Dans les trois cas, Fanta **apprend la vraie raison**, et elle peut enfin répondre à la bonne question.
 
-**Pourquoi C ?** Fanta ne retient pas la cliente de force. Elle lui laisse sa liberté (« fais le tour »), puis elle pose **une seule question, courte et gentille**. Avec cette question, la cliente va peut-être dire :
-- « Oui, il me plaît, mais je n'ai que 12 000 sur moi. » → Fanta sait maintenant que c'est une question d'argent du moment.
-- « Il me plaît, mais j'ai peur qu'il déteigne. » → Fanta sait que c'est une question de qualité.
-- « Pas trop, je cherchais plutôt du vert. » → Fanta peut lui montrer son pagne vert.
+**❌ Pourquoi pas A ?** Fanta laisse partir la cliente sans rien savoir. La cliente ne reviendra sans doute pas, et Fanta ne saura jamais pourquoi.
+
+**❌ Pourquoi pas B ?** Fanta parle trop, se défend, et baisse son prix **sans savoir si le prix était vraiment le problème**. Peut-être que la cliente n'aimait pas la couleur. Fanta perd 2 000 F, et peut-être quand même la vente.
 
 **👉 La bonne action :** quand un client veut partir, **ne le retiens pas, ne te défends pas**. Laisse-le libre, et pose **une question courte** pour savoir ce qu'il pense vraiment.
 </div>
@@ -112,29 +114,29 @@ Mais attention : le closing n'est **pas seulement la dernière phrase**. C'est t
 
 Tout le monde sait vendre à un client déjà décidé. **Le closer, c'est celui qui sait vendre au client qui hésite.** Et la plupart des clients hésitent.
 
-## 3. Le chemin de chaque vente : les 6 marches
+## 3. Le chemin de chaque vente : les 6 étapes
 
-Toutes les ventes du monde suivent le même chemin. Au marché, sur WhatsApp, au téléphone ou dans un bureau, c'est toujours le même escalier de **6 marches** :
+Toutes les ventes du monde suivent le même chemin. Au marché, sur WhatsApp, au téléphone ou dans un bureau, c'est toujours le même chemin de **6 étapes** :
 
-| Marche | Ce qui se passe | Exemple au marché |
+| Étape | Ce qui se passe | Exemple au marché |
 |---|---|---|
-| **1. Le client s'arrête** | Il remarque ton produit ou ton message. | La femme s'arrête devant les tissus de Fanta. |
+| **1. Le client s'arrête** | Il remarque ton produit ou ton message. | La femme s'arrête devant les robes de Fanta. |
 | **2. Il te laisse lui parler** | Il te donne un peu de son temps. | Elle dit bonjour et demande le prix. |
 | **3. Tu comprends ce qu'il veut** | Tu découvres son besoin, son envie, son problème. | Fanta apprend que c'est pour un baptême. |
 | **4. Il hésite** | Il dit « c'est cher », « je vais revenir »… C'est l'**objection**. | « Hum, c'est cher. » |
-| **5. Tu lèves son doute** | Tu comprends sa vraie peur et tu y réponds. | Fanta découvre qu'elle a peur que le tissu déteigne, et la rassure. |
-| **6. Il dit oui et il paie** | C'est le closing. | Elle paie et repart avec son tissu. |
+| **5. Tu lèves son doute** | Tu comprends sa vraie peur et tu y réponds. | Fanta découvre qu'elle a peur que la robe déteigne, et la rassure. |
+| **6. Il dit oui et il paie** | C'est le closing. | Elle paie et repart avec sa robe. |
 
-Attention à la marche 6 : **« oui » et « payé », ce n'est pas la même chose.** En ligne, il y a souvent un long chemin entre les deux : le client dit « oui, emballe », le vendeur prépare le colis, le livreur prend la route… et l'argent n'arrive qu'à la fin. Tant que l'argent n'est pas reçu, la vente n'est pas bouclée.
+Attention à l'étape 6 : **« oui » et « payé », ce n'est pas la même chose.** En ligne, il y a souvent un long chemin entre les deux : le client dit « oui, emballe », le vendeur prépare le colis, le livreur prend la route… et l'argent n'arrive qu'à la fin. Tant que l'argent n'est pas reçu, la vente n'est pas bouclée.
 
-Et après la 6ᵉ marche, il y a un **palier bonus** : **le client revient et parle de toi à ses proches.** C'est là que tu gagnes vraiment ta vie.
+Et après la 6ᵉ étape, il y a une **étape bonus** : **le client revient et parle de toi à ses proches.** C'est là que tu gagnes vraiment ta vie.
 
 ### Où est-ce que les ventes meurent ?
 
 Les ventes ne meurent pas n'importe où. Elles meurent **presque toujours à trois endroits** :
 
-- **À la marche 2 : le client part avant même qu'on discute.** Il demande le prix et il s'en va. Sur WhatsApp, il lit ta réponse et il ne répond plus. **C'est le grand problème de la vente en Afrique.** On y consacre tout le chapitre 2.
-- **À la marche 4 : le client hésite, et le vendeur ne sait pas quoi faire.** C'est l'**objection**. On y consacre le chapitre 4 et une grande partie du livre.
+- **À l'étape 2 : le client part avant même qu'on discute.** Il demande le prix et il s'en va. Sur WhatsApp, il lit ta réponse et il ne répond plus. **C'est le grand problème de la vente en Afrique.** On y consacre tout le chapitre 2.
+- **À l'étape 4 : le client hésite, et le vendeur ne sait pas quoi faire.** C'est l'**objection**. On y consacre le chapitre 4 et une grande partie du livre.
 - **Entre le « oui » et le paiement : le client annule.** Le colis est emballé, parfois déjà en route, et le client écrit « c'est annulé », ou ne décroche plus quand le livreur arrive. C'est la blessure la plus chère, parce que tu as **déjà dépensé** du temps et de l'argent. On y consacre un chapitre entier dans la partie 3, et un chapitre pour les livreurs dans la partie 4.
 
 <div class="vrai" markdown="1">
@@ -246,16 +248,16 @@ C'est ça, la force du closing.
 ### 👥 Dans ta situation : où meurent tes ventes ?
 
 **A — Fanta (marché, client en face)**
-Ses ventes meurent surtout à la **marche 2** : la cliente demande le prix et part. Et à la **marche 4** : « c'est cher », « je vais faire le tour ».
+Ses ventes meurent surtout à l'**étape 2** : la cliente demande le prix et part. Et à l'**étape 4** : « c'est cher », « je vais faire le tour ».
 
 **B — Amina (boutique en ligne, chaussures et sacs)**
-Ses ventes meurent surtout à la **marche 2** : « C'est combien ? » → elle envoie le prix → le client ne répond plus. À la **marche 5** : le client a peur de l'arnaque et Amina ne sait pas le rassurer. Et **après le « oui »** : « Emballe ! »… puis « J'annule ».
+Ses ventes meurent surtout à l'**étape 2** : « C'est combien ? » → elle envoie le prix → le client ne répond plus. À l'**étape 5** : le client a peur de l'arnaque et Amina ne sait pas le rassurer. Et **après le « oui »** : « Emballe ! »… puis « J'annule ».
 
 **C — Ibrahima (formations en ligne)**
-Ses ventes meurent à la **marche 4** : « C'est encore une arnaque ? », « Je n'ai pas l'argent maintenant ». Et à la **marche 6** : le client clique pour payer… puis abandonne au moment du paiement par mobile money.
+Ses ventes meurent à l'**étape 4** : « C'est encore une arnaque ? », « Je n'ai pas l'argent maintenant ». Et à l'**étape 6** : le client clique pour payer… puis abandonne au moment du paiement par mobile money.
 
 **D — Koffi (commercial, entreprises)**
-Ses ventes meurent à la **marche 4** : « Je dois en parler à mon patron », « Envoyez-moi un devis ». Le devis part… et il n'y a plus de nouvelles.
+Ses ventes meurent à l'**étape 4** : « Je dois en parler à mon patron », « Envoyez-moi un devis ». Le devis part… et il n'y a plus de nouvelles.
 
 **E — Sékou (livreur)**
 Ses courses meurent **entre le « oui » et le paiement** : le client annule en cours de route, ne décroche pas à l'arrivée, ou refuse le colis à la porte (« Repasse demain », « C'est pas la couleur »). Le travail de toute l'équipe est perdu en une minute.
@@ -266,7 +268,7 @@ Ses courses meurent **entre le « oui » et le paiement** : le client annule en 
 
 Pense à la **dernière vente que tu as ratée**. Réponds honnêtement :
 
-1. À quelle **marche** le client est-il parti ? (1, 2, 3, 4, 5 ou 6) <span class="ligne court"></span>
+1. À quelle **étape** le client est-il parti ? (1, 2, 3, 4, 5 ou 6) <span class="ligne court"></span>
 2. Qu'est-ce qu'il a **dit** juste avant de partir ? <span class="ligne"></span>
 3. Qu'est-ce que **tu** as répondu ? <span class="ligne"></span>
 4. Est-ce que tu sais **pourquoi** il est vraiment parti ? Oui ☐ Non ☐
@@ -295,7 +297,7 @@ Penser que le client qui dit « c'est cher » n'est pas intéressé. **Au contra
 <div class="suite" markdown="1">
 ### ➡️ Et maintenant ?
 
-**Ce que tu sais maintenant :** le closing, c'est accompagner le client jusqu'au « oui ». Chaque vente suit 6 marches. Les ventes meurent surtout à la marche 2 (le client part avant de discuter) et à la marche 4 (l'objection).
+**Ce que tu sais maintenant :** le closing, c'est accompagner le client jusqu'au « oui ». Chaque vente suit 6 étapes. Les ventes meurent surtout à l'étape 2 (le client part avant de discuter) et à l'étape 4 (l'objection).
 
 **Ce qui vient ensuite :** le chapitre 2 s'attaque au plus gros problème des vendeurs africains : **le client qui demande le prix et qui part**, au marché comme sur WhatsApp.
 

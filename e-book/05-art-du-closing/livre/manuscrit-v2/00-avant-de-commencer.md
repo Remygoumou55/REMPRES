@@ -89,15 +89,15 @@ Choisis la phrase qui te ressemble le plus :
 <div class="reponse" markdown="1">
 ### ✅ Il n'y a pas de mauvaise réponse
 
-Retiens juste ta lettre. Dans chaque chapitre, tu trouveras des **scènes** et un encadré **« Dans ta situation »** avec un exemple pour **chaque profil** :
+Retiens juste ta lettre. Dans chaque chapitre, tu trouveras des **exemples** et un encadré **« Dans ta situation »** avec un exemple pour **chaque profil** :
 
-| Si tu as choisi… | Ton personnage dans ce livre |
-|---|---|
-| **A** — Boutique, marché, client en face | **Fanta**, vendeuse d'habits et de pagnes au marché |
-| **B** — Boutique en ligne, produits physiques | **Amina**, vendeuse de chaussures et de sacs sur WhatsApp et Facebook |
-| **C** — Produits digitaux | **Ibrahima**, vendeur de formations en ligne |
-| **D** — Commercial, services | **Koffi**, commercial dans une entreprise de fournitures de bureau |
-| **E** — Livraison | **Sékou**, livreur à moto, qui livre pour plusieurs boutiques en ligne |
+| Ta lettre et ton type de vendeur | Ce que tu fais | Ton personnage |
+|---|---|---|
+| **A — Le vendeur en face** | Tu vends dans une boutique, un magasin ou au marché. Le client est **devant toi**. | **Fanta**, vendeuse de robes au marché |
+| **B — Le vendeur en ligne** | Tu vends des **produits physiques** (habits, chaussures, sacs, cosmétiques, téléphones…) sur WhatsApp, Facebook, Instagram ou TikTok. Tu fais livrer, ou le client vient chercher. | **Amina**, vendeuse de chaussures et de sacs |
+| **C — Le vendeur de produits digitaux** | Tu vends des **formations**, des e-books, du coaching, des abonnements. Le client paie en ligne et reçoit un accès. | **Ibrahima**, vendeur de formations en ligne |
+| **D — Le commercial ou prestataire de services** | Tu rencontres des clients ou des entreprises, tu fais des rendez-vous, des appels, des devis. | **Koffi**, commercial dans une entreprise de fournitures de bureau |
+| **E — Le livreur** | Tu apportes le colis au client, et souvent tu encaisses l'argent. Tu livres pour une ou plusieurs boutiques. | **Sékou**, livreur à moto |
 
 Tu peux lire seulement les exemples qui te concernent. Mais je te conseille de **tout lire** : chaque profil apprend quelque chose aux autres. Le vendeur en ligne comprend mieux ses annulations quand il se met à la place du livreur. Le livreur vend mieux quand il comprend ce que le vendeur a promis.
 </div>
@@ -116,9 +116,9 @@ Ces cinq personnages sont **inventés**. Leurs histoires ressemblent à celles d
 
 On croisera aussi **Moussa**, un client qui vit à l'étranger et qui achète au pays à distance. Lui, il nous aidera à comprendre ce qui se passe dans la tête d'un client qui a peur de se faire avoir.
 
-## Les paroles réelles
+## Les témoignages réels
 
-Dans ce livre, tu verras des encadrés **« Paroles réelles »**, comme celui que tu as lu plus haut. Ces phrases ne sont **pas inventées**. Elles ont été dites par de vrais vendeurs et de vrais clients africains, puis publiées dans la presse ou dans des études universitaires. Nous avons retiré les noms et les lieux pour protéger ces personnes. Toutes les sources sont à la fin du livre.
+Dans ce livre, tu verras des encadrés **« Témoignages réels »**, comme celui que tu as lu plus haut. Ces phrases ne sont **pas inventées**. Elles ont été dites par de vrais vendeurs et de vrais clients africains, puis publiées dans la presse ou dans des études universitaires. Nous avons retiré les noms et les lieux pour protéger ces personnes. Toutes les sources sont à la fin du livre.
 
 ## Comment ce livre est construit
 
@@ -127,12 +127,12 @@ Ce livre est construit comme **un escalier**. Chaque marche s'appuie sur la pré
 | Étape | Ce que tu vas apprendre | Pourquoi c'est dans cet ordre |
 |---|---|---|
 | **Partie 1 — Comprendre** | Ce qu'est le closing, pourquoi les clients partent, ce qu'ils pensent vraiment, et les erreurs qu'on fait sans le savoir. | On ne soigne pas une maladie qu'on ne comprend pas. |
-| **Partie 2 — La méthode RIDEAU** | 6 étapes, dans l'ordre, du premier « bonjour » jusqu'au « oui ». | C'est le cœur du livre. Chaque étape prépare la suivante. |
+| **Partie 2 — La méthode RIDEAU** | 6 clés, dans l'ordre, du premier « bonjour » jusqu'au « oui ». | C'est le cœur du livre. Chaque clé prépare la suivante. |
 | **Partie 3 — Les situations une par une** | « C'est cher », « je vais revenir », « c'est pas l'arnaque ? », « je demande à mon mari », le crédit, **les commandes annulées**… | Tu appliques la méthode à chaque situation. |
 | **Partie 4 — Selon ta façon de vendre** | Le marché, WhatsApp et les réseaux, les produits digitaux, le téléphone, les entreprises, **la livraison**. | Tu adaptes à ton terrain. |
 | **Partie 5 — Devenir un closer** | Ta boîte à histoires, l'éthique, et un plan d'entraînement de 30 jours. | Tu transformes ce que tu as appris en habitude. |
 
-Chaque chapitre commence par des **scènes** où tu vas te reconnaître, puis il t'explique, te fait jouer, et se termine par un encadré **« Et maintenant ? »** : ce que tu as appris, ce qui vient ensuite, et ce que tu risques de rater si tu sautes l'étape.
+Chaque chapitre commence par des **exemples** où tu vas te reconnaître, puis il t'explique, te fait jouer, et se termine par un encadré **« Et maintenant ? »** : ce que tu as appris, ce qui vient ensuite, et ce que tu risques de rater si tu sautes l'étape.
 
 ## Une promesse honnête
 

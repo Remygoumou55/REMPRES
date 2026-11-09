@@ -5,10 +5,10 @@ Ton client ne te dira presque jamais la vraie raison de son hésitation. **Mais 
 </div>
 
 <div class="scene" markdown="1">
-### 🎬 Cinq clients, cinq phrases
+### 🎬 Exemples — Cinq clients, cinq phrases
 
 - Chez **Amina**, un client de l'étranger écrit : « Le prix est un peu élevé pour moi. »
-- Chez **Fanta**, une cliente dit : « Il est beau… mais je dois d'abord montrer à mon mari. »
+- Chez **Fanta**, une cliente dit : « Elle est belle… mais je dois d'abord montrer à mon mari. »
 - Chez **Ibrahima**, un prospect écrit : « Je prendrai la formation à la fin du mois. »
 - Chez **Fanta** encore, une autre cliente dit aussitôt : « Laisse à 6 000. »
 - Devant **Sékou**, le livreur, un client ouvre le colis et demande : « C'est l'original, ça ? »
@@ -54,7 +54,7 @@ Les 4 réalités, dans l'ordre :
 ## Réalité n° 1 — La confiance : « Est-ce que je peux te faire confiance ? »
 
 <div class="scene" markdown="1">
-### 🎬 Mets-toi à la place de Moussa
+### 🎬 Exemple 1 — Mets-toi à la place de Moussa
 
 Moussa vit à l'étranger. Il veut offrir un téléphone à sa petite sœur restée au pays. Il trouve un vendeur sur Facebook, avec de belles photos et un bon prix. Il écrit. Le vendeur répond vite et gentiment.
 
@@ -79,6 +79,10 @@ Moussa écrit au vendeur : « Le prix est un peu élevé pour moi. » **Qu'est-c
 Moussa a l'argent : il vit à l'étranger et il a choisi ce téléphone. Mais il a **peur**. Comme beaucoup de clients, il n'ose pas dire « Je ne vous fais pas confiance » (ce serait vexant). Alors il dit « c'est cher ». C'est **plus poli**.
 
 Si le vendeur baisse le prix, Moussa aura toujours peur. Si le vendeur propose **le paiement à la livraison** à la sœur de Moussa, ou une vidéo en direct du téléphone avec la facture, la peur disparaît… et le prix n'est plus un problème.
+
+**❌ Pourquoi pas A ?** Moussa vit à l'étranger et il a choisi ce téléphone exprès : l'argent n'est probablement pas le vrai problème.
+
+**❌ Pourquoi pas B ?** Peut-être qu'il accepterait une réduction… mais même avec une réduction, il aurait toujours peur d'envoyer l'avance. La remise ne règle pas sa vraie crainte.
 
 **👉 La bonne action :** quand un client dit « c'est cher », demande-toi toujours : **« Est-ce que c'est vraiment le prix, ou est-ce qu'il a peur ? »**
 </div>
@@ -128,7 +132,7 @@ Le client dit :
 ## Réalité n° 2 — L'argent : « Est-ce que j'ai l'argent **maintenant** ? »
 
 <div class="scene" markdown="1">
-### 🎬 Mets-toi à la place d'Amina
+### 🎬 Exemple 2 — Mets-toi à la place d'Amina
 
 C'est le 24 du mois. Une cliente écrit à Amina pour un sac à 18 000 F. Elle pose plein de questions sur la couleur et la taille. Elle a l'air très intéressée.
 
@@ -148,7 +152,11 @@ Puis elle écrit : « Je vais le prendre à la fin du mois, quand j'aurai l'arge
 <div class="reponse" markdown="1">
 ### ✅ La bonne réponse : C
 
-**A** traite la cliente de menteuse, et elle va se vexer. **B** laisse la vente s'envoler : le 1ᵉʳ du mois, elle aura oublié, ou elle aura dépensé son argent ailleurs. **C** croit la cliente, fixe une **date précise** et **garde le lien** jusqu'au jour où l'argent arrive.
+Amina **croit la cliente**. Elle fixe une **date précise** (le 1ᵉʳ), elle **met le sac de côté**, et elle **garde le lien** jusqu'au jour où l'argent arrive. En plus, le paiement à la réception rassure la cliente.
+
+**❌ Pourquoi pas A ?** Amina traite la cliente de menteuse. Elle va se vexer, et peut-être la bloquer.
+
+**❌ Pourquoi pas B ?** Amina laisse la vente s'envoler. Le 1ᵉʳ du mois, la cliente aura oublié, ou elle aura dépensé son argent ailleurs.
 
 **👉 La bonne action :** quand l'argent est vraiment le problème, ne discute pas. **Organise** : une date, une réservation, un petit acompte, ou un paiement en 2 fois.
 </div>
@@ -177,7 +185,7 @@ Pour beaucoup de gens, l'argent arrive **par à-coups** : un bon jour, puis troi
 ## Réalité n° 3 — La famille : « Est-ce que je peux décider seul ? »
 
 <div class="scene" markdown="1">
-### 🎬 Mets-toi à la place de Fanta
+### 🎬 Exemple 3 — Mets-toi à la place de Fanta
 
 Une jeune femme essaie un ensemble chez Fanta. Il lui va très bien et elle sourit devant le miroir. Puis elle dit :
 — Il est beau… mais je dois d'abord montrer à mon mari.
@@ -196,7 +204,11 @@ Une jeune femme essaie un ensemble chez Fanta. Il lui va très bien et elle sour
 <div class="reponse" markdown="1">
 ### ✅ La bonne réponse : C
 
-**A** méprise la façon dont son couple décide. Elle va se sentir jugée. **B** la laisse partir sans rien. Il y a peu de chances qu'elle revienne **avec** son mari. **C** respecte sa façon de décider et l'aide à **convaincre** son mari : la photo montre l'ensemble porté, pas seulement le prix. Et Fanta garde le lien jusqu'au lendemain.
+Fanta **respecte** la façon dont le couple décide, et elle **aide** la cliente à convaincre son mari : la photo montre l'ensemble **porté**, pas seulement un prix. En plus, Fanta garde le lien jusqu'au lendemain midi.
+
+**❌ Pourquoi pas A ?** Fanta méprise la façon dont son couple décide. La cliente va se sentir jugée.
+
+**❌ Pourquoi pas B ?** Fanta la laisse partir les mains vides. Il y a peu de chances qu'elle revienne **avec** son mari.
 
 **👉 La bonne action :** ne contourne jamais la personne qui décide. **Fais-la entrer dans la vente** : une photo, un message vocal, un appel à trois.
 </div>
@@ -219,7 +231,7 @@ Donc, quand un client dit « je dois demander à mon mari », « à ma femme »,
 ## Réalité n° 4 — La négociation : « Est-ce que je paie le juste prix ? »
 
 <div class="scene" markdown="1">
-### 🎬 Mets-toi à la place de Fanta
+### 🎬 Exemple 4 — Mets-toi à la place de Fanta
 
 Une cliente demande le prix d'une robe. Fanta répond : « 10 000. »
 La cliente répond aussitôt : « Laisse à 6 000. »
@@ -238,7 +250,11 @@ La cliente répond aussitôt : « Laisse à 6 000. »
 <div class="reponse" markdown="1">
 ### ✅ La bonne réponse : C
 
-**A** humilie la cliente : elle ne reviendra jamais, et elle le dira autour d'elle. **B** fait perdre de l'argent à Fanta : vendre à perte, ce n'est pas vendre. **C** reste respectueuse, explique son prix honnêtement, et **négocie sur autre chose que le prix** : un petit cadeau.
+Fanta reste **respectueuse**, elle **explique son prix honnêtement** (« à 6 000 je perds de l'argent ») et elle **négocie sur autre chose que le prix** : un petit cadeau. La cliente repart avec le sentiment d'avoir gagné quelque chose.
+
+**❌ Pourquoi pas A ?** Fanta humilie la cliente. Elle ne reviendra jamais, et elle le dira autour d'elle.
+
+**❌ Pourquoi pas B ?** Fanta vend à perte. Vendre à perte, ce n'est pas vendre.
 
 **👉 La bonne action :** ne baisse pas ton prix, **ajoute de la valeur**. Le prix reste le même pour tout le monde, et la cliente repart contente avec « un petit plus ».
 </div>

@@ -5,7 +5,7 @@ Et si certains de tes clients partaient **à cause de toi**, sans que tu le sach
 </div>
 
 <div class="scene" markdown="1">
-### 🎬 Cinq petites scènes ordinaires
+### 🎬 Exemples — Cinq petites situations ordinaires
 
 - **Amina** publie : « 🔥 Nouvel arrivage ! Prix en inbox ! » avec une photo trouvée sur internet. Beaucoup de vues. Aucun message.
 - Une cliente s'arrête devant **Fanta**, qui est au téléphone. Fanta lève un doigt : « Attends. » La cliente attend dix secondes, puis s'en va.
@@ -17,7 +17,7 @@ Et si certains de tes clients partaient **à cause de toi**, sans que tu le sach
 <div class="remarque" markdown="1">
 ### 👀 Tu as remarqué ?
 
-Dans ces cinq scènes, **le client n'a rien fait de mal**. Il était intéressé, il était là, il était prêt. C'est **le vendeur** (ou le livreur) qui l'a fait fuir, souvent sans même s'en rendre compte. Et personne ne lui dira jamais pourquoi la vente n'a pas eu lieu.
+Dans ces cinq exemples, **le client n'a rien fait de mal**. Il était intéressé, il était là, il était prêt. C'est **le vendeur** (ou le livreur) qui l'a fait fuir, souvent sans même s'en rendre compte. Et personne ne lui dira jamais pourquoi la vente n'a pas eu lieu.
 </div>
 
 <div class="bref" markdown="1">
@@ -180,17 +180,21 @@ La cliente est partie. Dans un autre marché, une vendeuse a lancé à une clien
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer
 
-Une cliente dit à Fanta : « Ta voisine vend le même à 12 000, toi tu dis 15 000. » **Quelle réponse choisis-tu ?**
+Une cliente dit à Fanta : « Ta voisine vend la même robe à 12 000, toi tu dis 15 000. » **Quelle réponse choisis-tu ?**
 
 - **A.** « Alors va chez elle ! »
-- **B.** « Ce n'est pas le même tissu, le sien est de la mauvaise qualité, tout le monde le sait. »
-- **C.** « Tu as raison de comparer. Viens, on les regarde ensemble. Touche celui-ci : sens l'épaisseur. Et je te montre comment il tient au lavage. »
+- **B.** « Ce n'est pas la même qualité, les siennes sont mauvaises, tout le monde le sait. »
+- **C.** « Tu as raison de comparer. Viens, on les regarde ensemble. Touche celle-ci : sens l'épaisseur du tissu, regarde les coutures. Et je te montre comment elle tient au lavage. »
 </div>
 
 <div class="reponse" markdown="1">
 ### ✅ La bonne réponse : C
 
-**A** humilie et chasse la cliente (erreur 11). **B** critique la voisine : la cliente va penser que Fanta est jalouse, et peut-être que c'est faux. **C** donne raison à la cliente (comparer, c'est normal), puis lui fait **vérifier elle-même** la différence. Elle ne croit pas Fanta sur parole : elle croit ce qu'elle touche.
+Fanta **donne raison** à la cliente (comparer, c'est normal), puis elle lui fait **vérifier elle-même** la différence : toucher, regarder les coutures, voir le lavage. La cliente ne croit pas Fanta sur parole : **elle croit ce qu'elle touche**.
+
+**❌ Pourquoi pas A ?** Fanta humilie et chasse la cliente (erreur 11).
+
+**❌ Pourquoi pas B ?** Fanta critique la voisine. La cliente va penser qu'elle est jalouse… et ce n'est peut-être même pas vrai.
 
 **👉 La bonne action :** ne critique jamais un concurrent. **Fais toucher, montrer, comparer.** Le client croit ce qu'il voit, pas ce que tu dis.
 </div>
@@ -316,13 +320,13 @@ Lire cette liste en pensant : « Ça, c'est les autres vendeurs, pas moi. » Tou
 ### ➡️ Et maintenant ?
 
 **Ce que tu sais maintenant (fin de la partie 1) :**
-1. Le closing, c'est accompagner le client jusqu'au « oui », marche après marche.
+1. Le closing, c'est accompagner le client jusqu'au « oui », étape après étape.
 2. En Afrique, il faut d'abord **gagner le droit de discuter** : PRIX + QUESTION, et la question de la dernière chance.
 3. Derrière les hésitations, il y a **4 réalités** : confiance, argent, famille, négociation.
 4. Chaque objection est un **rideau** ou un **mur**, et une question permet de savoir lequel.
 5. Beaucoup d'objections sont **créées par nos propres erreurs**.
 
-**Ce qui vient ensuite :** la **partie 2**, le cœur du livre. Tu vas assembler tout ça dans une méthode en 6 étapes, la **méthode RIDEAU** : **R**etenir et créer la relation · **I**nterroger · **D**émasquer · **É**couter · **A**paiser · **U**nir. Chaque étape a son chapitre, ses scènes et ses exercices.
+**Ce qui vient ensuite :** la **partie 2**, le cœur du livre. Tu vas assembler tout ça dans une méthode en **6 clés**, la **méthode RIDEAU** : **R**etenir et créer la relation · **I**nterroger · **D**émasquer · **É**couter · **A**paiser · **U**nir. Chaque clé a son chapitre, ses exemples et ses exercices.
 
 **Si tu sautes la partie 2 :** tu auras compris le problème, mais pas la solution complète. Tu sauras ce qui ne va pas, sans savoir dans quel ordre agir.
 </div>

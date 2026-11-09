@@ -5,16 +5,16 @@
 </div>
 
 <div class="scene" markdown="1">
-### 🎬 Scène 1 — Fanta baisse son prix… pour rien
+### 🎬 Exemple 1 — Fanta baisse son prix… pour rien
 
 — C'est cher.
 — Bon, pour toi, je fais 12 000 au lieu de 15 000.
 — Hum… je vais quand même faire le tour.
-*(La cliente part. Elle avait peur que le pagne déteigne. Le prix n'était pas le problème.)*
+*(La cliente part. Elle avait peur que la robe déteigne. Le prix n'était pas le problème.)*
 </div>
 
 <div class="scene" markdown="1">
-### 🎬 Scène 2 — Amina insiste… et vexe sa cliente
+### 🎬 Exemple 2 — Amina insiste… et vexe sa cliente
 
 **Cliente :** Je le prends, mais je n'aurai l'argent que le 30.
 **Amina :** Si tu le veux vraiment, tu peux trouver l'argent maintenant. Tout le monde dit ça !
@@ -22,7 +22,7 @@
 </div>
 
 <div class="scene" markdown="1">
-### 🎬 Scène 3 — Ibrahima répond à côté
+### 🎬 Exemple 3 — Ibrahima répond à côté
 
 **Prospect :** Je vais réfléchir.
 **Ibrahima :** Ne réfléchissez pas trop, la promo se termine bientôt !
@@ -32,7 +32,7 @@
 <div class="remarque" markdown="1">
 ### 👀 Tu as remarqué ?
 
-Dans les trois scènes, le vendeur a **répondu tout de suite** à ce que le client a dit. Et à chaque fois, il a répondu **à la mauvaise chose**.
+Dans les trois exemples, le vendeur a **répondu tout de suite** à ce que le client a dit. Et à chaque fois, il a répondu **à la mauvaise chose**.
 
 - Fanta a cru que c'était le prix, alors que c'était la **peur**.
 - Amina a cru que c'était une excuse, alors que c'était **la vérité**.
@@ -150,7 +150,7 @@ La plupart du temps, le client va répondre : **« Oui, il me plaît, mais… »
 
 | Le client répond… | C'est… | Ce que tu fais |
 |---|---|---|
-| « Il me plaît, **mais** j'ai peur que ce soit une copie. » | un **rideau**. Derrière : la **confiance**. | Tu prouves (chapitre 13). |
+| « Il me plaît, **mais** j'ai peur que ce soit une copie. » | un **rideau**. Derrière : la **confiance**. | Tu prouves (chapitre 14). |
 | « Il me plaît, **mais** je n'ai que 8 000 sur moi. » | un **mur** d'argent | Tu cherches une porte (voir plus bas). |
 | « Il me plaît, **mais** je dois le montrer à mon mari. » | un **mur** familial | Tu inclus le mari. |
 | « Il me plaît, **mais** j'ai vu moins cher à côté. » | souvent un **rideau**. Derrière : la négociation ou la comparaison. | Tu compares la valeur, pas seulement le prix (chapitre 12). |
@@ -161,21 +161,21 @@ La plupart du temps, le client va répondre : **« Oui, il me plaît, mais… »
 
 Pour chaque situation, coche **R** (rideau) ou **M** (mur).
 
-1. Chez Fanta, une cliente dit « c'est cher ». Fanta pose la question, et la cliente répond : « Il est beau, mais l'autre jour j'ai acheté un tissu qui a déteint au premier lavage. » R ☐ M ☐
+1. Chez Fanta, une cliente dit « c'est cher ». Fanta pose la question, et la cliente répond : « Elle est belle, mais l'autre jour j'ai acheté une robe qui a déteint au premier lavage. » R ☐ M ☐
 2. Amina reçoit : « Je prends les baskets, mais je n'aurai l'argent que le 30. » On est le 12. R ☐ M ☐
 3. Ibrahima reçoit : « Je vais réfléchir. » Il pose la question, et le prospect répond : « La formation m'intéresse, mais je ne sais pas si ça marche dans mon pays. » R ☐ M ☐
 4. Koffi entend : « Je dois en parler à mon directeur. » Il demande ce qu'elle en pense, et la secrétaire répond : « Moi je trouve ça bien, mais c'est lui qui signe tous les achats. » R ☐ M ☐
-5. Un client de Fanta dit : « Je reviens. » Fanta demande si le pagne lui plaît. Il répond : « Oui, mais je cherche du 3 yards, toi tu ne vends que des 6 yards. » R ☐ M ☐
+5. Un client de Fanta dit : « Je reviens. » Fanta demande si la robe lui plaît. Il répond : « Oui, c'est pour ma femme, mais elle fait du 46, et toi tu t'arrêtes au 44. » R ☐ M ☐
 </div>
 
 <div class="reponse" markdown="1">
 ### ✅ Les réponses
 
-1. **Rideau.** « C'est cher » cachait une **peur** (le tissu qui déteint). → Fanta doit rassurer sur la qualité. Baisser le prix ne servirait à rien.
+1. **Rideau.** « C'est cher » cachait une **peur** (la robe qui déteint). → Fanta doit rassurer sur la qualité. Baisser le prix ne servirait à rien.
 2. **Mur.** L'argent arrive le 30. C'est la vérité. → Amina organise : réservation, livraison le 30, paiement à la réception.
 3. **Rideau.** « Je vais réfléchir » cachait **un doute** (« est-ce que ça marche chez moi ? »). → Ibrahima peut montrer des résultats d'élèves de pays proches, ou un extrait gratuit.
 4. **Mur.** C'est vraiment le directeur qui signe. → Koffi ne contourne pas la secrétaire : il l'aide à présenter l'offre au directeur, ou il demande un rendez-vous avec les deux.
-5. **Mur.** Fanta n'a pas le produit qu'il cherche. → Elle peut couper un 6 yards en deux si elle le fait, sinon elle l'oriente honnêtement vers une voisine. Il s'en souviendra.
+5. **Mur.** Fanta n'a pas la taille qu'il cherche. → Elle peut proposer de la commander chez son fournisseur avec une date précise ; sinon, elle l'oriente honnêtement vers une voisine. Il s'en souviendra.
 
 **👉 La bonne action :** ne réponds **jamais** à une objection avant d'avoir posé la question. Sinon, tu réponds à la mauvaise chose.
 </div>
@@ -209,7 +209,7 @@ Quand tu sais **pour qui** ou **pour quoi** le client achète (un cadeau pour sa
 <div class="profils" markdown="1">
 ### 👥 Dans ta situation : ta question qui fait tomber le rideau
 
-**A — Fanta (marché)** : « Dis-moi la vérité, ma sœur : le tissu te plaît vraiment ? »
+**A — Fanta (marché)** : « Dis-moi la vérité, ma sœur : la robe te plaît vraiment ? »
 
 **B — Amina (en ligne)** : « Je peux vous poser une question franche ? Le modèle vous plaît vraiment, ou il y a quelque chose qui vous retient ? »
 

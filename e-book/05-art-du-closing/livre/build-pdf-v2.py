@@ -49,7 +49,7 @@ blockquote p {{ margin: 3pt 0; }}
 .reponse {{ background: #EEF5F0; border-left: 6pt solid #2F7A55; }}
 .reponse h3 {{ color: #2F7A55; }}
 .vrai {{ background: #fff; border-top: 1px solid {OR}; border-bottom: 1px solid {OR}; font-style: italic; padding: 10pt 18pt; font-size: 13.5pt; }}
-.vrai::before {{ content: "PAROLES RÉELLES"; display: block; font-style: normal; font-size: 9.5pt; letter-spacing: 2pt; color: {OR}; font-weight: bold; margin-bottom: 4pt; }}
+.vrai::before {{ content: "TÉMOIGNAGES RÉELS"; display: block; font-style: normal; font-size: 9.5pt; letter-spacing: 2pt; color: {OR}; font-weight: bold; margin-bottom: 4pt; }}
 .vrai .src {{ display: block; font-style: normal; font-size: 11pt; color: #6b6b6b; margin-top: 2pt; margin-bottom: 4pt; }}
 .ecris {{ background: #fff; border: 1.5pt dashed {VERT}; }}
 .ligne {{ display: inline-block; min-width: 70mm; border-bottom: 1px solid #888; height: 1.1em; vertical-align: bottom; }}

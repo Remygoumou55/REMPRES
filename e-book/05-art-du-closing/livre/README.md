@@ -1,5 +1,16 @@
 # Livre — « L'Art du Closing » : manuscrit
 
+**ÉTAT (9 nov. 2026) : VERSION COURTE v3 = LA VERSION OFFICIELLE.** Le client a refusé le pavé de 226 pages (règle : 55–80 pages max).
+- Manuscrit : `manuscrit-v3/` (13 chapitres + l'essentiel + parlons de toi + lexique + sources). Build : `python3 build-pdf-v3.py` (A4) et `PHONE=1 python3 build-pdf-v3.py` (téléphone 110×196 mm).
+- PDF : `dist-v3/L-Art-du-Closing.pdf` (**60 pages A4**, couverture + sommaire + annexes compris) et `dist-v3/L-Art-du-Closing-telephone.pdf` (105 petites pages).
+- Structure par chapitre (allégée) : accroche → exemples → Tu as remarqué ? → Dans ce chapitre → contenu → 1 quiz (bonne réponse d'abord) → Dans ta situation (tableau A–E) → « À retenir » (checklist + erreur + Et maintenant ?).
+- Prochaine étape : les 4 kits (8–12 pages max chacun, ~40 pages au total) : Kit 1 réponses prêtes, Kit 2 messages à copier, Kit 3 cahier d'entraînement, Kit 4 fiches métier (1 page par profil).
+- La version longue (226 p.) est gardée comme réservoir de contenu pour les kits : `manuscrit-v2/`, `dist-v2/`.
+
+---
+
+# Livre — « L'Art du Closing » : manuscrit
+
 **ÉTAT (9 nov. 2026) : LIVRE COMPLET v1 écrit** → `dist-v2/L-Art-du-Closing-livre-complet.pdf` (226 pages A4, ~105 000 mots, Times 14 pt). 28 chapitres en 5 parties + lexique (79 mots) + sources + mentions. En attente de la relecture complète du client (il corrige tout en une fois).
 - Règles et plan : `../06-GUIDE-REDACTION.md` (structure obligatoire de chaque chapitre, profils A–E, vocabulaire, frontières entre chapitres, règles sur les citations et chiffres).
 - Contrôles faits : toutes les citations « témoignages réels » vérifiées contre `recherches/` (traductions fidèles), aucune ville, aucun chiffre interdit (seulement cités pour être démentis), bonne réponse d'abord dans chaque quiz.

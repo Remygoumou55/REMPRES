@@ -226,7 +226,7 @@ Au chapitre 1, tu as vu que **« oui » et « payé », ce n'est pas la même ch
 
 <div class="vrai" markdown="1">
 « Le truc avec les clients difficiles, c'est de leur donner des nouvelles en permanence. »
-<span class="src">— une vendeuse en ligne, Afrique de l'Ouest (traduit de l'anglais)</span>
+<span class="src">— un vendeur en ligne, Afrique de l'Ouest (traduit de l'anglais)</span>
 </div>
 
 ## 6. Après la vente : garder le client
@@ -235,10 +235,10 @@ La vente est payée. Bravo. Mais le vrai bénéfice, il est **après** : quand l
 
 <div class="vrai" markdown="1">
 « Je traite chacun comme s'il était mon seul client, et ça a marché pour moi jusqu'ici. J'ai beaucoup de recommandations chaque semaine. »
-<span class="src">— un vendeur de téléphones, Afrique de l'Ouest (traduit de l'anglais)</span>
+<span class="src">— un vendeur, Afrique de l'Ouest (traduit de l'anglais)</span>
 
 « Au bout du compte, c'est l'intégrité qui fait revenir les clients. Le gain rapide sans équité peut sembler doux aujourd'hui, mais il ferme des portes demain. »
-<span class="src">— une vendeuse, Afrique de l'Ouest (traduit de l'anglais)</span>
+<span class="src">— un vendeur d'huile de palme, Afrique de l'Ouest (traduit de l'anglais)</span>
 </div>
 
 ### Les 4 gestes après la vente

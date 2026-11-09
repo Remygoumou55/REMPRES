@@ -297,7 +297,7 @@ Quand le client voit que ta marge est petite, il comprend que tu ne te moques pa
 
 <div class="vrai" markdown="1">
 « Alors je leur propose souvent deux prix, et je les laisse choisir. »
-<span class="src">— une vendeuse, Afrique de l'Ouest (traduit de l'anglais)</span>
+<span class="src">— un vendeur, Afrique de l'Ouest (traduit de l'anglais)</span>
 </div>
 
 Au lieu de discuter **un** prix, tu proposes **deux** produits : un modèle simple moins cher, et un modèle plus complet. Le client ne se demande plus « est-ce que j'achète ? » mais « **lequel** je prends ? ». Et il choisit selon son vrai budget, sans perdre la face.

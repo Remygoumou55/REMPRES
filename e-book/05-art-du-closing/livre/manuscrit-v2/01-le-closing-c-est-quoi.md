@@ -1,31 +1,71 @@
 # Chapitre 1 — Le closing, c'est quoi ?
 
+<div class="accroche" markdown="1">
+Le client était intéressé. Il a posé des questions. Il a peut-être même dit « oui »… et puis tout s'est arrêté. **Que s'est-il passé dans ces quelques secondes ?**
+</div>
+
+<div class="scene" markdown="1">
+### 🎬 Scène A — Fanta, au marché
+
+Une femme prend un pagne bleu dans ses mains, le regarde à la lumière, le touche.
+— C'est combien, celui-là ?
+— 15 000 F, ma sœur.
+— Hum… C'est cher. Je vais faire le tour.
+Elle repose le pagne et fait déjà un pas pour partir.
+</div>
+
+<div class="scene" markdown="1">
+### 🎬 Scène B — Amina, sur WhatsApp
+
+Une cliente pose dix questions sur un sac : la couleur, la taille, la matière. Amina envoie trois vidéos.
+**Cliente :** Il est trop beau 😍 Je vais voir et je te reviens.
+*(Elle ne revient jamais.)*
+</div>
+
+<div class="scene" markdown="1">
+### 🎬 Scène C — Ibrahima, avec sa formation en ligne
+
+**Prospect :** Ça m'intéresse beaucoup. Mais c'est pas encore une arnaque comme les autres ?
+Ibrahima envoie un long message pour se défendre.
+*(Le prospect ne répond plus.)*
+</div>
+
+<div class="scene" markdown="1">
+### 🎬 Scène D — Koffi, au bureau
+
+**La responsable des achats :** Votre offre est intéressante. Je dois en parler à mon directeur.
+Koffi dit : « Très bien, j'attends votre retour. »
+*(Le retour n'arrive jamais.)*
+</div>
+
+<div class="scene" markdown="1">
+### 🎬 Scène E — Sékou, le livreur
+
+Sékou arrive devant la maison avec le colis. Le client a dit « oui » hier. Il descend, ouvre le colis, regarde.
+**Client :** Hum… Finalement, c'est trop cher pour moi. Repars avec.
+Sékou repart avec le colis. Son carburant, son temps : perdus.
+</div>
+
+<div class="remarque" markdown="1">
+### 👀 Tu as remarqué ?
+
+Dans ces cinq scènes, **le client était intéressé**. Il a touché le produit, posé des questions, parfois même dit « oui ». Puis, en quelques secondes, **tout s'est arrêté**. Et dans les cinq scènes, le vendeur (ou le livreur) n'a **rien fait** de ce moment-là : il a laissé partir, il s'est défendu, ou il a attendu.
+
+Ce moment-là, le moment où le client hésite, a un nom : c'est le moment du **closing**. Et c'est là que se gagnent ou se perdent la plupart des ventes.
+</div>
+
 <div class="bref" markdown="1">
 **Dans ce chapitre, tu vas comprendre :**
 
 1. ce que veut dire le mot « closing », même si tu ne l'as jamais entendu ;
 2. le chemin que suit **chaque** vente, du premier regard jusqu'au paiement ;
-3. à quels endroits de ce chemin tu perds tes clients ;
+3. les **trois endroits** de ce chemin où tu perds tes clients ;
 4. pourquoi « closer » ne veut **pas** dire forcer.
 </div>
 
-## 1. Commençons par une scène
+## 1. Revenons à Fanta
 
-<div class="scene" markdown="1">
-### 🎬 Mets-toi à la place de Fanta
-
-Il est 10 heures. Le marché est plein de monde. Fanta a installé ses tissus depuis 7 heures, et elle n'a encore rien vendu.
-
-Une femme s'arrête. Elle prend un tissu bleu dans ses mains, le regarde à la lumière, le touche.
-
-— Bonjour. C'est combien, celui-là ?
-— Bonjour ma sœur. C'est 15 000 F.
-— Hum… C'est cher. Je vais faire le tour.
-
-La femme repose le tissu. Elle fait déjà un pas pour partir.
-</div>
-
-Stop. On arrête la scène ici. Fanta a **trois secondes** pour dire quelque chose.
+Reprenons la scène A. La femme a reposé le pagne. Elle fait déjà un pas pour partir. Stop : on arrête la scène ici. Fanta a **trois secondes** pour dire quelque chose.
 
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer
@@ -34,7 +74,7 @@ Stop. On arrête la scène ici. Fanta a **trois secondes** pour dire quelque cho
 
 - **A.** « D'accord ma sœur, à tout à l'heure. »
 - **B.** « Non, ce n'est pas cher ! C'est du vrai wax, regarde la qualité, ailleurs c'est 20 000 ! Je te le fais à 13 000, prends-le ! »
-- **C.** « Pas de souci, fais le tour. Mais avant, dis-moi juste : le tissu, il te plaît ? »
+- **C.** « Pas de souci, fais le tour. Mais avant, dis-moi juste : le pagne, il te plaît ? »
 </div>
 
 <div class="reponse" markdown="1">
@@ -47,7 +87,7 @@ Stop. On arrête la scène ici. Fanta a **trois secondes** pour dire quelque cho
 **Pourquoi C ?** Fanta ne retient pas la cliente de force. Elle lui laisse sa liberté (« fais le tour »), puis elle pose **une seule question, courte et gentille**. Avec cette question, la cliente va peut-être dire :
 - « Oui, il me plaît, mais je n'ai que 12 000 sur moi. » → Fanta sait maintenant que c'est une question d'argent du moment.
 - « Il me plaît, mais j'ai peur qu'il déteigne. » → Fanta sait que c'est une question de qualité.
-- « Pas trop, je cherchais plutôt du vert. » → Fanta peut lui montrer son tissu vert.
+- « Pas trop, je cherchais plutôt du vert. » → Fanta peut lui montrer son pagne vert.
 
 **👉 La bonne action :** quand un client veut partir, **ne le retiens pas, ne te défends pas**. Laisse-le libre, et pose **une question courte** pour savoir ce qu'il pense vraiment.
 </div>
@@ -85,14 +125,17 @@ Toutes les ventes du monde suivent le même chemin. Au marché, sur WhatsApp, au
 | **5. Tu lèves son doute** | Tu comprends sa vraie peur et tu y réponds. | Fanta découvre qu'elle a peur que le tissu déteigne, et la rassure. |
 | **6. Il dit oui et il paie** | C'est le closing. | Elle paie et repart avec son tissu. |
 
+Attention à la marche 6 : **« oui » et « payé », ce n'est pas la même chose.** En ligne, il y a souvent un long chemin entre les deux : le client dit « oui, emballe », le vendeur prépare le colis, le livreur prend la route… et l'argent n'arrive qu'à la fin. Tant que l'argent n'est pas reçu, la vente n'est pas bouclée.
+
 Et après la 6ᵉ marche, il y a un **palier bonus** : **le client revient et parle de toi à ses proches.** C'est là que tu gagnes vraiment ta vie.
 
 ### Où est-ce que les ventes meurent ?
 
-Les ventes ne meurent pas n'importe où. Elles meurent **presque toujours à deux endroits** :
+Les ventes ne meurent pas n'importe où. Elles meurent **presque toujours à trois endroits** :
 
 - **À la marche 2 : le client part avant même qu'on discute.** Il demande le prix et il s'en va. Sur WhatsApp, il lit ta réponse et il ne répond plus. **C'est le grand problème de la vente en Afrique.** On y consacre tout le chapitre 2.
 - **À la marche 4 : le client hésite, et le vendeur ne sait pas quoi faire.** C'est l'**objection**. On y consacre le chapitre 4 et une grande partie du livre.
+- **Entre le « oui » et le paiement : le client annule.** Le colis est emballé, parfois déjà en route, et le client écrit « c'est annulé », ou ne décroche plus quand le livreur arrive. C'est la blessure la plus chère, parce que tu as **déjà dépensé** du temps et de l'argent. On y consacre un chapitre entier dans la partie 3, et un chapitre pour les livreurs dans la partie 4.
 
 <div class="vrai" markdown="1">
 « Ils viennent, ils demandent le prix puis passent leur chemin. »
@@ -205,14 +248,17 @@ C'est ça, la force du closing.
 **A — Fanta (marché, client en face)**
 Ses ventes meurent surtout à la **marche 2** : la cliente demande le prix et part. Et à la **marche 4** : « c'est cher », « je vais faire le tour ».
 
-**B — Ibrahim (boutique en ligne, chaussures et sacs)**
-Ses ventes meurent surtout à la **marche 2** : « C'est combien ? » → il envoie le prix → le client ne répond plus. Et à la **marche 5** : le client a peur de l'arnaque et Ibrahim ne sait pas le rassurer.
+**B — Amina (boutique en ligne, chaussures et sacs)**
+Ses ventes meurent surtout à la **marche 2** : « C'est combien ? » → elle envoie le prix → le client ne répond plus. À la **marche 5** : le client a peur de l'arnaque et Amina ne sait pas le rassurer. Et **après le « oui »** : « Emballe ! »… puis « J'annule ».
 
-**C — Amina (formations en ligne)**
+**C — Ibrahima (formations en ligne)**
 Ses ventes meurent à la **marche 4** : « C'est encore une arnaque ? », « Je n'ai pas l'argent maintenant ». Et à la **marche 6** : le client clique pour payer… puis abandonne au moment du paiement par mobile money.
 
 **D — Koffi (commercial, entreprises)**
 Ses ventes meurent à la **marche 4** : « Je dois en parler à mon patron », « Envoyez-moi un devis ». Le devis part… et il n'y a plus de nouvelles.
+
+**E — Sékou (livreur)**
+Ses courses meurent **entre le « oui » et le paiement** : le client annule en cours de route, ne décroche pas à l'arrivée, ou refuse le colis à la porte (« Repasse demain », « C'est pas la couleur »). Le travail de toute l'équipe est perdu en une minute.
 </div>
 
 <div class="ecris" markdown="1">

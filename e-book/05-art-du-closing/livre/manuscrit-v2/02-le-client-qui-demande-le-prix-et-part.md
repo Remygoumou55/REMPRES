@@ -1,16 +1,8 @@
 # Chapitre 2 — Le client qui demande le prix… et qui part
 
-<div class="bref" markdown="1">
-**Dans ce chapitre, tu vas comprendre :**
-
-1. pourquoi tant de clients demandent le prix puis disparaissent, au marché comme sur WhatsApp ;
-2. ce qui se passe dans les **quelques secondes** qui suivent ta réponse au « c'est combien ? » ;
-3. **4 règles simples** pour que le client reste assez longtemps pour discuter avec toi.
-
-C'est le chapitre le plus important de la partie 1. Sans lui, le reste du livre ne sert à rien : tu ne peux pas convaincre un client qui est déjà parti.
+<div class="accroche" markdown="1">
+« C'est combien ? » Tu réponds. Et tu ne le revois plus jamais. **Combien de fois par semaine ça t'arrive ?**
 </div>
-
-## 1. Quatre scènes que tu connais par cœur
 
 <div class="scene" markdown="1">
 ### 🎬 Scène A — Au marché, avec Fanta
@@ -22,19 +14,19 @@ Il hoche la tête et continue son chemin. Toute la scène a duré **quatre secon
 </div>
 
 <div class="scene" markdown="1">
-### 🎬 Scène B — Sur WhatsApp, avec Ibrahim
+### 🎬 Scène B — Sur WhatsApp, avec Amina
 
 **Client :** Bjr. Les baskets blanches c combien ?
-**Ibrahim :** Bonjour, 25 000 F.
+**Amina :** Bonjour, 25 000 F.
 *(Le message passe en deux coches bleues : le client l'a lu.)*
 *(Une heure passe. Puis une journée. Rien.)*
 </div>
 
 <div class="scene" markdown="1">
-### 🎬 Scène C — En ligne, avec Amina
+### 🎬 Scène C — En ligne, avec Ibrahima
 
 **Prospect :** Slt, votre formation c'est combien ?
-**Amina :** Bonjour ! Elle coûte 15 000 F.
+**Ibrahima :** Bonjour ! Elle coûte 15 000 F.
 **Prospect :** Ok merci.
 *(Plus jamais de nouvelles.)*
 </div>
@@ -46,9 +38,23 @@ Il hoche la tête et continue son chemin. Toute la scène a duré **quatre secon
 Koffi envoie le devis le soir même. Il relance une semaine plus tard. Pas de réponse.
 </div>
 
-Tu as remarqué ? Dans les quatre scènes, **le vendeur a fait exactement ce qu'on lui a demandé** : il a donné le prix. Et dans les quatre scènes, **la vente est morte juste après**.
+<div class="remarque" markdown="1">
+### 👀 Tu as remarqué ?
+
+Dans les quatre scènes, **le vendeur a fait exactement ce qu'on lui a demandé** : il a donné le prix. Et dans les quatre scènes, **la vente est morte juste après**.
 
 Ce n'est pas un hasard. C'est le piège le plus fréquent de la vente en Afrique. Et c'est un piège dans lequel tombent même les bons vendeurs.
+</div>
+
+<div class="bref" markdown="1">
+**Dans ce chapitre, tu vas comprendre :**
+
+1. pourquoi tant de clients demandent le prix puis disparaissent, au marché comme sur WhatsApp ;
+2. ce qui se passe dans les **quelques secondes** qui suivent ta réponse au « c'est combien ? » ;
+3. **4 règles simples** pour que le client reste assez longtemps pour discuter avec toi.
+
+C'est le chapitre le plus important de la partie 1. Sans lui, le reste du livre ne sert à rien : tu ne peux pas convaincre un client qui est déjà parti.
+</div>
 
 <div class="vrai" markdown="1">
 « Les gens viennent, demandent les prix, touchent les articles, puis repartent. Je ne comprends pas. »
@@ -58,7 +64,7 @@ Ce n'est pas un hasard. C'est le piège le plus fréquent de la vente en Afrique
 <span class="src">— une détaillante de fournitures scolaires, Afrique de l'Ouest</span>
 </div>
 
-## 2. Pourquoi le client part : les 7 raisons
+## 1. Pourquoi le client part : les 7 raisons
 
 Quand un client part juste après le prix, il y a presque toujours une de ces **7 raisons**. Lis-les bien : on va s'en servir dans tout le chapitre.
 
@@ -79,7 +85,7 @@ Quand tu donnes le prix et que tu te tais, tu fermes toi-même la conversation. 
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer
 
-Relis la **scène B** (Ibrahim sur WhatsApp). D'après toi, laquelle de ces raisons a fait partir le client ? Tu peux en choisir plusieurs.
+Relis la **scène B** (Amina sur WhatsApp). D'après toi, laquelle de ces raisons a fait partir le client ? Tu peux en choisir plusieurs.
 
 - **A.** Le prix est tombé tout nu (raison 1).
 - **B.** Il n'a pas confiance (raison 5).
@@ -90,14 +96,14 @@ Relis la **scène B** (Ibrahim sur WhatsApp). D'après toi, laquelle de ces rais
 <div class="reponse" markdown="1">
 ### ✅ La bonne réponse : A, C… et D
 
-Ibrahim a envoyé un chiffre **seul** (A), sans aucune question (C). Le client n'avait aucune raison de répondre.
+Amina a envoyé un chiffre **seul** (A), sans aucune question (C). Le client n'avait aucune raison de répondre.
 
-Mais la vraie bonne réponse, c'est aussi **D : on ne peut pas savoir.** Peut-être qu'il comparait. Peut-être qu'il n'avait pas confiance. Peut-être que ce n'était pas le jour de paie. **Ibrahim ne le saura jamais**, parce que la conversation est morte.
+Mais la vraie bonne réponse, c'est aussi **D : on ne peut pas savoir.** Peut-être qu'il comparait. Peut-être qu'il n'avait pas confiance. Peut-être que ce n'était pas le jour de paie. **Amina ne le saura jamais**, parce que la conversation est morte.
 
 **👉 La bonne action :** ton objectif après le prix n'est **pas** encore de vendre. Ton objectif est de **garder la conversation ouverte** assez longtemps pour **découvrir** laquelle des 7 raisons tu as en face de toi.
 </div>
 
-## 3. La fenêtre des 10 secondes
+## 2. La fenêtre des 10 secondes
 
 Voici l'idée la plus importante de ce chapitre.
 
@@ -111,7 +117,7 @@ Si tu utilises bien cette fenêtre, le client reste. Il te dit ce qu'il cherche,
 
 Voici les 4 règles pour garder la fenêtre ouverte. Elles vont **dans l'ordre** : la règle 1 sert quand tu donnes le prix, la règle 2 quand le client commence à partir, la règle 3 quand il est déjà parti, et la règle 4 après.
 
-## 4. Règle n° 1 — Ne donne jamais un prix « tout nu »
+## 3. Règle n° 1 — Ne donne jamais un prix « tout nu »
 
 Attention, cette règle ne veut **pas** dire « cache ton prix ». Cacher son prix, écrire « prix en inbox », tourner autour du pot : ça fait fuir (on le verra au chapitre 5). **Donne toujours ton prix clairement, tout de suite.**
 
@@ -155,7 +161,7 @@ Compare avec « 25 000 F. ». Dans le premier message, le client sait que le pro
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer
 
-Amina reçoit ce message : « Slt, votre formation c'est combien ? » Quelle réponse a le plus de chances de garder la conversation ouverte ?
+Ibrahima reçoit ce message : « Slt, votre formation c'est combien ? » Quelle réponse a le plus de chances de garder la conversation ouverte ?
 
 - **A.** « Bonjour ! 15 000 F. »
 - **B.** « Bonjour ! Avant de vous donner le prix, je dois savoir si vous êtes sérieux. Vous avez un projet ? »
@@ -170,7 +176,7 @@ Amina reçoit ce message : « Slt, votre formation c'est combien ? » Quelle ré
 **👉 La bonne action :** prépare **à l'avance** ta phrase PRIX + QUESTION pour tes produits les plus demandés. Tu ne dois pas l'inventer à chaque fois.
 </div>
 
-## 5. Règle n° 2 — Quand il commence à partir : la question de la dernière chance
+## 4. Règle n° 2 — Quand il commence à partir : la question de la dernière chance
 
 Même avec un prix bien habillé, beaucoup de clients vont commencer à partir. C'est normal. Au marché, ils font un pas de côté. En ligne, ils écrivent « Ok merci ».
 
@@ -214,7 +220,7 @@ La cliente propose un prix, ils discutent, et elle achète.
 <span class="src">— marchandage enregistré par des chercheuses, marché de friperie, Afrique centrale</span>
 </div>
 
-## 6. Règle n° 3 — Quand il est parti : laisse-lui une raison et un moyen de revenir
+## 5. Règle n° 3 — Quand il est parti : laisse-lui une raison et un moyen de revenir
 
 Parfois, rien ne marche. Le client part quand même. Ce n'est pas grave : **une vente perdue aujourd'hui n'est pas forcément perdue pour toujours.** Mais il faut lui laisser **une raison** et **un moyen** de revenir.
 
@@ -252,7 +258,7 @@ Après le 3ᵉ message, **tu arrêtes**. Au-delà, ça devient du harcèlement.
 « Il n'en reste plus qu'un ! », « Promo jusqu'à ce soir minuit ! »… **seulement si c'est vrai.** Le client finit toujours par découvrir le mensonge. Et dans plusieurs pays africains, la fausse urgence est **interdite par la loi**. On en reparle au chapitre 25.
 </div>
 
-## 7. Règle n° 4 — Accepte de perdre, mais apprends à chaque fois
+## 6. Règle n° 4 — Accepte de perdre, mais apprends à chaque fois
 
 Personne ne vend à 100 % des clients. **Personne.** Un vendeur qui te dit le contraire te ment.
 
@@ -273,11 +279,13 @@ Au bout d'une semaine, tu verras **des choses revenir**. Par exemple : « Beauco
 
 **A — Fanta (marché)** : « 15 000 les 6 yards. C'est pour une cérémonie ou pour tous les jours ? »
 
-**B — Ibrahim (en ligne)** : « ✅ Disponible. 25 000 F livraison comprise. 📹 *(vidéo)* Tu fais quelle pointure ? »
+**B — Amina (en ligne)** : « ✅ Disponible. 25 000 F livraison comprise. 📹 *(vidéo)* Tu fais quelle pointure ? »
 
-**C — Amina (digital)** : « 15 000 F, une seule fois. Vous voulez lancer votre business ou développer celui que vous avez déjà ? »
+**C — Ibrahima (digital)** : « 15 000 F, une seule fois. Vous voulez lancer votre business ou développer celui que vous avez déjà ? »
 
 **D — Koffi (commercial)** : « Je vous envoie le devis ce soir. Pour qu'il soit juste : combien de ramettes vous utilisez par mois aujourd'hui ? »
+
+**E — Sékou (livreur)** : à la porte, le client découvre le total et fait la grimace. Sékou ne se contente pas de répéter le montant : « C'est 27 000 avec la livraison, comme convenu avec la boutique. Vous voulez ouvrir et vérifier le produit d'abord ? »
 </div>
 
 <div class="ecris" markdown="1">

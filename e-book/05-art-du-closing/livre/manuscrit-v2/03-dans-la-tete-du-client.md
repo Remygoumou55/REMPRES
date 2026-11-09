@@ -1,5 +1,27 @@
 # Chapitre 3 — Dans la tête du client africain : les 4 réalités
 
+<div class="accroche" markdown="1">
+Ton client ne te dira presque jamais la vraie raison de son hésitation. **Mais il te la montre, si tu sais où regarder.**
+</div>
+
+<div class="scene" markdown="1">
+### 🎬 Cinq clients, cinq phrases
+
+- Chez **Amina**, un client de l'étranger écrit : « Le prix est un peu élevé pour moi. »
+- Chez **Fanta**, une cliente dit : « Il est beau… mais je dois d'abord montrer à mon mari. »
+- Chez **Ibrahima**, un prospect écrit : « Je prendrai la formation à la fin du mois. »
+- Chez **Fanta** encore, une autre cliente dit aussitôt : « Laisse à 6 000. »
+- Devant **Sékou**, le livreur, un client ouvre le colis et demande : « C'est l'original, ça ? »
+</div>
+
+<div class="remarque" markdown="1">
+### 👀 Tu as remarqué ?
+
+Ces cinq phrases ont l'air très différentes. Pourtant, elles viennent toutes de **quatre grandes réalités** que vivent beaucoup de clients en Afrique : la **confiance**, l'**argent**, la **famille** et la **négociation**. Le client qui trouve le prix « élevé » n'a peut-être aucun problème d'argent : il a peut-être **peur**. Celle qui parle de son mari dit sûrement **la vérité**.
+
+Si tu ne connais pas ces réalités, tu réponds à côté. Si tu les connais, tu sais quoi faire.
+</div>
+
 <div class="bref" markdown="1">
 **Dans ce chapitre, tu vas comprendre :**
 
@@ -106,9 +128,9 @@ Le client dit :
 ## Réalité n° 2 — L'argent : « Est-ce que j'ai l'argent **maintenant** ? »
 
 <div class="scene" markdown="1">
-### 🎬 Mets-toi à la place d'Ibrahim
+### 🎬 Mets-toi à la place d'Amina
 
-C'est le 24 du mois. Une cliente écrit à Ibrahim pour un sac à 18 000 F. Elle pose plein de questions sur la couleur et la taille. Elle a l'air très intéressée.
+C'est le 24 du mois. Une cliente écrit à Amina pour un sac à 18 000 F. Elle pose plein de questions sur la couleur et la taille. Elle a l'air très intéressée.
 
 Puis elle écrit : « Je vais le prendre à la fin du mois, quand j'aurai l'argent. »
 </div>
@@ -116,7 +138,7 @@ Puis elle écrit : « Je vais le prendre à la fin du mois, quand j'aurai l'arge
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer
 
-**Ibrahim répond quoi ?**
+**Amina répond quoi ?**
 
 - **A.** « Si tu le veux vraiment, tu peux trouver l'argent aujourd'hui. »
 - **B.** « D'accord, écris-moi quand tu seras prête. »
@@ -267,11 +289,13 @@ Certains vendeurs donnent un prix différent selon la personne : plus cher pour 
 
 **A — Fanta (marché)** : surtout la **négociation** (« laisse à… ») et la **famille** (« je montre à mon mari »).
 
-**B — Ibrahim (en ligne)** : surtout la **confiance** (« c'est pas l'arnaque ? », « je paie à la livraison ») et l'**argent** (« à la fin du mois »).
+**B — Amina (en ligne)** : surtout la **confiance** (« c'est pas l'arnaque ? », « je paie à la livraison ») et l'**argent** (« à la fin du mois »).
 
-**C — Amina (digital)** : surtout la **confiance**. Les gens ont vu trop de « vendeurs de rêve » qui promettent de devenir riche. Puis l'**argent**.
+**C — Ibrahima (digital)** : surtout la **confiance**. Les gens ont vu trop de « vendeurs de rêve » qui promettent de devenir riche. Puis l'**argent**.
 
 **D — Koffi (commercial)** : surtout la **famille**, version entreprise : « je dois voir avec mon patron », « le comité doit valider ». C'est la même réalité : quelqu'un d'autre décide.
+
+**E — Sékou (livreur)** : surtout la **confiance** (« c'est l'original ? », le client qui veut tout vérifier avant de payer) et l'**argent** (« repasse demain, je n'ai pas encore l'argent »). Le livreur voit en direct ce que le vendeur n'a pas réglé avant.
 </div>
 
 <div class="ecris" markdown="1">

@@ -1,5 +1,46 @@
 # Chapitre 4 — Le rideau et le mur : lire ce que cache une objection
 
+<div class="accroche" markdown="1">
+« C'est cher. » Trois mots. Mais derrière, il peut y avoir quatre raisons complètement différentes. **Si tu réponds à la mauvaise, tu perds la vente.**
+</div>
+
+<div class="scene" markdown="1">
+### 🎬 Scène 1 — Fanta baisse son prix… pour rien
+
+— C'est cher.
+— Bon, pour toi, je fais 12 000 au lieu de 15 000.
+— Hum… je vais quand même faire le tour.
+*(La cliente part. Elle avait peur que le pagne déteigne. Le prix n'était pas le problème.)*
+</div>
+
+<div class="scene" markdown="1">
+### 🎬 Scène 2 — Amina insiste… et vexe sa cliente
+
+**Cliente :** Je le prends, mais je n'aurai l'argent que le 30.
+**Amina :** Si tu le veux vraiment, tu peux trouver l'argent maintenant. Tout le monde dit ça !
+*(La cliente la bloque. Elle disait la vérité : sa paie tombe le 30.)*
+</div>
+
+<div class="scene" markdown="1">
+### 🎬 Scène 3 — Ibrahima répond à côté
+
+**Prospect :** Je vais réfléchir.
+**Ibrahima :** Ne réfléchissez pas trop, la promo se termine bientôt !
+*(Le prospect ne répond plus. En réalité, il se demandait si la formation marchait dans son pays.)*
+</div>
+
+<div class="remarque" markdown="1">
+### 👀 Tu as remarqué ?
+
+Dans les trois scènes, le vendeur a **répondu tout de suite** à ce que le client a dit. Et à chaque fois, il a répondu **à la mauvaise chose**.
+
+- Fanta a cru que c'était le prix, alors que c'était la **peur**.
+- Amina a cru que c'était une excuse, alors que c'était **la vérité**.
+- Ibrahima a mis la pression, alors que le prospect avait **une question**.
+
+Le problème n'est pas ce qu'ils ont répondu. Le problème, c'est qu'ils ont répondu **avant de savoir**.
+</div>
+
 <div class="bref" markdown="1">
 **Dans ce chapitre, tu vas apprendre :**
 
@@ -121,8 +162,8 @@ La plupart du temps, le client va répondre : **« Oui, il me plaît, mais… »
 Pour chaque situation, coche **R** (rideau) ou **M** (mur).
 
 1. Chez Fanta, une cliente dit « c'est cher ». Fanta pose la question, et la cliente répond : « Il est beau, mais l'autre jour j'ai acheté un tissu qui a déteint au premier lavage. » R ☐ M ☐
-2. Ibrahim reçoit : « Je prends les baskets, mais je n'aurai l'argent que le 30. » On est le 12. R ☐ M ☐
-3. Amina reçoit : « Je vais réfléchir. » Elle pose la question, et le prospect répond : « La formation m'intéresse, mais je ne sais pas si ça marche dans mon pays. » R ☐ M ☐
+2. Amina reçoit : « Je prends les baskets, mais je n'aurai l'argent que le 30. » On est le 12. R ☐ M ☐
+3. Ibrahima reçoit : « Je vais réfléchir. » Il pose la question, et le prospect répond : « La formation m'intéresse, mais je ne sais pas si ça marche dans mon pays. » R ☐ M ☐
 4. Koffi entend : « Je dois en parler à mon directeur. » Il demande ce qu'elle en pense, et la secrétaire répond : « Moi je trouve ça bien, mais c'est lui qui signe tous les achats. » R ☐ M ☐
 5. Un client de Fanta dit : « Je reviens. » Fanta demande si le pagne lui plaît. Il répond : « Oui, mais je cherche du 3 yards, toi tu ne vends que des 6 yards. » R ☐ M ☐
 </div>
@@ -131,8 +172,8 @@ Pour chaque situation, coche **R** (rideau) ou **M** (mur).
 ### ✅ Les réponses
 
 1. **Rideau.** « C'est cher » cachait une **peur** (le tissu qui déteint). → Fanta doit rassurer sur la qualité. Baisser le prix ne servirait à rien.
-2. **Mur.** L'argent arrive le 30. C'est la vérité. → Ibrahim organise : réservation, livraison le 30, paiement à la réception.
-3. **Rideau.** « Je vais réfléchir » cachait **un doute** (« est-ce que ça marche chez moi ? »). → Amina peut montrer des résultats d'élèves de pays proches, ou un extrait gratuit.
+2. **Mur.** L'argent arrive le 30. C'est la vérité. → Amina organise : réservation, livraison le 30, paiement à la réception.
+3. **Rideau.** « Je vais réfléchir » cachait **un doute** (« est-ce que ça marche chez moi ? »). → Ibrahima peut montrer des résultats d'élèves de pays proches, ou un extrait gratuit.
 4. **Mur.** C'est vraiment le directeur qui signe. → Koffi ne contourne pas la secrétaire : il l'aide à présenter l'offre au directeur, ou il demande un rendez-vous avec les deux.
 5. **Mur.** Fanta n'a pas le produit qu'il cherche. → Elle peut couper un 6 yards en deux si elle le fait, sinon elle l'oriente honnêtement vers une voisine. Il s'en souviendra.
 
@@ -170,11 +211,13 @@ Quand tu sais **pour qui** ou **pour quoi** le client achète (un cadeau pour sa
 
 **A — Fanta (marché)** : « Dis-moi la vérité, ma sœur : le tissu te plaît vraiment ? »
 
-**B — Ibrahim (en ligne)** : « Je peux vous poser une question franche ? Le modèle vous plaît vraiment, ou il y a quelque chose qui vous retient ? »
+**B — Amina (en ligne)** : « Je peux vous poser une question franche ? Le modèle vous plaît vraiment, ou il y a quelque chose qui vous retient ? »
 
-**C — Amina (digital)** : « Je préfère être honnête avec vous : est-ce que la formation correspond à ce que vous cherchez ? Qu'est-ce qui vous fait hésiter ? »
+**C — Ibrahima (digital)** : « Je préfère être honnête avec vous : est-ce que la formation correspond à ce que vous cherchez ? Qu'est-ce qui vous fait hésiter ? »
 
 **D — Koffi (commercial)** : « Concrètement, qu'est-ce que vous pensez de notre proposition ? Elle répond à votre besoin ? »
+
+**E — Sékou (livreur)** : « Vous hésitez, c'est normal. Dites-moi franchement : c'est le produit qui ne vous plaît pas, ou c'est le moment qui ne va pas ? » (Puis il appelle la boutique avec le client, si besoin.)
 </div>
 
 <div class="ecris" markdown="1">

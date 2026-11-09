@@ -177,3 +177,14 @@ Le titre est provisoire, à décider avec le client.
 | **5. Devenir un closer** | 24 La boîte à histoires · 25 L'éthique et la loi · 26 Plan d'entraînement de 30 jours · Lexique · Sources |
 
 **Méthode d'écriture :** manuscrit en Markdown dans `livre/manuscrit/` (facile à relire sur téléphone). Mise en page PDF (A4 + téléphone) seulement quand le texte est validé. Échantillon : Partie 1 (ch. 1 à 4), à valider pour le ton avant la suite.
+
+
+---
+
+# PLAN v3 (retours du client, 9 nov. 2026, après la Partie 1 v2) — c'est CETTE version qui fait foi
+
+- **5 profils de lecteurs** : A Fanta (habits et pagnes, marché), B **Amina** (chaussures et sacs en ligne), C **Ibrahima** (formations en ligne), D Koffi (commercial), **E Sékou (livreur)**. Client fil rouge : Moussa (diaspora). **Aucune ville** citée.
+- **Structure de chaque chapitre** : titre → **accroche** (1-2 phrases) → **scènes** où le lecteur se reconnaît (une par profil quand c'est pertinent) → **« 👀 Tu as remarqué ? »** (le constat) → **« Dans ce chapitre, tu vas apprendre »** (la promesse) → contenu avec quiz A/B/C + bonne réponse + bonne action, exercices → « Dans ta situation » (A à E) → mots, erreur, checklist → **« Et maintenant ? »**.
+- **Intro « Parlons de toi »** : grande liste « Ça t'est déjà arrivé ? » couvrant toutes les situations (marché, en ligne, colis en route, annulations, livreur, digital, entreprises).
+- **Ajouts** : Partie 3 → chapitre **« Commandes annulées et clients fantômes »** (le « oui, emballe » qui devient « j'annule », annulation en route, client injoignable, refus à la porte ; prévention : confirmation, acompte/frais d'engagement, vidéo avant envoi, liste des annuleurs, règles avec le livreur). Partie 4 → chapitre **« Le livreur, dernier closer »**.
+- RIDEAU : **R = Retenir et créer la relation**.

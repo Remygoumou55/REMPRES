@@ -1,5 +1,25 @@
 # Chapitre 5 — Les 20 erreurs qui font fuir les clients
 
+<div class="accroche" markdown="1">
+Et si certains de tes clients partaient **à cause de toi**, sans que tu le saches ? Pas parce que tu es un mauvais vendeur, mais à cause de petites habitudes que personne ne t'a jamais signalées.
+</div>
+
+<div class="scene" markdown="1">
+### 🎬 Cinq petites scènes ordinaires
+
+- **Amina** publie : « 🔥 Nouvel arrivage ! Prix en inbox ! » avec une photo trouvée sur internet. Beaucoup de vues. Aucun message.
+- Une cliente s'arrête devant **Fanta**, qui est au téléphone. Fanta lève un doigt : « Attends. » La cliente attend dix secondes, puis s'en va.
+- **Ibrahima** écrit dans sa publicité : « Deviens riche en 30 jours avec ma formation ! » Les commentaires disent : « Encore un arnaqueur. »
+- **Koffi** envoie un devis. Au moment de signer, le client découvre des « frais de dossier » dont personne ne lui avait parlé. Il annule.
+- **Sékou** arrive chez le client avec une heure de retard, sans avoir prévenu. Le client est parti. La course est perdue.
+</div>
+
+<div class="remarque" markdown="1">
+### 👀 Tu as remarqué ?
+
+Dans ces cinq scènes, **le client n'a rien fait de mal**. Il était intéressé, il était là, il était prêt. C'est **le vendeur** (ou le livreur) qui l'a fait fuir, souvent sans même s'en rendre compte. Et personne ne lui dira jamais pourquoi la vente n'a pas eu lieu.
+</div>
+
 <div class="bref" markdown="1">
 **Dans ce chapitre, tu vas :**
 
@@ -96,7 +116,7 @@ Au Nigeria, la loi de 2018 sur la protection du consommateur oblige même à aff
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer
 
-Ibrahim publie ce statut WhatsApp :
+Amina publie ce statut WhatsApp :
 **« 🔥🔥 NOUVEL ARRIVAGE !!! Qualité top, prix choc 🔥 Prix en inbox. Dépêchez-vous il n'en reste presque plus !!! »** *(avec une photo trouvée sur internet)*
 
 **Combien d'erreurs vois-tu ? Lesquelles ?**
@@ -110,7 +130,7 @@ Ibrahim publie ce statut WhatsApp :
 - **Erreur 13** (on la voit plus bas) : « il n'en reste presque plus » alors qu'il vient de recevoir un arrivage.
 
 **Une version corrigée :**
-« 👟 Nouvel arrivage : baskets blanches, du 39 au 45. **25 000 F**, livraison comprise. 📹 *(vidéo filmée par Ibrahim)* Écrivez-moi votre pointure, je vous réponds dans l'heure. »
+« 👟 Nouvel arrivage : baskets blanches, du 39 au 45. **25 000 F**, livraison comprise. 📹 *(vidéo filmée par Amina)* Écrivez-moi votre pointure, je vous réponds dans l'heure. »
 
 **👉 La bonne action :** relis tes 5 derniers statuts ou publications. Combien d'erreurs y trouves-tu ?
 </div>
@@ -227,11 +247,13 @@ Une cliente dit à Fanta : « Ta voisine vend le même à 12 000, toi tu dis 15 
 
 **A — Fanta (marché)** : 4 Racoler · 5 Sauter les salutations · 11 Humilier · 12 Prix selon la tête · 20 Oublier après la vente.
 
-**B — Ibrahim (en ligne)** : 1 Prix en inbox · 2 Répondre tard · 3 Photos du fournisseur · 15 Acompte puis silence · 18 Bloquer en public.
+**B — Amina (en ligne)** : 1 Prix en inbox · 2 Répondre tard · 3 Photos du fournisseur · 15 Acompte puis silence · 18 Bloquer en public.
 
-**C — Amina (digital)** : 7 Promettre la richesse · 2 Répondre tard · 9 Parler sans arrêt · 13 Fausse urgence (« promo jusqu'à minuit ») · 19 Ne jamais relancer.
+**C — Ibrahima (digital)** : 7 Promettre la richesse · 2 Répondre tard · 9 Parler sans arrêt · 13 Fausse urgence (« promo jusqu'à minuit ») · 19 Ne jamais relancer.
 
 **D — Koffi (commercial)** : 8 Ne pas connaître son produit · 9 Parler sans arrêt · 10 Insister · 14 Frais cachés dans le devis · 19 Ne jamais relancer.
+
+**E — Sékou (livreur)** : 2 Ne pas prévenir (retard, arrivée) · 6 Le téléphone à la main devant le client · 11 S'énerver ou humilier quand le client hésite · 16 « Ce n'est pas mon problème, appelez la boutique » · 18 Mal répondre devant les voisins.
 </div>
 
 ## 3. Le tableau à garder

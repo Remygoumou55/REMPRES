@@ -36,7 +36,7 @@ blockquote p {{ margin: 3pt 0; }}
 .box {{ margin: 12pt 0; padding: 10pt 14pt 6pt; border-radius: 3pt; font-size: 13.5pt; }}
 .box h3 {{ margin: 0 0 6pt; font-size: 14.5pt; break-after: avoid; }}
 .box li, .box tr, .box p {{ break-inside: avoid; }}
-.vrai, .bref, .suite {{ break-inside: avoid; }}
+.bref, .suite {{ break-inside: avoid; }}
 .box table {{ background: #fff; font-size: 11.5pt; }}
 .bref {{ background: {VERT}; color: #fff; border-left: 6pt solid {OR}; }}
 .bref strong, .bref h3 {{ color: #F1D9A6; }}
@@ -64,6 +64,13 @@ td .ligne {{ min-width: 30mm; }}
 .check ul {{ list-style: none; padding-left: 4pt; }}
 .attention {{ background: #FFF8E8; border: 1px solid {OR}; border-left: 6pt solid {OR}; }}
 .suite {{ background: {VERT}; color: #fff; }}
+.accroche {{ background: none; border: none; border-left: 4pt solid {OR}; font-size: 17pt; font-style: italic; line-height: 1.35; color: {VERT}; padding: 4pt 0 4pt 16pt; margin: 4pt 0 16pt; }}
+.accroche strong {{ font-style: italic; color: #8a6a2b; }}
+.remarque {{ background: #fff; border: 1px solid {VERT}; border-top: 5pt solid {VERT}; }}
+.vecu {{ background: {CREME}; border: 1px solid #e6dcc3; }}
+.vecu ul {{ list-style: none; padding-left: 4pt; }}
+.vecu li {{ margin: 4pt 0; }}
+.vecu p {{ margin: 10pt 0 2pt; color: {VERT}; }}
 .suite strong, .suite h3 {{ color: #F1D9A6; }}
 .chapter {{ break-before: page; }}
 .toc {{ break-before: page; }}
@@ -95,7 +102,7 @@ def page(body, title):
 COVER = """<div class="cover"><div class="k">COLLECTION PLAYBOOKS</div>
 <div class="t">L'Art<br>du Closing</div><div class="rule"></div>
 <div class="s">Lève le rideau : la méthode africaine pour transformer les « je vais réfléchir » en « oui »</div>
-<div class="v">PARTIE 1 — COMPRENDRE · VERSION DE TRAVAIL 2 · NOVEMBRE 2026</div></div>"""
+<div class="v">PARTIE 1 — COMPRENDRE · VERSION DE TRAVAIL 3 · NOVEMBRE 2026</div></div>"""
 
 files = sorted(glob.glob(os.path.join(SRC, "*.md")))
 titles = []
@@ -108,8 +115,8 @@ for t in titles:
         toc.append('<div class="part">Partie 1 — Comprendre</div>')
     toc.append(f'<div class="row"><span>{H.escape(t)}</span></div>')
 for p, chs in [("Partie 2 — La méthode RIDEAU", "Retenir · Interroger · Démasquer · Écouter · Apaiser · Unir"),
-               ("Partie 3 — Les objections une par une", "Prix · Argent et moment · Confiance · Famille · Temps · Crédit"),
-               ("Partie 4 — Selon ta façon de vendre", "Marché · WhatsApp et réseaux · Téléphone · Produits digitaux · Entreprises · Diaspora"),
+               ("Partie 3 — Les situations une par une", "Prix · Argent et moment · Confiance · Famille · Temps · Crédit · Commandes annulées et clients fantômes"),
+               ("Partie 4 — Selon ta façon de vendre", "Marché · WhatsApp et réseaux · Produits digitaux · Téléphone · Entreprises · Diaspora · Le livreur, dernier closer"),
                ("Partie 5 — Devenir un closer", "La boîte à histoires · L'éthique et la loi · 30 jours d'entraînement")]:
     toc.append(f'<div class="part">{p}</div><div class="row soon"><span>{chs} (à venir)</span></div>')
 toc.append("</section>")
@@ -125,7 +132,7 @@ for f in files:
     jobs.append([hp, os.path.join(DIST, name + ".pdf")])
 allp = os.path.join(DIST, "_all.html")
 open(allp, "w", encoding="utf-8").write(page(COVER + "".join(toc) + "".join(chapters), "L'Art du Closing"))
-jobs.append([allp, os.path.join(DIST, "L-Art-du-Closing-Partie-1-v2.pdf")])
+jobs.append([allp, os.path.join(DIST, "L-Art-du-Closing-Partie-1-v3.pdf")])
 
 FOOT = ('<div style="font-family:Times New Roman,Liberation Serif,serif;font-size:9pt;width:100%;padding:0 19mm;'
         'display:flex;justify-content:space-between;color:#8a7a55"><span>L&#39;Art du Closing</span>'

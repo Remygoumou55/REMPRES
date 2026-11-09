@@ -14,7 +14,9 @@
   - R4 méthodes de closing dans le monde + données + cultures
   - R5 prospects africains (pourquoi ils n'achètent pas)
   - R6 vendeurs africains (erreurs, bonnes pratiques, le pont vendeur-prospect)
-- À venir : `02-SYNTHESE-RECHERCHES.md`, puis plan du livre.
+- `02-SYNTHESE-RECHERCHES.md` : synthèse des 6 rapports + proposition « méthode RIDEAU », 5 familles d'objections africaines, plan possible, liste des vérifications.
+- ⚠️ Réseau bloqué pendant les recherches (pages non ouvertes, seulement extraits du moteur) : revérifier avant impression (section 7 de la synthèse).
+- Prochaine étape : réponses du client (méthode RIDEAU ? Belfort ? public ?) + collecte terrain de 30–50 objections réelles + accès réseau élargi pour vérifier.
 
 ## Questions ouvertes au client
 1. Garder le nom « CDD » (en citant Pelissier) ou créer notre propre méthode africaine ? (recommandé : propre méthode)

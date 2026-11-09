@@ -15,7 +15,7 @@ Le client (francophone, Guinée, il tutoie et dit « mec ») transforme des form
 | 2 | **Acheter un terrain et construire au pays sans te faire arnaquer** (12 900 F CFA) | ✅ **Livre v1.0 terminé** (A4 150 p. max, téléphone ~278 p., 4 kits, ZIP 2 dossiers). ✅ Étude de marché + prix. ❌ Vidéos V1–V6 **refusées** par le client (trop identiques, pas synchro). ✅ **Nouvelles vidéos : T1 « La photo » et T2 « Mamadou » faites** (scènes Google Flow + motion design + musique propre), envoyées, **avis du client en attente**. ⏳ T3–T6 à faire. **→ Tout est dans `02-terrain-construction/communication/RAPPORT-COMPLET-ET-PASSATION.md`.** | `02-terrain-construction/` |
 | 3 | **Élevage de poulets, chiffres en main** | ⏸ Pas commencé (sera fait après le livre 2, même méthode). | `03-elevage-poulets/` |
 | 4 | **Créer son entreprise + obtenir un financement** | ⏸ Pas commencé (après le livre 3). | `04-entreprise-financement/` |
-| 5 | **L'Art du Closing** (Afrique entière, FR puis EN) | 🔎 9 nov. 2026 : phase RECHERCHE. Notes de la conférence de Bastien Pelissier reçues et décortiquées ; 6 agents de recherche lancés (R1–R6). Branche : `claude/art-du-closing-afrique-erwysf`. | `05-art-du-closing/` |
+| 5 | **L'Art du Closing** (Afrique entière, FR puis EN) | 🔎 9 nov. 2026 : phase RECHERCHE. Notes de la conférence de Bastien Pelissier reçues et décortiquées ; 6 rapports R1–R6 terminés + synthèse `02-SYNTHESE-RECHERCHES.md` (méthode RIDEAU proposée) ; en attente des décisions du client. Branche : `claude/art-du-closing-afrique-erwysf`. | `05-art-du-closing/` |
 
 Ordre choisi par le client : **2 Terrain → 3 Poulets → 4 Entreprise/financement.**
 

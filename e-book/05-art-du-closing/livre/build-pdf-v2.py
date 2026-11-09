@@ -1,0 +1,153 @@
+#!/usr/bin/env python3
+"""Manuscrit v2 (Markdown + blocs <div class=... markdown="1">) -> PDF A4 premium.
+Police : Times New Roman (Liberation Serif, métriques identiques, si absente). Corps 14 pt.
+Usage : python3 build-pdf-v2.py"""
+import re, glob, os, subprocess, json, html as H
+import markdown
+
+ROOT = os.path.dirname(os.path.abspath(__file__))
+SRC = os.path.join(ROOT, "manuscrit-v2")
+DIST = os.path.join(ROOT, "dist-v2")
+os.makedirs(DIST, exist_ok=True)
+
+VERT, OR, CREME, ENCRE = "#123B2F", "#B08A3E", "#FAF6EC", "#1E1E1E"
+CSS = f"""
+@page {{ size: A4; margin: 20mm 19mm 20mm 19mm; }}
+* {{ box-sizing: border-box; }}
+html {{ -webkit-print-color-adjust: exact; }}
+body {{ font-family: 'Times New Roman', 'Liberation Serif', Times, serif; font-size: 14pt; line-height: 1.45; color: {ENCRE}; text-align: left; hyphens: none; }}
+p {{ margin: 0 0 8pt; }}
+strong {{ color: {VERT}; }}
+em {{ color: #3a3a3a; }}
+ul, ol {{ margin: 4pt 0 8pt; padding-left: 22pt; }}
+li {{ margin: 2pt 0; }}
+hr {{ border: none; height: 0; margin: 14pt 0; border-top: 1px solid #d9cfb5; }}
+h1 {{ font-size: 26pt; line-height: 1.15; color: {VERT}; margin: 0 0 18pt; font-weight: bold; }}
+h1 .num {{ display: block; font-size: 12pt; letter-spacing: 4pt; color: {OR}; font-weight: bold; text-transform: uppercase; margin-bottom: 6pt; }}
+h1::after {{ content: ""; display: block; width: 60mm; height: 2.5pt; background: {OR}; margin-top: 10pt; }}
+h2 {{ font-size: 18pt; color: {VERT}; margin: 20pt 0 8pt; padding-bottom: 3pt; border-bottom: 1px solid #d9cfb5; break-after: avoid; }}
+h3 {{ font-size: 15pt; color: {VERT}; margin: 12pt 0 6pt; break-after: avoid; }}
+table {{ width: 100%; border-collapse: collapse; margin: 8pt 0 12pt; font-size: 12pt; line-height: 1.3; }}
+th {{ background: {VERT}; color: #fff; text-align: left; padding: 6pt 7pt; font-weight: bold; }}
+td {{ border-bottom: 1px solid #e3dccb; padding: 6pt 7pt; vertical-align: top; }}
+tr:nth-child(even) td {{ background: #fbf9f3; }}
+blockquote {{ margin: 10pt 0; padding: 8pt 14pt; border-left: 3pt solid {OR}; background: {CREME}; font-size: 13.5pt; break-inside: avoid; }}
+blockquote p {{ margin: 3pt 0; }}
+.box {{ margin: 12pt 0; padding: 10pt 14pt 6pt; border-radius: 3pt; font-size: 13.5pt; }}
+.box h3 {{ margin: 0 0 6pt; font-size: 14.5pt; break-after: avoid; }}
+.box li, .box tr, .box p {{ break-inside: avoid; }}
+.vrai, .bref, .suite {{ break-inside: avoid; }}
+.box table {{ background: #fff; font-size: 11.5pt; }}
+.bref {{ background: {VERT}; color: #fff; border-left: 6pt solid {OR}; }}
+.bref strong, .bref h3 {{ color: #F1D9A6; }}
+.scene {{ background: {CREME}; border: 1px solid #e6dcc3; border-left: 6pt solid {OR}; }}
+.scene h3 {{ color: #8a6a2b; }}
+.quiz {{ background: #fff; border: 2pt solid {OR}; }}
+.quiz h3 {{ color: #8a6a2b; }}
+.quiz ul {{ list-style: none; padding-left: 4pt; }}
+.quiz li {{ margin: 5pt 0; }}
+.reponse {{ background: #EEF5F0; border-left: 6pt solid #2F7A55; }}
+.reponse h3 {{ color: #2F7A55; }}
+.vrai {{ background: #fff; border-top: 1px solid {OR}; border-bottom: 1px solid {OR}; font-style: italic; padding: 10pt 18pt; font-size: 13.5pt; }}
+.vrai::before {{ content: "PAROLES RÉELLES"; display: block; font-style: normal; font-size: 9.5pt; letter-spacing: 2pt; color: {OR}; font-weight: bold; margin-bottom: 4pt; }}
+.vrai .src {{ display: block; font-style: normal; font-size: 11pt; color: #6b6b6b; margin-top: 2pt; margin-bottom: 4pt; }}
+.ecris {{ background: #fff; border: 1.5pt dashed {VERT}; }}
+.ligne {{ display: inline-block; min-width: 70mm; border-bottom: 1px solid #888; height: 1.1em; vertical-align: bottom; }}
+.ligne.court {{ min-width: 25mm; }}
+td .ligne {{ min-width: 30mm; }}
+.profils {{ background: #F3F6F4; border-top: 4pt solid {VERT}; }}
+.profils p {{ margin: 6pt 0; }}
+.mots {{ background: #fff; border: 1px solid #d9cfb5; }}
+.erreur {{ background: #FBEDEA; border-left: 6pt solid #A23B2A; }}
+.erreur h3 {{ color: #A23B2A; }}
+.check {{ background: {CREME}; border: 1px solid #e6dcc3; }}
+.check ul {{ list-style: none; padding-left: 4pt; }}
+.attention {{ background: #FFF8E8; border: 1px solid {OR}; border-left: 6pt solid {OR}; }}
+.suite {{ background: {VERT}; color: #fff; }}
+.suite strong, .suite h3 {{ color: #F1D9A6; }}
+.chapter {{ break-before: page; }}
+.toc {{ break-before: page; }}
+.toc h1::after {{ display: none; }}
+.toc .row {{ display: flex; justify-content: space-between; border-bottom: 1px dotted #b9ab86; padding: 6pt 0; font-size: 14pt; }}
+.toc .part {{ margin-top: 14pt; font-weight: bold; color: {OR}; letter-spacing: 1.5pt; font-size: 11.5pt; text-transform: uppercase; }}
+.toc .soon {{ color: #8b8b8b; font-style: italic; }}
+.cover {{ position: relative; height: 255mm; margin: 0; background: {VERT}; color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 0 22mm; break-after: page; }}
+.cover::before {{ content: ""; position: absolute; inset: 7mm; border: 1.2pt solid {OR}; }}
+.cover::after {{ content: ""; position: absolute; inset: 9.5mm; border: 0.5pt solid {OR}; }}
+.cover .k {{ color: {OR}; letter-spacing: 5pt; font-size: 11pt; font-weight: bold; }}
+.cover .t {{ font-size: 48pt; font-weight: bold; line-height: 1.05; margin: 14pt 0 10pt; }}
+.cover .rule {{ width: 50mm; height: 2pt; background: {OR}; margin: 6pt 0 16pt; }}
+.cover .s {{ font-size: 17pt; font-style: italic; color: #EADDBE; max-width: 140mm; }}
+.cover .v {{ position: absolute; bottom: 22mm; left: 22mm; font-size: 11pt; color: #CDBF97; letter-spacing: 1pt; }}
+"""
+
+def md(text):
+    text = text.replace("- [ ] ", "- ☐ ")
+    out = markdown.markdown(text, extensions=["tables", "sane_lists", "md_in_html"])
+    out = re.sub(r'<div class="([a-z]+)">', lambda m: f'<div class="box {m.group(1)}">' if m.group(1) != "vrai" else '<div class="box vrai">', out)
+    # Chapter heading: "Chapitre N — Titre" -> number line + title
+    out = re.sub(r"<h1>Chapitre (\d+) — (.*?)</h1>", r'<h1><span class="num">Chapitre \1</span>\2</h1>', out)
+    return out
+
+def page(body, title):
+    return f'<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><title>{H.escape(title)}</title><style>{CSS}</style></head><body>{body}</body></html>'
+
+COVER = """<div class="cover"><div class="k">COLLECTION PLAYBOOKS</div>
+<div class="t">L'Art<br>du Closing</div><div class="rule"></div>
+<div class="s">Lève le rideau : la méthode africaine pour transformer les « je vais réfléchir » en « oui »</div>
+<div class="v">PARTIE 1 — COMPRENDRE · VERSION DE TRAVAIL 2 · NOVEMBRE 2026</div></div>"""
+
+files = sorted(glob.glob(os.path.join(SRC, "*.md")))
+titles = []
+for f in files:
+    first = open(f, encoding="utf-8").readline().strip("# \n")
+    titles.append(first)
+toc = ['<section class="toc"><h1>Sommaire</h1><div class="part">Pour commencer</div>']
+for t in titles:
+    if t.startswith("Chapitre 1"):
+        toc.append('<div class="part">Partie 1 — Comprendre</div>')
+    toc.append(f'<div class="row"><span>{H.escape(t)}</span></div>')
+for p, chs in [("Partie 2 — La méthode RIDEAU", "Retenir · Interroger · Démasquer · Écouter · Apaiser · Unir"),
+               ("Partie 3 — Les objections une par une", "Prix · Argent et moment · Confiance · Famille · Temps · Crédit"),
+               ("Partie 4 — Selon ta façon de vendre", "Marché · WhatsApp et réseaux · Téléphone · Produits digitaux · Entreprises · Diaspora"),
+               ("Partie 5 — Devenir un closer", "La boîte à histoires · L'éthique et la loi · 30 jours d'entraînement")]:
+    toc.append(f'<div class="part">{p}</div><div class="row soon"><span>{chs} (à venir)</span></div>')
+toc.append("</section>")
+
+chapters = []
+jobs = []
+for f in files:
+    name = os.path.splitext(os.path.basename(f))[0]
+    body = md(open(f, encoding="utf-8").read())
+    chapters.append(f'<section class="chapter">{body}</section>')
+    hp = os.path.join(DIST, name + ".html")
+    open(hp, "w", encoding="utf-8").write(page(f'<section>{body}</section>', name))
+    jobs.append([hp, os.path.join(DIST, name + ".pdf")])
+allp = os.path.join(DIST, "_all.html")
+open(allp, "w", encoding="utf-8").write(page(COVER + "".join(toc) + "".join(chapters), "L'Art du Closing"))
+jobs.append([allp, os.path.join(DIST, "L-Art-du-Closing-Partie-1-v2.pdf")])
+
+FOOT = ('<div style="font-family:Times New Roman,Liberation Serif,serif;font-size:9pt;width:100%;padding:0 19mm;'
+        'display:flex;justify-content:space-between;color:#8a7a55"><span>L&#39;Art du Closing</span>'
+        '<span class="pageNumber"></span></div>')
+js = """
+const { chromium } = require('playwright');
+(async () => {
+  const jobs = %s;
+  const b = await chromium.launch();
+  const p = await b.newPage();
+  for (const [h, o] of jobs) {
+    await p.goto('file://' + h, { waitUntil: 'load' });
+    await p.pdf({ path: o, format: 'A4', printBackground: true, displayHeaderFooter: true,
+      headerTemplate: '<span></span>', footerTemplate: '%s',
+      margin: { top: '20mm', bottom: '20mm', left: '19mm', right: '19mm' } });
+  }
+  await b.close();
+})();
+""" % (json.dumps(jobs), FOOT)
+jsp = os.path.join(DIST, "_render.js")
+open(jsp, "w").write(js)
+subprocess.run(["node", jsp], check=True, cwd=ROOT)
+for h, _ in jobs: os.remove(h)
+os.remove(jsp)
+print("\n".join(o for _, o in jobs))

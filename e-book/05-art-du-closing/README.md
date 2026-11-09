@@ -22,3 +22,8 @@
 1. Garder le nom « CDD » (en citant Pelissier) ou créer notre propre méthode africaine ? (recommandé : propre méthode)
 2. Place de Jordan Belfort (fraudeur condamné) dans le livre.
 3. Public : boutique/marché, WhatsApp/réseaux, commerciaux, produits digitaux — tous ?
+
+## Décisions du client (9 nov. 2026, suite)
+- Méthode **RIDEAU** validée (U = Unir) ; Belfort en encadré honnête seulement ; public = tous les vendeurs, tronc commun orienté petit vendeur, un chapitre par canal, scripts dans les kits.
+- Le client ne peut pas collecter les objections lui-même → **4 agents traqueurs** (sources publiques : presse, forums, Reddit/Nairaland, YouTube, études) : `recherches/terrain/T1` (Afrique de l'Ouest FR), `T2` (Afrique centrale + Maghreb), `T3` (anglophone), `T4` (en ligne, digital, diaspora).
+- Plan détaillé v1 : `04-PLAN-DU-LIVRE.md` (5 parties, 24 chapitres, 3-4 kits).

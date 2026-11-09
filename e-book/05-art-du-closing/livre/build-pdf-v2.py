@@ -78,6 +78,11 @@ td .ligne {{ min-width: 30mm; }}
 .toc .row {{ display: flex; justify-content: space-between; border-bottom: 1px dotted #b9ab86; padding: 6pt 0; font-size: 14pt; }}
 .toc .part {{ margin-top: 14pt; font-weight: bold; color: {OR}; letter-spacing: 1.5pt; font-size: 11.5pt; text-transform: uppercase; }}
 .toc .soon {{ color: #8b8b8b; font-style: italic; }}
+.partpage {{ break-before: page; height: 250mm; display: flex; flex-direction: column; justify-content: center; padding: 0 12mm; border-left: 6pt solid {OR}; background: {CREME}; }}
+.partpage .pk {{ color: {OR}; letter-spacing: 6pt; font-size: 14pt; font-weight: bold; text-transform: uppercase; }}
+.partpage .pt {{ color: {VERT}; font-size: 38pt; font-weight: bold; line-height: 1.1; margin: 10pt 0; }}
+.partpage .rule {{ width: 50mm; height: 2pt; background: {OR}; margin: 8pt 0 16pt; }}
+.partpage .pd {{ font-size: 16pt; font-style: italic; color: #4a4a4a; max-width: 140mm; }}
 .cover {{ position: relative; height: 255mm; margin: 0; background: {VERT}; color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 0 22mm; break-after: page; }}
 .cover::before {{ content: ""; position: absolute; inset: 7mm; border: 1.2pt solid {OR}; }}
 .cover::after {{ content: ""; position: absolute; inset: 9.5mm; border: 0.5pt solid {OR}; }}
@@ -88,8 +93,19 @@ td .ligne {{ min-width: 30mm; }}
 .cover .v {{ position: absolute; bottom: 22mm; left: 22mm; font-size: 11pt; color: #CDBF97; letter-spacing: 1pt; }}
 """
 
+def fix_lists(text):
+    out, prev = [], ""
+    for line in text.split("\n"):
+        is_item = bool(re.match(r"^\s*(?:[-*] |\d+\. )", line))
+        prev_item = bool(re.match(r"^\s*(?:[-*] |\d+\. )", prev))
+        if is_item and prev.strip() and not prev_item and not prev.lstrip().startswith(("|", "<", "#")):
+            out.append("")
+        out.append(line); prev = line
+    return "\n".join(out)
+
 def md(text):
     text = text.replace("- [ ] ", "- ☐ ")
+    text = fix_lists(text)
     out = markdown.markdown(text, extensions=["tables", "sane_lists", "md_in_html"])
     out = re.sub(r'<div class="([a-z]+)">', lambda m: f'<div class="box {m.group(1)}">' if m.group(1) != "vrai" else '<div class="box vrai">', out)
     # Chapter heading: "Chapitre N — Titre" -> number line + title
@@ -102,37 +118,38 @@ def page(body, title):
 COVER = """<div class="cover"><div class="k">COLLECTION PLAYBOOKS</div>
 <div class="t">L'Art<br>du Closing</div><div class="rule"></div>
 <div class="s">Lève le rideau : la méthode africaine pour transformer les « je vais réfléchir » en « oui »</div>
-<div class="v">PARTIE 1 — COMPRENDRE · VERSION DE TRAVAIL 3 · NOVEMBRE 2026</div></div>"""
+<div class="v">VERSION DE TRAVAIL · NOVEMBRE 2026</div></div>"""
 
 files = sorted(glob.glob(os.path.join(SRC, "*.md")))
-titles = []
-for f in files:
-    first = open(f, encoding="utf-8").readline().strip("# \n")
-    titles.append(first)
-toc = ['<section class="toc"><h1>Sommaire</h1><div class="part">Pour commencer</div>']
-for t in titles:
-    if t.startswith("Chapitre 1"):
-        toc.append('<div class="part">Partie 1 — Comprendre</div>')
-    toc.append(f'<div class="row"><span>{H.escape(t)}</span></div>')
-for p, chs in [("Partie 2 — La méthode RIDEAU", "Retenir · Interroger · Démasquer · Écouter · Apaiser · Unir"),
-               ("Partie 3 — Les situations une par une", "Prix · Argent et moment · Confiance · Famille · Temps · Crédit · Commandes annulées et clients fantômes"),
-               ("Partie 4 — Selon ta façon de vendre", "Marché · WhatsApp et réseaux · Produits digitaux · Téléphone · Entreprises · Diaspora · Le livreur, dernier closer"),
-               ("Partie 5 — Devenir un closer", "La boîte à histoires · L'éthique et la loi · 30 jours d'entraînement")]:
-    toc.append(f'<div class="part">{p}</div><div class="row soon"><span>{chs} (à venir)</span></div>')
-toc.append("</section>")
-
+PARTS = [(1, "Partie 1", "Comprendre", "Ce qu'est le closing, pourquoi les clients partent, ce qu'ils pensent vraiment, et les erreurs qu'on fait sans le savoir."),
+         (6, "Partie 2", "La méthode RIDEAU", "Six clés, dans l'ordre, du premier « bonjour » jusqu'au « oui » : Retenir · Interroger · Démasquer · Écouter · Apaiser · Unir."),
+         (12, "Partie 3", "Les situations une par une", "« C'est cher », « je n'ai pas l'argent », « c'est pas l'arnaque ? », « je demande à mon mari », « je vais réfléchir », le crédit, les commandes annulées."),
+         (19, "Partie 4", "Selon ta façon de vendre", "Le marché, WhatsApp et les réseaux, les produits digitaux, le téléphone, les entreprises, la diaspora, la livraison."),
+         (26, "Partie 5", "Devenir un closer", "Ta boîte à histoires, l'éthique et la loi, et ton plan d'entraînement de 30 jours."),
+         (90, "Annexes", "Pour aller plus loin", "Le lexique, les sources et les mentions.")]
+def num(f):
+    m = re.match(r"(\d+)", os.path.basename(f)); return int(m.group(1)) if m else 0
+toc = ['<section class="toc"><h1>Sommaire</h1>']
 chapters = []
-jobs = []
 for f in files:
-    name = os.path.splitext(os.path.basename(f))[0]
+    n = num(f)
+    title = open(f, encoding="utf-8").readline().strip("# \n")
+    for start, pn, pt, pd in PARTS:
+        if n == start or (start == 90 and n >= 90 and not any(num(g) >= 90 and num(g) < n for g in files)):
+            toc.append(f'<div class="part">{pn} — {H.escape(pt)}</div>')
+            chapters.append(f'<section class="partpage"><div class="pk">{pn}</div><div class="pt">{H.escape(pt)}</div><div class="rule"></div><div class="pd">{H.escape(pd)}</div></section>')
+    if n == 0:
+        toc.insert(1, f'<div class="part">Pour commencer</div><div class="row"><span>{H.escape(title)}</span></div>')
+    else:
+        toc.append(f'<div class="row"><span>{H.escape(title)}</span></div>')
     body = md(open(f, encoding="utf-8").read())
     chapters.append(f'<section class="chapter">{body}</section>')
-    hp = os.path.join(DIST, name + ".html")
-    open(hp, "w", encoding="utf-8").write(page(f'<section>{body}</section>', name))
-    jobs.append([hp, os.path.join(DIST, name + ".pdf")])
+toc.append("</section>")
+jobs = []
 allp = os.path.join(DIST, "_all.html")
 open(allp, "w", encoding="utf-8").write(page(COVER + "".join(toc) + "".join(chapters), "L'Art du Closing"))
-jobs.append([allp, os.path.join(DIST, "L-Art-du-Closing-Partie-1-v3.pdf")])
+OUT = os.environ.get("OUT", "L-Art-du-Closing-livre-complet.pdf")
+jobs.append([allp, os.path.join(DIST, OUT)])
 
 FOOT = ('<div style="font-family:Times New Roman,Liberation Serif,serif;font-size:9pt;width:100%;padding:0 19mm;'
         'display:flex;justify-content:space-between;color:#8a7a55"><span>L&#39;Art du Closing</span>'

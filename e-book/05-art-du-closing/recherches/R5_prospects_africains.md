@@ -33,7 +33,7 @@
 
 ### 1.1 Revenus informels et irréguliers
 
-- **[PROUVÉ] Informalité.** Selon l'OIT, l'emploi informel représente **85,8 %** de l'emploi en Afrique (chiffre 2018-2020), le taux le plus élevé de toutes les régions. Par sous-région (OIT, 2019) :
+- **[PROUVÉ — vérifié à la source le 9 nov. 2026, PDF ouvert et lu]** Informalité. Selon l'OIT, l'emploi informel représente **85,8 %** de l'emploi en Afrique, le taux le plus élevé de toutes les régions. **Correction V2 :** la source exacte est *Women and men in the informal economy: A statistical picture*, 3e édition, OIT, **2018** (agriculture comprise ; données d'environ 2016), et non « 2018-2020 » ni « 2019 ». Les quatre chiffres du tableau ci-dessous figurent tels quels dans ce rapport (il donne aussi 89,2 % pour l'Afrique subsaharienne et 40,2 % pour l'Afrique australe). URL : https://www.ilo.org/sites/default/files/wcmsp5/groups/public/@dgreports/@dcomm/documents/publication/wcms_626831.pdf. Par sous-région (OIT, 2018) :
 
   | Sous-région | Emploi informel |
   |---|---|
@@ -42,7 +42,7 @@
   | Afrique centrale | 91,0 % |
   | Afrique du Nord | 67,3 % |
 
-  Une note de recherche OIT de 2026 parle d'« environ neuf travailleurs sur dix » en emploi informel. La CEA de l'ONU, citée par North Africa Post, donne environ 83 % en 2024.
+  La note de recherche OIT d'octobre 2026 (PDF ouvert et lu) dit : plus de **85 %** en Afrique, contre environ 58 % dans le monde ; « environ neuf travailleurs sur dix » en Afrique subsaharienne ; **environ 90 %** en Afrique centrale, de l'Ouest et de l'Est, environ 39 % en Afrique australe et environ 63 % en Afrique du Nord. La CEA de l'ONU, citée par North Africa Post, donne environ 83 % en 2024 (extrait de recherche, non relu).
   - https://www.ilo.org/sites/default/files/2026-10/Research%20Brief_Engaging%20informal%20economy%20actors%20in%20trade%20and%20labour%20policy%20in%20Africa.pdf
   - https://northafricapost.com/96624-africas-informal-economy-employs-83-of-workforce-in-2024-un-data.html
   - https://www.tralac.org/images/docs/8287/background-note-transition-from-the-informal-to-the-formal-economyin-africa-ilo-october-2015.pdf (l'OIT y note que les informels ont des revenus plus faibles et un risque de pauvreté plus élevé)
@@ -53,29 +53,34 @@
 
 ### 1.2 Peu d'épargne, et une famille qui sert de banque
 
-- **[PROUVÉ] Comptes (Global Findex 2025, données 2024, Afrique subsaharienne).**
-  - 58 % des adultes ont un compte (49 % en 2021).
-  - 40 % ont un compte mobile money (27 % en 2021).
-  - 35 % épargnent de façon formelle (+12 points).
-  - 23 % épargnent via le mobile money.
+- **[PROUVÉ — vérifié à la source le 9 nov. 2026 : *Little Data Book on Financial Inclusion 2025* et rapport *Global Findex Database 2025*, PDF ouverts et lus]** Comptes (Global Findex 2025, données 2024, Afrique subsaharienne).
+  - 58 % des adultes ont un compte (58,2 % ; 49,3 % en 2021).
+  - 40 % ont un compte mobile money (40,0 %). Le chiffre de 2021 (27 %) n'a pas été revérifié.
+  - 35 % épargnent de façon formelle (34,7 % ; 23,0 % en 2021, soit environ +12 points). **Confirmé.**
+  - 23 % épargnent via le mobile money (confirmé dans le rapport). 28,1 % épargnent de façon informelle (club d'épargne ou personne hors de la famille).
+  - URL : https://thedocs.worldbank.org/en/doc/be6615202d1f08a25855c8ac2d615122-0050012025/related/Little-Data-Book-2025-Web.pdf ; https://openknowledge.worldbank.org/bitstreams/9288bdc5-7a9b-42de-a47c-3746fd68f22a/download
   - Le premier obstacle cité est le **manque d'argent**.
   - Sources (relais presse du rapport, à vérifier dans le rapport lui-même) :
     - https://nairametrics.com/2025/07/16/world-bank-mobile-money-fuels-record-financial-inclusion-in-nigeria-other-developing-economies-in-2024/
     - https://www.engineeringnews.co.za/article/mobile-phones-help-to-boost-formal-savings-in-low--and-middle-income-countries-2025-07-16
     - https://www.nigeriacommunicationsweek.com.ng/world-bank-reveals-obstacles-to-growth-of-mobile-money-accounts-in-sub-saharan-africa/
-- **[PROUVÉ] Emprunt (Findex 2025).** 31 % des adultes ont emprunté **uniquement** à la famille ou aux amis, et 12 % à d'autres sources informelles.
-  - https://eastleighvoice.co.ke/africa%20loans/183771/kenya-leads-in-mobile-money-borrowing-as-sub-saharan-africa-leans-on-informal-loans---world-bank-report
+- **[CORRIGÉ en V2] Emprunt (Findex 2025).** La version 1 disait : « 31 % des adultes [d'Afrique subsaharienne] ont emprunté **uniquement** à la famille ou aux amis, et 12 % à d'autres sources informelles ». **C'est faux tel quel.** Dans le rapport (p. 152, ouvert et lu), ces chiffres concernent l'ensemble des **pays à revenu faible et intermédiaire**, pas l'Afrique : 31 % y ont emprunté à la famille ou aux amis, dont **21 %** uniquement de cette façon, et 12 % à d'autres sources. Pour l'**Afrique subsaharienne**, le rapport dit :
+  - **plus de 45 %** des adultes ont emprunté **uniquement de façon informelle** (sans aucun crédit formel) ;
+  - **12 %** seulement ont emprunté de façon formelle (12,4 % dans le Little Data Book) ;
+  - 70,4 % ont emprunté d'une façon ou d'une autre ;
+  - « emprunter uniquement à la famille ou aux amis » est la source **la plus courante** dans la région. La part exacte n'apparaît que sur un graphique, sans valeur écrite.
+  - Le relais de presse d'origine (eastleighvoice.co.ke) renvoie une erreur 403 et n'a pas pu être relu.
 - **[PROUVÉ] Urgences (Findex 2021, note Banque mondiale).**
   - 32 % des adultes se tourneraient vers la famille ou les amis en cas d'urgence. C'est la première source citée.
   - Plus de la moitié d'entre eux disent que cet argent serait « très difficile » à obtenir.
   - Seuls 13 % puiseraient dans leur épargne.
   - https://www.worldbank.org/en/publication/globalfindex/brief/data-from-the-global-findex-2021-financial-wellbeing-in-sub-saharan-africa
-- **[PROUVÉ] « La famille d'abord » / l'impôt de la parenté.** Jakiela & Ozier, *Review of Economic Studies*, 2016, expérience dans des villages du Kenya :
+- **[PROUVÉ — résumé de l'article vérifié le 9 nov. 2026 sur la page de l'auteur, ouverte et lue]** « La famille d'abord » / l'impôt de la parenté. Jakiela & Ozier, « Does Africa Need a Rotten Kin Theorem? », *Review of Economic Studies* 83(1), 2016, p. 231-268, expérience de laboratoire dans des villages **ruraux** du Kenya. L'effet est le plus fort chez les femmes dont des proches assistent à l'expérience :
   - les participantes **acceptent de gagner moins** pour cacher leur revenu à leurs proches ;
   - elles anticipent un « impôt » de plus de 4 % sur tout revenu visible ;
   - ce taux **double presque** quand la famille peut observer le revenu directement.
 
-  Les auteurs précisent que l'étude porte sur un seul pays, même si d'autres travaux suggèrent un phénomène répandu en zone rurale subsaharienne.
+  Les auteurs précisent que l'étude porte sur un seul pays. L'idée que le phénomène serait répandu dans le reste de l'Afrique rurale **ne figure pas dans le résumé** relu en V2. Elle reste donc à vérifier dans le texte intégral.
   - https://owenozier.github.io/publication/2016-01-01-rotten-kin
   - https://econpapers.repec.org/RePEc:oup:restud:v:83:y:2016:i:1:p:231-268.
 - **[DÉDUIT] Conséquence pour le closing.** Une dépense **visible** (un achat affiché, une formation coûteuse) expose l'acheteur aux demandes de l'entourage et à son jugement (« tu as de l'argent pour ça mais pas pour… »). Une partie des « je vais réfléchir » cache sans doute **un arbitrage avec des obligations familiales**. C'est une hypothèse à tester en Clarifier, avec tact : « Est-ce que c'est le bon moment pour vous par rapport à vos autres priorités ? »
@@ -115,9 +120,10 @@
     - https://www.mckinsey.com/featured-insights/africa/the-rise-of-the-african-consumer
     - https://www.mckinsey.com/~/media/McKinsey/Industries/Retail/Our%20Insights/The%20rise%20of%20the%20African%20consumer/The%20rise%20of%20the%20African%20consumer.pdf
     - https://www.howwemadeitinafrica.com/six-tips-on-how-to-successfully-expand-your-consumer-goods-company-into-africa/
-- **[PROUVÉ] Kantar Africa Life 2025 (Côte d'Ivoire, Kenya, Nigeria, Sénégal, Afrique du Sud).**
-  - Quand le budget est serré, les consommateurs consomment moins, retirent les produits « non essentiels » du panier et **passent à des formats plus petits**.
-  - Ils continuent pourtant de **privilégier les marques qu'ils connaissent et en qui ils ont confiance, même plus chères**.
+- **[PROUVÉ — article BusinessDay du 14 juillet 2025 ouvert et lu le 9 nov. 2026 ; le rapport Kantar lui-même n'a pas été lu]** Kantar Africa Life 2025 (Côte d'Ivoire, Kenya, Nigeria, Sénégal, Afrique du Sud ; 5e édition).
+  - Quand le budget est serré, les consommateurs consomment moins, retirent les produits « non essentiels » du panier et **passent à des formats plus petits**. Les plus aisés font l'inverse et achètent en gros. **Confirmé.**
+  - Ils continuent pourtant de **privilégier les marques qu'ils connaissent et en qui ils ont confiance, même plus chères**. **Confirmé.** Précision V2 : selon Kantar, ils sont prêts à payer **jusqu'à 14 % de plus** pour une marque perçue comme « vraiment différente ».
+  - Ajout V2 : **WhatsApp** est la plateforme d'achat en ligne préférée au Nigeria, au **Sénégal** et en **Côte d'Ivoire**. Au Kenya et en Afrique du Sud, ce sont les sites des distributeurs.
   - https://www.businessday.co.za/redzone/news-insights/2025-07-14-new-study-says-trusted-brands-trump-price-for-constrained-consumers/
 - **[DÉDUIT] Point central pour le livre.** En Afrique, « C'est cher » veut souvent dire **« je ne suis pas sûr que ça vaille ce prix / que ce soit vrai »**, et pas seulement « je n'ai pas l'argent ». Le même acheteur paie plus cher une marque de confiance. L'objection prix est donc souvent **une objection confiance déguisée**. C'est le lien direct entre les familles 1 et 3 du framework.
 
@@ -127,11 +133,13 @@
 
 ### 2.1 Peur de l'arnaque et de ne rien recevoir (non-livraison)
 
-- **[PROUVÉ] Côte d'Ivoire, rapport ANSSI/PLCC 2024.**
-  - Plaintes pour cybercriminalité : 6 579 en 2022, 8 132 en 2023, **12 100 en 2024**.
-  - Préjudice déclaré : environ 6 à 6,9 milliards FCFA en 2024.
-  - La catégorie « escroqueries » passe de **802 à 2 326 plaintes** (+190 %) et son préjudice de 0,85 à 2,36 milliards FCFA entre 2023 et 2024.
-  - Le détail « faux vendeurs Facebook » n'est pas isolé dans les extraits consultés.
+- **[PROUVÉ en partie, CORRIGÉ en V2] Côte d'Ivoire, rapport ANSSI 2024 sur l'état de la cybercriminalité** (relayé par Osiris, CIO Mag et Koaci, trois articles ouverts et lus le 9 nov. 2026).
+  - Plaintes pour cybercriminalité : 6 579 en 2022, 8 132 en 2023, **12 100 en 2024** (+84 % entre 2022 et 2024). **Confirmé.**
+  - Préjudice total : **6,96 milliards FCFA en 2024, contre 9,21 milliards en 2023, soit −24 %**. La baisse vient des pertes liées aux accès frauduleux aux systèmes. **Le préjudice global a donc baissé**, il ne faut pas écrire qu'il a augmenté.
+  - « Escroquerie sur internet » : **2 326 affaires en 2024** (2e infraction en nombre, après l'atteinte à la dignité humaine, 2 822) et **1re infraction par le préjudice** (2,36 milliards FCFA). **Confirmé.**
+  - **Non confirmé, à retirer :** le chiffre de 802 plaintes en 2023, et donc la hausse de « +190 % ». Aucun des trois articles ouverts ne le donne, et une recherche ciblée ne l'a pas trouvé. Ne pas l'imprimer.
+  - Le détail « faux vendeurs Facebook » n'apparaît pas à part. La « spoliation de compte mail/Facebook » compte 1 205 affaires.
+  - Ajout : https://www.koaci.com/index.php/article/2025/05/27/cote-divoire/societe/cote-divoire-cybercriminalite-la-plcc-a-enregistre-12100-affaires-en-2024-pour-un-prejudice-de-pres-de-7-milliards-fcfa_187200.html
   - Sources :
     - https://www.osiris.sn/cybercriminalite-en-cote-d-ivoire-en-2024-les-points-saillants-du-rapport-de-l.html
     - https://cio-mag.com/cybercriminalite-en-cote-divoire-en-2024-les-points-saillants-du-rapport-de-lanssi-et-lanalyse-du-colonel-major-guelpetchin-ouattara/
@@ -140,9 +148,10 @@
   - https://afrique.le360.ma/economie/mali-e-commerce-les-arnaqueurs-ont-atteint-un-niveau-dingeniosite-preoccupant_WLKEYSLYDJESDOE3XUIPOCXNDU/
 - **[OBSERVÉ] Abidjan.** Témoignage d'une cliente dont la tablette commandée n'a jamais été livrée.
   - https://osiris.sn/les-5-obstacles-a-surmonter-pour-le-e-commerce-en-afrique.html
-- **[PROUVÉ, secondaire] Kenya, étude Visa Stay Secure.**
-  - 85 % des consommateurs ont déjà acheté via le commerce social.
-  - Parmi les victimes d'arnaque, **58 % disent que l'arnaque a eu lieu sur un réseau social**.
+- **[PROUVÉ, secondaire — tribune ouverte et lue le 9 nov. 2026] Kenya, étude Visa Stay Secure.** La source est une tribune de Chad Pollock, vice-président de Visa pour l'Afrique de l'Est, publiée par Business Daily le 14 juin 2026. Ce sont donc des chiffres d'entreprise, et la méthode n'est pas publiée dans l'article.
+  - 85 % des consommateurs kényans ont déjà acheté via le commerce social. **Confirmé.**
+  - Parmi les victimes d'arnaque, **58 % disent que l'arnaque a eu lieu sur un réseau social**. **Confirmé.**
+  - 89 % utiliseraient déjà l'IA pour leurs achats.
   - La confiance reste « le facteur décisif ».
   - https://www.businessdailyafrica.com/bd/opinion-analysis/columnists/why-trust-will-define-the-future-of-digital-commerce-in-kenya-5496174
 - **[PROUVÉ, secondaire] Nigeria.** Une enquête citée par TechCabal (2022) indique qu'environ **24 % des répondants ont déjà été arnaqués** en achetant sur les réseaux sociaux. Méthode non vérifiée.
@@ -203,7 +212,11 @@
 - **[PROUVÉ, partiel] Jumia.**
   - Les rapports financiers parlent de « conversion progressive des commandes payées à la livraison en commandes prépayées ».
   - Au T4 2020, 33,1 % des commandes étaient payées via JumiaPay, ce qui implique une majorité payée autrement, essentiellement à la livraison.
-  - Une synthèse des résultats 2025 indique que les **livraisons échouées représentaient 25 % des commandes brutes payables à la livraison**. Chiffre **à vérifier** dans le communiqué officiel.
+  - **[PROUVÉ — vérifié le 9 nov. 2026 dans le rapport annuel 20-F 2025 de Jumia déposé à la SEC le 24 févr. 2026, ouvert et lu]** « In 2025, failed deliveries represented **25% of the gross orders in Cash on delivery** » (en 2025, les livraisons échouées représentaient 25 % des commandes brutes payées à la livraison). Le même document précise :
+    - le paiement à la livraison est une fonction importante, « en particulier pour les nouveaux clients qui achètent en ligne pour la première fois » ;
+    - le taux d'annulations, de livraisons échouées et de retours (CFDR) est passé de 22 % à 26 % du volume d'affaires (GMV) entre 2024 et 2025 ;
+    - Jumia fait en général 3 tentatives de livraison.
+    - URL : https://www.sec.gov/Archives/edgar/data/1756708/000175670826000015/jmia-20251231.htm. Ce chiffre n'apparaît pas dans le communiqué T4 2025.
   - Sources :
     - https://s205.q4cdn.com/370993272/files/doc_financials/2025/q4/Jumia-EX-99-1-Q4-2025-2-10-2026-Final-v5.pdf
     - https://www-web.itiger.com/news/2613716878 (synthèse secondaire, non consultée en entier)

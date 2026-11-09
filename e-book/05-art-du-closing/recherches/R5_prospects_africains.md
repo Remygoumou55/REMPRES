@@ -60,7 +60,7 @@
   - 23 % épargnent via le mobile money (confirmé dans le rapport). 28,1 % épargnent de façon informelle (club d'épargne ou personne hors de la famille).
   - URL : https://thedocs.worldbank.org/en/doc/be6615202d1f08a25855c8ac2d615122-0050012025/related/Little-Data-Book-2025-Web.pdf ; https://openknowledge.worldbank.org/bitstreams/9288bdc5-7a9b-42de-a47c-3746fd68f22a/download
   - Le premier obstacle cité est le **manque d'argent**.
-  - Sources (relais presse du rapport, à vérifier dans le rapport lui-même) :
+  - Relais de presse de la V1 (les chiffres ci-dessus ont été vérifiés dans le rapport en V2) :
     - https://nairametrics.com/2025/07/16/world-bank-mobile-money-fuels-record-financial-inclusion-in-nigeria-other-developing-economies-in-2024/
     - https://www.engineeringnews.co.za/article/mobile-phones-help-to-boost-formal-savings-in-low--and-middle-income-countries-2025-07-16
     - https://www.nigeriacommunicationsweek.com.ng/world-bank-reveals-obstacles-to-growth-of-mobile-money-accounts-in-sub-saharan-africa/
@@ -227,7 +227,7 @@
   - https://kolonell.com/fr/blog/creer-boutique-en-ligne-conakry-guinee-2026
 - **[DÉDUIT]** Le paiement à la livraison est **le principal outil d'inversion du risque** en Afrique. Le client exige de voir avant de payer parce que l'histoire locale (arnaques, non-conformité) lui a appris que payer d'abord, c'est prendre tout le risque. Pour le closing, il faut :
   1. proposer **soit** le paiement à la livraison, **soit** un équivalent (acompte réduit + solde à réception, garantie, vidéo d'emballage) ;
-  2. assumer le coût des livraisons échouées : chez Jumia, environ une commande COD sur quatre, à vérifier.
+  2. assumer le coût des livraisons échouées : chez Jumia, une commande COD sur quatre en 2025 (25 %, chiffre vérifié en V2 dans le rapport 20-F).
 
 ### 2.4 Méfiance envers les vendeurs en ligne : le cas « DM / inbox pour le prix »
 
@@ -265,13 +265,19 @@
   |---|---|
   | Afrique du Sud | 87,2 (2016) |
   | Namibie | 74,6 (2013) |
-  | Madagascar | 73,9 (2009) |
+  | Madagascar | 74,9 (2021) — corrigé en V2 ; l'ancienne valeur 73,9 datait de 2009 |
   | Sénégal | **10,2** (2019) |
 
-  En Éthiopie, environ 78 % des femmes d'un échantillon participent aux décisions de gros achats. **Il n'y a donc pas un modèle africain unique.**
+  **Vérifié en V2** (API Banque mondiale, indicateur SG.DMK.ALLD.FN.ZS, interrogée le 9 nov. 2026) : Afrique du Sud 87,2 (2016), Namibie 74,6 (2013) et Sénégal 10,2 (2019) sont confirmés. Ajouts V2 : **Guinée 30,4 (2018)**, Mali 10,4 (2018), Côte d'Ivoire 31,5 (2021), Cameroun 46,7 (2018), RDC 33,5 (2014), Congo 28,4 (2012), Gabon 61,6 (2021), Nigeria 33,5 (2018), Kenya 66,2 (2022).
+
+  Indicateur limité aux **gros achats** (SG.DMK.PRCH.FN.ZS, femmes mariées qui décident seules ou avec leur conjoint) : **Guinée 48,2 % (2018)**, Sénégal 18,4 % (2019), Cameroun 56,9 % (2018), Côte d'Ivoire 38,1 % (2012).
+
+  En Éthiopie, environ 78 % des femmes d'un échantillon participent aux décisions de gros achats (étude locale, non revérifiée). **Il n'y a donc pas un modèle africain unique.**
+  - https://api.worldbank.org/v2/country/GIN/indicator/SG.DMK.PRCH.FN.ZS?format=json
   - https://www.indexmundi.com/facts/indicators/SG.DMK.ALLD.FN.ZS/rankings/africa
   - https://journals.irdp.ac.tz/index.php/rpj/article/view/93
-- **[PROUVÉ] Afrobarometer, Round 9.** Les **proches** sont le seul groupe en qui une majorité d'Africains (58 %) ont « beaucoup » confiance. Près de la moitié des répondants font peu ou pas confiance aux gens en général. La confiance interpersonnelle est plus élevée chez les ruraux, les moins instruits, les musulmans, et en Afrique de l'Ouest et centrale.
+- **[PROUVÉ — communiqué Afrobarometer du 2 oct. 2024 ouvert et lu le 9 nov. 2026, 39 pays]** « Relatives are the only people whom a majority (**58%**) of Africans say they trust "a lot" » (les proches sont les seules personnes en qui une majorité d'Africains, 58 %, disent avoir « beaucoup » confiance). Une majorité fait au moins « un peu » confiance aux voisins, aux autres citoyens, etc. L'Afrique centrale et de l'Ouest arrivent en tête pour la **tolérance**. **Non retrouvé dans ce communiqué** (à ne pas imprimer sans autre source) : « près de la moitié ne font pas confiance aux gens en général », et une confiance plus élevée chez les ruraux, les moins instruits et les musulmans.
+  - https://www.afrobarometer.org/articles/africans-embrace-diversity-but-perceive-widespread-discrimination-afrobarometer-surveys-show/
   - https://allafrica.com/stories/202410020388.html
   - https://mobile.ghanaweb.com/GhanaHomePage/NewsArchive/Africans-embrace-diversity-but-perceive-widespread-discrimination-Afrobarometer-surveys-show-1953878
 - **[DÉDUIT]**
@@ -324,7 +330,7 @@
 
 | Région | Ce que les sources montrent | Niveau | Implication closing [DÉDUIT] |
 |---|---|---|---|
-| **Afrique de l'Ouest francophone** (Guinée, Sénégal, CI, Mali, Burkina, Bénin, Togo) | Emploi informel ~92 % (OIT). Mobile money dominant (Orange Money, MTN MoMo ; en Guinée, aussi PayCard). Hausse forte des escroqueries en ligne en CI (+190 % de plaintes en 2023-2024). Arnaques de « prix trop bas » au Mali. Marchandage courant. Participation des femmes aux gros achats très faible au Sénégal (indicateur DHS composite 10,2). Pression des fêtes (Tabaski). Confiance interpersonnelle plus élevée en Afrique de l'Ouest et centrale (Afrobarometer). | PROUVÉ / OBSERVÉ | Paiement à la livraison ou acompte, échéances calées sur la fin de mois ou la tontine, inclure le décideur familial, prouver son existence physique, garder une marge rituelle de négociation. |
+| **Afrique de l'Ouest francophone** (Guinée, Sénégal, CI, Mali, Burkina, Bénin, Togo) | Emploi informel ~92 % (OIT). Mobile money dominant (Orange Money, MTN MoMo ; en Guinée, aussi PayCard). Escroquerie sur internet = 1re cyber-infraction par le préjudice en CI (2 326 affaires en 2024 ; le « +190 % » de la V1 n'est pas confirmé). Arnaques de « prix trop bas » au Mali. Marchandage courant. Participation des femmes aux gros achats très faible au Sénégal (indicateur DHS composite 10,2). Pression des fêtes (Tabaski). Confiance interpersonnelle plus élevée en Afrique de l'Ouest et centrale (Afrobarometer). | PROUVÉ / OBSERVÉ | Paiement à la livraison ou acompte, échéances calées sur la fin de mois ou la tontine, inclure le décideur familial, prouver son existence physique, garder une marge rituelle de négociation. |
 | **Afrique centrale** (Cameroun, Gabon, RDC, Congo) | Emploi informel ~91 % (OIT). Au Cameroun, la confiance repose sur la réputation du marchand et la sécurité des transactions (thèse de Yaoundé I). Contrefaçon à bas prix. Ponzi crypto Liyeplimal (dirigeant arrêté à Douala en 2022), alertes du régulateur COSUMAF. Pas de données trouvées sur la RDC, le Gabon ou le Congo. | PROUVÉ (Cameroun) / lacune | Méfiance renforcée envers les « opportunités » financières et le « trop beau pour être vrai ». Mettre en avant la réputation vérifiable. |
 | **Maghreb** | Emploi informel plus faible (~67 % en Afrique du Nord). Au Maroc, le paiement à la livraison va de la moitié à la grande majorité des paiements e-commerce. Une enquête marocaine citait le manque de confiance dans les transactions comme premier frein (34 %, via La Vie Éco, à vérifier). | OBSERVÉ | Paiement à la livraison quasi indispensable. Inspection du produit avant paiement. |
 | **Afrique de l'Est** (Kenya, Tanzanie, Ouganda, Rwanda) | Épicentre du mobile money (M-Pesa). Paiement « petit à petit » quotidien (M-KOPA). 85 % des consommateurs kényans ont déjà acheté via le commerce social, et 58 % des victimes d'arnaque l'ont été sur les réseaux sociaux (Visa). Kenya en tête de l'emprunt via mobile money (Findex 2025). | PROUVÉ / OBSERVÉ | Le prépaiement mobile est plus accepté. L'argument « payer par petites tranches » est très puissant. La crainte des arnaques sur les réseaux sociaux reste forte. |
@@ -343,7 +349,7 @@ Sources du tableau : voir §§ 1-2 et :
 
 ## 5. Commerce par WhatsApp, Facebook, Instagram et TikTok (« social commerce »)
 
-- **[PROUVÉ] Sagaci Research, juillet 2024.**
+- **[PROUVÉ — page ouverte et lue le 9 nov. 2026 ; chiffres confirmés]** Sagaci Research, enquête du 1er juillet 2024 (panel SagaCube : 16 327 adultes, dont 8 801 utilisateurs de réseaux sociaux, 28 pays). Ajout V2 : seuls 7 % utilisent **Instagram**, 5 % **TikTok** et 2 % **Telegram** pour acheter ou vendre, et le commerce social est plus fréquent dans les pays anglophones.
   - Panel en ligne de 8 801 utilisateurs de réseaux sociaux, 28 pays africains.
   - **54 %** ont déjà acheté ou vendu via les réseaux sociaux.
   - 42 % utilisent Facebook et 41 % WhatsApp pour acheter ou vendre.
@@ -352,7 +358,7 @@ Sources du tableau : voir §§ 1-2 et :
   - https://sagaciresearch.com/rise-of-social-commerce-in-africa/
 - **[PROUVÉ, ancien] Cameroun (étude liée à la GSMA, 2021).** 88 % des personnes interrogées avaient déjà acheté via WhatsApp, 68 % via Facebook.
   - https://afrikanheroes.com/2021/08/25/whatsapp-is-the-most-used-social-network-for-ecommerce-transactions-in-cameroon%20-%20gsma
-- **[OBSERVÉ] Kenya.** 92 % des PME utiliseraient le commerce social (Caribou Data / PFDA, année non précisée).
+- **[OBSERVÉ, secondaire — vérifié en V2]** Kenya. Daba Finance (page ouverte et lue) écrit : « 92% : SMEs in Kenya that used social commerce **as of June 2020** » (92 % des PME kényanes utilisaient le commerce social en juin 2020). Le rapport d'origine (Caribou Data / PFDA) n'a pas été retrouvé : la page Caribou ouverte ne donne pas ce chiffre, et Quartz renvoie une erreur 403. **Chiffre de 2020, de seconde main.**
   - https://dabafinance.com/en/insights/social-commerce-in-africa-the-28bn-opportunity
 - **[PROUVÉ] Accès à Internet, une limite de fond.** Selon la GSMA (2025, données 2024), environ **25 %** de la population d'Afrique subsaharienne utilise l'Internet mobile. Environ 65 % vivent sous couverture mais ne l'utilisent pas. 60 % des utilisateurs sont encore sur la 3G ou des téléphones basiques. Le chiffre de 65 % est déduit par la presse et doit être vérifié sur gsma.com/somic.
   - https://www.itweb.co.za/article/sub-saharan-africa-still-sees-lowest-mobile-internet-usage/lwrKx73Ybwrqmg1o
@@ -445,7 +451,7 @@ Sources du tableau : voir §§ 1-2 et :
 3. **Le tiers décideur est légitime.** Conjoint, aîné, famille : c'est le premier cercle de confiance (Afrobarometer, 58 %) et parfois le décideur réel (DHS). Il faut **l'intégrer** plutôt que l'écarter.
 4. **L'inversion du risque est la clé de voûte** : paiement à la livraison, acompte, garantie, essai. Elle doit être visible **avant** l'objection.
 5. **Preuves locales et vérifiables.**
-   - Le bouche-à-oreille est la forme de publicité jugée la plus crédible. Nielsen : 90 % en Moyen-Orient/Afrique pour les « recommandations de personnes que je connais » (2011), 90 % en Afrique du Sud. Chiffres à vérifier dans le rapport.
+   - Le bouche-à-oreille est la forme de publicité jugée la plus crédible. **Vérifié en V2 (PDF Nielsen d'avril 2012 ouvert et lu)** : 90 % des répondants « Middle East/Africa » font confiance (complètement ou plutôt) aux « recommendations from people I know » (moyenne mondiale : 92 %). L'enquête a été faite au 3e trimestre 2011, **en ligne**, auprès de 28 000 internautes de 56 pays. **Attention :** la zone « Moyen-Orient/Afrique » ne compte que l'Égypte, le Pakistan, l'Arabie saoudite, l'Afrique du Sud et les Émirats. Le chiffre de « 90 % en Afrique du Sud » **n'est pas dans le texte**, il faut le retirer. Ne pas présenter ce chiffre comme « africain ».
      - https://develop.nielsen.com/wp-content/uploads/sites/2/2019/04/global-trust-in-advertising-2012.pdf
    - Au Ghana, une étude examine le rôle modérateur du bouche-à-oreille électronique sur le risque perçu.
      - https://ugspace.ug.edu.gh/items/cc456f2e-3949-46b8-b950-a5daed7e6074
@@ -466,7 +472,7 @@ Sources du tableau : voir §§ 1-2 et :
 | « C'est cher ! » / « E too cost abeg » | Pas sûr que le produit vaille ce prix, ou qu'il soit authentique. Parfois, vraiment pas l'argent. | Clarifier : « cher par rapport à quoi ? ». Preuve de valeur, marque ou réputation, comparaison avec la contrefaçon, petit format, tranches. | PROUVÉ (Kantar 2025 : on paie plus pour une marque de confiance ; McKinsey 2012) |
 | « Fais-moi un prix » / « On peut diminuer ? » / « C'est quoi le dernier prix ? » | Rituel de négociation, ou peur de payer plus que les autres (« prix de tête »). | Prix affiché et cohérent, petit geste (bonus, livraison) plutôt que baisse, expliquer que tout le monde paie le même prix. | OBSERVÉ (Afrik.com, Pulse NG, blog Lagos) |
 | « Envoie le prix en inbox / DM » (et le client qui fuit le « DM for price ») | Vendeur opaque qui adapte son prix à la tête du client. | Prix public ou fourchette, réponse rapide. | OBSERVÉ (Zikoko, Joadre) |
-| « C'est pas l'arnaque ? » | Ne rien recevoir après paiement. | Paiement à la livraison ou acompte, identité réelle, avis de clients locaux identifiables, historique de la page, appel ou vocal. | PROUVÉ (PLCC CI 2024 : escroqueries +190 % ; Visa Kenya : 58 % des arnaques sur les réseaux sociaux ; ~24 % d'arnaqués au Nigeria) |
+| « C'est pas l'arnaque ? » | Ne rien recevoir après paiement. | Paiement à la livraison ou acompte, identité réelle, avis de clients locaux identifiables, historique de la page, appel ou vocal. | PROUVÉ (ANSSI CI 2024 : 2 326 escroqueries sur internet, 1re infraction par le préjudice ; Visa Kenya : 58 % des arnaques sur les réseaux sociaux) + OBSERVÉ (~24 % d'arnaqués au Nigeria, non revérifié ; Conakry : cas Guineematin 2024, Ledjely 2026) |
 | « Vous êtes où exactement ? » | Recours en cas de problème : « est-ce que je peux venir vous trouver ? ». | Adresse physique, repère, photo de la boutique, point de retrait, nom complet. | OBSERVÉ (thèse de Yaoundé I : réputation du marchand ; guides de vérification au Nigeria) |
 | « Je veux voir d'abord » / « Je paie à la livraison » | Non-conformité (« what I ordered vs what I got »). | Vidéo du produit réel (pas de photo de catalogue), déballage, paiement à la livraison, échange possible. | PROUVÉ (risques produit et livraison : AJOL Nigeria, Ghana) + OBSERVÉ (Maroc, Jumia) |
 | « Quand j'aurai l'argent » / « À la fin du mois » | Trésorerie réelle irrégulière (informel, salaire, tontine). | Réservation avec acompte, échéancier calé sur la paie ou la tontine, paiement « petit à petit ». | PROUVÉ (OIT 85,8 % d'informel ; Findex : 35 % d'épargne formelle ; M-KOPA) |
@@ -474,7 +480,7 @@ Sources du tableau : voir §§ 1-2 et :
 | « Laisse-moi demander à mon mari / à ma femme / au vieux » | Décision réellement partagée, ou besoin de l'approbation du premier cercle de confiance. | Inclure le décideur : appel à trois, vocal ou fiche à transférer, respect explicite de l'aîné. | PROUVÉ (DHS : décisions partagées, Sénégal 10,2 ; Afrobarometer : 58 % font beaucoup confiance aux proches) |
 | « Ce n'est pas le moment » (fêtes, rentrée, deuil) | Pic de dépenses sociales ou religieuses, pression familiale. | Reporter avec une date ciblée, réserver avec un petit acompte, ne pas culpabiliser. | OBSERVÉ (Tabaski au Sénégal : Afrik.com, Seneweb) |
 | « Ça c'est encore les vendeurs de rêve » (formations, opportunités) | Ponzi, MLM, promesses de gains irréalistes. | Aucune promesse de revenus, contenu gratuit d'essai, résultats d'élèves vérifiables, garantie de remboursement, prix affiché. | PROUVÉ (CBEX 2025, Liyeplimal, Ponzi au Sénégal 2023, QNET CI 2026) |
-| « J'ai déjà été arnaqué » / « Mon cousin s'est fait avoir » | Expérience directe ou entourage échaudé. | Reconnaître le risque, inverser le risque, recommandation d'un client connu du prospect. | PROUVÉ (Nielsen : bouche-à-oreille ~90 % en Moyen-Orient/Afrique, à vérifier) |
+| « J'ai déjà été arnaqué » / « Mon cousin s'est fait avoir » | Expérience directe ou entourage échaudé. | Reconnaître le risque, inverser le risque, recommandation d'un client connu du prospect. | PROUVÉ, ancien (Nielsen 2011 : 90 % en « Moyen-Orient/Afrique », zone limitée à l'Égypte et l'Afrique du Sud pour l'Afrique ; internautes seulement) |
 | « Je préfère acheter chez mon boutiquier / au marché » | Relation de confiance existante, crédit possible, voir et toucher. | Personnaliser la relation, proposer des facilités, proximité. | OBSERVÉ (Le360 : crédit jusqu'à la fin du mois chez les boutiquiers guinéens au Sénégal) |
 | Diaspora : « Comment je vérifie depuis Paris ou Montréal ? » | Détournement par les proches, faux chantier, terrain vendu deux fois. | Preuves vidéo horodatées, appel vidéo en direct, paiement par étapes, tiers indépendant (notaire, géomètre), contrat. | OBSERVÉ (Financial Afrik, Capmad, Nation Kenya) |
 | Afrique du Sud : « Is my card / data safe? » | Fraude numérique, vol de données. | Paiement sécurisé reconnu, politique de données claire, garanties formelles. | PROUVÉ (TransUnion 2025 : 3 % de fraude suspectée, 85 % mettent la sécurité des données en premier) |

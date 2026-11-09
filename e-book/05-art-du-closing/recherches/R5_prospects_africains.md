@@ -484,27 +484,32 @@ Sources du tableau : voir §§ 1-2 et :
 | « Je préfère acheter chez mon boutiquier / au marché » | Relation de confiance existante, crédit possible, voir et toucher. | Personnaliser la relation, proposer des facilités, proximité. | OBSERVÉ (Le360 : crédit jusqu'à la fin du mois chez les boutiquiers guinéens au Sénégal) |
 | Diaspora : « Comment je vérifie depuis Paris ou Montréal ? » | Détournement par les proches, faux chantier, terrain vendu deux fois. | Preuves vidéo horodatées, appel vidéo en direct, paiement par étapes, tiers indépendant (notaire, géomètre), contrat. | OBSERVÉ (Financial Afrik, Capmad, Nation Kenya) |
 | Afrique du Sud : « Is my card / data safe? » | Fraude numérique, vol de données. | Paiement sécurisé reconnu, politique de données claire, garanties formelles. | PROUVÉ (TransUnion 2025 : 3 % de fraude suspectée, 85 % mettent la sécurité des données en premier) |
+| Guinée : « En ligne, ce n'est pas le vrai produit » / « Je préfère la boutique » | Photo différente du produit livré, échange refusé, vendeur sans boutique physique introuvable. | Vidéo de l'article exact, boutique ou adresse réelle, échange accepté par écrit, même prix en ligne et en boutique. | OBSERVÉ (Guineematin, 31 mai 2024 : témoignages d'un client et de vendeurs de Conakry) |
+| Guinée : « Ce sont des prix à discuter » / « On demande le prix et on part » | Rituel de négociation, budget serré (fêtes, pénurie de liquidités fin 2025). | Prix affiché clair, petit geste plutôt que baisse, paiement fractionné ou mobile money. | OBSERVÉ (Guineematin, 29 déc. 2022 ; Guineematin, 1er janv. 2026 ; Financial Afrik, mars 2026) |
+| « Envoie la moitié par Orange Money, le reste à la livraison » (et le client qui s'en méfie) | L'acompte à distance est le scénario typique de l'arnaque (Yaoundé, Abidjan, Kinshasa). | Paiement intégral à la livraison pour une première commande, ou acompte payé dans une boutique ou chez un tiers connu, avec reçu. | OBSERVÉ (Cameroon Tribune 2024, Seneweb, Radio Okapi via la recherche) |
 
 ---
 
 ## 10. Lacunes et prochaines vérifications recommandées
 
-1. Ouvrir à la source les chiffres marqués « à vérifier » :
-   - Jumia : 25 % de livraisons COD échouées ;
-   - Global Findex 2025 : chiffres régionaux ;
-   - McKinsey 2012 : fidélité aux marques ;
-   - Nielsen 2011 : 90 % ;
-   - TechCabal : 24 % ;
-   - Maroc : part du COD.
+1. **Statut V2 (9 nov. 2026)** des chiffres « à vérifier » :
+   - Jumia, 25 % de livraisons COD échouées : **vérifié** (rapport 20-F 2025) ;
+   - Global Findex 2025, chiffres régionaux : **vérifiés**, sauf le « 31 % » d'emprunt familial, **corrigé** ;
+   - McKinsey 2012, fidélité aux marques : **non vérifié** (PDF inaccessible) ;
+   - Nielsen 2011, 90 % : **vérifié, mais il s'agit de la zone Moyen-Orient/Afrique et d'internautes seulement** ;
+   - TechCabal, 24 % : **non vérifié** (erreur 403) ;
+   - Maroc, part du COD : non revérifiée ;
+   - PLCC, +190 % : **non confirmé, à retirer** ;
+   - Afrobarometer, 58 % : **vérifié**.
 2. Non couverts (plafond de recherches atteint) :
-   - DataReportal 2025 (WhatsApp/TikTok par pays) ;
-   - le commerce sur TikTok en Afrique ;
-   - les notes vocales ;
+   - DataReportal 2025 (WhatsApp/TikTok par pays) : **traité en V2 pour la Guinée** ;
+   - le commerce sur TikTok en Afrique : **traité en partie en V2** ;
+   - les notes vocales : **traitées en partie en V2** (observations, aucune étude) ;
    - les stokvels sud-africains ;
-   - les transferts de la diaspora (Banque mondiale) ;
+   - les transferts de la diaspora (Banque mondiale) : **traités en V2** ;
    - Maketou et Gumroad ;
-   - RDC, Gabon, Congo ;
-   - des données spécifiques à la Guinée sur l'achat via Facebook.
+   - RDC, Gabon, Congo : **traités en partie en V2** (Congo-Brazzaville : seulement les données Findex et DHS) ;
+   - des données spécifiques à la Guinée sur l'achat via Facebook : **traitées en V2** (témoignages publiés, pas de statistique d'achat).
 3. **Terrain** : collecter auprès du client guinéen et de son réseau de 30 à 50 objections réelles (captures anonymisées) pour valider les formulations en français local, nouchi, soussou, peul, malinké et wolof.
 
 ---

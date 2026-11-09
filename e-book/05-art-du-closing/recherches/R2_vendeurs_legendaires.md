@@ -131,34 +131,88 @@
 
 ---
 
-## 4. ZIG ZIGLAR — ⚠️ SECTION ENTIÈREMENT [À VÉRIFIER]
+## 4. ZIG ZIGLAR — section réécrite en V2 (accès complet, 9 nov. 2026)
 
-*Le budget de recherche s'est épuisé avant les recherches sur Ziglar. Tout ce qui suit vient de connaissances générales, **sans URL vérifiée**. Ne rien imprimer avant vérification, par exemple sur le site officiel ziglar.com ou dans des articles de presse parus à son décès en 2012.*
+*Légende : **[ouvert et lu]** = j'ai ouvert la page et lu le passage moi-même. **[extrait Google Books]** = court extrait du livre affiché par Google Books (recherche plein texte), pas le livre entier. **[secondaire]** = résumé ou site de seconde main. Toutes les URL : accès le 9 novembre 2026.*
 
-### 4.1 Qui c'est [à vérifier]
-- Hilary Hinton « Zig » Ziglar, américain, né en **1926** en Alabama, mort en **2012** au Texas. Vendeur (ustensiles de cuisine, notamment), puis conférencier de motivation et auteur de best-sellers. Il a fondé une société de formation (Ziglar Inc.).
+### 4.1 Qui c'est [vérifié]
+- Nom complet : **Hilary Hinton « Zig » Ziglar**. Né le **6 novembre 1926** dans le **comté de Coffee (Alabama)**, 10e de 12 enfants. Il grandit à **Yazoo City (Mississippi)**. Mort le **28 novembre 2012** d'une pneumonie, dans un hôpital de **Plano (Texas)**, à 86 ans. **[ouvert et lu]** — https://en.wikipedia.org/wiki/Zig_Ziglar ; résolution officielle de la Chambre des représentants du Texas (H.R. 1753, 83e législature) : https://capitol.texas.gov/tlodocs/83R/billtext/html/HR01753F.htm ; dépêche AP reprise par Deseret News (28 nov. 2012) : https://www.deseret.com/2012/11/28/20444909/motivational-speaker-zig-ziglar-dies-at-age-86
+- Il sert dans la **marine américaine** pendant la Seconde Guerre mondiale et étudie à l'**University of South Carolina** (programme Navy V-12). **[ouvert et lu]** — résolution du Texas ; Wikipedia.
+- **Vendeur d'ustensiles de cuisine** : en 1947, il quitte l'université et devient vendeur pour **WearEver Cookware** à Lancaster (Caroline du Sud). Les deux premières années sont dures financièrement. Il devient chef de terrain, puis superviseur en 1950. **[ouvert et lu, Wikipedia]** — Google Books décrit aussi *See You at the Top* comme l'œuvre d'« a former cookware salesman ». **[extrait Google Books]** — https://books.google.com/books?id=XkENAQAAMAAJ
+- **Conférencier** : membre fondateur d'**American Salesmasters** (1963), formateur pour Mary Kay. Il s'installe à Dallas vers la fin des années 1960. En **1977**, il crée le **Zigmanship Institute**, devenu **Ziglar, Inc.** (son fils Tom en devient PDG en 1994). Accident en 2007 (chute dans un escalier, troubles de la mémoire), retraite en 2010. **[ouvert et lu, Wikipedia]**
+- **Foi chrétienne** : baptiste, « born again » en juillet 1972 ; il mêle la foi chrétienne à ses conférences. **[ouvert et lu]** — Wikipedia ; Deseret/AP (« He got saved at the age of 42 »).
+- **Chiffres officiels** : plus de **30 livres** (AP) ; œuvre traduite en **36 langues**, **10 best-sellers** (résolution du Texas). **[ouvert et lu]**
+- Nécrologies du *New York Times*, du *Washington Post* et de la *Dallas Morning News* : **non ouvertes** (403 ou adresse introuvable). Wikipedia cite la *Dallas Morning News* (Joe Simnacher, « Zig Ziglar, Dallas motivational speaker of "see you at the top" fame, dies at 86 ») et le *Washington Post* (Adam Bernstein, 28 nov. 2012).
 
-### 4.2 Livres principaux [à vérifier]
-| Titre original | Titre français | Année |
+### 4.2 Livres principaux [vérifié]
+| Titre original | Titre français | Année | Source |
+|---|---|---|---|
+| *Biscuits, Fleas & Pump Handles* (1974), rebaptisé ***See You at the Top*** (1975) | ***Rendez-vous au sommet*** (Québec, éditions Un monde différent ; rééd. 2015, ISBN 978-2-89225-895-0, trad. Jean-Pierre Manseau selon Google Books) | 1974 / 1975 | Quote Investigator (« in 1975 he changed the title to the simpler "See You At the Top" ») : https://quoteinvestigator.com/2016/12/06/reach-goal/ ; résolution du Texas (« his first book, See You at the Top, in 1975 ») ; fiche FR : https://books.google.com/books?id=L5IOswEACAAJ **[ouvert et lu / métadonnées Google Books]** |
+| ***Zig Ziglar's Secrets of Closing the Sale*** | ***Les secrets pour conclure la vente*** (Un monde différent, **1985**) | **1984** (copyright ; Berkley et Revell). Wikipedia indique 1982 : **erreur probable**, car l'ISBN donné par Wikipedia (0-425-08102-8) porte la date 1984 chez Google Books, et Quote Investigator cite « 1985 (Copyright 1984) ». | https://books.google.com/books?id=qovWCJXgb00C ; https://books.google.com/books?id=LuNvzwEACAAJ ; https://quoteinvestigator.com/2024/07/04/know-care/ |
+| ***Ziglar on Selling*** | ***La vente selon Ziglar : le guide par excellence pour le professionnel de la vente*** (Saint-Hubert, Québec, Un monde différent, **1993**, ISBN 2-89225-232-6) | **1991** | https://books.google.com/books?id=B63GNwAACAAJ ; https://books.google.com/books?id=Q_PWPQAACAAJ **[métadonnées Google Books]** |
+| *Top Performance* | — | 1986 | Wikipedia |
+| *Selling 101* | — | 2003 | Wikipedia |
+
+- La 4e de couverture de *Secrets of Closing the Sale* (Berkley) annonce « Over 100 successful closings » et « Over 700 questions ». **[métadonnées Google Books]** — https://books.google.com/books?id=qovWCJXgb00C
+- Autres traductions françaises récentes (pas sur la vente) : *Objectif réussite* (Diateino, 2023). **[métadonnées Google Books]**
+
+### 4.3 Les 5 obstacles à la vente [vérifié, avec une nuance de formulation]
+- **Texte du livre (1984), p. 28 :** « There are five basic reasons people will not buy from you. These are: no need, no money, no hurry, no desire, and no trust. » (Il y a cinq raisons de base pour lesquelles les gens n'achètent pas chez vous : pas de besoin, pas d'argent, pas d'urgence, pas d'envie, pas de confiance.) — cité par Barry Popik, qui reproduit l'extrait Google Books de *Zig Ziglar's Secrets of Closing the Sale* (Berkley, 1984, p. 28). **[ouvert et lu, source secondaire sérieuse qui cite le livre]** — https://barrypopik.com/blog/every_sale_has_five_basic
+- **Ziglar le redit lui-même** dans *Top Performance* (éd. Revell 2004) : « of the five major reasons people do not buy—no need, no money, no hurry, no desire, no trust—the last one is the biggie » (des cinq grandes raisons, la dernière, la confiance, est la plus importante). **[extrait Google Books]** — https://books.google.com/books?id=9XogwEZiH68C. La même liste figure dans *Network Marketing For Dummies* (Ziglar et Hayes, 2001). **[extrait Google Books]** — https://books.google.com/books?id=5mraE9DMhIkC
+- **Attention à la formule populaire.** La phrase « Every sale has five basic obstacles: no need, no money, no hurry, no desire, no trust » est une **reformulation**. Popik la trouve dès 1996 (forum alt.quotations), puis dans l'*Indianapolis Star* (2006). Le livre dit « five basic reasons people will not buy from you ». **Dans le livre, écrire : « Zig Ziglar dit qu'il y a cinq raisons pour lesquelles un client n'achète pas… »**, et non « cinq obstacles » entre guillemets.
+- **L'idée n'est peut-être pas de lui à l'origine.** Popik montre la même liste en 1986 dans un script de vente cité par le *Sun Sentinel*, et Murray Raphel l'écrit en 1989 (*Mind Your Own Business!*, extrait Google Books : https://books.google.com/books?id=OF_pkfuwhfIC). Ziglar l'a popularisée ; personne n'a prouvé qu'il l'a inventée.
+
+### 4.4 Ses techniques et closes
+1. **La vente est un transfert de sentiment.** « Selling is essentially a transference of feeling » : pour faire ressentir quelque chose au client, il faut le ressentir soi-même. Dans *Ziglar on Selling* : « If you transfer the feeling that you must make the sale for your benefit, the chances of making the sale are greatly negated. » **[extrait Google Books]** — https://books.google.com/books?id=5z_nHVHjls0C
+2. **Vendre ce que fait le produit, pas ce qu'il est.** Dans *Secrets of Closing the Sale*, chap. 22 « Using Word Pictures To Sell », p. 253-254 : « You don't sell what the product is—you always sell what the product does. Example: Each year over 5 million quarter-inch drills are sold, yet it's safe to say that nobody wants a quarter-inch drill. They want a quarter-inch hole. » **[ouvert et lu : texte vérifié sur scans par Quote Investigator]** — https://quoteinvestigator.com/2019/03/23/drill/. **Attention :** l'image de la perceuse n'est pas de Ziglar. Quote Investigator la trouve dès **1942** dans une publicité d'assurance, puis chez Percy Whiting (1947) et Theodore Levitt (1969).
+3. **Le client doit sentir que vous vous souciez de lui.** Même livre, chap. 15 « Ya Gotta Have Love », p. 154 : il faut croire que l'offre est dans l'intérêt du client, et Ziglar cite « a wise man » : « People don't really care how much you know—until they know how much you care. » **[ouvert et lu, via Quote Investigator]** — https://quoteinvestigator.com/2024/07/04/know-care/. Ziglar **ne s'attribue pas** cette phrase ; elle est attestée dès 1959 (Margaret Tyson).
+4. **Closes et réponses au prix** (d'après le résumé de The Investor's Podcast, **[secondaire]**, https://www.theinvestorspodcast.com/blog/zig-ziglars-secrets-of-closing-the-sale-book-summary/) :
+   - **Répéter l'objection sous forme de question** (« Ridiculous? ») quand le client dit que le prix est ridicule ; puis vérifier que le prix est la vraie objection : « If I could show you that the price is more than fair […] would you go ahead […] today? »
+   - **Payer une fois le prix, vivre longtemps avec la qualité** : « you're going to be concerned about price one time. That's the day you buy. You're going to be concerned with the quality for the life of the product » ; et « it would be easier to explain price one time than it would be to apologize for quality forever ». *(Formulation du résumé ; non vérifiée dans le livre.)*
+   - **La « question subordonnée »** : « Have I got you sold? » (Est-ce que je vous ai convaincu ?). Si oui, on écrit la commande ; si non, le client demande d'en savoir plus.
+   - **Close des 4 questions** : « Do you like it? Do you want it? Can you afford it? When do you want to start enjoying the benefits? »
+   - **Close de la petite décision** (*minor decision close*) : faire prendre une petite décision (couleur, date de livraison) qui mène à la grande.
+   - **Close « 20/20 »** (citation de Ben Feldman, vendeur d'assurance) : la vente se fait quand le client comprend que **ne rien faire lui coûtera plus cher** que d'agir.
+   - **Close « maintenant ou jamais »** : « The fear of loss is greater than the desire for gain » (la peur de perdre est plus forte que l'envie de gagner).
+   - **Refus n'est pas rejet** : quand le client dit non, il dit non à l'offre, pas à vous ; Ziglar conseille de voir le « non » comme une décision prise **sans assez d'informations**.
+   - **Finir par une histoire vraie** (*narrative event*) qui touche le client.
+5. **« Objections thrive on opposition but die with agreement »** (les objections grandissent quand on s'oppose et meurent quand on est d'accord) — **[secondaire, même résumé]**. C'est la même idée que l'« agreement » de Cardone.
+
+### 4.5 Ses histoires célèbres
+- **La pompe à eau** (*priming the pump*) : un vieil homme et un garçon pompent sans résultat ; il faut d'abord **verser un peu d'eau** dans la pompe (l'amorcer) et **continuer à pomper** sans s'arrêter. Morale : il faut donner avant de recevoir et persévérer. Elle est dans le titre même du 1er livre (*… Pump Handles*). **[extraits Google Books]** — https://books.google.com/books?id=tTqXEAAAQBAJ (*The Goals Program*) ; https://books.google.com/books?id=nWq4EAAAQBAJ
+- **Les puces dans le bocal** (*fleas*) : des puces enfermées sous un couvercle apprennent à ne plus sauter plus haut, même quand on enlève le couvercle. Morale : nos limites sont souvent dans notre tête. **[extrait Google Books, *Born to Win*, 2012]** — https://books.google.com/books?id=MTyXEAAAQBAJ
+- **Sa femme, « la rousse », qui lui « vend » une maison** : Jack Covert (*The 100 Best Business Books of All Time*, 2009, p. 117) résume ainsi *Secrets of Closing the Sale* : vendre et closer sont « as tangible as when his wife up-sold him on a new house ». **[ouvert et lu, Wikiquote qui cite Covert]** — https://en.wikiquote.org/wiki/Zig_Ziglar. *Détails de l'histoire non vérifiés.*
+
+### 4.6 Citations vérifiées et fausses citations
+| Citation | Statut | Source |
 |---|---|---|
-| *See You at the Top* (d'abord paru sous un autre titre) | ? | milieu des années 1970 |
-| *Secrets of Closing the Sale* | ? | 1984 |
-| *Ziglar on Selling* | ? | 1991 |
+| « You can get everything in life you want if you will just help enough other people get what they want. » (Vous pouvez avoir tout ce que vous voulez dans la vie si vous aidez assez d'autres gens à obtenir ce qu'ils veulent.) | **Vérifiée.** Wikiquote la classe sous *Secrets of Closing the Sale* (1984). La résolution du Texas la cite (« as he put it »). On la trouve dans plusieurs livres de Ziglar (*Little Instruction Book*, 1997). Formulation variable (« have / get », « just »). | https://en.wikiquote.org/wiki/Zig_Ziglar ; https://capitol.texas.gov/tlodocs/83R/billtext/html/HR01753F.htm ; https://books.google.com/books?id=VfIPwwlY8VoC |
+| « What you get by reaching your goals is not nearly so important as what you become by reaching them. » | **Vérifiée** : 1974, *Biscuits, Fleas, and Pump Handles*, p. 171. Les attributions à Goethe ou Thoreau sont sans preuve. | https://quoteinvestigator.com/2016/12/06/reach-goal/ |
+| « Failure is an event, not a person. Yesterday ended last night. » | Classée par Wikiquote sous *See You at the Top* (éd. 2000). | https://en.wikiquote.org/wiki/Zig_Ziglar |
+| « The most important persuasion tool you have in your entire arsenal is integrity. » | Citée par Dave Stone (2004), pas trouvée dans un livre de Ziglar. **Source de seconde main.** | Wikiquote |
+| « People don't care how much you know until they know how much you care. » | **Pas de Ziglar.** Il la cite (« a wise man said »). Attestée dès 1959. | https://quoteinvestigator.com/2024/07/04/know-care/ |
+| « Nobody wants a quarter-inch drill, they want a quarter-inch hole. » | **Pas de Ziglar** à l'origine (1942). Il l'utilise en 1984. | https://quoteinvestigator.com/2019/03/23/drill/ |
+| « Duty makes us do things well, but love makes us do them beautifully. » | **Fausse attribution** (Phillips Brooks). | Wikiquote |
+| « Little men with little minds… » | **Fausse attribution** (Marie Fraser). | Wikiquote |
+| « Every sale has five basic obstacles… » | Reformulation populaire (voir §4.3). | Popik |
 
-### 4.3 Méthode et objections [à vérifier]
-- **Les 5 obstacles à la vente**, souvent attribués à Ziglar : **pas de besoin, pas d'argent, pas d'urgence, pas d'envie, pas de confiance** (*no need, no money, no hurry, no desire, no trust*). **Citation attribuée, source non vérifiée.** À vérifier dans *Secrets of Closing the Sale* ou *Ziglar on Selling*.
-- Phrase très connue : « You can have everything in life you want, if you will just help enough other people get what they want. » (Vous pouvez avoir tout ce que vous voulez dans la vie si vous aidez assez d'autres gens à obtenir ce qu'ils veulent.) **Citation attribuée, source non vérifiée.**
-- Il est réputé pour ses **histoires** et ses images pour closer, et pour une vente fondée sur la **confiance** et l'**intégrité**. **[à vérifier, aucun exemple précis n'est donné faute de source]**
+### 4.7 Lien avec Pelissier [analyse]
+- Le **« no trust »**, que Ziglar lui-même appelle « the biggie » (la plus importante), rejoint la phase « Discuter » de Pelissier : le *tea time* « va créer un climat de confiance » (transcription).
+- **« Les objections meurent quand on est d'accord »** (résumé de Ziglar) et l'« agreement » de Cardone sont proches de la règle de Pelissier : ne jamais contredire, d'abord comprendre.
+- **Finir par une histoire vraie** (le *narrative event* de Ziglar) rejoint le « D » de Pelissier : « Crainte A, histoire A ».
+- Ziglar est aussi l'auteur le plus **moral** des quatre : la vente est « something you do **for** someone, not **to** someone » (résumé TIP **[secondaire]**). C'est une bonne caution pour le message éthique du livre.
 
-### 4.4 Lien avec Pelissier [analyse]
-- Le **« no trust »** (pas de confiance) rejoint la phase « Discuter » de Pelissier : le *tea time* « va créer un climat de confiance » (transcription).
-- La place des **histoires** chez Ziglar (à vérifier) rejoint le « D » de Pelissier : « Crainte A, histoire A ».
+### 4.8 Adaptation proposée au contexte africain
+- *Adaptation proposée :* **les 5 raisons comme grille de diagnostic.** Le vendeur se demande : « Mon client n'a pas besoin ? Pas d'argent maintenant ? Pas pressé ? Pas envie ? Ou il ne me fait pas confiance ? » En Afrique, la raison « **confiance** » est souvent la première (peur de l'arnaque en ligne, de la contrefaçon, de la livraison non reçue). Réponses concrètes : paiement à la livraison, photo ou vidéo du vrai produit, messages vocaux WhatsApp de clients, boutique physique visible.
+- *Adaptation proposée :* **« Le prix, tu le paies une fois ; la qualité, tu vis avec tous les jours. »** Utile pour un groupe électrogène, un téléphone ou un matelas face à une copie moins chère.
+- *Adaptation proposée :* **la pompe du village.** L'histoire de la pompe parle à tous ceux qui ont déjà pompé de l'eau : on ne gagne pas de clients si on arrête de « pomper » (relancer, servir) juste avant que l'eau arrive.
+- *Adaptation proposée :* **vendre le trou, pas la perceuse.** « Tu n'achètes pas un panneau solaire, tu achètes la lumière pour que les enfants étudient le soir. »
 
-### 4.5 Adaptation proposée au contexte africain
-- *Adaptation proposée :* utiliser les **5 obstacles** comme **grille de diagnostic** simple pour le vendeur. Il se demande : « Mon client n'a pas besoin ? Pas d'argent maintenant ? Pas pressé ? Pas envie ? Ou il ne me fait pas confiance ? » En Afrique, l'obstacle « **confiance** » est souvent le premier, à cause de la peur de l'arnaque en ligne, de la contrefaçon et de la livraison non reçue. Réponses concrètes : paiement à la livraison, photo ou vidéo du produit réel, témoignages vocaux WhatsApp de clients, boutique physique visible.
-
-### 4.6 Critiques et limites [analyse]
-- Le style motivationnel est très américain et religieux (à vérifier). Ses méthodes sont anciennes et n'ont pas été évaluées scientifiquement.
+### 4.9 Critiques et limites
+- Style **très américain et chrétien** (il mêle la foi à ses conférences) : **[vérifié]** — Wikipedia ; AP.
+- Beaucoup de « citations de Ziglar » qui circulent ne sont **pas de lui** ou sont **reformulées** (voir §4.6). Toujours vérifier avant d'imprimer.
+- Une partie de ses closes (« maintenant ou jamais », peur de perdre) peut devenir de la **pression** si elle est mal utilisée **[analyse]**.
+- Ses méthodes n'ont pas été évaluées scientifiquement **[analyse]**.
 
 ---
 

@@ -27,3 +27,4 @@
 - Méthode **RIDEAU** validée (U = Unir) ; Belfort en encadré honnête seulement ; public = tous les vendeurs, tronc commun orienté petit vendeur, un chapitre par canal, scripts dans les kits.
 - Le client ne peut pas collecter les objections lui-même → **4 agents traqueurs** (sources publiques : presse, forums, Reddit/Nairaland, YouTube, études) : `recherches/terrain/T1` (Afrique de l'Ouest FR), `T2` (Afrique centrale + Maghreb), `T3` (anglophone), `T4` (en ligne, digital, diaspora).
 - Plan détaillé v1 : `04-PLAN-DU-LIVRE.md` (5 parties, 24 chapitres, 3-4 kits).
+- Traqueurs terminés (T1-T4, ~380 citations réelles, 20 pays) → `05-SYNTHESE-TERRAIN.md` (réponses aux 3 questions : ce qui énerve, ventes récupérées, ventes perdues). Prochaine étape : intégrer au plan, puis rédaction.

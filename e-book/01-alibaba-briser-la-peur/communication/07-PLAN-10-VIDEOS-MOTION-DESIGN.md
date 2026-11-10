@@ -72,4 +72,4 @@ Les scripts F1–F10 parlent à des gens qui achètent DÉJÀ sur Alibaba. Ce n'
 - **Avatar 2 (la cible la plus nombreuse, priorité)** : vendeur qui a commencé l'e-commerce avec les produits du marché local (conseil vrai : on commence petit), qui revend sur son réseau / sa boutique. Il connaît déjà les bases. Message : « ton fournisseur local achète en Chine ; tu peux faire la même chose. Ce qui te bloque, c'est la peur, et elle a une solution dans le livre. »
 - **Avatar 3 (plus tard)** : ceux qui importent déjà et ont des difficultés → F2 et F5 (faites) + le reste des anciens scripts.
 - Chaque vidéo se termine par LA solution du livre.
-Nouveau plan proposé au client : 5 vidéos avatar 1 (D1–D5), 5 vidéos avatar 2 (M1–M5) — en attente de validation.
+Direction CONFIRMÉE par le client. Les 10 scripts : `09-SCRIPTS-AVATARS-DEBUTANT-ET-MARCHE.md` (D1–D5, M1–M5).

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- D5 « Qui croire ? » — motion design : le chaos des vidéos (noir, glitch) puis le silence blanc de la méthode. -->
+<style>
+@font-face{font-family:'Anton';src:url(anton.woff2)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#07070B}
+body{font-family:'Inter',sans-serif;color:#fff}
+#st{position:absolute;inset:0;overflow:hidden}
+.L{position:absolute;inset:0}
+.A{font-family:'Anton';letter-spacing:1px;text-transform:uppercase}
+.K{font-family:'Inter Display';font-weight:900;letter-spacing:-2px}
+.Mg{color:#FF2D78}.Cy{color:#2DE2FF}.Gr{color:#10B981}
+#dark{background:radial-gradient(ellipse 900px 1200px at 50% 40%,#15121F,#07070B 70%)}
+#white{background:#F7F7F4;opacity:0}
+#grain{background-size:540px 960px;mix-blend-mode:overlay;opacity:.10}
+#scan{background:repeating-linear-gradient(180deg,rgba(255,255,255,.04) 0 2px,transparent 2px 6px);opacity:1}
+.hd{position:absolute;left:50px;right:50px;text-align:center;line-height:1.02}
+.vid{position:absolute;border-radius:24px;background:#16161E;border:3px solid #2A2A38;overflow:hidden}
+.vid .sc{position:absolute;inset:0 0 70px 0;background:linear-gradient(135deg,#23233A,#101018);display:flex;align-items:center;justify-content:center}
+.vid .sc:after{content:'▶';font-size:70px;color:rgba(255,255,255,.85)}
+.vid .tt{position:absolute;left:0;right:0;bottom:0;height:70px;display:flex;align-items:center;padding:0 22px;font-weight:800;font-size:30px;background:#0F0F16}
+.vid .cap2{position:absolute;left:20px;right:20px;top:24px;font-family:'Anton';font-size:52px;line-height:1.05;text-shadow:0 4px 0 #000;text-transform:uppercase}
+#glt{position:absolute;left:0;right:0;top:1180px;text-align:center;font-family:'Anton';font-size:190px;line-height:1}
+#glt span{position:absolute;left:0;right:0}
+#cnt{position:absolute;left:0;right:0;top:220px;text-align:center;font-family:'Anton';font-size:64px}
+#cnt b{color:#FF2D78}
+#bars{position:absolute;left:120px;right:120px;top:520px}
+.br{margin-bottom:40px}
+.br span{display:block;font-weight:800;font-size:40px;margin-bottom:12px}
+.br i{display:block;height:34px;border-radius:17px;background:rgba(255,255,255,.12);overflow:hidden}
+.br i b{display:block;height:100%;background:linear-gradient(90deg,#2DE2FF,#FF2D78)}
+#pas{position:absolute;left:0;right:0;margin:auto;width:fit-content;top:1300px;padding:14px 40px;border:8px solid #FF2D78;color:#FF2D78;font-family:'Anton';font-size:96px;transform:rotate(-6deg)}
+.pop{position:absolute;width:760px;left:160px;border-radius:24px;background:#fff;color:#111;box-shadow:0 30px 60px rgba(0,0,0,.6);overflow:hidden}
+.pop h5{background:#FF2D78;color:#fff;padding:14px 24px;font-size:28px;letter-spacing:3px}
+.pop p{padding:26px 28px;font-family:'Anton';font-size:66px;line-height:1.05;text-transform:uppercase}
+.pop p small{display:block;font-family:'Inter';font-weight:700;font-size:30px;text-transform:none;color:#666;margin-top:10px}
+#warn{position:absolute;left:0;right:0;top:1260px;text-align:center;font-size:200px}
+/* phase blanche */
+#cross{position:absolute;left:290px;top:560px;width:500px;height:360px}
+#somm{position:absolute;left:240px;top:380px;width:600px;height:1120px;overflow:hidden;border-radius:20px;background:#fff;box-shadow:0 30px 70px rgba(16,24,40,.18)}
+#somm img{position:absolute;left:0;top:0;width:600px}
+#ordre{position:absolute;left:0;right:0;top:1530px;text-align:center;font-family:'Inter Display';font-weight:900;font-size:54px;color:#0F172A}
+#goal{position:absolute;left:140px;right:140px;top:640px;padding:60px 40px;border-radius:40px;background:#fff;border:6px solid #10B981;text-align:center;color:#0F172A;box-shadow:0 30px 60px rgba(16,185,129,.2)}
+#goal em{display:block;font-style:normal;font-size:150px}
+#goal b{display:block;font-family:'Inter Display';font-weight:900;font-size:66px;line-height:1.05;margin-top:20px}
+#goal span{display:block;font-weight:800;font-size:44px;color:#10B981;margin-top:20px}
+#zg{position:absolute;left:325px;top:200px;width:430px;height:555px;filter:drop-shadow(0 30px 40px rgba(15,23,42,.3))}
+#zk1{position:absolute;left:80px;top:470px;width:250px;height:350px;transform:rotate(-8deg);filter:drop-shadow(0 20px 30px rgba(15,23,42,.3))}
+#zk3{position:absolute;left:750px;top:460px;width:260px;height:370px;transform:rotate(8deg);filter:drop-shadow(0 20px 30px rgba(15,23,42,.3))}
+#zg img,#zk1 img,#zk3 img{width:100%;height:100%}
+#zt{position:absolute;left:0;right:0;top:880px;text-align:center;font-weight:800;font-size:40px;color:#0F172A}
+#zp{position:absolute;left:0;right:0;top:980px;text-align:center;font-family:'Inter Display';font-weight:900;font-size:210px;line-height:1;letter-spacing:-6px;color:#0F172A}
+#zp small{font-size:70px;letter-spacing:0}
+#zb{position:absolute;left:110px;right:110px;top:1260px;height:140px;border-radius:70px;background:#10B981;color:#fff;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:900;box-shadow:0 20px 40px rgba(16,185,129,.35)}
+#zd{position:absolute;left:0;right:0;top:1440px;text-align:center;font-size:70px;color:#10B981;line-height:.5;font-weight:900}
+#cap{position:absolute;left:70px;right:70px;top:1650px;text-align:center}
+#cap div{display:inline-block;padding:20px 34px;border-radius:20px;font-size:44px;font-weight:700;line-height:1.22}
+#cap b{color:#FF2D78}
+</style></head><body>
+<div id="st">
+ <div class="L" id="dark"></div><div class="L" id="white"></div>
+ <!-- A : deux vidéos qui se contredisent -->
+ <div class="L" id="A"><div class="vid" id="v1" style="left:60px;top:220px;width:960px;height:560px"><div class="sc"></div><div class="cap2">Commence avec<br><span class="Cy">10 000 F</span></div><div class="tt">▶ 1,2 M de vues</div></div>
+  <div class="vid" id="v2" style="left:60px;top:840px;width:960px;height:560px"><div class="sc"></div><div class="cap2">Il faut<br><span class="Mg">100 000 F</span></div><div class="tt">▶ 980 k vues</div></div>
+  <div id="glt" class="A"><span style="color:#2DE2FF" id="g1">Qui croire ?</span><span style="color:#FF2D78" id="g2">Qui croire ?</span><span id="g3">Qui croire ?</span></div></div>
+ <!-- B : des dizaines de vidéos, un peu sur tout -->
+ <div class="L" id="B"><div id="cnt">VIDÉOS REGARDÉES : <b id="cn">0</b></div><div id="wall"></div>
+  <div id="bars"><div class="br"><span>Trouver un produit</span><i><b style="width:30%"></b></i></div><div class="br"><span>Choisir un fournisseur</span><i><b style="width:20%"></b></i></div><div class="br"><span>Payer en Chine</span><i><b style="width:15%"></b></i></div><div class="br"><span>Transport et douane</span><i><b style="width:10%"></b></i></div></div>
+  <div id="pas">PAS ASSEZ</div></div>
+ <!-- C : coachings, groupes, résultats rapides -->
+ <div class="L" id="C"><div class="pop" id="p0" style="top:300px"><h5>PUBLICITÉ</h5><p>Coaching privé<small>places limitées… prix sur demande</small></p></div>
+  <div class="pop" id="p1" style="top:600px"><h5>REJOINS LE GROUPE</h5><p>Groupe WhatsApp VIP<small>accès réservé aux membres</small></p></div>
+  <div class="pop" id="p2" style="top:900px"><h5>OFFRE SPÉCIALE</h5><p>Résultats rapides !<small>sans effort, en quelques jours</small></p></div>
+  <div class="hd K" id="hC" style="top:1240px;font-size:76px">Peur de <span class="Mg">te faire avoir</span><br>avant même de commencer.</div></div>
+ <!-- D : le silence, la méthode -->
+ <div class="L" id="D"><div class="hd K" id="hD" style="top:220px;font-size:76px;color:#0F172A">Pas une vidéo <span style="color:#FF2D78">de plus.</span></div>
+  <svg id="cross" viewBox="0 0 500 360"><rect x="20" y="20" width="460" height="320" rx="30" fill="#E5E7EB"/><path d="M220 130 L300 180 L220 230 Z" fill="#9CA3AF"/><path id="cx" d="M40 40 L460 320 M460 40 L40 320" stroke="#FF2D78" stroke-width="16" stroke-linecap="round" pathLength="1" stroke-dasharray="1 1" fill="none"/></svg>
+  <div class="hd K" id="hD2" style="top:170px;font-size:66px;color:#0F172A">Une méthode complète,<br><span class="Gr">dans le bon ordre.</span></div>
+  <div id="somm"><img src="sommaire.png" id="si"></div><div id="ordre">Écrite noir sur blanc.</div></div>
+ <div class="L" id="E"><div class="hd K" id="hE" style="top:300px;font-size:70px;color:#0F172A">Un premier objectif<br><span class="Gr">simple :</span></div>
+  <div id="goal"><em>🎯</em><b>Réussir ta première commande test</b><span>… sans perdre d'argent.</span></div></div>
+ <div class="L" id="Z"><div id="zk1"><img src="kit1-3d.png"></div><div id="zk3"><img src="kit3-3d.png"></div><div id="zg"><img src="guide-3d.png"></div>
+  <div id="zt">LE GUIDE + 3 KITS + <span class="Gr">PLAN DE 30 JOURS</span></div><div id="zp">3 900 <small>F CFA</small></div><div id="zb">Le lien est juste en dessous</div><div id="zd"><div id="d1">⌄</div><div id="d2">⌄</div></div></div>
+ <div class="L" id="scan"></div><div class="L" id="grain"></div>
+ <div id="cap"></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>cl((t-a)/(b-a));
+const ex=x=>x>=1?1:1-Math.pow(2,-10*x);
+const es=x=>x<.5?16*x**5:1-Math.pow(-2*x+2,5)/2;
+const bk=x=>{const c1=1.5,c3=c1+1;return x<=0?0:x>=1?1:1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const lerp=(a,b,x)=>a+(b-a)*x;
+const show=(id,on)=>{$(id).style.display=on?'block':'none'};
+function sec(id,t,a,b,fi=.25,fo=.25){const on=t>=a&&t<b;show(id,on);if(on)$(id).style.opacity=P(t,a,a+fi)*(1-P(t,b-fo,b));return on}
+function rise(el,t,s,d=.5,dist=50){const a=ex(P(t,s,s+d));el.style.opacity=a;el.style.transform=`translateY(${(1-a)*dist}px)`;el.style.filter=`blur(${(1-a)*6}px)`}
+function pop(el,t,s,d=.4){const a=bk(P(t,s,s+d));el.style.opacity=t>=s?1:0;el.style.transform=`scale(${a})`}
+const rnd=(n)=>{const x=Math.sin(n*12.9898)*43758.5453;return x-Math.floor(x)};
+const TT=['0 F pour commencer','Alibaba, c\'est fini','Fais du dropshipping','Va à la source','Le secret des pros','Commence petit','Commence gros','1688 > Alibaba','Ne fais pas ça','Fais ça d\'abord','La vraie méthode','Évite Alibaba'];
+$('wall').innerHTML=TT.map((x,i)=>`<div class="vid" id="w${i}" style="left:${40+(i%3)*340}px;top:${330+Math.floor(i/3)*170}px;width:320px;height:150px"><div class="sc" style="inset:0 0 44px 0"></div><div class="tt" style="height:44px;font-size:20px">${x}</div></div>`).join('');
+const CAP=[[5.8,7.6,"Tu as regardé <b>des dizaines de vidéos.</b>"],[11.4,15.6,"Et on te propose des coachings hors de prix, des groupes WhatsApp, <b>des résultats rapides.</b>"],
+ [22.1,25.8,"C'est une méthode complète, dans le bon ordre, <b>écrite noir sur blanc.</b>"],[31.8,36.2,"Tout est dans le guide « Briser la peur d'importer », <b>avec trois kits et un plan de trente jours.</b>"]];
+function caps(t){const c=$('cap');const i=CAP.findIndex(([s,e])=>t>=s-.15&&t<e+.3);if(i<0){c.innerHTML='';c.dataset.k='';return}
+ if(c.dataset.k!=String(i)){c.innerHTML=`<div>${CAP[i][2]}</div>`;c.dataset.k=i}
+ const light=t>=18.9;c.firstChild.style.background=light?'#0F172A':'#fff';c.firstChild.style.color=light?'#fff':'#111';
+ const a=ex(P(t,CAP[i][0]-.15,CAP[i][0]+.3));c.style.opacity=a*(1-P(t,CAP[i][1]+.15,CAP[i][1]+.3));c.style.transform=`translateY(${(1-a)*30}px)`}
+const LAY=['A','B','C','D','E','Z'];
+const R0=async function(t){
+ LAY.forEach(i=>show(i,false));
+ const fr=Math.floor(t*24);$('grain').style.backgroundImage=`url(noise${((fr%4)+4)%4}.png)`;
+ const wh=es(P(t,18.95,19.5));$('white').style.opacity=wh;$('scan').style.opacity=1-wh;$('grain').style.mixBlendMode=t>=19?'multiply':'overlay';
+ const gl=(t<18.9)&&(rnd(fr)>.86);$('st').style.transform=gl?`translateX(${(rnd(fr+3)-.5)*14}px)`:'';
+ // A
+ if(sec('A',t,-1,5.55,.01,.25)){const a=ex(P(t,.1,.5));$('v1').style.opacity=a;$('v1').style.transform=`translateX(${(1-a)*-900}px)`;
+  const b=ex(P(t,3.0,3.4));$('v2').style.opacity=b;$('v2').style.transform=`translateX(${(1-b)*900}px)`;
+  const g=t>=4.7;$('glt').style.opacity=g?1:0;const k=bk(P(t,4.7,5.0));$('glt').style.transform=`scale(${k})`;
+  const j=(n)=>(rnd(fr*7+n)-.5)*(t<5.2?24:8);$('g1').style.transform=`translate(${j(1)}px,${j(2)}px)`;$('g2').style.transform=`translate(${j(3)}px,${j(4)}px)`;
+  ['v1','v2'].forEach((v,i)=>{if(t>=4.7)$(v).style.filter=`blur(${es(P(t,4.7,5.0))*6}px) brightness(.5)`})}
+ // B
+ if(sec('B',t,5.5,11.2)){const n=Math.floor(lerp(0,87,es(P(t,5.8,7.8))));$('cn').textContent=n;$('cnt').style.opacity=ex(P(t,5.8,6.1));
+  const wo=t<7.9;$('wall').style.display=wo?'':'none';TT.forEach((x,i)=>{const s=5.9+i*.12;pop($('w'+i),t,s,.3)});
+  $('bars').style.display=wo?'none':'';[...$('bars').children].forEach((b,i)=>{const s=8.0+i*.25;const a=ex(P(t,s,s+.4));b.style.opacity=a;b.querySelector('i b').style.transform=`scaleX(${es(P(t,s+.2,s+.8))})`;b.querySelector('i b').style.transformOrigin='0 50%'});
+  const p=bk(P(t,9.9,10.25));$('pas').style.opacity=t>=9.9?1:0;$('pas').style.transform=`rotate(-6deg) scale(${lerp(2,1,p)})`}
+ // C
+ if(sec('C',t,11.1,19.0)){[['p0',11.4],['p1',12.7],['p2',14.4]].forEach(([p,s],i)=>{const a=bk(P(t,s,s+.35));const sh=t>=16.1?(rnd(fr+i*5)-.5)*16:0;$(p).style.opacity=t>=s?1-.6*P(t,16.1,16.6):0;$(p).style.transform=`translate(${sh}px,${sh/2}px) scale(${a}) rotate(${(i-1)*3}deg)`});
+  rise($('hC'),t,16.1,.45,40)}
+ // D
+ if(sec('D',t,19.0,26.15)){const x1=t<22.0;rise($('hD'),t,19.4,.45,40);$('hD').style.display=x1?'':'none';$('cross').style.display=x1?'':'none';
+  pop($('cross'),t,19.6,.4);$('cx').style.strokeDashoffset=1-es(P(t,20.6,21.2));
+  rise($('hD2'),t,22.1,.45,40);$('hD2').style.display=x1?'none':'';$('somm').style.display=x1?'none':'';$('ordre').style.display=x1?'none':'';
+  const s=ex(P(t,22.3,22.9));$('somm').style.transform=`translateY(${(1-s)*1300}px)`;$('si').style.top=(-lerp(0,1200*0+ (1800*600/840-1120),es(P(t,23.2,25.6))))+'px';
+  rise($('ordre'),t,24.6,.4,20)}
+ if(sec('E',t,26.0,31.6)){rise($('hE'),t,26.3,.45,40);pop($('goal'),t,28.2,.45)}
+ // Z
+ if(sec('Z',t,31.5,99,.3,.01)){const g=ex(P(t,31.8,32.5));$('zg').style.opacity=g;$('zg').style.transform=`translateY(${(1-g)*-500+Math.sin(t*1.3)*6}px)`;
+  [['zk1',34.0,-1],['zk3',34.2,1]].forEach(([k,s,d])=>{const a=bk(P(t,s,s+.45));$(k).style.opacity=t>=s?1:0;$(k).style.transform=`rotate(${d*8}deg) translateX(${(1-a)*d*500}px)`});
+  rise($('zt'),t,34.6,.4,20);const p=ex(P(t,36.7,37.2));$('zp').style.opacity=p;$('zp').style.transform=`scale(${lerp(1.4,1,p)})`;$('zp').style.filter=`blur(${(1-p)*10}px)`;
+  const bt=bk(P(t,38.0,38.45));$('zb').style.opacity=t>=38.0?1:0;$('zb').style.transform=`scale(${.7+.3*bt})`;
+  $('zd').style.opacity=ex(P(t,38.5,38.8));$('d1').style.transform=`translateY(${Math.sin(t*6)*8}px)`;$('d2').style.transform=`translateY(${Math.sin(t*6-1)*8}px)`;$('d2').style.opacity=.55}
+ caps(t);
+ await document.fonts.ready;
+};
+window.render=t=>R0(t-0.5);
+</script></body></html>

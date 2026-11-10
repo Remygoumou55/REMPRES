@@ -114,8 +114,9 @@ def md(text):
     out = re.sub(r"<h1>Chapitre (\d+) — (.*?)</h1>", r'<h1><span class="num">Chapitre \1</span>\2</h1>', out)
     return out
 
-TIGHT_CSS = """\n.profils, .check, .suite {{ font-size: 12pt; padding: 6pt 11pt 3pt; }} .profils table {{ font-size: 10.5pt; }} .profils h3, .check h3 {{ font-size: 13pt; margin-bottom: 3pt; }} .check li {{ margin: 1pt 0; }} section.chapter:last-child {{ break-after: avoid; }}\n.toc .row {{ padding: 3pt 0; font-size: 12.5pt; }} .toc .part {{ margin-top: 8pt; }}\nh1 {{ margin-bottom: 12pt; }} h2 {{ margin: 14pt 0 6pt; }} .box {{ margin: 9pt 0; padding: 8pt 12pt 4pt; }} p {{ margin: 0 0 6pt; }} table {{ margin: 6pt 0 9pt; font-size: 11.5pt; }} .box {{ font-size: 13pt; }} .box table {{ font-size: 11pt; }} .vrai {{ font-size: 13pt; }} .chapter.annexe table {{ font-size: 10.5pt; }} .chapter.annexe {{ font-size: 12.5pt; }}\n.box.profils, .box.check, .box.suite {{ font-size: 12pt; padding: 6pt 11pt 3pt; }} .box.profils table {{ font-size: 10.5pt; }}\n""".replace("{{","{").replace("}}","}")
+TIGHT_CSS = """\n.profils, .check, .suite {{ font-size: 12pt; padding: 6pt 11pt 3pt; }} .profils table {{ font-size: 10.5pt; }} .profils h3, .check h3 {{ font-size: 13pt; margin-bottom: 3pt; }} .check li {{ margin: 1pt 0; }} section.chapter:last-child {{ break-after: avoid; }}\n.toc .row {{ padding: 3pt 0; font-size: 12.5pt; }} .toc .part {{ margin-top: 8pt; }}\nh1 {{ margin-bottom: 12pt; }} h2 {{ margin: 14pt 0 6pt; }} .box {{ margin: 9pt 0; padding: 8pt 12pt 4pt; }} p {{ margin: 0 0 6pt; }} table {{ margin: 6pt 0 9pt; font-size: 11.5pt; }} .box {{ font-size: 13pt; }} .box table {{ font-size: 11pt; }} .vrai {{ font-size: 13pt; }} .chapter.annexe table {{ font-size: 10.5pt; }} .chapter.annexe {{ font-size: 12.5pt; }}\nsection.fiche {{ break-before: page; font-size: 18.5pt; line-height: 1.5; }} section.fiche li {{ margin: 13pt 0; padding-left: 3pt; }} section.fiche h2 {{ font-size: 24pt; border-bottom: 2pt solid #B08A3E; padding-bottom: 8pt; margin-bottom: 14pt; }} .bref + section.fiche {{ break-before: auto; font-size: 16.5pt; }} .bref + section.fiche li {{ margin: 6pt 0; }} .bref + section.fiche h2 {{ font-size: 20pt; margin-top: 6pt; }} td:empty {{ height: 22pt; }} section.fiche h2 {{ margin-top: 0; }} .box.profils, .box.check, .box.suite {{ font-size: 12pt; padding: 6pt 11pt 3pt; }} .box.profils table {{ font-size: 10.5pt; }}\n""".replace("{{","{").replace("}}","}")
 PHONE_CSS = """
+section.fiche, .bref + section.fiche { font-size: 13pt; } section.fiche li, .bref + section.fiche li { margin: 5pt 0; } section.fiche h2, .bref + section.fiche h2 { font-size: 16pt; }
 @page { size: 110mm 196mm; margin: 9mm 8mm 11mm 8mm; }
 body { font-size: 12.5pt; line-height: 1.4; }
 h1 { font-size: 19pt; } h1 .num { font-size: 10pt; letter-spacing: 2pt; } h1::after { width: 35mm; }
@@ -140,6 +141,9 @@ COVER = """<div class="cover"><div class="k">COLLECTION PLAYBOOKS</div>
 <div class="v">VERSION DE TRAVAIL · NOVEMBRE 2026</div></div>"""
 
 files = sorted(glob.glob(os.path.join(SRC, "*.md")))
+KIT = os.environ.get("KIT")
+if KIT:
+    files = [KIT]
 PARTS = [(2, "Partie 1", "Comprendre", "Ce qu'est le closing, pourquoi le client part, ce que cache une objection, et les erreurs qui font fuir."),
          (6, "Partie 2", "La méthode RIDEAU", "Six clés, dans l'ordre : Retenir · Interroger · Démasquer · Écouter · Apaiser · Unir."),
          (12, "Partie 3", "Les 7 situations difficiles", "Le prix, l'argent, la confiance, la famille, « je vais réfléchir », le crédit, les commandes annulées."),
@@ -170,7 +174,13 @@ for f in files:
 toc.append("</section>")
 jobs = []
 allp = os.path.join(DIST, "_all.html")
-open(allp, "w", encoding="utf-8").write(page(COVER + "".join(toc) + "".join(chapters), "L'Art du Closing"))
+if KIT:
+    kt = open(KIT, encoding="utf-8").readline().strip("# \n")
+    kn, kname = kt.split(" — ", 1)
+    KCOVER = f'''<div class="cover"><div class="k">L'ART DU CLOSING · {H.escape(kn.upper())}</div><div class="t">{H.escape(kname)}</div><div class="rule"></div><div class="s">Le kit pratique qui accompagne le livre « L'Art du Closing — Lève le rideau ».</div><div class="v">VERSION DE TRAVAIL · NOVEMBRE 2026</div></div>'''
+    open(allp, "w", encoding="utf-8").write(page(KCOVER + "".join(chapters), kt))
+else:
+    open(allp, "w", encoding="utf-8").write(page(COVER + "".join(toc) + "".join(chapters), "L'Art du Closing"))
 OUT = os.environ.get("OUT", "L-Art-du-Closing-telephone.pdf" if PHONE else "L-Art-du-Closing.pdf")
 jobs.append([allp, os.path.join(DIST, OUT)])
 

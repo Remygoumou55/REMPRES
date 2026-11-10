@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- M4 « Commencer petit » — motion design : conteneur 3D géant qui devient un petit colis, puis l'escalier qui monte marche par marche. -->
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#EEF3F8}
+body{font-family:'Inter',sans-serif;color:#1B2B3A}
+#st{position:absolute;inset:0;overflow:hidden}
+.L{position:absolute;inset:0}
+.K{font-family:'Inter Display';font-weight:900;letter-spacing:-2px}
+.N{font-family:'JetBrains Mono',monospace;font-weight:800}
+.Bl{color:#1C7ED6}.Gn{color:#2F9E44}.Rd{color:#E03131}
+#grid{background-image:linear-gradient(30deg,rgba(28,126,214,.07) 1px,transparent 1px),linear-gradient(150deg,rgba(28,126,214,.07) 1px,transparent 1px);background-size:60px 35px}
+#grain{background-size:540px 960px;mix-blend-mode:multiply;opacity:.06}
+.hd{position:absolute;left:50px;right:50px;text-align:center;line-height:1.03}
+/* conteneur 3D */
+#scene{position:absolute;left:540px;top:1060px;width:0;height:0;perspective:2200px}
+#box3{position:absolute;transform-style:preserve-3d}
+.f{position:absolute;backface-visibility:visible}
+.rib{background:repeating-linear-gradient(90deg,#1C7ED6 0 26px,#1864AB 26px 34px)}
+#parcel{position:absolute;left:0;right:0;top:880px;text-align:center;font-size:260px}
+#xx{position:absolute;left:140px;top:640px;width:800px;height:700px}
+#pcs{position:absolute;left:90px;top:560px;width:900px;height:560px;display:grid;grid-template-columns:repeat(18,1fr);gap:6px}
+#pcs i{display:block;height:28px;border-radius:4px;background:#1C7ED6}
+.big{position:absolute;left:0;right:0;text-align:center;font-family:'Inter Display';font-weight:900;letter-spacing:-2px}
+#meter{position:absolute;left:190px;top:1220px;width:700px;height:50px;border-radius:25px;background:#DDE5EE;overflow:hidden}
+#meter b{display:block;height:100%;background:linear-gradient(90deg,#FAB005,#E03131)}
+#stop{position:absolute;left:0;right:0;margin:auto;width:fit-content;top:1320px;padding:16px 40px;border-radius:18px;background:#E03131;color:#fff;font-family:'Inter Display';font-weight:900;font-size:70px}
+#weeks{position:absolute;left:80px;right:80px;top:600px;display:flex;gap:20px}
+#weeks div{flex:1;height:200px;border-radius:24px;background:#fff;border:4px solid #1B2B3A;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:900;font-size:40px}
+#gros{position:absolute;left:0;right:0;top:1160px;text-align:center;font-size:170px}
+#gros span{display:block;font-weight:900;font-size:44px}
+.coin{position:absolute;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFF3BF,#FAB005 50%,#E67700);box-shadow:0 6px 12px rgba(0,0,0,.2)}
+/* escalier */
+.stp{position:absolute;width:250px;border-radius:24px 24px 0 0;background:#1C7ED6;color:#fff;display:flex;flex-direction:column;align-items:center;padding-top:20px;text-align:center;font-weight:900;font-size:30px;line-height:1.15;transform-origin:50% 100%}
+.stp em{font-style:normal;font-size:76px;margin-bottom:8px}
+.lab{position:absolute;padding:10px 18px;border-radius:30px;background:#FFD43B;color:#1B2B3A;font-weight:900;font-size:26px;white-space:nowrap}
+#quote{position:absolute;left:90px;right:90px;top:250px;padding:34px 40px;border-radius:30px;background:#fff;border-left:14px solid #2F9E44;box-shadow:0 20px 40px rgba(27,43,58,.12)}
+#quote p{font-family:'Inter Display';font-weight:800;font-size:46px;line-height:1.2}
+#quote small{display:block;margin-top:14px;font-weight:700;font-size:28px;color:#6B7B8C}
+#oui{position:absolute;padding:16px 34px;border-radius:40px;background:#2F9E44;color:#fff;font-family:'Inter Display';font-weight:900;font-size:56px}
+#zg{position:absolute;left:315px;top:220px;width:450px;height:582px;filter:drop-shadow(0 30px 40px rgba(27,43,58,.3))}
+#zk1{position:absolute;left:70px;top:480px;width:260px;height:364px;transform:rotate(-8deg);filter:drop-shadow(0 20px 30px rgba(27,43,58,.3))}
+#zk3{position:absolute;left:750px;top:470px;width:270px;height:384px;transform:rotate(8deg);filter:drop-shadow(0 20px 30px rgba(27,43,58,.3))}
+#zg img,#zk1 img,#zk3 img{width:100%;height:100%}
+#zt{position:absolute;left:0;right:0;top:880px;text-align:center;font-weight:800;font-size:40px}
+#zp{position:absolute;left:0;right:0;top:970px;text-align:center;font-family:'Inter Display';font-weight:900;font-size:210px;line-height:1;letter-spacing:-6px;color:#1C7ED6}
+#zp small{font-size:70px;letter-spacing:0}
+#zb{position:absolute;left:110px;right:110px;top:1250px;height:140px;border-radius:70px;background:#2F9E44;color:#fff;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:900;box-shadow:0 20px 40px rgba(47,158,68,.3)}
+#zd{position:absolute;left:0;right:0;top:1430px;text-align:center;font-size:70px;color:#2F9E44;line-height:.5;font-weight:900}
+#cap{position:absolute;left:70px;right:70px;top:1620px;text-align:center}
+#cap div{display:inline-block;background:#1B2B3A;color:#fff;padding:20px 34px;border-radius:16px;font-size:44px;font-weight:700;line-height:1.22;border-bottom:8px solid #FFD43B}
+#cap b{color:#FFD43B}
+</style></head><body>
+<div id="st">
+ <div class="L" id="grid"></div>
+ <div class="L" id="A"><div class="hd K" id="ha" style="top:200px;font-size:94px">Importer,<br>ce n'est pas <span class="Bl">forcément</span><br>un conteneur.</div>
+  <div id="scene"><div id="box3"></div></div><div id="parcel">📦</div>
+  <svg id="xx" viewBox="0 0 800 700"><path id="xp" d="M60 60 L740 640 M740 60 L60 640" stroke="#E03131" stroke-width="30" stroke-linecap="round" pathLength="1" stroke-dasharray="1 1" fill="none"/></svg></div>
+ <div class="L" id="B"><div class="hd K" id="hB" style="top:220px;font-size:72px">Tu imagines…</div>
+  <div class="big" id="b1" style="top:340px;font-size:80px">des <span class="Bl">milliers</span> de pièces</div><div id="pcs"></div>
+  <div class="big" id="b2" style="top:620px;font-size:110px">des <span class="Rd">millions</span> de francs 💸</div>
+  <div class="big" id="b3" style="top:1100px;font-size:66px">un risque <span class="Rd">énorme</span></div><div id="meter"><b></b></div>
+  <div id="stop">Alors… tu ne t'y mets pas.</div></div>
+ <div class="L" id="C"><div class="hd K" id="hC" style="top:220px;font-size:72px">Et chaque semaine,<br><span class="Rd">ton budget part…</span></div>
+  <div id="weeks"><div id="k0">S1<span style="font-size:60px">🗓️</span></div><div id="k1">S2<span style="font-size:60px">🗓️</span></div><div id="k2">S3<span style="font-size:60px">🗓️</span></div><div id="k3">S4<span style="font-size:60px">🗓️</span></div></div>
+  <div id="gros">🏪<span>chez ton grossiste</span></div><div id="coins"></div></div>
+ <div class="L" id="D"><div class="hd K" id="hD" style="top:180px;font-size:84px">En vrai, tu peux<br><span class="Gn">commencer petit.</span></div>
+  <div class="stp" id="s0" style="left:20px;top:1180px;height:330px;background:#4DABF7"><em>🔍</em>Un échantillon</div>
+  <div class="stp" id="s1" style="left:285px;top:1000px;height:510px;background:#339AF0"><em>📦</em>Petite commande test</div>
+  <div class="stp" id="s2" style="left:550px;top:820px;height:690px;background:#1C7ED6"><em>🧮</em>Ton vrai coût, avant de payer</div>
+  <div class="stp" id="s3" style="left:815px;top:640px;height:870px;background:#2F9E44;width:245px"><em>📈</em>Tu grandis</div>
+  <div class="lab" id="l0" style="left:20px;top:1100px">voir et toucher</div><div class="lab" id="l1" style="left:290px;top:930px">budget fixé par toi</div>
+  <div id="oui" style="left:790px;top:565px">OUI ✓</div>
+  <div id="quote"><p>« Commencez petit, mesurez tout, et grandissez seulement quand les chiffres vous disent oui. »</p><small>— extrait du guide « Briser la peur d'importer »</small></div></div>
+ <div class="L" id="Z"><div id="zk1"><img src="kit1-3d.png"></div><div id="zk3"><img src="kit3-3d.png"></div><div id="zg"><img src="guide-3d.png"></div>
+  <div id="zt">LE GUIDE <span class="Bl">+ 3 KITS</span></div><div id="zp">3 900 <small>F CFA</small></div><div id="zb">Le lien est juste en dessous</div><div id="zd"><div id="d1">⌄</div><div id="d2">⌄</div></div></div>
+ <div class="L" id="grain"></div>
+ <div id="cap"></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>cl((t-a)/(b-a));
+const eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const ex=x=>x>=1?1:1-Math.pow(2,-10*x);
+const es=x=>x<.5?16*x**5:1-Math.pow(-2*x+2,5)/2;
+const bk=x=>{const c1=1.5,c3=c1+1;return x<=0?0:x>=1?1:1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const lerp=(a,b,x)=>a+(b-a)*x;
+const show=(id,on)=>{$(id).style.display=on?'block':'none'};
+function sec(id,t,a,b,fi=.3,fo=.3){const on=t>=a&&t<b;show(id,on);if(on)$(id).style.opacity=P(t,a,a+fi)*(1-P(t,b-fo,b));return on}
+function rise(el,t,s,d=.5,dist=50){const a=ex(P(t,s,s+d));el.style.opacity=a;el.style.transform=`translateY(${(1-a)*dist}px)`;el.style.filter=`blur(${(1-a)*6}px)`}
+function pop(el,t,s,d=.4){const a=bk(P(t,s,s+d));el.style.opacity=t>=s?1:0;el.style.transform=`scale(${a})`}
+// conteneur : boîte CSS 3D (L 760, H 320, P 320)
+const Lx=760,Hy=320,Dz=320;
+$('box3').innerHTML=`<div class="f rib" style="left:${-Lx/2}px;top:${-Hy/2}px;width:${Lx}px;height:${Hy}px;transform:translateZ(${Dz/2}px)"><div style="position:absolute;left:30px;top:24px;font-family:'JetBrains Mono';font-weight:800;font-size:40px;color:#fff">CONTENEUR 40'</div></div>
+ <div class="f rib" style="left:${-Dz/2}px;top:${-Hy/2}px;width:${Dz}px;height:${Hy}px;transform:rotateY(90deg) translateZ(${Lx/2}px);filter:brightness(.8)"></div>
+ <div class="f" style="left:${-Lx/2}px;top:${-Dz/2}px;width:${Lx}px;height:${Dz}px;transform:rotateX(90deg) translateZ(${Hy/2}px);background:#4DABF7"></div>`;
+$('pcs').innerHTML=Array.from({length:18*14},(_,i)=>`<i id="pc${i}"></i>`).join('');
+$('coins').innerHTML=[0,1,2,3].map(i=>`<div class="coin" id="cn${i}"></div>`).join('');
+const CAP=[[2.7,6.7,"Tu imagines des milliers de pièces, des millions de francs, <b>un risque énorme.</b>"],[8.4,11.6,"Et pendant ce temps, chaque semaine, <b>ton budget part chez ton grossiste.</b>"],
+ [14.2,17.0,"D'abord un échantillon, <b>pour voir et toucher la qualité.</b>"],[17.4,20.7,"Puis une petite commande test, <b>avec un budget que tu fixes toi-même.</b>"],
+ [21.1,25.6,"Tu calcules ton vrai coût avant de payer. <b>Et tu grandis seulement quand les chiffres te disent oui.</b>"],[26.1,29.9,"Tout est dans le guide « Briser la peur d'importer », <b>avec trois kits prêts à l'emploi.</b>"]];
+function caps(t){const c=$('cap');const i=CAP.findIndex(([s,e])=>t>=s-.15&&t<e+.3);if(i<0){c.innerHTML='';c.dataset.k='';return}
+ if(c.dataset.k!=String(i)){c.innerHTML=`<div>${CAP[i][2]}</div>`;c.dataset.k=i}
+ const a=ex(P(t,CAP[i][0]-.15,CAP[i][0]+.3));c.style.opacity=a*(1-P(t,CAP[i][1]+.15,CAP[i][1]+.3));c.style.transform=`translateY(${(1-a)*30}px)`}
+const LAY=['A','B','C','D','Z'];
+const R0=async function(t){
+ LAY.forEach(i=>show(i,false));
+ const fr=Math.floor(t*24);$('grain').style.backgroundImage=`url(noise${((fr%4)+4)%4}.png)`;
+ if(sec('A',t,-1,2.6,.01,.25)){const a=ex(P(t,.1,.5));$('ha').style.opacity=a;$('ha').style.transform=`scale(${lerp(1.1,1,a)})`;
+  const sh=es(P(t,1.6,2.15));$('box3').style.transform=`scale(${lerp(1,0.05,sh)}) rotateX(-22deg) rotateY(${-32+t*6}deg)`;$('box3').style.opacity=1-P(t,2.0,2.15);
+  $('xp').style.strokeDashoffset=1-es(P(t,1.1,1.5));$('xx').style.opacity=1-P(t,1.6,1.8);
+  pop($('parcel'),t,2.0,.35)}
+ if(sec('B',t,2.5,8.25)){rise($('hB'),t,2.7,.4,30);const m=t<4.0;['b1','pcs'].forEach(i=>$(i).style.display=m?'':'none');rise($('b1'),t,2.8,.4,20);
+  const n=Math.floor(es(P(t,2.9,3.9))*252);for(let i=0;i<252;i++)$('pc'+i).style.opacity=i<n?1:0;
+  $('b2').style.display=m?'none':'';pop($('b2'),t,4.0,.4);$('b2').style.top=t<5.7?'620px':lerp(620,520,es(P(t,5.7,6.0)))+'px';
+  rise($('b3'),t,5.7,.4,30);$('meter').style.opacity=t>=5.7?1:0;$('meter').querySelector('b').style.width=(es(P(t,5.8,6.6))*96)+'%';
+  pop($('stop'),t,7.1,.35)}
+ if(sec('C',t,8.2,12.0)){rise($('hC'),t,8.4,.4,30);[0,1,2,3].forEach(i=>{const s=9.3+i*.5;pop($('k'+i),t,s-.3,.3);const c=$('cn'+i);const p=es(P(t,s,s+.7));c.style.left=(80+i*235+80-35)+lerp(0,(540-35)-(80+i*235+80-35),p)+'px';c.style.top=lerp(760,1200,p)+'px';c.style.opacity=t>=s&&p<1?1:0})}
+ if(sec('D',t,11.9,25.95)){rise($('hD'),t,12.2,.45,40);$('hD').style.opacity=ex(P(t,12.2,12.6))*(1-P(t,23.3,23.5));
+  [['s0',14.2],['s1',17.4],['s2',21.1],['s3',23.5]].forEach(([s,a])=>{const g=bk(P(t,a,a+.5));$(s).style.opacity=t>=a?1:0;$(s).style.transform=`scaleY(${g})`});
+  pop($('l0'),t,15.4,.35);pop($('l1'),t,19.0,.35);pop($('oui'),t,24.6,.35);
+  const q=ex(P(t,23.5,24.0));$('quote').style.opacity=q;$('quote').style.transform=`translateY(${(1-q)*-80}px)`}
+ if(sec('Z',t,25.9,99,.3,.01)){const g=ex(P(t,26.1,26.8));$('zg').style.opacity=g;$('zg').style.transform=`translateY(${(1-g)*-500+Math.sin(t*1.3)*6}px)`;
+  [['zk1',28.1,-1],['zk3',28.3,1]].forEach(([k,s,d])=>{const a=bk(P(t,s,s+.45));$(k).style.opacity=t>=s?1:0;$(k).style.transform=`rotate(${d*8}deg) translateX(${(1-a)*d*500}px)`});
+  rise($('zt'),t,28.4,.4,20);const p=ex(P(t,30.3,30.8));$('zp').style.opacity=p;$('zp').style.transform=`scale(${lerp(1.4,1,p)})`;$('zp').style.filter=`blur(${(1-p)*10}px)`;
+  const bt=bk(P(t,31.6,32.0));$('zb').style.opacity=t>=31.6?1:0;$('zb').style.transform=`scale(${.7+.3*bt})`;
+  $('zd').style.opacity=ex(P(t,32.1,32.4));$('d1').style.transform=`translateY(${Math.sin(t*6)*8}px)`;$('d2').style.transform=`translateY(${Math.sin(t*6-1)*8}px)`;$('d2').style.opacity=.55}
+ caps(t);
+ await document.fonts.ready;
+};
+window.render=t=>R0(t-0.5);
+</script></body></html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- V9 « La maison sans toit » — motion design « plan d'architecte » (bleu de plan, trait blanc, terre cuite). -->
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#0B2A48}
+body{font-family:'Carlito',sans-serif;color:#EAF4FF}
+#st{position:absolute;inset:0;overflow:hidden}
+.L{position:absolute;inset:0}
+.S{font-family:'Caladea',serif;font-weight:700;letter-spacing:-1px}
+.I{font-family:'Caladea',serif;font-style:italic}
+.M{font-family:'Liberation Mono',monospace;letter-spacing:4px}
+.T{color:#E8754F}
+#bg{background:radial-gradient(ellipse 900px 1200px at 50% 45%,#134672,#0B2A48 75%)}
+#grid{background-image:linear-gradient(rgba(190,225,255,.16) 2px,transparent 2px),linear-gradient(90deg,rgba(190,225,255,.16) 2px,transparent 2px),linear-gradient(rgba(190,225,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(190,225,255,.06) 1px,transparent 1px);background-size:200px 200px,200px 200px,40px 40px,40px 40px}
+#warm{background:radial-gradient(ellipse 800px 900px at 50% 62%,rgba(255,170,100,.35),rgba(232,117,79,.10) 55%,rgba(0,0,0,0) 80%);opacity:0}
+#vig{background:radial-gradient(ellipse 760px 1100px at 50% 50%,rgba(0,0,0,0) 60%,rgba(3,14,28,.6))}
+#grain{background-size:540px 960px;mix-blend-mode:overlay;opacity:.07}
+/* plan SVG */
+#bp{position:absolute;left:0;top:0;width:1080px;height:1920px}
+#bp .ln{fill:none;stroke:#D6EBFF;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1 1}
+#bp .th{stroke-width:3;opacity:.7}
+#bp .rf{fill:none;stroke:#FFD9B0;stroke-width:6;stroke-linejoin:round;stroke-dasharray:1 1}
+#bp .rff{fill:url(#tiles);opacity:0}
+#bp .win{fill:#FFC67A;opacity:0}
+#bp .gr{fill:none;stroke:#7FD69A;stroke-width:3;stroke-dasharray:1 1;stroke-linecap:round}
+#bp .ru{fill:none;stroke:#B5522F;stroke-width:5;stroke-dasharray:1 1;stroke-linecap:round;opacity:.9}
+.dim{font-family:'Liberation Mono',monospace;font-size:20px;fill:#9CC4EA;letter-spacing:2px}
+/* textes */
+#hA{position:absolute;left:0;right:0;top:300px;text-align:center}
+#hA .a{font-size:132px;line-height:1}
+#cnt{position:absolute;left:0;right:0;top:640px;text-align:center;font-size:34px;color:#9CC4EA}
+#cnt b{color:#EAF4FF;font-weight:700}
+#tag{position:absolute;left:470px;top:760px;padding:20px 30px;border:3px solid #E8754F;background:rgba(11,42,72,.85);font-size:50px;white-space:nowrap}
+#tagl{position:absolute;left:0;top:0;width:1080px;height:1920px}
+/* budget */
+#lab{position:absolute;left:0;right:0;top:170px;text-align:center;font-size:28px;color:#9CC4EA}
+#hB{position:absolute;left:60px;right:60px;top:240px;text-align:center;height:220px}
+#hB div{position:absolute;left:0;right:0}
+#gauge{position:absolute;left:80px;top:540px;width:160px;height:780px;border:4px solid #D6EBFF;border-radius:30px;overflow:hidden;background:rgba(255,255,255,.04)}
+#gfill{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(180deg,#CFE8FF,#7DB7EC)}
+#gfill:before{content:'';position:absolute;left:0;right:0;top:-8px;height:16px;border-radius:50%;background:rgba(255,255,255,.6)}
+#gauge i{position:absolute;left:0;width:30px;height:3px;background:rgba(214,235,255,.6)}
+#glab{position:absolute;left:60px;top:1340px;width:200px;text-align:center;font-size:24px;color:#9CC4EA}
+.fee{position:absolute;left:30px;top:330px;padding:16px 26px;border-radius:40px;background:#E8754F;color:#0B2A48;font-weight:700;font-size:38px;white-space:nowrap;box-shadow:0 14px 30px rgba(0,0,0,.35)}
+#devis{position:absolute;left:300px;top:540px;width:720px;border:3px solid #D6EBFF;background:rgba(11,42,72,.88);padding:26px 34px 30px}
+#devis h3{font-family:'Liberation Mono',monospace;font-weight:700;font-size:28px;letter-spacing:5px;color:#9CC4EA;border-bottom:3px solid rgba(214,235,255,.5);padding-bottom:18px;margin-bottom:6px}
+.row{display:flex;align-items:center;height:76px;font-size:40px;border-bottom:2px dashed rgba(214,235,255,.25);overflow:hidden;position:relative}
+.row span{flex:1}
+.row em{width:170px;height:16px;border-radius:8px;background:rgba(214,235,255,.55);display:block}
+.row u{position:absolute;right:-6px;top:14px;color:#E8754F;font-weight:700;font-size:40px;text-decoration:none;opacity:0}
+.miss{height:0;border:3px dashed #E8754F;border-left-width:3px;background:rgba(232,117,79,.12);color:#FFB394;padding:0 14px;margin:0}
+.miss em{background:transparent;border:3px dashed #E8754F;height:24px}
+#stamp{position:absolute;left:520px;top:1120px;padding:16px 26px;border:7px solid #CFE8FF;color:#CFE8FF;font-family:'Liberation Mono',monospace;font-weight:700;font-size:44px;letter-spacing:3px;transform:rotate(-10deg);white-space:nowrap}
+#stamp i{position:absolute;left:-20px;right:-20px;top:50%;height:8px;background:#E8754F;transform-origin:0 50%}
+/* chantier */
+#hD{position:absolute;left:0;right:0;top:220px;text-align:center}
+#hD .a{font-size:118px;line-height:1}
+#yrs{position:absolute;left:0;right:0;top:420px;text-align:center;font-size:40px;color:#9CC4EA}
+#yrs b{font-size:72px;color:#EAF4FF;font-family:'Caladea',serif;letter-spacing:0}
+#stop{position:absolute;left:300px;top:1010px;padding:18px 30px;border:8px solid #E8754F;color:#E8754F;font-family:'Liberation Mono',monospace;font-weight:700;font-size:54px;letter-spacing:4px;white-space:nowrap;background:rgba(11,42,72,.5)}
+#rain{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:hidden}
+#rain i{position:absolute;width:3px;height:60px;background:linear-gradient(180deg,rgba(200,230,255,0),rgba(200,230,255,.8))}
+/* solution */
+#hE{position:absolute;left:0;right:0;top:300px;text-align:center}
+#hE .a{font-size:110px;line-height:1.02}
+#hE .b{font-size:230px;line-height:1;margin-top:10px}
+#chipE{position:absolute;left:0;right:0;margin:auto;width:fit-content;top:180px;padding:14px 30px;border:3px solid #E8754F;color:#FFB394;font-size:30px;white-space:nowrap}
+.box{position:absolute;left:140px;right:140px;height:150px;border:4px solid #D6EBFF;display:flex;align-items:center;justify-content:center;font-size:58px;background:rgba(11,42,72,.75)}
+.box small{position:absolute;left:18px;top:10px;font-size:22px;color:#9CC4EA}
+#plus{position:absolute;left:0;right:0;top:820px;text-align:center;font-size:110px;line-height:1;font-family:'Caladea',serif}
+#rule{position:absolute;left:140px;right:140px;top:1180px;height:6px;background:#E8754F;transform-origin:0 50%}
+#res{position:absolute;left:0;right:0;top:1220px;text-align:center;font-size:70px}
+.sh{position:absolute;top:560px;width:290px;height:800px;border:3px solid #D6EBFF;background:rgba(11,42,72,.88);padding:20px}
+.sh h4{font-family:'Liberation Mono',monospace;font-size:26px;letter-spacing:3px;color:#9CC4EA;margin-bottom:18px}
+.sh p{height:88px;border-bottom:2px dashed rgba(214,235,255,.25);display:flex;align-items:center;font-size:30px;justify-content:space-between}
+.sh p em{width:70px;height:12px;border-radius:6px;background:rgba(214,235,255,.5);display:block}
+#scanb{position:absolute;left:60px;right:60px;height:88px;background:rgba(232,117,79,.25);border-top:3px solid #E8754F;border-bottom:3px solid #E8754F}
+#vault{position:absolute;left:190px;top:640px;width:700px;height:560px;border:5px solid #D6EBFF;background:rgba(11,42,72,.9);text-align:center}
+#vault .M{position:absolute;left:0;right:0;top:380px;font-size:40px;font-weight:700;letter-spacing:6px}
+#vault .I{position:absolute;left:0;right:0;top:450px;font-size:40px;color:#FFB394}
+#lock{position:absolute;left:270px;top:70px;width:160px;height:260px}
+.step{position:absolute;width:300px;border:4px solid #D6EBFF;background:rgba(11,42,72,.9);text-align:center}
+.step .S{font-size:44px;margin-top:22px}
+.step .pr{margin-top:14px;font-size:30px;color:#9CC4EA}
+.step .pd{position:absolute;left:50%;top:-82px;transform:translateX(-50%);padding:10px 22px;border-radius:30px;background:#E8754F;color:#0B2A48;font-weight:700;font-size:32px;white-space:nowrap}
+#pages{position:absolute;left:0;top:0;width:1080px;height:1920px;perspective:2200px}
+.pg{position:absolute;background:#FFFDF8;box-shadow:0 40px 80px rgba(0,0,0,.5);overflow:hidden}
+.pg img{display:block;width:100%}
+#pk{position:absolute;left:0;right:0;margin:auto;width:fit-content;top:190px;padding:14px 30px;background:#E8754F;color:#0B2A48;font-weight:700;font-size:32px;letter-spacing:3px;white-space:nowrap}
+/* guide */
+#gw{position:absolute;left:150px;top:250px;width:780px;height:900px}
+#gw svg{position:absolute;inset:0}
+#gd{position:absolute;inset:0;filter:drop-shadow(0 50px 50px rgba(0,0,0,.6))}
+#gd img{width:100%;height:100%}
+#kits{position:absolute;left:50px;right:50px;top:1250px;display:flex;gap:16px;align-items:flex-end}
+#kits div{flex:1;padding:22px 10px;border:3px solid #D6EBFF;background:rgba(11,42,72,.85);text-align:center;transform-origin:50% 100%}
+#kits small{display:block;font-family:'Liberation Mono',monospace;font-size:22px;letter-spacing:3px;color:#9CC4EA}
+#kits b{display:block;font-size:36px;margin-top:6px}
+#k3.on{border-color:#E8754F;background:#E8754F;color:#0B2A48}
+#k3.on small{color:#0B2A48}
+/* toit */
+#hG{position:absolute;left:0;right:0;top:230px;text-align:center}
+#hG .a{font-size:84px;line-height:1.1}
+#hG .b{font-size:150px;line-height:1;margin-top:16px}
+/* fin : cartouche */
+#fg{position:absolute;left:300px;top:90px;width:480px;height:553px;filter:drop-shadow(0 40px 50px rgba(0,0,0,.55))}
+#fg img{width:100%;height:100%}
+#cart{position:absolute;left:70px;top:700px;width:940px;height:800px}
+#cart svg{position:absolute;inset:0}
+.cl{position:absolute;font-size:24px;color:#9CC4EA;letter-spacing:4px}
+.cv{position:absolute;font-size:52px}
+#fpr{position:absolute;left:0;right:0;top:290px;text-align:center;font-family:'Caladea',serif;font-weight:700;font-size:210px;line-height:1;letter-spacing:-6px;color:#E8754F}
+#fpr small{font-size:70px;letter-spacing:0}
+#fo{position:absolute;left:0;right:0;top:530px;text-align:center}
+#fo span{position:relative;font-size:50px;color:#9CC4EA}
+#fo i{position:absolute;left:-10px;right:-10px;top:52%;height:6px;background:#E8754F;transform-origin:0 50%}
+#fbtn{position:absolute;left:60px;right:60px;top:640px;height:130px;background:#E8754F;color:#0B2A48;display:flex;align-items:center;justify-content:center;font-size:50px;font-weight:700}
+#fdrop{position:absolute;left:0;right:0;top:1530px;text-align:center;font-size:70px;color:#E8754F;line-height:.5;font-weight:700}
+/* sous-titres : cartouche de cote */
+#cap{position:absolute;left:70px;right:70px;top:1640px;text-align:center}
+#cap div{display:inline-block;position:relative;background:rgba(6,26,46,.86);padding:20px 34px;font-size:48px;font-weight:700;line-height:1.22;border:2px solid rgba(214,235,255,.35)}
+#cap div:before,#cap div:after{content:'';position:absolute;top:-10px;width:22px;height:22px;border-top:5px solid #E8754F}
+#cap div:before{left:-10px;border-left:5px solid #E8754F}
+#cap div:after{right:-10px;border-right:5px solid #E8754F}
+#cap b{color:#FFB394}
+#scan{position:absolute;left:0;right:0;height:6px;background:#FFE3CC;box-shadow:0 0 30px 10px rgba(232,117,79,.6);opacity:0}
+</style></head><body>
+<div id="st">
+ <div class="L" id="bg"></div><div class="L" id="grid"></div><div class="L" id="warm"></div>
+ <svg id="bp" viewBox="0 0 1080 1920">
+  <defs><pattern id="tiles" width="36" height="22" patternUnits="userSpaceOnUse"><rect width="36" height="22" fill="#D9653F"/><path d="M0 21 H36 M18 0 V11 M0 11 H36 M9 11 V22 M27 11 V22" stroke="#A9472A" stroke-width="2.5"/></pattern></defs>
+  <g id="row"></g><g id="mh"></g><g id="ph"></g>
+ </svg>
+ <div id="rain"></div>
+ <!-- A : accroche -->
+ <div class="L" id="A"><div id="hA"><div class="a S" id="ha1">Des maisons</div><div class="a S T" id="ha2">sans toit.</div></div>
+  <div id="cnt" class="M">EN ATTENTE DEPUIS <b id="cntv">1 AN</b></div>
+  <svg id="tagl" viewBox="0 0 1080 1920"><path id="tagp" d="M540 1150 L600 860" stroke="#E8754F" stroke-width="4" fill="none" pathLength="1" stroke-dasharray="1 1"/><circle id="tagc" cx="540" cy="1150" r="12" fill="#E8754F"/></svg>
+  <div id="tag" class="I">« Mon budget suffit. »</div></div>
+ <!-- B/C : budget -->
+ <div class="L" id="B"><div id="lab" class="M">PLAN · MON PROJET</div>
+  <div id="hB"><div class="I" id="hb1" style="top:0;font-size:56px;color:#9CC4EA">Et tu te dis :</div><div class="S" id="hb2" style="top:70px;font-size:100px">« C'est bon,</div><div class="S" id="hb3" style="top:170px;font-size:64px">j'ai bien calculé. »</div>
+   <div class="S" id="hb4" style="top:20px;font-size:84px">Puis arrivent…</div><div class="S" id="hb5" style="top:20px;font-size:84px">Et un jour…</div><div class="S T" id="hb6" style="top:0;font-size:124px">L'argent manque.</div></div>
+  <div id="gauge"><div id="gfill"></div></div><div id="glab" class="M">BUDGET</div>
+  <div id="devis"><h3>DEVIS · LA MAISON</h3>
+   <div class="row"><span>Fondations</span><em></em><u>↑</u></div>
+   <div class="row"><span>Murs</span><em></em><u>↑</u></div>
+   <div class="row miss" id="m0"><span>Main-d'œuvre ?</span><em></em></div>
+   <div class="row"><span>Dalle</span><em></em><u>↑</u></div>
+   <div class="row"><span>Toiture</span><em></em><u>↑</u></div>
+   <div class="row miss" id="m1"><span>Transport ?</span><em></em></div>
+   <div class="row"><span>Menuiseries</span><em></em><u>↑</u></div>
+   <div class="row"><span>Finitions</span><em></em><u>↑</u></div>
+   <div class="row miss" id="m2"><span>Imprévus ?</span><em></em></div>
+  </div>
+  <div id="stamp">✓ BIEN CALCULÉ<i id="stx"></i></div>
+  <div class="fee" id="f0">− Frais du notaire</div><div class="fee" id="f1">− Papiers</div><div class="fee" id="f2">− Bornage</div></div>
+ <!-- D : le chantier -->
+ <div class="L" id="D"><div id="hD"><div class="a S" id="hd1">Ta maison <span class="T">attend.</span></div></div>
+  <div id="yrs" class="M">DEPUIS <b id="yrv">1 an</b></div><div id="stop">CHANTIER ARRÊTÉ</div></div>
+ <!-- E : la solution -->
+ <div class="L" id="E"><div id="hE"><div class="a S">Ce piège-là<br>se calcule</div><div class="b S T" id="hav">avant.</div></div></div>
+ <div class="L" id="E1"><div id="chipE" class="M">AVANT DE COMMENCER</div>
+  <div class="box S" id="b1" style="top:640px"><small class="M">A</small>Prix du terrain</div><div id="plus">+</div>
+  <div class="box S" id="b2" style="top:960px"><small class="M">B</small>Marge pour les frais</div><div id="rule"></div><div id="res" class="I">= ton vrai budget terrain</div></div>
+ <div class="L" id="E2"><div id="chipE2" class="M" style="position:absolute;left:0;right:0;margin:auto;width:fit-content;top:180px;padding:14px 30px;border:3px solid #E8754F;color:#FFB394;font-size:30px;white-space:nowrap">TROIS DEVIS · LIGNE PAR LIGNE</div><div id="shs"></div><div id="scanb"></div></div>
+ <div class="L" id="E3"><div id="vault"><svg id="lock" viewBox="0 0 160 260" fill="none" stroke="#E8754F" stroke-width="12" stroke-linecap="round"><path id="shk" d="M35 120 V70 a45 45 0 0 1 90 0 V120"/><rect x="10" y="120" width="140" height="120" rx="16" fill="#E8754F"/><circle cx="80" cy="175" r="14" fill="#0B2A48" stroke="none"/></svg><div class="M">RÉSERVE</div><div class="I">pour les imprévus</div></div></div>
+ <div class="L" id="E4"><div id="stp"></div></div>
+ <div class="L" id="E5"><div id="pk" class="M">KIT 3 · LES CALCULS</div><div id="pages">
+   <div class="pg" id="pg2" style="left:40px;top:560px;width:520px"><img src="k3-2.png"></div>
+   <div class="pg" id="pg8" style="left:520px;top:560px;width:520px"><img src="k3-8.png"></div>
+   <div class="pg" id="pg5" style="left:200px;top:470px;width:680px"><img src="k3-5.png"><svg id="scr" style="position:absolute;left:0;top:0;width:100%;height:100%" viewBox="0 0 1000 1430" fill="none" stroke="#1F5FBF" stroke-width="7" stroke-linecap="round"></svg></div>
+ </div></div>
+ <!-- F : le guide -->
+ <div class="L" id="F"><div id="gw"><svg viewBox="0 0 780 900"><rect id="gwr" x="40" y="20" width="700" height="860" fill="none" stroke="#D6EBFF" stroke-width="4" stroke-dasharray="1 1" pathLength="1"/><path id="gwd" d="M40 20 L740 880 M740 20 L40 880" stroke="rgba(214,235,255,.4)" stroke-width="2" fill="none" stroke-dasharray="1 1" pathLength="1"/></svg><div id="gd"><img src="guide-3d.png"></div></div>
+  <div id="kits"><div id="k1"><small>KIT 1</small><b>Checklists</b></div><div id="k2"><small>KIT 2</small><b>Modèles</b></div><div id="k3"><small>KIT 3</small><b>Calculs</b></div><div id="k4"><small>KIT 4</small><b>Carnets</b></div></div></div>
+ <!-- G : le toit -->
+ <div class="L" id="G"><div id="hG"><div class="a I" id="hg1">Pour que ta maison,</div><div class="a I" id="hg2">et celle de tes proches,</div><div class="b S T" id="hg3">ait un toit.</div></div></div>
+ <!-- Z : fin -->
+ <div class="L" id="Z"><div id="fg"><img src="guide-3d.png"></div>
+  <div id="cart"><svg viewBox="0 0 940 800" fill="none" stroke="#D6EBFF" stroke-width="4"><path id="cf" pathLength="1" stroke-dasharray="1 1" d="M2 2 H938 V610 H2 Z M2 120 H938 M2 240 H938 M250 2 V240"/></svg>
+   <div class="cl M" style="left:30px;top:44px">PROJET</div><div class="cv S" id="cv1" style="left:285px;top:30px">Ta maison, avec un toit</div>
+   <div class="cl M" style="left:30px;top:164px">CONTENU</div><div class="cv S" id="cv2" style="left:285px;top:150px">Le guide + 4 kits</div>
+   <div id="fpr">9 900 <small>F CFA</small></div><div id="fo"><span>au lieu de 15 000 F<i id="fst"></i></span></div>
+   <div id="fbtn">Le lien est juste en dessous</div></div>
+  <div id="fdrop"><div id="d1">⌄</div><div id="d2">⌄</div></div></div>
+ <div class="L" id="vig"></div><div class="L" id="grain"></div>
+ <div id="scan"></div>
+ <div id="cap"></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>cl((t-a)/(b-a));
+const eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const ex=x=>x>=1?1:1-Math.pow(2,-10*x);
+const es=x=>x<.5?16*x**5:1-Math.pow(-2*x+2,5)/2;
+const bk=x=>{const c1=1.5,c3=c1+1;return x<=0?0:x>=1?1:1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const lerp=(a,b,x)=>a+(b-a)*x;
+const show=(id,on)=>{$(id).style.display=on?'block':'none'};
+function sec(id,t,a,b,fo=.25){const on=t>=a&&t<b;show(id,on);if(on){const e=es(P(t,a,a+.5));$(id).style.clipPath=`inset(0 0 ${(1-e)*100}% 0)`;$(id).style.opacity=1-P(t,b-fo,b)}return on}
+function rise(el,t,s,d=.55,dist=60){const a=ex(P(t,s,s+d));el.style.opacity=a;el.style.transform=`translateY(${(1-a)*dist}px)`;el.style.filter=`blur(${(1-a)*6}px)`}
+const dr=(el,p)=>{el.style.strokeDashoffset=1-p};
+// ---- maison (coordonnées locales : base y=0, largeur 400) ----
+const grass=(()=>{let d='';for(let x=-50;x<450;x+=22){d+=`M${x} 0 l6 -${18+(x*7)%14} l6 ${18+(x*7)%14} `}return d})();
+function house(id){return `<g id="${id}">
+ <path class="ln th" data-k="g" pathLength="1" d="M-70 0 H470"/>
+ <path class="ln" data-k="f" pathLength="1" d="M0 0 H400 V24 H0 Z"/>
+ <path class="ln" data-k="w" pathLength="1" d="M10 0 V-260 H390 V0"/>
+ <path class="ln" data-k="o" pathLength="1" d="M170 0 V-130 H230 V0 M50 -190 H130 V-120 H50 Z M270 -190 H350 V-120 H270 Z"/>
+ <rect class="win" x="52" y="-188" width="76" height="66"/><rect class="win" x="272" y="-188" width="76" height="66"/><rect class="win" x="172" y="-128" width="56" height="128"/>
+ <path class="ln" data-k="r" pathLength="1" d="M10 -260 V-325 M140 -260 V-312 M260 -260 V-312 M390 -260 V-325"/>
+ <path class="ru" data-k="u" pathLength="1" d="M14 -255 q5 40 -1 80 M144 -255 q4 30 0 55 M264 -255 q-4 36 1 70 M386 -255 q4 44 -2 90"/>
+ <path class="gr" data-k="gr" pathLength="1" d="${grass}"/>
+ <polygon class="rff" points="-30,-258 200,-420 430,-258"/>
+ <path class="rf" data-k="t" pathLength="1" d="M-30 -258 L200 -420 L430 -258 Z"/>
+</g>`}
+const ROW=[[-70,1330,.56],[140,1310,.68],[390,1350,.75],[700,1320,.66],[930,1335,.56]];
+$('row').innerHTML=ROW.map((r,i)=>house('r'+i)).join('');
+$('mh').innerHTML=house('m');$('ph').innerHTML=house('p');
+const parts=id=>{const o={};$(id).querySelectorAll('[data-k]').forEach(e=>o[e.dataset.k]=e);o.win=[...$(id).querySelectorAll('.win')];o.rff=$(id).querySelector('.rff');return o};
+const HR=ROW.map((r,i)=>parts('r'+i)),HM=parts('m'),HP=parts('p');
+function hset(h,s){ // s: {g,f,w,o,r,u,gr,t,roof,win,rc}
+ ['g','f','w','o','r','u','gr','t'].forEach(k=>dr(h[k],s[k]||0));
+ h.rff.style.opacity=s.roof||0;h.win.forEach(w=>w.style.opacity=s.win||0);
+ h.r.style.stroke=s.rc||'#D6EBFF';h.r.style.opacity=s.r?1:0;h.t.style.opacity=s.t?1:0;h.u.style.opacity=s.u?.9:0;h.gr.style.opacity=s.gr?1:0}
+// pluie
+const RN=[];for(let i=0;i<60;i++){const d=document.createElement('i');$('rain').appendChild(d);RN.push({e:d,x:300+(i*67)%480,o:(i*131)%700,sp:900+(i%5)*140})}
+// 3 devis
+const SR=['Fondations','Murs','Dalle','Toiture','Portes','Finitions','Total'];
+$('shs').innerHTML=[0,1,2].map(i=>`<div class="sh" id="sh${i}" style="left:${70+i*320}px"><h4>DEVIS ${i+1}</h4>${SR.map(r=>`<p><span>${r}</span><em></em></p>`).join('')}</div>`).join('');
+// marches
+const ST=[['Fondations',100,1260,300],['Murs',390,1110,450],['Toiture',680,960,600]];
+$('stp').innerHTML=ST.map((s,i)=>`<div class="step" id="st${i}" style="left:${s[1]}px;top:${s[2]}px;height:${s[3]}px"><div class="S">${s[0]}</div><div class="pr M" id="pr${i}">PREUVE ✓</div><div class="pd" id="pd${i}">payé</div></div>`).join('');
+// gribouillis dans les cases du devis (vraie page du kit 3)
+const RY=[296,360,440,520,600,695,790,875],CX=[380,572,764];let sc='';
+CX.forEach((x,c)=>RY.forEach((y,r)=>{if(r<7||c<3)sc+=`<path id="s${c}_${r}" pathLength="1" stroke-dasharray="1 1" d="M${x} ${y} c12 -16 22 14 34 0 s22 -14 34 0 s22 14 34 0 s20 -12 30 0"/>`}));
+$('scr').innerHTML=sc;
+// sous-titres
+const CAP=[[7.35,9.24,"Toi aussi, tu as <b>économisé pour le terrain.</b>"],[9.61,10.74,"Tu as <b>un devis</b> pour la maison."],
+ [13.82,17.09,"Les frais du notaire, les papiers, <b>le bornage.</b>"],[17.39,18.64,"Le devis a <b>oublié des lignes.</b>"],[19.04,19.70,"Les prix <b>bougent.</b>"],
+ [22.17,23.33,"Le chantier <b>s'arrête aux murs.</b>"],[23.76,25.58,"La pluie entre. <b>Le fer rouille.</b>"],[28.46,29.67,"Comme toutes celles que <b>tu croises.</b>"],
+ [32.71,34.83,"Le prix du terrain, <b>plus une marge pour les frais.</b>"],[35.26,37.2,"Trois devis, <b>comparés ligne par ligne.</b>"],[37.6,38.94,"Une réserve pour <b>les imprévus.</b>"],
+ [39.37,41.44,"Et chaque étape <b>payée après la preuve.</b>"],[41.96,44.11,"Les tableaux sont déjà prêts, <b>tu n'as qu'à les remplir.</b>"],
+ [44.53,47.7,"Tout est dans le guide « Les erreurs à éviter avant d'investir au pays »"],[47.95,50.63,"Avec quatre kits, dont <b>un kit entier pour tes calculs.</b>"]];
+function caps(t){const c=$('cap');const i=CAP.findIndex(([s,e])=>t>=s-.15&&t<e+.3);if(i<0){c.innerHTML='';c.dataset.k='';return}
+ if(c.dataset.k!=String(i)){c.innerHTML=`<div>${CAP[i][2]}</div>`;c.dataset.k=i}
+ const a=ex(P(t,CAP[i][0]-.15,CAP[i][0]+.3));c.style.opacity=a*(1-P(t,CAP[i][1]+.15,CAP[i][1]+.3));c.style.transform=`scale(${.92+.08*a})`}
+const SW=[7.2,21.9,30.0,44.4,50.95,53.75];
+const LAY=['A','B','D','E','E1','E2','E3','E4','E5','F','G','Z'];
+const R0=async function(t){
+ LAY.forEach(i=>show(i,false));
+ const fr=Math.floor(t*24);$('grain').style.backgroundImage=`url(noise${((fr%4)+4)%4}.png)`;
+ $('grid').style.transform=`translate(${(t*6)%200-100}px,${(t*4)%200-100}px)`;$('grid').style.inset='-200px';
+ // ligne de traceur (transitions)
+ let sy=-1;SW.forEach(s=>{if(t>=s&&t<s+.5)sy=es(P(t,s,s+.5))*1920});$('scan').style.opacity=sy<0?0:1;$('scan').style.top=sy+'px';
+ $('warm').style.opacity=t>=50.95?es(P(t,51.0,53.2)):0;
+ // ---------- plan SVG ----------
+ const rowOn=t<7.25||(t>=28.4&&t<30.05);const mhOn=(t>=21.9&&t<30.05)||(t>=50.95&&t<53.8);
+ $('row').style.display=rowOn?'':'none';$('mh').style.display=mhOn?'':'none';$('ph').style.display=(t>=50.95&&t<53.8)?'':'none';
+ if(t<7.25){ // accroche : la rue des maisons sans toit
+  const z=lerp(1,1.9,es(P(t,3.65,4.6)));
+  $('row').setAttribute('transform',`translate(540 1300) scale(${z*lerp(.92,1,ex(P(t,0,1.5)))}) translate(-540 -1300) translate(${(1-z)*0} ${lerp(0,-90,es(P(t,3.65,4.6)))})`);
+  ROW.forEach((r,i)=>{const s0=.05+i*.12,p=k=>es(P(t,s0+k*.25,s0+k*.25+.6));
+   hset(HR[i],{g:p(0),f:p(.5),w:p(1),o:p(2),r:p(3),gr:ex(P(t,2.0+i*.1,3.2+i*.1))});
+   $('r'+i).setAttribute('transform',`translate(${r[0]} ${r[1]}) scale(${r[2]})`);
+   $('r'+i).style.opacity=(i==2?1:1-.7*es(P(t,3.65,4.4)))});
+ } else if(rowOn){ // retour sur la rue
+  ROW.forEach((r,i)=>{hset(HR[i],{g:1,f:1,w:1,o:1,r:1,gr:1,u:1,rc:'#B5522F'});$('r'+i).setAttribute('transform',`translate(${r[0]} ${r[1]}) scale(${r[2]})`);$('r'+i).style.opacity=i==2?0:ex(P(t,28.5+Math.abs(i-2)*.15,29.0+Math.abs(i-2)*.15))});
+  $('row').setAttribute('transform','');
+ }
+ if(t>=21.9&&t<30.05){ // le chantier
+  const rust=es(P(t,24.84,25.8));const rc=`rgb(${lerp(214,181,rust)|0},${lerp(235,82,rust)|0},${lerp(255,47,rust)|0})`;
+  hset(HM,{g:ex(P(t,21.95,22.4)),f:es(P(t,22.1,22.5)),w:es(P(t,22.3,22.95)),o:es(P(t,22.7,23.2)),r:es(P(t,22.9,23.3)),rc,u:es(P(t,25.0,26.2)),gr:es(P(t,25.94,27.6))});
+  const pb=es(P(t,28.46,29.3));const zz=lerp(1.25,.7,pb);
+  $('m').setAttribute('transform',`translate(${lerp(290,400,pb)} ${lerp(1400,1460,pb)}) scale(${zz})`);
+ }
+ if(t>=50.95&&t<53.8){ // le toit
+  hset(HM,{g:1,f:1,w:1,o:1,gr:1,t:es(P(t,51.05,51.9)),roof:ex(P(t,51.7,52.3)),win:.85*ex(P(t,52.6,53.2))});
+  hset(HP,{g:ex(P(t,51.97,52.3)),f:ex(P(t,52.0,52.3)),w:es(P(t,52.05,52.5)),o:es(P(t,52.3,52.6)),gr:es(P(t,52.2,52.9)),t:es(P(t,52.55,53.1)),roof:ex(P(t,52.95,53.4)),win:.85*ex(P(t,53.1,53.5))});
+  $('m').setAttribute('transform',`translate(130 1470) scale(.95)`);$('p').setAttribute('transform',`translate(640 1490) scale(.72)`);
+  $('mh').setAttribute('transform',`translate(540 1300) scale(${lerp(1.06,1,es(P(t,50.95,53.8)))}) translate(-540 -1300)`);
+ } else $('mh').setAttribute('transform','');
+ // pluie
+ const ra=(t>=23.76&&t<29)?ex(P(t,23.76,24.2))*(1-P(t,28.4,28.9)):0;
+ RN.forEach(r=>{const y=((r.o+t*r.sp)%720);r.e.style.left=r.x+'px';r.e.style.top=(780+y)+'px';r.e.style.opacity=ra*(y<620?1:0)});
+ // ---------- A : accroche ----------
+ if(sec('A',t,-1,7.25)){$('A').style.clipPath='none';
+  rise($('ha1'),t,0,.55,-50);rise($('ha2'),t,.55,.6,50);
+  $('hA').style.transform=`translateY(${lerp(0,-40,es(P(t,3.65,4.4)))}px) scale(${lerp(1,.8,es(P(t,3.65,4.4)))})`;
+  const yr=1+Math.floor(cl((t-2.0)/.22,0,8));$('cntv').textContent=t<2.9?yr+(yr>1?' ANS':' AN'):'DES ANNÉES';rise($('cnt'),t,1.92,.4,30);$('cnt').style.opacity=ex(P(t,1.92,2.3))*(1-P(t,3.6,3.9));
+  dr($('tagp'),es(P(t,4.67,5.1)));$('tagc').style.opacity=t>=4.67?1:0;const g=bk(P(t,5.0,5.45));$('tag').style.opacity=t>=5.0?1:0;$('tag').style.transform=`scale(${g})`;$('tag').style.transformOrigin='0 100%'}
+ // ---------- B/C : le budget ----------
+ const lev=t<7.4?0:100*es(P(t,7.4,9.1))-20*ex(P(t,14.95,15.4))-14*ex(P(t,16.1,16.5))-12*ex(P(t,16.95,17.35))-12*ex(P(t,17.8,18.3))-14*ex(P(t,19.2,19.6))-28*es(P(t,21.0,21.6));
+ if(sec('B',t,7.2,21.95)){
+  rise($('lab'),t,7.4,.5,20);$('lab').style.opacity=ex(P(t,7.4,7.9))*(1-P(t,10.9,11.1));
+  $('gfill').style.height=Math.max(0,lev)+'%';const low=P(lev,40,10)*(t>17?1:0);$('gfill').style.background=low>0?`linear-gradient(180deg,#F2A27F,#E8754F)`:'';
+  $('gauge').style.borderColor=t>=21.0&&t<21.95&&Math.floor(t*6)%2==0?'#E8754F':'#D6EBFF';
+  const dv=ex(P(t,9.61,10.2));$('devis').style.opacity=dv;$('devis').style.transform=`translateX(${(1-dv)*800}px)`;
+  [...$('devis').querySelectorAll('.row:not(.miss) em')].forEach((e,i)=>{e.style.transform=`scaleX(${ex(P(t,9.9+i*.08,10.3+i*.08))})`;e.style.transformOrigin='0 50%'});
+  ['m0','m1','m2'].forEach((m,i)=>{const a=es(P(t,17.45+i*.25,17.85+i*.25));$(m).style.height=(76*a)+'px';$(m).style.marginTop=$(m).style.marginBottom=(6*a)+'px';$(m).style.opacity=a});
+  [...$('devis').querySelectorAll('u')].forEach((u,i)=>{const s=19.04+i*.08;u.style.opacity=t>=s?1:0;u.style.transform=`translateY(${t>=s?Math.sin((t-s)*14+i)*5-ex(P(t,s,s+.3))*6:0}px)`});
+  const sp=bk(P(t,12.61,12.95));$('stamp').style.opacity=t>=12.61?(t<17.4?1:lerp(1,.35,P(t,17.4,17.8))):0;$('stamp').style.transform=`rotate(-10deg) scale(${lerp(1.7,1,sp)})`;
+  $('stx').style.transform=`scaleX(${ex(P(t,17.5,17.9))})`;
+  const H=[['hb1',11.11,13.6],['hb2',11.98,13.6],['hb3',12.61,13.6],['hb4',13.82,19.9],['hb5',20.14,20.95],['hb6',21.01,22]];
+  H.forEach(([id,s,e])=>{rise($(id),t,s,.45,30);$(id).style.opacity=ex(P(t,s,s+.45))*(1-P(t,e-.2,e))});
+  $('hb6').style.transform=`scale(${lerp(1.3,1,ex(P(t,21.01,21.4)))})`;
+  [['f0',14.45,15.0],['f1',15.6,16.1],['f2',16.52,16.98]].forEach(([id,s,e])=>{const a=ex(P(t,s,s+.3)),m=es(P(t,e-.25,e));const el=$(id);el.style.opacity=t>=s&&t<e?1:0;
+   el.style.transform=`translate(${lerp(0,50,m)}px,${lerp(0,260,m)+(1-a)*-60}px) scale(${lerp(1,.3,m)*(.7+.3*bk(P(t,s,s+.4)))})`;el.style.transformOrigin='0 0'});
+  $('devis').style.filter=t>=21.0?`brightness(${lerp(1,.45,P(t,21.0,21.4))})`:'';
+ }
+ // ---------- D : le chantier ----------
+ if(sec('D',t,21.9,30.05)){
+  const s=bk(P(t,22.95,23.3));$('stop').style.opacity=t>=22.95?1-P(t,25.7,26.0):0;$('stop').style.transform=`rotate(-7deg) scale(${lerp(1.8,1,s)})`;
+  const y=1+Math.floor(cl((t-25.94)/.33,0,5));$('yrv').textContent=y+(y>1?' ans':' an');$('yrs').style.opacity=ex(P(t,25.94,26.3))*(1-P(t,28.3,28.5));
+  rise($('hd1'),t,27.27,.5,40);$('hd1').style.opacity=ex(P(t,27.27,27.7))*(1-P(t,29.7,30.0));$('hD').style.top='230px';$('yrs').style.top='500px';
+ }
+ // ---------- E : la solution ----------
+ if(sec('E',t,30.0,32.65)){$('hE').style.opacity=1;rise($('hE').firstElementChild,t,30.18,.55,40);const a=bk(P(t,31.45,31.85));$('hav').style.opacity=t>=31.45?1:0;$('hav').style.transform=`scale(${lerp(.4,1,a)})`}
+ if(sec('E1',t,32.6,35.2)){rise($('chipE'),t,32.62,.4,-30);[['b1',32.71],['b2',33.73]].forEach(([id,s])=>{const a=ex(P(t,s,s+.5));$(id).style.opacity=a;$(id).style.transform=`translateX(${(1-a)*(id=='b1'?-900:900)}px)`});
+  $('plus').style.opacity=ex(P(t,33.6,33.9));$('rule').style.transform=`scaleX(${es(P(t,34.4,34.8))})`;rise($('res'),t,34.6,.4,30)}
+ if(sec('E2',t,35.15,37.55)){rise($('chipE2'),t,35.2,.4,-30);[0,1,2].forEach(i=>{const a=bk(P(t,35.26+i*.12,35.7+i*.12));$('sh'+i).style.transform=`translateY(${(1-a)*1200}px) rotate(${(1-a)*(i-1)*8}deg)`});
+  const k=cl(Math.floor((t-36.0)/.17),0,6);$('scanb').style.top=(660+88*(t<36?0:k+P(t,36+k*.17,36+k*.17+.08)*0))+'px';$('scanb').style.opacity=t>=36.0?1:0}
+ if(sec('E3',t,37.5,39.3)){const a=bk(P(t,37.6,38.1));$('vault').style.transform=`translateY(${(1-a)*-1200}px)`;$('shk').style.transform=`translateY(${lerp(-40,0,es(P(t,38.3,38.6)))}px)`}
+ if(sec('E4',t,39.25,41.9)){ST.forEach((s,i)=>{const a=ex(P(t,39.37+i*.25,39.8+i*.25));$('st'+i).style.opacity=a;$('st'+i).style.transform=`translateY(${(1-a)*300}px)`;
+   const p=t>=40.37+i*.33;$('pr'+i).style.color=p?'#7FD69A':'#9CC4EA';$('pr'+i).style.opacity=t>=39.6+i*.25?1:0;const d=bk(P(t,40.55+i*.33,40.9+i*.33));$('pd'+i).style.opacity=t>=40.55+i*.33?1:0;$('pd'+i).style.transform=`translateX(-50%) scale(${d})`})}
+ if(sec('E5',t,41.8,44.45)){rise($('pk'),t,41.9,.4,-30);
+  [['pg2',-14,41.96],['pg8',14,42.1],['pg5',0,42.25]].forEach(([id,r,s])=>{const a=ex(P(t,s,s+.6));$(id).style.transform=`translateY(${(1-a)*1300}px) rotateY(${r*1.3}deg) rotateZ(${r*.4}deg)`});
+  let k=0;CX.forEach((x,c)=>RY.forEach((y,r)=>{dr($(`s${c}_${r}`),es(P(t,43.28+k*.035,43.28+k*.035+.12)));k++}));
+  $('pg5').style.transform+=` scale(${lerp(1,1.05,P(t,43.2,44.4))})`}
+ // ---------- F : le guide ----------
+ if(sec('F',t,44.4,51.0)){dr($('gwr'),es(P(t,44.5,45.0)));dr($('gwd'),es(P(t,44.6,45.0)));$('gw').querySelector('svg').style.opacity=1-P(t,45.1,45.5);
+  const g=es(P(t,44.95,45.6));$('gd').style.opacity=g;$('gd').style.clipPath=`inset(${(1-g)*100}% 0 0 0)`;$('gd').style.transform=`translateY(${Math.sin(t*1.3)*8}px)`;
+  ['k1','k2','k3','k4'].forEach((k,i)=>{const s=47.95+i*.14,a=ex(P(t,s,s+.45));const big=k=='k3'?bk(P(t,49.2,49.6)):0;$(k).style.opacity=a;$(k).style.transform=`translateY(${(1-a)*60}px) scale(${1+.18*big})`;$(k).className=(k=='k3'&&t>=49.2)?'on':''})}
+ // ---------- G : le toit ----------
+ if(sec('G',t,50.95,53.8)){rise($('hg1'),t,51.05,.5,30);rise($('hg2'),t,51.97,.5,30);const a=bk(P(t,52.95,53.35));$('hg3').style.opacity=t>=52.95?1:0;$('hg3').style.transform=`scale(${lerp(.5,1,a)})`}
+ // ---------- Z : fin ----------
+ if(sec('Z',t,53.75,99)){const b=ex(P(t,53.8,54.4));$('fg').style.opacity=b;$('fg').style.transform=`translateY(${(1-b)*-300+Math.sin(t*1.3)*6}px)`;
+  dr($('cf'),es(P(t,53.9,54.7)));rise($('cv1'),t,54.3,.45,20);rise($('cv2'),t,54.5,.45,20);
+  const p=ex(P(t,53.92,54.5));$('fpr').style.opacity=p;$('fpr').style.transform=`scale(${lerp(1.4,1,p)})`;$('fpr').style.filter=`blur(${(1-p)*10}px)`;
+  $('fo').style.opacity=ex(P(t,54.9,55.2));$('fst').style.transform=`scaleX(${ex(P(t,55.2,55.6))})`;
+  const bt=bk(P(t,56.29,56.75));$('fbtn').style.opacity=t>=56.29?1:0;$('fbtn').style.transform=`scale(${.7+.3*bt})`;
+  $('fdrop').style.opacity=ex(P(t,56.8,57.1));$('d1').style.transform=`translateY(${Math.sin(t*6)*8}px)`;$('d2').style.transform=`translateY(${Math.sin(t*6-1)*8}px)`;$('d2').style.opacity=.55}
+ caps(t);
+ await document.fonts.ready;
+};
+window.render=t=>R0(t-0.5);
+</script></body></html>

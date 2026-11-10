@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#2B2E31}
+body{font-family:'Inter','Noto Color Emoji',sans-serif;color:#fff}
+#st{position:absolute;inset:0;overflow:hidden}
+.L{position:absolute;inset:0}
+.B{font-family:'Inter Display';font-weight:900;text-transform:uppercase;letter-spacing:-3px;line-height:.92}
+.T{font-family:'Inter Display';font-weight:200;letter-spacing:-4px}
+.O{color:#FF6B1A}
+#bg{background:radial-gradient(circle at 50% 35%,#45494D 0%,#2B2E31 55%,#1C1E20 100%)}
+#grid{background-image:linear-gradient(rgba(255,255,255,.05) 2px,transparent 2px),linear-gradient(90deg,rgba(255,255,255,.05) 2px,transparent 2px);background-size:90px 90px}
+#grain{background-size:540px 960px;mix-blend-mode:overlay;opacity:.12}
+#tape{position:absolute;left:-200px;width:1500px;height:130px;background:repeating-linear-gradient(45deg,#FF6B1A 0 60px,#111 60px 120px);transform:rotate(-8deg);opacity:0;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+/* notifications / bulles */
+.nt{position:absolute;left:70px;right:70px;display:flex;align-items:center;gap:24px;background:#F4F1EC;color:#1C1E20;border-radius:36px;padding:28px 32px;box-shadow:0 30px 60px rgba(0,0,0,.45)}
+.nt .av{flex:none;width:96px;height:96px;border-radius:28px;background:#FF6B1A;display:flex;align-items:center;justify-content:center;font-size:52px}
+.nt b{display:block;font-size:30px;color:#6B6F74;font-weight:700}
+.nt span{display:block;font-size:44px;font-weight:800;line-height:1.15}
+#bag{position:absolute;left:390px;top:780px;width:300px;height:330px}
+#stop{position:absolute;left:0;right:0;top:1150px;text-align:center}
+#stop .B{font-size:150px}
+#stop small{display:block;font-size:44px;font-weight:700;color:#FFB48A;margin-top:16px}
+/* distance */
+#dist{position:absolute;left:0;top:0;width:1080px;height:1920px}
+#distt{position:absolute;left:0;right:0;top:380px;text-align:center}
+#distt .B{font-size:130px}
+.pl{position:absolute;text-align:center;font-size:30px;font-weight:800;letter-spacing:3px;text-transform:uppercase}
+/* demandes */
+.bub{position:absolute;left:70px;max-width:900px;background:#F4F1EC;color:#1C1E20;border-radius:12px 44px 44px 44px;padding:30px 38px;font-size:50px;font-weight:800;line-height:1.15;box-shadow:0 24px 50px rgba(0,0,0,.4);transform-origin:0 0}
+.bub small{display:block;font-size:28px;color:#FF6B1A;font-weight:800;letter-spacing:3px;margin-bottom:8px}
+.big-ic{position:absolute;width:300px;height:300px}
+#sent{position:absolute;left:0;right:0;top:1350px;text-align:center}
+#sent .B{font-size:120px}
+.bill{position:absolute;width:220px;height:110px;border-radius:10px;background:#7FB069;border:4px solid #4E7A3E;box-shadow:0 12px 24px rgba(0,0,0,.4)}
+.bill:after{content:'F';position:absolute;left:0;right:0;top:12px;text-align:center;font-family:'Inter Display';font-weight:900;font-size:64px;color:#2F4F25}
+/* semaines */
+#wk{position:absolute;left:0;right:0;top:300px;text-align:center}
+#wk .T{font-size:340px;line-height:1}
+#wk .lb{font-size:44px;font-weight:800;letter-spacing:10px;color:#FFB48A}
+#prog{position:absolute;left:110px;right:110px;top:950px}
+#prog .lb{display:flex;justify-content:space-between;font-size:34px;font-weight:800;margin-bottom:16px}
+#prog .tr{height:46px;border-radius:23px;background:rgba(255,255,255,.12);overflow:hidden}
+#prog .fl{height:100%;width:0;background:repeating-linear-gradient(45deg,#FF6B1A 0 26px,#E05A10 26px 52px);border-radius:23px}
+.miss{position:absolute;left:110px;right:110px;display:flex;align-items:center;gap:22px;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.12);border-radius:30px;padding:22px 28px;font-size:38px;font-weight:700}
+.miss i{font-style:normal;width:70px;height:70px;border-radius:50%;background:#E63946;display:flex;align-items:center;justify-content:center;font-size:36px}
+.miss small{margin-left:auto;font-size:28px;color:#9AA0A6}
+/* œil barré */
+#eye{position:absolute;left:340px;top:860px;width:400px;height:300px}
+/* jauge */
+#gauge{position:absolute;left:140px;top:520px;width:800px;height:480px}
+#gt{position:absolute;left:0;right:0;top:1060px;text-align:center}
+#gt .lb{font-size:40px;font-weight:800;letter-spacing:8px;color:#9AA0A6}
+#gt .T{font-size:260px;line-height:1}
+/* la bonne méthode */
+#mh{position:absolute;left:0;right:0;top:220px;text-align:center}
+#mh .B{font-size:120px}
+#house{position:absolute;left:140px;top:560px;width:800px;height:640px}
+.pay{position:absolute;right:70px;padding:16px 26px;border-radius:24px;background:#F4F1EC;color:#1C1E20;font-size:34px;font-weight:800;display:flex;align-items:center;gap:14px;box-shadow:0 14px 30px rgba(0,0,0,.35)}
+.pay i{font-style:normal;width:46px;height:46px;border-radius:12px;background:#2FAE6B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:30px}
+#start{position:absolute;left:70px;top:1260px;padding:20px 30px;border-radius:24px;border:3px dashed #FFB48A;font-size:36px;font-weight:800;color:#FFB48A}
+#proof{position:absolute;left:0;right:0;top:1400px;text-align:center}
+#proof .B{font-size:96px}
+/* le fer */
+#iron{position:absolute;left:0;top:0;width:1080px;height:1920px}
+#irt{position:absolute;left:0;right:0;top:260px;text-align:center}
+#irt .B{font-size:110px}
+/* question */
+#qq{position:absolute;left:0;right:0;top:420px;text-align:center}
+#qq .q{font-family:'Inter Display';font-weight:200;font-size:520px;line-height:1;color:#FF6B1A}
+#qq .B{font-size:84px;margin-top:20px}
+/* guide */
+#gbg{background:radial-gradient(circle at 50% 42%,#FF8A45 0%,#FF6B1A 40%,#C64A0A 100%)}
+#gd{position:absolute;left:110px;top:330px;width:860px;height:992px;filter:drop-shadow(0 50px 50px rgba(60,20,0,.55));transform-origin:50% 100%}
+#gd img{width:100%;height:100%}
+#gtape{position:absolute;left:-40px;right:-40px;top:200px;height:96px;background:#111;color:#FF6B1A;display:flex;align-items:center;justify-content:center;font-family:'Inter Display';font-weight:900;font-size:44px;letter-spacing:10px;transform:rotate(-4deg)}
+/* contrat */
+.ct{position:absolute;width:840px;background:#fff;border-radius:14px;box-shadow:0 30px 60px rgba(0,0,0,.5);overflow:hidden;transform-origin:50% 100%}
+.ct img{width:840px;display:block}
+#ctl{position:absolute;left:0;right:0;top:200px;text-align:center}
+#ctl span{display:inline-block;padding:16px 34px;background:#FF6B1A;color:#111;font-weight:900;font-size:34px;letter-spacing:4px;border-radius:10px}
+#hlc{position:absolute;left:20px;top:350px;width:800px;height:150px;background:rgba(255,107,26,.32);mix-blend-mode:multiply;border-radius:8px;transform-origin:0 50%}
+/* kits */
+.kc{position:absolute;width:450px;height:230px;background:#F4F1EC;color:#1C1E20;border-radius:26px;padding:30px 32px;box-shadow:0 24px 50px rgba(0,0,0,.4);border-left:16px solid #FF6B1A}
+.kc small{display:block;font-size:26px;font-weight:800;letter-spacing:5px;color:#FF6B1A}
+.kc b{display:block;font-family:'Inter Display';font-weight:900;font-size:50px;line-height:1.02;margin-top:10px;text-transform:uppercase;letter-spacing:-1px}
+#k4h{position:absolute;left:0;right:0;top:260px;text-align:center}
+#k4h .T{font-size:260px;line-height:1}#k4h .B{font-size:80px}
+/* fait / promis */
+.fp{position:absolute;left:80px;right:80px;border-radius:36px;padding:40px 46px;display:flex;align-items:center;gap:36px}
+.fp svg{flex:none;width:170px;height:170px}
+.fp .B{font-size:84px}
+.fp small{display:block;font-size:34px;font-weight:700;margin-top:10px;opacity:.75;text-transform:none;letter-spacing:0}
+#fait{top:420px;background:#F4F1EC;color:#1C1E20}
+#prom{top:900px;background:rgba(255,255,255,.06);border:4px dashed rgba(255,255,255,.35);color:#fff}
+#promx{position:absolute;left:60px;right:60px;top:1010px;height:14px;background:#E63946;border-radius:7px;transform:rotate(-6deg);transform-origin:0 50%}
+/* fin */
+#ebook{position:absolute;left:250px;top:110px;width:580px;height:669px;filter:drop-shadow(0 40px 50px rgba(0,0,0,.6))}
+#ebook img{width:100%;height:100%}
+#sign{position:absolute;left:110px;right:110px;top:830px;height:420px;border-radius:30px;background:#FF6B1A;color:#111;box-shadow:0 30px 60px rgba(0,0,0,.45);text-align:center;padding-top:40px}
+#sign:before,#sign:after{content:'';position:absolute;top:24px;width:26px;height:26px;border-radius:50%;background:#7A3008}
+#sign:before{left:26px}#sign:after{right:26px}
+#sign .lb{font-size:32px;font-weight:900;letter-spacing:6px}
+#digits{display:flex;justify-content:center;margin-top:10px;height:220px;overflow:visible}
+#digits span{display:inline-block;font-family:'Inter Display';font-weight:900;font-size:190px;line-height:220px;letter-spacing:-6px}
+#digits small{font-family:'Inter Display';font-weight:900;font-size:70px;margin:110px 0 0 18px}
+#eold{position:relative;display:inline-block;font-size:44px;font-weight:800;margin-top:6px}
+#eold i{position:absolute;left:-8px;right:-8px;top:52%;height:7px;background:#111;transform-origin:0 50%}
+#ebtn{position:absolute;left:90px;right:90px;top:1330px;height:160px;border-radius:24px;background:#111;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Inter Display';font-weight:900;font-size:50px;text-transform:uppercase;letter-spacing:-1px;border:5px solid #FF6B1A}
+#esub{position:absolute;left:0;right:0;top:1520px;text-align:center;font-size:42px;font-weight:800}
+#esub b{color:#FF6B1A}
+/* sous-titres : bande de chantier */
+#cap{position:absolute;left:40px;right:40px;top:1560px;text-align:center}
+#cap div{display:inline-block;background:#F4F1EC;color:#1C1E20;font-weight:800;font-size:48px;line-height:1.25;padding:16px 30px;border-radius:8px;transform:rotate(-1.5deg);box-shadow:0 10px 24px rgba(0,0,0,.4);max-width:1000px}
+#cap b{color:#E05A10}
+</style></head><body>
+<div id="st">
+ <div class="L" id="bg"></div><div class="L" id="grid"></div>
+ <!-- 1 accroche -->
+ <div class="L" id="S1"><div class="nt" id="n1" style="top:260px"><div class="av">👷🏾</div><div><b>Le maçon · maintenant</b><span>Il me faut une grosse avance.</span></div></div>
+  <svg id="bag" viewBox="0 0 300 330"><path d="M110 40h80l-20 50h-40z" fill="#C9A15B"/><path d="M60 140c0-40 40-60 90-60s90 20 90 60l20 130c0 30-20 50-110 50S40 300 40 270z" fill="#E0B868"/><text x="150" y="250" text-anchor="middle" font-family="Inter Display" font-weight="900" font-size="120" fill="#7A5A1E">F</text></svg>
+  <div id="stop"><div class="B">N'envoie <span class="O">rien</span></div><small>avant d'avoir vu ça ↓</small></div></div>
+ <!-- 2 loin du pays -->
+ <div class="L" id="S2"><div id="distt"><div class="B">Loin<br><span class="O">du pays</span></div></div>
+  <svg id="dist" viewBox="0 0 1080 1920" fill="none"><path id="dp" d="M170 1250 C 380 900, 700 900, 910 1250" stroke="#fff" stroke-width="6" stroke-dasharray="6 20" stroke-linecap="round"/><circle cx="170" cy="1250" r="26" fill="#fff"/><circle cx="910" cy="1250" r="26" fill="#FF6B1A"/><g id="plane"><path d="M-30 0 L30 0 M0 -24 L12 0 L0 24" stroke="#FF6B1A" stroke-width="10" stroke-linecap="round"/></g></svg>
+  <div class="pl" style="left:60px;top:1300px;width:220px">Toi</div><div class="pl O" style="left:800px;top:1300px;width:220px">Le chantier</div></div>
+ <!-- 3 ce que dit le maçon -->
+ <div class="L" id="S3"><div class="bub" id="m1" style="top:280px"><small>LE MAÇON</small>« Il me faut l'avance pour démarrer. »</div>
+  <div class="bub" id="m2" style="top:560px"><small>LE MAÇON</small>« Envoie-moi l'argent du fer, je vais l'acheter. »</div>
+  <svg class="big-ic" id="ironic" style="left:390px;top:900px" viewBox="0 0 300 300" fill="none" stroke="#9AA0A6" stroke-width="18" stroke-linecap="round"><path d="M40 220L220 40M70 250L250 70M100 280L280 100"/></svg>
+  <div id="bills"></div><div id="sent"><div class="B">Tu <span class="O">envoies.</span></div></div></div>
+ <!-- 4 les semaines passent -->
+ <div class="L" id="S4"><div id="wk"><div class="lb">SEMAINE</div><div class="T" id="wkn">1</div></div>
+  <div id="prog"><div class="lb"><span>Le chantier</span><span id="pct">0 %</span></div><div class="tr"><div class="fl" id="fl"></div></div></div>
+  <div class="miss" id="ms0" style="top:1170px"><i>📞</i>Le maçon<small>Appel manqué</small></div>
+  <div class="miss" id="ms1" style="top:1300px"><i>📞</i>Le maçon<small>Appel manqué</small></div>
+  <div class="miss" id="ms2" style="top:1430px"><i>📞</i>Le maçon<small>Appel manqué</small></div></div>
+ <!-- 5 tu ne peux pas aller voir -->
+ <div class="L" id="S5"><div id="distt2" style="position:absolute;left:0;right:0;top:400px;text-align:center"><div class="B" style="font-size:120px">Des milliers<br>de <span class="O">km</span></div></div>
+  <svg id="eye" viewBox="0 0 400 300" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round"><path d="M20 150C90 40 310 40 380 150C310 260 90 260 20 150z"/><circle cx="200" cy="150" r="50" fill="#fff"/><path id="eyex" d="M60 270L340 30" stroke="#E63946" stroke-width="22"/></svg></div>
+ <!-- 6 moyen de pression -->
+ <div class="L" id="S6"><svg id="gauge" viewBox="0 0 800 480" fill="none"><path d="M80 420A320 320 0 0 1 720 420" stroke="rgba(255,255,255,.15)" stroke-width="60"/><path d="M80 420A320 320 0 0 1 240 143" stroke="#E63946" stroke-width="60"/><path d="M240 143A320 320 0 0 1 560 143" stroke="#FFB48A" stroke-width="60"/><path d="M560 143A320 320 0 0 1 720 420" stroke="#2FAE6B" stroke-width="60"/><g id="needle" style="transform-origin:400px 420px"><path d="M400 420L400 150" stroke="#fff" stroke-width="16" stroke-linecap="round"/></g><circle cx="400" cy="420" r="34" fill="#fff"/></svg>
+  <div id="gt"><div class="lb">TON MOYEN DE PRESSION</div><div class="T" id="gv">100 %</div></div></div>
+ <!-- 7 la bonne méthode -->
+ <div class="L" id="S7"><div id="mh"><div class="B">La bonne<br><span class="O">méthode</span></div></div>
+  <svg id="house" viewBox="0 0 800 640" fill="none" stroke-linejoin="round"><rect id="hf" x="120" y="520" width="560" height="70" fill="#7A7F85" stroke="#fff" stroke-width="6"/><g id="hw" fill="#B8BCC0" stroke="#fff" stroke-width="6"><rect x="150" y="300" width="500" height="220"/><rect x="240" y="370" width="90" height="90" fill="#2B2E31"/><rect x="470" y="370" width="90" height="150" fill="#2B2E31"/></g><rect id="hd" x="110" y="250" width="580" height="50" fill="#FF6B1A" stroke="#fff" stroke-width="6"/></svg>
+  <div class="pay" id="py0" style="top:1110px"><i>✓</i>Fondations · payées après preuve</div>
+  <div class="pay" id="py1" style="top:880px"><i>✓</i>Murs · payés après preuve</div>
+  <div class="pay" id="py2" style="top:770px"><i>✓</i>Dalle · payée après preuve</div>
+  <div id="start">Démarrage : une petite somme</div>
+  <div id="proof"><div class="B">Toujours après<br><span class="O">la preuve</span></div></div></div>
+ <!-- 8 le fer au fournisseur -->
+ <div class="L" id="S8"><div id="irt"><div class="B">Le fer :<br><span class="O">payé au fournisseur</span></div></div>
+  <svg id="iron" viewBox="0 0 1080 1920" fill="none" stroke-linecap="round" stroke-linejoin="round">
+   <g transform="translate(170 900)"><circle r="110" fill="#F4F1EC"/><g fill="#2B2E31"><circle cx="0" cy="-30" r="34"/><path d="M-60 60a60 60 0 0 1 120 0z"/></g><text y="170" text-anchor="middle" font-family="Inter" font-weight="800" font-size="36" fill="#fff" stroke="none">TOI</text></g>
+   <g transform="translate(910 900)"><circle r="110" fill="#FF6B1A"/><g fill="#fff"><rect x="-70" y="-40" width="80" height="60" rx="6"/><path d="M14 -20h34l22 24v16H14z"/><circle cx="-40" cy="34" r="16"/><circle cx="40" cy="34" r="16"/></g><text y="170" text-anchor="middle" font-family="Inter" font-weight="800" font-size="36" fill="#fff" stroke="none">FOURNISSEUR</text></g>
+   <g transform="translate(540 1330)"><circle r="90" fill="#5A5F64"/><g fill="#D9DCDF"><path d="M-46 0a46 46 0 0 1 92 0z"/><rect x="-56" y="0" width="112" height="12" rx="6"/><circle cx="0" cy="34" r="22"/></g><text y="150" text-anchor="middle" font-family="Inter" font-weight="800" font-size="34" fill="#9AA0A6" stroke="none">LE MAÇON</text></g>
+   <path id="ia" d="M290 900 H 790" stroke="#2FAE6B" stroke-width="14"/><path id="ib" d="M240 990 L 470 1270" stroke="#9AA0A6" stroke-width="10" stroke-dasharray="10 18"/><path id="ibx" d="M320 1080 l60 60 M380 1080 l-60 60" stroke="#E63946" stroke-width="16"/></svg></div>
+ <!-- 9 question -->
+ <div class="L" id="S9"><div id="qq"><div class="q">?</div><div class="B">Comment <span class="O">protéger</span><br>ton argent</div></div></div>
+ <!-- 10 guide -->
+ <div class="L" id="S10"><div class="L" id="gbg"></div><div id="gtape">LA SOLUTION · LA SOLUTION · LA SOLUTION</div><div id="gd"><img src="guide-3d.png"></div></div>
+ <!-- 11 contrat -->
+ <div class="L" id="S11"><div id="ctl"><span>KIT 2 · LE CONTRAT AVEC LE MAÇON</span></div>
+  <div class="ct" id="cp3" style="left:120px;top:420px"><img src="ct3.png"></div><div class="ct" id="cp1" style="left:120px;top:380px"><img src="ct1.png"></div><div class="ct" id="cp2" style="left:120px;top:400px"><img src="ct2.png"><div id="hlc"></div></div></div>
+ <!-- 12 kits -->
+ <div class="L" id="S12"><div id="k4h"><div class="T">+4</div><div class="B">kits <span class="O">bonus</span></div></div>
+  <div class="kc" id="q0"><small>KIT 1</small><b>Les checklists</b></div><div class="kc" id="q1"><small>KIT 2</small><b>Les modèles</b></div>
+  <div class="kc" id="q2"><small>KIT 3</small><b>Les calculs</b></div><div class="kc" id="q3"><small>KIT 4</small><b>Les carnets</b></div></div>
+ <!-- 13 fait / promis -->
+ <div class="L" id="S13"><div class="fp" id="fait"><svg viewBox="0 0 170 170"><g fill="#B8BCC0" stroke="#1C1E20" stroke-width="5"><rect x="15" y="110" width="65" height="40"/><rect x="85" y="110" width="65" height="40"/><rect x="50" y="65" width="65" height="40"/><rect x="15" y="20" width="65" height="40"/><rect x="85" y="20" width="65" height="40"/></g></svg><div class="B">Paie ce qui<br>est <span class="O">fait</span></div></div>
+  <div class="fp" id="prom"><svg viewBox="0 0 170 170" fill="none" stroke="#fff" stroke-width="8"><path d="M20 30h130v80H80l-40 35v-35H20z"/></svg><div class="B">Pas ce qui<br>est promis</div></div><div id="promx"></div></div>
+ <!-- 14 fin -->
+ <div class="L" id="S14"><div id="ebook"><img src="guide-3d.png"></div>
+  <div id="sign"><div class="lb">LE GUIDE + 4 KITS</div><div id="digits"><span id="g0">9</span><span id="g1">&nbsp;</span><span id="g2">9</span><span id="g3">0</span><span id="g4">0</span><small id="gcf">F CFA</small></div><div id="eold">au lieu de 15 000 F<i id="est"></i></div></div>
+  <div id="ebtn">Clique sur le lien ↓</div><div id="esub">avant ton <b>prochain virement</b></div></div>
+ <div id="tape"></div>
+ <div class="L" id="grain"></div>
+ <div id="cap"></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>cl((t-a)/(b-a));
+const eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const ex=x=>x>=1?1:1-Math.pow(2,-10*x);
+const bk=x=>{const c1=1.5,c3=c1+1;return x<=0?0:x>=1?1:1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const bounce=x=>{if(x<=0)return 0;if(x>=1)return 1;const n=7.5625,d=2.75;if(x<1/d)return n*x*x;if(x<2/d)return n*(x-=1.5/d)*x+.75;if(x<2.5/d)return n*(x-=2.25/d)*x+.9375;return n*(x-=2.625/d)*x+.984375};
+const lerp=(a,b,x)=>a+(b-a)*x;
+const show=(id,on)=>{$(id).style.display=on?'block':'none'};
+function sec(id,t,a,b,fi=.2,fo=.2){const on=t>=a&&t<b;show(id,on);if(on)$(id).style.opacity=P(t,a,a+fi)*(1-P(t,b-fo,b));return on}
+function pop(el,t,s,d=.45,from=.4){const a=bk(P(t,s,s+d));el.style.opacity=t>=s?1:0;el.style.transform=`scale(${from+(1-from)*a})`}
+function rise(el,t,s,d=.5,dist=80){const a=ex(P(t,s,s+d));el.style.opacity=a;el.style.transform=`translateY(${(1-a)*dist}px)`}
+function slideX(el,t,s,d=.5,dist=900){const a=ex(P(t,s,s+d));el.style.opacity=t>=s?1:0;el.style.transform=`translateX(${(1-a)*dist}px)`}
+function drawEl(el,t,s,d){const L=el.getTotalLength();el.style.strokeDasharray=L;el.style.strokeDashoffset=L*(1-eio(P(t,s,s+d)))}
+// bande de chantier entre les scènes
+const TAPES=[4.25,12.7,24.5,36.1,47.4];
+function tapeAt(t){const e=$('tape');const c=TAPES.find(x=>t>=x-.3&&t<x+.3);if(c===undefined){e.style.opacity=0;return}const k=P(t,c-.3,c+.3);e.style.opacity=1;e.style.top=lerp(-200,2100,eio(k))+'px'}
+// sous-titres : une phrase à la fois sur une bande blanche
+const CH=[[4.38,6.30,"Tu es loin ou même <b>hors du pays.</b>"],[12.91,16.73,"Les semaines passent. Le chantier n'avance plus. Le maçon <b>ne répond plus.</b>"],
+ [17.14,20.67,"Et toi, à des milliers de kilomètres, tu ne peux même pas <b>aller voir.</b>"],[21.10,24.18,"Avec une grosse avance, tu as perdu ton seul <b>moyen de pression.</b>"],
+ [25.83,29.02,"Une petite somme pour démarrer, puis tu paies <b>chaque étape finie</b>,"],[29.35,31.45,"les fondations, les murs, la dalle,"],
+ [36.31,39.32,"Mais comment avoir toutes ces stratégies afin de <b>protéger ton argent</b> ?"],[39.71,42.63,"Dans le guide « Les erreurs à éviter avant d'investir au pays »,"],
+ [42.84,46.07,"se trouve un <b>modèle de contrat</b> avec le maçon prêt à remplir,"]];
+const CTP=[1560,1620,1600,1560,1640,1640,1560,1470,1540];
+function caps(t){const c=$('cap');const i=CH.findIndex(([s,e])=>t>=s-.1&&t<e+.3);if(i<0){c.innerHTML='';c.dataset.k='';return}
+ if(c.dataset.k!=String(i)){c.innerHTML=`<div>${CH[i][2]}</div>`;c.dataset.k=i}
+ const a=ex(P(t,CH[i][0]-.1,CH[i][0]+.25));c.style.opacity=a*(1-P(t,CH[i][1]+.15,CH[i][1]+.3));c.firstChild.style.transform=`rotate(-1.5deg) translateY(${(1-a)*30}px) scale(${.92+.08*a})`;c.style.top=CTP[i]+'px'}
+// billets
+const BI=[];for(let i=0;i<6;i++){const d=document.createElement('div');d.className='bill';$('bills').appendChild(d);BI.push({e:d,s:11.96+i*.07,x:200+i*120})}
+
+const SC=['S1','S2','S3','S4','S5','S6','S7','S8','S9','S10','S11','S12','S13','S14'];
+const R0=async function(t){
+  SC.forEach(i=>show(i,false));
+  const fr=Math.floor(t*24);$('grain').style.backgroundImage=`url(noise${((fr%4)+4)%4}.png)`;$('grain').style.backgroundPosition=`${(fr*137)%540}px ${(fr*91)%960}px`;
+  // 1 accroche
+  if(sec('S1',t,-1,4.3,.01,.2)){
+    const n=bk(P(t,0,.45));$('n1').style.transform=`translateY(${(1-n)*-300}px)`;$('n1').style.opacity=P(t,0,.1);
+    const g=bk(P(t,.6,1.3));$('bag').style.transform=`scale(${.3+.9*g}) rotate(${Math.sin(t*3)*3}deg)`;$('bag').style.opacity=t>=.6?1:0;
+    const s=ex(P(t,2.14,2.5));$('stop').style.opacity=s;$('stop').style.transform=`scale(${1.3-.3*s})`;
+    $('bag').style.filter=`grayscale(${P(t,2.14,2.6)}) brightness(${1-.4*P(t,2.14,2.6)})`;}
+  // 2 loin du pays
+  if(sec('S2',t,4.25,6.6)){rise($('distt'),t,4.38,.5,60);drawEl($('dp'),t,4.6,.8);
+    const L=$('dp').getTotalLength(),k=ex(P(t,4.9,6.1)),p=$('dp').getPointAtLength(L*k),p2=$('dp').getPointAtLength(Math.min(L,L*k+2));
+    $('plane').setAttribute('transform',`translate(${p.x} ${p.y}) rotate(${Math.atan2(p2.y-p.y,p2.x-p.x)*180/Math.PI})`);$('plane').style.opacity=t>4.9?1:0;}
+  // 3 les demandes du maçon
+  if(sec('S3',t,6.55,12.75)){
+    pop($('m1'),t,7.8,.5,.3);pop($('m2'),t,9.35,.5,.3);
+    const ir=bk(P(t,9.6,10.2));$('ironic').style.opacity=t>=9.6&&t<11.9?1:0;$('ironic').style.transform=`scale(${ir}) rotate(${(1-ir)*-30}deg)`;
+    BI.forEach(b=>{const k=P(t,b.s,b.s+.7);b.e.style.left=b.x+'px';b.e.style.top=lerp(1000,-200,eio(k))+'px';b.e.style.opacity=k>0&&k<1?1:0;b.e.style.transform=`rotate(${(b.x%7-3)*10+k*90}deg)`});
+    const s=bk(P(t,11.96,12.4));$('sent').style.opacity=t>=11.96?1:0;$('sent').style.transform=`scale(${.4+.6*s})`;}
+  // 4 les semaines passent
+  if(sec('S4',t,12.7,17.0)){
+    rise($('wk'),t,12.8,.4,40);const w=Math.max(1,Math.min(9,1+Math.floor(P(t,12.9,14.0)*9)));$('wkn').textContent=w;
+    const pr=Math.round(12*ex(P(t,12.9,13.8)));$('fl').style.width=pr+'%';$('pct').textContent=(t>14.1?'12 % · bloqué':pr+' %');$('pct').style.color=t>14.1?'#E63946':'#fff';
+    rise($('prog'),t,13.0,.4,40);
+    [15.55,15.85,16.15].forEach((s,i)=>slideX($('ms'+i),t,s,.45,(i%2?-900:900)));}
+  // 5 tu ne peux pas aller voir
+  if(sec('S5',t,16.95,20.95)){rise($('distt2'),t,17.14,.5,60);pop($('eye'),t,18.4,.5,.5);drawEl($('eyex'),t,19.6,.35);}
+  // 6 moyen de pression
+  if(sec('S6',t,20.9,24.6)){pop($('gauge'),t,21.0,.5,.7);
+    const v=t<22.4?1:1-eio(P(t,22.4,23.6));$('needle').style.transform=`rotate(${lerp(-90,90,v)}deg)`;$('gv').textContent=Math.round(v*100)+' %';$('gv').style.color=v<.25?'#E63946':'#fff';rise($('gt'),t,21.2,.5,40);}
+  // 7 la bonne méthode
+  if(sec('S7',t,24.45,33.35)){rise($('mh'),t,24.72,.5,60);
+    const st=ex(P(t,25.83,26.3));$('start').style.opacity=st;$('start').style.transform=`translateX(${(1-st)*-400}px)`;
+    const f=bounce(P(t,29.35,29.95)),w=bounce(P(t,30.4,30.95)),d=bounce(P(t,30.95,31.5));
+    $('hf').style.transform=`translateY(${(1-f)*-700}px)`;$('hf').style.opacity=t>=29.35?1:0;
+    $('hw').style.transform=`translateY(${(1-w)*-900}px)`;$('hw').style.opacity=t>=30.4?1:0;
+    $('hd').style.transform=`translateY(${(1-d)*-1000}px)`;$('hd').style.opacity=t>=30.95?1:0;
+    [29.7,30.7,31.25].forEach((s,i)=>slideX($('py'+i),t,s,.4,600));
+    const pf=ex(P(t,31.76,32.2));$('proof').style.opacity=pf;$('proof').style.transform=`translateY(${(1-pf)*50}px)`;$('mh').style.opacity=1-P(t,31.6,31.8);}
+  // 8 le fer
+  if(sec('S8',t,33.3,36.4)){rise($('irt'),t,33.44,.5,60);drawEl($('ia'),t,34.4,.6);drawEl($('ib'),t,33.9,.4);drawEl($('ibx'),t,34.9,.3);}
+  // 9 question
+  if(sec('S9',t,36.0,39.6)){const q=bk(P(t,36.31,36.9));$('qq').querySelector('.q').style.transform=`scale(${q}) rotate(${(1-q)*-20}deg)`;rise($('qq').querySelector('.B'),t,37.2,.5,40);}
+  // 10 guide
+  if(sec('S10',t,39.55,42.75)){const tp=ex(P(t,39.6,40.0));$('gtape').style.transform=`rotate(-4deg) translateX(${(1-tp)*-1200}px)`;
+    const g=bounce(P(t,39.71,40.5));$('gd').style.transform=`translateY(${(1-g)*-900}px) scale(${1+.02*P(t,40.5,42.6)})`;$('gd').style.opacity=t>=39.71?1:0;}
+  // 11 contrat
+  if(sec('S11',t,42.7,46.25)){rise($('ctl'),t,42.75,.4,30);
+    [['cp3',42.85,8],['cp1',43.05,-6],['cp2',43.3,1]].forEach(([id,s,r])=>{const a=ex(P(t,s,s+.5));$(id).style.opacity=t>=s?1:0;$(id).style.transform=`translateY(${(1-a)*1000}px) rotate(${r*a}deg)`});
+    $('hlc').style.transform=`scaleX(${ex(P(t,44.2,44.7))})`;}
+  // 12 kits
+  if(sec('S12',t,46.1,47.55)){rise($('k4h'),t,46.21,.35,40);const ps=[[60,720],[570,720],[60,990],[570,990]];
+    [46.3,46.4,46.5,46.6].forEach((s,i)=>{const e=$('q'+i);e.style.left=ps[i][0]+'px';e.style.top=ps[i][1]+'px';pop(e,t,s,.4,.3)});}
+  // 13 fait / promis
+  if(sec('S13',t,47.4,49.9)){slideX($('fait'),t,47.6,.45,-900);slideX($('prom'),t,48.73,.45,900);$('promx').style.transform=`rotate(-6deg) scaleX(${ex(P(t,49.2,49.5))})`;}
+  // 14 fin
+  if(sec('S14',t,49.85,99)){const b=ex(P(t,49.9,50.5));$('ebook').style.transform=`translateY(${(1-b)*-600+Math.sin(t*1.5)*6}px)`;$('ebook').style.opacity=P(t,49.9,50.05);
+    const sg=bk(P(t,49.94,50.45));$('sign').style.transform=`translateY(${(1-sg)*500}px)`;
+    [50.2,50.2,50.45,50.7,50.95].forEach((s,i)=>{const e=$('g'+i);const a=bounce(P(t,s,s+.5));e.style.opacity=t>=s?1:0;e.style.transform=`translateY(${(1-a)*-500}px)`});
+    $('gcf').style.opacity=ex(P(t,51.2,51.5));$('eold').style.opacity=ex(P(t,51.3,51.6));$('est').style.transform=`scaleX(${ex(P(t,51.7,52.0))})`;
+    pop($('ebtn'),t,52.42,.5,.6);rise($('esub'),t,53.4,.45,30);}
+  tapeAt(t);caps(t);
+  await document.fonts.ready;
+};
+window.render=t=>R0(t-0.5);
+</script></body></html>

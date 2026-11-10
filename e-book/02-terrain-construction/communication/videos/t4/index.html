@@ -210,7 +210,7 @@ function caps(t){const c=$('cap');const gi=CH.findIndex(([s,e])=>t>=s-.1&&t<e+.3
  const cur=ws.findIndex(x=>t<x.e);const k=cur<0?ws.length-1:cur;const st=Math.floor(k/6)*6;const grp=ws.slice(st,st+6);
  const key=gi+'-'+st;if(cg!==key){c.innerHTML=grp.map(x=>`<span>${x.w}<u></u></span>`).join(' ');cg=key}
  [...c.children].forEach((sp,i)=>{const x=grp[i];const a=ex(P(t,x.s-.08,x.s+.2));sp.style.opacity=a;sp.style.transform=`translateY(${(1-a)*20}px)`;sp.lastChild.style.transform=`scaleX(${t>=x.s&&t<x.e+.05?1:0})`});
- c.style.top=CTOP[gi]+'px';c.style.opacity=1-P(t,CH[gi][1]+.15,CH[gi][1]+.3)}
+ c.style.top=CTOP[gi]+'px';c.style.color=gi===4?'#14213D':'#fff';[...c.children].forEach(sp=>{sp.style.textShadow=gi===4?'none':''});c.style.opacity=1-P(t,CH[gi][1]+.15,CH[gi][1]+.3)}
 
 // construction
 const CO=[];for(let i=0;i<8;i++){const d=document.createElement('div');d.className='coin';d.textContent='F';$('coins').appendChild(d);CO.push({e:d,s:3.0+i*.16})}

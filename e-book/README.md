@@ -72,3 +72,5 @@ e-book/
 - **Astuce réseau** : l'outil WebFetch est refusé sur la plupart des sites africains, mais `curl` passe par le proxy (sites ajoutés par le client dans les réglages réseau : guineenews, guineematin, ledjely, seneweb, abidjan.net, dakaractu, lesoleil.sn, allafrica, camer.be, gabonreview, otr.tg, andf.bj, jeuneafrique, youtube, expat.com…). Lire une page : `curl -sL -A "Mozilla/5.0" URL | python3 -c "import sys,html,re;t=sys.stdin.read();t=re.sub(r'(?s)<(script|style).*?</\1>','',t);print(html.unescape(re.sub(r'<[^>]+>',' ',t))[:20000])"`.
 - Quota : ~200 recherches web par tour, partagées entre agents → donner à chaque agent un plafond (~40).
 - Jamais : « devenir riche », « garanti », faux témoignages, chiffres inventés.
+
+**11 nov. — RAPPORT COMPLET ET PASSATION DES VIDÉOS (livres 1 et 2) : `e-book/RAPPORT-ET-PASSATION-VIDEOS-NOV-2026.md`. Livre 1 : les 10 vidéos D1–D5 (débutants) et M1–M5 (vendeurs du marché) sont FINIES, + F2 et F5 (importateurs). Livre 2 : 11 vidéos finies et validées.**

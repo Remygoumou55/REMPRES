@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- F2 « L'iceberg » — motion design : iceberg 3D facetté, plongée sous l'eau, barre du vrai coût, vraies pages du livre. -->
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#021827}
+body{font-family:'Inter',sans-serif;color:#fff}
+#st{position:absolute;inset:0;overflow:hidden}
+.L{position:absolute;inset:0}
+.K{font-family:'Inter Display';font-weight:900;letter-spacing:-2px}
+.N{font-family:'JetBrains Mono',monospace;font-weight:800}
+.O{color:#FF8A2A}
+#W{position:absolute;left:0;top:0;width:1080px;height:3000px}
+#sky{position:absolute;left:0;top:0;width:1080px;height:1000px;background:linear-gradient(180deg,#071A30 0%,#123A5E 55%,#3C7FA8 92%,#8CC6E0 100%)}
+#sea{position:absolute;left:0;top:1000px;width:1080px;height:2000px;background:linear-gradient(180deg,#0E5576 0%,#08405E 15%,#05283F 55%,#021827 100%)}
+#rays{position:absolute;left:0;top:1000px;width:1080px;height:1400px;background:repeating-linear-gradient(100deg,rgba(150,220,255,.07) 0 40px,rgba(0,0,0,0) 40px 140px);mask-image:linear-gradient(180deg,#000,transparent);-webkit-mask-image:linear-gradient(180deg,#000,transparent)}
+#surf{position:absolute;left:0;top:988px;width:1080px;height:24px;background:linear-gradient(180deg,rgba(255,255,255,.0),rgba(210,240,255,.75),rgba(255,255,255,0))}
+#ice{position:absolute;left:0;top:0;width:1080px;height:3000px}
+#bub{position:absolute;left:0;top:0;width:1080px;height:3000px}
+#bub i{position:absolute;border-radius:50%;border:2px solid rgba(200,240,255,.5)}
+.lb{position:absolute;display:flex;align-items:center;gap:16px;white-space:nowrap}
+.lb b{padding:14px 24px;border-radius:40px;background:rgba(255,255,255,.95);color:#06283F;font-size:38px;font-weight:800}
+.lb i{display:block;height:4px;background:rgba(255,255,255,.8)}
+#tag{position:absolute;left:600px;top:470px;transform-origin:0 0}
+#tag div{padding:22px 34px;border-radius:18px;background:#FF8A2A;color:#06283F;box-shadow:0 20px 40px rgba(0,0,0,.35)}
+#tag small{display:block;font-size:30px;font-weight:800;letter-spacing:4px}
+#tag span{display:block;font-size:84px;line-height:1}
+#grain{background-size:540px 960px;mix-blend-mode:overlay;opacity:.07}
+#vig{background:radial-gradient(ellipse 760px 1100px at 50% 50%,rgba(0,0,0,0) 55%,rgba(0,8,16,.6))}
+/* textes */
+.hd{position:absolute;left:50px;right:50px;text-align:center}
+#phone{position:absolute;left:250px;top:330px;width:580px;height:900px;border-radius:60px;background:#0B0F14;padding:22px;box-shadow:0 50px 90px rgba(0,0,0,.55),0 0 0 3px #2A3542}
+#scr{width:100%;height:100%;border-radius:42px;background:#F5F6F8;overflow:hidden;color:#16202B}
+#scr .top{height:90px;background:#fff;display:flex;align-items:center;padding:0 30px;gap:16px;font-size:28px;color:#8A94A2;border-bottom:2px solid #E6E9EE}
+#scr .top i{flex:1;height:50px;border-radius:25px;background:#EEF0F3}
+#scr .im{height:430px;background:linear-gradient(160deg,#F9E7D6,#EBC9A8);display:flex;align-items:center;justify-content:center}
+#scr .tx{padding:26px 30px}
+#scr .tx p{font-size:30px;font-weight:600;color:#3B4654}
+#scr .tx .pr{font-size:96px;color:#FF6A00;font-weight:900;font-family:'Inter Display';letter-spacing:-3px;margin-top:6px}
+#scr .tx .bt{margin-top:18px;height:84px;border-radius:42px;background:#FF6A00;color:#fff;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:800}
+.emo{position:absolute;font-size:76px}
+#exc{position:absolute;left:0;right:0;margin:auto;width:fit-content;top:1300px;padding:18px 34px;border-radius:40px;border:3px solid #FF8A2A;font-size:42px;font-weight:800}
+#bar{position:absolute;left:90px;top:860px;width:900px;height:150px}
+#bar .seg{position:absolute;top:0;height:150px}
+#bar .lab{position:absolute;top:170px;font-size:26px;font-weight:700;line-height:1.2;text-align:center}
+#bar .lab b{display:block;font-family:'JetBrains Mono';font-size:30px}
+#sell{position:absolute;left:90px;top:840px;width:900px;height:190px;border:5px dashed #fff;border-radius:10px}
+#sellt{position:absolute;left:90px;top:760px;font-size:40px;font-weight:800}
+#costt{position:absolute;left:90px;top:1270px;font-size:40px;font-weight:800}
+#mg{position:absolute;left:0;right:0;text-align:center;top:560px;font-size:110px;color:#3DDC84;white-space:nowrap}
+#hD1,#hD2{position:absolute;left:50px;right:50px;text-align:center}
+#non{position:absolute;left:0;right:0;margin:auto;width:fit-content;top:300px;padding:10px 40px;border:10px solid #FF4D3D;color:#FF4D3D;font-family:'Inter Display';font-weight:900;font-size:120px;transform:rotate(-8deg)}
+#led{position:absolute;left:70px;right:70px;top:520px;padding:40px 44px;border-radius:30px;background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.2)}
+.ln{display:flex;align-items:baseline;font-family:'JetBrains Mono';font-size:40px;font-weight:700;height:92px;border-bottom:2px dashed rgba(255,255,255,.18);position:relative}
+.ln span{flex:1;font-family:'Inter';font-weight:700;font-size:42px}
+.ln u{position:absolute;left:-58px;top:22px;text-decoration:none;color:#3DDC84;font-size:40px;opacity:0}
+.ln.tot{border-bottom:none;border-top:5px solid #FF8A2A;margin-top:12px;color:#FF8A2A;font-size:56px;height:120px}
+.ln.tot span{font-size:50px;color:#FF8A2A;font-family:'Inter Display';font-weight:900}
+.pg{position:absolute;background:#fff;box-shadow:0 40px 90px rgba(0,0,0,.6);overflow:hidden;transform-origin:50% 100%}
+.pg img{display:block;width:100%}
+.hl{position:absolute;left:0;right:0;border:6px solid #FF8A2A;background:rgba(255,138,42,.18)}
+#pchip{position:absolute;left:0;right:0;margin:auto;width:fit-content;top:190px;padding:14px 32px;border-radius:40px;background:#FF8A2A;color:#06283F;font-weight:800;font-size:32px;letter-spacing:3px}
+#gd{position:absolute;left:150px;top:300px;width:620px;height:801px;filter:drop-shadow(0 50px 50px rgba(0,0,0,.6))}
+#k1{position:absolute;left:640px;top:560px;width:380px;height:531px;filter:drop-shadow(0 40px 40px rgba(0,0,0,.6))}
+#gd img,#k1 img,#zg img{width:100%;height:100%}
+#k1t{position:absolute;left:0;right:0;margin:auto;width:fit-content;top:1200px;padding:18px 34px;border-radius:40px;background:#FF8A2A;color:#06283F;font-weight:800;font-size:40px}
+/* fin */
+#zsea{position:absolute;left:0;top:1000px;width:1080px;height:920px;background:linear-gradient(180deg,#0E5576,#05283F 60%,#021827)}
+#zsky{position:absolute;left:0;top:0;width:1080px;height:1000px;background:linear-gradient(180deg,#071A30,#123A5E 60%,#3C7FA8 96%,#8CC6E0)}
+#zg{position:absolute;left:320px;top:200px;width:440px;height:568px;filter:drop-shadow(0 30px 40px rgba(0,0,0,.5))}
+#zrefl{position:absolute;left:320px;top:1004px;width:440px;height:300px;background:url(guide-3d.png) center top/440px 568px no-repeat;transform:scaleY(-1);transform-origin:50% 0;opacity:.22;filter:blur(3px);mask-image:linear-gradient(180deg,transparent 40%,#000);-webkit-mask-image:linear-gradient(180deg,transparent 40%,#000)}
+#zt{position:absolute;left:0;right:0;top:820px;text-align:center;font-size:34px;font-weight:800;letter-spacing:4px}
+#zp{position:absolute;left:0;right:0;top:1090px;text-align:center;font-family:'Inter Display';font-weight:900;font-size:220px;line-height:1;letter-spacing:-8px}
+#zp small{font-size:74px;letter-spacing:0}
+#zb{position:absolute;left:110px;right:110px;top:1380px;height:140px;border-radius:70px;background:#FF8A2A;color:#06283F;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:800;box-shadow:0 0 60px rgba(255,138,42,.4)}
+#zd{position:absolute;left:0;right:0;top:1560px;text-align:center;font-size:70px;color:#FF8A2A;line-height:.5;font-weight:900}
+/* sous-titres : verre givré */
+#cap{position:absolute;left:60px;right:60px;top:1640px;text-align:center}
+#cap div{display:inline-block;background:rgba(220,240,255,.16);backdrop-filter:blur(14px);border:2px solid rgba(255,255,255,.35);padding:20px 34px;border-radius:30px;font-size:46px;font-weight:700;line-height:1.22}
+#cap b{color:#FF9E4A}
+#flash{background:#DFF6FF;opacity:0}
+</style></head><body>
+<div id="st">
+ <div id="W"><div id="sky"></div><div id="sea"></div><div id="rays"></div>
+  <svg id="ice" viewBox="0 0 1080 3000"></svg><div id="surf"></div><div id="bub"></div>
+  <div id="tag"><div><small>SAC À MAIN</small><span class="N">4,50 $</span></div></div>
+  <div id="labs"></div>
+ </div>
+ <div class="L" id="A"><div class="hd K" id="ha" style="top:170px;font-size:112px;line-height:1.05">Affiché <span class="O">4,50 $</span>.</div><div class="hd K" id="hb" style="top:1230px;font-size:104px;line-height:1.05">Chez toi :<br><span class="O">plus de 9 $.</span></div></div>
+ <div class="L" id="B"><div id="phone"><div id="scr"><div class="top">‹<i></i>⋯</div><div class="im"><svg width="300" height="300" viewBox="0 0 300 300"><path d="M90 120 C90 50 210 50 210 120" stroke="#8B4A22" stroke-width="16" fill="none"/><path d="M50 120 H250 L230 270 H70 Z" fill="#B5652E"/><path d="M50 120 H250 L245 160 H55 Z" fill="#9A5326"/><rect x="135" y="150" width="30" height="24" rx="4" fill="#E8C27A"/></svg></div>
+   <div class="tx"><p>Sac à main · cuir PU · MOQ 50</p><div class="pr">4,50 $</div><div class="bt">Commander</div></div></div></div>
+  <div class="emo" id="e0" style="left:120px;top:700px">😍</div><div class="emo" id="e1" style="left:860px;top:560px">🔥</div><div class="emo" id="e2" style="left:880px;top:900px">🤩</div><div class="emo" id="e3" style="left:110px;top:1000px">💸</div>
+  <div id="exc">Ce qui excite les débutants</div></div>
+ <div class="L" id="D"><div id="sellt">Prix de vente : <span class="N">10 $</span></div><div id="sell"></div>
+  <div id="bar"><div class="seg" id="s0" style="left:0;width:430px;background:#E9EEF4"></div><div class="seg" id="s1" style="left:430px;width:135px;background:#FF8A2A"></div><div class="seg" id="s2" style="left:565px;width:237px;background:#E0483E"></div><div class="seg" id="s3" style="left:802px;width:52px;background:#8A97A8"></div><div class="seg" id="s4" style="left:854px;width:46px;background:#3DDC84"></div>
+   <div class="lab" id="l0" style="left:0;width:430px">Produit + paiement<b>4,78 $</b></div><div class="lab" id="l1" style="left:410px;width:175px">Transport<b>1,50 $</b></div><div class="lab" id="l2" style="left:565px;width:237px">Douane + taxes<b>2,63 $</b></div><div class="lab" id="l3" style="left:760px;width:140px">Frais<b>0,58 $</b></div></div>
+  <div id="costt">Ton vrai coût : <span class="N O">≈ 9,48 $</span></div>
+  <div id="mg" class="N">0,52 $</div>
+  <div id="hD1" class="K" style="top:250px;font-size:80px;line-height:1.05">Tu crois faire<br>du bénéfice…</div><div id="non">NON.</div>
+  <div id="hD2" class="K" style="top:1430px;font-size:76px;line-height:1.05">Tu travailles<br><span class="O">presque pour rien.</span></div></div>
+ <div class="L" id="E"><div class="hd K" id="he" style="top:220px;font-size:76px;line-height:1.05">Avant de commander :<br><span class="O">ton vrai coût.</span></div>
+  <div id="led"><div class="ln"><u>✓</u><span>Produit + paiement</span>4,78 $</div><div class="ln"><u>✓</u><span>Transport</span>1,50 $</div><div class="ln"><u>✓</u><span>Douane + taxes</span>2,63 $</div><div class="ln"><u>✓</u><span>Frais (port, local)</span>0,58 $</div><div class="ln"><u>✓</u><span>Pièces abîmées</span>−3 %</div><div class="ln tot"><span>Coût réel / sac</span>≈ 9,48 $</div></div></div>
+ <div class="L" id="F"><div id="pchip">LE VRAI CALCUL DU LIVRE</div>
+  <div class="pg" id="p1" style="left:110px;top:300px;width:860px"><img src="b99.png"><div class="hl" id="h1" style="top:1196px;height:52px"></div></div>
+  <div class="pg" id="p2" style="left:70px;top:330px;width:940px"><img src="fiche4.png"><svg id="hw" style="position:absolute;left:0;top:0;width:100%;height:100%" viewBox="0 0 1000 1180" fill="none" stroke="#1E56C8" stroke-width="7" stroke-linecap="round"></svg><div class="hl" id="h2" style="top:924px;height:64px"></div></div></div>
+ <div class="L" id="G"><div id="gd"><img src="guide-3d.png"></div><div id="k1"><img src="kit1-3d.png"></div><div id="k1t">+ un kit entier de calculs</div></div>
+ <div class="L" id="Z"><div id="zsky"></div><div id="zsea"></div><div id="zrefl"></div><div id="zg"><img src="guide-3d.png"></div>
+  <div id="zt">LE GUIDE <span class="O">+ 3 KITS</span></div><div id="zp">3 900 <small>F CFA</small></div><div id="zb">Le lien est juste en dessous</div><div id="zd"><div id="d1">⌄</div><div id="d2">⌄</div></div></div>
+ <div class="L" id="flash"></div><div class="L" id="vig"></div><div class="L" id="grain"></div>
+ <div id="cap"></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>cl((t-a)/(b-a));
+const eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const ex=x=>x>=1?1:1-Math.pow(2,-10*x);
+const es=x=>x<.5?16*x**5:1-Math.pow(-2*x+2,5)/2;
+const bk=x=>{const c1=1.5,c3=c1+1;return x<=0?0:x>=1?1:1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const lerp=(a,b,x)=>a+(b-a)*x;
+const show=(id,on)=>{$(id).style.display=on?'block':'none'};
+function sec(id,t,a,b,fi=.3,fo=.3){const on=t>=a&&t<b;show(id,on);if(on)$(id).style.opacity=P(t,a,a+fi)*(1-P(t,b-fo,b));return on}
+function rise(el,t,s,d=.5,dist=50){const a=ex(P(t,s,s+d));el.style.opacity=a;el.style.transform=`translateY(${(1-a)*dist}px)`;el.style.filter=`blur(${(1-a)*6}px)`}
+// ---- iceberg facetté (triangles) ----
+const TOP=[[[560,600],[330,1000],[450,1000],'#F4FBFF'],[[560,600],[450,1000],[640,1000],'#DCEFFA'],[[560,600],[640,1000],[760,1000],'#B9DDF0'],[[440,770],[300,1000],[400,1000],'#E8F6FD'],[[680,800],[700,1000],[820,1000],'#A9D2EA']];
+const C1=[540,1500],C2=[560,2150];
+const LOW=[[[300,1000],[180,1300],C1,'#6FB6D6'],[[300,1000],C1,[560,1000],'#5CA6CA'],[[560,1000],C1,[820,1000],'#4B95BC'],[[820,1000],C1,[920,1350],'#3D86AE'],[[180,1300],[90,1820],C1,'#4F9AC0'],[[920,1350],C1,[1000,1860],'#2F769E'],
+ [[90,1820],C1,C2,'#3F88AE'],[[1000,1860],C2,C1,'#286B92'],[[90,1820],C2,[160,2380],'#357DA4'],[[1000,1860],[940,2320],C2,'#21608A'],[[160,2380],C2,[420,2720],'#2B6F96'],[[940,2320],[660,2740],C2,'#1C5680'],[[420,2720],C2,[660,2740],'#245F88']];
+const tri=(p,c,o)=>`<polygon points="${p.map(q=>q.join(',')).join(' ')}" fill="${c}" opacity="${o}" stroke="${c}" stroke-width="1"/>`;
+$('ice').innerHTML='<g id="lowg">'+LOW.map(f=>tri(f.slice(0,3),f[3],.92)).join('')+'</g><g id="topg">'+TOP.map(f=>tri(f.slice(0,3),f[3],1)).join('')+'</g><path d="M560 640 L640 480" stroke="#fff" stroke-width="3"/>';
+// étiquettes sous l'eau (coordonnées du monde)
+const LB=[['Transport',10.33,1200,'r'],['La douane',11.01,1430,'l'],['Les taxes',11.46,1650,'r'],['Les frais du port',12.21,1880,'l'],['Les pièces abîmées',14.13,2180,'l']];
+$('labs').innerHTML=LB.map((l,i)=>l[3]=='r'?`<div class="lb" id="lb${i}" style="left:610px;top:${l[2]}px"><i style="width:80px"></i><b>${l[0]}</b></div>`:`<div class="lb" id="lb${i}" style="right:590px;top:${l[2]}px;flex-direction:row-reverse"><i style="width:44px"></i><b>${l[0]}</b></div>`).join('');
+const BB=[];for(let i=0;i<40;i++){const d=document.createElement('i');const s=8+(i*7)%22;d.style.width=d.style.height=s+'px';$('bub').appendChild(d);BB.push({e:d,x:(i*197)%1060,y:1100+(i*331)%1800,sp:40+(i%5)*25})}
+// écriture à la main dans la colonne « Mon calcul » (fiche 4)
+const HY=[388,428,490,552,612,652,694,732,770,808,912,955,1010];
+$('hw').innerHTML=HY.map((y,i)=>`<path id="w${i}" pathLength="1" stroke-dasharray="1 1" d="M790 ${y} c10 -14 20 12 30 0 s20 -12 30 0 s18 12 28 0 s18 -10 26 0"/>`).join('');
+// sous-titres
+const CAP=[[4.68,9.24,"Le prix sur Alibaba, c'est seulement <b>la partie qu'on te montre.</b>"],[9.67,14.95,"En dessous : le transport, la douane, les taxes, les frais du port, <b>et les pièces abîmées.</b>"],
+ [15.40,18.42,"Vendu 10 $, ce sac te laisse <b>52 centimes.</b>"],[22.76,27.60,"Avant de commander, calcule <b>ton vrai coût, ligne par ligne.</b>"],
+ [28.04,32.52,"L'exemple est corrigé, le tableau est prêt : <b>tu vois ta vraie marge.</b>"],[32.86,36.72,"Le guide « Briser la peur d'importer », <b>avec un kit entier de calculs.</b>"]];
+function caps(t){const c=$('cap');const i=CAP.findIndex(([s,e])=>t>=s-.15&&t<e+.3);if(i<0){c.innerHTML='';c.dataset.k='';return}
+ if(c.dataset.k!=String(i)){c.innerHTML=`<div>${CAP[i][2]}</div>`;c.dataset.k=i}
+ const a=ex(P(t,CAP[i][0]-.15,CAP[i][0]+.3));c.style.opacity=a*(1-P(t,CAP[i][1]+.15,CAP[i][1]+.3));c.style.transform=`translateY(${(1-a)*30}px)`}
+const LAY=['A','B','D','E','F','G','Z'];
+const R0=async function(t){
+ LAY.forEach(i=>show(i,false));
+ const fr=Math.floor(t*24);$('grain').style.backgroundImage=`url(noise${((fr%4)+4)%4}.png)`;
+ // ---------- monde : iceberg ----------
+ const wOn=t<15.3;$('W').style.display=wOn?'block':'none';
+ let cy=lerp(-40,0,es(P(t,0,4.4))),sc=lerp(1.08,1,es(P(t,0,4.4)));
+ if(t>=4.6&&t<9.5){cy=0;sc=1}
+ if(t>=9.5){cy=lerp(0,-940,es(P(t,9.55,10.6)))+lerp(0,-160,P(t,10.6,15.2));sc=1}
+ $('W').style.transform=`translateY(${cy}px) scale(${sc})`;$('W').style.transformOrigin='50% 0';
+ $('ice').style.transform=`translateX(${Math.sin(t*.7)*6}px)`;
+ const tg=bk(P(t,.2,.7));$('tag').style.transform=`rotate(${Math.sin(t*2)*4-6}deg) scale(${tg})`;$('tag').style.opacity=t>=.2?(t>=4.6&&t<9.5?0:1):0;
+ $('lowg').style.opacity=t<9.5?.35:lerp(.35,1,P(t,9.6,10.4));
+ BB.forEach(b=>{const y=b.y-((t*b.sp)%600);b.e.style.left=(b.x+Math.sin(t*2+b.x)*8)+'px';b.e.style.top=y+'px';b.e.style.opacity=t>=9.5?.8:.25});
+ LB.forEach((l,i)=>{const e=$('lb'+i);const a=ex(P(t,l[1],l[1]+.4));e.style.opacity=t>=l[1]?a:0;e.style.transform=`translateX(${(1-a)*(l[3]=='r'?120:-120)}px)`});
+ $('flash').style.opacity=.35*Math.max(0,1-Math.abs(t-9.9)/.25);
+ // ---------- A ----------
+ if(sec('A',t,-1,4.6,.01,.3)){const a=bk(P(t,0,.45));$('ha').style.opacity=t>=0?1:0;$('ha').style.transform=`scale(${lerp(.6,1,a)})`;
+  const b=ex(P(t,3.11,3.5));$('hb').style.opacity=b;$('hb').style.transform=`translateY(${(1-b)*40}px)`;$('hb').style.top='1230px';$('ha').style.top='180px'}
+ // ---------- B : ce qu'on te montre ----------
+ if(sec('B',t,4.55,9.6)){const p=ex(P(t,4.68,5.3));$('phone').style.transform=`translateY(${(1-p)*900}px) rotate(${(1-p)*-8+Math.sin(t*1.2)*1.2}deg)`;
+  ['e0','e1','e2','e3'].forEach((e,i)=>{const s=7.4+i*.22;const a=bk(P(t,s,s+.4));$(e).style.opacity=t>=s?1:0;$(e).style.transform=`scale(${a}) translateY(${-(t-s)*30}px)`});
+  const x=bk(P(t,7.67,8.1));$('exc').style.opacity=t>=7.67?1:0;$('exc').style.transform=`scale(${x})`}
+ // ---------- D : la barre ----------
+ if(sec('D',t,15.2,22.6)){$('sellt').style.opacity=ex(P(t,15.4,15.8));$('sell').style.opacity=ex(P(t,15.4,15.8));
+  [['s0',15.6],['s1',16.0],['s2',16.35],['s3',16.7]].forEach(([s,a],i)=>{const p=es(P(t,a,a+.4));$(s).style.transform=`scaleX(${p})`;$(s).style.transformOrigin='0 50%';$('l'+i).style.opacity=ex(P(t,a+.2,a+.5))});
+  $('costt').style.opacity=ex(P(t,17.1,17.5));
+  const m=bk(P(t,17.6,18.0));$('s4').style.transform=`scaleY(${m})`;$('s4').style.boxShadow=`0 0 ${20+Math.sin(t*8)*10}px #3DDC84`;
+  $('mg').style.opacity=t>=17.6?ex(P(t,17.6,18.0)):0;
+  rise($('hD1'),t,18.81,.5,30);$('hD1').style.opacity=ex(P(t,18.81,19.2))*(1-P(t,20.3,20.4));
+  const n=bk(P(t,20.38,20.7));$('non').style.opacity=t>=20.38?1:0;$('non').style.transform=`rotate(-8deg) scale(${lerp(2,1,n)})`;
+  rise($('hD2'),t,20.9,.5,40);
+  const z=es(P(t,20.9,21.8));$('mg').style.fontSize=lerp(110,140,z)+'px';
+  $('s4').style.width=lerp(46,26,z)+'px'}
+ // ---------- E : ligne par ligne ----------
+ if(sec('E',t,22.6,27.95)){rise($('he'),t,22.76,.5,40);[...$('led').children].forEach((l,i)=>{const s=23.6+i*.45;const a=ex(P(t,s,s+.35));l.style.opacity=a;l.style.transform=`translateX(${(1-a)*-60}px)`;
+   const u=l.querySelector('u');if(u){u.style.opacity=t>=26.6+i*.15?1:0}})}
+ // ---------- F : les vraies pages ----------
+ if(sec('F',t,27.85,32.75)){rise($('pchip'),t,28.04,.4,-30);
+  const a=ex(P(t,28.04,28.6));$('p1').style.transform=`translateY(${(1-a)*1400}px) rotate(${(1-a)*-6}deg) scale(${1-.08*es(P(t,29.2,29.7))})`;$('p1').style.filter=`brightness(${1-.4*P(t,29.2,29.7)})`;
+  $('h1').style.opacity=ex(P(t,28.6,28.9));
+  const b=ex(P(t,29.2,29.8));$('p2').style.opacity=t>=29.2?1:0;$('p2').style.transform=`translateY(${(1-b)*1400}px) rotate(${(1-b)*6}deg)`;
+  HY.forEach((y,i)=>{const s=30.4+i*.07;$('w'+i).style.strokeDashoffset=1-es(P(t,s,s+.15))});
+  $('h2').style.opacity=ex(P(t,31.4,31.7))}
+ // ---------- G : le guide + kit 1 ----------
+ if(sec('G',t,32.7,37.0)){const g=ex(P(t,32.86,33.6));$('gd').style.transform=`translateY(${(1-g)*-1100+Math.sin(t*1.3)*8}px)`;
+  const k=bk(P(t,35.8,36.3));$('k1').style.opacity=t>=35.8?1:0;$('k1').style.transform=`translateX(${(1-k)*600}px) rotate(${(1-k)*10}deg)`;
+  rise($('k1t'),t,35.9,.4,30)}
+ // ---------- Z : fin ----------
+ if(sec('Z',t,36.9,99,.3,.01)){const g=ex(P(t,37.0,37.8));$('zg').style.transform=`translateY(${(1-g)*-500+Math.sin(t*1.3)*6}px)`;$('zrefl').style.transform=`scaleY(-1) translateY(${-Math.sin(t*1.3)*6}px)`;
+  rise($('zt'),t,37.3,.4,20);const p=ex(P(t,37.10,37.6));$('zp').style.opacity=p;$('zp').style.transform=`scale(${lerp(1.4,1,p)})`;$('zp').style.filter=`blur(${(1-p)*10}px)`;
+  const bt=bk(P(t,38.47,38.9));$('zb').style.opacity=t>=38.47?1:0;$('zb').style.transform=`scale(${.7+.3*bt})`;
+  $('zd').style.opacity=ex(P(t,38.9,39.2));$('d1').style.transform=`translateY(${Math.sin(t*6)*8}px)`;$('d2').style.transform=`translateY(${Math.sin(t*6-1)*8}px)`;$('d2').style.opacity=.55}
+ caps(t);
+ await document.fonts.ready;
+};
+window.render=t=>R0(t-0.5);
+</script></body></html>

@@ -25,7 +25,8 @@ Les PDF utilisent des copies JPEG des images : `images-print/` (A4) et `images-p
 ---
 
 ## Communication — NOUVEAU (10 nov. 2026)
-- **Plan de 10 vidéos motion design** (Google Flow bloqué), mêmes règles que le livre 2 : `communication/07-PLAN-10-VIDEOS-MOTION-DESIGN.md`. Plan VALIDÉ (prix 3 900 F, sans prix barré). 10 scripts : `communication/08-SCRIPTS-10-VIDEOS.md`. En attente : voix et image 3D du guide.
+- **Plan de 10 vidéos motion design** (Google Flow bloqué), mêmes règles que le livre 2 : `communication/07-PLAN-10-VIDEOS-MOTION-DESIGN.md`. Plan VALIDÉ (prix 3 900 F, sans prix barré). 10 scripts : `communication/08-SCRIPTS-10-VIDEOS.md` (version 2 courte = celle utilisée). Images 3D reçues (fond transparent) : `communication/images-3d/` guide-3d, kit1-3d, kit3-3d (Kit 2 manquant). Vidéos dans `communication/videos/` (un dossier par vidéo, voix dans `videos/voix/`).
+- **F2 « L'iceberg » FINIE** : `communication/videos/F2-l-iceberg.mp4` (42,5 s) — iceberg 3D facetté, plongée sous l'eau (transport, douane, taxes, frais du port, pièces abîmées), barre du vrai coût (4,78 + 1,50 + 2,63 + 0,58 ≈ 9,48 $, marge 0,52 $), « NON. », calcul ligne par ligne, vraies pages du livre p. 99 et Kit 1 fiche 4 remplie à la main, guide + Kit 1, fin = guide qui flotte + 3 900 F ; bleu glacier + orange, Inter Display + JetBrains Mono, sous-titres verre givré ; musique verre + pizzicati + basse (mi mineur → sol majeur, 84 bpm), son bas.
 
 ## Communication (état au 7 nov. 2026)
 - **Vidéos finales à utiliser en pub :** `communication/campagne/A-COMBINEE-transitaire.mp4` (42,7 s), `B-COMBINEE-grossiste.mp4` (40,1 s, personnages Kouamé + Moussa), `C-COMBINEE-debutant.mp4` (51,5 s).

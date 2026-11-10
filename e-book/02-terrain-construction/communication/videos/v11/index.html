@@ -124,7 +124,7 @@ body{font-family:'Inter','Noto Color Emoji',sans-serif;color:#fff}
    <svg id="sig" viewBox="0 0 420 160" fill="none"><path id="sp" d="M10 110 C 40 30, 70 30, 80 100 S 120 140, 140 70 S 180 30, 200 100 S 240 130, 270 60 C 290 30, 320 120, 350 90 S 390 50, 410 70" stroke="#0D1B24" stroke-width="8" stroke-linecap="round"/></svg></div>
  <div class="L" id="E"><div id="zone">ZONE OÙ ON N'A PAS LE DROIT DE CONSTRUIRE</div></div>
  <div class="L" id="F"><div id="lost"><div class="Bk" id="lost1">Tu as payé.</div><div class="Bk C" id="lost2" style="margin-top:24px">Ton argent<br>est perdu.</div></div></div>
- <div class="L" id="G"><div id="rewt"><div class="Th">Pourtant, ces signes<br>se voient <b class="C" style="font-weight:900">avant.</b></div></div></div>
+ <div class="L" id="G"><div id="rewt"><div class="Th">Pourtant, ces signes<br>se voient <b style="font-weight:900;color:#0B7F99">avant.</b></div></div></div>
  <div class="L" id="I"><div id="vchip">KIT 1 · LA VISITE DU TERRAIN</div><div id="vpage"><img src="visite.png"><svg id="vticks" style="position:absolute;left:0;top:0;width:920px;height:1030px" viewBox="0 0 920 1030" fill="none" stroke="#1F9DB8" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></svg></div></div>
  <div class="L" id="J"><div id="gd"><img src="guide-3d.png"></div><div id="kits"><div><small>KIT 1</small><b>Checklists</b></div><div><small>KIT 2</small><b>Modèles</b></div><div><small>KIT 3</small><b>Calculs</b></div><div><small>KIT 4</small><b>Carnets</b></div></div></div>
  <div class="L" id="K"><div id="nev"><div class="a">Que tu vives au pays ou à l'étranger,</div><div class="b Bk" style="margin-top:20px">ne visite plus<br>jamais un terrain<br><span style="color:#0B7F99">sans cette liste.</span></div></div></div>
@@ -192,7 +192,7 @@ const R0=async function(t){
   if(t>=43.2&&t<46.2){ty=lerp(0,700,es(P(t,43.2,43.8)))}
   $('dio').style.transform=`translateY(${ty}px) scale(${zoom}) rotateX(${tilt}deg) rotateZ(${rot}deg)`;
   // routes, bas-fond, eau, maisons, fondations, murs
-  const back=t>=31&&t<46.2?1-es(P(t,31.0,33.4)):1; // retour en arrière : tout s'efface
+  const back=t>=31?1-es(P(t,31.0,33.4)):1; // retour en arrière : tout s'efface
   $('road').style.transform=`scaleX(${ex(P(t,12.97,13.7))*back})`;
   const wl=t<15.12?0:es(P(t,15.12,17.0))*back;$('water').style.opacity=.85*wl;$('water').style.transform=`translateZ(${lerp(-150,40,wl)}px)`;
   $('found').style.opacity=t>=16.0?back:0;

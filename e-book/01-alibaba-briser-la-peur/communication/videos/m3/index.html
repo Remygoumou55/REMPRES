@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- M3 « D'où vient ce produit ? » — motion design « étiquettes kraft + tampons » : MADE IN CHINA, la chaîne des intermédiaires coupée. -->
+<style>
+@font-face{font-family:'Anton';src:url(anton.woff2)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#D2B48C}
+body{font-family:'Inter',sans-serif;color:#2B2118}
+#st{position:absolute;inset:0;overflow:hidden}
+.L{position:absolute;inset:0}
+.K{font-family:'Inter Display';font-weight:900;letter-spacing:-2px}
+.Rd{color:#C92A2A}
+#bg{background:radial-gradient(ellipse 900px 1100px at 50% 45%,#E2C9A0,#C9A576 80%)}
+#fib{background:repeating-linear-gradient(17deg,rgba(90,60,30,.05) 0 2px,transparent 2px 9px),repeating-linear-gradient(-23deg,rgba(255,255,255,.05) 0 1px,transparent 1px 7px)}
+#grain{background-size:540px 960px;mix-blend-mode:multiply;opacity:.12}
+.hd{position:absolute;left:50px;right:50px;text-align:center;line-height:1.03}
+.tag{position:absolute;width:420px;height:170px;background:#F3E3C3;border-radius:14px 60px 60px 14px;box-shadow:0 14px 26px rgba(43,33,24,.25);display:flex;align-items:center;padding-left:40px;gap:18px;font-weight:900;font-size:34px;line-height:1.1}
+.tag:after{content:'';position:absolute;right:30px;top:50%;width:26px;height:26px;margin-top:-13px;border-radius:50%;background:#C9A576;box-shadow:inset 0 2px 4px rgba(0,0,0,.3)}
+.tag em{font-style:normal;font-size:76px}
+.stamp{position:absolute;padding:8px 20px;border:6px solid #C92A2A;color:#C92A2A;font-family:'Anton';font-size:40px;letter-spacing:2px;border-radius:8px;white-space:nowrap;mix-blend-mode:multiply}
+#bigtag{position:absolute;left:290px;top:600px;width:500px;height:700px;transform-style:preserve-3d;perspective:1400px}
+#bt{position:absolute;inset:0;transform-style:preserve-3d}
+#bt>div{position:absolute;inset:0;border-radius:30px 30px 110px 110px;background:#F3E3C3;backface-visibility:hidden;box-shadow:0 30px 50px rgba(43,33,24,.3);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+#bt>div:before{content:'';position:absolute;top:50px;left:50%;width:56px;height:56px;margin-left:-28px;border-radius:50%;background:#C9A576;box-shadow:inset 0 3px 6px rgba(0,0,0,.3)}
+#bt .bk{transform:rotateY(180deg)}
+#bt em{font-style:normal;font-size:200px}
+#bt b{font-family:'Anton';font-size:64px;margin-top:20px}
+#cord{position:absolute;left:538px;top:480px;width:4px;height:140px;background:#6B4A2B}
+#count{position:absolute;left:0;right:0;top:640px;text-align:center;font-family:'Anton';font-size:300px;line-height:1;color:#C92A2A}
+#count small{display:block;font-size:90px;color:#2B2118}
+#src{position:absolute;left:0;right:0;top:1130px;text-align:center;font-weight:800;font-size:40px}
+#src i{display:block;font-style:normal;font-weight:600;font-size:28px;opacity:.7;margin-top:10px}
+#chain{position:absolute;left:0;top:0;width:1080px;height:1920px}
+.cn{position:absolute;left:340px;width:400px;height:140px;background:#F3E3C3;border-radius:18px;box-shadow:0 12px 24px rgba(43,33,24,.25);display:flex;align-items:center;gap:20px;padding:0 30px;font-weight:900;font-size:40px}
+.cn em{font-style:normal;font-size:70px}
+.plus{position:absolute;left:760px;padding:10px 22px;border-radius:30px;background:#C92A2A;color:#fff;font-weight:900;font-size:34px}
+#cut{position:absolute;font-size:150px}
+#direct{position:absolute;left:0;right:0;top:1170px;text-align:center}
+#direct span{display:inline-block;padding:22px 44px;border-radius:24px;background:#2B2118;color:#F3E3C3;font-family:'Anton';font-size:64px;letter-spacing:1px}
+.cd{position:absolute;width:300px;height:520px;border-radius:30px;background:#F3E3C3;box-shadow:0 20px 40px rgba(43,33,24,.3);overflow:hidden}
+.cd img{width:100%;height:410px;object-fit:cover;object-position:top}
+.cd b{position:absolute;left:0;right:0;bottom:0;height:110px;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:900;font-size:32px;line-height:1.1;padding:0 14px}
+#zg{position:absolute;left:315px;top:200px;width:450px;height:582px;filter:drop-shadow(0 30px 40px rgba(43,33,24,.35))}
+#zk1{position:absolute;left:70px;top:460px;width:260px;height:364px;transform:rotate(-8deg);filter:drop-shadow(0 20px 30px rgba(43,33,24,.35))}
+#zk3{position:absolute;left:750px;top:450px;width:270px;height:384px;transform:rotate(8deg);filter:drop-shadow(0 20px 30px rgba(43,33,24,.35))}
+#zg img,#zk1 img,#zk3 img{width:100%;height:100%}
+#zt{position:absolute;left:0;right:0;top:860px;text-align:center;font-weight:900;font-size:40px}
+#zp{position:absolute;left:0;right:0;margin:auto;width:fit-content;top:960px;padding:10px 40px;border:12px solid #C92A2A;border-radius:20px;color:#C92A2A;font-family:'Anton';font-size:190px;line-height:1.05;mix-blend-mode:multiply}
+#zp small{font-size:70px}
+#zb{position:absolute;left:110px;right:110px;top:1290px;height:140px;border-radius:70px;background:#2B2118;color:#F3E3C3;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:900}
+#zd{position:absolute;left:0;right:0;top:1470px;text-align:center;font-size:70px;color:#C92A2A;line-height:.5;font-weight:900}
+#cap{position:absolute;left:70px;right:70px;top:1620px;text-align:center}
+#cap div{display:inline-block;background:#F3E3C3;padding:20px 34px;border-radius:14px;font-size:44px;font-weight:800;line-height:1.22;box-shadow:0 10px 24px rgba(43,33,24,.3);border-left:12px solid #C92A2A}
+#cap b{color:#C92A2A}
+</style></head><body>
+<div id="st">
+ <div class="L" id="bg"></div><div class="L" id="fib"></div>
+ <div class="L" id="A"><div class="hd K" id="ha" style="top:200px;font-size:78px">Ce produit que tu<br>achètes au marché…</div>
+  <div class="hd K" id="hb" style="top:390px;font-size:66px"><span class="Rd">tu sais d'où il vient vraiment ?</span></div>
+  <div id="cord"></div><div id="bigtag"><div id="bt"><div><em>👜</em><b>PRIX : ?</b></div><div class="bk"><em>🌍</em><b>ORIGINE : ?</b></div></div></div></div>
+ <div class="L" id="B"><div class="tag" id="g0" style="left:80px;top:460px"><em>👜</em>Les sacs</div><div class="tag" id="g1" style="left:580px;top:560px"><em>👟</em>Les chaussures</div>
+  <div class="tag" id="g2" style="left:80px;top:820px"><em>📱</em>Accessoires<br>de téléphone</div><div class="tag" id="g3" style="left:580px;top:920px"><em>🍳</em>Les ustensiles</div>
+  <div class="hd K" id="hB" style="top:1250px;font-size:76px">Beaucoup arrivent<br><span class="Rd">de Chine.</span></div><div id="stamps"></div></div>
+ <div class="L" id="C"><div class="hd K" id="hC" style="top:300px;font-size:66px">Rien qu'en 2025,<br>l'Afrique a importé pour…</div>
+  <div id="count"><span id="cv">0</span><small>milliards de $</small></div>
+  <div id="src">de produits chinois <i>source : douanes chinoises (chiffres 2025)</i></div></div>
+ <div class="L" id="D"><div class="hd K" id="hD" style="top:200px;font-size:66px">Entre l'usine et toi…</div>
+  <svg id="chain" viewBox="0 0 1080 1920"><path id="str" d="M540 470 V1420" stroke="#6B4A2B" stroke-width="6" stroke-dasharray="14 10"/></svg>
+  <div class="cn" id="c0" style="top:400px"><em>🏭</em>L'usine</div><div class="cn" id="c1" style="top:640px"><em>🧑🏽‍💼</em>Intermédiaire</div><div class="cn" id="c2" style="top:880px"><em>🧑🏾‍💼</em>Intermédiaire</div><div class="cn" id="c3" style="top:1120px"><em>🏪</em>Ton fournisseur</div>
+  <div class="cn" id="c4" style="top:1360px;border:6px solid #C92A2A"><em>🙋🏾</em>Toi</div>
+  <div class="plus" id="pl1" style="top:675px">+ sa part</div><div class="plus" id="pl2" style="top:915px">+ sa part</div><div class="plus" id="pl3" style="top:1155px">+ sa part</div>
+  <div class="stamp" id="paye" style="left:690px;top:1390px;font-size:44px;transform:rotate(-8deg)">TU PAIES TOUT</div>
+  <div id="cut">✂️</div><div id="direct"><span>🏭 ⟶ 📱 ⟶ 🙋🏾 À LA SOURCE</span></div></div>
+ <div class="L" id="E"><div class="hd K" id="hE" style="top:200px;font-size:70px">À condition<br><span class="Rd">de savoir…</span></div>
+  <div class="cd" id="e0" style="left:40px;top:540px"><img src="cap05.png"><b>Trouver la bonne usine</b></div>
+  <div class="cd" id="e1" style="left:390px;top:500px"><img src="check11.png"><b>La vérifier en 11 points</b></div>
+  <div class="cd" id="e2" style="left:740px;top:540px"><div style="height:410px;display:flex;align-items:center;justify-content:center;font-size:200px;background:#E8F5E9">🛡️</div><b>Payer protégé</b></div></div>
+ <div class="L" id="Z"><div id="zk1"><img src="kit1-3d.png"></div><div id="zk3"><img src="kit3-3d.png"></div><div id="zg"><img src="guide-3d.png"></div>
+  <div id="zt">LE GUIDE + 3 KITS</div><div id="zp">3 900 <small>F CFA</small></div><div id="zb">Le lien est juste en dessous</div><div id="zd"><div id="d1">⌄</div><div id="d2">⌄</div></div></div>
+ <div class="L" id="grain"></div>
+ <div id="cap"></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>cl((t-a)/(b-a));
+const ex=x=>x>=1?1:1-Math.pow(2,-10*x);
+const es=x=>x<.5?16*x**5:1-Math.pow(-2*x+2,5)/2;
+const bk=x=>{const c1=1.5,c3=c1+1;return x<=0?0:x>=1?1:1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const lerp=(a,b,x)=>a+(b-a)*x;
+const show=(id,on)=>{$(id).style.display=on?'block':'none'};
+function sec(id,t,a,b,fi=.3,fo=.3){const on=t>=a&&t<b;show(id,on);if(on)$(id).style.opacity=P(t,a,a+fi)*(1-P(t,b-fo,b));return on}
+function rise(el,t,s,d=.5,dist=50){const a=ex(P(t,s,s+d));el.style.opacity=a;el.style.transform=`translateY(${(1-a)*dist}px)`;el.style.filter=`blur(${(1-a)*6}px)`}
+function pop(el,t,s,d=.4){const a=bk(P(t,s,s+d));el.style.opacity=t>=s?1:0;el.style.transform=`scale(${a})`}
+function stamp(el,t,s,rot){const a=P(t,s,s+.18);el.style.opacity=t>=s?1:0;el.style.transform=`rotate(${rot}deg) scale(${lerp(2.2,1,es(a))})`}
+const GP=[[80,460],[580,560],[80,820],[580,920]];
+$('stamps').innerHTML=GP.map((g,i)=>`<div class="stamp" id="sp${i}" style="left:${g[0]+40}px;top:${g[1]+100}px">MADE IN CHINA</div>`).join('');
+const CAP=[[3.54,7.6,"Les sacs, les chaussures, les accessoires de téléphone, <b>les ustensiles…</b>"],[15.8,18.72,"Entre l'usine et toi, il y a souvent <b>plusieurs intermédiaires.</b>"],
+ [19.08,22.68,"Chacun prend sa part. <b>Et c'est toi, au bout de la chaîne, qui paies tout.</b>"],[23.16,25.68,"Aller à la source, <b>c'est possible depuis ton téléphone.</b>"],
+ [25.68,31.02,"À condition de savoir trouver la bonne usine, <b>la vérifier en onze points, et payer protégé.</b>"],[31.34,35.28,"Tout est dans le guide « Briser la peur d'importer », <b>avec trois kits prêts à l'emploi.</b>"]];
+function caps(t){const c=$('cap');const i=CAP.findIndex(([s,e])=>t>=s-.15&&t<e+.3);if(i<0){c.innerHTML='';c.dataset.k='';return}
+ if(c.dataset.k!=String(i)){c.innerHTML=`<div>${CAP[i][2]}</div>`;c.dataset.k=i}
+ const a=ex(P(t,CAP[i][0]-.15,CAP[i][0]+.3));c.style.opacity=a*(1-P(t,CAP[i][1]+.15,CAP[i][1]+.3));c.style.transform=`translateY(${(1-a)*30}px) rotate(-1deg)`}
+const LAY=['A','B','C','D','E','Z'];
+const R0=async function(t){
+ LAY.forEach(i=>show(i,false));
+ const fr=Math.floor(t*24);$('grain').style.backgroundImage=`url(noise${((fr%4)+4)%4}.png)`;
+ if(sec('A',t,-1,3.6,.01,.25)){rise($('ha'),t,.05,.45,-40);rise($('hb'),t,1.98,.4,30);
+  const sw=Math.sin(t*2.2)*6*(1-P(t,0,3));const fl=es(P(t,1.98,2.6));$('bt').style.transform=`rotateZ(${sw}deg) rotateY(${fl*180}deg)`;$('bt').style.transformOrigin='50% 0';
+  const d=ex(P(t,0,.6));$('bigtag').style.transform=`translateY(${(1-d)*-900}px)`;$('cord').style.transform=`scaleY(${d})`;$('cord').style.transformOrigin='50% 0'}
+ if(sec('B',t,3.45,9.55)){[['g0',3.54],['g1',4.36],['g2',5.16],['g3',6.66]].forEach(([g,s],i)=>{const a=bk(P(t,s,s+.45));$(g).style.opacity=t>=s?1:0;$(g).style.transform=`rotate(${(i%2?4:-4)+Math.sin(t*2+i)*2}deg) scale(${a})`});
+  rise($('hB'),t,7.98,.4,30);[0,1,2,3].forEach(i=>stamp($('sp'+i),t,8.72+i*.12,i%2?8:-10))}
+ if(sec('C',t,9.45,15.65)){rise($('hC'),t,9.64,.45,30);const v=Math.round(lerp(0,220,es(P(t,11.4,12.9))));$('cv').textContent=t>=12.64?'220':v;
+  const p=bk(P(t,12.64,13.0));$('count').style.transform=`scale(${t>=12.64?lerp(1.2,1,p):1})`;rise($('src'),t,14.46,.4,20)}
+ if(sec('D',t,15.6,25.6)){rise($('hD'),t,15.8,.4,30);$('hD').innerHTML=t<23.16?"Entre l'usine et toi…":"Aller <span class='Rd'>à la source.</span>";
+  [['c0',16.2],['c1',17.2],['c2',17.6],['c3',18.0],['c4',20.82]].forEach(([c,s])=>{const a=ex(P(t,s,s+.4));const cut=(c=='c1'||c=='c2'||c=='c3')?es(P(t,23.6,24.2)):0;$(c).style.opacity=a*(1-cut);$(c).style.transform=`translateX(${(1-a)*-500+cut*-60}px)`});
+  [['pl1',19.1],['pl2',19.4],['pl3',19.7]].forEach(([p,s])=>{pop($(p),t,s,.3);$(p).style.opacity=(t>=s?1:0)*(1-es(P(t,23.6,24.2)))});
+  stamp($('paye'),t,22.34,-8);$('paye').style.opacity=(t>=22.34?1:0)*(1-P(t,23.4,23.6));
+  const c=P(t,23.3,24.0);$('cut').style.left=lerp(460,500,c)+'px';$('cut').style.top=lerp(560,1250,c)+'px';$('cut').style.opacity=(t>=23.3&&t<24.3)?1:0;
+  $('str').style.opacity=1-.7*es(P(t,23.6,24.2));pop($('direct'),t,24.5,.4)}
+ if(sec('E',t,25.5,31.5)){rise($('hE'),t,25.68,.4,30);[['e0',26.28],['e1',28.36],['e2',29.7]].forEach(([e,s],i)=>{const a=bk(P(t,s,s+.5));$(e).style.opacity=t>=s?1:0;$(e).style.transform=`translateY(${(1-a)*600}px) rotate(${(i-1)*4}deg)`})}
+ if(sec('Z',t,31.3,99,.3,.01)){const g=ex(P(t,31.34,32.0));$('zg').style.opacity=g;$('zg').style.transform=`translateY(${(1-g)*-500+Math.sin(t*1.3)*6}px)`;
+  [['zk1',33.6,-1],['zk3',33.8,1]].forEach(([k,s,d])=>{const a=bk(P(t,s,s+.45));$(k).style.opacity=t>=s?1:0;$(k).style.transform=`rotate(${d*8}deg) translateX(${(1-a)*d*500}px)`});
+  rise($('zt'),t,34.0,.4,20);stamp($('zp'),t,35.8,-4);
+  const bt=bk(P(t,36.94,37.35));$('zb').style.opacity=t>=36.94?1:0;$('zb').style.transform=`scale(${.7+.3*bt})`;
+  $('zd').style.opacity=ex(P(t,37.4,37.7));$('d1').style.transform=`translateY(${Math.sin(t*6)*8}px)`;$('d2').style.transform=`translateY(${Math.sin(t*6-1)*8}px)`;$('d2').style.opacity=.55}
+ caps(t);
+ await document.fonts.ready;
+};
+window.render=t=>R0(t-0.5);
+</script></body></html>

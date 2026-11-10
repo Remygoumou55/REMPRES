@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- D2 « La peur de perdre son argent » — motion design : la pièce d'or qui part dans le brouillard, puis le bouclier qui la protège. -->
+<style>
+@font-face{font-family:'Mont';font-weight:900;src:url(mont-900.woff2)}
+@font-face{font-family:'Mont';font-weight:800;src:url(mont-800.woff2)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#0A0F1F}
+body{font-family:'Inter',sans-serif;color:#fff}
+#st{position:absolute;inset:0;overflow:hidden}
+.L{position:absolute;inset:0}
+.M{font-family:'Mont';font-weight:900;letter-spacing:-1px}
+.G{color:#F5C542}.E{color:#2BD99F}.R{color:#FF5A5F}
+#bg{background:radial-gradient(ellipse 900px 1200px at 50% 40%,#18234A,#0A0F1F 70%)}
+#stars{position:absolute;inset:0}
+#stars i{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff}
+#grain{background-size:540px 960px;mix-blend-mode:overlay;opacity:.07}
+#vig{background:radial-gradient(ellipse 760px 1100px at 50% 50%,rgba(0,0,0,0) 55%,rgba(0,0,0,.6))}
+.hd{position:absolute;left:50px;right:50px;text-align:center;line-height:1.05}
+/* pièce 3D */
+.coin{position:absolute;width:200px;height:200px;margin:-100px 0 0 -100px;transform-style:preserve-3d}
+.coin b{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFF1B8,#F5C542 40%,#C9921A 75%,#8A5E0B);box-shadow:inset 0 0 0 10px rgba(255,255,255,.18),inset 0 0 0 18px rgba(138,94,11,.5),0 20px 40px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;font-family:'Mont';font-weight:900;font-size:58px;color:#8A5E0B;letter-spacing:-2px}
+#trail{position:absolute;left:0;top:0;width:1080px;height:1920px}
+#fog{position:absolute;left:620px;top:900px;width:460px;height:700px}
+#fog i{position:absolute;border-radius:50%;background:rgba(200,210,235,.20);filter:blur(30px)}
+#who{position:absolute;left:720px;top:1040px;width:260px;height:460px}
+#phone{position:absolute;left:90px;top:1200px;width:250px;height:470px;border-radius:40px;background:#111;border:4px solid #3A4466;padding:14px}
+#phone div{width:100%;height:100%;border-radius:28px;background:#1B2340;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:24px}
+#phone span{width:100%;padding:16px 0;border-radius:20px;background:#F5C542;color:#111;text-align:center;font-weight:900;font-size:28px}
+#stopq{position:absolute;font-family:'Mont';font-weight:900;font-size:150px;color:#FF5A5F;text-shadow:0 0 30px rgba(255,90,95,.6)}
+/* B */
+#box{position:absolute;left:290px;top:820px;width:500px;height:520px}
+#btn{position:absolute;left:190px;top:820px;width:700px;height:170px;border-radius:85px;background:#2BD99F;color:#062A1E;display:flex;align-items:center;justify-content:center;font-family:'Mont';font-weight:900;font-size:64px;box-shadow:0 20px 50px rgba(43,217,159,.3)}
+#hand{position:absolute;font-size:130px}
+#bar{position:absolute;left:190px;top:1060px;width:700px;height:40px;border-radius:20px;background:rgba(255,255,255,.12);overflow:hidden}
+#bar i{display:block;width:2%;height:100%;background:#2BD99F}
+#barT{position:absolute;left:0;right:0;top:1120px;text-align:center;font-family:'Mont';font-weight:900;font-size:52px;color:#8C97B8}
+#idea{position:absolute;left:340px;top:700px;width:400px;height:400px}
+.run{position:absolute;font-size:110px}
+/* C */
+#shield{position:absolute;left:290px;top:560px;width:500px;height:600px}
+.chip{position:absolute;left:0;right:0;margin:auto;width:fit-content;padding:20px 36px;border-radius:50px;font-weight:800;font-size:44px;white-space:nowrap}
+.ok{background:rgba(43,217,159,.15);border:4px solid #2BD99F}
+.ko{background:rgba(255,90,95,.12);border:4px solid #FF5A5F}
+#refund{position:absolute;left:0;right:0;margin:auto;width:fit-content;top:1340px;padding:24px 44px;border-radius:24px;background:#2BD99F;color:#062A1E;font-family:'Mont';font-weight:900;font-size:56px;transform:rotate(-4deg)}
+.pg{position:absolute;left:110px;top:300px;width:860px;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 40px 90px rgba(0,0,0,.6)}
+.pg img{display:block;width:100%}
+.hl{position:absolute;left:5%;right:5%;border:7px solid #2BD99F;border-radius:20px}
+#pchip{position:absolute;left:0;right:0;margin:auto;width:fit-content;top:180px;padding:14px 32px;border-radius:40px;background:#2BD99F;color:#062A1E;font-weight:900;font-size:32px;letter-spacing:3px}
+#samp{position:absolute;left:340px;top:640px;width:400px;height:400px}
+#sampt{position:absolute;left:0;right:0;top:1100px;text-align:center;font-family:'Mont';font-weight:900;font-size:64px}
+/* fin */
+#zsh{position:absolute;left:190px;top:170px;width:700px;height:840px}
+#zg{position:absolute;left:325px;top:300px;width:430px;height:555px;filter:drop-shadow(0 30px 40px rgba(0,0,0,.6))}
+#zk1{position:absolute;left:80px;top:640px;width:250px;height:350px;transform:rotate(-8deg);filter:drop-shadow(0 20px 30px rgba(0,0,0,.6))}
+#zk3{position:absolute;left:750px;top:640px;width:250px;height:356px;transform:rotate(8deg);filter:drop-shadow(0 20px 30px rgba(0,0,0,.6))}
+#zg img,#zk1 img,#zk3 img{width:100%;height:100%}
+#zt{position:absolute;left:0;right:0;top:1060px;text-align:center;font-weight:800;font-size:34px;letter-spacing:4px}
+#zp{position:absolute;left:0;right:0;top:1130px;text-align:center;font-family:'Mont';font-weight:900;font-size:200px;line-height:1;letter-spacing:-6px;color:#F5C542}
+#zp small{font-size:66px;letter-spacing:0}
+#zb{position:absolute;left:110px;right:110px;top:1380px;height:140px;border-radius:70px;background:#2BD99F;color:#062A1E;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:900;box-shadow:0 0 60px rgba(43,217,159,.4)}
+#zd{position:absolute;left:0;right:0;top:1560px;text-align:center;font-size:70px;color:#2BD99F;line-height:.5;font-weight:900}
+/* sous-titres */
+#cap{position:absolute;left:60px;right:60px;top:1640px;text-align:center}
+#cap div{display:inline-block;background:rgba(8,12,26,.85);border:2px solid rgba(43,217,159,.45);padding:20px 34px;border-radius:26px;font-size:46px;font-weight:700;line-height:1.22}
+#cap b{color:#2BD99F}
+</style></head><body>
+<div id="st">
+ <div class="L" id="bg"></div><div id="stars"></div>
+ <!-- A -->
+ <div class="L" id="A"><div class="hd M" id="ha1" style="top:200px;font-size:84px">Envoyer ton argent<br><span class="G">en Chine…</span></div>
+  <div class="hd" id="ha2" style="top:420px;font-size:56px;font-weight:800">à quelqu'un que tu n'as <span class="R">jamais vu.</span></div>
+  <div class="hd M" id="ha3" style="top:420px;font-size:70px;white-space:nowrap">C'est ça qui <span class="R">te bloque ?</span></div>
+  <svg id="trail" viewBox="0 0 1080 1920"><path id="tp" d="M215 1240 C300 900 700 850 850 1080" fill="none" stroke="#F5C542" stroke-width="6" stroke-dasharray="14 16" opacity=".7"/></svg>
+  <div id="phone"><div><span>Envoyer</span></div></div>
+  <div id="fog"></div>
+  <svg id="who" viewBox="0 0 260 460"><circle cx="130" cy="90" r="70" fill="#1A2140" stroke="#5B6690" stroke-width="5"/><path d="M30 460 C30 260 230 260 230 460 Z" fill="#1A2140" stroke="#5B6690" stroke-width="5"/><text x="130" y="122" text-anchor="middle" font-family="Mont" font-weight="900" font-size="90" fill="#8C97B8">?</text></svg>
+  <div class="coin" id="c1"><b>CFA</b></div><div id="stopq">?</div></div>
+ <!-- B -->
+ <div class="L" id="B"><div class="hd M" id="hb1" style="top:240px;font-size:110px">C'est <span class="E">normal.</span></div>
+  <div class="hd" id="hb2" style="top:420px;font-size:52px;font-weight:800">Personne n'a envie de payer…</div>
+  <svg id="box" viewBox="0 0 500 520"><path d="M60 220 L250 300 L440 220 L440 460 L250 520 L60 460 Z" fill="#B07A44"/><path d="M250 300 L250 520" stroke="#8A5A2E" stroke-width="6"/><path d="M60 220 L250 300 L440 220 L250 150 Z" fill="#3B2412"/>
+   <path id="flapL" d="M60 220 L250 150 L170 60 L-20 130 Z" fill="#C88E54"/><path id="flapR" d="M440 220 L250 150 L330 60 L520 130 Z" fill="#C88E54"/>
+   <text id="vide" x="250" y="250" text-anchor="middle" font-family="Mont" font-weight="900" font-size="64" fill="#FF5A5F">VIDE</text></svg></div>
+ <div class="L" id="B2"><div class="hd M" id="hb3" style="top:260px;font-size:90px">Alors tu ne<br><span class="R">commences jamais.</span></div>
+  <div id="btn">Commencer</div><div id="hand">👆</div><div id="bar"><i></i></div><div id="barT">0 %</div>
+  <svg id="idea" viewBox="0 0 400 400"><g id="bulb"><circle cx="200" cy="170" r="110" fill="#F5C542"/><rect x="155" y="270" width="90" height="70" rx="12" fill="#8C97B8"/><path d="M160 300 H240 M160 320 H240" stroke="#5B6690" stroke-width="8"/></g></svg>
+  <div class="run" id="r0">🏃🏾</div><div class="run" id="r1">🏃🏽‍♀️</div><div class="run" id="r2">🏃🏿</div></div>
+ <!-- C -->
+ <div class="L" id="C"><div class="hd M" id="hc" style="top:200px;font-size:84px">Pourtant, ton argent<br><span class="E">peut être protégé.</span></div>
+  <svg id="shield" viewBox="0 0 500 600"><defs><radialGradient id="sg" cx="50%" cy="40%"><stop offset="0" stop-color="#2BD99F" stop-opacity=".35"/><stop offset="1" stop-color="#2BD99F" stop-opacity=".05"/></radialGradient></defs>
+   <path id="shp" d="M250 20 L460 100 V280 C460 420 360 520 250 580 C140 520 40 420 40 280 V100 Z" fill="url(#sg)" stroke="#2BD99F" stroke-width="12" pathLength="1" stroke-dasharray="1 1"/></svg>
+  <div class="coin" id="c2"><b>CFA</b></div>
+  <div class="chip ok" id="k1" style="top:1230px">✓ Payé sur Alibaba</div><div class="chip ok" id="k2" style="top:1340px">🛡️ Trade Assurance</div>
+  <div class="chip ko" id="k3" style="top:1230px">✗ Le fournisseur n'envoie pas</div><div class="chip ko" id="k4" style="top:1340px">✗ Pas conforme à ce qui est écrit</div>
+  <div id="refund">↩ Remboursement</div></div>
+ <!-- D : les vraies pages -->
+ <div class="L" id="D"><div id="pchip">DANS LE LIVRE</div>
+  <div class="pg" id="p1"><img src="couvre.png"><div class="hl" id="h1" style="top:118px;height:340px"></div><div class="hl" id="h2" style="top:485px;height:290px;border-color:#FF5A5F"></div></div>
+  <div class="pg" id="p2" style="top:290px"><img src="signaux.png"></div>
+  <svg id="samp" viewBox="0 0 400 400"><path d="M60 170 L200 230 L340 170 L340 340 L200 400 L60 340 Z" fill="#B07A44"/><path d="M200 230 V400" stroke="#8A5A2E" stroke-width="5"/><text x="200" y="180" text-anchor="middle" font-size="150">👜</text></svg>
+  <div id="sampt">1 <span class="E">échantillon</span> d'abord</div></div>
+ <!-- Z -->
+ <div class="L" id="Z"><svg id="zsh" viewBox="0 0 700 840"><path id="zshp" d="M350 20 L660 130 V390 C660 590 510 730 350 820 C190 730 40 590 40 390 V130 Z" fill="rgba(43,217,159,.08)" stroke="#2BD99F" stroke-width="10" pathLength="1" stroke-dasharray="1 1"/></svg>
+  <div id="zk1"><img src="kit1-3d.png"></div><div id="zk3"><img src="kit3-3d.png"></div><div id="zg"><img src="guide-3d.png"></div>
+  <div id="zt">LE GUIDE <span class="E">+ 3 KITS</span></div><div id="zp">3 900 <small>F CFA</small></div><div id="zb">Le lien est juste en dessous</div><div id="zd"><div id="d1">⌄</div><div id="d2">⌄</div></div></div>
+ <div class="L" id="vig"></div><div class="L" id="grain"></div>
+ <div id="cap"></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>cl((t-a)/(b-a));
+const eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const ex=x=>x>=1?1:1-Math.pow(2,-10*x);
+const es=x=>x<.5?16*x**5:1-Math.pow(-2*x+2,5)/2;
+const bk=x=>{const c1=1.5,c3=c1+1;return x<=0?0:x>=1?1:1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const lerp=(a,b,x)=>a+(b-a)*x;
+const show=(id,on)=>{$(id).style.display=on?'block':'none'};
+function sec(id,t,a,b,fi=.3,fo=.3){const on=t>=a&&t<b;show(id,on);if(on)$(id).style.opacity=P(t,a,a+fi)*(1-P(t,b-fo,b));return on}
+function rise(el,t,s,d=.5,dist=50){const a=ex(P(t,s,s+d));el.style.opacity=a;el.style.transform=`translateY(${(1-a)*dist}px)`;el.style.filter=`blur(${(1-a)*6}px)`}
+function pop(el,t,s,d=.4){const a=bk(P(t,s,s+d));el.style.opacity=t>=s?1:0;el.style.transform=`scale(${a})`}
+const dr=(el,p)=>{el.style.strokeDashoffset=1-p};
+const ST=[];for(let i=0;i<70;i++){const d=document.createElement('i');d.style.left=(i*151)%1080+'px';d.style.top=(i*263)%1920+'px';$('stars').appendChild(d);ST.push(d)}
+for(let i=0;i<9;i++){const d=document.createElement('i');d.style.left=(i*53)%300+'px';d.style.top=(i*97)%500+'px';d.style.width=d.style.height=(180+(i*37)%120)+'px';$('fog').appendChild(d)}
+function coin(el,x,y,s,spin){el.style.left=x+'px';el.style.top=y+'px';el.style.transform=`scale(${s}) scaleX(${Math.max(.08,Math.abs(Math.cos(spin*Math.PI/180)))})`}
+const tp=$('tp');const TL=tp.getTotalLength();
+const CAP=[[6.09,8.58,"Personne n'a envie de payer, <b>et de ne rien recevoir.</b>"],[10.63,13.35,"Et ton projet reste une idée, <b>pendant que d'autres avancent.</b>"],
+ [16.28,21.71,"Si tu paies sur Alibaba, avec Trade Assurance, et que le fournisseur n'envoie pas, ou ne respecte pas ce qui est écrit…"],[21.99,23.41,"<b>tu peux réclamer ton remboursement.</b>"],
+ [23.94,27.28,"On t'explique comment payer protégé, <b>les dix signaux d'une arnaque,</b>"],[27.34,29.11,"et comment commencer par <b>un simple échantillon.</b>"],
+ [29.62,33.36,"Tout est dans le guide « Briser la peur d'importer », <b>avec trois kits prêts à l'emploi.</b>"]];
+function caps(t){const c=$('cap');const i=CAP.findIndex(([s,e])=>t>=s-.15&&t<e+.3);if(i<0){c.innerHTML='';c.dataset.k='';return}
+ if(c.dataset.k!=String(i)){c.innerHTML=`<div>${CAP[i][2]}</div>`;c.dataset.k=i}
+ const a=ex(P(t,CAP[i][0]-.15,CAP[i][0]+.3));c.style.opacity=a*(1-P(t,CAP[i][1]+.15,CAP[i][1]+.3));c.style.transform=`translateY(${(1-a)*30}px)`}
+const LAY=['A','B','B2','C','D','Z'];
+const R0=async function(t){
+ LAY.forEach(i=>show(i,false));
+ const fr=Math.floor(t*24);$('grain').style.backgroundImage=`url(noise${((fr%4)+4)%4}.png)`;
+ ST.forEach((s,i)=>s.style.opacity=.25+.35*Math.sin(t*2+i));
+ // ---------- A ----------
+ if(sec('A',t,-1,4.95,.01,.3)){rise($('ha1'),t,.11,.5,-40);rise($('ha2'),t,1.9,.45,30);$('ha2').style.opacity=ex(P(t,1.9,2.3))*(1-P(t,3.55,3.75));
+  pop($('ha3'),t,3.75,.4);$('ha1').style.opacity=1-P(t,3.55,3.75);
+  $('phone').style.opacity=ex(P(t,0,.4));
+  const fw=ex(P(t,1.9,2.6));$('fog').style.opacity=fw;$('who').style.opacity=fw*.9;$('who').style.transform=`translateY(${(1-fw)*40}px)`;
+  [...$('fog').children].forEach((d,i)=>d.style.transform=`translate(${Math.sin(t*.8+i)*30}px,${Math.cos(t*.6+i)*20}px)`);
+  const p=t<3.75?eio(P(t,.3,3.6))*.85:.85;const pt=tp.getPointAtLength(TL*p);
+  const sh=t>=3.75?Math.sin(t*60)*8*(1-P(t,3.75,4.3)):0;
+  coin($('c1'),pt.x+sh,pt.y,t<.3?0:lerp(.3,.75,P(t,.3,1.0)),t*240);
+  dr(tp,1);tp.style.strokeDashoffset=-t*40;
+  pop($('stopq'),t,3.9,.35);$('stopq').style.left=(pt.x-45)+'px';$('stopq').style.top=(pt.y-260)+'px'}
+ // ---------- B ----------
+ if(sec('B',t,4.95,9.2)){pop($('hb1'),t,5.06,.4);rise($('hb2'),t,6.09,.45,30);
+  const b=ex(P(t,6.0,6.5));$('box').style.opacity=b;$('box').style.transform=`translateY(${(1-b)*300}px)`;
+  const o=es(P(t,7.51,8.0));$('flapL').setAttribute('transform',`rotate(${-o*70} 60 220)`);$('flapR').setAttribute('transform',`rotate(${o*70} 440 220)`);
+  const v=bk(P(t,8.0,8.4));$('vide').style.opacity=t>=8.0?1:0;$('vide').setAttribute('transform',`translate(250 ${-v*60}) scale(${v}) translate(-250 0)`)}
+ if(sec('B2',t,9.0,13.7)){rise($('hb3'),t,9.04,.45,40);$('hb3').style.opacity=ex(P(t,9.04,9.5))*(1-P(t,10.5,10.7));
+  const on=t<10.7;['btn','bar','barT','hand'].forEach(i=>$(i).style.display=on?'':'none');
+  $('hand').style.left=(560+Math.sin(t*3)*120)+'px';$('hand').style.top=(930+Math.abs(Math.sin(t*3))*30)+'px';
+  $('idea').style.display=on?'none':'';const g=P(t,11.0,12.5);$('bulb').style.filter=`grayscale(${g}) brightness(${1-.5*g})`;$('idea').style.opacity=ex(P(t,10.63,11.0));
+  [0,1,2].forEach(i=>{const r=$('r'+i);const s=12.08+i*.3;r.style.display=t>=s?'':'none';r.style.left=lerp(-150,1150,P(t,s,s+1.4))+'px';r.style.top=(1200+i*130)+'px'})}
+ // ---------- C ----------
+ if(sec('C',t,13.7,23.75)){rise($('hc'),t,13.88,.5,40);
+  dr($('shp'),es(P(t,14.6,15.6)));$('shield').style.filter=`drop-shadow(0 0 ${30+Math.sin(t*3)*10}px rgba(43,217,159,.5))`;
+  const back=es(P(t,21.99,22.8));
+  coin($('c2'),lerp(540,200,back),lerp(860,1500,back),lerp(.9,.5,back)*(t<14.0?ex(P(t,13.7,14.0)):1),t*120);
+  [['k1',16.28,0,18.6],['k2',17.73,0,18.6],['k3',18.71,1,21.9],['k4',20.0,1,21.9]].forEach(([k,s,g,e])=>{const a=bk(P(t,s,s+.4));$(k).style.opacity=(t>=s?1:0)*(1-P(t,e-.2,e));$(k).style.transform=`scale(${a})`});
+  pop($('refund'),t,22.1,.4)}
+ // ---------- D ----------
+ if(sec('D',t,23.6,29.75)){rise($('pchip'),t,23.94,.4,-30);
+  const a=ex(P(t,23.94,24.5));const out=es(P(t,25.9,26.3));$('p1').style.transform=`translateY(${(1-a)*1300}px) rotate(${(1-a)*-5}deg) scale(${1-.1*out})`;$('p1').style.opacity=1-out;
+  $('h1').style.opacity=t>=24.6?1:0;$('h2').style.opacity=t>=25.2?1:0;
+  const b=ex(P(t,26.01,26.5));const out2=es(P(t,27.2,27.5));$('p2').style.opacity=t>=26.0?1-out2:0;$('p2').style.transform=`translateY(${(1-b)*1300-P(t,26.4,27.3)*260}px)`;
+  const s=bk(P(t,27.34,27.8));$('samp').style.opacity=t>=27.34?1:0;$('samp').style.transform=`scale(${s})`;rise($('sampt'),t,27.6,.4,30)}
+ // ---------- Z ----------
+ if(sec('Z',t,29.5,99,.3,.01)){dr($('zshp'),es(P(t,29.62,30.6)));$('zsh').style.filter=`drop-shadow(0 0 ${30+Math.sin(t*3)*10}px rgba(43,217,159,.45))`;
+  const g=ex(P(t,29.8,30.5));$('zg').style.opacity=g;$('zg').style.transform=`scale(${lerp(.6,1,g)}) translateY(${Math.sin(t*1.3)*6}px)`;
+  [['zk1',31.92,-1],['zk3',32.1,1]].forEach(([k,s,d])=>{const a=bk(P(t,s,s+.45));$(k).style.opacity=t>=s?1:0;$(k).style.transform=`rotate(${d*8}deg) translateX(${(1-a)*d*500}px)`});
+  rise($('zt'),t,32.0,.4,20);const p=ex(P(t,33.75,34.2));$('zp').style.opacity=p;$('zp').style.transform=`scale(${lerp(1.4,1,p)})`;$('zp').style.filter=`blur(${(1-p)*10}px)`;
+  const bt=bk(P(t,35.03,35.45));$('zb').style.opacity=t>=35.03?1:0;$('zb').style.transform=`scale(${.7+.3*bt})`;
+  $('zd').style.opacity=ex(P(t,35.5,35.8));$('d1').style.transform=`translateY(${Math.sin(t*6)*8}px)`;$('d2').style.transform=`translateY(${Math.sin(t*6-1)*8}px)`;$('d2').style.opacity=.55}
+ caps(t);
+ await document.fonts.ready;
+};
+window.render=t=>R0(t-0.5);
+</script></body></html>

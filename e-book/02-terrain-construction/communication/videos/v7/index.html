@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- V7 « L'héritier » — motion design « coupe du terrain » : sous la terre, les racines de l'arbre sont la famille du vendeur. -->
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#1C0E16}
+body{font-family:'Liberation Sans',sans-serif;color:#F2E6D0}
+#st{position:absolute;inset:0;overflow:hidden}
+.L{position:absolute;inset:0}
+.H{font-family:'FreeSerif',serif;font-weight:700;letter-spacing:-1px}
+.It{font-family:'FreeSerif',serif;font-style:italic}
+.J{color:#3DDBA4}.Co{color:#FF6B5A}
+/* monde (coupe) */
+#W{position:absolute;left:0;top:0;width:1080px;height:2400px}
+#sky{position:absolute;left:0;top:0;width:1080px;height:1150px;background:linear-gradient(180deg,#160A12 0%,#2B1220 45%,#5A2A35 85%,#7A3B3A 100%)}
+#glow{position:absolute;left:140px;top:700px;width:800px;height:600px;background:radial-gradient(ellipse at 50% 70%,rgba(255,150,110,.35),rgba(255,150,110,0) 70%)}
+#soil{position:absolute;left:0;top:1150px;width:1080px;height:1250px;background:
+ repeating-linear-gradient(178deg,rgba(0,0,0,0) 0 90px,rgba(0,0,0,.12) 90px 96px,rgba(0,0,0,0) 96px 210px),
+ linear-gradient(180deg,#4A2C1B 0%,#3A2215 20%,#2C190F 50%,#1C0F09 100%)}
+#soil:before{content:'';position:absolute;left:0;right:0;top:0;height:14px;background:#6B4126;box-shadow:0 0 30px rgba(255,160,110,.25)}
+#wsv{position:absolute;left:0;top:0;width:1080px;height:2400px}
+.rt{fill:none;stroke:#E9D8B4;stroke-linecap:round;stroke-dasharray:1 1}
+.nd circle{fill:#2A1610;stroke:#E9D8B4;stroke-width:5}
+.nd text{font-family:'Liberation Sans';font-weight:700;font-size:26px;fill:#F2E6D0;text-anchor:middle;letter-spacing:2px}
+.nd .q{font-family:'FreeSerif';font-size:54px;font-weight:700;letter-spacing:0}
+#grain{background-size:540px 960px;mix-blend-mode:overlay;opacity:.09}
+#sepia{background:rgba(120,80,40,.35);mix-blend-mode:color;opacity:0}
+#vig{background:radial-gradient(ellipse 760px 1100px at 50% 50%,rgba(0,0,0,0) 55%,rgba(10,3,6,.7))}
+/* textes */
+.hd{position:absolute;left:50px;right:50px;text-align:center}
+#q1{position:absolute;left:60px;right:60px;top:300px;text-align:center}
+#q1 .It{font-size:96px;line-height:1.05}
+#yr{position:absolute;left:0;right:0;margin:auto;width:fit-content;top:240px;padding:14px 32px;border:3px solid #F2E6D0;font-weight:700;font-size:44px;letter-spacing:4px}
+#nj{position:absolute;left:0;right:0;margin:auto;width:fit-content;top:1350px;padding:16px 34px;background:#FF6B5A;color:#1C0E16;font-weight:700;font-size:44px;letter-spacing:3px;transform:rotate(-5deg)}
+/* souvenir */
+#film{position:absolute;left:70px;top:330px;width:940px;height:1180px;background:#E9DCC2;color:#2A1610;box-shadow:0 40px 90px rgba(0,0,0,.55);padding:50px 60px}
+#film h5{font-size:30px;letter-spacing:6px;color:#8A6A4A;text-align:center}
+#film h2{font-family:'FreeSerif',serif;font-size:76px;text-align:center;margin:20px 0 40px;border-bottom:3px solid #8A6A4A;padding-bottom:20px}
+.sg{display:flex;align-items:flex-end;height:120px;font-size:40px;font-weight:700;gap:20px}
+.sg span{width:300px}
+.sg i{flex:1;height:70px;border-bottom:4px dotted #8A6A4A;position:relative;font-style:normal}
+.sg i b{position:absolute;left:10px;bottom:6px;font-family:'FreeSerif',serif;font-style:italic;font-size:56px;color:#1F3A8A}
+.sg i u{position:absolute;right:0;bottom:10px;text-decoration:none;font-size:28px;color:#C23A2B;opacity:0;letter-spacing:2px}
+#fq{position:absolute;left:60px;right:60px;top:790px;text-align:center}
+#fq .It{font-size:62px;line-height:1.1;color:#2A1610}
+/* bloqué */
+#cards{position:absolute;left:60px;right:60px;top:250px;display:flex;gap:30px}
+.cd{flex:1;height:380px;border:4px solid #F2E6D0;background:rgba(28,14,22,.75);position:relative;text-align:center}
+.cd svg.ic{width:200px;height:200px;margin-top:40px}
+.cd p{font-weight:700;font-size:40px;letter-spacing:3px}
+.cd svg.x{position:absolute;inset:20px;width:calc(100% - 40px);height:calc(100% - 40px)}
+#blk{position:absolute;left:0;right:0;margin:auto;width:fit-content;top:300px;font-family:'FreeSerif',serif;font-weight:700;font-size:150px;color:#FF6B5A;letter-spacing:-2px}
+/* vacances */
+#cal{position:absolute;left:70px;right:70px;top:150px;border:4px solid #F2E6D0;background:#1C0E16;padding:24px}
+#cal h4{font-size:32px;letter-spacing:5px;margin-bottom:18px}
+#days{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+#days div{height:110px;border:2px solid rgba(242,230,208,.4);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:20px;font-weight:700;letter-spacing:1px}
+#days div em{font-style:normal;font-size:44px;line-height:1.1}
+/* histoires */
+#grid9{position:absolute;left:60px;right:60px;top:560px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+#grid9 div{height:300px;position:relative;overflow:hidden;border:3px solid rgba(242,230,208,.5);background:linear-gradient(180deg,#2B1220 0 55%,#3A2215 55% 100%)}
+#grid9 div:after{content:'🔒';position:absolute;left:50%;top:55%;transform:translate(-50%,-60%);font-size:70px}
+#grid9 div:before{content:'';position:absolute;left:20px;right:20px;top:calc(55% - 40px);height:40px;background:repeating-linear-gradient(90deg,#E9D8B4 0 8px,transparent 8px 40px);opacity:.7}
+/* loupe */
+#lens{position:absolute;width:420px;height:420px;border-radius:50%;border:12px solid #3DDBA4;box-shadow:0 0 50px rgba(61,219,164,.45),inset 0 0 40px rgba(61,219,164,.25)}
+#lens:after{content:'';position:absolute;right:-110px;bottom:-110px;width:150px;height:34px;border-radius:17px;background:#3DDBA4;transform:rotate(45deg);transform-origin:0 50%}
+/* pages */
+#chipP{position:absolute;left:0;right:0;margin:auto;width:fit-content;top:190px;padding:14px 32px;background:#3DDBA4;color:#1C0E16;font-weight:700;font-size:32px;letter-spacing:4px}
+.pc{position:absolute;left:160px;top:330px;width:760px;background:#FFFDF8;box-shadow:0 40px 90px rgba(0,0,0,.6);overflow:hidden;transform-origin:50% 100%}
+.pc img{width:100%;display:block}
+.hl{position:absolute;left:0;right:0;background:rgba(61,219,164,.28);border:5px solid #1BA57A}
+/* guide */
+#gwrap{position:absolute;left:0;top:0;width:1080px;height:1290px;overflow:hidden}
+#gd{position:absolute;left:190px;top:330px;width:700px;height:808px;filter:drop-shadow(0 40px 50px rgba(0,0,0,.6))}
+#gd img{width:100%;height:100%}
+#gsoil{position:absolute;left:0;right:0;top:1290px;bottom:0;background:linear-gradient(180deg,#4A2C1B,#1C0F09)}
+#gsoil:before{content:'';position:absolute;left:0;right:0;top:0;height:12px;background:#6B4126}
+#kits{position:absolute;left:50px;right:50px;top:1360px;display:flex;gap:16px}
+#kits div{flex:1;padding:20px 8px;border:3px solid #3DDBA4;background:rgba(28,14,22,.8);text-align:center}
+#kits small{display:block;font-size:22px;letter-spacing:3px;color:#3DDBA4;font-weight:700}
+#kits b{display:block;font-size:34px;margin-top:6px}
+/* fin */
+#zsky{position:absolute;left:0;top:0;width:1080px;height:860px;background:linear-gradient(180deg,#160A12,#5A2A35 90%,#7A3B3A)}
+#zsoil{position:absolute;left:0;top:860px;width:1080px;height:1060px;background:linear-gradient(180deg,#4A2C1B,#2C190F 40%,#1C0F09)}
+#zsoil:before{content:'';position:absolute;left:0;right:0;top:0;height:14px;background:#6B4126}
+#zg{position:absolute;left:330px;top:150px;width:420px;height:485px;filter:drop-shadow(0 30px 40px rgba(0,0,0,.6))}
+#zg img{width:100%;height:100%}
+#ztx{position:absolute;left:0;right:0;top:700px;text-align:center;font-size:34px;font-weight:700;letter-spacing:4px}
+#zr{position:absolute;left:0;top:860px;width:1080px;height:700px}
+#zp{position:absolute;left:0;right:0;top:1000px;text-align:center;font-family:'FreeSerif',serif;font-weight:700;font-size:220px;line-height:1;color:#3DDBA4;letter-spacing:-6px;text-shadow:0 0 50px rgba(61,219,164,.35)}
+#zp small{font-size:72px;letter-spacing:0}
+#zo{position:absolute;left:0;right:0;top:1250px;text-align:center}
+#zo span{position:relative;font-size:50px;color:#C9B89A}
+#zo i{position:absolute;left:-10px;right:-10px;top:52%;height:6px;background:#FF6B5A;transform-origin:0 50%}
+#zb{position:absolute;left:110px;right:110px;top:1380px;height:140px;border-radius:70px;background:#3DDBA4;color:#1C0E16;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:700}
+#zd{position:absolute;left:0;right:0;top:1580px;text-align:center;font-size:70px;color:#3DDBA4;line-height:.5;font-weight:700}
+/* sous-titres : bande de papier crème */
+#cap{position:absolute;left:60px;right:60px;top:1660px;text-align:center}
+#cap div{display:inline-block;background:#F2E6D0;color:#2A0F14;padding:18px 32px;font-size:46px;font-weight:700;line-height:1.22;box-shadow:0 14px 30px rgba(0,0,0,.4);transform:rotate(-1deg)}
+#cap b{color:#0E7A5A}
+#wipe{position:absolute;left:0;right:0;height:0;background:#F2E6D0}
+</style></head><body>
+<div id="st">
+ <div id="W"><div id="sky"></div><div id="glow"></div><div id="soil"></div>
+  <svg id="wsv" viewBox="0 0 1080 2400">
+   <clipPath id="lensclip"><circle id="lensc" cx="-999" cy="-999" r="200"/></clipPath><g id="roots"></g>
+   <!-- arbre -->
+   <g id="tree"><path d="M318 1150 C322 1060 320 990 330 930 C340 990 338 1060 342 1150 Z" fill="#1A0D0A"/><path d="M330 960 C300 930 270 920 240 900 M332 940 C360 910 390 900 420 885" stroke="#1A0D0A" stroke-width="14" fill="none" stroke-linecap="round"/>
+    <ellipse id="crown" cx="330" cy="860" rx="190" ry="120" fill="#1A0D0A"/></g>
+   <!-- clôture + panneau -->
+   <g id="fence" stroke="#E9D8B4" stroke-width="8" stroke-linecap="round" fill="none"></g>
+   <g id="sign"><path d="M860 1150 V1000" stroke="#E9D8B4" stroke-width="10"/><rect id="sgb" x="745" y="925" width="230" height="86" fill="#F2E6D0"/><text id="sgt" x="860" y="983" text-anchor="middle" font-family="Liberation Sans" font-weight="700" font-size="40" fill="#1C0E16">VENDU ✓</text><path id="crk" d="M760 935 L800 975 L790 990 L835 1000 L850 1010" stroke="#FF6B5A" stroke-width="6" fill="none" pathLength="1" stroke-dasharray="1 1"/></g>
+   <!-- l'homme -->
+   <g id="man"><circle cx="0" cy="-168" r="34" fill="#0E0609"/><rect x="-42" y="-130" width="84" height="130" rx="36" fill="#0E0609"/><path d="M-36 -120 C-40 -80 -40 -40 -36 -4" stroke="#FF8A6E" stroke-width="4" fill="none" opacity=".7"/><circle cx="0" cy="-168" r="34" fill="none" stroke="#FF8A6E" stroke-width="3" opacity=".5" stroke-dasharray="60 200"/></g>
+   <!-- chaînes -->
+   <clipPath id="chc"><rect id="chr" x="440" y="1000" width="0" height="200"/></clipPath>
+   <g id="chain" clip-path="url(#chc)"><path d="M450 1090 Q 715 1150 990 1080" stroke="#BFB3A0" stroke-width="22" fill="none" stroke-dasharray="34 14" stroke-linecap="round"/><path d="M450 1090 Q 715 1150 990 1080" stroke="#6D6458" stroke-width="10" fill="none" stroke-dasharray="34 14" stroke-dashoffset="24"/>
+    <path d="M450 1050 Q 715 1000 990 1130" stroke="#BFB3A0" stroke-width="22" fill="none" stroke-dasharray="34 14" stroke-linecap="round"/></g>
+   <g id="lock"><path d="M690 1070 V1040 a30 30 0 0 1 60 0 V1070" stroke="#BFB3A0" stroke-width="12" fill="none"/><rect x="672" y="1068" width="96" height="80" rx="12" fill="#FF6B5A"/><circle cx="720" cy="1102" r="10" fill="#1C0E16"/></g>
+   <g id="coins"></g>
+   <g id="zz" font-family="FreeSerif" font-style="italic" font-size="44" fill="#E9C46A"></g>
+  </svg></div>
+ <!-- calques -->
+ <div class="L" id="A"><div id="yr">UN AN PLUS TARD</div><div class="hd H" id="ha" style="top:300px;font-size:120px">Tu as payé.</div>
+  <div id="q1"><div class="It" id="qa">« Ce terrain est<br><span class="Co">aussi à moi.</span> »</div></div></div>
+ <div class="L" id="B"><div id="nj">JAMAIS PRÉSENTÉS</div></div>
+ <div class="L" id="C"><div id="film"><h5>SOUVENIR · LE JOUR DE LA VENTE</h5><h2>Acte de vente</h2>
+   <div class="sg"><span>Le vendeur</span><i><b id="sg0">Signé</b></i></div>
+   <div class="sg"><span>Ses frères</span><i><u id="u1">PAS SIGNÉ</u></i></div>
+   <div class="sg"><span>Ses sœurs</span><i><u id="u2">PAS SIGNÉ</u></i></div>
+   <div class="sg"><span>La famille</span><i><u id="u3">PAS SIGNÉ</u></i></div>
+   <div id="fq"><div class="It" id="fqa">« Les autres frères<br>et toute la famille<br>est d'accord. »</div></div></div></div>
+ <div class="L" id="D"><div id="blk">Bloqué.</div>
+  <div id="cards"><div class="cd" id="cd1"><svg class="ic" viewBox="0 0 200 200" fill="none" stroke="#F2E6D0" stroke-width="8" stroke-linejoin="round"><path d="M30 100 L100 40 L170 100 M50 85 V170 H150 V85 M85 170 V125 H115 V170"/></svg><p>CONSTRUIRE</p><svg class="x" viewBox="0 0 100 100" preserveAspectRatio="none"><path id="x1" d="M8 8 L92 92 M92 8 L8 92" stroke="#FF6B5A" stroke-width="5" pathLength="1" stroke-dasharray="1 1" fill="none" stroke-linecap="round"/></svg></div>
+   <div class="cd" id="cd2"><svg class="ic" viewBox="0 0 200 200" fill="none" stroke="#F2E6D0" stroke-width="8"><path d="M100 180 V90 M40 40 H160 V100 H40 Z"/><text x="100" y="80" text-anchor="middle" font-size="26" fill="#F2E6D0" stroke="none" font-weight="700" font-family="Liberation Sans">À VENDRE</text></svg><p>VENDRE</p><svg class="x" viewBox="0 0 100 100" preserveAspectRatio="none"><path id="x2" d="M8 8 L92 92 M92 8 L8 92" stroke="#FF6B5A" stroke-width="5" pathLength="1" stroke-dasharray="1 1" fill="none" stroke-linecap="round"/></svg></div></div></div>
+ <div class="L" id="E">
+  <div id="cal"><h4>MES VACANCES AU PAYS</h4><div id="days"></div></div></div>
+ <div class="L" id="F"><div class="hd H" style="top:250px;font-size:84px;line-height:1.08" id="hf">Des histoires<br>comme celle-là…</div><div id="grid9"></div></div>
+ <div class="L" id="G"><div class="hd H" id="hg" style="top:220px;font-size:92px;line-height:1.05"><span id="g1">Pourtant, ce piège se voit</span><br><span class="J" id="g2">avant de payer.</span></div><div id="lens"></div></div>
+ <div class="L" id="H"><div class="hd H" id="hh" style="top:190px;font-size:88px;line-height:1.05">Alors on a tout<br>préparé <span class="J">pour toi.</span></div><div id="chipP">PRÉPARÉ POUR TOI</div>
+  <div class="pc" id="p1"><img src="kit1-12.png"><div class="hl" id="hl1" style="top:798px;height:56px"></div></div>
+  <div class="pc" id="p2"><img src="msg.png" style="height:auto"><div class="hl" id="hl2" style="top:805px;height:80px"></div></div>
+  <div class="pc" id="p3"><img src="pays.png"></div></div>
+ <div class="L" id="I"><div id="gwrap"><div id="gd"><img src="guide-3d.png"></div></div><div id="gsoil"></div>
+  <div id="kits"><div><small>KIT 1</small><b>Checklists</b></div><div><small>KIT 2</small><b>Modèles</b></div><div><small>KIT 3</small><b>Calculs</b></div><div><small>KIT 4</small><b>Carnets</b></div></div></div>
+ <div class="L" id="J"><div class="hd H" id="hj" style="top:1380px;font-size:96px;line-height:1.05"><span id="j1">Pour toi,</span><br><span class="J" id="j2">et pour tes proches.</span></div></div>
+ <div class="L" id="Z"><div id="zsky"></div><div id="zsoil"></div><div id="zg"><img src="guide-3d.png"></div><div id="ztx">LE GUIDE <span class="J">+ 4 KITS</span> PRÊTS À REMPLIR</div>
+  <svg id="zr" viewBox="0 0 1080 700" fill="none" style="opacity:.3" stroke="#E9D8B4" stroke-width="5" stroke-linecap="round"><path id="zrp" pathLength="1" stroke-dasharray="1 1" d="M540 0 C540 60 520 90 480 120 C400 170 260 160 170 240 M540 0 C545 70 580 100 640 130 C730 170 850 170 930 250 M480 120 C470 200 420 250 360 330 M640 130 C660 210 700 260 760 330"/></svg>
+  <div id="zp">9 900 <small>F CFA</small></div><div id="zo"><span>au lieu de 15 000 F<i id="zst"></i></span></div><div id="zb">Le lien est juste en dessous</div><div id="zd"><div id="d1">⌄</div><div id="d2">⌄</div></div></div>
+ <div class="L" id="sepia"></div><div class="L" id="vig"></div><div class="L" id="grain"></div>
+ <div id="wipe"></div>
+ <div id="cap"></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>cl((t-a)/(b-a));
+const eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const ex=x=>x>=1?1:1-Math.pow(2,-10*x);
+const es=x=>x<.5?16*x**5:1-Math.pow(-2*x+2,5)/2;
+const bk=x=>{const c1=1.5,c3=c1+1;return x<=0?0:x>=1?1:1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const lerp=(a,b,x)=>a+(b-a)*x;
+const show=(id,on)=>{$(id).style.display=on?'block':'none'};
+function sec(id,t,a,b,fi=.3,fo=.3){const on=t>=a&&t<b;show(id,on);if(on)$(id).style.opacity=P(t,a,a+fi)*(1-P(t,b-fo,b));return on}
+function rise(el,t,s,d=.55,dist=60){const a=ex(P(t,s,s+d));el.style.opacity=a;el.style.transform=`translateY(${(1-a)*dist}px)`;el.style.filter=`blur(${(1-a)*6}px)`}
+const dr=(el,p)=>{el.style.strokeDashoffset=1-p};
+// clôture
+let fd='';for(let x=470;x<=990;x+=65)fd+=`M${x} 1150 V1075 `;fd+='M460 1095 H1000 M460 1125 H1000';$('fence').innerHTML=`<path d="${fd}"/>`;
+// racines = famille du vendeur (coordonnées du monde)
+const ND=[['v','LE VENDEUR',540,1330],['f','SON FRÈRE',230,1530],['h','UN HÉRITIER',850,1510],['s','SA SŒUR',140,1790],['n','UN NEVEU',430,1830],['t','UNE TANTE',710,1800],['c','UN COUSIN',960,1780]];
+const RT=[['r0','M330 1150 C340 1220 470 1240 540 1300',16],['r1','M520 1350 C450 1420 300 1430 245 1490',11],['r2','M560 1350 C640 1410 790 1420 840 1470',11],
+ ['r3','M220 1570 C200 1650 160 1700 145 1750',7],['r4','M260 1560 C330 1640 410 1720 425 1790',7],['r5','M830 1550 C800 1640 740 1700 715 1760',7],['r6','M870 1550 C910 1620 950 1690 958 1740',7],
+ ['r7','M330 1150 C250 1200 130 1200 60 1260',8],['r8','M330 1150 C300 1220 240 1260 120 1330',5]];
+$('roots').innerHTML=RT.map(([id,d,w])=>`<path class="rt" id="${id}" d="${d}" pathLength="1" style="stroke-width:${w}"/>`).join('')+
+ ND.map(([id,l,x,y])=>`<g class="nd" id="n${id}" transform="translate(${x} ${y})"><circle r="44"/><text class="q" id="q${id}" y="18">?</text><text y="84" id="l${id}">${l}</text></g>`).join('');
+// pièces
+const CO=[[420,1300],[600,1420],[300,1640],[760,1620],[520,1720],[880,1380],[180,1450]];
+$('coins').innerHTML=CO.map((c,i)=>`<g id="co${i}"><ellipse rx="38" ry="14" fill="#B8913A"/><ellipse cy="-6" rx="38" ry="14" fill="#E9C46A"/></g>`).join('');
+$('zz').innerHTML=[0,1,2].map(i=>`<text id="z${i}">z</text>`).join('');
+// calendrier
+$('days').innerHTML=Array.from({length:14},(_,i)=>`<div id="dy${i}"><em></em><span></span></div>`).join('');
+$('grid9').innerHTML=Array.from({length:9},(_,i)=>`<div id="g9${i}"></div>`).join('');
+// sous-titres
+const CAP=[[1.64,3.60,"Un an plus tard, un homme arrive et dit :"],[5.64,6.87,"C'est <b>le frère du vendeur.</b>"],[20.83,22.32,"Ton argent <b>dort dans la terre,</b>"],[7.35,10.52,"Un héritier ou un membre de la famille <b>que personne ne t'a présenté.</b>"],
+ [11.13,13.08,"Le jour de la vente, on t'avait juste dit :"],[22.55,26.18,"Et tes vacances au pays, tu les passes <b>entre les avocats et la famille du vendeur.</b>"],
+ [26.75,29.36,"Des histoires comme celle-là, <b>tu en as sûrement déjà entendu.</b>"],[32.57,34.62,"À condition de savoir <b>quoi vérifier.</b>"],
+ [37.16,40.71,"Les douze vérifications avant de payer, <b>dont celle des héritiers,</b>"],[40.87,42.73,"les messages à envoyer <b>à ton notaire,</b>"],[42.89,43.92,"et <b>la fiche de ton pays.</b>"],
+ [44.32,47.59,"Tout est dans le guide « Les erreurs à éviter avant d'investir au pays »"],[47.82,49.56,"Avec <b>quatre kits</b> prêts à remplir."],[50.56,51.72,"Et pour tes proches <b>qui veulent acheter.</b>"]];
+function caps(t){const c=$('cap');const i=CAP.findIndex(([s,e])=>t>=s-.15&&t<e+.3);if(i<0){c.innerHTML='';c.dataset.k='';return}
+ if(c.dataset.k!=String(i)){c.innerHTML=`<div>${CAP[i][2]}</div>`;c.dataset.k=i}
+ const a=ex(P(t,CAP[i][0]-.15,CAP[i][0]+.3));c.style.opacity=a*(1-P(t,CAP[i][1]+.15,CAP[i][1]+.3));c.style.transform=`translateY(${(1-a)*40}px)`}
+// transitions « bande de papier » (crème) qui balaie de bas en haut
+const WP=[10.95,15.85,26.55,35.0,44.15,52.05];
+const LAY=['A','B','C','D','E','F','G','H','I','J','Z'];
+function nodes(t,cfg){ND.forEach(([id],i)=>{const c=cfg[id];const g=$('n'+id);if(!c){g.style.opacity=0;return}
+  const a=bk(P(t,c[0],c[0]+.45));g.style.opacity=t>=c[0]?1:0;g.setAttribute('transform',`translate(${ND[i][2]} ${ND[i][3]}) scale(${a})`);
+  const ci=g.querySelector('circle');ci.style.stroke=c[1]||'#E9D8B4';ci.style.fill=c[2]||'#2A1610';$('q'+id).textContent=c[3]||'?';$('q'+id).style.fill=c[4]||'#F2E6D0';$('l'+id).textContent=c[5]||ND[i][1]})}
+function roots(t,cfg,col){RT.forEach(([id],i)=>{const c=cfg[i];const e=$(id);e.style.stroke=col||'#E9D8B4';if(c==null){e.style.opacity=0;return}e.style.opacity=1;dr(e,typeof c=='number'?es(P(t,c,c+.6)):1)})}
+const R0=async function(t){
+ LAY.forEach(i=>show(i,false));
+ const fr=Math.floor(t*24);$('grain').style.backgroundImage=`url(noise${((fr%4)+4)%4}.png)`;
+ // bande de transition
+ let wh=0,wt=0;WP.forEach(s=>{if(t>=s&&t<s+.6){const p=P(t,s,s+.6);const a=es(cl(p*2)),b=es(cl(p*2-1));wt=1920*(1-a);wh=1920*(a-b)}});$('wipe').style.top=wt+'px';$('wipe').style.height=wh+'px';
+ $('sepia').style.opacity=(t>=11.1&&t<15.9)?.9:0;
+ // ---------- monde ----------
+ const wOn=t<11.25||(t>=15.9&&t<26.75)||(t>=29.6&&t<35.2)||(t>=49.8&&t<52.3);$('W').style.display=wOn?'block':'none';
+ let cy=0;
+ if(t<5.6)cy=lerp(-60,-150,P(t,0,5.6));else if(t<11.3)cy=lerp(-150,-560,es(P(t,5.55,6.4)));
+ else if(t<20.8)cy=-180;else if(t<26.8)cy=lerp(-180,-560,es(P(t,20.8,21.6)));
+ else if(t<32.4)cy=lerp(-180,-560,es(P(t,31.5,32.4)));else if(t<35.3)cy=-560;else cy=-620;
+ const sh=(t>=3.97&&t<4.5)?Math.sin(t*90)*10*(1-P(t,3.97,4.5)):0;
+ $('W').style.transform=`translate(${sh}px,${cy}px)`;
+ // l'homme
+ const mx=t<2.6?1200:lerp(1200,1030,ex(P(t,2.62,3.6)));$('man').setAttribute('transform',`translate(${mx} 1150)`);$('man').style.display=(t<11.3)?'':'none';
+ // panneau
+ const saleBefore=t>=29.6&&t<35.3;$('sgt').textContent=saleBefore?'À VENDRE':'VENDU ✓';
+ dr($('crk'),t<29?es(P(t,4.1,4.5)):0);$('sign').setAttribute('transform',`rotate(${(t>=3.97&&t<4.6)?Math.sin(t*60)*3*(1-P(t,3.97,4.6)):(t>=4.6&&t<29?4:0)} 860 1150)`);
+ $('sign').style.display=(t>=49.8)?'none':'';
+ // chaînes + cadenas
+ $('chr').setAttribute('width',(t>=15.9&&t<26.8)?600*es(P(t,16.1,17.2)):0);
+ const lk=bk(P(t,17.35,17.8));$('lock').style.opacity=(t>=17.35&&t<26.8)?1:0;$('lock').setAttribute('transform',`translate(0 ${(1-lk)*-300})`);
+ // arbre
+ $('crown').style.fill=t>=49.8?'#1F6B50':'#1A0D0A';$('glow').style.opacity=t>=49.8?1.4:1;
+ // racines & nœuds
+ if(t<11.3){roots(t,[5.7,6.0,7.4,8.1,8.25,8.4,8.55,1.0,1.4]);
+  nodes(t,{v:[6.0,'#E9D8B4','#2A1610','!'],f:[6.35,'#FF6B5A','#4A1A16','!','#FF6B5A'],h:[7.6,'#FF6B5A'],s:[8.3],n:[8.45],t:[8.6],c:[8.75]})}
+ else if(t>=15.9&&t<26.8){roots(t,[0,0,0,0,0,0,0,0,0].map(()=>1));nodes(t,{v:[0,'#E9D8B4','#2A1610','!'],f:[0,'#FF6B5A','#4A1A16','!','#FF6B5A'],h:[0,'#FF6B5A'],s:[0],n:[0],t:[0],c:[0]})}
+ else if(t>=29.6&&t<35.3){roots(t,[0,0,0,0,0,0,0,0,0].map(()=>1),'#3DDBA4');nodes(t,{v:[0,'#3DDBA4','#0F2A22','?','#3DDBA4'],f:[0,'#3DDBA4','#0F2A22','?','#3DDBA4'],h:[0,'#3DDBA4','#0F2A22','?','#3DDBA4'],s:[0,'#3DDBA4','#0F2A22','?','#3DDBA4'],n:[0,'#3DDBA4','#0F2A22','?','#3DDBA4'],t:[0,'#3DDBA4','#0F2A22','?','#3DDBA4'],c:[0,'#3DDBA4','#0F2A22','?','#3DDBA4']})}
+ else if(t>=49.8){roots(t,[49.9,50.1,50.3,null,50.7,null,null,50.0,50.2],'#3DDBA4');
+  const ok=['#3DDBA4','#0F2A22','✓','#3DDBA4'];nodes(t,{v:[50.0,...ok,'TOI'],f:[50.6,...ok,'TES PROCHES'],h:[50.75,...ok,'TES PROCHES'],n:[50.9,...ok,'TA FAMILLE']})}
+ // loupe : on ne voit les racines que dans la loupe
+ if(t>=29.6&&t<35.3){const on=t>=32.5;const lx=lerp(150,930,eio(P(t,32.6,34.9))),ly=1000+Math.sin(P(t,32.6,34.9)*Math.PI*2)*160;
+  $('lens').style.left=(lx-210)+'px';$('lens').style.top=(ly-210)+'px';$('lens').style.opacity=on?ex(P(t,32.5,32.9)):0;
+  $("lensc").setAttribute('cx',on?lx:-999);$("lensc").setAttribute('cy',on?ly-cy:-999);$('roots').setAttribute('clip-path','url(#lensclip)')}
+ else $('roots').removeAttribute('clip-path');
+ // pièces qui s'enfoncent
+ CO.forEach((c,i)=>{const s=20.9+i*.12;const p=eio(P(t,s,s+1.6));const g=$('co'+i);g.style.display=(t>=20.8&&t<26.8)?'':'none';g.setAttribute('transform',`translate(${c[0]} ${lerp(1120,c[1],p)}) rotate(${lerp(-20,(i%2?12:-8),p)})`)});
+ [0,1,2].forEach(i=>{const z=$('z'+i);const ph=((t-22+i*.6)%1.8)/1.8;z.setAttribute('x',600+i*30+ph*40);z.setAttribute('y',1560-ph*140-i*40);z.style.opacity=(t>=22.2&&t<26.6)?Math.sin(ph*Math.PI):0});
+ // ---------- A ----------
+ if(sec('A',t,-1,5.6,.01,.3)){const a=ex(P(t,.07,.6));$('ha').style.opacity=a*(1-P(t,1.5,1.7));$('ha').style.transform=`scale(${lerp(1.2,1,a)})`;
+  const y=bk(P(t,1.64,2.0));$('yr').style.opacity=t>=1.64?1-P(t,3.8,4.0):0;$('yr').style.transform=`rotateX(${(1-y)*90}deg)`;
+  const q=ex(P(t,3.97,4.4));$('q1').style.opacity=t>=3.97?q:0;$('q1').style.transform=`scale(${lerp(1.5,1,q)})`;$('q1').style.filter=`blur(${(1-q)*10}px)`}
+ // ---------- B ----------
+ if(sec('B',t,5.5,11.3)){const n=bk(P(t,9.5,9.9));$('nj').style.opacity=t>=9.5?1:0;$('nj').style.transform=`rotate(-5deg) scale(${lerp(1.8,1,n)})`}
+ // ---------- C : souvenir ----------
+ if(sec('C',t,11.0,16.0,.2,.3)){const f=ex(P(t,11.13,11.7));$('film').style.transform=`rotate(${lerp(-6,-1.5,f)}deg) scale(${lerp(.85,1,f)})`;
+  $('sg0').style.opacity=ex(P(t,12.0,12.4));rise($('fqa'),t,13.51,.5,30);
+  [1,2,3].forEach(i=>{const s=14.52+i*.3;const u=$('u'+i);u.style.opacity=t>=s?1:0;u.style.transform=`scale(${lerp(1.6,1,bk(P(t,s,s+.35)))})`})}
+ // ---------- D : bloqué ----------
+ if(sec('D',t,15.9,20.75)){const b=bk(P(t,17.35,17.7));$('blk').style.opacity=t>=17.35?1-P(t,18.05,18.25):0;$('blk').style.transform=`scale(${lerp(1.6,1,b)})`;
+  [['cd1',18.24,'x1',18.7],['cd2',19.55,'x2',19.95]].forEach(([id,s,x,xs])=>{const a=ex(P(t,s,s+.4));$(id).style.opacity=a;$(id).style.transform=`translateY(${(1-a)*80}px)`;dr($(x),es(P(t,xs,xs+.35)))});
+  $('cards').style.opacity=t>=18.2?1:0}
+ // ---------- E : argent + vacances ----------
+ if(sec('E',t,20.75,26.75)){
+  const c=ex(P(t,22.55,23.0));$('cal').style.opacity=c;$('cal').style.transform=`translateY(${(1-c)*-120}px)`;
+  for(let i=0;i<14;i++){const s=23.74+i*.17;const d=$('dy'+i);const on=t>=s;const av=[0,2,3,5,7,8,10,12,13].includes(i);
+   d.style.background=on?(av?'#FF6B5A':'#E9D8B4'):'transparent';d.style.color='#1C0E16';d.querySelector('em').textContent=on?(av?'⚖️':'👥'):'';d.querySelector('span').textContent=on?(av?'AVOCAT':'FAMILLE'):'';
+   d.style.transform=`scale(${on?lerp(1.25,1,ex(P(t,s,s+.25))):1})`}}
+ // ---------- F : histoires ----------
+ if(sec('F',t,26.55,29.75)){rise($('hf'),t,26.75,.5,40);for(let i=0;i<9;i++){const a=bk(P(t,27.0+i*.12,27.45+i*.12));$('g9'+i).style.transform=`scale(${a})`;$('g9'+i).style.opacity=t>=27.0+i*.12?1:0}}
+ // ---------- G : avant de payer + loupe ----------
+ if(sec('G',t,29.6,35.2)){rise($('g1'),t,29.79,.5,30);const a=bk(P(t,31.41,31.8));$('g2').style.opacity=t>=31.41?1:0;$('g2').style.display='inline-block';$('g2').style.transform=`scale(${lerp(.5,1,a)})`;
+  $('hg').style.transform=`translateY(${lerp(0,-40,es(P(t,32.3,32.8)))}px) scale(${lerp(1,.85,es(P(t,32.3,32.8)))})`}
+ // ---------- H : les pages ----------
+ if(sec('H',t,35.0,44.4)){rise($('hh'),t,35.07,.5,40);$('hh').style.opacity=ex(P(t,35.07,35.5))*(1-P(t,36.8,37.0));$('chipP').style.opacity=ex(P(t,37.0,37.3));
+  [['p1',37.16],['p2',40.87],['p3',42.89]].forEach(([id,s],i)=>{const a=ex(P(t,s,s+.55));const next=[40.87,42.89,99][i];const back=es(P(t,next,next+.5));
+   $(id).style.opacity=t>=s?1:0;$(id).style.transform=`translateY(${(1-a)*1400-back*60}px) rotate(${(1-a)*(i%2?8:-8)+back*(i%2?3:-3)}deg) scale(${1-back*.08})`;$(id).style.filter=`brightness(${1-back*.45})`;$(id).style.zIndex=i});
+  $('hl1').style.opacity=ex(P(t,39.6,39.9));$('hl1').style.transform=`scaleX(${es(P(t,39.6,40.0))})`;$('hl1').style.transformOrigin='0 50%';
+  $('hl2').style.opacity=ex(P(t,41.4,41.7));$('hl2').style.transform=`scaleX(${es(P(t,41.4,41.8))})`;$('hl2').style.transformOrigin='0 50%'}
+ // ---------- I : le guide sort de terre ----------
+ if(sec('I',t,44.15,49.95)){const g=es(P(t,44.32,45.3));$('gd').style.transform=`translateY(${(1-g)*900+Math.sin(t*1.3)*8}px)`;
+  [...$('kits').children].forEach((k,i)=>{const s=47.82+i*.13,a=bk(P(t,s,s+.45));k.style.opacity=t>=s?1:0;k.style.transform=`translateY(${(1-a)*-80}px) scale(${.6+.4*a})`})}
+ // ---------- J : toi et tes proches ----------
+ if(sec('J',t,49.8,52.3)){rise($('j1'),t,49.92,.4,30);$('j1').style.display='inline-block';rise($('j2'),t,50.56,.5,30);$('j2').style.display='inline-block'}
+ // ---------- Z : fin ----------
+ if(sec('Z',t,52.05,99,.01,.01)){const g=ex(P(t,52.2,52.9));$('zg').style.transform=`translateY(${(1-g)*-400+Math.sin(t*1.3)*6}px)`;$('zg').style.opacity=g;rise($('ztx'),t,52.5,.5,20);
+  dr($('zrp'),es(P(t,52.3,53.4)));const p=ex(P(t,52.19,52.8));$('zp').style.opacity=p;$('zp').style.transform=`translateY(${(1-p)*120}px)`;$('zp').style.filter=`blur(${(1-p)*10}px)`;
+  $('zo').style.opacity=ex(P(t,53.35,53.6));$('zst').style.transform=`scaleX(${ex(P(t,53.7,54.1))})`;
+  const bt=bk(P(t,54.57,55.0));$('zb').style.opacity=t>=54.57?1:0;$('zb').style.transform=`scale(${.7+.3*bt})`;
+  $('zd').style.opacity=ex(P(t,55.0,55.3));$('d1').style.transform=`translateY(${Math.sin(t*6)*8}px)`;$('d2').style.transform=`translateY(${Math.sin(t*6-1)*8}px)`;$('d2').style.opacity=.55}
+ caps(t);
+ await document.fonts.ready;
+};
+window.render=t=>R0(t-0.5);
+</script></body></html>

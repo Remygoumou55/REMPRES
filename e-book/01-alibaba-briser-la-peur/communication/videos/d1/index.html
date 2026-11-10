@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- D1 « Par où commencer » — motion design « carnet + croquis à main levée » (effet de dessin animé qui vibre). -->
+<style>
+@font-face{font-family:'Pop';font-weight:800;src:url(pop-800.woff2)}
+@font-face{font-family:'Pop';font-weight:700;src:url(pop-700.woff2)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#FBF7EE}
+body{font-family:'Pop',sans-serif;color:#1E2A44}
+#st{position:absolute;inset:0;overflow:hidden}
+.L{position:absolute;inset:0}
+#paper{background:linear-gradient(90deg,transparent 118px,rgba(229,72,72,.55) 118px 122px,transparent 122px),repeating-linear-gradient(180deg,transparent 0 62px,rgba(80,130,200,.22) 62px 64px),#FBF7EE}
+#grain{background-size:540px 960px;mix-blend-mode:multiply;opacity:.10}
+.dd{fill:none;stroke:#1E2A44;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+.hd{position:absolute;left:60px;right:60px;text-align:center;font-weight:800;line-height:1.05;letter-spacing:-1px}
+.hl{background:linear-gradient(180deg,transparent 55%,#FFE066 55% 92%,transparent 92%);padding:0 8px}
+.Or{color:#F07316}
+svg.full{position:absolute;left:0;top:0;width:1080px;height:1920px}
+.pill{position:absolute;padding:12px 24px;border:5px solid #1E2A44;border-radius:30px;background:#fff;font-weight:700;font-size:36px;white-space:nowrap;box-shadow:6px 6px 0 #1E2A44}
+.note{position:absolute;left:290px;width:500px;padding:26px 28px;font-weight:700;font-size:38px;line-height:1.15;box-shadow:6px 8px 0 rgba(30,42,68,.25)}
+.tape{position:absolute;padding:10px 26px;background:rgba(255,224,102,.9);font-weight:800;font-size:40px;transform:rotate(-6deg);box-shadow:0 4px 0 rgba(0,0,0,.1)}
+#cal{position:absolute;left:290px;top:560px;width:500px;height:520px;border:7px solid #1E2A44;border-radius:24px;background:#fff;box-shadow:10px 10px 0 #1E2A44;overflow:hidden}
+#calh{height:120px;background:#E54848;border-bottom:7px solid #1E2A44}
+#calp{position:absolute;left:0;right:0;top:127px;bottom:0;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:120px;transform-origin:50% 0}
+#vc{position:absolute;left:0;right:0;top:1180px;text-align:center;font-weight:800;font-size:56px}
+#vc b{color:#F07316}
+.chk{position:absolute;left:540px;width:470px;height:130px;border:6px solid #1E2A44;border-radius:24px;background:#fff;display:flex;align-items:center;gap:14px;padding:0 22px;font-weight:800;font-size:38px;box-shadow:8px 8px 0 #1E2A44}
+.chk em{font-style:normal;font-size:50px}
+.chk i{margin-left:auto;font-style:normal;color:#22A06B;font-size:56px}
+#me{position:absolute;left:90px;top:640px;width:420px;height:620px}
+.q{position:absolute;left:0;right:0;text-align:center;font-weight:800}
+.q span{position:relative;display:inline-block}
+#map{position:absolute;left:0;top:0;width:1080px;height:1920px}
+#pg13{position:absolute;left:240px;top:330px;width:600px;background:#fff;border:5px solid #1E2A44;box-shadow:10px 10px 0 #1E2A44;transform:rotate(-2deg)}
+#pg13 img,#pg30 img{display:block;width:100%}
+#pg30{position:absolute;left:90px;top:430px;width:900px;background:#fff;border:6px solid #1E2A44;box-shadow:12px 12px 0 #1E2A44}
+.wk{position:absolute;left:12px;right:12px;height:100px;border:6px solid #F07316;border-radius:16px;background:rgba(255,224,102,.25)}
+#zg{position:absolute;left:290px;top:420px;width:500px;height:646px;filter:drop-shadow(14px 18px 0 rgba(30,42,68,.25))}
+#zk1{position:absolute;left:70px;top:640px;width:280px;height:392px;transform:rotate(-8deg)}
+#zk3{position:absolute;left:730px;top:640px;width:280px;height:398px;transform:rotate(8deg)}
+#zg img,#zk1 img,#zk3 img{width:100%;height:100%}
+#zp{position:absolute;left:0;right:0;top:1150px;text-align:center;font-weight:800;font-size:190px;line-height:1;letter-spacing:-6px}
+#zp small{font-size:64px;letter-spacing:0}
+#zb{position:absolute;left:120px;right:120px;top:1390px;height:140px;border:7px solid #1E2A44;border-radius:30px;background:#FFE066;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:800;box-shadow:10px 10px 0 #1E2A44}
+/* sous-titres : bande de papier scotchée */
+#cap{position:absolute;left:70px;right:70px;top:1640px;text-align:center}
+#cap div{display:inline-block;position:relative;background:#fff;padding:22px 34px;font-size:44px;font-weight:700;line-height:1.22;border:4px solid #1E2A44;box-shadow:8px 8px 0 #1E2A44;transform:rotate(-1deg)}
+#cap div:before{content:'';position:absolute;left:50%;top:-22px;width:140px;height:36px;margin-left:-70px;background:rgba(255,224,102,.85);transform:rotate(3deg)}
+#cap b{color:#F07316}
+</style></head><body>
+<div id="st">
+ <div class="L" id="paper"></div>
+ <!-- A : le carrefour -->
+ <div class="L" id="A"><div class="hd" id="ha1" style="top:200px;font-size:84px">Tu veux te lancer<br>dans l'e-commerce…</div>
+  <div class="hd" id="ha2" style="top:420px;font-size:78px;white-space:nowrap"><span class="Or">par où</span> <span class="hl">commencer ?</span></div>
+  <svg class="full" id="sa"><g id="arrows"></g><g id="man1"><circle class="dd" cx="540" cy="1060" r="62"/><path class="dd" d="M540 1122 V1330 M540 1180 L470 1260 M540 1180 L610 1250 M540 1330 L480 1450 M540 1330 L600 1450"/><path class="dd" d="M515 1050 h1 M565 1050 h1" stroke-width="12"/><path class="dd" d="M515 1095 q25 -12 50 0"/></g>
+   <text id="qm" x="540" y="960" text-anchor="middle" font-family="Pop" font-weight="800" font-size="120" fill="#F07316">?</text></svg>
+  <div id="pills"></div></div>
+ <!-- B : les vidéos qui se contredisent, puis l'attente -->
+ <div class="L" id="B"><svg class="full"><rect class="dd" x="250" y="300" width="580" height="1100" rx="70" style="fill:#fff"/><path class="dd" d="M480 345 h120"/></svg>
+  <div id="feed" style="position:absolute;left:250px;top:300px;width:580px;height:1100px;overflow:hidden;border-radius:70px"></div>
+  <div class="tape" id="tp1" style="left:80px;top:420px">Facebook</div><div class="tape" id="tp2" style="left:760px;top:760px;transform:rotate(7deg)">TikTok</div></div>
+ <div class="L" id="B2"><div class="hd" id="hb" style="top:250px;font-size:100px">Alors… <span class="hl">tu attends.</span></div>
+  <div id="cal"><div id="calh"></div><div id="calp">Mois 1</div></div><div id="vc">Vidéo n° <b id="vcn">247</b></div></div>
+ <!-- C : les autres avancent -->
+ <div class="L" id="C"><svg id="me" viewBox="0 0 420 620"><g style="opacity:.55"><circle class="dd" cx="200" cy="140" r="58"/><path class="dd" d="M200 198 V380 M200 250 L140 330 M200 250 L260 320 M200 380 L120 470 L130 560 M200 380 L280 470 L270 560"/><path class="dd" d="M90 440 H320"/></g>
+   <g transform="translate(320 420)"><path class="dd" d="M0 0 H70 M0 120 H70 M8 0 C8 50 62 70 62 120 M62 0 C62 50 8 70 8 120" style="stroke:#F07316"/></g>
+   <text x="200" y="610" text-anchor="middle" font-family="Pop" font-weight="800" font-size="42" fill="#1E2A44">Toi</text></svg>
+  <div class="hd" id="hc" style="top:240px;font-size:80px">D'autres <span class="hl">avancent.</span></div>
+  <div class="chk" id="c0" style="top:600px"><em>🛒</em>Commandent<i>✓</i></div><div class="chk" id="c1" style="top:780px"><em>📦</em>Reçoivent<i>✓</i></div><div class="chk" id="c2" style="top:960px"><em>🛍️</em>Vendent<i>✓</i></div>
+  <div class="q" id="q1" style="top:1330px;font-size:78px"><span>Plus forts ?<svg style="position:absolute;left:-20px;top:10px;width:calc(100% + 40px);height:80px" viewBox="0 0 100 80" preserveAspectRatio="none"><path id="x1" d="M2 60 Q50 20 98 30" stroke="#E54848" stroke-width="7" fill="none" pathLength="1" stroke-dasharray="1 1" stroke-linecap="round"/></svg></span></div>
+  <div class="q" id="q2" style="top:1450px;font-size:78px"><span>Plus intelligents ?<svg style="position:absolute;left:-20px;top:10px;width:calc(100% + 40px);height:80px" viewBox="0 0 100 80" preserveAspectRatio="none"><path id="x2" d="M2 55 Q50 25 98 35" stroke="#E54848" stroke-width="7" fill="none" pathLength="1" stroke-dasharray="1 1" stroke-linecap="round"/></svg></span></div>
+  <div class="hd" id="hc2" style="top:1330px;font-size:84px">Ils ont suivi<br><span class="hl Or">un ordre.</span></div></div>
+ <!-- D : les 10 étapes + le plan 30 jours -->
+ <div class="L" id="D"><div class="hd" id="hd" style="top:170px;font-size:84px">L'importation =<br><span class="hl">10 étapes</span></div>
+  <div id="pg13"><img src="etapes10.png"></div>
+  <svg id="map" viewBox="0 0 1080 1920"><path id="road" class="dd" pathLength="1" stroke-dasharray="1 1" style="stroke:#1E2A44;stroke-width:8" d="M130 900 H950 C1030 900 1030 1130 950 1130 H130 "/><g id="st10"></g></svg>
+  <div id="pg30"><img src="plan30.png"><div id="wks"></div></div></div>
+ <!-- Z : fin -->
+ <div class="L" id="Z"><div class="hd" id="hz" style="top:190px;font-size:80px">Tout est <span class="hl">dedans.</span></div>
+  <div id="zk1"><img src="kit1-3d.png"></div><div id="zk3"><img src="kit3-3d.png"></div><div id="zg"><img src="guide-3d.png"></div>
+  <svg class="full"><path id="zarr" class="dd" pathLength="1" stroke-dasharray="1 1" d="M860 330 C960 380 940 470 820 520 M820 520 l40 -10 M820 520 l20 35" style="stroke:#F07316;stroke-width:8"/><ellipse id="zc" cx="540" cy="1245" rx="430" ry="130" class="dd" pathLength="1" stroke-dasharray="1 1" style="stroke:#F07316;stroke-width:9" transform="rotate(-3 540 1245)"/>
+   <path id="zd" class="dd" pathLength="1" stroke-dasharray="1 1" d="M540 1560 V1640 M505 1605 L540 1645 L575 1605" style="stroke-width:9"/></svg>
+  <div id="zp">3 900 <small>F CFA</small></div><div id="zb">Le lien est juste en dessous</div></div>
+ <div class="L" id="grain"></div>
+ <div id="cap"></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>cl((t-a)/(b-a));
+const eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const ex=x=>x>=1?1:1-Math.pow(2,-10*x);
+const es=x=>x<.5?16*x**5:1-Math.pow(-2*x+2,5)/2;
+const bk=x=>{const c1=1.5,c3=c1+1;return x<=0?0:x>=1?1:1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const lerp=(a,b,x)=>a+(b-a)*x;
+const show=(id,on)=>{$(id).style.display=on?'block':'none'};
+function sec(id,t,a,b,fi=.25,fo=.25){const on=t>=a&&t<b;show(id,on);if(on)$(id).style.opacity=P(t,a,a+fi)*(1-P(t,b-fo,b));return on}
+const dr=(el,p)=>{el.style.strokeDashoffset=1-p};
+function pop(el,t,s,d=.4){const a=bk(P(t,s,s+d));el.style.opacity=t>=s?1:0;el.style.transform=`scale(${a})`}
+// effet « dessin animé » : léger tremblement 8 fois par seconde
+function boil(el,t,k=1){const f=Math.floor(t*8);const r=(n)=>Math.sin(f*12.9898+n*78.233)*43758.5453%1;el.style.translate=`${r(1+k)*2.2}px ${r(2+k)*2.2}px`;el.style.rotate=`${r(3+k)*.35}deg`}
+// A : flèches dans tous les sens
+const AR=[[-60,'Dropshipping ?'],[-20,'Alibaba ?'],[20,'AliExpress ?'],[60,'1688 ?'],[120,'Formation ?'],[160,'Boutique ?'],[200,'Grossiste ?'],[240,'Agent ?']];
+$('arrows').innerHTML=AR.map(([a],i)=>{const r=a*Math.PI/180,x1=540+Math.cos(r)*120,y1=1180+Math.sin(r)*120,x2=540+Math.cos(r)*330,y2=1180+Math.sin(r)*330;
+ const hx=Math.cos(r),hy=Math.sin(r);return `<path id="ar${i}" class="dd" pathLength="1" stroke-dasharray="1 1" d="M${x1} ${y1} L${x2} ${y2} M${x2} ${y2} L${x2-hx*36-hy*22} ${y2-hy*36+hx*22} M${x2} ${y2} L${x2-hx*36+hy*22} ${y2-hy*36-hx*22}"/>`}).join('');
+$('pills').innerHTML=AR.map(([a,l],i)=>{const r=a*Math.PI/180,x=540+Math.cos(r)*410,y=1180+Math.sin(r)*400;return `<div class="pill" id="pl${i}" style="left:${x}px;top:${y}px;transform-origin:0 0">${l}</div>`}).join('');
+// B : fil de vidéos contradictoires
+const FD=[['Commence avec 10 000 F !','#FFE9A8'],['Il faut au moins 100 000 F','#CDE7FF'],['Alibaba, c\'est fini !','#FFD3CC'],['Fais du dropshipping','#D7F5DF'],['Va directement en Chine','#FFE9A8'],['Ne commence jamais sans formation','#E8DBFF'],['Commence avec 0 F','#CDE7FF'],['Achète d\'abord au marché','#FFD3CC']];
+$('feed').innerHTML=FD.map(([x,c],i)=>`<div class="note" id="fd${i}" style="left:40px;background:${c};transform:rotate(${i%2?2:-2}deg)">▶ ${x}</div>`).join('');
+// D : les 10 étapes
+const S10=[['Compte',130,900],['Paiement',335,900],['Transitaire',540,900],['Produit',745,900],['Fournisseur',950,900],['Négociation',950,1130],['Payer',745,1130],['Suivi',540,1130],['Transport',335,1130],['Colis en main ✓',130,1130]];
+const ST=[24.60,25.63,26.79,28.24,29.36,30.91,31.20,31.50,31.80,32.25];
+$('st10').innerHTML=S10.map(([l,x,y],i)=>`<g id="s${i}"><circle cx="${x}" cy="${y}" r="52" fill="#fff" stroke="#1E2A44" stroke-width="7"/><text x="${x}" y="${y+18}" text-anchor="middle" font-family="Pop" font-weight="800" font-size="50" fill="#1E2A44">${i+1}</text><text x="${x}" y="${y+100}" text-anchor="middle" font-family="Pop" font-weight="700" font-size="26" fill="#1E2A44">${l}</text></g>`).join('');
+$('wks').innerHTML=[222,330,436,543].map((y,i)=>`<div class="wk" id="wk${i}" style="top:${(y-46)*0.888}px;height:84px"></div>`).join('');
+const CAP=[[4.12,9.47,"Tu regardes des vidéos tous les jours, sur Facebook, TikTok… <b>et chacune te dit autre chose.</b>"],
+ [13.71,17.71,"Pendant que tu attends, d'autres <b>commandent, reçoivent et vendent.</b>"],
+ [30.91,33.03,"Et ainsi de suite, <b>jusqu'au colis dans tes mains.</b>"],[33.43,35.94,"Avec un plan de trente jours, <b>semaine par semaine.</b>"],
+ [36.40,40.02,"Tout est dans le guide « Briser la peur d'importer », <b>avec trois kits prêts à l'emploi.</b>"]];
+function caps(t){const c=$('cap');const i=CAP.findIndex(([s,e])=>t>=s-.15&&t<e+.3);if(i<0){c.innerHTML='';c.dataset.k='';return}
+ if(c.dataset.k!=String(i)){c.innerHTML=`<div>${CAP[i][2]}</div>`;c.dataset.k=i}
+ const a=bk(P(t,CAP[i][0]-.15,CAP[i][0]+.25));c.style.opacity=(t>=CAP[i][0]-.15?1:0)*(1-P(t,CAP[i][1]+.15,CAP[i][1]+.3));c.style.transform=`scale(${.85+.15*a})`}
+const LAY=['A','B','B2','C','D','Z'];
+const R0=async function(t){
+ LAY.forEach(i=>show(i,false));
+ const fr=Math.floor(t*24);$('grain').style.backgroundImage=`url(noise${((fr%4)+4)%4}.png)`;
+ // ---------- A ----------
+ if(sec('A',t,-1,3.95,.01,.25)){boil($('sa'),t,1);boil($('pills'),t,2);
+  const a=ex(P(t,.06,.5));$('ha1').style.opacity=a;$('ha1').style.transform=`translateY(${(1-a)*-40}px)`;
+  pop($('ha2'),t,1.8,.45);
+  $('man1').style.opacity=ex(P(t,0,.4));const q=bk(P(t,2.4,2.8));$('qm').style.opacity=t>=2.4?1:0;$('qm').style.transform=`scale(${q})`;$('qm').style.transformOrigin='540px 930px';
+  AR.forEach((x,i)=>{const s=.3+i*.18;dr($('ar'+i),es(P(t,s,s+.35)));const p=bk(P(t,s+.25,s+.6));$('pl'+i).style.opacity=t>=s+.25?1:0;$('pl'+i).style.transform=`translate(-50%,-50%) scale(${p}) rotate(${(i%3-1)*4}deg)`})}
+ // ---------- B : le fil ----------
+ if(sec('B',t,3.9,10.15)){boil($('B'),t,3);const p=ex(P(t,4.12,4.7));$('B').style.transform=`translateY(${(1-p)*300}px)`;
+  FD.forEach((f,i)=>{const y=60+i*230-(t-4.1)*150;$('fd'+i).style.top=y+'px'});
+  [['tp1',6.09],['tp2',7.09]].forEach(([id,s])=>{const a=bk(P(t,s,s+.35));$(id).style.opacity=t>=s?1:0;$(id).style.scale=a})}
+ if(sec('B2',t,9.9,13.75)){boil($('B2'),t,4);pop($('hb'),t,9.96,.4);
+  const page=t<11.24?1:2;$('calp').textContent='Mois '+page;const fl=P(t,11.24,11.6);$('calp').style.transform=`rotateX(${t>=11.24&&t<11.6?(1-fl)*-90:0}deg)`;
+  const pc=ex(P(t,10.0,10.4));$('cal').style.opacity=pc;$('cal').style.transform=`rotate(${-3+Math.sin(t*2)*1}deg) scale(${.8+.2*pc})`;
+  const n=t<12.36?247:248;$('vcn').textContent=n;$('vc').style.opacity=ex(P(t,10.5,10.8));$('vc').style.transform=`scale(${t>=12.36?lerp(1.25,1,P(t,12.36,12.7)):1})`}
+ // ---------- C ----------
+ if(sec('C',t,13.6,22.45)){boil($('me'),t,5);pop($('hc'),t,13.71,.4);$('hc').style.opacity=t>=13.71?1:0;
+  [['c0',14.83],['c1',15.98],['c2',16.8]].forEach(([id,s])=>{const a=bk(P(t,s,s+.4));$(id).style.opacity=t>=s?1:0;$(id).style.transform=`translateX(${(1-a)*300}px) rotate(${(1-a)*6}deg)`});
+  [['q1',17.71,'x1',18.4],['q2',18.99,'x2',19.6]].forEach(([q,s,x,xs])=>{pop($(q),t,s,.35);$(q).style.opacity=(t>=s?1:0)*(1-P(t,20.2,20.4));dr($(x),es(P(t,xs,xs+.3)))});
+  pop($('hc2'),t,20.39,.45)}
+ // ---------- D ----------
+ if(sec('D',t,22.3,36.5)){boil($('map'),t,6);pop($('hd'),t,22.41,.4);
+  const g=ex(P(t,22.6,23.2));$('pg13').style.opacity=g*(1-P(t,24.4,24.7));$('pg13').style.transform=`rotate(-2deg) translateY(${(1-g)*500}px) scale(${1-.1*P(t,24.4,24.7)})`;
+  dr($('road'),es(P(t,24.3,26.0))*.35+es(P(t,26.0,32.4))*.65);$('map').style.opacity=t>=24.3?1:0;
+  S10.forEach((s,i)=>{const e=$('s'+i);const a=bk(P(t,ST[i],ST[i]+.35));e.style.opacity=t>=ST[i]-.05?1:0;e.style.transformOrigin=`${s[1]}px ${s[2]}px`;e.style.transform=`scale(${.5+.5*a})`;e.querySelector('circle').style.fill=t>=ST[i]?(i==9?'#22A06B':'#F07316'):'#fff';e.querySelectorAll('text')[0].style.fill=t>=ST[i]?'#fff':'#1E2A44'});
+  const p=ex(P(t,33.43,34.0));$('pg30').style.opacity=t>=33.43?1:0;$('pg30').style.transform=`translateY(${(1-p)*1300}px) rotate(${(1-p)*-5+1}deg)`;
+  [0,1,2,3].forEach(i=>{const s=34.0+i*.45;$('wk'+i).style.opacity=t>=s?1:0;$('wk'+i).style.transform=`scaleX(${es(P(t,s,s+.25))})`;$('wk'+i).style.transformOrigin='0 50%'})}
+ // ---------- Z ----------
+ if(sec('Z',t,36.25,99,.25,.01)){boil($('Z'),t,7);pop($('hz'),t,36.4,.4);
+  const g=ex(P(t,36.5,37.2));$('zg').style.opacity=g;$('zg').style.transform=`translateY(${(1-g)*600}px)`;
+  [['zk1',38.58,-1],['zk3',38.8,1]].forEach(([k,s,d])=>{const a=bk(P(t,s,s+.45));$(k).style.opacity=t>=s?1:0;$(k).style.transform=`rotate(${d*8}deg) translateX(${(1-a)*d*500}px)`});
+  dr($('zarr'),es(P(t,37.2,37.7)));
+  pop($('zp'),t,40.24,.4);dr($('zc'),es(P(t,40.6,41.3)));
+  const b=bk(P(t,41.95,42.35));$('zb').style.opacity=t>=41.95?1:0;$('zb').style.transform=`scale(${.7+.3*b})`;dr($('zd'),es(P(t,42.4,42.8)));$('zd').style.transform=`translateY(${Math.sin(t*6)*8}px)`}
+ caps(t);
+ await document.fonts.ready;
+};
+window.render=t=>R0(t-0.5);
+</script></body></html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:'Mont';src:url(mont-900.woff2) format('woff2');font-weight:900}
+@font-face{font-family:'Pop';src:url(pop-800.woff2) format('woff2');font-weight:800}
+@font-face{font-family:'Pop';src:url(pop-700.woff2) format('woff2');font-weight:700}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#14213D}
+body{font-family:'Pop','Noto Color Emoji',sans-serif;font-weight:700;color:#fff}
+#st{position:absolute;inset:0;overflow:hidden}
+.L{position:absolute;inset:0}
+.H{font-family:'Mont';font-weight:900;letter-spacing:-2px;text-transform:uppercase;line-height:.95}
+.Y{color:#FFD23F}
+#bg{background:radial-gradient(circle at 50% 35%,#1F3160 0%,#14213D 55%,#0C1529 100%)}
+#bgy{background:#FFD23F;opacity:0}
+#dots{background-image:radial-gradient(rgba(255,255,255,.07) 2px,transparent 2px);background-size:44px 44px}
+#grain{background-size:540px 960px;mix-blend-mode:overlay;opacity:.06}
+#wipe{position:absolute;left:-300px;top:0;width:600px;height:1920px;background:#FFD23F;transform:skewX(-14deg);opacity:0}
+/* acte de propriété */
+.deed{position:absolute;left:110px;width:860px;background:#fff;color:#14213D;border-radius:28px;padding:50px 56px;box-shadow:0 40px 80px rgba(0,0,0,.45)}
+.deed .t{font-family:'Mont';font-weight:900;font-size:40px;letter-spacing:6px;color:#8A94A8}
+.deed .row{margin-top:34px;font-size:30px;color:#8A94A8;letter-spacing:3px}
+.deed .val{position:relative;display:inline-block;margin-top:6px;font-family:'Mont';font-weight:900;font-size:96px;line-height:1.05;letter-spacing:-2px;color:#14213D;min-height:100px}
+.deed .val i{position:absolute;left:-10px;right:-10px;top:12%;bottom:6%;background:#FFD23F;z-index:-1;transform-origin:0 50%}
+.deed .cur{display:inline-block;width:8px;height:84px;background:#14213D;margin-left:6px;vertical-align:-6px}
+.deed .ln{height:12px;border-radius:6px;background:#E6E9F0;margin-top:26px}
+#hq{position:absolute;left:0;right:0;top:250px;text-align:center;font-size:150px}
+/* avatars */
+.av{position:absolute;width:300px;text-align:center}
+.av svg{width:260px;height:300px}
+.av .n{font-size:40px;margin-top:6px}
+.av small{display:block;font-size:26px;color:#9FB0D6;letter-spacing:3px;text-transform:uppercase}
+.coin{position:absolute;width:76px;height:76px;border-radius:50%;background:#FFD23F;color:#14213D;font-family:'Mont';font-weight:900;font-size:36px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 18px rgba(0,0,0,.35)}
+.ic{position:absolute;width:120px;height:120px;border-radius:30px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 14px 28px rgba(0,0,0,.35)}
+.ic svg{width:76px;height:76px}
+/* chrono + signature */
+#chrono{position:absolute;left:390px;top:260px;width:300px;height:300px}
+#sigdoc{top:640px}
+#sig{position:absolute;left:60px;top:340px;width:700px;height:200px}
+#sigl{position:absolute;left:56px;right:56px;top:520px;height:4px;background:#14213D}
+#sigby{position:absolute;left:56px;top:540px;font-size:30px;color:#8A94A8;letter-spacing:3px}
+#sigby b{color:#14213D}
+#fast{position:absolute;left:0;right:0;top:600px;text-align:center;font-size:44px;letter-spacing:8px;color:#FFD23F}
+/* bulle */
+#bub{position:absolute;left:110px;right:110px;top:520px;background:#fff;color:#14213D;border-radius:60px;padding:70px 60px;text-align:center;box-shadow:0 40px 80px rgba(0,0,0,.4)}
+#bub:after{content:'';position:absolute;left:180px;bottom:-60px;border:40px solid transparent;border-top:60px solid #fff;border-left:20px solid transparent}
+#bub .q{font-family:'Mont';font-weight:900;font-size:110px;line-height:1;letter-spacing:-3px}
+#bub small{display:block;font-size:34px;color:#8A94A8;margin-bottom:16px}
+#later{position:absolute;left:0;right:0;top:1180px;text-align:center}
+#later div{font-family:'Mont';font-weight:900;font-size:60px;color:rgba(255,255,255,.25);letter-spacing:4px}
+#hour{position:absolute;left:460px;top:1360px;width:160px;height:240px}
+/* c'est lui */
+#lui{position:absolute;left:0;right:0;top:1180px;text-align:center;font-size:190px}
+/* branches */
+#br{position:absolute;left:0;top:0;width:1080px;height:1920px}
+.bcard{position:absolute;width:440px;padding:36px 30px;border-radius:30px;background:#1F3160;border:3px solid #FFD23F;text-align:center}
+.bcard .k{font-family:'Mont';font-weight:900;font-size:46px;line-height:1.05}
+.bcard svg{width:120px;height:120px;margin-bottom:10px}
+#zero{position:absolute;left:0;right:0;top:1180px;text-align:center}
+#zero .H{font-size:84px}
+#zero .big{font-size:300px;color:#FFD23F}
+/* silence */
+#hush{position:absolute;left:290px;top:500px;width:500px;height:420px}
+#fam{position:absolute;left:0;right:0;top:1060px;text-align:center;font-size:150px}
+/* guide */
+#sun{position:absolute;left:-460px;top:-260px;width:2000px;height:2000px;background:repeating-conic-gradient(from 0deg at 50% 50%,rgba(20,33,61,.08) 0deg 8deg,rgba(0,0,0,0) 8deg 16deg)}
+#gb{position:absolute;left:110px;top:330px;width:860px;height:992px;filter:drop-shadow(0 50px 60px rgba(20,33,61,.5));transform-origin:50% 100%}
+#gb img{width:100%;height:100%}
+#gl{position:absolute;left:50%;top:190px;transform:translateX(-50%);padding:18px 40px;border-radius:50px;background:#14213D;color:#FFD23F;font-family:'Mont';font-weight:900;font-size:38px;letter-spacing:5px;white-space:nowrap}
+/* page */
+#pg{position:absolute;left:80px;top:290px;width:920px;height:1190px;border-radius:24px;overflow:hidden;background:#fff;box-shadow:0 40px 80px rgba(0,0,0,.45);transform-origin:50% 0}
+#pg img{width:920px;display:block}
+.hl{position:absolute;background:rgba(255,210,63,.55);mix-blend-mode:multiply;border-radius:6px;transform-origin:0 50%}
+#pgc{position:absolute;left:50%;top:180px;transform:translateX(-50%);padding:16px 34px;border-radius:50px;background:#FFD23F;color:#14213D;font-size:32px;white-space:nowrap}
+/* checklist */
+#chl{position:absolute;left:90px;right:90px;top:250px}
+.ci{display:flex;align-items:center;gap:28px;margin-bottom:34px;font-family:'Mont';font-weight:900;font-size:58px;line-height:1.05;letter-spacing:-1px;text-transform:uppercase}
+.ci .b{flex:none;width:96px;height:96px;border-radius:28px;background:#FFD23F;display:flex;align-items:center;justify-content:center}
+.ci .b svg{width:60px;height:60px}
+#deed2{top:930px}
+/* kits */
+.kc{position:absolute;width:440px;height:250px;border-radius:34px;background:#fff;color:#14213D;padding:34px;box-shadow:0 24px 50px rgba(0,0,0,.35)}
+.kc small{display:block;font-size:28px;letter-spacing:5px;color:#8A94A8}
+.kc b{display:block;font-family:'Mont';font-weight:900;font-size:44px;padding-right:60px;line-height:1.05;margin-top:12px;text-transform:uppercase}
+.kc i{position:absolute;right:30px;bottom:26px;width:54px;height:54px;border-radius:16px;background:#FFD23F}
+#k4t{position:absolute;left:0;right:0;top:250px;text-align:center}
+#k4t .H{font-size:160px}
+/* business ≠ famille */
+#bf{position:absolute;left:0;right:0;top:520px;text-align:center}
+#bf .H{font-size:150px;display:block}
+#neq{font-family:'Mont';font-weight:900;font-size:260px;color:#FFD23F;line-height:1}
+/* oui / jamais */
+.yn{position:absolute;left:90px;right:90px;border-radius:40px;padding:44px 50px;display:flex;align-items:center;gap:34px}
+.yn .b{flex:none;width:130px;height:130px;border-radius:36px;display:flex;align-items:center;justify-content:center}
+.yn .b svg{width:80px;height:80px}
+.yn .tx{font-family:'Mont';font-weight:900;font-size:58px;line-height:1.05;text-transform:uppercase}
+#yes{top:420px;background:#fff;color:#14213D}#yes .b{background:#FFD23F}
+#no{top:820px;background:#1F3160;color:#fff;border:4px solid #E63946}#no .b{background:#E63946}
+#jam{position:absolute;left:0;right:0;top:1300px;text-align:center;font-size:230px;color:#E63946}
+/* fin */
+#ebook{position:absolute;left:250px;top:130px;width:580px;height:669px;filter:drop-shadow(0 40px 50px rgba(0,0,0,.5))}
+#ebook img{width:100%;height:100%}
+#etag{position:absolute;left:0;right:0;top:830px;text-align:center;font-size:36px;color:#9FB0D6}
+#etag b{color:#FFD23F}
+#eprice{position:absolute;left:0;right:0;top:900px;display:flex;justify-content:center;align-items:flex-end;gap:6px}
+#eprice .d{font-family:'Mont';font-weight:900;font-size:240px;line-height:1;color:#fff;display:inline-block}
+#eprice small{font-family:'Mont';font-weight:900;font-size:76px;color:#FFD23F;margin:0 0 28px 20px}
+#ebar{position:absolute;left:260px;right:260px;top:1150px;height:16px;border-radius:8px;background:#FFD23F;transform-origin:50% 50%}
+#eold{position:absolute;left:0;right:0;top:1190px;text-align:center}
+#eold span{position:relative;font-size:52px;color:#9FB0D6}
+#eold i{position:absolute;left:-8px;right:-8px;top:52%;height:7px;background:#E63946;transform-origin:0 50%}
+#ebtn{position:absolute;left:90px;right:90px;top:1360px;height:170px;border-radius:85px;background:#FFD23F;color:#14213D;display:flex;align-items:center;justify-content:center;gap:24px;font-family:'Mont';font-weight:900;font-size:42px;white-space:nowrap;text-transform:uppercase;letter-spacing:-1px;box-shadow:0 20px 50px rgba(255,210,63,.3)}
+#ebtn svg{width:64px;height:64px}
+#eh{position:absolute;left:0;right:0;top:1580px;text-align:center}
+/* sous-titres */
+#cap{position:absolute;left:60px;right:60px;top:1500px;text-align:center;font-size:58px;line-height:1.3}
+#cap span{display:inline-block;margin:0 .14em;position:relative;text-shadow:0 4px 20px rgba(0,0,0,.6)}
+#cap span u{position:absolute;left:0;right:0;bottom:-4px;height:8px;border-radius:4px;background:#FFD23F;text-decoration:none}
+</style></head><body>
+<div id="st">
+ <div class="L" id="bg"></div><div class="L" id="bgy"></div><div class="L" id="dots"></div>
+ <!-- 1 accroche -->
+ <div class="L" id="S1"><div id="hq" class="H">Ton terrain…</div>
+  <div class="deed" id="d1" style="top:620px"><div class="t">TITRE FONCIER</div><div class="row">PROPRIÉTAIRE</div><div class="val" id="v1"><i id="v1h"></i><span id="v1t"></span><span class="cur" id="c1"></span></div><div class="ln"></div><div class="ln" style="width:70%"></div><div class="ln" style="width:85%"></div></div></div>
+ <!-- 2 argent vers le cousin -->
+ <div class="L" id="S2">
+  <div class="av" id="aT" style="left:60px;top:560px"><svg viewBox="0 0 260 300"><circle cx="130" cy="80" r="62" fill="#FFD23F"/><path d="M30 300v-60a100 100 0 0 1 200 0v60z" fill="#FFD23F"/></svg><div class="n">Toi</div><small>à l'étranger</small></div>
+  <div class="av" id="aC" style="left:720px;top:560px"><svg viewBox="0 0 260 300"><circle cx="130" cy="80" r="62" fill="#fff"/><path d="M30 300v-60a100 100 0 0 1 200 0v60z" fill="#fff"/></svg><div class="n">Ton cousin</div><small>au pays</small></div>
+  <div id="coins"></div>
+  <div class="ic" id="i0"><svg viewBox="0 0 76 76" fill="none" stroke="#14213D" stroke-width="6" stroke-linecap="round"><rect x="6" y="20" width="64" height="38" rx="6"/><circle cx="38" cy="39" r="9"/></svg></div>
+  <div class="ic" id="i1"><svg viewBox="0 0 76 76" fill="none" stroke="#14213D" stroke-width="6" stroke-linejoin="round"><path d="M16 6h30l14 14v50H16z"/><path d="M26 36h26M26 48h26"/></svg></div>
+  <div class="ic" id="i2"><svg viewBox="0 0 76 76" fill="none" stroke="#14213D" stroke-width="6" stroke-linejoin="round"><path d="M10 52a28 28 0 0 1 56 0z"/><path d="M4 52h68"/></svg></div></div>
+ <!-- 3 vite + signature -->
+ <div class="L" id="S3"><svg id="chrono" viewBox="0 0 300 300"><circle cx="150" cy="165" r="120" fill="none" stroke="#FFD23F" stroke-width="16"/><rect x="128" y="10" width="44" height="30" rx="8" fill="#FFD23F"/><line id="hand" x1="150" y1="165" x2="150" y2="70" stroke="#fff" stroke-width="12" stroke-linecap="round" style="transform-origin:150px 165px"/></svg>
+  <div id="fast" class="H">plus vite</div>
+  <div class="deed" id="sigdoc" style="height:640px"><div class="t">ACTE DE VENTE</div><div class="ln"></div><div class="ln" style="width:80%"></div><div class="ln" style="width:90%"></div>
+   <svg id="sig" viewBox="0 0 700 200" fill="none"><path id="sp" d="M20 140 C 60 40, 90 40, 100 120 S 150 170, 180 90 S 230 30, 250 120 S 300 160, 330 80 C 350 40, 380 160, 420 110 S 480 60, 520 130 S 600 150, 680 70" stroke="#14213D" stroke-width="8" stroke-linecap="round"/></svg>
+   <div id="sigl"></div><div id="sigby">SIGNÉ PAR : <b id="sgb"></b></div></div></div>
+ <!-- 4 plus tard -->
+ <div class="L" id="S4"><div id="bub"><small>dans l'idée…</small><div class="q">« On changera plus tard. »</div></div>
+  <div id="later"><div>PLUS TARD</div><div>PLUS TARD</div><div>PLUS TARD</div></div>
+  <svg id="hour" viewBox="0 0 160 240" fill="none" stroke="#FFD23F" stroke-width="10" stroke-linejoin="round"><path d="M20 10h120M20 230h120M30 10c0 70 100 70 100 110S30 160 30 230M130 10c0 70-100 70-100 110s100 40 100 110"/><path id="sand" d="M60 200h40l-20-30z" fill="#FFD23F" stroke="none"/></svg></div>
+ <!-- 5 c'est lui -->
+ <div class="L" id="S5"><div class="deed" id="d2" style="top:300px"><div class="t">TITRE FONCIER</div><div class="row">PROPRIÉTAIRE</div><div class="val"><i id="v2h"></i>Ton cousin</div><div class="ln"></div><div class="ln" style="width:70%"></div></div>
+  <div id="lui" class="H">C'est <span class="Y">lui.</span></div></div>
+ <!-- 6 s'il revend / s'il arrive quelque chose -->
+ <div class="L" id="S6"><svg id="br" viewBox="0 0 1080 1920" fill="none" stroke="#FFD23F" stroke-width="6"><path id="b0" d="M540 230 V 330 H 290 V 420"/><path id="b1" d="M540 230 V 330 H 790 V 420"/><circle cx="540" cy="220" r="20" fill="#FFD23F"/></svg>
+  <div class="bcard" id="c0" style="left:70px;top:430px"><svg viewBox="0 0 120 120" fill="none" stroke="#FFD23F" stroke-width="8" stroke-linejoin="round"><path d="M14 60 60 14h46v46L60 106z"/><circle cx="84" cy="36" r="8"/></svg><div class="k">S'il revend</div></div>
+  <div class="bcard" id="c1b" style="left:570px;top:430px"><svg viewBox="0 0 120 120" fill="#FFD23F"><circle cx="30" cy="40" r="14"/><circle cx="60" cy="34" r="16"/><circle cx="90" cy="40" r="14"/><path d="M8 100a22 22 0 0 1 44 0zM36 100a24 24 0 0 1 48 0zM68 100a22 22 0 0 1 44 0z"/></svg><div class="k">S'il lui arrive quelque chose</div></div>
+  <div id="zero"><div class="H">Tes preuves :</div><div class="H big">0</div></div></div>
+ <!-- 7 tu n'oses pas -->
+ <div class="L" id="S7"><svg id="hush" viewBox="0 0 500 420"><path d="M60 40h380a40 40 0 0 1 40 40v180a40 40 0 0 1-40 40H200l-90 80v-80H60a40 40 0 0 1-40-40V80a40 40 0 0 1 40-40z" fill="#fff"/><g id="hdots" fill="#14213D"><circle cx="160" cy="170" r="24"/><circle cx="250" cy="170" r="24"/><circle cx="340" cy="170" r="24"/></g><path id="zip" d="M110 170h280" stroke="#E63946" stroke-width="18" stroke-linecap="round"/></svg>
+  <div id="fam" class="H">C'est la <span class="Y">famille.</span></div></div>
+ <!-- 8 le guide -->
+ <div class="L" id="S8"><div id="sun"></div><div id="gl">LA SOLUTION</div><div id="gb"><img src="guide-3d.png"></div></div>
+ <!-- 9 la page -->
+ <div class="L" id="S9"><div id="pgc">DANS LE GUIDE · CHAPITRE 19</div><div id="pg"><img src="ch19.png"><div class="hl" id="h1"></div><div class="hl" id="h2"></div><div class="hl" id="h3"></div><div class="hl" id="h4"></div></div></div>
+ <!-- 10 les 3 protections -->
+ <div class="L" id="S10"><div id="chl"></div>
+  <div class="deed" id="deed2"><div class="t">TITRE FONCIER</div><div class="row">PROPRIÉTAIRE</div><div class="val" id="v3"><i id="v3h"></i><span id="v3t"></span><span class="cur" id="c3"></span></div></div></div>
+ <!-- 11 kits -->
+ <div class="L" id="S11"><div id="k4t"><div class="H">+ 4 <span class="Y">kits</span></div></div>
+  <div class="kc" id="q0"><small>KIT 1</small><b>Les checklists</b><i></i></div><div class="kc" id="q1"><small>KIT 2</small><b>Les modèles</b><i></i></div>
+  <div class="kc" id="q2"><small>KIT 3</small><b>Les calculs</b><i></i></div><div class="kc" id="q3"><small>KIT 4</small><b>Les carnets de suivi</b><i></i></div></div>
+ <!-- 12 business ≠ famille -->
+ <div class="L" id="S12"><div id="bf"><span class="H" id="bf1">Business</span><span id="neq">≠</span><span class="H Y" id="bf2">Famille</span></div></div>
+ <!-- 13 oui / jamais -->
+ <div class="L" id="S13">
+  <div class="yn" id="yes"><div class="b"><svg viewBox="0 0 80 80" fill="none" stroke="#14213D" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"><path id="yk" d="M14 42l18 18 34-38"/></svg></div><div class="tx">Aider sa famille</div></div>
+  <div class="yn" id="no"><div class="b"><svg viewBox="0 0 80 80" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round"><path id="nk" d="M18 18l44 44M62 18L18 62"/></svg></div><div class="tx">Ton terrain à son nom</div></div>
+  <div id="jam" class="H">Jamais.</div></div>
+ <!-- 14 fin -->
+ <div class="L" id="S14"><div id="ebook"><img src="guide-3d.png"></div><div id="etag">Le guide <b>+ 4 kits</b> prêts à remplir</div>
+  <div id="eprice"><span class="d" id="e0">9</span><span class="d" id="e1">&nbsp;</span><span class="d" id="e2">9</span><span class="d" id="e3">0</span><span class="d" id="e4">0</span><small id="ecf">F CFA</small></div>
+  <div id="ebar"></div><div id="eold"><span>au lieu de 15 000 F<i id="est"></i></span></div>
+  <div id="ebtn">Le lien est juste en dessous <svg viewBox="0 0 64 64" fill="none" stroke="#14213D" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"><path d="M32 10v42M14 34l18 18 18-18"/></svg></div></div>
+ <div id="wipe"></div>
+ <div class="L" id="grain"></div>
+ <div id="cap"></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>cl((t-a)/(b-a));
+const eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const ex=x=>x>=1?1:1-Math.pow(2,-10*x);
+const bk=x=>{const c1=1.6,c3=c1+1;return x<=0?0:x>=1?1:1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const lerp=(a,b,x)=>a+(b-a)*x;
+const show=(id,on)=>{$(id).style.display=on?'block':'none'};
+function pop(el,t,s,d=.45,from=.4){const a=bk(P(t,s,s+d));el.style.opacity=t>=s?1:0;el.style.transform=`scale(${from+(1-from)*a})`}
+function rise(el,t,s,d=.5,dist=80){const a=ex(P(t,s,s+d));el.style.opacity=a;el.style.transform=`translateY(${(1-a)*dist}px)`}
+function drawEl(el,t,s,d){const L=el.getTotalLength();el.style.strokeDasharray=L;el.style.strokeDashoffset=L*(1-eio(P(t,s,s+d)))}
+function typed(txt,t,s,cps=14){return t<s?'':txt.slice(0,Math.floor((t-s)*cps))}
+function sec(id,t,a,b,fi=.2,fo=.2){const on=t>=a&&t<b;show(id,on);if(on)$(id).style.opacity=P(t,a,a+fi)*(1-P(t,b-fo,b));return on}
+// transition « volet jaune » entre deux scènes
+const WIPES=[2.85,12.05,24.1,31.45,35.95,38.2,44.6];
+function wipeAt(t){const w=$('wipe');const c=WIPES.find(x=>t>=x-.25&&t<x+.25);if(c===undefined){w.style.opacity=0;return}const k=P(t,c-.25,c+.25);w.style.opacity=1;w.style.left=lerp(-700,1300,eio(k))+'px'}
+
+// ---- sous-titres (temps de la voix) ----
+const CH=[[2.99,4.71,"Tu envoies l'argent, il s'occupe de tout."],[5.23,9.65,"Et pour aller plus vite dans les procédures, vous décidez qu'il signe les papiers à votre place."],
+ [15.85,20.17,"S'il revend, ou s'il lui arrive quelque chose, tu n'as rien pour prouver que c'est ton terrain."],[20.56,22.74,"Et tu n'oses même pas en parler,"],
+ [24.30,27.19,"Dans le guide « Les erreurs à éviter avant d'investir au pays »"],[27.50,31.25,"on te montre comment acheter de loin sans tout confier à une seule personne :"]];
+const SY=w=>((w.toLowerCase().replace(/e$|es$|ent$/,'').match(/[aeiouyàâéèêëîïôûùü]+/g)||[]).length||1)+0.4;
+const W=[];CH.forEach(([s,e,tx],gi)=>{const ws=tx.split(' ');const tot=ws.reduce((a,w)=>a+SY(w),0);let acc=s;ws.forEach(w=>{const d=(e-s)*SY(w)/tot;W.push({w,s:acc,e:acc+d,g:gi});acc+=d})});
+const CTOP=[1560,1560,1560,1400,1480,1560];
+let cg=-1;
+function caps(t){const c=$('cap');const gi=CH.findIndex(([s,e])=>t>=s-.1&&t<e+.3);if(gi<0){c.innerHTML='';cg=-1;return}
+ const ws=W.filter(x=>x.g===gi);
+ // n'afficher que la « ligne » en cours : groupes de 6 mots
+ const cur=ws.findIndex(x=>t<x.e);const k=cur<0?ws.length-1:cur;const st=Math.floor(k/6)*6;const grp=ws.slice(st,st+6);
+ const key=gi+'-'+st;if(cg!==key){c.innerHTML=grp.map(x=>`<span>${x.w}<u></u></span>`).join(' ');cg=key}
+ [...c.children].forEach((sp,i)=>{const x=grp[i];const a=ex(P(t,x.s-.08,x.s+.2));sp.style.opacity=a;sp.style.transform=`translateY(${(1-a)*20}px)`;sp.lastChild.style.transform=`scaleX(${t>=x.s&&t<x.e+.05?1:0})`});
+ c.style.top=CTOP[gi]+'px';c.style.opacity=1-P(t,CH[gi][1]+.15,CH[gi][1]+.3)}
+
+// construction
+const CO=[];for(let i=0;i<8;i++){const d=document.createElement('div');d.className='coin';d.textContent='F';$('coins').appendChild(d);CO.push({e:d,s:3.0+i*.16})}
+$('chl').innerHTML=[['Ton propre notaire',31.63],['Une procuration limitée',32.85],['Un titre à TON nom',34.4]].map(([l],i)=>`<div class="ci" id="ck${i}"><div class="b"><svg viewBox="0 0 60 60" fill="none" stroke="#14213D" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"><path id="cp${i}" d="M10 31l13 13 27-29"/></svg></div><span>${l}</span></div>`).join('');
+// surlignages de la vraie page (ch19.png à 920 px de large)
+const HL=[[20,110,880,70],[20,175,620,60],[20,245,450,60],[30,1185,860,120]];
+HL.forEach(([x,y,w,h],i)=>{const e=$('h'+(i+1));e.style.left=x+'px';e.style.top=y+'px';e.style.width=w+'px';e.style.height=h+'px'});
+
+const SC=['S1','S2','S3','S4','S5','S6','S7','S8','S9','S10','S11','S12','S13','S14'];
+const R0=async function(t){
+  SC.forEach(i=>show(i,false));
+  const fr=Math.floor(t*24);$('grain').style.backgroundImage=`url(noise${((fr%4)+4)%4}.png)`;
+  $('bgy').style.opacity=(t>=24.1&&t<27.35)?1:0;$('dots').style.opacity=(t>=24.1&&t<27.35)?0:1;
+
+  // 1 accroche (0 – 2.85)
+  if(sec('S1',t,-1,2.9,.01,.15)){
+    const h=ex(P(t,0,.4));$('hq').style.opacity=h;$('hq').style.transform=`translateY(${(1-h)*-60}px)`;
+    const d=ex(P(t,.1,.6));$('d1').style.transform=`translateY(${(1-d)*500}px) rotate(${(1-d)*-6}deg)`;$('d1').style.opacity=P(t,.1,.25);
+    let txt;if(t<1.25)txt=typed('TOI',t,.5,10);else if(t<1.55)txt='TOI'.slice(0,Math.max(0,3-Math.floor((t-1.25)*12)));else txt=typed('TON COUSIN ?',t,1.55,12);
+    $('v1t').textContent=txt;$('c1').style.opacity=(Math.floor(t*3)%2)?1:0;$('v1h').style.transform=`scaleX(${ex(P(t,2.3,2.6))})`;}
+  // 2 l'argent part, il s'occupe de tout (2.85 – 5.1)
+  if(sec('S2',t,2.85,5.15)){
+    pop($('aT'),t,2.9,.5,.6);pop($('aC'),t,3.05,.5,.6);
+    CO.forEach(c=>{const k=P(t,c.s,c.s+.8);const e=eio(k);const x=lerp(200,850,e),y=lerp(700,700,e)-Math.sin(k*Math.PI)*260;c.e.style.left=(x-38)+'px';c.e.style.top=(y-38)+'px';c.e.style.opacity=k>0&&k<1?1:0;c.e.style.transform=`scale(${.7+.3*Math.sin(k*Math.PI)})`});
+    [0,1,2].forEach(i=>{const s=4.03+i*.14;const a=bk(P(t,s,s+.45));const e=$('i'+i);e.style.left=(810+(i-1)*130)+'px';e.style.top=(lerp(300,430,a)-i*0)+'px';e.style.opacity=t>=s?1:0;e.style.transform=`scale(${a}) rotate(${(i-1)*8}deg)`});}
+  // 3 plus vite + signature (5.1 – 9.85)
+  if(sec('S3',t,5.1,9.85)){
+    pop($('chrono'),t,5.2,.45,.5);$('hand').style.transform=`rotate(${(t-5.2)*720}deg)`;rise($('fast'),t,5.5,.5,40);
+    const d=ex(P(t,6.8,7.3));$('sigdoc').style.transform=`translateY(${(1-d)*900}px)`;$('sigdoc').style.opacity=P(t,6.8,6.9);
+    drawEl($('sp'),t,7.6,1.0);$('sgb').textContent=typed('TON COUSIN',t,8.6,14);}
+  // 4 « On changera plus tard » (9.85 – 12.1)
+  if(sec('S4',t,9.85,12.1)){
+    pop($('bub'),t,10.0,.5,.5);$('bub').style.transformOrigin='30% 100%';
+    [...$('later').children].forEach((d,i)=>{const a=P(t,10.6+i*.25,10.9+i*.25);d.style.opacity=a;d.style.transform=`translateY(${(1-ex(a))*30}px)`;d.style.color=`rgba(255,255,255,${.35-.1*i})`});
+    rise($('hour'),t,10.9,.5,40);$('hour').style.transform+=` rotate(${t>11.3?180*ex(P(t,11.3,11.8)):0}deg)`;}
+  // 5 c'est lui (12.05 – 15.6)
+  if(sec('S5',t,12.05,15.6)){
+    const d=ex(P(t,12.1,12.6));$('d2').style.transform=`scale(${.85+.15*d})`;$('d2').style.opacity=d;
+    $('v2h').style.transform=`scaleX(${ex(P(t,13.7,14.2))})`;
+    const l=bk(P(t,14.85,15.25));$('lui').style.opacity=t>=14.85?1:0;$('lui').style.transform=`scale(${.4+.6*l})`;}
+  // 6 s'il revend… (15.6 – 20.4)
+  if(sec('S6',t,15.6,20.4)){
+    drawEl($('b0'),t,15.7,.4);drawEl($('b1'),t,16.6,.4);
+    pop($('c0'),t,15.85,.5,.5);pop($('c1b'),t,16.69,.5,.5);
+    rise($('zero'),t,18.6,.5,60);const z=bk(P(t,19.4,19.8));$('zero').querySelector('.big').style.transform=`scale(${.3+.7*z})`;}
+  // 7 tu n'oses pas en parler (20.4 – 24.15)
+  if(sec('S7',t,20.4,24.15)){
+    pop($('hush'),t,20.56,.5,.5);[...$('hdots').children].forEach((d,i)=>{d.setAttribute('cy',170-12*Math.max(0,Math.sin(t*8-i)))});
+    drawEl($('zip'),t,21.6,.4);$('hdots').style.opacity=1-P(t,21.6,21.9);
+    rise($('fam'),t,22.27,.5,60);}
+  // 8 le guide (24.1 – 27.45)
+  if(sec('S8',t,24.1,27.45)){
+    $('sun').style.transform=`rotate(${t*8}deg)`;pop($('gl'),t,24.2,.45,.4);$('gl').style.transform+=' translateX(-50%)';$('gl').style.left='50%';
+    const g=bk(P(t,24.3,24.95));$('gb').style.transform=`translateY(${(1-g)*700+Math.sin(t*1.6)*8}px) rotate(${(1-g)*-8}deg)`;$('gb').style.opacity=t>=24.3?1:0;}
+  // 9 la vraie page (27.4 – 31.5)
+  if(sec('S9',t,27.4,31.5)){
+    const a=ex(P(t,27.4,27.95));$('pg').style.transform=`perspective(1600px) translateY(${(1-a)*800}px) rotateX(${(1-a)*20}deg) scale(${1+.03*P(t,28,31.4)})`;
+    $('pgc').style.opacity=ex(P(t,27.6,27.9));
+    [['h1',28.4],['h2',28.8],['h3',29.2],['h4',30.3]].forEach(([id,s])=>{$(id).style.transform=`scaleX(${ex(P(t,s,s+.4))})`});}
+  // 10 les 3 protections (31.45 – 36.0)
+  if(sec('S10',t,31.45,36.0)){
+    [31.63,32.85,34.4].forEach((s,i)=>{rise($('ck'+i),t,s,.45,50);drawEl($('cp'+i),t,s+.1,.3)});
+    const d=ex(P(t,31.6,32.1));$('deed2').style.transform=`translateY(${(1-d)*600}px)`;$('deed2').style.opacity=d;
+    let txt;if(t<34.4)txt='TON COUSIN';else if(t<34.9)txt='TON COUSIN'.slice(0,Math.max(0,10-Math.floor((t-34.4)*22)));else txt=typed('TOI ✓',t,34.95,10);
+    $('v3t').textContent=txt;$('c3').style.opacity=(Math.floor(t*3)%2)?1:0;$('v3h').style.transform=`scaleX(${ex(P(t,35.3,35.6))})`;}
+  // 11 kits (35.95 – 38.25)
+  if(sec('S11',t,35.95,38.25)){
+    rise($('k4t'),t,36.08,.45,60);const ps=[[60,620],[580,620],[60,920],[580,920]];
+    [36.4,36.55,36.7,36.85].forEach((s,i)=>{const e=$('q'+i);e.style.left=ps[i][0]+'px';e.style.top=ps[i][1]+'px';pop(e,t,s,.45,.3)});}
+  // 12 business ≠ famille (38.2 – 40.5)
+  if(sec('S12',t,38.2,40.5)){
+    rise($('bf1'),t,38.4,.45,60);pop($('neq'),t,39.0,.45,.2);$('neq').style.display='block';rise($('bf2'),t,39.33,.45,60);}
+  // 13 aider oui / à son nom jamais (40.45 – 44.65)
+  if(sec('S13',t,40.45,44.65)){
+    const y=ex(P(t,40.62,41.1));$('yes').style.transform=`translateX(${(1-y)*-900}px)`;drawEl($('yk'),t,41.0,.35);
+    const n=ex(P(t,42.38,42.85));$('no').style.transform=`translateX(${(1-n)*900}px)`;drawEl($('nk'),t,42.8,.35);
+    const j=bk(P(t,43.4,43.8));$('jam').style.opacity=t>=43.4?1:0;$('jam').style.transform=`scale(${.3+.7*j}) rotate(-4deg)`;}
+  // 14 fin (44.6 – )
+  if(sec('S14',t,44.6,99)){
+    const b=ex(P(t,44.65,45.3));$('ebook').style.transform=`translateY(${(1-b)*-600+Math.sin(t*1.5)*6}px)`;$('ebook').style.opacity=P(t,44.65,44.8);
+    rise($('etag'),t,45.0,.45,30);
+    [44.85,44.85,45.05,45.25,45.45].forEach((s,i)=>{const e=$('e'+i);const a=ex(P(t,s,s+.45));e.style.opacity=t>=s?1:0;e.style.transform=`translateY(${(1-a)*(i%2?-160:160)}px)`});
+    $('ecf').style.opacity=ex(P(t,45.6,45.9));$('ebar').style.transform=`scaleX(${ex(P(t,45.6,46.1))})`;
+    $('eold').style.opacity=ex(P(t,46.0,46.3));$('est').style.transform=`scaleX(${ex(P(t,46.4,46.8))})`;
+    pop($('ebtn'),t,47.23,.55,.6);$('ebtn').style.transform+=` translateY(${t>47.9?Math.sin((t-47.9)*5)*6:0}px)`;}
+  wipeAt(t);caps(t);
+  await document.fonts.ready;
+};
+window.render=t=>R0(t-0.5);
+</script></body></html>

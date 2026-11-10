@@ -64,3 +64,12 @@ tout le monde (4, 10). Peurs couvertes : argent perdu, arnaque, qualité, transp
 Lancer 3 à 5 vidéos à la fois, même budget. Garder si : 3 s regardées > 25 %, clics > 1 %, et des ventes.
 Couper après environ 2 fois le prix dépensé sans vente. Juger sur le coût par vente. Remplacer les perdantes
 par les suivantes du plan.
+
+---
+# CHANGEMENT DE DIRECTION (10 nov. 2026, décision du client)
+Les scripts F1–F10 parlent à des gens qui achètent DÉJÀ sur Alibaba. Ce n'est pas la priorité.
+- **Avatar 1 (priorité)** : débutant qui aime le métier et veut se lancer dans l'e-commerce, mais n'a aucune connaissance et a peur. But : le pousser à entrer, en montrant que sa peur a une solution dans le livre.
+- **Avatar 2 (la cible la plus nombreuse, priorité)** : vendeur qui a commencé l'e-commerce avec les produits du marché local (conseil vrai : on commence petit), qui revend sur son réseau / sa boutique. Il connaît déjà les bases. Message : « ton fournisseur local achète en Chine ; tu peux faire la même chose. Ce qui te bloque, c'est la peur, et elle a une solution dans le livre. »
+- **Avatar 3 (plus tard)** : ceux qui importent déjà et ont des difficultés → F2 et F5 (faites) + le reste des anciens scripts.
+- Chaque vidéo se termine par LA solution du livre.
+Nouveau plan proposé au client : 5 vidéos avatar 1 (D1–D5), 5 vidéos avatar 2 (M1–M5) — en attente de validation.

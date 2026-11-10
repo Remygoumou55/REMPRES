@@ -25,7 +25,7 @@ Les PDF utilisent des copies JPEG des images : `images-print/` (A4) et `images-p
 ---
 
 ## Communication — NOUVEAU (10 nov. 2026)
-- **Plan de 10 vidéos motion design** (Google Flow bloqué), mêmes règles que le livre 2 : `communication/07-PLAN-10-VIDEOS-MOTION-DESIGN.md`. En attente : validation du client, prix (3 900 F ?) et image 3D du guide.
+- **Plan de 10 vidéos motion design** (Google Flow bloqué), mêmes règles que le livre 2 : `communication/07-PLAN-10-VIDEOS-MOTION-DESIGN.md`. Plan VALIDÉ (prix 3 900 F, sans prix barré). 10 scripts : `communication/08-SCRIPTS-10-VIDEOS.md`. En attente : voix et image 3D du guide.
 
 ## Communication (état au 7 nov. 2026)
 - **Vidéos finales à utiliser en pub :** `communication/campagne/A-COMBINEE-transitaire.mp4` (42,7 s), `B-COMBINEE-grossiste.mp4` (40,1 s, personnages Kouamé + Moussa), `C-COMBINEE-debutant.mp4` (51,5 s).

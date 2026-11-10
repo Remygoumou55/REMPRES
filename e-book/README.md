@@ -21,7 +21,7 @@ Ordre choisi par le client : **2 Terrain → 3 Poulets → 4 Entreprise/financem
 ## 3. La prochaine action exacte
 **NOUVEAU PRIX (8 nov., décision du client et de son équipe) : 9 900 F CFA pour tout le guide (livre + 4 kits), prix barré 15 000 F (à confirmer). Mis à jour : scripts 07, textes de vente, prompts visuels, écrans de T1/T2 v2. Les voix T1/T2 disent encore « Douze mille neuf cents » → le client doit générer la phrase « Neuf mille neuf cents francs au lieu de 15000. » pour la coller.**
 
-**10 nov. — DÉCISION DU CLIENT : T6 SUSPENDUE. À la place, 3 « vidéos clés » de vente V7 « L'héritier », V8 « La phrase », V9 « La maison sans toit » : scripts dans `02-terrain-construction/communication/11-TROIS-VIDEOS-CLES-SCRIPTS.md`, envoyés au client ; en attente de ses voix. Même méthode que T3–T5 (motion design pur, haut de gamme, unique, son bas).**
+**10 nov. — DÉCISION DU CLIENT : T6 SUSPENDUE. À la place, 3 « vidéos clés » de vente V7 « L'héritier », V8 « La phrase », V9 « La maison sans toit » + 3 variantes V10 « Les frais inventés », V11 « La première pluie », V12 « Avant le premier appel » (pour ceux qui vivent AU PAYS aussi) : scripts dans `02-terrain-construction/communication/11-TROIS-VIDEOS-CLES-SCRIPTS.md`, envoyés au client ; en attente de ses voix. Même méthode que T3–T5 (motion design pur, haut de gamme, unique, son bas).**
 
 **10 nov. — NOUVEAUX NIVEAUX SON (demande du client : on doit entendre la voix avant tout) : musique ×0,12 (≈ −34 dB, soit ~13 dB sous la voix) avec compression sidechain forte (threshold 0,012, ratio 8), bruitages ×0,14 + passe-bas 5 kHz. Appliqué à T3, T4, T5 et à toutes les vidéos suivantes. Le client exige aussi un motion design « effet waouh », haut de gamme, jamais générique, et tout unique par vidéo.**
 

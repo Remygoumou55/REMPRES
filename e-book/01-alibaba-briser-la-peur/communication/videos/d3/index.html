@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- D3 « Je ne parle ni chinois ni anglais » — motion design : bulles de discussion qui se traduisent, idéogrammes qui deviennent du français. -->
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#FAF6F0}
+body{font-family:'Inter',sans-serif;color:#1A1A1A}
+#st{position:absolute;inset:0;overflow:hidden}
+.L{position:absolute;inset:0}
+.K{font-family:'Inter Display';font-weight:900;letter-spacing:-2px}
+.Z{font-family:'WenQuanYi Zen Hei',sans-serif}
+.R{color:#D7263D}.B{color:#2563EB}
+#bg{background:radial-gradient(ellipse 900px 1100px at 50% 45%,#FFFDF9,#F3ECE1 80%)}
+#seal{position:absolute;right:60px;top:60px;width:150px;height:150px;border-radius:24px;background:#D7263D;color:#FAF6F0;font-size:96px;display:flex;align-items:center;justify-content:center;transform:rotate(6deg);opacity:.9}
+#grain{background-size:540px 960px;mix-blend-mode:multiply;opacity:.07}
+.hd{position:absolute;left:50px;right:50px;text-align:center;line-height:1.04}
+.bub{position:absolute;max-width:760px;padding:28px 36px;border-radius:40px;font-size:46px;font-weight:700;line-height:1.2;box-shadow:0 20px 40px rgba(0,0,0,.12)}
+.cn{background:#fff;border:4px solid #D7263D;border-bottom-left-radius:8px}
+.fr{background:#2563EB;color:#fff;border-bottom-right-radius:8px}
+.en{background:#fff;border:4px solid #1A1A1A;border-bottom-left-radius:8px}
+.bub small{display:block;font-size:24px;font-weight:800;letter-spacing:3px;opacity:.6;margin-bottom:8px}
+#hands{position:absolute;left:0;right:0;top:1180px;text-align:center;font-size:200px}
+#words span{position:absolute;padding:14px 26px;border-radius:14px;background:#1A1A1A;color:#fff;font-weight:800;font-size:40px;white-space:nowrap}
+#app{position:absolute;left:330px;top:560px;width:420px;height:840px;border-radius:60px;background:#111;padding:16px;box-shadow:0 40px 70px rgba(0,0,0,.3)}
+#app div{width:100%;height:100%;border-radius:46px;background:#fff;overflow:hidden;font-family:'Inter';font-size:26px;color:#666;padding:30px}
+#app p{height:46px;border-radius:10px;background:#EEE;margin-bottom:18px}
+#order{position:absolute;left:150px;top:520px;width:780px;padding:40px;border-radius:36px;background:#fff;box-shadow:0 30px 60px rgba(0,0,0,.15)}
+#order h4{font-size:34px;letter-spacing:4px;color:#888;margin-bottom:20px}
+.ol{display:flex;align-items:center;height:110px;border-bottom:3px dashed #E5DED2;font-size:46px;font-weight:800}
+.ol span{flex:1}
+.ol b{font-size:64px}
+#recv{position:absolute;left:0;right:0;top:1150px;text-align:center}
+#recv span{display:inline-block;padding:22px 40px;border-radius:24px;background:#D7263D;color:#fff;font-family:'Inter Display';font-weight:900;font-size:58px}
+#chat{position:absolute;left:90px;top:500px;width:900px;height:1050px;border-radius:50px;background:#fff;box-shadow:0 40px 80px rgba(0,0,0,.15);overflow:hidden}
+#chath{height:110px;background:#F1F3F5;display:flex;align-items:center;padding:0 40px;font-weight:800;font-size:36px;gap:20px}
+#chath i{font-style:normal;margin-left:auto;padding:8px 20px;border-radius:20px;background:#DCFCE7;color:#15803D;font-size:26px}
+#chat .bub{position:absolute;box-shadow:none;font-size:40px}
+#tr{position:absolute;left:600px;top:420px;width:340px;filter:drop-shadow(0 30px 40px rgba(0,0,0,.3))}
+#tr img{width:100%;display:block}
+#kp{position:absolute;left:190px;top:280px;width:700px;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.25)}
+#kp img{width:100%;display:block}
+.tg{position:absolute;padding:16px 30px;border-radius:40px;background:#D7263D;color:#fff;font-weight:800;font-size:40px;white-space:nowrap;box-shadow:0 14px 28px rgba(215,38,61,.3)}
+#zg{position:absolute;left:310px;top:230px;width:460px;height:594px;filter:drop-shadow(0 30px 40px rgba(0,0,0,.3))}
+#zk1{position:absolute;left:70px;top:520px;width:260px;height:364px;transform:rotate(-8deg);filter:drop-shadow(0 20px 30px rgba(0,0,0,.3))}
+#zk3{position:absolute;left:750px;top:500px;width:280px;height:398px;transform:rotate(8deg);filter:drop-shadow(0 20px 30px rgba(0,0,0,.3))}
+#zg img,#zk1 img,#zk3 img{width:100%;height:100%}
+#zt{position:absolute;left:0;right:0;top:960px;text-align:center;font-weight:800;font-size:40px}
+#zp{position:absolute;left:0;right:0;top:1060px;text-align:center;font-family:'Inter Display';font-weight:900;font-size:200px;line-height:1;letter-spacing:-6px;color:#D7263D}
+#zp small{font-size:66px;letter-spacing:0}
+#zb{position:absolute;left:110px;right:110px;top:1330px;height:140px;border-radius:70px;background:#1A1A1A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:900}
+#zd{position:absolute;left:0;right:0;top:1510px;text-align:center;font-size:70px;color:#D7263D;line-height:.5;font-weight:900}
+#cap{position:absolute;left:70px;right:70px;top:1650px;text-align:center}
+#cap div{display:inline-block;background:#1A1A1A;color:#fff;padding:20px 34px;border-radius:40px 40px 40px 8px;font-size:44px;font-weight:700;line-height:1.22}
+#cap b{color:#FF8A9A}
+</style></head><body>
+<div id="st">
+ <div class="L" id="bg"></div><div id="seal" class="Z">译</div>
+ <div class="L" id="A"><div class="hd K" id="ha" style="top:230px;font-size:86px">Ni chinois,<br>ni anglais ?</div>
+  <div class="bub cn Z" id="b1" style="left:80px;top:620px"><small>FOURNISSEUR</small>你好！请问您需要多少件？</div>
+  <div class="bub en" id="b2" style="left:80px;top:830px"><small>FOURNISSEUR</small>Hello! What is your MOQ?</div>
+  <div class="bub fr" id="b3" style="right:80px;top:1040px"><small>TOI</small>Euh… 😅</div>
+  <div class="hd K" id="hb" style="top:1460px;font-size:66px">Et pourtant, <span class="B">vous allez<br>vous comprendre.</span></div><div id="hands">🤝</div></div>
+ <div class="L" id="B"><div class="hd K" id="hB" style="top:230px;font-size:84px">Beaucoup<br><span class="R">abandonnent ici.</span></div>
+  <div id="app"><div><p></p><p></p><p style="width:70%"></p><p></p><p style="width:50%"></p><p></p><p></p></div></div><div id="words"></div></div>
+ <div class="L" id="C"><div class="hd K" id="hC" style="top:220px;font-size:80px">Ou pire : ils commandent<br><span class="R">sans bien comprendre.</span></div>
+  <div id="order"><h4>MA COMMANDE</h4><div class="ol" id="o0"><span>Couleur</span><b id="v0">❓</b></div><div class="ol" id="o1"><span>Taille</span><b id="v1">❓</b></div><div class="ol" id="o2"><span>Quantité</span><b id="v2">❓</b></div></div>
+  <div id="recv"><span>📦 Ça ne correspond pas.</span></div></div>
+ <div class="L" id="D"><div class="hd K" id="hD" style="top:180px;font-size:76px">La messagerie<br><span class="B">traduit pour toi.</span></div>
+  <div id="chat"><div id="chath">💬 Fournisseur<i>Traduction activée</i></div>
+   <div class="bub fr" id="m1" style="right:30px;top:150px;max-width:640px"><small>TU ÉCRIS EN FRANÇAIS</small><span id="m1t">Bonjour, quel est le prix pour 100 pièces ?</span></div>
+   <div class="bub en" id="m2" style="left:30px;top:520px;max-width:660px;font-size:36px"><small>LUI, IL LIT</small><span class="Z">你好，100件的价格是多少？</span></div>
+   <div class="bub cn" id="m3" style="left:30px;top:760px;max-width:700px;font-size:36px"><small>IL RÉPOND · TU LIS EN FRANÇAIS</small>Bonjour ! Pour 100 pièces : prix et délai ci-dessous.</div></div>
+  <div id="tr"><img src="trad.png"></div></div>
+ <div class="L" id="E"><div id="kp"><img src="kit3p.png"></div>
+  <div class="tg" id="t0" style="left:70px;top:1310px">💰 Demander un prix</div><div class="tg" id="t1" style="left:600px;top:1310px">📦 Un échantillon</div><div class="tg" id="t2" style="left:330px;top:1420px">📝 Une réclamation</div></div>
+ <div class="L" id="Z"><div id="zk1"><img src="kit1-3d.png"></div><div id="zk3"><img src="kit3-3d.png"></div><div id="zg"><img src="guide-3d.png"></div>
+  <div id="zt">LE GUIDE + <span class="R">15 MESSAGES PRÊTS À COPIER</span></div><div id="zp">3 900 <small>F CFA</small></div><div id="zb">Le lien est juste en dessous</div><div id="zd"><div id="d1">⌄</div><div id="d2">⌄</div></div></div>
+ <div class="L" id="grain"></div>
+ <div id="cap"></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>cl((t-a)/(b-a));
+const ex=x=>x>=1?1:1-Math.pow(2,-10*x);
+const es=x=>x<.5?16*x**5:1-Math.pow(-2*x+2,5)/2;
+const bk=x=>{const c1=1.5,c3=c1+1;return x<=0?0:x>=1?1:1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const lerp=(a,b,x)=>a+(b-a)*x;
+const show=(id,on)=>{$(id).style.display=on?'block':'none'};
+function sec(id,t,a,b,fi=.3,fo=.3){const on=t>=a&&t<b;show(id,on);if(on)$(id).style.opacity=P(t,a,a+fi)*(1-P(t,b-fo,b));return on}
+function rise(el,t,s,d=.5,dist=50){const a=ex(P(t,s,s+d));el.style.opacity=a;el.style.transform=`translateY(${(1-a)*dist}px)`;el.style.filter=`blur(${(1-a)*6}px)`}
+function pop(el,t,s,d=.4,o='50% 50%'){const a=bk(P(t,s,s+d));el.style.opacity=t>=s?1:0;el.style.transform=`scale(${a})`;el.style.transformOrigin=o}
+const W=['MOQ','FOB','Lead time','Inquiry','Trade Assurance','Customization','Sample fee','Supplier','Shipping terms','Unit price','Payment terms','EXW'];
+$('words').innerHTML=W.map((w,i)=>`<span id="w${i}">${w}</span>`).join('');
+const CAP=[[6.3,11.3,"Ils ouvrent l'application, voient de l'anglais partout, <b>et ferment.</b>"],[15.4,20.7,"Une couleur, une taille, une quantité mal comprise… <b>et la marchandise ne correspond pas.</b>"],
+ [21.1,27.4,"Tu écris en français, <b>il lit dans sa langue.</b>"],[27.8,33.1,"On t'a préparé <b>quinze messages prêts à copier</b>, en français et en anglais."],[33.4,37.1,"Tout est dans le guide « Briser la peur d'importer », <b>avec trois kits prêts à l'emploi.</b>"]];
+function caps(t){const c=$('cap');const i=CAP.findIndex(([s,e])=>t>=s-.15&&t<e+.3);if(i<0){c.innerHTML='';c.dataset.k='';return}
+ if(c.dataset.k!=String(i)){c.innerHTML=`<div>${CAP[i][2]}</div>`;c.dataset.k=i}
+ const a=ex(P(t,CAP[i][0]-.15,CAP[i][0]+.3));c.style.opacity=a*(1-P(t,CAP[i][1]+.15,CAP[i][1]+.3));c.style.transform=`translateY(${(1-a)*30}px)`}
+const LAY=['A','B','C','D','E','Z'];
+const R0=async function(t){
+ LAY.forEach(i=>show(i,false));
+ const fr=Math.floor(t*24);$('grain').style.backgroundImage=`url(noise${((fr%4)+4)%4}.png)`;
+ $('seal').style.transform=`rotate(${6+Math.sin(t)*2}deg)`;
+ if(sec('A',t,-1,5.05,.01,.3)){const a=bk(P(t,.1,.5));$('ha').style.opacity=t>=.1?1:0;$('ha').style.transform=`scale(${lerp(.6,1,a)})`;
+  pop($('b1'),t,.5,.4,'0 100%');pop($('b2'),t,1.9,.4,'0 100%');pop($('b3'),t,2.7,.4,'100% 100%');
+  rise($('hb'),t,3.4,.45,40);const h=bk(P(t,4.0,4.5));$('hands').style.opacity=t>=4.0?1:0;$('hands').style.transform=`scale(${h})`;
+  const m=es(P(t,3.4,4.0));['b1','b2','b3'].forEach(b=>$(b).style.filter=`blur(${m*3}px)`);['b1','b2','b3'].forEach(b=>{$(b).style.opacity=(parseFloat($(b).style.opacity)||0)*(1-.7*m)})}
+ if(sec('B',t,4.9,11.65)){rise($('hB'),t,5.2,.45,40);
+  const close=es(P(t,10.4,11.0));$('app').style.transform=`scale(${1-close*.85}) translateY(${close*500}px)`;$('app').style.opacity=1-close*.6;
+  W.forEach((w,i)=>{const s=6.3+i*.28;const e=$('w'+i);const x=50+(i*317)%640,y=480+(i*211)%900;e.style.left=x+'px';e.style.top=(y+Math.sin(t*2+i)*10)+'px';e.style.opacity=(t>=s?1:0)*(1-close);e.style.transform=`scale(${bk(P(t,s,s+.3))}) rotate(${(i%3-1)*6}deg)`})}
+ if(sec('C',t,11.6,20.95)){rise($('hC'),t,11.8,.5,40);const o=ex(P(t,13.4,13.9));$('order').style.opacity=o;$('order').style.transform=`translateY(${(1-o)*300}px)`;
+  [['v0',15.4,'🔵','🔴'],['v1',16.7,'M','XXL'],['v2',17.7,'100','10']].forEach(([v,s,a,b],i)=>{const e=$(v);e.textContent=t<s?'❓':(t<19.1?a:b);e.style.color=t>=19.1?'#D7263D':'#1A1A1A';e.style.transform=`scale(${t>=s?bk(P(t,t<19.1?s:19.1,(t<19.1?s:19.1)+.35)):1})`;e.style.display='inline-block'});
+  pop($('recv'),t,19.3,.4)}
+ if(sec('D',t,20.9,27.75)){rise($('hD'),t,21.1,.45,40);const c=ex(P(t,21.3,21.9));$('chat').style.transform=`translateY(${(1-c)*1200}px)`;
+  const ty=P(t,22.8,24.6);const full=$('m1t').dataset.f||($('m1t').dataset.f=$('m1t').textContent);$('m1t').textContent=full.slice(0,Math.ceil(full.length*ty));$('m1').style.opacity=t>=22.6?1:0;
+  pop($('m2'),t,25.1,.4,'0 0');pop($('m3'),t,26.2,.4,'0 0');
+  const tr=ex(P(t,22.0,22.6));$('tr').style.opacity=tr*(1-P(t,24.8,25.1));$('tr').style.transform=`translateX(${(1-tr)*500}px) rotate(4deg)`}
+ if(sec('E',t,27.6,33.45)){const k=ex(P(t,27.8,28.4));$('kp').style.transform=`translateY(${(1-k)*1400}px) rotate(${(1-k)*-5}deg)`;
+  [['t0',31.7],['t1',32.2],['t2',32.6]].forEach(([g,s])=>pop($(g),t,s,.35))}
+ if(sec('Z',t,33.3,99,.3,.01)){const g=ex(P(t,33.4,34.0));$('zg').style.opacity=g;$('zg').style.transform=`translateY(${(1-g)*-500+Math.sin(t*1.3)*6}px)`;
+  [['zk1',35.6,-1],['zk3',35.8,1]].forEach(([k,s,d])=>{const a=bk(P(t,s,s+.45));$(k).style.opacity=t>=s?1:0;$(k).style.transform=`rotate(${d*8}deg) translateX(${(1-a)*d*500}px)`});
+  rise($('zt'),t,35.9,.4,20);const p=ex(P(t,37.5,38.0));$('zp').style.opacity=p;$('zp').style.transform=`scale(${lerp(1.4,1,p)})`;$('zp').style.filter=`blur(${(1-p)*10}px)`;
+  const bt=bk(P(t,38.6,39.0));$('zb').style.opacity=t>=38.6?1:0;$('zb').style.transform=`scale(${.7+.3*bt})`;
+  $('zd').style.opacity=ex(P(t,39.1,39.4));$('d1').style.transform=`translateY(${Math.sin(t*6)*8}px)`;$('d2').style.transform=`translateY(${Math.sin(t*6-1)*8}px)`;$('d2').style.opacity=.55}
+ caps(t);
+ await document.fonts.ready;
+};
+window.render=t=>R0(t-0.5);
+</script></body></html>

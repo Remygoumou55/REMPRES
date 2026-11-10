@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- M1 « Ton fournisseur l'a fait » — motion design « marché + motifs wax » pour les vendeurs du marché local. -->
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#FFF6E8}
+body{font-family:'Inter',sans-serif;color:#1F1B4D}
+#st{position:absolute;inset:0;overflow:hidden}
+.L{position:absolute;inset:0}
+.K{font-family:'Inter Display';font-weight:900;letter-spacing:-2px}
+.O{color:#E8731A}.G{color:#1E9E6A}.I{color:#2B2D7A}
+.wax{position:absolute;left:0;right:0;height:120px;background:
+ radial-gradient(circle at 30px 60px,#F7C548 0 18px,transparent 19px) 0 0/120px 120px,
+ radial-gradient(circle at 90px 60px,#E8731A 0 26px,#2B2D7A 27px 34px,transparent 35px) 0 0/120px 120px,
+ repeating-linear-gradient(45deg,#2B2D7A 0 14px,#1E9E6A 14px 28px)}
+#w1{top:0}#w2{bottom:0;transform:scaleY(-1)}
+#grain{background-size:540px 960px;mix-blend-mode:multiply;opacity:.07}
+.hd{position:absolute;left:50px;right:50px;text-align:center;line-height:1.03}
+/* étal */
+#stall{position:absolute;left:190px;top:700px;width:700px;height:620px}
+#ship{position:absolute;font-size:150px}
+#ask{position:absolute;left:0;right:0;top:1380px;text-align:center}
+#ask span{display:inline-block;padding:24px 50px;border-radius:60px;background:#2B2D7A;color:#fff;font-family:'Inter Display';font-weight:900;font-size:84px;letter-spacing:-1px}
+/* semaine */
+#loop{position:absolute;left:90px;top:520px;width:900px;height:760px}
+.nd{position:absolute;width:260px;text-align:center;font-weight:800;font-size:36px}
+.nd em{display:block;font-style:normal;font-size:130px}
+#moto{position:absolute;font-size:110px}
+#post{position:absolute;left:640px;top:860px;width:340px;padding:20px;border-radius:30px;background:#fff;box-shadow:0 20px 40px rgba(31,27,77,.18)}
+#post div{height:200px;border-radius:20px;background:linear-gradient(135deg,#F7C548,#E8731A)}
+#post p{margin-top:14px;font-weight:800;font-size:30px}
+#good{position:absolute;left:0;right:0;margin:auto;width:fit-content;top:1360px;padding:20px 40px;border-radius:50px;background:#1E9E6A;color:#fff;font-weight:900;font-size:50px}
+/* chaîne */
+.ch{position:absolute;left:110px;width:520px;height:150px;border-radius:30px;background:#fff;border:5px solid #2B2D7A;display:flex;align-items:center;gap:22px;padding:0 30px;font-weight:800;font-size:40px;box-shadow:0 14px 30px rgba(31,27,77,.12)}
+.ch em{font-style:normal;font-size:84px}
+#stack{position:absolute;left:700px;top:1390px;width:260px}
+.sg{position:absolute;left:0;width:260px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:28px;color:#fff;transform-origin:50% 100%}
+#mine{position:absolute;left:600px;width:460px;text-align:center;font-weight:900;font-size:38px;color:#1E9E6A}
+/* méthode */
+#magic{position:absolute;left:0;right:0;top:560px;text-align:center;font-size:220px}
+#magic svg{position:absolute;left:340px;top:30px;width:400px;height:300px}
+.ph{position:absolute;width:240px;filter:drop-shadow(0 30px 40px rgba(31,27,77,.25))}
+.ph img{display:block;width:100%}
+.stp{position:absolute;padding:14px 26px;border-radius:40px;background:#E8731A;color:#fff;font-weight:900;font-size:34px;white-space:nowrap}
+#calc{position:absolute;width:240px;height:470px;border-radius:44px;background:#2B2D7A;color:#fff;padding:40px 30px;filter:drop-shadow(0 30px 40px rgba(31,27,77,.25))}
+#calc p{font-family:"JetBrains Mono";font-weight:800;font-size:30px;line-height:1.5;white-space:nowrap}
+#zg{position:absolute;left:315px;top:240px;width:450px;height:582px;filter:drop-shadow(0 30px 40px rgba(31,27,77,.3))}
+#zk1{position:absolute;left:70px;top:500px;width:260px;height:364px;transform:rotate(-8deg);filter:drop-shadow(0 20px 30px rgba(31,27,77,.3))}
+#zk3{position:absolute;left:750px;top:490px;width:270px;height:384px;transform:rotate(8deg);filter:drop-shadow(0 20px 30px rgba(31,27,77,.3))}
+#zg img,#zk1 img,#zk3 img{width:100%;height:100%}
+#zt{position:absolute;left:0;right:0;top:900px;text-align:center;font-weight:800;font-size:40px}
+#zp{position:absolute;left:0;right:0;top:990px;text-align:center;font-family:'Inter Display';font-weight:900;font-size:210px;line-height:1;letter-spacing:-6px;color:#E8731A}
+#zp small{font-size:70px;letter-spacing:0;color:#2B2D7A}
+#zb{position:absolute;left:110px;right:110px;top:1270px;height:140px;border-radius:70px;background:#2B2D7A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:900}
+#zd{position:absolute;left:0;right:0;top:1450px;text-align:center;font-size:70px;color:#E8731A;line-height:.5;font-weight:900}
+#cap{position:absolute;left:70px;right:70px;top:1560px;text-align:center}
+#cap div{display:inline-block;background:#fff;border:5px solid #2B2D7A;padding:18px 32px;border-radius:24px;font-size:44px;font-weight:800;line-height:1.22;box-shadow:8px 8px 0 #F7C548}
+#cap b{color:#E8731A}
+</style></head><body>
+<div id="st">
+ <div class="wax" id="w1"></div><div class="wax" id="w2"></div>
+ <div class="L" id="A"><div class="hd K" id="ha" style="top:220px;font-size:88px">Ton fournisseur<br>du marché…</div>
+  <div class="hd K" id="hb" style="top:450px;font-size:76px"><span class="O">achète en Chine.</span></div>
+  <svg id="stall" viewBox="0 0 700 620"><rect x="70" y="200" width="20" height="380" fill="#6B4A2B"/><rect x="610" y="200" width="20" height="380" fill="#6B4A2B"/>
+   <g id="awn"><path d="M40 90 H660 L700 210 H0 Z" fill="#E8731A"/><path d="M40 90 H140 L120 210 H0 Z M240 90 H340 L330 210 H220 Z M440 90 H540 L545 210 H440 Z M640 90 H660 L700 210 H650 Z" fill="#F7C548"/></g>
+   <rect x="40" y="420" width="620" height="40" rx="8" fill="#8A5A2E"/><rect x="60" y="460" width="580" height="140" fill="#A86E3A"/>
+   <g font-size="80"><text x="100" y="410">👜</text><text x="220" y="410">👟</text><text x="340" y="410">📱</text><text x="460" y="410">🍳</text></g>
+   <g id="seller"><circle cx="350" cy="270" r="48" fill="#5A3A22"/><path d="M280 420 C280 340 420 340 420 420 Z" fill="#1E9E6A"/></g></svg>
+  <div id="ship">🚢</div>
+  <div id="ask"><span>Pourquoi pas toi ?</span></div></div>
+ <div class="L" id="B"><div class="hd K" id="hB" style="top:200px;font-size:80px">Chaque semaine…</div>
+  <svg id="loop" viewBox="0 0 900 760"><path id="lp" d="M150 200 C350 60 560 60 760 200 C860 330 620 560 450 560 C260 560 40 400 150 200" fill="none" stroke="#2B2D7A" stroke-width="8" stroke-dasharray="18 16"/></svg>
+  <div class="nd" style="left:110px;top:560px"><em>🏠</em>Toi</div><div class="nd" style="left:720px;top:560px"><em>🏪</em>Le marché</div>
+  <div id="moto">🛵</div><div id="post"><div></div><p>❤️ 48 · 💬 12 · Vendu ✓</p></div>
+  <div id="good">✓ Le bon départ : petit, avec tes moyens</div></div>
+ <div class="L" id="C"><div class="hd K" id="hC" style="top:180px;font-size:68px">Ce que tu achètes au marché…</div>
+  <div class="ch" id="c0" style="top:420px"><em>🏭</em>L'usine en Chine</div><div class="ch" id="c1" style="top:620px"><em>🚢</em>Le transport</div>
+  <div class="ch" id="c2" style="top:820px;border-color:#E8731A"><em>🏪</em>Ton fournisseur</div><div class="ch" id="c3" style="top:1020px;border-color:#1E9E6A"><em>🙋🏾</em>Toi, après lui</div>
+  <div id="stack"><div class="sg" id="s0" style="bottom:0;height:300px;background:#2B2D7A">Prix usine</div><div class="sg" id="s1" style="bottom:300px;height:110px;background:#4E51B5">Transport</div><div class="sg" id="s2" style="bottom:410px;height:110px;background:#E8731A">Ses frais</div><div class="sg" id="s3" style="bottom:520px;height:150px;background:#C2410C">Sa marge</div><div class="sg" id="s4" style="bottom:670px;height:60px;background:#1E9E6A">Ta marge</div></div>
+  <div id="mine" style="top:1410px">En vert : ta marge, ce qui reste</div></div>
+ <div class="L" id="D"><div class="hd K" id="hD" style="top:200px;font-size:82px">Ce qu'il sait faire,<br><span class="G">ça s'apprend.</span></div>
+  <div id="magic">🪄<svg viewBox="0 0 400 300"><path id="mx" d="M20 20 L380 280 M380 20 L20 280" stroke="#E8731A" stroke-width="22" stroke-linecap="round" pathLength="1" stroke-dasharray="1 1" fill="none"/></svg></div>
+  <div class="hd K" id="hD2" style="top:1180px;font-size:72px">Pas de magie.<br><span class="O">Une méthode.</span></div>
+  <div class="ph" id="q0" style="left:150px;top:420px"><img src="cap05.png"></div><div class="ph" id="q1" style="left:690px;top:420px"><img src="cap08.png"></div>
+  <div class="ph" id="q2" style="left:150px;top:990px"><img src="cap13.png"></div><div id="calc" style="left:690px;top:1000px"><p>L × l × H</p><p>÷ 6 000</p><p>= poids</p><p style="color:#F7C548">avion ?</p><p style="color:#F7C548">bateau ?</p></div>
+  <div class="stp" id="t0" style="left:110px;top:360px">1 · Trouver le produit</div><div class="stp" id="t1" style="left:630px;top:360px">2 · Vérifier l'usine</div>
+  <div class="stp" id="t2" style="left:110px;top:925px">3 · Payer protégé</div><div class="stp" id="t3" style="left:580px;top:925px">4 · Calculer le transport</div>
+  <div class="hd K" id="hD3" style="top:1490px;font-size:66px">Étape <span class="O">par étape.</span></div></div>
+ <div class="L" id="Z"><div id="zk1"><img src="kit1-3d.png"></div><div id="zk3"><img src="kit3-3d.png"></div><div id="zg"><img src="guide-3d.png"></div>
+  <div id="zt">LE GUIDE <span class="O">+ 3 KITS</span></div><div id="zp">3 900 <small>F CFA</small></div><div id="zb">Le lien est juste en dessous</div><div id="zd"><div id="d1">⌄</div><div id="d2">⌄</div></div></div>
+ <div class="L" id="grain"></div>
+ <div id="cap"></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>cl((t-a)/(b-a));
+const eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const ex=x=>x>=1?1:1-Math.pow(2,-10*x);
+const es=x=>x<.5?16*x**5:1-Math.pow(-2*x+2,5)/2;
+const bk=x=>{const c1=1.5,c3=c1+1;return x<=0?0:x>=1?1:1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const lerp=(a,b,x)=>a+(b-a)*x;
+const show=(id,on)=>{$(id).style.display=on?'block':'none'};
+function sec(id,t,a,b,fi=.3,fo=.3){const on=t>=a&&t<b;show(id,on);if(on)$(id).style.opacity=P(t,a,a+fi)*(1-P(t,b-fo,b));return on}
+function rise(el,t,s,d=.5,dist=50){const a=ex(P(t,s,s+d));el.style.opacity=a;el.style.transform=`translateY(${(1-a)*dist}px)`;el.style.filter=`blur(${(1-a)*6}px)`}
+function pop(el,t,s,d=.4){const a=bk(P(t,s,s+d));el.style.opacity=t>=s?1:0;el.style.transform=`scale(${a})`}
+const lp=$('lp');const LL=lp.getTotalLength();
+const CAP=[[3.6,7.9,"Chaque semaine, tu vas au marché, tu prends ta marchandise, <b>et tu reviens la vendre en ligne.</b>"],
+ [11.9,15.4,"Ce que tu achètes au marché, ton fournisseur l'a souvent <b>commandé en Chine.</b>"],[15.8,18.6,"Il a ajouté son transport, ses frais <b>et sa marge.</b>"],
+ [33.5,37.4,"Tout est dans le guide « Briser la peur d'importer », <b>avec trois kits prêts à l'emploi.</b>"]];
+function caps(t){const c=$('cap');const i=CAP.findIndex(([s,e])=>t>=s-.15&&t<e+.3);if(i<0){c.innerHTML='';c.dataset.k='';return}
+ if(c.dataset.k!=String(i)){c.innerHTML=`<div>${CAP[i][2]}</div>`;c.dataset.k=i}
+ const a=bk(P(t,CAP[i][0]-.15,CAP[i][0]+.25));c.style.opacity=(t>=CAP[i][0]-.15?1:0)*(1-P(t,CAP[i][1]+.15,CAP[i][1]+.3));c.style.transform=`scale(${.85+.15*a})`}
+const LAY=['A','B','C','D','Z'];
+const R0=async function(t){
+ LAY.forEach(i=>show(i,false));
+ const fr=Math.floor(t*24);$('grain').style.backgroundImage=`url(noise${((fr%4)+4)%4}.png)`;
+ $('w1').style.backgroundPosition=`${t*40}px 0,${t*40}px 0,0 0`;$('w2').style.backgroundPosition=`${-t*40}px 0,${-t*40}px 0,0 0`;
+ if(sec('A',t,-1,3.45,.01,.25)){rise($('ha'),t,.1,.45,-40);rise($('hb'),t,1.3,.4,30);
+  const s=ex(P(t,0,.6));$('stall').style.opacity=s;$('stall').style.transform=`translateY(${(1-s)*200}px)`;
+  const sp=eio(P(t,1.3,2.4));$('ship').style.left=lerp(1100,700,sp)+'px';$('ship').style.top=lerp(560,820,sp)+'px';$('ship').style.opacity=t>=1.3?1-P(t,2.4,2.6):0;
+  pop($('ask'),t,2.5,.35)}
+ if(sec('B',t,3.3,11.75)){rise($('hB'),t,3.6,.45,40);
+  const p=((t-4.4)/2.4)%1;const pt=lp.getPointAtLength(LL*(p<0?0:p));$('moto').style.left=(90+pt.x*1-55)+'px';$('moto').style.top=(520+pt.y-70)+'px';$('moto').style.opacity=t>=4.4?1:0;
+  const ps=bk(P(t,6.7,7.1));$('post').style.opacity=t>=6.7?1:0;$('post').style.transform=`scale(${ps}) rotate(3deg)`;
+  pop($('good'),t,8.4,.4)}
+ if(sec('C',t,11.6,22.85)){rise($('hC'),t,11.9,.45,40);
+  [['c0',12.5],['c1',13.4],['c2',14.2],['c3',19.0]].forEach(([c,s])=>{const a=ex(P(t,s,s+.4));$(c).style.opacity=a;$(c).style.transform=`translateX(${(1-a)*-400}px)`});
+  [['s0',13.4],['s1',15.8],['s2',16.8],['s3',17.6],['s4',21.0]].forEach(([g,s])=>{const a=bk(P(t,s,s+.4));$(g).style.opacity=t>=s?1:0;$(g).style.transform=`scaleY(${a})`});
+  const m=ex(P(t,21.8,22.2));$('mine').style.opacity=m;$('mine').style.transform=`translateX(${(1-m)*60}px)`;
+  $('s4').style.boxShadow=t>=21?`0 0 ${20+Math.sin(t*8)*12}px #1E9E6A`:'none'}
+ if(sec('D',t,22.7,33.45)){const a1=t<27.2;rise($('hD'),t,23.1,.45,40);$('hD').style.display=a1?'':'none';$('magic').style.display=a1?'':'none';$('hD2').style.display=a1?'':'none';
+  pop($('magic'),t,25.1,.4);$('mx').style.strokeDashoffset=1-es(P(t,25.7,26.1));rise($('hD2'),t,26.0,.4,30);
+  ['q0','q1','q2','calc','t0','t1','t2','t3'].forEach(i=>$(i).style.display=a1?'none':'');
+  [['q0','t0',27.4],['q1','t1',28.4],['q2','t2',29.6],['calc','t3',30.7]].forEach(([q,s0,s])=>{const a=bk(P(t,s,s+.45));$(q).style.opacity=t>=s?1:0;$(q).style.transform=`scale(${a})`;pop($(s0),t,s+.1,.35)});
+  rise($('hD3'),t,32.1,.4,20)}
+ if(sec('Z',t,33.3,99,.3,.01)){const g=ex(P(t,33.5,34.2));$('zg').style.opacity=g;$('zg').style.transform=`translateY(${(1-g)*-500+Math.sin(t*1.3)*6}px)`;
+  [['zk1',35.8,-1],['zk3',36.0,1]].forEach(([k,s,d])=>{const a=bk(P(t,s,s+.45));$(k).style.opacity=t>=s?1:0;$(k).style.transform=`rotate(${d*8}deg) translateX(${(1-a)*d*500}px)`});
+  rise($('zt'),t,36.2,.4,20);const p=ex(P(t,37.8,38.3));$('zp').style.opacity=p;$('zp').style.transform=`scale(${lerp(1.4,1,p)})`;$('zp').style.filter=`blur(${(1-p)*10}px)`;
+  const bt=bk(P(t,39.1,39.5));$('zb').style.opacity=t>=39.1?1:0;$('zb').style.transform=`scale(${.7+.3*bt})`;
+  $('zd').style.opacity=ex(P(t,39.6,39.9));$('d1').style.transform=`translateY(${Math.sin(t*6)*8}px)`;$('d2').style.transform=`translateY(${Math.sin(t*6-1)*8}px)`;$('d2').style.opacity=.55}
+ caps(t);
+ await document.fonts.ready;
+};
+window.render=t=>R0(t-0.5);
+</script></body></html>

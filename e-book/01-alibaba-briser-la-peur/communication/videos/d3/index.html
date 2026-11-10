@@ -92,8 +92,8 @@ function rise(el,t,s,d=.5,dist=50){const a=ex(P(t,s,s+d));el.style.opacity=a;el.
 function pop(el,t,s,d=.4,o='50% 50%'){const a=bk(P(t,s,s+d));el.style.opacity=t>=s?1:0;el.style.transform=`scale(${a})`;el.style.transformOrigin=o}
 const W=['MOQ','FOB','Lead time','Inquiry','Trade Assurance','Customization','Sample fee','Supplier','Shipping terms','Unit price','Payment terms','EXW'];
 $('words').innerHTML=W.map((w,i)=>`<span id="w${i}">${w}</span>`).join('');
-const CAP=[[6.3,11.3,"Ils ouvrent l'application, voient de l'anglais partout, <b>et ferment.</b>"],[15.4,20.7,"Une couleur, une taille, une quantité mal comprise… <b>et la marchandise ne correspond pas.</b>"],
- [21.1,27.4,"Tu écris en français, <b>il lit dans sa langue.</b>"],[27.8,33.1,"On t'a préparé <b>quinze messages prêts à copier</b>, en français et en anglais."],[33.4,37.1,"Tout est dans le guide « Briser la peur d'importer », <b>avec trois kits prêts à l'emploi.</b>"]];
+const CAP=[[8.16,11.32,"Ils ouvrent l'application, voient de l'anglais partout, <b>et ferment.</b>"],[14.42,19.1,"Une couleur, une taille, une quantité mal comprise… <b>et la marchandise ne correspond pas.</b>"],
+ [22.44,24.52,"Tu écris en français, <b>il lit dans sa langue.</b>"],[24.92,29.82,"On t'a préparé <b>quinze messages prêts à copier</b>, en français et en anglais."],[30.12,32.96,"Demander un prix, un échantillon, <b>ou faire une réclamation.</b>"],[33.5,37.46,"Tout est dans le guide « Briser la peur d'importer », <b>avec trois kits prêts à l'emploi.</b>"]];
 function caps(t){const c=$('cap');const i=CAP.findIndex(([s,e])=>t>=s-.15&&t<e+.3);if(i<0){c.innerHTML='';c.dataset.k='';return}
  if(c.dataset.k!=String(i)){c.innerHTML=`<div>${CAP[i][2]}</div>`;c.dataset.k=i}
  const a=ex(P(t,CAP[i][0]-.15,CAP[i][0]+.3));c.style.opacity=a*(1-P(t,CAP[i][1]+.15,CAP[i][1]+.3));c.style.transform=`translateY(${(1-a)*30}px)`}
@@ -102,27 +102,27 @@ const R0=async function(t){
  LAY.forEach(i=>show(i,false));
  const fr=Math.floor(t*24);$('grain').style.backgroundImage=`url(noise${((fr%4)+4)%4}.png)`;
  $('seal').style.transform=`rotate(${6+Math.sin(t)*2}deg)`;
- if(sec('A',t,-1,5.05,.01,.3)){const a=bk(P(t,.1,.5));$('ha').style.opacity=t>=.1?1:0;$('ha').style.transform=`scale(${lerp(.6,1,a)})`;
-  pop($('b1'),t,.5,.4,'0 100%');pop($('b2'),t,1.9,.4,'0 100%');pop($('b3'),t,2.7,.4,'100% 100%');
-  rise($('hb'),t,3.4,.45,40);const h=bk(P(t,4.0,4.5));$('hands').style.opacity=t>=4.0?1:0;$('hands').style.transform=`scale(${h})`;
-  const m=es(P(t,3.4,4.0));['b1','b2','b3'].forEach(b=>$(b).style.filter=`blur(${m*3}px)`);['b1','b2','b3'].forEach(b=>{$(b).style.opacity=(parseFloat($(b).style.opacity)||0)*(1-.7*m)})}
- if(sec('B',t,4.9,11.65)){rise($('hB'),t,5.2,.45,40);
-  const close=es(P(t,10.4,11.0));$('app').style.transform=`scale(${1-close*.85}) translateY(${close*500}px)`;$('app').style.opacity=1-close*.6;
-  W.forEach((w,i)=>{const s=6.3+i*.28;const e=$('w'+i);const x=50+(i*317)%640,y=480+(i*211)%900;e.style.left=x+'px';e.style.top=(y+Math.sin(t*2+i)*10)+'px';e.style.opacity=(t>=s?1:0)*(1-close);e.style.transform=`scale(${bk(P(t,s,s+.3))}) rotate(${(i%3-1)*6}deg)`})}
- if(sec('C',t,11.6,20.95)){rise($('hC'),t,11.8,.5,40);const o=ex(P(t,13.4,13.9));$('order').style.opacity=o;$('order').style.transform=`translateY(${(1-o)*300}px)`;
-  [['v0',15.4,'🔵','🔴'],['v1',16.7,'M','XXL'],['v2',17.7,'100','10']].forEach(([v,s,a,b],i)=>{const e=$(v);e.textContent=t<s?'❓':(t<19.1?a:b);e.style.color=t>=19.1?'#D7263D':'#1A1A1A';e.style.transform=`scale(${t>=s?bk(P(t,t<19.1?s:19.1,(t<19.1?s:19.1)+.35)):1})`;e.style.display='inline-block'});
-  pop($('recv'),t,19.3,.4)}
- if(sec('D',t,20.9,27.75)){rise($('hD'),t,21.1,.45,40);const c=ex(P(t,21.3,21.9));$('chat').style.transform=`translateY(${(1-c)*1200}px)`;
-  const ty=P(t,22.8,24.6);const full=$('m1t').dataset.f||($('m1t').dataset.f=$('m1t').textContent);$('m1t').textContent=full.slice(0,Math.ceil(full.length*ty));$('m1').style.opacity=t>=22.6?1:0;
-  pop($('m2'),t,25.1,.4,'0 0');pop($('m3'),t,26.2,.4,'0 0');
-  const tr=ex(P(t,22.0,22.6));$('tr').style.opacity=tr*(1-P(t,24.8,25.1));$('tr').style.transform=`translateX(${(1-tr)*500}px) rotate(4deg)`}
- if(sec('E',t,27.6,33.45)){const k=ex(P(t,27.8,28.4));$('kp').style.transform=`translateY(${(1-k)*1400}px) rotate(${(1-k)*-5}deg)`;
-  [['t0',31.7],['t1',32.2],['t2',32.6]].forEach(([g,s])=>pop($(g),t,s,.35))}
- if(sec('Z',t,33.3,99,.3,.01)){const g=ex(P(t,33.4,34.0));$('zg').style.opacity=g;$('zg').style.transform=`translateY(${(1-g)*-500+Math.sin(t*1.3)*6}px)`;
-  [['zk1',35.6,-1],['zk3',35.8,1]].forEach(([k,s,d])=>{const a=bk(P(t,s,s+.45));$(k).style.opacity=t>=s?1:0;$(k).style.transform=`rotate(${d*8}deg) translateX(${(1-a)*d*500}px)`});
-  rise($('zt'),t,35.9,.4,20);const p=ex(P(t,37.5,38.0));$('zp').style.opacity=p;$('zp').style.transform=`scale(${lerp(1.4,1,p)})`;$('zp').style.filter=`blur(${(1-p)*10}px)`;
-  const bt=bk(P(t,38.6,39.0));$('zb').style.opacity=t>=38.6?1:0;$('zb').style.transform=`scale(${.7+.3*bt})`;
-  $('zd').style.opacity=ex(P(t,39.1,39.4));$('d1').style.transform=`translateY(${Math.sin(t*6)*8}px)`;$('d2').style.transform=`translateY(${Math.sin(t*6-1)*8}px)`;$('d2').style.opacity=.55}
+ if(sec('A',t,-1,6.6,.01,.3)){const a=bk(P(t,.1,.5));$('ha').style.opacity=t>=.1?1:0;$('ha').style.transform=`scale(${lerp(.6,1,a)})`;
+  pop($('b1'),t,.3,.4,'0 100%');pop($('b2'),t,2.4,.4,'0 100%');pop($('b3'),t,3.3,.4,'100% 100%');
+  rise($('hb'),t,4.44,.45,40);const h=bk(P(t,5.22,5.7));$('hands').style.opacity=t>=5.22?1:0;$('hands').style.transform=`scale(${h})`;
+  const m=es(P(t,4.44,5.0));['b1','b2','b3'].forEach(b=>$(b).style.filter=`blur(${m*3}px)`);['b1','b2','b3'].forEach(b=>{$(b).style.opacity=(parseFloat($(b).style.opacity)||0)*(1-.7*m)})}
+ if(sec('B',t,6.45,11.7)){rise($('hB'),t,6.66,.45,40);
+  const close=es(P(t,10.9,11.4));$('app').style.transform=`scale(${1-close*.85}) translateY(${close*500}px)`;$('app').style.opacity=1-close*.6;
+  W.forEach((w,i)=>{const s=8.16+i*.2;const e=$('w'+i);const x=50+(i*317)%640,y=480+(i*211)%900;e.style.left=x+'px';e.style.top=(y+Math.sin(t*2+i)*10)+'px';e.style.opacity=(t>=s?1:0)*(1-close);e.style.transform=`scale(${bk(P(t,s,s+.3))}) rotate(${(i%3-1)*6}deg)`})}
+ if(sec('C',t,11.6,19.45)){rise($('hC'),t,11.8,.5,40);const o=ex(P(t,12.6,13.1));$('order').style.opacity=o;$('order').style.transform=`translateY(${(1-o)*300}px)`;
+  [['v0',14.54,'🔵','🔴'],['v1',15.36,'M','XXL'],['v2',16.16,'100','10']].forEach(([v,s,a,b],i)=>{const e=$(v);e.textContent=t<s?'❓':(t<17.58?a:b);e.style.color=t>=17.58?'#D7263D':'#1A1A1A';e.style.transform=`scale(${t>=s?bk(P(t,t<17.58?s:17.58,(t<17.58?s:17.58)+.35)):1})`;e.style.display='inline-block'});
+  pop($('recv'),t,17.88,.4)}
+ if(sec('D',t,19.4,24.85)){rise($('hD'),t,19.58,.45,40);const c=ex(P(t,19.8,20.4));$('chat').style.transform=`translateY(${(1-c)*1200}px)`;
+  const ty=P(t,22.44,23.5);const full=$('m1t').dataset.f||($('m1t').dataset.f=$('m1t').textContent);$('m1t').textContent=full.slice(0,Math.ceil(full.length*ty));$('m1').style.opacity=t>=22.3?1:0;
+  pop($('m2'),t,23.64,.4,'0 0');pop($('m3'),t,24.26,.4,'0 0');
+  const tr=ex(P(t,20.3,20.9));$('tr').style.opacity=tr*(1-P(t,22.1,22.4));$('tr').style.transform=`translateX(${(1-tr)*500}px) rotate(4deg)`}
+ if(sec('E',t,24.7,33.55)){const k=ex(P(t,24.92,25.5));$('kp').style.transform=`translateY(${(1-k)*1400}px) rotate(${(1-k)*-5}deg)`;
+  [['t0',30.48],['t1',31.26],['t2',32.38]].forEach(([g,s])=>pop($(g),t,s,.35))}
+ if(sec('Z',t,33.4,99,.3,.01)){const g=ex(P(t,33.5,34.1));$('zg').style.opacity=g;$('zg').style.transform=`translateY(${(1-g)*-500+Math.sin(t*1.3)*6}px)`;
+  [['zk1',35.94,-1],['zk3',36.12,1]].forEach(([k,s,d])=>{const a=bk(P(t,s,s+.45));$(k).style.opacity=t>=s?1:0;$(k).style.transform=`rotate(${d*8}deg) translateX(${(1-a)*d*500}px)`});
+  rise($('zt'),t,36.3,.4,20);const p=ex(P(t,38.16,38.6));$('zp').style.opacity=p;$('zp').style.transform=`scale(${lerp(1.4,1,p)})`;$('zp').style.filter=`blur(${(1-p)*10}px)`;
+  const bt=bk(P(t,39.16,39.55));$('zb').style.opacity=t>=39.16?1:0;$('zb').style.transform=`scale(${.7+.3*bt})`;
+  $('zd').style.opacity=ex(P(t,39.6,39.9));$('d1').style.transform=`translateY(${Math.sin(t*6)*8}px)`;$('d2').style.transform=`translateY(${Math.sin(t*6-1)*8}px)`;$('d2').style.opacity=.55}
  caps(t);
  await document.fonts.ready;
 };

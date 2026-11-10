@@ -3,7 +3,7 @@ Style : guzheng (cithare chinoise, cordes pincées glissées) + piano doux occid
 Gamme pentatonique sur sol, 88 bpm. Thème de 5 notes (ré – mi – sol – la – sol) : début, solution, fin. Volume très bas."""
 import numpy as np, wave
 from scipy.signal import butter, sosfilt
-SR = 44100; DUR = 42.7; N = int(SR * DUR); LEAD = 0.5
+SR = 44100; DUR = 43.2; N = int(SR * DUR); LEAD = 0.5
 rng = np.random.default_rng(303)
 hz = lambda m: 440 * 2 ** ((m - 69) / 12)
 def T(d): return np.arange(int(SR * d)) / SR
@@ -36,19 +36,19 @@ def bars(seq, start, stop, pg=.4):
     while b < stop - .2:
         ch = seq[k % len(seq)]; d = min(spb*4, stop - b); add(mus, pad(ch[1:] + (ch[0],), d + 1.2, .9, 1.2), b, pg); b += spb*4; k += 1
 for dt, m in MOTIF: add(mus, zheng(m, 1.6, .5 if dt == 1.0 else 0), .05 + dt*spb, .28)
-bars([G, Em], 0, 5.2, .35)
-bars([Em, C, Em, D], 5.2, 21.0, .45)
-b = 5.4; k = 0
-while b < 20.8: add(mus, zheng(PENTA[(k*3) % 6] - 12, 1.2), b, .1, .3 if k % 2 else -.3); b += spb; k += 1
+bars([G, Em], 0, 6.6, .35)
+bars([Em, C, Em, D], 6.6, 19.5, .45)
+b = 6.8; k = 0
+while b < 19.3: add(mus, zheng(PENTA[(k*3) % 6] - 12, 1.2), b, .1, .3 if k % 2 else -.3); b += spb; k += 1
 # solution : la cithare et le piano se répondent
-for dt, m in MOTIF: add(mus, zheng(m, 1.6), 21.1 + dt*spb, .24)
-for dt, m in MOTIF: add(mus, piano(m - 12), 21.1 + spb*4 + dt*spb, .2)
-bars([G, D, Em, C], 21.0, 37.5, .45)
-b = 22.0; k = 0
-while b < 37.2:
+for dt, m in MOTIF: add(mus, zheng(m, 1.6), 19.58 + dt*spb, .24)
+for dt, m in MOTIF: add(mus, piano(m - 12), 19.58 + spb*4 + dt*spb, .2)
+bars([G, D, Em, C], 19.5, 38.1, .45)
+b = 20.5; k = 0
+while b < 37.8:
     add(mus, (zheng if k % 2 == 0 else piano)(PENTA[k % 6], 1.2), b, .1, .3 if k % 2 else -.3); b += spb/2; k += 1
-bars([C, D], 37.5, 39.5, .45); bars([G], 39.5, 42.3, .5)
-for dt, m in MOTIF + [(3.0, 86)]: add(mus, piano(m, 2.4), 37.5 + dt*spb, .22)
+bars([C, D], 38.1, 40.0, .45); bars([G], 40.0, 42.8, .5)
+for dt, m in MOTIF + [(3.0, 86)]: add(mus, piano(m, 2.4), 38.16 + dt*spb, .22)
 mus = filt(mus, 4300)
 t_all = np.arange(N)/SR
 mus *= np.clip(t_all/.05, 0, 1) * np.clip((DUR - t_all)/1.2, 0, 1)
@@ -58,10 +58,10 @@ def type_(d=1.8):
     for k in range(int(d*12)):
         i = int(k/12*SR + rng.uniform(0, .02)*SR); t = T(.03); out[i:i+len(t)] += filt(rng.standard_normal(len(t)), 5000) * np.exp(-t*150)
     return out
-for at in (.5, 1.9): add(sfx, blip(820), at, .16)
-add(sfx, blip(1200), 2.7, .14)
-add(sfx, type_(1.8), 22.8, .1)
-add(sfx, blip(820), 25.1, .14); add(sfx, blip(1000), 26.2, .14)
+for at in (.3, 2.4): add(sfx, blip(820), at, .16)
+add(sfx, blip(1200), 3.3, .14)
+add(sfx, type_(1.1), 22.44, .1)
+add(sfx, blip(820), 23.64, .14); add(sfx, blip(1000), 24.26, .14)
 def save(name, x):
     x = x / max(1e-9, np.abs(x).max()) * 0.9
     with wave.open(name, 'wb') as w:

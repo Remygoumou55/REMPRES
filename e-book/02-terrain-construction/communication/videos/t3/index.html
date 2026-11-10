@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:'Anton';src:url(anton.woff2) format('woff2')}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#0E0C0B}
+body{font-family:'Inter','Noto Color Emoji',sans-serif;color:#F2E8D5}
+#st{position:absolute;inset:0;overflow:hidden}
+.L{position:absolute;inset:0}
+.A{font-family:'Anton';letter-spacing:1px;text-transform:uppercase;line-height:.95}
+.M{font-family:'JetBrains Mono';font-weight:700}
+#bg{background:radial-gradient(ellipse at 50% 40%,#2A2522 0%,#171412 55%,#0B0908 100%)}
+#bgk{background:radial-gradient(ellipse at 50% 40%,#E3CFA6 0%,#CDB384 60%,#B39566 100%);opacity:0}
+#grain{background-size:540px 960px;mix-blend-mode:overlay;opacity:.16}
+#vig{background:radial-gradient(ellipse at 50% 45%,rgba(0,0,0,0) 50%,rgba(0,0,0,.55) 100%)}
+#redt{background:#D7263D;mix-blend-mode:multiply;opacity:0}
+#cam{position:absolute;inset:0;transform-origin:50% 45%}
+/* cartes kraft */
+.card{position:absolute;background:linear-gradient(160deg,#E2CFA8,#C9AC79);color:#2A1E14;border-radius:4px;box-shadow:0 22px 40px rgba(0,0,0,.55),inset 0 0 40px rgba(120,80,30,.25)}
+.pin{position:absolute;left:50%;top:-16px;width:34px;height:34px;margin-left:-17px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FF6B7E,#D7263D 55%,#7A0F1E);box-shadow:0 6px 10px rgba(0,0,0,.5)}
+.lab{position:absolute;left:0;right:0;bottom:22px;text-align:center;font-size:30px;letter-spacing:4px}
+#head{position:absolute;left:0;right:0;top:170px;height:200px;overflow:hidden;text-align:center}
+#head div{position:absolute;left:0;right:0;font-size:150px;color:#F2E8D5}
+#head b{color:#D7263D;font-weight:400}
+#strings{position:absolute;left:0;top:0;width:1080px;height:1920px}
+.rc{position:absolute;width:300px;height:190px;background:#F6EEDC;color:#3A2A1C;padding:20px 24px;border-radius:3px;box-shadow:0 18px 30px rgba(0,0,0,.5);font-family:'JetBrains Mono';font-weight:700}
+.rc h6{font-size:30px;letter-spacing:6px}
+.rc .ln{height:5px;background:#D8CBB0;margin-top:18px;border-radius:2px}
+.rc .am{font-size:26px;margin-top:14px;color:#7A6650}
+/* années */
+#yrs{position:absolute;left:0;right:0;top:300px;text-align:center}
+#yrs .A{font-size:190px}
+#yrs .M{font-size:30px;letter-spacing:6px;color:#C9B28A;margin-top:12px}
+#route{position:absolute;left:0;top:0;width:1080px;height:1920px}
+#moons{position:absolute;left:110px;right:110px;top:640px;display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+#moons i{display:block;width:54px;height:54px;border-radius:50%;box-shadow:inset -14px -8px 0 0 #F2E8D5;transform:rotate(-30deg)}
+/* téléphone */
+#phone{position:absolute;left:190px;top:240px;width:700px;height:1380px;border-radius:80px;background:#0C1513;border:14px solid #1E1B19;box-shadow:0 50px 100px rgba(0,0,0,.7);overflow:hidden}
+#phead{height:170px;background:#13221E;display:flex;align-items:flex-end;padding:0 34px 26px;gap:20px}
+#phead .av{width:84px;height:84px;border-radius:50%;background:#8C5A3C;display:flex;align-items:center;justify-content:center;font-size:46px}
+#phead b{display:block;font-size:38px}#phead small{font-size:24px;color:#6FCB9F}
+.pb{position:absolute;left:28px;padding:20px 26px;border-radius:8px 30px 30px 30px;background:#1B3029;font-size:34px;line-height:1.25;max-width:600px}
+#prc{position:absolute;left:28px;top:430px;width:560px;height:640px;padding:14px;border-radius:8px 30px 30px 30px;background:#1B3029}
+#prc .in{width:532px;height:610px;border-radius:20px;background:linear-gradient(160deg,#F6EEDC,#E6D6B6);padding:46px 40px;color:#3A2A1C}
+#prc h6{font-family:'JetBrains Mono';font-size:44px;letter-spacing:10px}
+#prc .ln{height:8px;background:#D8CBB0;margin-top:34px;border-radius:3px}
+#ok{position:absolute;left:150px;top:620px;padding:16px 34px;border:10px solid #2FAE6B;color:#2FAE6B;border-radius:16px;font-size:110px;transform:rotate(-12deg)}
+/* analyse */
+#bigrc{position:absolute;left:90px;top:300px;width:900px;height:560px;background:linear-gradient(160deg,#F6EEDC,#E6D6B6);color:#3A2A1C;padding:56px 60px;border-radius:4px;box-shadow:0 40px 80px rgba(0,0,0,.6)}
+#bigrc h6{font-family:'JetBrains Mono';font-size:64px;letter-spacing:14px}
+#bigrc .ln{height:10px;background:#D8CBB0;margin-top:40px;border-radius:4px}
+#bigrc .am{font-family:'JetBrains Mono';font-weight:700;font-size:40px;margin-top:34px;color:#7A6650}
+#lens{position:absolute;width:260px;height:260px;border-radius:50%;border:14px solid #2B2522;box-shadow:0 20px 40px rgba(0,0,0,.5),inset 0 0 30px rgba(255,255,255,.35);background:rgba(255,255,255,.08)}
+#lens:after{content:'';position:absolute;left:210px;top:210px;width:40px;height:150px;background:#2B2522;border-radius:20px;transform:rotate(-45deg);transform-origin:20px 0}
+#ana{position:absolute;left:90px;right:90px;top:960px}
+#ana .h{font-size:30px;letter-spacing:6px;color:#C9B28A}
+.ar{display:flex;align-items:center;gap:26px;font-size:50px;margin-top:30px;font-family:'JetBrains Mono';font-weight:700}
+.ar .bx{width:76px;height:76px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:52px;flex:none}
+#np{position:absolute;left:460px;top:1300px;padding:14px 34px;border:10px solid #D7263D;color:#D7263D;border-radius:14px;font-size:96px;transform:rotate(-8deg)}
+/* vendu x2 */
+#plot2{position:absolute;left:290px;top:560px;width:500px;height:500px}
+.r2{position:absolute;width:300px;height:190px}
+#x2{position:absolute;left:0;right:0;top:1180px;text-align:center}
+#x2 .A{font-size:200px}
+#x2 b{color:#D7263D;font-weight:400}
+/* tribunal */
+#sacr{position:absolute;left:0;right:0;top:330px;text-align:center}
+#sacr .A{font-size:150px;display:block}
+#sacr span{display:inline-block}
+#gavel{position:absolute;left:310px;top:840px;width:460px;height:460px}
+#trib{position:absolute;left:0;right:0;top:1340px;text-align:center;font-size:56px;letter-spacing:10px;color:#D7263D}
+/* solution : 12 */
+#av{position:absolute;left:0;right:0;top:330px;text-align:center;color:#2A1E14}
+#av .A{font-size:130px}
+#n12{position:absolute;left:0;right:0;top:620px;text-align:center;color:#D7263D;font-size:520px;line-height:1}
+#n12l{position:absolute;left:0;right:0;top:1180px;text-align:center;color:#2A1E14;font-size:44px;letter-spacing:12px}
+/* carte d'enquête */
+#map{position:absolute;left:0;top:0;width:1080px;height:1920px}
+.pl{position:absolute;width:400px;height:330px;padding-top:40px;text-align:center}
+.pl svg{width:150px;height:150px}
+.pl .M{font-size:30px;letter-spacing:3px;margin-top:10px}
+#ctr{position:absolute;left:390px;top:800px;width:300px;height:300px;border-radius:50%;background:#2A1E14;color:#F2E8D5;display:flex;align-items:center;justify-content:center;text-align:center;font-size:30px;letter-spacing:3px;box-shadow:0 20px 40px rgba(0,0,0,.4)}
+/* guide */
+#desk{background:radial-gradient(ellipse at 50% 55%,#3A2E25,#1A1512 70%)}
+#gd{position:absolute;left:110px;top:330px;width:860px;height:992px;filter:drop-shadow(0 60px 50px rgba(0,0,0,.75));transform-origin:50% 100%}
+#gd img{width:100%;height:100%}
+#gtag{position:absolute;left:640px;top:250px;padding:18px 30px;background:#E2CFA8;color:#2A1E14;font-size:30px;letter-spacing:5px;transform:rotate(6deg);box-shadow:0 10px 20px rgba(0,0,0,.4)}
+#gtag:before{content:'';position:absolute;left:-14px;top:50%;width:22px;height:22px;margin-top:-11px;border-radius:50%;background:#1A1512}
+/* kit */
+#kpg{position:absolute;left:80px;top:300px;width:920px;height:1270px;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.6);transform-origin:50% 0}
+#kpg img{width:920px;display:block}
+#kchip{position:absolute;left:50%;top:190px;transform:translateX(-50%);padding:16px 34px;background:#D7263D;color:#fff;font-size:32px;letter-spacing:5px;white-space:nowrap;border-radius:8px}
+.tick{position:absolute;width:60px;height:60px}
+/* fiches pays + kits */
+.tg{position:absolute;padding:18px 34px 18px 54px;background:linear-gradient(160deg,#E2CFA8,#C9AC79);color:#2A1E14;font-size:40px;border-radius:6px 18px 18px 6px;box-shadow:0 12px 24px rgba(0,0,0,.45);white-space:nowrap}
+.tg:before{content:'';position:absolute;left:18px;top:50%;width:18px;height:18px;margin-top:-9px;border-radius:50%;background:#1A1512}
+#fp{position:absolute;left:0;right:0;top:230px;text-align:center}
+#fp .A{font-size:110px}#fp .M{font-size:30px;letter-spacing:6px;color:#C9B28A;margin-top:12px}
+.kt{position:absolute;width:450px;height:200px;background:#F2E8D5;color:#2A1E14;border-top:14px solid #D7263D;border-radius:6px;padding:26px 30px;box-shadow:0 20px 40px rgba(0,0,0,.5)}
+.kt small{display:block;font-family:'JetBrains Mono';font-weight:700;font-size:26px;letter-spacing:5px;color:#D7263D}
+.kt b{display:block;font-family:'Anton';font-size:58px;font-weight:400;margin-top:10px;text-transform:uppercase}
+/* vérifie avant */
+#va{position:absolute;left:0;right:0;top:560px;text-align:center}
+#va .A{font-size:190px;display:block}
+#va .r{color:#D7263D;position:relative;display:inline-block}
+#vstrike{position:absolute;left:-20px;right:-20px;top:50%;height:18px;background:#F2E8D5;transform-origin:0 50%}
+/* fin */
+#fbook{position:absolute;left:230px;top:150px;width:620px;height:715px;filter:drop-shadow(0 40px 50px rgba(0,0,0,.7))}
+#fbook img{width:100%;height:100%}
+#fk{position:absolute;left:0;right:0;top:900px;text-align:center;font-size:34px;letter-spacing:4px;color:#C9B28A}
+#fprice{position:absolute;left:0;right:0;top:980px;text-align:center}
+#stamp{display:inline-block;padding:10px 40px;border:12px solid #D7263D;color:#D7263D;border-radius:18px;font-size:200px;line-height:1.05}
+#stamp small{font-size:70px}
+#fold{position:relative;display:inline-block;font-size:44px;color:#C9B28A;margin-top:26px}
+#fold i{position:absolute;left:-8px;right:-8px;top:50%;height:6px;background:#D7263D;transform-origin:0 50%}
+#fbtn{position:absolute;left:90px;right:90px;top:1420px;height:170px;background:#D7263D;color:#fff;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:64px;box-shadow:0 20px 40px rgba(215,38,61,.35)}
+#fbtn:before{content:'';position:absolute;inset:10px;border:3px dashed rgba(255,255,255,.55);border-radius:10px}
+#farr{position:absolute;left:0;right:0;top:1630px;text-align:center;font-size:80px;color:#D7263D;line-height:.5;font-family:'Inter';font-weight:900}
+/* sous-titres : bande machine à écrire */
+#cap{position:absolute;left:70px;right:70px;top:1600px;text-align:center}
+#cap span{display:inline;background:#0E0C0B;color:#F2E8D5;font-family:'JetBrains Mono';font-weight:700;font-size:44px;line-height:1.55;padding:6px 14px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+#cap span.k{background:#D7263D}
+#caret{display:inline-block;width:22px;height:44px;background:#D7263D;vertical-align:middle;margin-left:4px}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs><filter id="ink"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="7"/><feDisplacementMap in="SourceGraphic" scale="7"/></filter></defs></svg>
+<div id="st">
+ <div class="L" id="bg"></div><div class="L" id="bgk"></div>
+ <div id="cam">
+  <!-- 1 : le tableau d'enquête -->
+  <div class="L" id="S1">
+   <div id="head" class="A"><div id="h1">Deux familles.</div><div id="h2">Un seul <b>terrain.</b></div><div id="h3">Deux <b>reçus.</b></div></div>
+   <svg id="strings" viewBox="0 0 1080 1920"></svg>
+   <div class="card" id="fa" style="left:60px;top:430px;width:420px;height:440px;transform:rotate(-3deg)"><div class="pin"></div><svg viewBox="0 0 300 220" style="width:340px;margin:50px 40px 0" fill="none" stroke="#2A1E14" stroke-width="7" stroke-linecap="round"><circle cx="80" cy="50" r="26"/><path d="M40 200v-60a40 40 0 0 1 80 0v60"/><circle cx="170" cy="56" r="24"/><path d="M134 200v-54a36 36 0 0 1 72 0v54"/><circle cx="240" cy="110" r="16"/><path d="M216 200v-36a24 24 0 0 1 48 0v36"/></svg><div class="lab M">FAMILLE A</div></div>
+   <div class="card" id="fb" style="left:600px;top:450px;width:420px;height:440px;transform:rotate(3deg)"><div class="pin"></div><svg viewBox="0 0 300 220" style="width:340px;margin:50px 40px 0" fill="none" stroke="#2A1E14" stroke-width="7" stroke-linecap="round"><circle cx="70" cy="110" r="16"/><path d="M46 200v-36a24 24 0 0 1 48 0v36"/><circle cx="140" cy="50" r="26"/><path d="M100 200v-60a40 40 0 0 1 80 0v60"/><circle cx="226" cy="56" r="24"/><path d="M190 200v-54a36 36 0 0 1 72 0v54"/></svg><div class="lab M">FAMILLE B</div></div>
+   <div class="card" id="pc" style="left:300px;top:1140px;width:480px;height:440px;transform:rotate(-1deg)"><div class="pin"></div>
+     <svg viewBox="0 0 480 360" style="width:480px;height:360px"><rect id="plr" x="90" y="70" width="300" height="220" fill="rgba(120,60,20,.15)" stroke="#2A1E14" stroke-width="7" stroke-dasharray="1"/>
+     <g id="mk" fill="#D7263D"><rect x="80" y="60" width="22" height="22"/><rect x="378" y="60" width="22" height="22"/><rect x="80" y="278" width="22" height="22"/><rect x="378" y="278" width="22" height="22"/></g></svg>
+     <div class="lab M" style="bottom:26px">UN SEUL TERRAIN</div></div>
+   <div class="rc" id="ra" style="left:120px;top:800px"><h6>REÇU</h6><div class="ln"></div><div class="ln" style="width:70%"></div><div class="am">•• ••• ••• F</div></div>
+   <div class="rc" id="rb" style="left:660px;top:820px"><h6>REÇU</h6><div class="ln"></div><div class="ln" style="width:70%"></div><div class="am">•• ••• ••• F</div></div>
+  </div>
+  <!-- 2 : des années loin du pays -->
+  <div class="L" id="S2">
+   <div id="yrs"><div class="A" id="yrt">Des années</div><div class="M">de travail, loin du pays</div></div>
+   <div id="moons"></div>
+   <svg id="route" viewBox="0 0 1080 1920" fill="none"><path id="rp" d="M170 1320 C 330 1050, 750 1050, 910 1320" stroke="#C9B28A" stroke-width="6" stroke-dasharray="4 18" stroke-linecap="round"/>
+    <circle cx="170" cy="1320" r="22" fill="#F2E8D5"/><circle cx="910" cy="1320" r="22" fill="#D7263D"/><circle id="dot" r="16" fill="#D7263D"/></svg>
+   <div class="M" style="position:absolute;left:60px;top:1370px;width:240px;text-align:center;font-size:28px;letter-spacing:3px">TOI,<br>À L'ÉTRANGER</div>
+   <div class="M" style="position:absolute;left:790px;top:1370px;width:240px;text-align:center;font-size:28px;letter-spacing:3px;color:#D7263D">CE TERRAIN</div>
+  </div>
+  <!-- 3 : le reçu sur le téléphone -->
+  <div class="L" id="S3"><div id="phone"><div id="phead"><div class="av">👨🏾</div><div><b>Mon frère</b><small id="pon">en ligne</small></div></div>
+     <div class="pb" id="pb1" style="top:220px">Voilà le reçu. C'est payé 👍🏾</div>
+     <div id="prc"><div class="in"><h6>REÇU</h6><div class="ln"></div><div class="ln" style="width:80%"></div><div class="ln"></div><div class="ln" style="width:60%"></div><div class="ln" style="width:85%"></div></div>
+       <div id="ok" class="A">Réglé ✓</div></div></div></div>
+  <!-- 4 : ce que prouve un reçu -->
+  <div class="L" id="S4"><div id="bigrc"><h6>REÇU</h6><div class="ln"></div><div class="ln" style="width:75%"></div><div class="am">Reçu la somme de : •• ••• ••• F</div><div class="ln" style="width:55%"></div></div>
+   <div id="lens"></div>
+   <div id="ana"><div class="h M" id="anh"></div>
+     <div class="ar" id="a1"><div class="bx" style="background:#2FAE6B;color:#0E0C0B">✓</div><span id="a1t"></span></div>
+     <div class="ar" id="a2"><div class="bx" style="background:#D7263D;color:#fff">✕</div><span id="a2t"></span></div></div>
+   <div id="np" class="A">Non prouvé</div></div>
+  <!-- 5 : vendu deux fois -->
+  <div class="L" id="S5"><svg id="plot2" viewBox="0 0 500 500"><rect x="60" y="80" width="380" height="300" fill="rgba(215,38,61,.12)" stroke="#F2E8D5" stroke-width="8"/><g fill="#D7263D"><rect x="48" y="68" width="24" height="24"/><rect x="428" y="68" width="24" height="24"/><rect x="48" y="368" width="24" height="24"/><rect x="428" y="368" width="24" height="24"/></g></svg>
+   <div class="rc r2" id="v1"><h6>REÇU</h6><div class="ln"></div><div class="ln" style="width:70%"></div><div class="am">ACHETEUR A</div></div>
+   <div class="rc r2" id="v2"><h6>REÇU</h6><div class="ln"></div><div class="ln" style="width:70%"></div><div class="am">ACHETEUR B</div></div>
+   <div id="x2"><div class="A">Vendu <b id="x2b">×2</b></div></div></div>
+  <!-- 6 : tribunal -->
+  <div class="L" id="S6"><div id="sacr" class="A"><span class="A" id="sa1"></span><span class="A" id="sa2" style="color:#D7263D"></span></div>
+   <svg id="gavel" viewBox="0 0 460 460"><g id="gv" style="transform-origin:330px 330px"><rect x="120" y="150" width="200" height="90" rx="14" fill="#8C5A3C" stroke="#2A1E14" stroke-width="6"/><rect x="100" y="140" width="40" height="110" rx="10" fill="#6B4228"/><rect x="300" y="140" width="40" height="110" rx="10" fill="#6B4228"/><rect x="210" y="235" width="22" height="200" rx="10" fill="#6B4228" transform="rotate(-35 220 240)"/></g><rect x="80" y="400" width="300" height="40" rx="10" fill="#6B4228"/></svg>
+   <div id="trib" class="M">→ AU TRIBUNAL</div></div>
+  <!-- 7 : 12 vérifications (kraft) -->
+  <div class="L" id="S7"><div id="av"><div class="A">Avant de payer</div><div class="A" style="color:#D7263D">un seul franc</div></div><div id="n12" class="A">1</div><div id="n12l" class="M">VÉRIFICATIONS</div></div>
+  <!-- 8 : où vérifier -->
+  <div class="L" id="S8"><svg id="map" viewBox="0 0 1080 1920"></svg><div id="ctr" class="M">TON<br>TERRAIN</div>
+   <div class="card pl" id="p0" style="left:60px;top:260px;transform:rotate(-3deg)"><div class="pin"></div><svg viewBox="0 0 150 150" fill="none" stroke="#2A1E14" stroke-width="7"><path d="M20 130h110M30 130V60h90v70M15 60l60-40 60 40M55 130V90h40v40"/></svg><div class="M">BUREAU FONCIER</div></div>
+   <div class="card pl" id="p1" style="left:620px;top:300px;transform:rotate(3deg)"><div class="pin"></div><svg viewBox="0 0 150 150" fill="none" stroke="#2A1E14" stroke-width="7" stroke-linecap="round"><circle cx="75" cy="60" r="34"/><path d="M75 94v40M50 134h50M60 60l10 10 20-22"/></svg><div class="M">TON NOTAIRE</div></div>
+   <div class="card pl" id="p2" style="left:60px;top:1280px;transform:rotate(2deg)"><div class="pin"></div><svg viewBox="0 0 150 150" fill="none" stroke="#2A1E14" stroke-width="7" stroke-linecap="round"><rect x="50" y="20" width="50" height="34" rx="6"/><path d="M75 54v16M75 70L35 140M75 70v70M75 70l40 70"/></svg><div class="M">TON GÉOMÈTRE</div></div>
+   <div class="card pl" id="p3" style="left:620px;top:1300px;transform:rotate(-2deg)"><div class="pin"></div><svg viewBox="0 0 150 150" fill="none" stroke="#2A1E14" stroke-width="7" stroke-linecap="round"><path d="M10 130V80l35-25 35 25v50M70 130V70l35-25 35 25v60"/><circle cx="45" cy="105" r="8"/><circle cx="105" cy="98" r="8"/></svg><div class="M">LES VOISINS</div></div></div>
+  <!-- 9 : le guide -->
+  <div class="L" id="S9"><div class="L" id="desk"></div><div id="gd"><img src="guide-3d.png"></div><div id="gtag" class="M">PIÈCE N°1 · LE GUIDE</div></div>
+  <!-- 10 : liste à cocher -->
+  <div class="L" id="S10"><div id="kchip" class="M">KIT 1 · LES 12 VÉRIFICATIONS</div><div id="kpg"><img src="kit1-12.png"><svg id="ticks" style="position:absolute;left:0;top:0;width:920px;height:1270px" viewBox="0 0 920 1270" fill="none" stroke="#D7263D" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"></svg></div></div>
+  <!-- 11 : fiche pays + 4 kits -->
+  <div class="L" id="S11"><div id="fp"><div class="A" id="fpt">La fiche de ton pays</div><div class="M" id="fpm">7 PAYS</div></div><div id="tags"></div>
+   <div class="kt" id="q0"><small>KIT 1</small><b>Les checklists</b></div><div class="kt" id="q1"><small>KIT 2</small><b>Les modèles</b></div>
+   <div class="kt" id="q2"><small>KIT 3</small><b>Les calculs</b></div><div class="kt" id="q3"><small>KIT 4</small><b>Les carnets</b></div></div>
+  <!-- 12 : vérifie avant -->
+  <div class="L" id="S12"><div id="va"><span class="A" id="va1">Vérifie avant.</span><span class="A r" id="va2">Pas après.<i id="vstrike"></i></span></div></div>
+  <!-- 13 : fin -->
+  <div class="L" id="S13"><div id="fbook"><img src="guide-3d.png"></div><div id="fk" class="M">LE GUIDE + 4 KITS PRÊTS À REMPLIR</div>
+   <div id="fprice"><div id="stamp" class="A" style="filter:url(#ink)">9 900 <small>F CFA</small></div><br><div id="fold" class="M">au lieu de 15 000 F<i id="fst"></i></div></div>
+   <div id="fbtn" class="A">Clique sur le lien</div><div id="farr"><div id="fa1">⌄</div><div id="fa2">⌄</div></div></div>
+ </div>
+ <div class="L" id="redt"></div>
+ <div class="L" id="vig"></div>
+ <div class="L" id="grain"></div>
+ <div id="cap"></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>cl((t-a)/(b-a));
+const eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const ex=x=>x>=1?1:1-Math.pow(2,-10*x);
+const bk=x=>{const c1=1.4,c3=c1+1;return x<=0?0:x>=1?1:1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const lerp=(a,b,x)=>a+(b-a)*x;
+const show=(id,on)=>{$(id).style.display=on?'block':'none'};
+const shake=(t,at,d=.25,amp=10)=>(t>at&&t<at+d)?Math.sin(t*150)*amp*(1-P(t,at,at+d)):0;
+function drop(el,t,s,rot=0,d=.45){const a=bk(P(t,s,s+d));el.style.opacity=t>=s?1:0;el.style.transform=`translateY(${(1-a)*-260}px) scale(${1.15-.15*a}) rotate(${rot}deg)`}
+function stampIn(el,t,s,rot,base=''){const a=P(t,s,s+.16);el.style.opacity=t>=s?1:0;el.style.transform=`${base} rotate(${rot}deg) scale(${lerp(1.9,1,ex(a))})`}
+function type(txt,t,s,cps=28){if(t<s)return '';return txt.slice(0,Math.floor((t-s)*cps))}
+function drawEl(el,t,s,d){const L=el.getTotalLength();el.style.strokeDasharray=L;el.style.strokeDashoffset=L*(1-eio(P(t,s,s+d)))}
+function slot(el,t,s,e){const a=ex(P(t,s,s+.35)),o=ex(P(t,e,e+.3));el.style.transform=`translateY(${(1-a)*110-o*110}%)`;el.style.opacity=t>=s&&t<e+.3?1:0}
+
+// ---- sous-titres (temps de la voix) ----
+const CAP=[[4.11,6.95,"Toi, tu as travaillé des années loin du pays pour ce terrain."],[7.47,8.81,"Ton frère t'a envoyé le reçu."],[9.22,10.33,"Tu croyais que c'était réglé."],
+ [18.15,21.54,"Et ce jour-là, ce sont des années de sacrifices qui partent au tribunal."],[29.89,33.61,"Elles sont toutes dans le guide « Les erreurs à éviter avant d'investir au pays »,"],
+ [33.85,34.68,"en liste à cocher,"],[42.58,43.84,"Clique sur le lien maintenant."]];
+const KEY=['reçu.','tribunal.','années','guide','cocher,','réglé.'];
+function caps(t){const c=$('cap');const g=CAP.find(([s,e])=>t>=s-.05&&t<e+.35);if(!g){c.innerHTML='';return}
+ const [s,e,tx]=g;const n=Math.ceil(tx.length*P(t,s,e-.1));const shown=tx.slice(0,n);
+ c.innerHTML=shown.split(' ').map(w=>`<span class="${KEY.includes(w)?'k':''}">${w}</span>`).join(' ')+(n<tx.length?'<i id="caret"></i>':'');
+ c.style.opacity=1-P(t,e+.2,e+.35);c.style.top=(t>29&&t<35?1620:t>42?1720:1600)+'px'}
+
+// construction
+$('moons').innerHTML=Array.from({length:36},()=>'<i></i>').join('');
+const COUNTRIES=['Guinée',"Côte d'Ivoire",'Sénégal','Cameroun','Bénin','Gabon','Togo'];
+$('tags').innerHTML=COUNTRIES.map((c,i)=>`<div class="tg A" id="tg${i}">${c}</div>`).join('');
+const TP=[[70,520],[560,500],[120,690],[600,700],[60,880],[540,900],[300,1060]];
+// fils rouges du tableau
+$('strings').innerHTML='<path id="s1" d="M270 640 C 300 900, 420 1050, 540 1160" stroke="#D7263D" stroke-width="5" fill="none"/><path id="s2" d="M810 660 C 780 900, 660 1050, 540 1160" stroke="#D7263D" stroke-width="5" fill="none"/>';
+// carte d'enquête
+const PC=[[260,430],[820,470],[260,1450],[820,1470]];
+$('map').innerHTML=PC.map(([x,y],i)=>`<path id="m${i}" d="M540 950 L ${x} ${y}" stroke="#D7263D" stroke-width="6" fill="none"/>`).join('');
+// coches du kit (colonne OK)
+const ROWY=[343,408,489,584,679,774,857,937,1017,1097,1180,1245].map(y=>y-0);
+$('ticks').innerHTML=ROWY.map((y,i)=>`<path id="tk${i}" d="M836 ${y-6} l14 16 l30 -34"/>`).join('');
+
+const SC=['S1','S2','S3','S4','S5','S6','S7','S8','S9','S10','S11','S12','S13'];
+const R0=async function(t){
+  SC.forEach(i=>show(i,false));
+  const fr=Math.floor(t*24);$('grain').style.backgroundImage=`url(noise${((fr%4)+4)%4}.png)`;$('grain').style.backgroundPosition=`${(fr*137)%540}px ${(fr*91)%960}px`;
+  $('redt').style.opacity=0;$('bgk').style.opacity=t>=22.0&&t<29.8?ex(P(t,22.0,22.4))*(1-P(t,29.6,29.8)):0;$('cam').style.transform='';$('vig').style.opacity=1;
+
+  // 1 (0 – 3.9) tableau
+  if(t<4.15){show('S1',true);$('S1').style.opacity=1-P(t,3.85,4.1);
+    const z=1+.04*P(t,0,3.9);$('cam').style.transform=`scale(${z})`;
+    slot($('h1'),t,-.05,1.1);slot($('h2'),t,1.15,2.35);slot($('h3'),t,2.37,99);
+    drop($('fa'),t,0.0,-3);drop($('fb'),t,0.25,3);drop($('pc'),t,1.15,-1);
+    drawEl($('plr'),t,1.2,.6);[...$('mk').children].forEach((m,i)=>{m.style.opacity=t>=1.7+i*.06?1:0});
+    drawEl($('s1'),t,1.6,.5);drawEl($('s2'),t,1.75,.5);
+    drop($('ra'),t,2.45,-6,.4);drop($('rb'),t,2.75,5,.4);}
+  // 2 (4.0 – 7.4) des années
+  if(t>=4.0&&t<7.45){show('S2',true);$('S2').style.opacity=P(t,4.0,4.2)*(1-P(t,7.25,7.45));
+    const a=ex(P(t,4.1,4.6));$('yrs').style.transform=`translateY(${(1-a)*60}px)`;$('yrs').style.opacity=a;
+    [...$('moons').children].forEach((m,i)=>{const s=4.4+i*0.06;m.style.opacity=t>=s?1:0;m.style.transform=`rotate(-30deg) scale(${bk(P(t,s,s+.3))})`});
+    drawEl($('rp'),t,5.2,1.0);const L=$('rp').getTotalLength();const k=ex(P(t,5.6,6.9));const pt=$('rp').getPointAtLength(L*k);$('dot').setAttribute('cx',pt.x);$('dot').setAttribute('cy',pt.y);$('dot').style.opacity=t>5.6?1:0;}
+  // 3 (7.4 – 10.6) téléphone
+  if(t>=7.4&&t<10.7){show('S3',true);$('S3').style.opacity=P(t,7.4,7.6)*(1-P(t,10.5,10.7));
+    const p=ex(P(t,7.4,7.9));$('phone').style.transform=`translateY(${(1-p)*900}px) rotate(${(1-p)*-8}deg)`;
+    $('pon').textContent=t<7.9?'écrit…':'en ligne';$('pb1').style.transform=`scale(${bk(P(t,7.75,8.1))})`;$('pb1').style.transformOrigin='0 0';$('pb1').style.opacity=t>=7.75?1:0;
+    $('prc').style.transform=`scale(${bk(P(t,8.1,8.55))})`;$('prc').style.transformOrigin='0 0';$('prc').style.opacity=t>=8.1?1:0;
+    stampIn($('ok'),t,9.35,-12);}
+  // 4 (10.6 – 15.5) ce que prouve un reçu
+  if(t>=10.6&&t<15.5){show('S4',true);$('S4').style.opacity=P(t,10.6,10.85)*(1-P(t,15.3,15.5));
+    const r=ex(P(t,10.6,11.1));$('bigrc').style.transform=`translateY(${(1-r)*-400}px) rotate(${-2+r*1}deg)`;
+    const lx=lerp(150,640,(Math.sin((t-10.8)*1.6)+1)/2),ly=lerp(330,520,(Math.cos((t-10.8)*1.1)+1)/2);$('lens').style.left=lx+'px';$('lens').style.top=ly+'px';$('lens').style.opacity=ex(P(t,10.9,11.3));
+    $('anh').textContent=type('CE QUE PROUVE UN REÇU :',t,10.9,40);
+    $('a1').style.opacity=t>=11.7?1:0;$('a1t').textContent=type('Tu as payé.',t,11.8,22);$('a1').style.transform=`translateX(${(1-ex(P(t,11.7,12.1)))*-60}px)`;
+    $('a2').style.opacity=t>=13.5?1:0;$('a2t').textContent=type('Le droit de vendre ?',t,13.6,22);$('a2').style.transform=`translateX(${(1-ex(P(t,13.5,13.9)))*-60}px)`;
+    stampIn($('np'),t,14.7,-8);$('st').style.transform=`translateX(${shake(t,14.7,.2,6)}px)`;}
+  // 5 (15.4 – 18.1) vendu deux fois
+  if(t>=15.4&&t<18.15){show('S5',true);$('S5').style.opacity=P(t,15.4,15.6)*(1-P(t,17.95,18.15));
+    const pl=ex(P(t,15.45,15.95));$('plot2').style.transform=`scale(${.8+.2*pl})`;$('plot2').style.opacity=pl;
+    const v1=bk(P(t,15.9,16.3)),v2=bk(P(t,16.6,17.0));
+    $('v1').style.left='140px';$('v1').style.top='700px';$('v1').style.opacity=t>=15.9?1:0;$('v1').style.transform=`translateX(${(1-v1)*-500}px) rotate(-8deg)`;
+    $('v2').style.left='640px';$('v2').style.top='740px';$('v2').style.opacity=t>=16.6?1:0;$('v2').style.transform=`translateX(${(1-v2)*500}px) rotate(7deg)`;
+    const x=ex(P(t,15.7,16.1));$('x2').style.opacity=x;$('x2').style.transform=`translateY(${(1-x)*40}px)`;stampIn($('x2b'),t,17.0,-6,'');$('x2b').style.display='inline-block';}
+  // 6 (18.0 – 22.0) tribunal
+  if(t>=18.0&&t<22.1){show('S6',true);$('S6').style.opacity=P(t,18.0,18.2)*(1-P(t,21.85,22.1));$('redt').style.opacity=.18*P(t,18.0,18.6);
+    $('sa1').textContent=type('DES ANNÉES',t,18.6,18);$('sa2').textContent=type('DE SACRIFICES',t,19.3,18);
+    const f=P(t,20.6,21.5);$('sacr').style.filter=`blur(${f*6}px)`;$('sacr').style.opacity=1-.7*f;$('sacr').style.transform=`translateY(${f*40}px)`;
+    const g=P(t,20.6,21.05);const ang=t<20.6?-35:t<21.05?lerp(-35,8,g*g):lerp(8,0,ex(P(t,21.05,21.3)));$('gv').style.transform=`rotate(${ang}deg)`;
+    $('st').style.transform=`translateX(${shake(t,21.05,.25,8)}px)`;$('trib').style.opacity=ex(P(t,21.05,21.4));}
+  // 7 (22.0 – 25.6) avant de payer / 12
+  if(t>=22.0&&t<25.65){show('S7',true);$('S7').style.opacity=P(t,22.0,22.3)*(1-P(t,25.45,25.65));$('vig').style.opacity=.5;
+    const a=ex(P(t,22.15,22.6));$('av').style.opacity=a;$('av').style.transform=`translateY(${(1-a)*50}px)`;
+    const n=Math.max(1,Math.min(12,1+Math.floor(P(t,23.7,25.0)*12)));$('n12').textContent=n;$('n12').style.opacity=t>=23.65?1:0;$('n12').style.transform=`scale(${1+.04*Math.sin(n)})`;
+    $('n12l').style.opacity=ex(P(t,24.9,25.2));}
+  // 8 (25.6 – 29.85) où vérifier
+  if(t>=25.6&&t<29.85){show('S8',true);$('S8').style.opacity=P(t,25.6,25.8)*(1-P(t,29.65,29.85));$('vig').style.opacity=.5;
+    $('ctr').style.transform=`scale(${bk(P(t,25.6,26.0))})`;
+    [25.74,26.77,27.75,28.86].forEach((s,i)=>{drop($('p'+i),t,s,[-3,3,2,-2][i],.4);drawEl($('m'+i),t,s-.05,.35)});}
+  // 9 (29.8 – 33.75) le guide
+  if(t>=29.8&&t<33.8){show('S9',true);$('S9').style.opacity=P(t,29.8,30.0)*(1-P(t,33.6,33.8));
+    const g=bk(P(t,29.9,30.6));$('gd').style.transform=`translateY(${(1-g)*-700}px) rotate(${(1-g)*-6}deg) scale(${1+.02*P(t,30.6,33.7)})`;$('gd').style.opacity=t>=29.9?1:0;
+    $('gtag').style.transform=`rotate(6deg) scale(${bk(P(t,30.7,31.1))})`;$('gtag').style.opacity=t>=30.7?1:0;}
+  // 10 (33.7 – 35.0) liste à cocher
+  if(t>=33.7&&t<35.05){show('S10',true);$('S10').style.opacity=P(t,33.7,33.85)*(1-P(t,34.85,35.05));
+    const a=ex(P(t,33.7,34.1));$('kpg').style.transform=`perspective(1600px) translateY(${(1-a)*700}px) rotateX(${(1-a)*20}deg)`;
+    $('kchip').style.opacity=ex(P(t,33.8,34.0));
+    ROWY.forEach((y,i)=>drawEl($('tk'+i),t,33.95+i*.07,.12));}
+  // 11 (34.85 – 37.8) fiche pays + kits
+  if(t>=34.85&&t<37.85){show('S11',true);$('S11').style.opacity=P(t,34.85,35.0)*(1-P(t,37.65,37.85));
+    const k=t>=36.2;$('fpt').textContent=k?'+ 4 kits':'La fiche de ton pays';$('fpm').textContent=k?'PRÊTS À REMPLIR':'7 PAYS';
+    const ha=ex(P(t,k?36.2:34.9,(k?36.2:34.9)+.4));$('fp').style.opacity=ha;$('fp').style.transform=`translateY(${(1-ha)*40}px)`;
+    COUNTRIES.forEach((c,i)=>{const e=$('tg'+i);e.style.left=TP[i][0]+'px';e.style.top=TP[i][1]+'px';const s=35.0+i*.13;const a=bk(P(t,s,s+.35));e.style.opacity=(t>=s?1:0)*(1-P(t,36.0,36.2));e.style.transform=`scale(${a}) rotate(${(i%2?4:-4)}deg)`});
+    const ps=[[60,560],[570,560],[60,820],[570,820]];[36.35,36.5,36.65,36.8].forEach((s,i)=>{const e=$('q'+i);e.style.left=ps[i][0]+'px';e.style.top=ps[i][1]+'px';drop(e,t,s,(i%2?2:-2),.4)});}
+  // 12 (37.8 – 40.0) vérifie avant
+  if(t>=37.8&&t<40.0){show('S12',true);$('S12').style.opacity=P(t,37.8,37.95)*(1-P(t,39.8,40.0));
+    stampIn($('va1'),t,37.91,0,'');$('va1').style.display='block';stampIn($('va2'),t,39.18,0,'');
+    $('vstrike').style.transform=`scaleX(${ex(P(t,39.45,39.75))})`;}
+  // 13 (39.9 – fin) prix
+  if(t>=39.9){show('S13',true);$('S13').style.opacity=P(t,39.9,40.15);
+    const b=ex(P(t,39.95,40.6));$('fbook').style.transform=`translateY(${(1-b)*-500+Math.sin(t*1.5)*6}px)`;$('fbook').style.opacity=P(t,39.95,40.1);
+    $('fk').style.opacity=ex(P(t,40.4,40.8));
+    stampIn($('stamp'),t,40.1,-4,'');$('st').style.transform=`translateX(${shake(t,40.12,.18,5)}px)`;
+    $('fold').style.opacity=ex(P(t,41.3,41.6));$('fst').style.transform=`scaleX(${ex(P(t,41.7,42.1))})`;
+    $('fbtn').style.opacity=t>=42.5?1:0;$('fbtn').style.transform=`scale(${bk(P(t,42.5,42.95))*(1+(t>43.2?.015*Math.sin((t-43.2)*6):0))})`;
+    $('farr').style.opacity=ex(P(t,43.0,43.3));$('fa1').style.transform=`translateY(${Math.sin(t*6)*8}px)`;$('fa2').style.transform=`translateY(${Math.sin(t*6-1)*8}px)`;$('fa2').style.opacity=.55;}
+  if(t<14.6||t>14.95)if(!(t>=21.05&&t<21.3)&&!(t>=40.12&&t<40.3))$('st').style.transform='';
+  caps(t);
+  await document.fonts.ready;
+};
+window.render=t=>R0(t-0.5);
+</script></body></html>

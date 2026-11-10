@@ -29,7 +29,10 @@ body{font-family:'Inter',sans-serif;color:#fff}
 #vig{background:radial-gradient(ellipse 760px 1100px at 50% 50%,rgba(0,0,0,0) 55%,rgba(0,8,16,.6))}
 /* textes */
 .hd{position:absolute;left:50px;right:50px;text-align:center}
-#phone{position:absolute;left:250px;top:330px;width:580px;height:900px;border-radius:60px;background:#0B0F14;padding:22px;box-shadow:0 50px 90px rgba(0,0,0,.55),0 0 0 3px #2A3542}
+#phone{position:absolute;left:260px;top:290px;width:560px;height:1115px;filter:drop-shadow(0 50px 60px rgba(0,0,0,.6))}
+#pin{position:absolute;inset:0;transform-origin:328px 405px}
+#pin img{position:absolute;left:0;top:0;width:560px;height:1115px}
+.ring{position:absolute;border:6px solid #FF6A00;border-radius:30px;box-shadow:0 0 24px rgba(255,106,0,.6)}
 #scr{width:100%;height:100%;border-radius:42px;background:#F5F6F8;overflow:hidden;color:#16202B}
 #scr .top{height:90px;background:#fff;display:flex;align-items:center;padding:0 30px;gap:16px;font-size:28px;color:#8A94A2;border-bottom:2px solid #E6E9EE}
 #scr .top i{flex:1;height:50px;border-radius:25px;background:#EEF0F3}
@@ -39,7 +42,7 @@ body{font-family:'Inter',sans-serif;color:#fff}
 #scr .tx .pr{font-size:96px;color:#FF6A00;font-weight:900;font-family:'Inter Display';letter-spacing:-3px;margin-top:6px}
 #scr .tx .bt{margin-top:18px;height:84px;border-radius:42px;background:#FF6A00;color:#fff;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:800}
 .emo{position:absolute;font-size:76px}
-#exc{position:absolute;left:0;right:0;margin:auto;width:fit-content;top:1300px;padding:18px 34px;border-radius:40px;border:3px solid #FF8A2A;font-size:42px;font-weight:800}
+#exc{position:absolute;left:0;right:0;margin:auto;width:fit-content;top:110px;background:#06283F;padding:18px 34px;border-radius:40px;border:3px solid #FF8A2A;font-size:42px;font-weight:800}
 #bar{position:absolute;left:90px;top:860px;width:900px;height:150px}
 #bar .seg{position:absolute;top:0;height:150px}
 #bar .lab{position:absolute;top:170px;font-size:26px;font-weight:700;line-height:1.2;text-align:center}
@@ -87,9 +90,9 @@ body{font-family:'Inter',sans-serif;color:#fff}
   <div id="labs"></div>
  </div>
  <div class="L" id="A"><div class="hd K" id="ha" style="top:170px;font-size:112px;line-height:1.05">Affiché <span class="O">4,50 $</span>.</div><div class="hd K" id="hb" style="top:1230px;font-size:104px;line-height:1.05">Chez toi :<br><span class="O">plus de 9 $.</span></div></div>
- <div class="L" id="B"><div id="phone"><div id="scr"><div class="top">‹<i></i>⋯</div><div class="im"><svg width="300" height="300" viewBox="0 0 300 300"><path d="M90 120 C90 50 210 50 210 120" stroke="#8B4A22" stroke-width="16" fill="none"/><path d="M50 120 H250 L230 270 H70 Z" fill="#B5652E"/><path d="M50 120 H250 L245 160 H55 Z" fill="#9A5326"/><rect x="135" y="150" width="30" height="24" rx="4" fill="#E8C27A"/></svg></div>
-   <div class="tx"><p>Sac à main · cuir PU · MOQ 50</p><div class="pr">4,50 $</div><div class="bt">Commander</div></div></div></div>
-  <div class="emo" id="e0" style="left:120px;top:700px">😍</div><div class="emo" id="e1" style="left:860px;top:560px">🔥</div><div class="emo" id="e2" style="left:880px;top:900px">🤩</div><div class="emo" id="e3" style="left:110px;top:1000px">💸</div>
+ <div class="L" id="B"><div id="phone"><div id="pin"><img id="ph1" src="alibaba-accueil.png"><img id="ph2" src="alibaba-recherche.png">
+   <div class="ring" id="r1" style="left:36px;top:826px;width:170px;height:46px"></div><div class="ring" id="r2" style="left:290px;top:826px;width:170px;height:46px"></div><div class="ring" id="r3" style="left:226px;top:384px;width:204px;height:48px"></div></div></div>
+  <div class="emo" id="e0" style="left:120px;top:700px">😍</div><div class="emo" id="e1" style="left:860px;top:560px">🔥</div><div class="emo" id="e2" style="left:880px;top:900px">🤩</div><div class="emo" id="e3" style="left:110px;top:1000px">🛒</div>
   <div id="exc">Ce qui excite les débutants</div></div>
  <div class="L" id="D"><div id="sellt">Prix de vente : <span class="N">10 $</span></div><div id="sell"></div>
   <div id="bar"><div class="seg" id="s0" style="left:0;width:430px;background:#E9EEF4"></div><div class="seg" id="s1" style="left:430px;width:135px;background:#FF8A2A"></div><div class="seg" id="s2" style="left:565px;width:237px;background:#E0483E"></div><div class="seg" id="s3" style="left:802px;width:52px;background:#8A97A8"></div><div class="seg" id="s4" style="left:854px;width:46px;background:#3DDC84"></div>
@@ -162,8 +165,13 @@ const R0=async function(t){
  if(sec('A',t,-1,4.6,.01,.3)){const a=bk(P(t,0,.45));$('ha').style.opacity=t>=0?1:0;$('ha').style.transform=`scale(${lerp(.6,1,a)})`;
   const b=ex(P(t,3.11,3.5));$('hb').style.opacity=b;$('hb').style.transform=`translateY(${(1-b)*40}px)`;$('hb').style.top='1230px';$('ha').style.top='180px'}
  // ---------- B : ce qu'on te montre ----------
- if(sec('B',t,4.55,9.6)){const p=ex(P(t,4.68,5.3));$('phone').style.transform=`translateY(${(1-p)*900}px) rotate(${(1-p)*-8+Math.sin(t*1.2)*1.2}deg)`;
-  ['e0','e1','e2','e3'].forEach((e,i)=>{const s=7.4+i*.22;const a=bk(P(t,s,s+.4));$(e).style.opacity=t>=s?1:0;$(e).style.transform=`scale(${a}) translateY(${-(t-s)*30}px)`});
+ if(sec('B',t,4.55,9.6)){const p=ex(P(t,4.68,5.3));$('phone').style.transform=`translateY(${(1-p)*1000}px) rotate(${(1-p)*-8+Math.sin(t*1.2)*1}deg)`;
+  const sw=es(P(t,6.55,7.0));$('ph1').style.opacity=1;$('ph2').style.opacity=sw;$('ph2').style.filter=`blur(${(1-sw)*8}px)`;
+  $('pin').style.clipPath='inset(0 round 60px)';
+  [['r1',5.5],['r2',5.75]].forEach(([r,s0])=>{const a=bk(P(t,s0,s0+.35));$(r).style.opacity=t>=s0?1-sw:0;$(r).style.transform=`scale(${a})`});
+  const a3=bk(P(t,7.05,7.4));$('r3').style.opacity=t>=7.05?1:0;$('r3').style.transform=`scale(${a3})`;
+  const z=es(P(t,7.1,7.9));$('phone').style.transform+=` scale(${1+z*.14})`;$('phone').style.transformOrigin='328px 405px';
+  ['e0','e1','e2','e3'].forEach((e,i)=>{const s0=7.4+i*.22;const a=bk(P(t,s0,s0+.4));$(e).style.opacity=t>=s0?1:0;$(e).style.transform=`scale(${a}) translateY(${-(t-s0)*30}px)`});
   const x=bk(P(t,7.67,8.1));$('exc').style.opacity=t>=7.67?1:0;$('exc').style.transform=`scale(${x})`}
  // ---------- D : la barre ----------
  if(sec('D',t,15.2,22.6)){$('sellt').style.opacity=ex(P(t,15.4,15.8));$('sell').style.opacity=ex(P(t,15.4,15.8));

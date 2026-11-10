@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#0A0A0F}
+body{font-family:'Inter','Noto Color Emoji',sans-serif;color:#F3EEE4}
+#st{position:absolute;inset:0;overflow:hidden}
+.L{position:absolute;inset:0}
+.S{font-family:'Bitstream Charter','Caladea',serif;font-weight:700;font-style:italic;letter-spacing:-1px}
+.U{font-family:'Inter';font-weight:800;letter-spacing:8px;text-transform:uppercase}
+.V{color:#9D86FF}
+#bg{background:radial-gradient(ellipse at 50% 40%,#1B1726 0%,#0E0C14 55%,#060509 100%)}
+#beam{background:radial-gradient(ellipse 42% 60% at 50% 30%,rgba(157,134,255,.22),rgba(157,134,255,0) 70%);opacity:0}
+#grain{background-size:540px 960px;mix-blend-mode:overlay;opacity:.1}
+#vig{background:radial-gradient(ellipse at 50% 45%,rgba(0,0,0,0) 45%,rgba(0,0,0,.7) 100%)}
+#dust{position:absolute;inset:0}
+#dust i{position:absolute;width:6px;height:6px;border-radius:50%;background:#CFC3FF;opacity:.0;filter:blur(1px)}
+/* lettres révélées une par une */
+.ch{display:inline-block;white-space:pre}
+/* 1 */
+#q1{position:absolute;left:0;right:0;top:640px;text-align:center}
+#q1 .a{font-size:64px;color:#B8B0C8;font-weight:500;font-family:'Inter';letter-spacing:-1px}
+#q1 .b{font-size:150px;line-height:1}
+#q1 .ul{width:620px;height:6px;margin:30px auto 0;background:linear-gradient(90deg,transparent,#9D86FF,transparent);transform-origin:50% 50%}
+/* 2 téléphone */
+#ph{position:absolute;left:250px;top:260px;width:580px;height:1180px;border-radius:84px;background:#111018;border:12px solid #26232F;box-shadow:0 60px 120px rgba(0,0,0,.7),0 0 0 2px rgba(157,134,255,.15);overflow:hidden}
+#phs{position:absolute;inset:0;background:linear-gradient(180deg,#1A1626,#0F0D16)}
+#cav{position:absolute;left:190px;top:240px;width:180px;height:180px;border-radius:50%;background:#2A2538;display:flex;align-items:center;justify-content:center;font-family:'Bitstream Charter',serif;font-size:80px;font-style:italic;color:#CFC3FF}
+#cav:before,#cav:after{content:'';position:absolute;inset:-14px;border-radius:50%;border:3px solid rgba(157,134,255,.5)}
+#cnm{position:absolute;left:0;right:0;top:460px;text-align:center;font-size:44px;font-weight:700}
+#cst{position:absolute;left:0;right:0;top:520px;text-align:center;font-size:28px;color:#9A93AE;letter-spacing:3px}
+#cbtn{position:absolute;left:220px;top:900px;width:140px;height:140px;border-radius:50%;background:#2FAE6B;display:flex;align-items:center;justify-content:center}
+#rew{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.06) 0 3px,transparent 3px 14px);opacity:0}
+#look{position:absolute;left:0;right:0;top:120px;text-align:center}
+#look .S{font-size:96px}
+/* 3 contacts */
+#ct{position:absolute;left:110px;right:110px;top:300px}
+#ct h6{font-size:30px;letter-spacing:8px;color:#9A93AE;margin-bottom:24px}
+.cr{display:flex;align-items:center;gap:28px;padding:26px 30px;border-radius:30px;margin-bottom:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06)}
+.cr .av{width:96px;height:96px;border-radius:50%;background:#2A2538;display:flex;align-items:center;justify-content:center;font-family:'Bitstream Charter',serif;font-style:italic;font-size:48px;color:#CFC3FF}
+.cr b{font-size:46px;font-weight:700}
+.cr small{display:block;font-size:28px;color:#9A93AE;margin-top:4px}
+#knows{position:absolute;left:150px;top:1020px;padding:26px 40px;border-radius:12px 44px 44px 44px;background:#9D86FF;color:#0A0A0F;font-family:'Bitstream Charter',serif;font-style:italic;font-weight:700;font-size:70px}
+/* échiquier 3D */
+#scene{position:absolute;left:540px;top:1020px;width:0;height:0;perspective:1700px}
+#board{position:absolute;left:-700px;top:-700px;width:1400px;height:1400px;transform-style:preserve-3d;background:repeating-conic-gradient(#2B2540 0 25%,#E9E2D4 0 50%) 0 0/175px 175px;box-shadow:0 0 0 22px #3A3350,0 0 0 26px #9D86FF,0 0 200px rgba(157,134,255,.45)}
+#board:after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(157,134,255,.10),rgba(10,10,15,.55) 75%)}
+.pc{position:absolute;width:220px;height:330px;margin-left:-110px;margin-top:-330px;transform-origin:50% 100%;transform-style:preserve-3d}
+.pc svg{position:absolute;left:0;top:0;width:220px;height:330px;overflow:visible}
+.sh{position:absolute;width:200px;height:200px;margin:-100px 0 0 -100px;border-radius:50%;background:radial-gradient(circle,rgba(0,0,0,.6),rgba(0,0,0,0) 65%)}
+.spot{position:absolute;width:420px;height:420px;margin:-210px 0 0 -210px;border-radius:50%;background:radial-gradient(circle,rgba(157,134,255,.55),rgba(157,134,255,0) 65%);opacity:0}
+.tagp{position:absolute;left:50%;top:-120px;transform:translateX(-50%);white-space:nowrap;padding:18px 34px;border-radius:44px;background:#F3EEE4;color:#0A0A0F;font-weight:800;font-size:38px;letter-spacing:3px;text-transform:uppercase;opacity:0;box-shadow:0 14px 30px rgba(0,0,0,.5)}
+.tagp.me{background:#9D86FF;color:#0A0A0F}
+#coins{position:absolute;inset:0;transform-style:preserve-3d}
+#pieces{position:absolute;inset:0;transform-style:preserve-3d}
+.cn{position:absolute;width:64px;height:64px;margin:-32px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFF6D8,#E5C66A 55%,#9C7B23);box-shadow:0 8px 16px rgba(0,0,0,.5)}
+#parts{position:absolute;left:0;right:0;top:250px;text-align:center}
+#parts .S{font-size:110px}
+#ring{position:absolute;left:340px;top:420px;width:400px;height:400px}
+/* 5 papiers */
+.doc{position:absolute;width:420px;height:560px;background:linear-gradient(170deg,#F3EEE4,#DCD4C4);color:#2A2433;border-radius:10px;padding:40px 36px;box-shadow:0 40px 70px rgba(0,0,0,.6)}
+.doc h6{font-size:28px;letter-spacing:5px;font-weight:800}
+.doc .ln{height:10px;background:#C9C0AE;border-radius:5px;margin-top:26px}
+.doc .qm{position:absolute;right:30px;bottom:24px;width:120px;height:120px;border-radius:50%;background:#9D86FF;color:#0A0A0F;font-family:'Bitstream Charter',serif;font-weight:700;font-size:90px;display:flex;align-items:center;justify-content:center}
+#which{position:absolute;left:0;right:0;top:1380px;text-align:center}
+#which .S{font-size:84px}
+/* 6 notre notaire / liquide */
+#nn{position:absolute;left:0;right:0;top:420px;text-align:center}
+#nn .S{font-size:112px;line-height:1.08}
+#nn .qq{color:#9D86FF;display:inline-block}
+#lq{position:absolute;left:0;right:0;top:1060px;text-align:center}
+#lq .S{font-size:130px}
+#watch{position:absolute;left:440px;top:1330px;width:200px;height:200px}
+/* 8 les règles */
+#nv{position:absolute;left:0;right:0;top:360px;text-align:center}
+#nv .a{font-size:84px;color:#B8B0C8}
+#nv .b{font-size:100px;line-height:1.08;margin-top:30px}
+#rb{position:absolute;left:340px;top:980px;width:400px;height:440px}
+/* 9 le guide */
+#gd{position:absolute;left:110px;top:300px;width:860px;height:992px;filter:drop-shadow(0 60px 60px rgba(0,0,0,.75)) drop-shadow(0 0 60px rgba(157,134,255,.25));transform-origin:50% 100%}
+#gd img{width:100%;height:100%}
+#kits{position:absolute;left:60px;right:60px;top:1340px;display:flex;gap:16px;justify-content:center}
+#kits div{flex:1;padding:22px 16px;border-radius:22px;border:2px solid rgba(157,134,255,.55);background:rgba(157,134,255,.08);text-align:center}
+#kits small{display:block;font-size:22px;letter-spacing:4px;color:#9D86FF;font-weight:800}
+#kits b{display:block;font-size:30px;margin-top:6px}
+/* 10 dix minutes + pays */
+#tm{position:absolute;left:340px;top:250px;width:400px;height:400px}
+#tmt{position:absolute;left:340px;top:250px;width:400px;height:400px;display:flex;align-items:center;justify-content:center;flex-direction:column}
+#tmt b{font-family:'Inter';font-weight:200;font-size:120px;letter-spacing:-4px}
+#tmt small{font-size:24px;letter-spacing:6px;color:#9D86FF;font-weight:800}
+.pg{position:absolute;left:90px;width:900px;border-radius:20px;overflow:hidden;background:#fff;box-shadow:0 40px 90px rgba(0,0,0,.65)}
+.pg img{width:900px;display:block}
+.hl{position:absolute;background:rgba(157,134,255,.35);mix-blend-mode:multiply;border-radius:6px;transform-origin:0 50%}
+.chip{position:absolute;left:50%;transform:translateX(-50%);padding:16px 34px;border-radius:40px;background:#9D86FF;color:#0A0A0F;font-weight:800;font-size:32px;letter-spacing:4px;white-space:nowrap}
+/* 12 notaire */
+.nt{position:absolute;left:90px;right:90px;border-radius:40px;padding:46px 50px;display:flex;align-items:center;gap:34px}
+.nt .ic{flex:none;width:140px;height:140px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.nt .ic svg{width:80px;height:80px}
+.nt .S{font-size:70px;line-height:1.05}
+.nt small{display:block;font-family:'Inter';font-style:normal;font-weight:800;font-size:28px;letter-spacing:5px;margin-bottom:8px}
+#n1{top:430px;background:#F3EEE4;color:#0A0A0F}#n1 .ic{background:#9D86FF}#n1 small{color:#6B5BD6}
+#n2{top:860px;background:rgba(255,255,255,.04);border:3px solid rgba(255,255,255,.18);color:#8C869C}#n2 .ic{background:#2A2538}
+#n2x{position:absolute;left:70px;right:70px;top:990px;height:12px;background:#E5484D;border-radius:6px;transform:rotate(-5deg);transform-origin:0 50%}
+/* 13 */
+#qs{position:absolute;left:0;right:0;top:170px;text-align:center}
+#qs .a{font-size:70px;color:#B8B0C8}
+#qs .b{font-size:96px;line-height:1.08}
+/* 14 */
+#ph2{position:absolute;left:290px;top:520px;width:500px;height:900px;border-radius:70px;background:#111018;border:12px solid #26232F;overflow:hidden;box-shadow:0 50px 100px rgba(0,0,0,.6)}
+#ph2 img{position:absolute;left:30px;top:160px;width:420px;filter:drop-shadow(0 20px 30px rgba(0,0,0,.6))}
+#rd{position:absolute;left:0;right:0;top:250px;text-align:center}
+#rd .S{font-size:110px;line-height:1.02}
+/* 15 fin */
+#fb{position:absolute;left:250px;top:120px;width:580px;height:669px;filter:drop-shadow(0 40px 50px rgba(0,0,0,.6)) drop-shadow(0 0 50px rgba(157,134,255,.25))}
+#fb img{width:100%;height:100%}
+#fk{position:absolute;left:0;right:0;top:830px;text-align:center;font-size:32px;color:#B8B0C8;font-weight:700;letter-spacing:4px}
+#fk b{color:#9D86FF}
+#fp{position:absolute;left:0;right:0;top:900px;text-align:center}
+#fpn{display:inline-block;font-family:'Inter';font-weight:200;font-size:250px;letter-spacing:-10px;line-height:1;-webkit-mask-image:linear-gradient(90deg,#000 0%,#000 var(--m,0%),transparent calc(var(--m,0%) + 12%));mask-image:linear-gradient(90deg,#000 0%,#000 var(--m,0%),transparent calc(var(--m,0%) + 12%))}
+#fpn small{font-weight:800;font-size:70px;letter-spacing:0;color:#9D86FF}
+#fsweep{position:absolute;top:900px;width:200px;height:260px;background:linear-gradient(90deg,transparent,rgba(207,195,255,.5),transparent);filter:blur(10px)}
+#fo{position:absolute;left:0;right:0;top:1170px;text-align:center}
+#fo span{position:relative;font-size:48px;color:#8C869C}
+#fo i{position:absolute;left:-8px;right:-8px;top:52%;height:6px;background:#E5484D;transform-origin:0 50%}
+#fbtn{position:absolute;left:100px;right:100px;top:1310px;height:160px;border-radius:80px;background:#9D86FF;color:#0A0A0F;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:800;overflow:hidden;box-shadow:0 0 60px rgba(157,134,255,.35)}
+#fbtn .sh2{position:absolute;top:0;bottom:0;width:140px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg)}
+#fa{position:absolute;left:0;right:0;top:1510px;text-align:center;font-size:70px;color:#9D86FF;font-weight:900;line-height:.5}
+/* sous-titres : phrase + fine barre de progression violette */
+#cap{position:absolute;left:70px;right:70px;top:1600px;text-align:center}
+#cap .tx{font-size:50px;font-weight:600;line-height:1.3;color:#F3EEE4;text-shadow:0 4px 20px rgba(0,0,0,.9)}
+#cap .tx em{font-style:normal;color:#B9A8FF}
+#cap .bar{width:300px;height:4px;margin:20px auto 0;background:rgba(255,255,255,.15);border-radius:2px;overflow:hidden}
+#cap .bar i{display:block;height:100%;background:#9D86FF}
+</style></head><body>
+<div id="st">
+ <div class="L" id="bg"></div><div class="L" id="beam"></div><div id="dust"></div>
+ <div class="L" id="S1"><div id="q1"><div class="a" id="q1a">Tu veux acheter un terrain</div><div class="b S" id="q1b"></div><div class="ul" id="q1u"></div></div></div>
+ <div class="L" id="S2"><div id="ph"><div id="phs"></div><div id="cav">T</div><div id="cnm">Tonton</div><div id="cst">APPEL…</div>
+   <div id="cbtn"><svg viewBox="0 0 60 60" width="64" height="64" fill="#fff"><path d="M14 8c3-2 7-1 8 2l3 8c1 3 0 5-2 7l-3 2c2 6 7 11 13 13l2-3c2-2 4-3 7-2l8 3c3 1 4 5 2 8l-3 4c-2 3-6 4-10 3C24 48 12 36 9 20c-1-4 0-8 3-10z"/></svg></div><div id="rew"></div></div>
+   <div id="look"><div class="S">Regarde ça <span class="V">d'abord.</span></div></div></div>
+ <div class="L" id="S3"><div id="ct"><h6 class="U">CONTACTS</h6>
+   <div class="cr" id="r0"><div class="av">T</div><div><b>Tonton</b><small>connaît quelqu'un</small></div></div>
+   <div class="cr" id="r1"><div class="av">C</div><div><b>Le cousin</b><small>a un ami au bureau</small></div></div>
+   <div class="cr" id="r2"><div class="av">A</div><div><b>Ami du quartier</b><small>a un terrain à vendre</small></div></div>
+   <div class="cr" id="r3"><div class="av">M</div><div><b>Le monsieur du marché</b><small>« je connais un vendeur »</small></div></div></div>
+   <div id="knows">« Il connaît quelqu'un. »</div></div>
+ <!-- échiquier -->
+ <div class="L" id="CHESS"><div id="parts"><div class="S" id="partt">Chacun prend <span class="V">sa part.</span></div></div>
+   <div id="scene"><div id="board"><div id="spots"></div><div id="shadows"></div><div id="pieces"></div><div id="coins"></div></div></div></div>
+ <div class="L" id="S5"><div class="doc" id="d0"><h6>REÇU</h6><div class="ln"></div><div class="ln" style="width:70%"></div><div class="ln"></div><div class="qm">?</div></div>
+   <div class="doc" id="d1"><h6>ATTESTATION DU QUARTIER</h6><div class="ln"></div><div class="ln"></div><div class="ln" style="width:60%"></div><div class="qm">?</div></div>
+   <div class="doc" id="d2"><h6>LETTRE</h6><div class="ln" style="width:80%"></div><div class="ln"></div><div class="ln" style="width:50%"></div><div class="qm">?</div></div>
+   <div id="which"><div class="S">Lequel vaut <span class="V">quelque chose ?</span></div></div></div>
+ <div class="L" id="S6"><div id="nn"><div class="S">On t'envoie chez<br><span class="qq" id="qa">«</span> notre <span class="qq" id="qb">»</span> notaire.</div></div>
+   <div id="lq"><div class="S">Du liquide. <span class="V">Vite.</span></div></div>
+   <svg id="watch" viewBox="0 0 200 200" fill="none"><circle cx="100" cy="110" r="78" stroke="rgba(255,255,255,.15)" stroke-width="12"/><circle id="wr" cx="100" cy="110" r="78" stroke="#9D86FF" stroke-width="12" transform="rotate(-90 100 110)"/><rect x="84" y="10" width="32" height="20" rx="6" fill="#9D86FF"/></svg></div>
+ <div class="L" id="S8"><div id="nv"><div class="a S" id="nva">Pas parce que tu es naïf.</div><div class="b S" id="nvb">Parce que personne ne t'a jamais expliqué <span class="V">les règles.</span></div></div>
+   <svg id="rb" viewBox="0 0 400 440" fill="none"><rect x="60" y="60" width="280" height="360" rx="20" fill="#1F1B2B" stroke="#9D86FF" stroke-width="6"/><path d="M100 120h200M100 170h200M100 220h140" stroke="#3C3552" stroke-width="12" stroke-linecap="round"/><g id="lock"><rect x="140" y="250" width="120" height="100" rx="16" fill="#9D86FF"/><path id="shk" d="M165 250v-30a35 35 0 0 1 70 0v30" stroke="#9D86FF" stroke-width="16"/></g></svg></div>
+ <div class="L" id="S9"><div id="gd"><img src="guide-3d.png"></div>
+   <div id="kits"><div><small>KIT 1</small><b>Checklists</b></div><div><small>KIT 2</small><b>Modèles</b></div><div><small>KIT 3</small><b>Calculs</b></div><div><small>KIT 4</small><b>Carnets</b></div></div></div>
+ <div class="L" id="S10"><svg id="tm" viewBox="0 0 400 400" fill="none"><circle cx="200" cy="200" r="170" stroke="rgba(255,255,255,.1)" stroke-width="14"/><circle id="tmr" cx="200" cy="200" r="170" stroke="#9D86FF" stroke-width="14" stroke-linecap="round" transform="rotate(-90 200 200)"/></svg><div id="tmt"><b id="tmn">10:00</b><small>L'ESSENTIEL</small></div>
+   <div class="chip" id="pchip" style="top:720px">LE SEUL PAPIER SOLIDE · PAYS PAR PAYS</div>
+   <div class="pg" id="pp" style="top:810px;height:860px"><img src="pays.png"><div class="hl" id="ph1"></div><div class="hl" id="ph2h"></div></div></div>
+ <div class="L" id="S11"><div class="chip" style="top:200px" id="kchip">LES 12 VÉRIFICATIONS AVANT DE PAYER</div><div class="pg" id="kp" style="top:300px;height:1240px"><img src="kit1-12.png"><svg id="ticks" style="position:absolute;left:0;top:0;width:900px;height:1240px" viewBox="0 0 900 1240" fill="none" stroke="#7B5CFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"></svg></div></div>
+ <div class="L" id="S12"><div class="nt" id="n1"><div class="ic"><svg viewBox="0 0 80 80" fill="none" stroke="#0A0A0F" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"><path id="nk1" d="M14 42l16 16 36-38"/></svg></div><div class="S"><small>TON NOTAIRE</small>choisi par toi.</div></div>
+   <div class="nt" id="n2"><div class="ic"><svg viewBox="0 0 80 80" fill="none" stroke="#8C869C" stroke-width="10" stroke-linecap="round"><path d="M20 20l40 40M60 20L20 60"/></svg></div><div class="S"><small>PAS CELUI</small>du vendeur.</div></div><div id="n2x"></div></div>
+ <div class="L" id="S13"><div id="qs"><div class="a S" id="qsa">Cette fois,</div><div class="b S" id="qsb">c'est <span class="V">toi</span> qui poses les questions.</div></div></div>
+ <div class="L" id="S14"><div id="rd"><div class="S">Lis-le avant<br>le <span class="V">premier appel.</span></div></div><div id="ph2"><img src="guide-3d.png"></div></div>
+ <div class="L" id="S15"><div id="fb"><img src="guide-3d.png"></div><div id="fk">LE GUIDE <b>+ 4 KITS</b> PRÊTS À REMPLIR</div>
+   <div id="fp"><span id="fpn">9 900 <small>F CFA</small></span></div><div id="fsweep"></div>
+   <div id="fo"><span>au lieu de 15 000 F<i id="fst"></i></span></div>
+   <div id="fbtn">Le lien est juste en dessous<div class="sh2" id="fsh"></div></div><div id="fa"><div id="fa1">⌄</div><div id="fa2">⌄</div></div></div>
+ <div class="L" id="vig"></div><div class="L" id="grain"></div>
+ <div id="cap"><div class="tx" id="capt"></div><div class="bar"><i id="capb"></i></div></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>cl((t-a)/(b-a));
+const eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const ex=x=>x>=1?1:1-Math.pow(2,-10*x);
+const es=x=>x<.5?16*x**5:1-Math.pow(-2*x+2,5)/2;
+const bk=x=>{const c1=1.4,c3=c1+1;return x<=0?0:x>=1?1:1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const lerp=(a,b,x)=>a+(b-a)*x;
+const show=(id,on)=>{$(id).style.display=on?'block':'none'};
+function sec(id,t,a,b,fi=.25,fo=.25){const on=t>=a&&t<b;show(id,on);if(on)$(id).style.opacity=P(t,a,a+fi)*(1-P(t,b-fo,b));return on}
+function rise(el,t,s,d=.6,dist=60){const a=ex(P(t,s,s+d));el.style.opacity=a;el.style.transform=`translateY(${(1-a)*dist}px)`;el.style.filter=`blur(${(1-a)*8}px)`}
+function drawEl(el,t,s,d){const L=el.getTotalLength();el.style.strokeDasharray=L;el.style.strokeDashoffset=L*(1-eio(P(t,s,s+d)))}
+// texte lettre par lettre
+function letters(el,txt,t,s,step=.035){if(el.dataset.t!==txt){el.innerHTML=[...txt].map(c=>`<span class="ch">${c}</span>`).join('');el.dataset.t=txt}
+ [...el.children].forEach((c,i)=>{const a=ex(P(t,s+i*step,s+i*step+.45));c.style.opacity=a;c.style.transform=`translateY(${(1-a)*40}px) rotate(${(1-a)*8}deg)`;c.style.filter=`blur(${(1-a)*6}px)`})}
+
+// ---- sous-titres (temps de la voix) ----
+const CAP=[[1.81,4.66,"Alors ne passe pas le premier coup de fil <em>avant d'avoir vu ça.</em>"],[5.32,9.09,"Le premier réflexe de tout le monde : appeler un parent qui <em>« connaît quelqu'un »</em>."],
+ [9.51,13.36,"Et sans le savoir, tu entres dans un marché où <em>tout le monde en sait plus que toi.</em>"],[18.37,21.41,"On te montre un reçu, une attestation du quartier, une lettre."],
+ [27.68,29.95,"Et chacun prend sa part <em>sur ton ignorance.</em>"],[34.70,39.73,"Dans le guide « Les erreurs à éviter avant d'investir au pays », <em>avec les 4 kits prêts à remplir.</em>"],
+ [40.14,43.82,"En dix minutes, tu sauras quel est <em>le seul papier vraiment solide</em> dans ton pays,"],[44.11,45.95,"les <em>douze vérifications</em> avant de payer,"]];
+const CTOP=[1560,1560,1600,1620,1620,1580,1720,1640];
+function caps(t){const i=CAP.findIndex(([s,e])=>t>=s-.15&&t<e+.35);const c=$('cap');if(i<0){c.style.opacity=0;return}
+ if($('capt').dataset.k!=String(i)){$('capt').innerHTML=CAP[i][2];$('capt').dataset.k=i}
+ const a=ex(P(t,CAP[i][0]-.15,CAP[i][0]+.3));c.style.opacity=a*(1-P(t,CAP[i][1]+.2,CAP[i][1]+.35));c.style.transform=`translateY(${(1-a)*24}px)`;c.style.top=CTOP[i]+'px';$('capb').style.width=(100*P(t,CAP[i][0],CAP[i][1]))+'%'}
+
+// ---- pièces d'échecs (SVG) ----
+const PCS={
+ pawn:'<circle cx="110" cy="120" r="44"/><path d="M80 160h60l-10 60h-40z"/><path d="M50 300c0-40 30-70 60-80 30 10 60 40 60 80z"/><rect x="40" y="296" width="140" height="30" rx="10"/>',
+ rook:'<path d="M60 70h20v24h20V70h20v24h20V70h20v60H60z"/><path d="M72 130h76l10 140H62z"/><rect x="40" y="270" width="140" height="56" rx="12"/>',
+ bishop:'<circle cx="110" cy="44" r="14"/><path d="M110 58c-36 30-44 60-34 92h68c10-32 2-62-34-92z"/><path d="M118 80l-24 36" stroke="#0A0A0F" stroke-width="8"/><path d="M78 150h64l14 120H64z"/><rect x="40" y="270" width="140" height="56" rx="12"/>',
+ knight:'<path d="M70 270c0-60 10-100 40-130-20 0-40 10-50 0-10-12 10-40 30-60 20-22 50-36 80-24 30 16 30 70 20 120-6 40-10 70-10 94z"/><circle cx="118" cy="92" r="7" fill="#0A0A0F"/><rect x="40" y="270" width="140" height="56" rx="12"/>',
+ queen:'<path d="M50 70l25 70 35-90 35 90 25-70-10 100H60z"/><circle cx="50" cy="66" r="12"/><circle cx="110" cy="44" r="12"/><circle cx="170" cy="66" r="12"/><path d="M62 170h96l14 100H48z"/><rect x="36" y="270" width="148" height="56" rx="12"/>',
+ king:'<path d="M102 10h16v24h20v14h-20v24h-16V48H82V34h20z"/><path d="M60 80c20-14 80-14 100 0l-14 90H74z"/><path d="M70 170h80l14 100H56z"/><rect x="36" y="270" width="148" height="56" rx="12"/>'};
+const BOARD=[ // x,y sur l'échiquier (1400 x 1400), type, couleur, étiquette, temps d'apparition de l'étiquette
+ {id:'me',x:700,y:760,k:'pawn',c:'#F3EEE4',lab:'Toi',ls:9.6,me:1},
+ {id:'p1',x:400,y:420,k:'knight',c:'#3A3350',lab:'Le démarcheur',ls:13.8},
+ {id:'p2',x:1060,y:430,k:'rook',c:'#3A3350',lab:'Le vendeur',ls:14.8},
+ {id:'p3',x:430,y:1080,k:'bishop',c:'#3A3350',lab:"L'intermédiaire",ls:15.67},
+ {id:'p4',x:1090,y:1060,k:'queen',c:'#3A3350',lab:"Celui qui t'aide",ls:16.73}];
+$('pieces').innerHTML=BOARD.map(p=>`<div class="pc" id="${p.id}" style="left:${p.x}px;top:${p.y}px"><svg viewBox="0 0 220 330"><g fill="${p.c}" stroke="${p.me?'#9D86FF':'#6B5BD6'}" stroke-width="4">${PCS[p.k]}</g></svg><div class="tagp ${p.me?'me':''}">${p.lab}</div></div>`).join('')+`<div class="pc" id="king" style="left:700px;top:760px"><svg viewBox="0 0 220 330"><g fill="#9D86FF" stroke="#F3EEE4" stroke-width="4">${PCS.king}</g></svg><div class="tagp me" style="opacity:1">Toi</div></div>`;
+$('shadows').innerHTML=BOARD.map(p=>`<div class="sh" style="left:${p.x}px;top:${p.y}px"></div>`).join('');
+$('spots').innerHTML=BOARD.map(p=>`<div class="spot" id="sp_${p.id}" style="left:${p.x}px;top:${p.y}px"></div>`).join('');
+const CNS=[];for(let i=0;i<12;i++){const d=document.createElement('div');d.className='cn';$('coins').appendChild(d);CNS.push({e:d,to:BOARD[1+(i%4)],s:27.8+i*.14})}
+// poussières lumineuses
+const DU=[];for(let i=0;i<40;i++){const d=document.createElement('i');$('dust').appendChild(d);DU.push({e:d,x:(i*197)%1080,y:(i*331)%1920,sp:.3+(i%5)*.12})}
+// coches du kit
+const ROWY=[335,398,477,570,662,755,836,914,992,1070,1151,1215];
+$('ticks').innerHTML=ROWY.map((y,i)=>`<path id="tk${i}" d="M818 ${y-6} l14 16 l30 -34"/>`).join('');
+
+const SC=['S1','S2','S3','CHESS','S5','S6','S8','S9','S10','S11','S12','S13','S14','S15'];
+const R0=async function(t){
+  SC.forEach(i=>show(i,false));
+  const fr=Math.floor(t*24);$('grain').style.backgroundImage=`url(noise${((fr%4)+4)%4}.png)`;$('grain').style.backgroundPosition=`${(fr*137)%540}px ${(fr*91)%960}px`;
+  const dustOn=(t>=34.6&&t<40.1)||(t>=50.1&&t<52.6)||t>=54.4;
+  DU.forEach(d=>{d.e.style.opacity=dustOn?.35+.3*Math.sin(t*2+d.x):0;d.e.style.left=(d.x+Math.sin(t*.5+d.y)*30)+'px';d.e.style.top=((d.y-t*40*d.sp)%1920+1920)%1920+'px'});
+  $('beam').style.opacity=dustOn?1:0;
+
+  // 1 (0 – 1.7)
+  if(sec('S1',t,-1,1.75,.01,.2)){rise($('q1a'),t,0,.5,40);letters($('q1b'),'cette année ?',t,.35,.04);$('q1u').style.transform=`scaleX(${es(P(t,.8,1.4))})`}
+  // 2 (1.7 – 5.1) le premier coup de fil
+  if(sec('S2',t,1.7,5.1)){const p=ex(P(t,1.7,2.3));$('ph').style.transform=`translateY(${(1-p)*900}px) rotate(${(1-p)*6}deg)`;
+    const ring=(t*1.4)%1;$('cav').style.transform=`scale(${1+.04*Math.sin(t*12)})`;
+    $('cbtn').style.transform=`scale(${1+.08*Math.sin(t*10)})`;
+    const rw=P(t,3.6,4.3);$('rew').style.opacity=rw>0&&rw<1?.9:0;$('phs').style.filter=`hue-rotate(${rw*90}deg) brightness(${1-.4*Math.sin(rw*Math.PI)})`;
+    $('cst').textContent=t<3.6?'APPEL…':t<4.3?'◀◀  ◀◀  ◀◀':'EN PAUSE';
+    const lk=ex(P(t,4.2,4.7));$('look').style.opacity=lk;$('look').style.transform=`translateY(${(1-lk)*40}px)`;$('look').style.filter=`blur(${(1-lk)*8}px)`}
+  // 3 (5.0 – 9.45) contacts
+  if(sec('S3',t,5.0,9.45)){[0,1,2,3].forEach(i=>rise($('r'+i),t,5.35+i*.18,.5,60));
+    const h=ex(P(t,7.1,7.5));$('r0').style.background=`rgba(157,134,255,${.08+.22*h})`;$('r0').style.borderColor=`rgba(157,134,255,${h})`;[1,2,3].forEach(i=>{$('r'+i).style.opacity=(1-.6*h)*ex(P(t,5.35+i*.18,5.85+i*.18))});
+    const k=bk(P(t,8.37,8.85));$('knows').style.opacity=t>=8.37?1:0;$('knows').style.transform=`scale(${.5+.5*k})`;$('knows').style.transformOrigin='0 0'}
+  // échiquier (9.4 – 18.3) puis (27.6 – 30.3) puis (50.1 – 52.6)
+  const chessOn=(t>=9.4&&t<18.3)||(t>=27.55&&t<30.35)||(t>=50.05&&t<52.65);
+  if(chessOn){show('CHESS',true);
+    const seg=t<18.3?0:t<30.35?1:2;const s0=[9.4,27.55,50.05][seg],s1=[18.3,30.35,52.65][seg];
+    $('CHESS').style.opacity=P(t,s0,s0+.3)*(1-P(t,s1-.3,s1));
+    let tilt,rot,zoom;
+    if(seg===0){tilt=lerp(0,56,es(P(t,9.4,11.4)));rot=lerp(-20,25,P(t,9.4,18.3));zoom=lerp(.75,1.0,es(P(t,9.4,11.4)))}
+    else if(seg===1){tilt=56;rot=lerp(25,55,P(t,27.55,30.35));zoom=.95}
+    else{tilt=lerp(56,48,es(P(t,50.05,51.0)));rot=lerp(-10,10,P(t,50.05,52.65));zoom=lerp(1.0,1.12,P(t,50.05,52.65))}
+    $('board').style.transform=`scale(${zoom}) rotateX(${tilt}deg) rotateZ(${rot}deg)`;
+    BOARD.forEach(p=>{const e=$(p.id);let sc;
+      if(p.me)sc=seg===0?bk(P(t,9.6,10.1)):1;else sc=seg===0?bk(P(t,11.9+(+p.id[1])*.12,12.45+(+p.id[1])*.12)):1;
+      let tip=0;if(seg===2&&!p.me){const k=es(P(t,50.6+(+p.id[1])*.1,51.3+(+p.id[1])*.1));tip=k*80*((+p.id[1])%2?1:-1)}
+      e.style.transform=`rotateZ(${-rot}deg) rotateX(${-tilt}deg) rotateZ(${tip}deg) scale(${sc*1.05})`;e.style.opacity=(p.me&&seg===2)?1-P(t,50.16,50.5):(sc>0?1:0);
+      const tg=e.querySelector('.tagp');tg.style.opacity=seg===0?ex(P(t,p.ls,p.ls+.3)):(seg===1&&p.me?1:0);
+      $('sp_'+p.id).style.opacity=seg===0&&!p.me?Math.max(0,1-Math.abs(t-p.ls-.4)/1.0):(p.me&&seg===2?ex(P(t,50.2,50.7)):0)});
+    const kg=$('king');kg.style.display=seg===2?'block':'none';if(seg===2){const k=bk(P(t,50.16,50.7));kg.style.transform=`rotateZ(${-rot}deg) rotateX(${-tilt}deg) scale(${k*1.25})`;kg.style.filter=`drop-shadow(0 0 ${30*k}px rgba(157,134,255,.8))`}
+    CNS.forEach(c=>{const k=P(t,c.s,c.s+.8);const e=eio(k);c.e.style.display=seg===1?'block':'none';c.e.style.left=lerp(700,c.to.x,e)+'px';c.e.style.top=lerp(760,c.to.y,e)+'px';c.e.style.opacity=k>0&&k<1?1:0;c.e.style.transform=`translateZ(${Math.sin(k*Math.PI)*260}px) rotateX(${-tilt}deg)`});
+    $('parts').style.display=seg===1?'block':'none';if(seg===1){const a=ex(P(t,27.68,28.2));$('parts').style.opacity=a;$('parts').style.transform=`translateY(${(1-a)*40}px)`}}
+  // 5 (18.25 – 23.55) les papiers
+  if(sec('S5',t,18.25,23.55)){[['d0',18.37,-10,90,330],['d1',19.49,0,330,300],['d2',20.93,9,570,330]].forEach(([id,s,r,x,y])=>{const a=ex(P(t,s,s+.6));const e=$(id);e.style.left=x+'px';e.style.top=y+'px';e.style.opacity=t>=s?1:0;e.style.transform=`translateY(${(1-a)*800}px) rotate(${r*a}deg)`;
+      const q=e.querySelector('.qm');const qa=bk(P(t,21.74+(+id[1])*.12,22.2+(+id[1])*.12));q.style.transform=`scale(${qa})`});
+    rise($('which'),t,21.8,.6,40)}
+  // 6 (23.5 – 27.65) notre notaire / liquide
+  if(sec('S6',t,23.5,27.65)){rise($('nn'),t,23.64,.6,50);const q=bk(P(t,24.4,24.9));['qa','qb'].forEach((id,i)=>{$(id).style.transform=`scale(${1+.6*Math.sin(q*Math.PI)}) rotate(${(i?1:-1)*20*Math.sin(q*Math.PI)}deg)`});
+    rise($('lq'),t,25.87,.5,40);$('watch').style.opacity=ex(P(t,26.4,26.7));drawEl($('wr'),t,26.4,1.1)}
+  // 8 (30.3 – 34.65) les règles
+  if(sec('S8',t,30.3,34.65)){rise($('nva'),t,30.37,.6,40);rise($('nvb'),t,31.73,.7,50);
+    const r=ex(P(t,32.2,32.8));$('rb').style.opacity=r;$('rb').style.transform=`translateY(${(1-r)*80}px)`;
+    const u=es(P(t,33.6,34.2));$('shk').setAttribute('transform',`translate(0 ${-26*u}) rotate(${-25*u} 235 250)`);$('lock').style.opacity=1-P(t,34.1,34.4)}
+  // 9 (34.6 – 40.1) le guide
+  if(sec('S9',t,34.6,40.1)){const g=ex(P(t,34.7,35.6));$('gd').style.transform=`perspective(1600px) translateY(${(1-g)*400+Math.sin(t*1.4)*10}px) rotateY(${(1-g)*-35+Math.sin(t*.8)*4}deg) scale(${.85+.15*g})`;$('gd').style.opacity=g;
+    [...$('kits').children].forEach((k,i)=>{const s=37.89+i*.12;const a=ex(P(t,s,s+.5));k.style.opacity=a;k.style.transform=`translateY(${(1-a)*60}px)`})}
+  // 10 (40.05 – 44.05) dix minutes + papier par pays
+  if(sec('S10',t,40.05,44.05)){$('tm').style.opacity=1;drawEl($('tmr'),t,40.14,.9);const mm=Math.max(0,10-Math.floor(P(t,40.14,41.0)*10));$('tmn').textContent=t<40.14?'10:00':`${String(mm).padStart(2,'0')}:00`;
+    const sc=1-.45*es(P(t,40.9,41.3));$('tm').style.transform=$('tmt').style.transform=`translateY(${-140*es(P(t,40.9,41.3))}px) scale(${sc})`;
+    $('pchip').style.opacity=ex(P(t,41.2,41.5));const a=ex(P(t,41.1,41.7));$('pp').style.transform=`perspective(1600px) translateY(${(1-a)*900}px) rotateX(${(1-a)*20}deg)`;
+    const hs=[[ 'ph1',[180,150,700,60],42.0],['ph2h',[180,250,700,60],42.3]];hs.forEach(([id,[x,y,w,h],s])=>{const e=$(id);e.style.left=x+'px';e.style.top=y+'px';e.style.width=w+'px';e.style.height=h+'px';e.style.transform=`scaleX(${ex(P(t,s,s+.4))})`})}
+  // 11 (44.0 – 46.15) 12 vérifications
+  if(sec('S11',t,44.0,46.15)){const a=ex(P(t,44.0,44.5));$('kp').style.transform=`translateY(${(1-a)*900}px)`;$('kchip').style.opacity=ex(P(t,44.1,44.4));ROWY.forEach((y,i)=>drawEl($('tk'+i),t,44.35+i*.1,.15))}
+  // 12 (46.1 – 50.1) ton notaire
+  if(sec('S12',t,46.1,50.1)){const a=ex(P(t,46.23,46.8));$('n1').style.opacity=a;$('n1').style.transform=`translateX(${(1-a)*-900}px)`;drawEl($('nk1'),t,46.8,.35);
+    const b=ex(P(t,48.94,49.4));$('n2').style.opacity=b;$('n2').style.transform=`translateX(${(1-b)*900}px)`;$('n2x').style.transform=`rotate(-5deg) scaleX(${ex(P(t,49.4,49.75))})`}
+  // 13 (50.05 – 52.65) promotion (texte au-dessus de l'échiquier)
+  if(sec('S13',t,50.05,52.65,.2,.3)){rise($('qsa'),t,50.16,.5,40);rise($('qsb'),t,50.6,.6,50)}
+  // 14 (52.6 – 54.5)
+  if(sec('S14',t,52.6,54.5)){rise($('rd'),t,52.6,.5,50);const p=ex(P(t,52.7,53.3));$('ph2').style.transform=`translateY(${(1-p)*900}px)`}
+  // 15 (54.4 – fin)
+  if(sec('S15',t,54.4,99)){const b=ex(P(t,54.45,55.1));$('fb').style.transform=`translateY(${(1-b)*-500+Math.sin(t*1.4)*6}px)`;$('fb').style.opacity=P(t,54.45,54.6);
+    rise($('fk'),t,54.8,.5,30);const m=es(P(t,54.6,55.8));$('fpn').style.setProperty('--m',(m*100-10)+'%');$('fsweep').style.left=lerp(80,900,m)+'px';$('fsweep').style.opacity=m>0&&m<1?1:0;
+    $('fo').style.opacity=ex(P(t,55.6,55.9));$('fst').style.transform=`scaleX(${ex(P(t,56.0,56.4))})`;
+    const bt=bk(P(t,56.91,57.4));$('fbtn').style.opacity=t>=56.91?1:0;$('fbtn').style.transform=`scale(${.7+.3*bt})`;$('fsh').style.left=lerp(-200,1000,((t-57.3)/1.6%1+1)%1)+'px';
+    $('fa').style.opacity=ex(P(t,57.4,57.7));$('fa1').style.transform=`translateY(${Math.sin(t*6)*8}px)`;$('fa2').style.transform=`translateY(${Math.sin(t*6-1)*8}px)`;$('fa2').style.opacity=.55}
+  caps(t);
+  await document.fonts.ready;
+};
+window.render=t=>R0(t-0.5);
+</script></body></html>

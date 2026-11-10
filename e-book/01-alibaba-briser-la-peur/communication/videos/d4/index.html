@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- D4 « Pas besoin d'aller en Chine » — motion design « billet d'avion » : le billet se déchire, le téléphone le remplace. -->
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#F4E9D8}
+body{font-family:'Inter',sans-serif;color:#0F3F43}
+#st{position:absolute;inset:0;overflow:hidden}
+.L{position:absolute;inset:0}
+.K{font-family:'Inter Display';font-weight:900;letter-spacing:-2px}
+.N{font-family:'JetBrains Mono',monospace;font-weight:800}
+.C{color:#FF6B4A}.T{color:#0F7A7F}
+#bg{background:radial-gradient(ellipse 900px 1100px at 50% 45%,#FBF3E6,#F1E2CB 75%)}
+#map{position:absolute;inset:0;opacity:.13;background:
+ radial-gradient(ellipse 180px 120px at 25% 30%,#0F5257 60%,transparent 62%),radial-gradient(ellipse 120px 180px at 32% 52%,#0F5257 60%,transparent 62%),
+ radial-gradient(ellipse 260px 150px at 72% 28%,#0F5257 60%,transparent 62%),radial-gradient(ellipse 100px 80px at 80% 50%,#0F5257 60%,transparent 62%),
+ radial-gradient(ellipse 140px 220px at 50% 70%,#0F5257 60%,transparent 62%)}
+#grain{background-size:540px 960px;mix-blend-mode:multiply;opacity:.08}
+.hd{position:absolute;left:50px;right:50px;text-align:center;line-height:1.02}
+/* billet */
+.tk{position:absolute;width:880px;height:380px}
+.tk .a,.tk .b{position:absolute;top:0;height:380px;background:#fff;box-shadow:0 30px 60px rgba(15,63,67,.25)}
+.tk .a{left:0;width:620px;border-radius:30px 0 0 30px;padding:34px 40px}
+.tk .b{left:620px;width:260px;border-radius:0 30px 30px 0;border-left:6px dashed #D9CBB4;padding:34px 26px}
+.tk small{display:block;font-family:'JetBrains Mono';font-size:22px;letter-spacing:3px;color:#8A9A9B}
+.tk .big{font-family:'Inter Display';font-weight:900;font-size:64px;letter-spacing:-1px;line-height:1.05;margin:6px 0 18px}
+.tk .row{display:flex;gap:40px}
+.tk .row div b{display:block;font-family:'JetBrains Mono';font-size:34px}
+.tk .band{position:absolute;left:0;right:0;top:0;height:16px;background:#FF6B4A;border-radius:30px 30px 0 0}
+.bar{position:absolute;left:26px;right:26px;bottom:34px;height:120px;background:repeating-linear-gradient(90deg,#0F3F43 0 4px,transparent 4px 8px,#0F3F43 8px 14px,transparent 14px 18px)}
+#stamp{position:absolute;padding:14px 34px;border:10px solid #FF6B4A;color:#FF6B4A;font-family:'Inter Display';font-weight:900;font-size:90px;border-radius:16px;letter-spacing:2px}
+.ph{position:absolute;filter:drop-shadow(0 40px 50px rgba(15,63,67,.35))}
+.ph img{display:block;width:100%}
+/* B */
+#rope{position:absolute;left:0;top:0;width:1080px;height:1920px}
+.vip{position:absolute;left:150px;width:780px;height:150px;border-radius:30px;background:#0F5257;color:#F4E9D8;display:flex;align-items:center;gap:26px;padding:0 36px;font-weight:800;font-size:44px}
+.vip em{font-style:normal;font-size:70px}
+#sign{position:absolute;left:0;right:0;margin:auto;width:fit-content;top:1180px;padding:16px 40px;border-radius:12px;background:#FFC145;color:#0F3F43;font-family:'Inter Display';font-weight:900;font-size:56px;letter-spacing:4px}
+#you{position:absolute;left:0;right:0;top:1380px;text-align:center;font-size:150px}
+#chain{position:absolute;left:0;right:0;top:600px}
+.cn{position:absolute;left:250px;width:580px;height:170px;border-radius:30px;border:5px solid #0F5257;background:#fff;display:flex;align-items:center;gap:24px;padding:0 34px;font-weight:800;font-size:46px}
+.cn em{font-style:normal;font-size:80px}
+.cn i{margin-left:auto;font-style:normal;font-family:'JetBrains Mono';font-weight:800;font-size:36px;color:#FF6B4A}
+/* C */
+#bigph{position:absolute;left:330px;top:330px;width:420px}
+.scr{position:absolute;left:0;top:0;width:420px}
+.pay{position:absolute;width:300px;height:300px;border-radius:40px;box-shadow:0 30px 50px rgba(15,63,67,.3);overflow:hidden}
+.pay img{width:100%;height:100%}
+.pay b{position:absolute;left:0;right:0;bottom:0;padding:14px;background:rgba(15,63,67,.92);color:#fff;text-align:center;font-size:30px}
+#route{position:absolute;left:0;top:0;width:1080px;height:1920px}
+.pt{position:absolute;width:340px;text-align:center;font-weight:800;font-size:46px}
+.pt em{display:block;font-style:normal;font-size:170px}
+#fan .scr{width:300px;transform-origin:50% 120%}
+/* fin : le billet de ta première importation */
+#zg{position:absolute;left:355px;top:150px;width:370px;height:478px;filter:drop-shadow(0 30px 40px rgba(15,63,67,.35))}
+#zg img{width:100%;height:100%}
+#ztk{left:100px;top:760px}
+#zb{position:absolute;left:110px;right:110px;top:1420px;height:140px;border-radius:70px;background:#FF6B4A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:900;box-shadow:0 20px 40px rgba(255,107,74,.35)}
+#zd{position:absolute;left:0;right:0;top:1585px;text-align:center;font-size:70px;color:#FF6B4A;line-height:.5;font-weight:900}
+#plane{position:absolute;font-size:120px}
+/* sous-titres : étiquette bagage */
+#cap{position:absolute;left:70px;right:70px;top:1640px;text-align:center}
+#cap div{display:inline-block;position:relative;background:#0F5257;color:#F4E9D8;padding:20px 36px 20px 64px;border-radius:20px;font-size:44px;font-weight:700;line-height:1.22}
+#cap div:before{content:'';position:absolute;left:24px;top:50%;width:20px;height:20px;margin-top:-10px;border-radius:50%;background:#F4E9D8}
+#cap b{color:#FFC145}
+</style></head><body>
+<div id="st">
+ <div class="L" id="bg"></div>
+ <!-- A -->
+ <div class="L" id="A"><div class="hd K" id="ha" style="top:200px;font-size:96px">Pas besoin<br>de <span class="C">billet d'avion.</span></div>
+  <div class="tk" id="tk1" style="left:100px;top:700px"><div class="a"><div class="band"></div><small>CARTE D'EMBARQUEMENT</small><div class="big">TON PAYS → CHINE</div>
+   <div class="row"><div><small>VOL</small><b>AC 1999</b></div><div><small>PORTE</small><b>B12</b></div><div><small>SIÈGE</small><b>23A</b></div></div></div>
+   <div class="b"><small>PASSAGER</small><div style="font-weight:900;font-size:40px;margin-top:6px">TOI</div><div class="bar"></div></div></div>
+  <div id="stamp" style="left:250px;top:780px">INUTILE</div>
+  <div class="hd K" id="hb" style="top:1240px;font-size:96px">Ton <span class="T">téléphone</span><br>suffit.</div>
+  <div class="ph" id="ph1" style="left:390px;top:640px;width:300px"><img src="cap01.png"></div></div>
+ <!-- B : réservé aux autres -->
+ <div class="L" id="B"><div class="hd K" id="hB" style="top:180px;font-size:70px">L'importation,<br>c'est pour…</div>
+  <div class="vip" id="v0" style="top:480px"><em>✈️</em>ceux qui voyagent</div><div class="vip" id="v1" style="top:670px"><em>🤝</em>qui connaissent du monde là-bas</div><div class="vip" id="v2" style="top:860px"><em>💼</em>qui ont de gros moyens</div>
+  <svg id="rope" viewBox="0 0 1080 1920"><g id="ropeg"><rect x="120" y="1060" width="24" height="200" rx="10" fill="#C9A227"/><rect x="936" y="1060" width="24" height="200" rx="10" fill="#C9A227"/><circle cx="132" cy="1060" r="24" fill="#E3C04B"/><circle cx="948" cy="1060" r="24" fill="#E3C04B"/>
+   <path id="rp" d="M140 1080 Q540 1180 940 1080" stroke="#B3262D" stroke-width="22" fill="none" stroke-linecap="round" pathLength="1" stroke-dasharray="1 1"/></g></svg>
+  <div id="sign">RÉSERVÉ</div><div id="you">🙍🏾</div></div>
+ <div class="L" id="B2"><div class="hd K" id="hB2" style="top:220px;font-size:80px">Et tu achètes<br><span class="C">à ceux qui ont osé.</span></div>
+  <div class="cn" id="n0" style="top:600px"><em>🏭</em>L'usine en Chine</div><div class="cn" id="n1" style="top:830px"><em>🧑🏾‍💼</em>Ceux qui ont osé<i>+ marge</i></div><div class="cn" id="n2" style="top:1060px;border-color:#FF6B4A"><em>🙋🏾</em>Toi<i>tu paies tout</i></div></div>
+ <!-- C : tout depuis ton téléphone -->
+ <div class="L" id="C"><div class="hd K" id="hC" style="top:140px;font-size:76px">En vrai, tout se fait<br><span class="T">depuis ton téléphone.</span></div>
+  <div id="bigph"><div class="ph scr" id="sc1"><img src="cap02.png"></div><div class="ph scr" id="sc2"><img src="cap13.png"></div></div>
+  <div class="pay" id="py0" style="left:40px;top:1060px"><img src="pay18.png"><b>Carte bancaire</b></div><div class="pay" id="py1" style="left:390px;top:1120px"><img src="pay20.png"><b>Carte virtuelle</b></div><div class="pay" id="py2" style="left:740px;top:1060px"><img src="pay21.png"><b>Autres solutions</b></div>
+  <div class="hd" id="ctag" style="top:330px;font-size:44px;font-weight:800"></div></div>
+ <div class="L" id="C2"><div class="hd K" id="hC2" style="top:220px;font-size:72px">Un <span class="T">transitaire</span><br>s'occupe du voyage.</div>
+  <svg id="route" viewBox="0 0 1080 1920"><path id="rt" d="M330 940 C470 980 560 1180 720 1110" stroke="#0F5257" stroke-width="8" stroke-dasharray="20 18" fill="none"/></svg>
+  <div class="pt" style="left:90px;top:560px"><em>🏬</em>En Chine<br><span style="font-size:36px;color:#0F7A7F">le transitaire reçoit</span></div>
+  <div class="pt" style="left:690px;top:1000px"><em>🏠</em>Chez toi<br><span style="font-size:36px;color:#FF6B4A">tes cartons arrivent</span></div>
+  <div id="plane">📦</div></div>
+ <div class="L" id="C3"><div class="hd K" id="hC3" style="top:200px;font-size:72px">Chaque étape,<br><span class="C">en captures d'écran.</span></div>
+  <div id="fan" style="position:absolute;left:390px;top:620px;width:300px;height:600px"><div class="ph scr" id="f0"><img src="cap01.png"></div><div class="ph scr" id="f1"><img src="cap05.png"></div><div class="ph scr" id="f2"><img src="cap08.png"></div><div class="ph scr" id="f3"><img src="cap13.png"></div><div class="ph scr" id="f4"><img src="cap02.png"></div></div></div>
+ <!-- Z -->
+ <div class="L" id="Z"><div id="zg"><img src="guide-3d.png"></div>
+  <div class="tk" id="ztk"><div class="a"><div class="band" style="background:#0F7A7F"></div><small>TON BILLET</small><div class="big">TA 1<sup style="font-size:34px">re</sup> IMPORTATION</div>
+   <div class="row"><div><small>DEPUIS</small><b>TON TÉLÉPHONE</b></div></div><div class="row" style="margin-top:14px"><div><small>AVEC</small><b>LE GUIDE + 3 KITS</b></div></div></div>
+   <div class="b"><small>PASSAGER</small><div style="font-weight:900;font-size:40px;margin-top:6px">TOI</div><div class="bar" style="height:100px"></div></div></div>
+  <div id="zp" class="K" style="position:absolute;left:0;right:0;top:1200px;text-align:center;font-size:190px;line-height:1;color:#FF6B4A">3 900 <span style="font-size:64px;letter-spacing:0">F CFA</span></div>
+  <div id="zb">Le lien est juste en dessous</div><div id="zd"><div id="d1">⌄</div><div id="d2">⌄</div></div></div>
+ <div class="L" id="grain"></div>
+ <div id="cap"></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>cl((t-a)/(b-a));
+const eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const ex=x=>x>=1?1:1-Math.pow(2,-10*x);
+const es=x=>x<.5?16*x**5:1-Math.pow(-2*x+2,5)/2;
+const bk=x=>{const c1=1.5,c3=c1+1;return x<=0?0:x>=1?1:1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const lerp=(a,b,x)=>a+(b-a)*x;
+const show=(id,on)=>{$(id).style.display=on?'block':'none'};
+function sec(id,t,a,b,fi=.3,fo=.3){const on=t>=a&&t<b;show(id,on);if(on)$(id).style.opacity=P(t,a,a+fi)*(1-P(t,b-fo,b));return on}
+function rise(el,t,s,d=.5,dist=50){const a=ex(P(t,s,s+d));el.style.opacity=a;el.style.transform=`translateY(${(1-a)*dist}px)`;el.style.filter=`blur(${(1-a)*6}px)`}
+function pop(el,t,s,d=.4){const a=bk(P(t,s,s+d));el.style.opacity=t>=s?1:0;el.style.transform=`scale(${a})`}
+const rt=$('rt');const RL=rt.getTotalLength();
+const CAP=[[3.78,8.35,"Tu crois que l'importation, c'est pour ceux qui voyagent, qui connaissent du monde là-bas, <b>qui ont de gros moyens.</b>"],
+ [8.73,9.86,"Alors <b>tu laisses ça aux autres.</b>"],[15.16,16.0,"Tu crées <b>ton compte.</b>"],
+ [16.29,21.08,"Tu paies depuis ton pays : carte bancaire, carte virtuelle dans ton application, <b>ou d'autres solutions.</b>"],
+ [21.55,24.15,"Un transitaire reçoit tes cartons en Chine <b>et te les envoie.</b>"],[24.50,27.00,"Chaque étape est expliquée, <b>avec les captures d'écran.</b>"],
+ [27.44,31.39,"Tout est dans le guide « Briser la peur d'importer », <b>avec trois kits prêts à l'emploi.</b>"]];
+function caps(t){const c=$('cap');const i=CAP.findIndex(([s,e])=>t>=s-.15&&t<e+.3);if(i<0){c.innerHTML='';c.dataset.k='';return}
+ if(c.dataset.k!=String(i)){c.innerHTML=`<div>${CAP[i][2]}</div>`;c.dataset.k=i}
+ const a=ex(P(t,CAP[i][0]-.15,CAP[i][0]+.3));c.style.opacity=a*(1-P(t,CAP[i][1]+.15,CAP[i][1]+.3));c.style.transform=`translateY(${(1-a)*30}px) rotate(-1deg)`}
+const LAY=['A','B','B2','C','C2','C3','Z'];
+const R0=async function(t){
+ LAY.forEach(i=>show(i,false));
+ const fr=Math.floor(t*24);$('grain').style.backgroundImage=`url(noise${((fr%4)+4)%4}.png)`;
+ // ---------- A : le billet se déchire ----------
+ if(sec('A',t,-1,3.75,.01,.3)){const a=ex(P(t,.08,.6));$('ha').style.opacity=a;$('ha').style.transform=`scale(${lerp(1.15,1,a)})`;
+  const k=ex(P(t,.15,.7));const tr=es(P(t,1.3,1.9));
+  $('tk1').style.transform=`translateY(${(1-k)*900}px) rotate(${(1-k)*-8-2}deg)`;
+  $('tk1').querySelector('.a').style.transform=`translate(${-tr*500}px,${tr*500}px) rotate(${-tr*25}deg)`;$('tk1').querySelector('.b').style.transform=`translate(${tr*500}px,${tr*600}px) rotate(${tr*30}deg)`;
+  $('tk1').style.opacity=1-P(t,1.8,2.1);
+  const s=bk(P(t,1.0,1.3));$('stamp').style.opacity=t>=1.0?1-P(t,1.5,1.7):0;$('stamp').style.transform=`rotate(-12deg) scale(${lerp(2,1,s)})`;
+  const p=bk(P(t,2.2,2.7));$('ph1').style.opacity=t>=2.2?1:0;$('ph1').style.transform=`scale(${p}) rotate(${(1-p)*-15}deg)`;
+  rise($('hb'),t,2.27,.45,40)}
+ // ---------- B ----------
+ if(sec('B',t,3.6,10.15)){rise($('hB'),t,3.78,.45,-30);
+  [['v0',4.3],['v1',6.15],['v2',7.44]].forEach(([v,s])=>{const a=ex(P(t,s,s+.4));$(v).style.opacity=a;$(v).style.transform=`translateX(${(1-a)*-500}px)`});
+  $('ropeg').style.opacity=t>=8.6?1:0;$('rp').style.strokeDashoffset=1-es(P(t,8.73,9.3));pop($('sign'),t,9.1,.35);
+  const y=ex(P(t,8.9,9.3));$('you').style.opacity=y;$('you').style.transform=`translateY(${(1-y)*200}px)`}
+ if(sec('B2',t,10.0,12.65)){rise($('hB2'),t,10.23,.45,40);[['n0',10.6],['n1',11.0],['n2',11.4]].forEach(([n,s])=>{const a=bk(P(t,s,s+.4));$(n).style.opacity=t>=s?1:0;$(n).style.transform=`scale(${a})`})}
+ // ---------- C : le téléphone ----------
+ if(sec('C',t,12.5,21.45)){rise($('hC'),t,12.73,.5,40);const g=ex(P(t,13.36,14.0));$('bigph').style.transform=`translateY(${(1-g)*1200}px) scale(${lerp(1,.82,es(P(t,16.2,16.8)))})`;$('bigph').style.transformOrigin='50% 0';
+  $('sc1').style.opacity=1-P(t,16.29,16.6);$('sc2').style.opacity=P(t,16.29,16.6);
+  const tag=t>=15.16&&t<16.3;$('ctag').textContent=tag?'① Tu crées ton compte':'';$('ctag').style.top='1190px';
+  [['py0',17.59],['py1',18.52],['py2',20.29]].forEach(([p,s],i)=>{const a=bk(P(t,s,s+.45));$(p).style.opacity=t>=s?1:0;$(p).style.transform=`translateY(${(1-a)*400}px) rotate(${(i-1)*5}deg)`})}
+ if(sec('C2',t,21.35,24.45)){rise($('hC2'),t,21.55,.45,40);const p=eio(P(t,22.0,24.0));const pt=rt.getPointAtLength(RL*p);$('plane').style.left=(pt.x-45)+'px';$('plane').style.top=(pt.y-60)+'px';
+  $('rt').style.strokeDashoffset=-t*60}
+ if(sec('C3',t,24.3,27.6)){rise($('hC3'),t,24.5,.45,40);[0,1,2,3,4].forEach(i=>{const s=24.7+i*.18;const a=ex(P(t,s,s+.5));const ang=(i-2)*14*es(P(t,25.99,26.6));$('f'+i).style.opacity=t>=s?1:0;$('f'+i).style.transform=`translateY(${(1-a)*900}px) rotate(${ang}deg)`})}
+ // ---------- Z ----------
+ if(sec('Z',t,27.3,99,.3,.01)){const g=ex(P(t,27.44,28.1));$('zg').style.opacity=g;$('zg').style.transform=`translateY(${(1-g)*-400+Math.sin(t*1.3)*6}px)`;
+  const k=ex(P(t,29.0,29.6));$('ztk').style.transform=`translateY(${(1-k)*900}px) rotate(${(1-k)*6-1.5}deg)`;
+  const p=bk(P(t,31.83,32.2));$('zp').style.transform=`scale(${lerp(1.5,1,p)})`;$('zp').style.opacity=t>=31.83?1:0;
+  const bt=bk(P(t,33.15,33.6));$('zb').style.opacity=t>=33.15?1:0;$('zb').style.transform=`scale(${.7+.3*bt})`;
+  $('zd').style.opacity=ex(P(t,33.6,33.9));$('d1').style.transform=`translateY(${Math.sin(t*6)*8}px)`;$('d2').style.transform=`translateY(${Math.sin(t*6-1)*8}px)`;$('d2').style.opacity=.55}
+ caps(t);
+ await document.fonts.ready;
+};
+window.render=t=>R0(t-0.5);
+</script></body></html>

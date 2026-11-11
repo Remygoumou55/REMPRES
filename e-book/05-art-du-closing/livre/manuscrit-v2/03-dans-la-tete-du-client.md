@@ -170,19 +170,15 @@ Le petit cadeau à la place de la baisse existe **partout en Afrique**. Au Niger
 | Mot | En simple | En pro |
 |---|---|---|
 | **Secteur informel** | Le travail sans contrat officiel et sans salaire fixe. | Activités économiques non enregistrées. |
-| **Paiement à la livraison** | On paie quand on reçoit le produit. | *Cash on delivery* (COD). |
-| **Système pyramidal** | Une fausse affaire où l'on gagne seulement en faisant payer d'autres personnes. Elle finit toujours par s'écrouler. | Montage frauduleux fondé sur le recrutement. |
 | **Décideur** | La personne qui a le dernier mot sur l'achat. | Personne détenant le pouvoir de décision d'achat. |
 </div>
 
 <div class="check" markdown="1">
 ### ✅ À retenir
 
-- ☐ Je connais les 4 réalités : confiance, argent, famille, négociation.
-- ☐ Quand un client dit « c'est cher », je me demande s'il a peur.
+- ☐ Je connais les 4 réalités, et quand un client dit « c'est cher », je me demande s'il a peur.
 - ☐ Je sais quand l'argent arrive chez mes clients (paie, tontine, fêtes).
-- ☐ J'inclus la personne qui décide au lieu de la contourner.
-- ☐ Je négocie avec un petit plus, et mon prix est le même pour tous.
+- ☐ J'inclus la personne qui décide, je négocie avec un petit plus, et mon prix est le même pour tous.
 
 ⚠️ **L'erreur à éviter :** te vexer quand un client demande si c'est une arnaque. Il ne t'accuse pas : il se protège. **Le client qui se méfie n'est pas ton ennemi.**
 

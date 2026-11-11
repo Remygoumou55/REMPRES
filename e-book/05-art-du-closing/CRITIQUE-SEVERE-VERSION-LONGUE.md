@@ -108,3 +108,16 @@ Les chiffres ont été recoupés par recherche web le 11 nov. Les pages elles-m�
   - la colonne s'appelle maintenant « En résumé (le texte officiel fait foi) » ;
   - la ligne Guinée est prudente (la source est la presse) ;
   - Belfort et Pelissier : phrase neutre et sourcée (« il dit lui-même, dans sa conférence, l'avoir reprise »).
+
+### Étape 2 — Allègement (choix « B » du client, 11 nov. 2026) ✅
+- Tous les chapitres (0 à 28) réécrits selon `livre/REGLES-ALLEGEMENT-V2.md` : aucune idée perdue, mais moins de répétitions.
+- **Avant : 226 pages. Après : 139 pages A4** (manuscrit : environ 65622 mots).
+- Plus de page avec une seule ligne (contrôle fait avec `controle-pages.py`). Les pages peu remplies qui restent sont des fins de chapitre normales.
+- Doublons supprimés :
+  - Belfort est expliqué au ch. 8, et le ch. 27 y renvoie ;
+  - Jumia 25 % est au ch. 18, et le ch. 25 y renvoie ;
+  - les frais d'engagement et la liste des annuleurs sont au ch. 18 ;
+  - le témoignage de l'huile de palme est au ch. 24, et le ch. 27 y renvoie.
+- Le lexique n'a plus que 2 colonnes (simple + anglais). Le sens « pro » reste dans chaque chapitre.
+- Les banques de phrases retirées sont gardées dans `livre/kits/A-AJOUTER-DEPUIS-V2.md`, pour les kits.
+- Les phrases promettant une « garantie » ont été remplacées par « politique de remboursement / écrit dans le contrat ».

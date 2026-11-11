@@ -1,5 +1,7 @@
 **DÉCISION DU CLIENT (11 nov. 2026) : on travaille sur la VERSION LONGUE de 226 pages** (`manuscrit-v2/`, build `python3 build-pdf-v2.py`, PDF `dist-v2/L-Art-du-Closing-livre-complet.pdf`). La version courte v3 (60 p.) et ses kits restent disponibles.
 
+**11 nov. 2026 — ALLÈGEMENT FAIT (choix « B ») : la version longue passe de 226 à 139 pages A4**, sans perdre d'idée. Règles et tableau chapitre par chapitre : . Phrases retirées à remettre dans les kits : .
+
 # Livre — « L'Art du Closing » : manuscrit
 
 **ÉTAT (9 nov. 2026) : VERSION COURTE v3 = LA VERSION OFFICIELLE.** Le client a refusé le pavé de 226 pages (règle : 55–80 pages max).

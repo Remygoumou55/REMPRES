@@ -160,14 +160,14 @@ Il reste « **c'est cher** », quand c'est une négociation et pas un vrai mur. 
 | **B — Amina** | « Vous vous dites peut-être : encore une vendeuse qui va disparaître. Chez moi, vous payez à la réception, et vous ouvrez le colis devant le livreur. » |
 | **C — Ibrahima** | « On dirait que vous avez peur de ne pas y arriver. Je vous envoie le premier module gratuitement : regardez-le, et dites-moi si vous l'avez compris. » |
 | **D — Koffi** | Au lieu de baisser de 5 % : « Notre prix est le même pour tous. Mais vous m'avez dit que la rentrée est critique : je vous écris dans le contrat la livraison avant le 1ᵉʳ septembre. » |
-| **E — Sékou** | « Je comprends, 3 000 F, ce n'est pas rien. C'est le prix convenu avec la boutique. On l'appelle ensemble ? » Il reste calme : **le client ne doit pas perdre la face devant ses voisins**. |
+| **E — Sékou** | « Je comprends, 3 000 F, ce n'est pas rien. C'est le prix convenu avec la boutique. On l'appelle ensemble ? » Le client ne doit pas perdre la face. |
 </div>
 
 <div class="ecris" markdown="1">
 ### ✍️ Entraîne-toi : ta fiche « une peur, une réponse »
 
 Pour la peur que tes clients te disent le plus souvent, écris : ses paroles que tu peux rappeler · ton étiquette (« On dirait que… ») · ta preuve vérifiable · ton histoire vraie · ton petit plus qui coûte peu.
-<span class="ligne"></span><span class="ligne"></span><span class="ligne"></span>
+<span class="ligne"></span><span class="ligne"></span>
 </div>
 
 <div class="mots" markdown="1">
@@ -175,22 +175,18 @@ Pour la peur que tes clients te disent le plus souvent, écris : ses paroles que
 
 | Mot | En simple | En pro |
 |---|---|---|
-| **Cohérence** | On n'aime pas se contredire. | Principe d'engagement et de cohérence (Cialdini). |
+| **Cohérence** | On n'aime pas se contredire. | Engagement et cohérence (Cialdini). |
 | **Étiquetage** | Mettre un mot sur ce que l'autre ressent : « On dirait que… ». | *Labeling* (Chris Voss). |
-| **Audit des accusations** | Dire soi-même, au début, ce que le client pourrait reprocher. | *Accusation audit* (Chris Voss). |
-| **Valeur** | Tout ce que le client gagne en achetant, pas seulement le produit. | Bénéfice perçu (produit, service, avantages). |
 </div>
 
 <div class="check" markdown="1">
 ### ✅ À retenir
 
 - ☐ Pour rassurer : des questions, les paroles du client, des histoires vraies, des preuves vérifiables.
-- ☐ Je nomme ce qu'il ressent (« On dirait que… »), puis je rappelle ce qu'il a dit.
-- ☐ Je montre au lieu de jurer.
-- ☐ Pour un vrai mur, je propose un choix entre deux portes.
-- ☐ Je ne baisse pas mon prix : j'ajoute de la valeur ou je propose un autre produit. Et si je fais un geste, je donne une raison.
+- ☐ Je nomme ce qu'il ressent (« On dirait que… »), je rappelle ce qu'il a dit, et je montre au lieu de jurer.
+- ☐ Pour un vrai mur, je propose deux portes. Je ne baisse pas mon prix sans raison : j'ajoute de la valeur ou je propose un autre produit.
 
-⚠️ **L'erreur à éviter :** utiliser les paroles du client **contre lui**, comme une arme. Elles servent à l'aider à décider, pas à le piéger.
+⚠️ **L'erreur à éviter :** utiliser les paroles du client **contre lui**. Elles servent à l'aider, pas à le piéger.
 
-➡️ **Et maintenant ?** La peur est partie… mais la vente n'est pas encore faite. La clé **U comme Unir** (chapitre 11) t'apprend à conclure ensemble, à faciliter le paiement et à garder le client.
+➡️ **Et maintenant ?** La peur est partie. La clé **U comme Unir** (chapitre 11) t'apprend à conclure ensemble et à garder le client.
 </div>

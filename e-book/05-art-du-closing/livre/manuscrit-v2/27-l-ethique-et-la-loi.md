@@ -174,7 +174,6 @@ Tu as vu au chapitre 8 que la technique de la « boucle » vient de **Jordan Bel
 | **Manipuler** | Pousser quelqu'un à agir contre son intérêt, par le mensonge ou la pression. | Influence déloyale. |
 | **Pratique trompeuse** | Faire croire quelque chose de faux pour vendre. | Pratique commerciale déloyale par action ou omission trompeuse. |
 | **Pratique agressive** | Mettre trop de pression sur le client. | Pratique déloyale par harcèlement, contrainte ou influence injustifiée. |
-| **Abus de faiblesse** | Profiter d'une personne fragile pour lui vendre. | Exploitation de la vulnérabilité d'un consommateur. |
 </div>
 
 <div class="check" markdown="1">

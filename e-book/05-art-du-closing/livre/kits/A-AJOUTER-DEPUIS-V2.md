@@ -16,3 +16,12 @@ Classés par chapitre d'origine (numérotation de la version longue v2). Rien de
 | « Je vais en parler à… » | « Bien sûr. Qu'est-ce qu'il ou elle va vouloir savoir ? Je te prépare ça. » (chapitre 15) |
 | « Rappelez-moi dans 3 mois. » | « Avec plaisir. D'ici là, qu'est-ce qui va changer chez vous : le budget, la personne qui décide, autre chose ? » |
 Messages de réouverture WhatsApp : « Bonjour ! Vous avez eu le temps de regarder ? Il vous reste une question sur la taille ou la livraison ? Je vous réponds en 2 minutes 🙂 » · « Petite question rapide : entre le noir et le marron, lequel vous plaisait le plus ? Je vous envoie une vidéo de celui-là porté. » · « Je me dis que le prix vous a peut-être fait hésiter. J'ai aussi un modèle à 15 000 F, presque le même. Je vous envoie la photo ? »
+
+## Chapitre 18 — Annulations : réponses retirées du chapitre (à mettre dans le Kit 1 ou 2)
+| Ce qui arrive | Ce que tu dis |
+|---|---|
+| « Mon mari a dit non » | « Je comprends. Qu'est-ce qui l'a fait hésiter ? Si tu veux, je t'envoie une vidéo des baskets portées pour lui montrer, ou on peut l'appeler ensemble. » |
+| « J'ai trouvé moins cher » | « Tu as bien fait de comparer. Tu peux m'envoyer la photo ? Si c'est exactement le même article, on regarde ensemble. Sinon, je t'explique la différence. » |
+| Le client veut payer seulement la moitié (livreur) | « Je n'ai pas le droit de laisser le colis à moitié payé. On appelle la boutique ensemble pour trouver une solution ? » |
+| Sortie propre | « Pas de souci, merci de m'avoir prévenu. Je vous garde dans mes contacts pour les prochains arrivages. » |
+| Recontacter au bon moment | « Bonjour ! Les baskets que vous aimiez sont toujours là. Je vous les envoie cette semaine ? » |

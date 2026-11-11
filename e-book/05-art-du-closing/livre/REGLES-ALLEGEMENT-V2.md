@@ -51,3 +51,5 @@ Avancement : voir le tableau en bas. Après chaque groupe de chapitres : rebuild
 | 26 | 3214 | 2225 | ✅ |
 | 27 | 3138 | 2217 | ✅ |
 | 28 | 3283 | 2837 | ✅ |
+| lexique | 1975 | 1388 | ✅ (colonne « pro » retirée, déjà dans chaque chapitre) |
+| sources, mentions | 1863 | inchangés | ✅ vérifiés |

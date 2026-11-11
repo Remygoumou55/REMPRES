@@ -216,7 +216,7 @@ Fanta **respecte** la façon dont le couple décide, et elle **aide** la cliente
 ### Pourquoi la famille compte autant
 En Afrique, on vit souvent **en groupe** : la famille proche, la grande famille, les voisins, l'association, la tontine. Et on décide souvent en groupe, surtout pour les gros achats.
 
-- Une grande enquête dans 39 pays africains (Afrobarometer, 2024) montre que **la famille est le seul groupe** en qui une majorité de gens (**58 %**) disent avoir « beaucoup » confiance. Pas les voisins, pas les commerçants, pas les inconnus : **la famille**.
+- Une grande enquête dans 39 pays africains (Afrobarometer, enquêtes 2021-2023) montre que **la famille est le seul groupe** en qui une majorité de gens (**58 %**) disent avoir « beaucoup » confiance. Pas les voisins, pas les commerçants, pas les inconnus : **la famille**.
 - Dans beaucoup de pays, une grande partie des femmes mariées disent **ne pas participer** aux décisions sur les gros achats du foyer (enquêtes DHS). Les chiffres changent beaucoup d'un pays à l'autre.
 
 Donc, quand un client dit « je dois demander à mon mari », « à ma femme », « au vieux », « à mon grand frère », **c'est souvent la pure vérité**.

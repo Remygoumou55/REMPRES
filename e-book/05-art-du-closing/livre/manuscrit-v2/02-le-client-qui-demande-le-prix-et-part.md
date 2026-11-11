@@ -78,7 +78,7 @@ Quand un client part juste après le prix, il y a presque toujours une de ces **
 | 6 | **Il ne s'est pas senti accueilli** | Tu étais au téléphone, tu as répondu sèchement, tu ne l'as pas regardé. |
 | 7 | **Rien ne l'invite à rester** | Tu as donné le prix… et tu t'es tu. Il n'y a plus rien à dire. Alors il part. |
 
-Regarde bien la raison n° 7. **C'est la plus fréquente, et c'est la seule qui dépend entièrement de toi.**
+Regarde bien la raison n° 7. **C'est la seule qui dépend entièrement de toi.**
 
 Quand tu donnes le prix et que tu te tais, tu fermes toi-même la conversation. C'est comme si tu disais : « Voilà le prix, maintenant tu peux partir. »
 
@@ -103,11 +103,11 @@ Mais la vraie bonne réponse, c'est aussi **D : on ne peut pas savoir.** Peut-ê
 **👉 La bonne action :** ton objectif après le prix n'est **pas** encore de vendre. Ton objectif est de **garder la conversation ouverte** assez longtemps pour **découvrir** laquelle des 7 raisons tu as en face de toi.
 </div>
 
-## 2. La fenêtre des 10 secondes
+## 2. La fenêtre des premières secondes
 
 Voici l'idée la plus importante de ce chapitre.
 
-Quand un client demande le prix, une **petite fenêtre s'ouvre**. Elle reste ouverte **environ dix secondes** au marché, et le temps de **un ou deux messages** sur WhatsApp. Pendant ce temps, le client décide s'il reste ou s'il part.
+Quand un client demande le prix, une **petite fenêtre s'ouvre**. Elle reste ouverte **très peu de temps** : quelques secondes au marché, le temps de **un ou deux messages** sur WhatsApp. Pendant ce temps, le client décide s'il reste ou s'il part.
 
 Si tu ne fais rien pendant cette fenêtre, elle se ferme. Le client part, et tu ne sauras jamais pourquoi.
 

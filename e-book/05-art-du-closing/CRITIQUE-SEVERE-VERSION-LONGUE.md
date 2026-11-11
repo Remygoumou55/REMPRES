@@ -88,3 +88,23 @@ Objet de la critique : `livre/manuscrit-v2/` et `livre/dist-v2/L-Art-du-Closing-
 4. **Images et bandes dessinées** (point 7) : 10 à 15 prompts pour toi, plus les scènes en BD validées.
 5. **Mise en page** (points 9 à 11) : supprimer les pages vides, nouvelle couverture avec image et accroche, version téléphone.
 6. **Titre vendeur** (point 16), puis les kits mis à jour, le ZIP et la communication.
+
+## SUIVI DES CORRECTIONS
+### Étape 1 — Vérité (11 nov. 2026) ✅ (sauf le point 6, prévu avec les kits)
+Les chiffres ont été recoupés par recherche web le 11 nov. Les pages elles-mêmes restent bloquées par le réseau : seuls les résumés de recherche ont pu être lus.
+- **Confirmés :**
+  - Kenya 58 % (Visa, *Stay Secure*, 2026) ;
+  - Gong 57 % / 62 % (2025, environ 326 000 appels) et 173 % (140 566 opportunités) ;
+  - HBR 2011 : 23 % sur 2 241 entreprises ;
+  - Kantar 14 % (« marque jugée vraiment différente », via BusinessDay) ;
+  - Sagaci 54 % : il s'agit d'acheter ou vendre par les réseaux, et c'est bien ce que dit le livre ;
+  - Nigeria FCCPA art. 115 (affichage du prix) ;
+  - Jumia 25 % : confirmé par un résumé secondaire du 20-F, à recontrôler dans le 20-F si possible ;
+  - piratage 59 % / 43 % : page lue en entier pendant la recherche T4.
+- **Corrigé :** Afrobarometer 58 % = enquêtes **2021-2023** (Round 9), publiées en 2024 (ch. 3, ch. 15, sources).
+- **Corrigé :** la phrase « toutes les adresses ont été consultées » dans les sources a été remplacée par une phrase honnête.
+- **Corrigé :** « fenêtre des 10 secondes » → « fenêtre des premières secondes » (ch. 2, 19, 22, lexique). La raison n° 7 n'est plus dite « la plus fréquente ».
+- **Chapitre 27 :**
+  - la colonne s'appelle maintenant « En résumé (le texte officiel fait foi) » ;
+  - la ligne Guinée est prudente (la source est la presse) ;
+  - Belfort et Pelissier : phrase neutre et sourcée (« il dit lui-même, dans sa conférence, l'avoir reprise »).

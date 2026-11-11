@@ -95,7 +95,7 @@ Beaucoup de vendeurs pensent : « Si j'affiche mon prix, je ne pourrai plus nég
 
 ## 3. Les 10 premières secondes en face : la clé R
 
-Tu te souviens de la fenêtre des 10 secondes (chapitre 2) et de la clé **R — Retenir** (chapitre 6) ? En face, voici comment les utiliser.
+Tu te souviens de la fenêtre des premières secondes (chapitre 2) et de la clé **R — Retenir** (chapitre 6) ? En face, voici comment les utiliser.
 
 ### Étape 1 — Saluer, sans attaquer
 Le client s'arrête. Tu le salues **avant** de parler de ton produit.

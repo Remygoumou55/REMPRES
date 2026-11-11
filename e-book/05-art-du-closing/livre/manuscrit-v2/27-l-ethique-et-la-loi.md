@@ -134,13 +134,13 @@ Ce tableau n'est **pas un conseil juridique**. Il résume des textes publics, v�
 Et attention à une idée fausse : **il n'existe pas d'acte uniforme OHADA sur la consommation**. La protection des consommateurs dépend des lois de chaque pays.
 </div>
 
-| Pays ou espace | Le texte | Ce que ça veut dire pour toi |
+| Pays ou espace | Le texte | En résumé (le texte officiel fait foi) |
 |---|---|---|
 | **Côte d'Ivoire** | Loi n° 2016-412 du 15 juin 2016 relative à la consommation | Elle interdit les **pratiques commerciales trompeuses** (faux stock, fausse date limite) et **agressives** (pression excessive), ainsi que l'abus de faiblesse. |
 | **Kenya** | Loi sur la concurrence de 2010 ; l'autorité de la concurrence (CAK) | Les fausses informations sur le prix sont punies. L'autorité cite nommément la **fausse urgence** parmi les pratiques trompeuses du commerce en ligne. |
 | **Afrique du Sud** | Loi sur la protection du consommateur de 2008 (Consumer Protection Act) | Interdit d'annoncer un prix d'appel sans avoir de stock raisonnable, les fausses informations sur la disponibilité ou sur les avantages de prix, et **la pression ou la contrainte** sur le client. |
 | **Pays de l'UEMOA** | Directive n° 01/2023/CM/UEMOA du 16 juin 2023 | Un cadre commun aux huit pays de l'Union, que chaque État doit appliquer avec ses propres lois et sanctions. |
-| **Guinée** | Loi de 1994 sur la protection des consommateurs ; loi sur la publicité adoptée en janvier 2024 (selon la presse) | La publicité **mensongère ou trompeuse** peut entraîner une condamnation à des dommages et intérêts. |
+| **Guinée** | Loi de 1994 sur la protection des consommateurs ; loi sur la publicité adoptée en janvier 2024 (selon la presse) | Selon la presse, la publicité **mensongère ou trompeuse** peut être sanctionnée. Le texte complet n'a pas pu être consulté : renseigne-toi auprès des services du commerce. |
 | **Cameroun** | Loi-cadre n° 2011/012 du 6 mai 2011 | Interdit la **publicité trompeuse** comme pratique déloyale. |
 | **Nigeria** | Loi de 2018 sur la concurrence et la protection du consommateur (FCCPA), article 115 | Oblige à **afficher le prix** des biens exposés ou annoncés. |
 | **Sénégal, Mali** | Loi n° 2021-25 (Sénégal) ; loi n° 2015-036 (Mali) | Des lois de protection du consommateur existent, avec des sanctions. |
@@ -189,7 +189,7 @@ L'urgence est **vraie** (le prix augmente vraiment), **vérifiable** (une date p
 
 ## 6. L'histoire de Jordan Belfort : un avertissement
 
-Dans ce livre, tu as rencontré plusieurs fois le nom de **Jordan Belfort**, l'Américain surnommé « le Loup de Wall Street ». Sa technique de la « boucle » (chapitre 8) est efficace, et beaucoup de formateurs, comme Bastien Pelissier, s'en sont inspirés.
+Dans ce livre, tu as rencontré plusieurs fois le nom de **Jordan Belfort**, l'Américain surnommé « le Loup de Wall Street ». Sa technique de la « boucle » (chapitre 8) est efficace : Bastien Pelissier dit lui-même, dans sa conférence, l'avoir reprise de Belfort.
 
 Mais il faut connaître toute l'histoire. Belfort a utilisé son talent pour vendre des actions sans valeur à des gens qui lui faisaient confiance. Selon le tribunal américain, il a fait **plus d'un millier de victimes**. Il a plaidé coupable de fraude boursière et de blanchiment, et il a été condamné en 2003 à **42 mois de prison**, ainsi qu'à rembourser plus de 110 millions de dollars à ses victimes.
 

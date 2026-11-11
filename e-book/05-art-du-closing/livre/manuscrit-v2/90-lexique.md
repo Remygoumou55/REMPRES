@@ -32,7 +32,7 @@ Tous les mots techniques du livre, rangés par ordre alphabétique. Pour chaque 
 | **Engagement** (frais d'engagement) | Une petite somme payée pour montrer qu'on est sérieux. | Dépôt de garantie réduisant le risque d'annulation. | Commitment fee |
 | **Étiquetage** | Nommer ce que la personne semble ressentir (« On dirait que… »). | *Labeling* (Chris Voss) : verbaliser l'émotion de l'interlocuteur. | Labeling |
 | **Fausse urgence** | Faire croire qu'il faut acheter tout de suite alors que c'est faux. | Pratique commerciale trompeuse (fausse rareté, faux compte à rebours). | False urgency |
-| **Fenêtre** (des 10 secondes) | Les quelques secondes où le client décide de rester ou de partir. | Moment critique d'engagement après la demande de prix. | Engagement window |
+| **Fenêtre** (des premières secondes) | Les quelques secondes où le client décide de rester ou de partir. | Moment critique d'engagement après la demande de prix. | Engagement window |
 | **Frais cachés** | Un coût qu'on découvre seulement au moment de payer. | Prix annoncé incomplet. | Hidden fees / drip pricing |
 | **Garantie** | Ta promesse de réparer, échanger ou rembourser en cas de problème. | Engagement contractuel de conformité ou de satisfaction. | Guarantee / warranty |
 | **Habitude** | Ce que tu fais sans y penser, parce que tu l'as fait souvent. | Automatisme acquis par la répétition. | Habit |

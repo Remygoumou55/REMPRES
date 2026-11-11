@@ -1,6 +1,6 @@
 # Sources : d'où vient ce livre
 
-Ce livre n'est pas sorti de nulle part. Il s'appuie sur le travail de formateurs, de chercheurs et de journalistes, et sur la parole de vrais vendeurs et clients africains. Cette page te dit **ce que nous leur devons**, et **où vérifier** les chiffres et les témoignages. Toutes les adresses internet ont été consultées le 9 novembre 2026.
+Ce livre n'est pas sorti de nulle part. Il s'appuie sur le travail de formateurs, de chercheurs et de journalistes, et sur la parole de vrais vendeurs et clients africains. Cette page te dit **ce que nous leur devons**, et **où vérifier** les chiffres et les témoignages. Les adresses internet ont été relevées en novembre 2026 ; une page peut changer ou disparaître. Les chiffres principaux ont été recoupés le 11 novembre 2026. Si tu cites un chiffre à ton tour, ouvre d'abord la source.
 
 ## 1. Les maîtres de la vente cités, et ce que nous leur devons
 
@@ -27,7 +27,7 @@ Ce livre est **indépendant**. Il n'est ni écrit, ni relu, ni approuvé par ces
 |---|---|
 | Environ 86 % d'emploi informel en Afrique (92 % en Afrique de l'Ouest) | Organisation internationale du travail, *Women and Men in the Informal Economy* (2018) : https://www.ilo.org/sites/default/files/wcmsp5/groups/public/@dgreports/@dcomm/documents/publication/wcms_626831.pdf · Note de recherche OIT, octobre 2026 : https://www.ilo.org/sites/default/files/2026-10/Research%20Brief_Engaging%20informal%20economy%20actors%20in%20trade%20and%20labour%20policy%20in%20Africa.pdf |
 | Environ 35 % des adultes d'Afrique subsaharienne épargnent dans une institution ; chiffres de la Guinée (comptes, emprunts) | Banque mondiale, Global Findex 2025 : https://blogs.worldbank.org/fr/africacan/de-nouvelles-notes-dinformation-global-findex-font-le-point-sur-linclusion-financiere |
-| La famille, seul groupe en qui une majorité (58 %) a « beaucoup » confiance (39 pays) | Afrobarometer, 2 octobre 2024 : https://www.afrobarometer.org/articles/africans-embrace-diversity-but-perceive-widespread-discrimination-afrobarometer-surveys-show/ |
+| La famille, seul groupe en qui une majorité (58 %) a « beaucoup » confiance (39 pays) | Afrobarometer, enquêtes 2021-2023 (Round 9), publiées le 2 octobre 2024 : https://www.afrobarometer.org/articles/africans-embrace-diversity-but-perceive-widespread-discrimination-afrobarometer-surveys-show/ |
 | Participation des femmes mariées aux décisions sur les gros achats (enquêtes DHS) | Banque mondiale, indicateur SG.DMK.PRCH.FN.ZS : https://api.worldbank.org/v2/country/GIN/indicator/SG.DMK.PRCH.FN.ZS?format=json |
 | Les consommateurs préfèrent les marques de confiance, jusqu'à 14 % plus chères | Kantar Africa Life 2025, rapporté par BusinessDay : https://www.businessday.co.za/redzone/news-insights/2025-07-14-new-study-says-trusted-brands-trump-price-for-constrained-consumers/ |
 | Au Kenya, 58 % des victimes d'arnaque l'ont été sur un réseau social | Visa : https://www.visa.co.za/about-visa/newsroom/press-releases/prl-09062026.html |

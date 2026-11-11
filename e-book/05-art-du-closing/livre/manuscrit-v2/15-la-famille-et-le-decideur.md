@@ -90,7 +90,7 @@ La question 2 est très puissante. Si le client répond « oui », vous êtes **
 
 En Afrique, on vit souvent en groupe : la famille proche, la grande famille, les aînés. Pour beaucoup de gens, **décider seul d'un gros achat n'est pas normal**. On en parle, on demande l'avis, on montre.
 
-- Dans une grande enquête dans 39 pays africains (Afrobarometer, 2024), **la famille** est le **seul groupe** en qui une majorité de gens (**58 %**) disent avoir « beaucoup » confiance.
+- Dans une grande enquête dans 39 pays africains (Afrobarometer, enquêtes 2021-2023), **la famille** est le **seul groupe** en qui une majorité de gens (**58 %**) disent avoir « beaucoup » confiance.
 - Selon les enquêtes démographiques (DHS), en Guinée par exemple, **moins d'une femme mariée sur deux** dit participer aux décisions sur les gros achats du foyer (environ **48 %**, enquête de 2018). Les chiffres changent beaucoup d'un pays à l'autre.
 - L'argent du foyer est souvent **partagé** et **serré** :
 

@@ -82,7 +82,7 @@ Avant d'appeler, prends **2 minutes** pour répondre à 4 questions sur un papie
 
 ## 3. Ouvrir l'appel : les 20 premières secondes
 
-Au téléphone, la personne décide **très vite** si elle a envie de t'écouter. Ce sont les 10 secondes du chapitre 2… en version voix.
+Au téléphone, la personne décide **très vite** si elle a envie de t'écouter. C'est la fenêtre des premières secondes du chapitre 2… en version voix.
 
 ### Les 4 temps de l'ouverture
 1. **Saluer et te présenter clairement** : « Bonjour Madame Bah, c'est Amina, de la boutique de chaussures, on s'écrit sur WhatsApp. »

@@ -7,3 +7,12 @@ Classés par chapitre d'origine (numérotation de la version longue v2). Rien de
 **C — Ibrahima :** « Que voulez-vous dire exactement par "cher" ? » · « Qu'est-ce que ça vous coûte aujourd'hui de ne pas savoir faire ça ? » · « Vous avez raison, beaucoup de choses sont gratuites. Ce que vous payez ici, c'est l'ordre des étapes et mon accompagnement. Vous voulez voir le premier module gratuitement pour juger ? » · « Je ne baisse pas le prix, mais je vous offre une séance de questions de 30 minutes. »
 **D — Koffi :** « Plus élevé que votre fournisseur actuel : sur quel article exactement ? » · « Comparons le coût total : livraison, délais, ruptures de stock, papier qui bourre les imprimantes… » · « Le prix unitaire reste le même, mais je vous livre gratuitement chaque semaine. »
 **E — Sékou :** « Je comprends. Le prix a été fixé par la boutique, je ne peux pas le changer. » · « Ouvrez, vérifiez bien le sac avant de payer, prenez votre temps. » · « Vous voulez qu'on appelle la boutique ensemble pour en parler ? »
+
+## Chapitre 16 — « Je vais réfléchir » : réponses retirées du chapitre (à mettre dans le Kit 1)
+| Le client dit | Tu réponds |
+|---|---|
+| « On va voir. » | « D'accord. Qu'est-ce qu'il faudrait pour que ce soit oui ? » |
+| « Envoie-moi les infos, je regarde. » | « Avec plaisir. Pour t'envoyer ce qui t'intéresse vraiment : tu veux surtout voir quoi, les prix, les tailles ou des photos portées ? » |
+| « Je vais en parler à… » | « Bien sûr. Qu'est-ce qu'il ou elle va vouloir savoir ? Je te prépare ça. » (chapitre 15) |
+| « Rappelez-moi dans 3 mois. » | « Avec plaisir. D'ici là, qu'est-ce qui va changer chez vous : le budget, la personne qui décide, autre chose ? » |
+Messages de réouverture WhatsApp : « Bonjour ! Vous avez eu le temps de regarder ? Il vous reste une question sur la taille ou la livraison ? Je vous réponds en 2 minutes 🙂 » · « Petite question rapide : entre le noir et le marron, lequel vous plaisait le plus ? Je vous envoie une vidéo de celui-là porté. » · « Je me dis que le prix vous a peut-être fait hésiter. J'ai aussi un modèle à 15 000 F, presque le même. Je vous envoie la photo ? »

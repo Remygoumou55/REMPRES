@@ -42,6 +42,7 @@ Les PDF utilisent des copies JPEG des images : `images-print/` (A4) et `images-p
 - **M5 « Ton grossiste est aussi ton concurrent » FINIE** (vraie voix, synchronisée mot à mot) : `communication/videos/M5-ton-grossiste-ton-concurrent.mp4` (40,7 s) — papier moutarde + encre noire : le grossiste te vend puis vend à tes clients (flèche rouge), enseigne « EN GROS » qui se retourne « GROS & DÉTAIL », œil « il connaît ton produit / ton prix d'achat / parfois tes clients », TOI en marionnette tenu par les fils « son stock / ses prix / ses retards », « PRIX ↑ » (tu suis), « RUPTURE » (tu attends), ciseaux qui coupent les fils « reprendre la main », TON produit / TON fournisseur / TON stock, boucle choisir → vérifier → payer → recevoir, fin guide + kits + 3 900 F ; musique valse de boîte à musique + accordéon, de la mineur à la majeur (84 bpm), son bas.
 - **Avatar 2 terminé : M1–M5. Avatar 1 terminé : D1–D5. Les 10 vidéos de la nouvelle direction sont finies.**
 - **Textes des posts TikTok (organique) des 10 vidéos D1–D5 / M1–M5** : `communication/10-TEXTES-POSTS-TIKTOK.txt` (à copier-coller, CTA « lien dans ma bio / écris GUIDE en commentaire », 3 900 F, hashtags).
+- **3 descriptions produit pour la boutique Chariow** : `communication/11-DESCRIPTIONS-BOUTIQUE-CHARIOW.md` (complète, histoire, courte).
 
 ## Communication (état au 7 nov. 2026)
 - **Vidéos finales à utiliser en pub :** `communication/campagne/A-COMBINEE-transitaire.mp4` (42,7 s), `B-COMBINEE-grossiste.mp4` (40,1 s, personnages Kouamé + Moussa), `C-COMBINEE-debutant.mp4` (51,5 s).

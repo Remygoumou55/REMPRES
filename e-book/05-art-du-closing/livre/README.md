@@ -2,6 +2,8 @@
 
 **11 nov. 2026 — ALLÈGEMENT FAIT (choix « B ») : la version longue passe de 226 à 139 pages A4**, sans perdre d'idée. Règles et tableau chapitre par chapitre : `REGLES-ALLEGEMENT-V2.md`. Phrases retirées à remettre dans les kits : `kits/A-AJOUTER-DEPUIS-V2.md`.
 
+**11 nov. 2026 — ILLUSTRATIONS :** 13 prompts BD pour ChatGPT, plus une planche des personnages, dans `illustrations/PROMPTS-ILLUSTRATIONS-BD.md`. Le client crée les images et les dépose dans `illustrations/` (noms `ill-01-…png` à `ill-13-…png`). Ensuite, on les place dans le livre (environ 148 pages au total).
+
 # Livre — « L'Art du Closing » : manuscrit
 
 **ÉTAT (9 nov. 2026) : VERSION COURTE v3 = LA VERSION OFFICIELLE.** Le client a refusé le pavé de 226 pages (règle : 55–80 pages max).

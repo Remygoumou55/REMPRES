@@ -11,49 +11,26 @@ Fanta a adoré le livre. Elle a souligné des phrases. Lundi matin, une cliente 
 </div>
 
 <div class="scene" markdown="1">
-### 🎬 Exemple 2 — Amina et ses modèles de messages
-
-Amina a recopié de beaux messages PRIX + PREUVE + QUESTION dans un cahier. Mais le cahier est resté à la maison. Sur WhatsApp, elle continue à répondre « 25 000 F » quand elle est pressée.
-</div>
-
-<div class="scene" markdown="1">
-### 🎬 Exemple 3 — Ibrahima et ses histoires
+### 🎬 Exemple 2 — Ibrahima et ses histoires
 
 Ibrahima a écrit trois histoires pour sa boîte. Il ne les a jamais racontées à voix haute. Le jour où un prospect dit « je n'y arriverai pas », il bafouille, et l'histoire tombe à plat.
-</div>
-
-<div class="scene" markdown="1">
-### 🎬 Exemple 4 — Koffi et Sékou
-
-Koffi s'est promis de « poser plus de questions ». Sékou s'est promis de « rester calme à la porte ». Une semaine plus tard, aucun des deux ne sait s'il a progressé : ils n'ont rien noté.
 </div>
 
 <div class="remarque" markdown="1">
 ### 👀 Tu as remarqué ?
 
-Aucun des quatre n'a mal compris le livre. Ils ont tous **compris**. Mais comprendre et **savoir faire**, ce n'est pas la même chose.
-
-Un footballeur ne devient pas bon en lisant un livre sur le football. Il s'entraîne : le même geste, cent fois, jusqu'à ce que son pied le fasse tout seul. **En vente, c'est pareil.** La bonne phrase doit sortir toute seule, au bon moment, même quand tu es fatigué, pressé ou énervé. Et pour ça, il n'y a qu'un chemin : **l'entraînement**.
-</div>
-
-<div class="bref" markdown="1">
-**Dans ce chapitre, tu vas recevoir :**
-
-1. un **plan de 30 jours**, divisé en 4 semaines, avec une petite mission par jour (15 à 30 minutes) ;
-2. ton **journal des objections**, l'outil qui va te faire progresser le plus ;
-3. des **cartes de jeux de rôle** pour t'entraîner avec un proche ;
-4. une **auto-évaluation finale**, pour mesurer ton progrès et revenir aux 3 situations que tu as notées au tout début du livre.
+Ils ont **compris** le livre. Amina aussi, dont le cahier de beaux messages est resté à la maison ; Koffi et Sékou aussi, qui ne savent pas s'ils progressent parce qu'ils n'ont rien noté. Mais comprendre et **savoir faire**, ce n'est pas pareil. Un footballeur ne devient pas bon en lisant un livre : il répète le même geste cent fois. **En vente, c'est pareil** : la bonne phrase doit sortir toute seule, même quand tu es fatigué ou pressé. Un seul chemin : **l'entraînement**.
 </div>
 
 ## 1. Les 3 règles du plan
 
 1. **Une petite chose par jour vaut mieux qu'une grande chose une fois.** 15 minutes chaque jour, c'est mieux que 3 heures le dimanche.
 2. **On ne change pas tout d'un coup.** Chaque semaine travaille **une partie** de la méthode. Ne saute pas les semaines : chacune prépare la suivante, comme les clés RIDEAU.
-3. **On note tout.** Sans notes, tu ne sais pas si tu progresses. Avec des notes, tu vois tes progrès… et tes clients te montrent eux-mêmes où il faut travailler.
+3. **On note tout.** Sans notes, tu ne sais pas si tu progresses.
 
 ## 2. Ton outil principal : le journal des objections
 
-Tu l'as découvert au chapitre 2. Pendant 30 jours, il devient ton meilleur ami. Chaque soir, prends **5 minutes** pour remplir une ligne par client qui a hésité ou qui est parti.
+Tu l'as découvert au chapitre 2. Chaque soir, **5 minutes** : une ligne par client qui a hésité ou qui est parti.
 
 | Date | Produit | Ce que le client a dit | Rideau ou mur ? | La vraie raison | Ce que j'ai répondu | Résultat |
 |---|---|---|---|---|---|---|
@@ -126,7 +103,7 @@ Tu l'as découvert au chapitre 2. Pendant 30 jours, il devient ton meilleur ami.
 
 ## 7. Les cartes de jeux de rôle
 
-Recopie ces cartes sur des petits papiers. Ton partenaire (un ami, ton conjoint, un collègue) en tire une au hasard et joue le client. Toi, tu joues ton propre rôle.
+Recopie ces cartes sur des petits papiers. Ton partenaire en tire une au hasard et joue le client.
 
 | Carte | Le client dit… | Sa vraie raison (secrète, seul ton partenaire la connaît) |
 |---|---|---|
@@ -141,7 +118,7 @@ Recopie ces cartes sur des petits papiers. Ton partenaire (un ami, ton conjoint,
 | 9 | « Repasse demain. » (à la porte) | Il a trouvé le même produit moins cher hier soir. |
 | 10 | (Silence après le prix) | Il est intéressé, mais il ne sait pas quoi demander. |
 
-**Règle du jeu :** ton partenaire ne doit **révéler la vraie raison** que si tu poses les bonnes questions. Si tu réponds trop vite, il dit simplement : « Bon, je vais voir », et il « part ». Recommence jusqu'à trouver la vraie raison **à chaque fois**.
+**Règle du jeu :** ton partenaire ne **révèle la vraie raison** que si tu poses les bonnes questions. Si tu réponds trop vite, il dit « Bon, je vais voir » et il « part ». Recommence.
 
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer
@@ -156,11 +133,11 @@ Tu as 20 minutes de libre aujourd'hui. Quelle est la meilleure façon de les uti
 <div class="reponse" markdown="1">
 ### ✅ La bonne réponse : B
 
-Le jeu de rôle t'oblige à **parler**, à **chercher tes mots** et à **réagir vite**, exactement comme devant un vrai client. Chaque objection jouée à voix haute, c'est une objection que tu sauras gérer pour de vrai.
+Le jeu de rôle t'oblige à **parler**, **chercher tes mots** et **réagir vite**, comme devant un vrai client.
 
-**❌ Pourquoi pas A ?** Relire peut aider, mais tu restes dans la théorie. Tu sais déjà **quoi** dire ; ce qui te manque, c'est **l'habitude** de le dire.
+**❌ Pourquoi pas A ?** Tu sais déjà **quoi** dire ; ce qui te manque, c'est **l'habitude** de le dire.
 
-**❌ Pourquoi pas C ?** Regarder quelqu'un d'autre vendre, c'est comme regarder quelqu'un nager : intéressant, mais ça ne t'apprend pas à nager.
+**❌ Pourquoi pas C ?** Regarder quelqu'un nager ne t'apprend pas à nager.
 
 **👉 La bonne action :** quand tu as peu de temps, choisis toujours **l'entraînement à voix haute** plutôt que la lecture.
 </div>
@@ -209,55 +186,35 @@ Si une des trois n'a pas encore de réponse, retourne au chapitre de la partie 3
 <div class="profils" markdown="1">
 ### 👥 Dans ta situation : ta priorité pour les 30 jours
 
-**A — Fanta (robes, marché)** : semaine 1 (accueil, PRIX + QUESTION, question de la dernière chance) et ta boîte à histoires pour « la couleur va passer » et « c'est cher ».
-
-**B — Amina (chaussures et sacs en ligne)** : temps de réponse, PRIX + PREUVE + QUESTION, relance en 3 messages, et la confirmation avant envoi pour réduire les annulations.
-
-**C — Ibrahima (formations)** : la preuve de confiance (extrait gratuit, garantie, vrais témoignages), les histoires « je n'y arriverai pas », et l'accompagnement du paiement par mobile money jusqu'au bout.
-
-**D — Koffi (commercial)** : les questions de découverte, inclure le décideur, et une relance datée après chaque devis.
-
-**E — Sékou (livreur)** : l'appel avant d'arriver, le calme à la porte, la question « Vous voulez ouvrir et vérifier d'abord ? », et les règles écrites avec chaque boutique.
-</div>
-
-<div class="mots" markdown="1">
-### 📖 Les mots à connaître
-
-| Mot | En simple | En pro |
-|---|---|---|
-| **Jeu de rôle** | Faire semblant d'être le client et le vendeur pour s'entraîner. | Simulation de situation de vente (*role play*). |
-| **Journal des objections** | Le cahier où tu notes chaque client qui hésite, et pourquoi. | Registre de suivi des objections et des issues de vente. |
-| **Auto-évaluation** | Te donner une note toi-même, honnêtement. | Évaluation de ses propres compétences. |
-| **Habitude** | Ce que tu fais sans y penser, parce que tu l'as fait souvent. | Automatisme acquis par la répétition. |
-</div>
-
-<div class="erreur" markdown="1">
-### ⚠️ L'erreur à éviter
-
-Abandonner le plan au jour 4 parce que « ça ne marche pas encore ». Les premiers jours, tu vas te sentir bizarre, tu vas oublier tes phrases, certains clients vont partir quand même. **C'est normal.** Les progrès viennent avec la répétition. Continue jusqu'au jour 30, puis regarde ton journal : tu verras la différence.
+| Profil | Priorité |
+|---|---|
+| **A — Fanta** | Semaine 1 (accueil, PRIX + QUESTION, dernière chance) et tes histoires pour « la couleur va passer » et « c'est cher ». |
+| **B — Amina** | Temps de réponse, PRIX + PREUVE + QUESTION, relance en 3 messages, confirmation avant envoi. |
+| **C — Ibrahima** | La preuve de confiance (extrait gratuit, politique de remboursement, vrais témoignages), les histoires « je n'y arriverai pas », l'aide au paiement. |
+| **D — Koffi** | Les questions de découverte, inclure le décideur, une relance datée après chaque devis. |
+| **E — Sékou** | L'appel avant d'arriver, le calme à la porte, « Vous voulez ouvrir et vérifier d'abord ? », et l'accord écrit avec chaque boutique. |
 </div>
 
 <div class="check" markdown="1">
-### ✅ Ta checklist
+### ✅ À retenir
 
-- ☐ J'ai un cahier (ou une note sur mon téléphone) pour mon journal des objections.
-- ☐ J'ai choisi une heure fixe chaque jour pour ma mission (15 à 30 minutes).
-- ☐ J'ai trouvé un partenaire pour les jeux de rôle.
-- ☐ J'ai recopié les 10 cartes de jeux de rôle.
-- ☐ Je fais le bilan à la fin de chaque semaine.
-- ☐ Le jour 30, je fais l'auto-évaluation et le retour à mes 3 situations.
+- ☐ J'ai un cahier (ou une note) pour mon journal des objections, et une heure fixe chaque jour pour ma mission.
+- ☐ J'ai un partenaire pour les jeux de rôle, et j'ai recopié les 10 cartes.
+- ☐ Je fais le bilan chaque semaine, et le jour 30, l'auto-évaluation et le retour à mes 3 situations.
+
+⚠️ **L'erreur à éviter :** abandonner au jour 4 parce que « ça ne marche pas encore ». Les premiers jours, tu oublieras tes phrases, certains clients partiront quand même. **C'est normal.** Continue jusqu'au jour 30, puis regarde ton journal.
 </div>
 
 <div class="suite" markdown="1">
 ### 💛 Un dernier mot, pour toi
 
-Tu es arrivé au bout de ce livre. Ce n'est pas rien. Beaucoup de gens achètent des livres et ne dépassent jamais le chapitre 2. Toi, tu es allé jusqu'au bout.
+Tu es arrivé au bout de ce livre. Ce n'est pas rien.
 
 Souviens-toi de ce que tu as appris : **la vente commence au premier « non »**, et en Afrique, elle commence même avant, **dès les premières secondes**. Le client qui hésite n'est pas ton ennemi. Le client qui se méfie n'est pas un menteur. Derrière chaque « c'est cher », chaque « je vais réfléchir », chaque « j'annule », il y a une personne avec une raison. Ton travail, c'est de **lever le rideau** avec respect, d'**écouter** ce qu'il y a derrière, et d'**aider** cette personne à prendre la bonne décision.
 
 Tu ne vendras pas à tout le monde. Personne ne le fait. Mais tu vendras **mieux**, **plus honnêtement**, et tu garderas des clients qui reviendront et qui parleront de toi.
 
-Il n'y a pas de promesse magique dans ce livre. Il y a une méthode, de vraies histoires, et maintenant **ton entraînement**. Le reste t'appartient.
+Il n'y a pas de promesse magique ici. Il y a une méthode, de vraies histoires, et maintenant **ton entraînement**.
 
 Alors, demain matin, quand le premier client te demandera « C'est combien ? », tu sais quoi faire.
 

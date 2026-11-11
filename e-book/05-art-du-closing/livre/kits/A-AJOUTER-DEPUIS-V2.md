@@ -1,2 +1,9 @@
 # Phrases et scripts retirés de la version longue pendant l'allègement (à intégrer aux kits)
 Classés par chapitre d'origine (numérotation de la version longue v2). Rien de ce qui est ici ne doit être perdu.
+
+## Chapitre 12 — Le prix : banque de phrases complète (version longue)
+**A — Fanta :** Démasquer : « Cher par rapport à quoi, ma sœur ? » · Valeur : « Touche le tissu, regarde les coutures. Essaie-la, le miroir est là. » · Rituel : « Mon prix est le même pour toutes, mais je t'ajoute le foulard. » · Quantité : « Une robe 12 000, deux robes 22 000. » · Mur : « J'ai un modèle plus simple à 8 000, tu veux voir ? »
+**B — Amina :** « D'accord. Vous comparez avec quel prix ? » · « Pour comparer la même chose : la livraison est comprise chez eux ? L'échange est possible ? » · « Je vous filme la semelle et l'étiquette maintenant. » · « Le prix ne bouge pas, mais je vous offre la livraison. »
+**C — Ibrahima :** « Que voulez-vous dire exactement par "cher" ? » · « Qu'est-ce que ça vous coûte aujourd'hui de ne pas savoir faire ça ? » · « Vous avez raison, beaucoup de choses sont gratuites. Ce que vous payez ici, c'est l'ordre des étapes et mon accompagnement. Vous voulez voir le premier module gratuitement pour juger ? » · « Je ne baisse pas le prix, mais je vous offre une séance de questions de 30 minutes. »
+**D — Koffi :** « Plus élevé que votre fournisseur actuel : sur quel article exactement ? » · « Comparons le coût total : livraison, délais, ruptures de stock, papier qui bourre les imprimantes… » · « Le prix unitaire reste le même, mais je vous livre gratuitement chaque semaine. »
+**E — Sékou :** « Je comprends. Le prix a été fixé par la boutique, je ne peux pas le changer. » · « Ouvrez, vérifiez bien le sac avant de payer, prenez votre temps. » · « Vous voulez qu'on appelle la boutique ensemble pour en parler ? »

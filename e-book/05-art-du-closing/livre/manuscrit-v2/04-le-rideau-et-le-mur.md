@@ -1,7 +1,7 @@
 # Chapitre 4 — Le rideau et le mur : lire ce que cache une objection
 
 <div class="accroche" markdown="1">
-« C'est cher. » Trois mots. Mais derrière, il peut y avoir quatre raisons complètement différentes. **Si tu réponds à la mauvaise, tu perds la vente.**
+« C'est cher. » Trois mots. Mais derrière, il peut y avoir quatre raisons complètement différentes. **Si tu réponds à la mauvaise, tu perds la vente.** C'est l'outil le plus important du livre : toute la méthode de la partie 2 repose dessus.
 </div>
 
 <div class="scene" markdown="1">
@@ -10,7 +10,7 @@
 — C'est cher.
 — Bon, pour toi, je fais 12 000 au lieu de 15 000.
 — Hum… je vais quand même faire le tour.
-*(La cliente part. Elle avait peur que la robe déteigne. Le prix n'était pas le problème.)*
+*(La cliente avait peur que la robe déteigne. Le prix n'était pas le problème.)*
 </div>
 
 <div class="scene" markdown="1">
@@ -21,214 +21,127 @@
 *(La cliente la bloque. Elle disait la vérité : sa paie tombe le 30.)*
 </div>
 
-<div class="scene" markdown="1">
-### 🎬 Exemple 3 — Ibrahima répond à côté
-
-**Prospect :** Je vais réfléchir.
-**Ibrahima :** Ne réfléchissez pas trop, la promo se termine bientôt !
-*(Le prospect ne répond plus. En réalité, il se demandait si la formation marchait dans son pays.)*
-</div>
-
 <div class="remarque" markdown="1">
 ### 👀 Tu as remarqué ?
 
-Dans les trois exemples, le vendeur a **répondu tout de suite** à ce que le client a dit. Et à chaque fois, il a répondu **à la mauvaise chose**.
-
-- Fanta a cru que c'était le prix, alors que c'était la **peur**.
-- Amina a cru que c'était une excuse, alors que c'était **la vérité**.
-- Ibrahima a mis la pression, alors que le prospect avait **une question**.
-
-Le problème n'est pas ce qu'ils ont répondu. Le problème, c'est qu'ils ont répondu **avant de savoir**.
-</div>
-
-<div class="bref" markdown="1">
-**Dans ce chapitre, tu vas apprendre :**
-
-1. que derrière chaque objection il y a **soit un rideau** (une excuse qui cache autre chose), **soit un mur** (un vrai problème) ;
-2. **la question qui fait tomber le rideau** ;
-3. quoi faire dans chaque cas : **regarder derrière le rideau**, ou **chercher la porte dans le mur**.
-
-C'est l'outil le plus important du livre. Toute la méthode de la partie 2 repose dessus.
+Fanta a cru que c'était le prix : c'était la **peur**. Amina a cru que c'était une excuse : c'était **la vérité**. Le problème n'est pas ce qu'elles ont répondu. C'est qu'elles ont répondu **avant de savoir**.
 </div>
 
 ## 1. Deux images à garder en tête
 
-### Le rideau 🪟
-Imagine une fenêtre avec un rideau devant. Tu ne vois pas ce qu'il y a dehors. Mais si tu **écartes doucement** le rideau, tu découvres la vue.
+**Le rideau 🪟.** Devant une fenêtre, un rideau cache la vue. Si tu l'écartes doucement, tu découvres ce qu'il y a derrière. Beaucoup d'objections sont des rideaux : **le client dit une chose, mais la vraie raison est derrière.**
 
-Beaucoup d'objections sont des rideaux : **le client dit une chose, mais la vraie raison est derrière.**
-
-### Le mur 🧱
-Maintenant, imagine un mur. Tu peux pousser, crier, taper : il ne bouge pas. Si tu continues, tu te fais mal, et la personne en face se fâche.
-
-Certaines objections sont des murs : **ce sont des problèmes réels**. Pousser ne sert à rien. Il faut chercher **la porte**.
+**Le mur 🧱.** Tu peux pousser un mur, crier, taper : il ne bouge pas. Certaines objections sont des murs : **de vrais problèmes**. Pousser ne sert à rien. Il faut chercher **la porte**.
 
 | | Le rideau | Le mur |
 |---|---|---|
 | **C'est quoi ?** | Une excuse qui cache une autre raison | Un vrai problème |
-| **Exemple** | « C'est cher » alors qu'il a peur que ce soit une copie | « C'est cher » alors qu'il a vraiment 8 000 F en poche pour un produit à 15 000 |
-| **Ce que tu fais** | Tu écartes le rideau avec **une question** | Tu cherches **une porte** : une autre solution |
-| **Ce qu'il ne faut pas faire** | Répondre à l'excuse (baisser le prix pour rien) | Pousser (ne pas croire le client) |
+| **Exemple** | « C'est cher », alors qu'il a peur que ce soit une copie | « C'est cher », alors qu'il a vraiment 8 000 F pour un produit à 15 000 |
+| **Ce que tu fais** | Tu écartes le rideau avec **une question** | Tu cherches **une porte** |
+| **À ne pas faire** | Répondre à l'excuse (baisser pour rien) | Pousser (ne pas croire le client) |
 
 ## 2. Pourquoi les clients mettent des rideaux
 
-<div class="scene" markdown="1">
-### 🎬 L'histoire de l'appartement
+Bastien Pelissier raconte qu'en visitant un appartement, il a su tout de suite qu'il ne l'achèterait pas, à cause du quartier. Mais le propriétaire était si gentil qu'il n'a pas osé le dire. Il a répondu : « Je réfléchis et je reviens vers vous. » Il n'est jamais revenu, et le propriétaire n'a jamais su pourquoi.
 
-Bastien Pelissier, le formateur dont on a déjà parlé, raconte une visite d'appartement.
-
-Dès qu'il entre, il sait qu'il ne l'achètera pas : il pense que le quartier perd de la valeur. Mais le propriétaire est très gentil et très fier de son appartement. Il lui montre chaque pièce avec le sourire.
-
-Bastien n'ose pas lui dire la vérité en face. Alors il dit :
-— C'est très intéressant. Je réfléchis et je reviens vers vous.
-
-Il n'est jamais revenu.
-</div>
-
-« Je réfléchis » était un **rideau**. Derrière, il y avait la vraie raison : le quartier. Le propriétaire n'a posé **aucune question**. Il a perdu la vente **sans savoir pourquoi**. Et si Bastien se trompait sur le quartier, le propriétaire n'a même pas eu la chance de le rassurer.
-
-> On ne met pas un rideau pour être méchant. Souvent, **on n'ose pas dire la vraie raison en face**, pour ne pas vexer, pour ne pas avoir honte, ou pour éviter une discussion. **Tes clients font exactement pareil.**
-
-### Les rideaux les plus fréquents
+> On ne met pas un rideau pour être méchant. Souvent, **on n'ose pas dire la vraie raison en face** : pour ne pas vexer, pour ne pas avoir honte. **Tes clients font pareil.**
 
 | Le client dit (le rideau) | Ce qu'il y a souvent derrière |
 |---|---|
 | « C'est cher. » | « Je ne suis pas sûr que ça vaut ce prix », « J'ai peur que ce soit une copie », « Je veux négocier » |
 | « Je vais réfléchir. » | « Quelque chose me gêne, mais je ne te dis pas quoi. » |
 | « Je vais faire le tour. » | « Je veux comparer » ou « Je ne te fais pas encore confiance. » |
-| « Envoie-moi les photos, je vais regarder. » | « Je ne suis pas vraiment intéressé, mais je n'ose pas dire non. » |
-| « Je reviens plus tard. » | « Ce n'est pas une priorité pour moi » ou « Je ne connais pas ce vendeur. » |
+| « Envoie les photos, je vais regarder. » | « Je ne suis pas vraiment intéressé, mais je n'ose pas dire non. » |
 
-Parfois, le rideau cache même **une stratégie**. Une mère de famille, elle-même commerçante, explique pourquoi elle attend avant d'acheter les fournitures scolaires :
-
-<div class="vrai" markdown="1">
-Elle attend « deux ou trois jours avant la rentrée, dans l'espoir d'obtenir des rabais […] je connais le jeu ».
-<span class="src">— une mère de famille et commerçante, Afrique de l'Ouest</span>
-</div>
-
-Elle a l'argent. Elle connaît les prix. Son « j'attends » est **un jeu**. C'est un rideau.
+Parfois, le rideau cache même **une stratégie**. Une mère de famille, elle-même commerçante, attend « deux ou trois jours avant la rentrée, dans l'espoir d'obtenir des rabais […] je connais le jeu ». Elle a l'argent : son « j'attends » est un jeu.
 
 ## 3. Les murs : quand le client dit la vérité
 
-Au chapitre 3, tu as vu que beaucoup de clients africains ont de **vraies contraintes** : l'argent qui arrive par à-coups, la décision qui se prend en famille. Ces contraintes font des **murs**.
+Au chapitre 3, tu as vu les vraies contraintes : l'argent qui arrive par à-coups, la décision en famille. Elles font des **murs** :
 
 | Le mur | Exemple |
 |---|---|
-| **Pas l'argent aujourd'hui** | « Je n'ai que 8 000 sur moi. » / « Ma paie tombe le 30. » |
-| **Quelqu'un d'autre décide** | « C'est mon mari qui paie. » / « Le comité valide les achats. » |
-| **Pas le bon moyen de payer** | « Je n'ai pas de carte bancaire. » / « Mon compte Orange Money est vide. » |
-| **Le produit ne convient vraiment pas** | « Je cherche du 46, tu n'as que jusqu'au 44. » |
+| **Pas l'argent aujourd'hui** | « Je n'ai que 8 000 sur moi. » « Ma paie tombe le 30. » |
+| **Quelqu'un d'autre décide** | « C'est mon mari qui paie. » « Le comité valide les achats. » |
+| **Pas le bon moyen de payer** | « Je n'ai pas de carte bancaire. » « Mon compte mobile est vide. » |
+| **Le produit ne convient pas** | « Je cherche du 46, tu n'as que jusqu'au 44. » |
 
-Et attention : **certains formateurs disent que toutes les objections sont des mensonges.** Même Bastien Pelissier le dit dans sa conférence : « C'est trop cher, c'est faux. » Pour un public européen qui a un salaire fixe, c'est parfois vrai. **En Afrique, c'est dangereux.** Si tu traites un vrai mur comme un rideau, tu humilies le client.
+Certains formateurs disent que toutes les objections sont des mensonges. Bastien Pelissier lui-même dit : « C'est trop cher, c'est faux. » Pour un client européen avec un salaire fixe, c'est parfois vrai. **En Afrique, c'est dangereux.** Si tu traites un vrai mur comme un rideau, tu humilies le client. Et à l'inverse, si tu traites un rideau comme un mur, tu laisses partir un client qui aurait acheté. **Le bon vendeur ne pousse pas plus fort. Il regarde mieux.**
 
-## 4. Se tromper coûte cher, dans les deux sens
-
-| Si tu traites… | … comme un… | Ce qui se passe |
-|---|---|---|
-| un **rideau** | mur | Tu laisses partir un client qui aurait acheté. Tu baisses ton prix pour rien. |
-| un **mur** | rideau | Tu insistes, tu ne crois pas le client. Il se sent humilié, il part fâché, et il le raconte. |
-
-**Le bon vendeur ne pousse pas plus fort. Il regarde mieux.** Et pour regarder, il a un outil.
-
-## 5. L'outil : la question qui fait tomber le rideau
-
-Tu ne peux pas lire dans la tête du client. Mais tu peux poser **une question** qui fait tomber le rideau, s'il y en a un.
+## 4. L'outil : la question qui fait tomber le rideau
 
 > **« Dis-moi la vérité : le produit, il te plaît vraiment ? »**
 
-En entreprise ou avec un client que tu vouvoies :
+Avec un client que tu vouvoies : **« Concrètement, qu'est-ce que vous pensez de ma proposition ? Elle vous intéresse ? »**
 
-> **« Concrètement, qu'est-ce que vous pensez de ma proposition ? Elle vous intéresse ? »**
+Cette question vient de Bastien Pelissier (qui dit l'avoir reprise de l'Américain Jordan Belfort : on parlera de lui au chapitre 8). Elle marche avec **presque toutes les objections**, parce qu'**elle ne parle pas de l'objection** : elle demande ce que le client pense du produit, sans pression.
 
-Cette question vient de Bastien Pelissier, qui l'a lui-même inspirée de l'Américain Jordan Belfort (on reparlera de lui, et de son passé, dans la partie 2). Elle marche avec **presque toutes les objections**, pour une raison simple : **elle ne parle pas de l'objection.** Elle demande au client ce qu'il pense du produit. Elle ne met pas de pression, et elle laisse le client parler.
+### Tout est après le « mais »
 
-### Écoute bien la réponse : tout est après le « mais »
-
-La plupart du temps, le client va répondre : **« Oui, il me plaît, mais… »**
-
-**Ce qui vient après le « mais », c'est la vraie raison.**
+Le client répond souvent : **« Oui, il me plaît, mais… »** Ce qui vient après le « mais », c'est la vraie raison.
 
 | Le client répond… | C'est… | Ce que tu fais |
 |---|---|---|
-| « Il me plaît, **mais** j'ai peur que ce soit une copie. » | un **rideau**. Derrière : la **confiance**. | Tu prouves (chapitre 14). |
-| « Il me plaît, **mais** je n'ai que 8 000 sur moi. » | un **mur** d'argent | Tu cherches une porte (voir plus bas). |
-| « Il me plaît, **mais** je dois le montrer à mon mari. » | un **mur** familial | Tu inclus le mari. |
-| « Il me plaît, **mais** j'ai vu moins cher à côté. » | souvent un **rideau**. Derrière : la négociation ou la comparaison. | Tu compares la valeur, pas seulement le prix (chapitre 12). |
-| « **Bof**, pas trop… » | Le produit ne lui plaît pas. Ce n'est pas le prix. | Tu montres autre chose, ou tu le laisses partir gentiment. |
+| « Il me plaît, **mais** j'ai peur que ce soit une copie. » | un **rideau** (confiance) | Tu prouves (chapitre 14). |
+| « Il me plaît, **mais** je n'ai que 8 000 sur moi. » | un **mur** d'argent | Tu cherches une porte. |
+| « Il me plaît, **mais** je dois le montrer à mon mari. » | un **mur** familial | Tu inclus le mari (chapitre 15). |
+| « Il me plaît, **mais** j'ai vu moins cher à côté. » | souvent un **rideau** (négociation) | Tu compares la valeur (chapitre 12). |
+| « **Bof**, pas trop… » | le produit ne lui plaît pas | Tu montres autre chose, ou tu le laisses partir gentiment. |
 
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer : rideau ou mur ?
 
-Pour chaque situation, coche **R** (rideau) ou **M** (mur).
-
-1. Chez Fanta, une cliente dit « c'est cher ». Fanta pose la question, et la cliente répond : « Elle est belle, mais l'autre jour j'ai acheté une robe qui a déteint au premier lavage. » R ☐ M ☐
-2. Amina reçoit : « Je prends les baskets, mais je n'aurai l'argent que le 30. » On est le 12. R ☐ M ☐
-3. Ibrahima reçoit : « Je vais réfléchir. » Il pose la question, et le prospect répond : « La formation m'intéresse, mais je ne sais pas si ça marche dans mon pays. » R ☐ M ☐
-4. Koffi entend : « Je dois en parler à mon directeur. » Il demande ce qu'elle en pense, et la secrétaire répond : « Moi je trouve ça bien, mais c'est lui qui signe tous les achats. » R ☐ M ☐
-5. Un client de Fanta dit : « Je reviens. » Fanta demande si la robe lui plaît. Il répond : « Oui, c'est pour ma femme, mais elle fait du 46, et toi tu t'arrêtes au 44. » R ☐ M ☐
+1. « Je vais réfléchir. » Ibrahima pose la question. Le prospect : « La formation m'intéresse, mais je ne sais pas si ça marche dans mon pays. » R ☐ M ☐
+2. « Je prends les baskets, mais je n'aurai l'argent que le 30. » On est le 12. R ☐ M ☐
+3. « Je dois en parler à mon directeur. » Koffi demande ce qu'elle en pense. La secrétaire : « Moi je trouve ça bien, mais c'est lui qui signe tous les achats. » R ☐ M ☐
 </div>
 
 <div class="reponse" markdown="1">
 ### ✅ Les réponses
 
-1. **Rideau.** « C'est cher » cachait une **peur** (la robe qui déteint). → Fanta doit rassurer sur la qualité. Baisser le prix ne servirait à rien.
-2. **Mur.** L'argent arrive le 30. C'est la vérité. → Amina organise : réservation, livraison le 30, paiement à la réception.
-3. **Rideau.** « Je vais réfléchir » cachait **un doute** (« est-ce que ça marche chez moi ? »). → Ibrahima peut montrer des résultats d'élèves de pays proches, ou un extrait gratuit.
-4. **Mur.** C'est vraiment le directeur qui signe. → Koffi ne contourne pas la secrétaire : il l'aide à présenter l'offre au directeur, ou il demande un rendez-vous avec les deux.
-5. **Mur.** Fanta n'a pas la taille qu'il cherche. → Elle peut proposer de la commander chez son fournisseur avec une date précise ; sinon, elle l'oriente honnêtement vers une voisine. Il s'en souviendra.
+1. **Rideau.** « Je vais réfléchir » cachait **un doute**. → Ibrahima montre des résultats d'élèves de pays proches, ou un extrait gratuit.
+2. **Mur.** C'est la vérité. → Amina organise : réservation, livraison le 30, paiement à la réception.
+3. **Mur.** C'est vraiment le directeur qui signe. → Koffi aide la secrétaire à présenter l'offre, ou demande un rendez-vous avec les deux.
 
-**👉 La bonne action :** ne réponds **jamais** à une objection avant d'avoir posé la question. Sinon, tu réponds à la mauvaise chose.
+**👉 La bonne action :** ne réponds **jamais** à une objection avant d'avoir posé la question.
 </div>
 
-## 6. Un mur a (presque) toujours une porte
-
-Quand tu es devant un vrai mur, **ne pousse pas**. Cherche la porte. Voici les portes les plus utiles :
+## 5. Un mur a (presque) toujours une porte
 
 | Le mur | Les portes possibles |
 |---|---|
-| **Pas l'argent aujourd'hui** | Réserver avec un **petit acompte** · payer en **2 ou 3 fois**, à des dates fixées avec le client (jour de paie, tontine) · une **plus petite quantité** ou un **plus petit modèle** · livrer **le jour où l'argent arrive** |
-| **Quelqu'un d'autre décide** | **Photo** ou **vidéo** à montrer · **message vocal** que le client peut transférer · **appel à trois** · **mettre de côté** jusqu'à demain · rendez-vous avec le décideur |
-| **Pas le bon moyen de payer** | Mobile money (Orange Money, Wave, MTN MoMo, M-Pesa…) · espèces · paiement à la livraison |
-| **Le produit ne convient pas** | **Ne pas vendre.** Proposer autre chose, ou orienter vers quelqu'un qui a ce qu'il cherche. Il reviendra, parce que tu as été honnête. |
+| **Pas l'argent aujourd'hui** | Réserver avec un **petit acompte** · payer en **2 ou 3 fois** à des dates fixées (jour de paie, tontine) · un **plus petit modèle** · livrer **le jour où l'argent arrive** |
+| **Quelqu'un d'autre décide** | **Photo** ou **vidéo** à montrer · **message vocal** à transférer · **appel à trois** · **mettre de côté** jusqu'à demain |
+| **Pas le bon moyen de payer** | Mobile money · espèces · paiement à la livraison |
+| **Le produit ne convient pas** | **Ne pas vendre.** Proposer autre chose, ou orienter vers quelqu'un qui l'a. Il reviendra, parce que tu as été honnête. |
 
-Et **certains murs n'ont pas de porte aujourd'hui.** C'est normal. Dans ce cas, le bon vendeur **laisse la porte ouverte pour plus tard** : un numéro, une date, un sourire.
+Certains murs n'ont pas de porte aujourd'hui. Dans ce cas, **laisse la porte ouverte pour plus tard** : un numéro, une date, un sourire.
 
-## 7. Le secret en plus : demande pour qui il achète
+## 6. Le secret en plus : pour qui il achète
 
 <div class="vrai" markdown="1">
 Un client trouve un prix « trop cher, fixe et indiscutable ». Pourtant, **il achète quand même**. Sa raison : « c'est un cadeau pour mon père ».
 <span class="src">— un client cité dans un reportage de presse, Afrique de l'Ouest</span>
 </div>
 
-Le vendeur n'a rien fait de spécial. C'est la **raison profonde** du client qui a été plus forte que le prix.
-
-Quand tu sais **pour qui** ou **pour quoi** le client achète (un cadeau pour sa mère, un mariage, son premier business, un entretien d'embauche…), tu sais **ce qui compte vraiment pour lui**. Et ce qui compte vraiment est souvent plus fort que le prix.
-
-> **Les questions magiques en plus :** « C'est pour toi ou pour offrir ? » · « C'est pour quelle occasion ? » · « Qu'est-ce que tu veux que ça change pour toi ? »
+Quand tu sais **pour qui** ou **pour quoi** le client achète (sa mère, un mariage, son premier business), tu sais ce qui compte vraiment. Et c'est souvent plus fort que le prix. Demande : « C'est pour toi ou pour offrir ? » · « C'est pour quelle occasion ? »
 
 <div class="profils" markdown="1">
 ### 👥 Dans ta situation : ta question qui fait tomber le rideau
 
-**A — Fanta (marché)** : « Dis-moi la vérité, ma sœur : la robe te plaît vraiment ? »
-
-**B — Amina (en ligne)** : « Je peux vous poser une question franche ? Le modèle vous plaît vraiment, ou il y a quelque chose qui vous retient ? »
-
-**C — Ibrahima (digital)** : « Je préfère être honnête avec vous : est-ce que la formation correspond à ce que vous cherchez ? Qu'est-ce qui vous fait hésiter ? »
-
-**D — Koffi (commercial)** : « Concrètement, qu'est-ce que vous pensez de notre proposition ? Elle répond à votre besoin ? »
-
-**E — Sékou (livreur)** : « Vous hésitez, c'est normal. Dites-moi franchement : c'est le produit qui ne vous plaît pas, ou c'est le moment qui ne va pas ? » (Puis il appelle la boutique avec le client, si besoin.)
+| Profil | Ta question |
+|---|---|
+| **A — Fanta** | « Dis-moi la vérité, ma sœur : la robe te plaît vraiment ? » |
+| **B — Amina** | « Je peux vous poser une question franche ? Le modèle vous plaît vraiment, ou quelque chose vous retient ? » |
+| **C — Ibrahima** | « Est-ce que la formation correspond à ce que vous cherchez ? Qu'est-ce qui vous fait hésiter ? » |
+| **D — Koffi** | « Concrètement, que pensez-vous de notre proposition ? Elle répond à votre besoin ? » |
+| **E — Sékou** | « Vous hésitez, c'est normal. C'est le produit qui ne vous plaît pas, ou le moment qui ne va pas ? » |
 </div>
 
 <div class="ecris" markdown="1">
 ### ✍️ Entraîne-toi à voix haute
 
-Un ami ou un proche joue le client. Il te dit une de ces phrases, au hasard :
-« C'est cher » · « Je vais réfléchir » · « Je reviens » · « Je dois demander à ma femme » · « Envoie-moi les photos ».
-
-À chaque fois, tu réponds **avec ta question qui fait tomber le rideau**, puis tu **écoutes** ce qui vient après le « mais ». Ton partenaire doit inventer une vraie raison, et toi, tu dis si c'est un **rideau** ou un **mur**.
-
-Faites-le **10 fois**. Au début, c'est bizarre. À la dixième fois, la question sortira toute seule.
+Un proche joue le client et te dit au hasard : « C'est cher », « Je vais réfléchir », « Je reviens », « Je dois demander à ma femme ». À chaque fois, tu poses **ta question**, tu écoutes ce qui vient après le « mais », et tu dis : **rideau** ou **mur** ? Faites-le **10 fois** : à la dixième, la question sortira toute seule.
 </div>
 
 <div class="mots" markdown="1">
@@ -238,33 +151,19 @@ Faites-le **10 fois**. Au début, c'est bizarre. À la dixième fois, la questio
 |---|---|---|
 | **Objection-rideau** | Une excuse qui cache une autre raison. | Objection de surface (prétexte) qui masque l'objection réelle. |
 | **Objection-mur** | Un vrai problème qui empêche d'acheter maintenant. | Objection réelle et fondée (budget, décision, adéquation). |
-| **Vraie raison** | Ce que le client pense vraiment, derrière ses mots. | Objection réelle, motif profond du refus. |
-| **Porte** | Une autre solution quand il y a un vrai problème. | Alternative commerciale (échéancier, réservation, produit d'entrée de gamme). |
-</div>
-
-<div class="erreur" markdown="1">
-### ⚠️ L'erreur à éviter
-
-Répondre à l'objection **tout de suite**. « C'est cher ? Non, regarde la qualité ! » Tu réponds à un rideau sans savoir ce qu'il cache. Tu as **peu de chances** de tomber juste. **Pose d'abord la question.**
+| **Porte** | Une autre solution quand il y a un vrai problème. | Alternative commerciale (échéancier, réservation, entrée de gamme). |
 </div>
 
 <div class="check" markdown="1">
-### ✅ Ta checklist
+### ✅ À retenir
 
-- ☐ Je sais faire la différence entre un rideau (excuse) et un mur (vrai problème).
-- ☐ Je connais par cœur ma question qui fait tomber le rideau.
-- ☐ J'écoute ce qui vient après le « mais ».
-- ☐ Pour les murs, j'ai préparé au moins 3 portes (acompte, tranches, petit format…).
+- ☐ Je fais la différence entre un rideau (excuse) et un mur (vrai problème).
+- ☐ Je connais par cœur ma question qui fait tomber le rideau, et j'écoute après le « mais ».
+- ☐ Pour les murs, j'ai préparé au moins 3 portes.
 - ☐ Je ne traite jamais un client de menteur.
-- ☐ Je demande **pour qui** ou **pour quoi** le client achète.
-</div>
+- ☐ Je demande **pour qui** ou **pour quoi** il achète.
 
-<div class="suite" markdown="1">
-### ➡️ Et maintenant ?
+⚠️ **L'erreur à éviter :** répondre à l'objection tout de suite (« C'est cher ? Non, regarde la qualité ! »). Pose d'abord la question.
 
-**Ce que tu sais maintenant :** derrière chaque objection, il y a un rideau ou un mur. Une seule question te permet de savoir lequel. Pour un rideau, tu découvres la vraie raison. Pour un mur, tu cherches une porte.
-
-**Ce qui vient ensuite :** avant d'apprendre la méthode complète, il reste une dernière chose à regarder : **toi**. Le chapitre 5 te montre les 20 erreurs qui font fuir les clients, souvent sans que le vendeur s'en rende compte.
-
-**Si tu sautes le chapitre 5 :** tu auras les bons outils, mais tu risques de **créer toi-même** des objections. Par exemple : « Prix en inbox » fabrique la méfiance avant même que le client te parle.
+➡️ **Et maintenant ?** Avant la méthode complète, regarde **toi-même** : le chapitre 5 montre les 20 erreurs qui font fuir les clients, souvent sans qu'on s'en rende compte.
 </div>

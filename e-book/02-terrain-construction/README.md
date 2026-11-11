@@ -27,3 +27,5 @@
 
 ## Ce qui manque encore
 Honoraires notaire + droits d'enregistrement en Guinée ; fer/briques/tôles/journée de maçon hors Sénégal ; coût d'une villa au Cameroun ; barèmes officiels des notaires (sauf Cameroun) ; textes officiels bloqués (journal officiel Guinée, hcch.net, impôts). → interviews du client + notaire.
+
+- **11 nov. : 3 descriptions produit pour la boutique Chariow** : `communication/12-DESCRIPTIONS-BOUTIQUE-CHARIOW.md`.

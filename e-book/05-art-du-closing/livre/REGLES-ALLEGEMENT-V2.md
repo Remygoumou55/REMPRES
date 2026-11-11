@@ -48,3 +48,4 @@ Avancement : voir le tableau en bas. Après chaque groupe de chapitres : rebuild
 | 23 | 2851 | 1889 | ✅ |
 | 24 | 3161 | 2279 | ✅ |
 | 25 | 4780 | 2957 | ✅ |
+| 26 | 3214 | 2225 | ✅ |

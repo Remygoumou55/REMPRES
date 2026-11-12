@@ -1,6 +1,6 @@
 # « Ne laisse plus partir tes clients » — textes de vente (12 nov. 2026)
 
-Le prix n'est pas encore fixé : remplace **[PRIX]** par le vrai prix.
+Le prix n'est pas encore fixé : remplace **6 900** par le vrai prix.
 
 **Règles respectées partout :**
 - pas de « garanti », de « zéro risque » ni de « devenir riche » ;
@@ -49,7 +49,7 @@ Dans le pack :
 📱 Version téléphone + version ordinateur à imprimer
 
 Une méthode honnête : pas de mensonge, pas de pression, pas de fausse promo.
-👉 [PRIX] F CFA, par Mobile Money ou carte bancaire.
+👉 6 900 F CFA, par Mobile Money ou carte bancaire.
 Commande maintenant et télécharge ton pack dès le paiement.
 ```
 
@@ -67,7 +67,7 @@ La méthode simple pour transformer les « je vais réfléchir » en « oui », 
 ✅ 4 kits prêts à l'emploi
 📱 Version téléphone incluse
 
-👉 [PRIX] F CFA · Mobile Money ou carte
+👉 6 900 F CFA · Mobile Money ou carte
 ```
 
 ---
@@ -91,7 +91,7 @@ Tu y trouves :
 En français simple, avec des exemples en BD, pour le marché, WhatsApp, les formations, les commerciaux et les livreurs.
 📱 Version téléphone + version ordinateur, et 4 kits pratiques.
 
-👉 [PRIX] F CFA. Écris « LIVRE » en commentaire, je t'envoie le lien.
+👉 6 900 F CFA. Écris « LIVRE » en commentaire, je t'envoie le lien.
 ```
 
 ---
@@ -132,7 +132,7 @@ Dans « Ne laisse plus partir tes clients », un chapitre entier explique commen
 
 Et tout le reste de la méthode pour transformer les « je vais réfléchir » en « oui ».
 📘 Livre + 4 kits · 📱 version téléphone incluse
-👉 [PRIX] F CFA
+👉 6 900 F CFA
 ```
 
 ---

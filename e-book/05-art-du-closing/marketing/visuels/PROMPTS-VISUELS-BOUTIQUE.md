@@ -5,7 +5,7 @@
 2. Envoie l'image `COUVERTURE-a-envoyer-a-ChatGPT.png` (la vraie couverture) avec le bloc « RÈGLES ».
 3. Pour les visuels avec des personnages, joins aussi la **planche des 5 personnages** (`livre/illustrations/ill-00-personnages.jpg`).
 4. Envoie les visuels **un par un**.
-5. Remplace **[PRIX]** par ton vrai prix avant d'envoyer.
+5. Remplace **6 900** par ton vrai prix avant d'envoyer.
 
 Si un texte sort avec une faute, réponds seulement : « Corrige uniquement le texte : [texte exact] ».
 
@@ -34,7 +34,7 @@ Le pack complet posé comme un produit premium sur une table en bois sombre, lum
 Fond : vert profond dégradé, avec un rideau en pagne vert et or légèrement ouvert sur le côté.
 En haut, en grand : "LE PACK COMPLET".
 En bas, une bande avec 3 étiquettes crème arrondies : "Le livre en BD" + "4 kits pratiques" + "Version téléphone".
-En bas à droite, une pastille dorée ronde : "[PRIX] F CFA".
+En bas à droite, une pastille dorée ronde : "6 900 F CFA".
 ```
 
 ## 2. Le problème (accroche)
@@ -102,7 +102,7 @@ Fond vert profond, avec un rideau en pagne vert et or ouvert sur une lumière do
 En haut, en très grand, blanc : "TON CLIENT DIT « JE VAIS RÉFLÉCHIR » ?"
 Au milieu, la couverture du livre (exactement l'image jointe), grande, légèrement inclinée, avec une ombre douce.
 En dessous, en jaune doré : "Apprends à transformer ses hésitations en « oui », sans forcer."
-En bas, un bouton crème arrondi avec le texte vert : "[PRIX] F CFA · Lien en bio".
+En bas, un bouton crème arrondi avec le texte vert : "6 900 F CFA · Lien en bio".
 ```
 
 ## 8. Bannière de la boutique (format large)
@@ -113,3 +113,13 @@ Dessous, en crème : "La méthode africaine pour transformer les « je vais réf
 À droite, la couverture du livre (exactement l'image jointe), une tablette et un téléphone sans marque qui l'affichent, et les 4 petits livrets des kits.
 Lumière chaude et dorée, style premium.
 ```
+
+## Suivi (12 nov. 2026) — prix fixé : 6 900 F CFA
+| Visuel | État |
+|---|---|
+| 1 · Pack complet | ✅ `visuel-1-pack-complet.jpg` (la couverture du téléphone a « Version téléphone » à la place de « Un plan de 30 jours » : c'est vrai aussi, on garde) |
+| 2 · Le problème | ✅ `visuel-2-le-probleme.jpg` |
+| 3 · Ce que tu reçois | ✅ `visuel-3-ce-que-tu-recois.jpg` (texte vérifié à la loupe) |
+| 4 · Méthode RIDEAU | ✅ `visuel-4-methode-rideau.jpg`. Faute « rélléchir » sur la petite couverture : **corrigée en collant la vraie couverture** (`paste` en perspective) |
+| 5 · Avant / après | ✅ `visuel-5-avant-apres.jpg` |
+| 6, 7, 8 | ⏳ à faire |

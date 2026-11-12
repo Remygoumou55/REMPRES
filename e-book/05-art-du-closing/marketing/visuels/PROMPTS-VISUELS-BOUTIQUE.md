@@ -122,4 +122,8 @@ Lumière chaude et dorée, style premium.
 | 3 · Ce que tu reçois | ✅ `visuel-3-ce-que-tu-recois.jpg` (texte vérifié à la loupe) |
 | 4 · Méthode RIDEAU | ✅ `visuel-4-methode-rideau.jpg`. Faute « rélléchir » sur la petite couverture : **corrigée en collant la vraie couverture** (`paste` en perspective) |
 | 5 · Avant / après | ✅ `visuel-5-avant-apres.jpg` |
-| 6, 7, 8 | ⏳ à faire |
+| 6 · Pour qui ? | ✅ `visuel-6-pour-qui.jpg` |
+| 7 · Vertical statut | ✅ `visuel-7-vertical-statut.jpg`. Faute « à a livrasion » sur la petite couverture : **corrigée en collant la vraie couverture** |
+| 8 · Bannière | ✅ `visuel-8-banniere.jpg` |
+
+**Les 8 visuels sont prêts.**

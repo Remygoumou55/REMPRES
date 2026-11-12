@@ -14,3 +14,17 @@ Composition : les personnages dans la moitié basse et au centre ; le haut de l'
 ```
 
 **Ensuite :** envoie-moi l'image. Je l'enregistre en `illustrations/cover-src.jpg`, je lance `python3 make-cover-bg.py` puis `python3 build-pdf-v2.py`, et la couverture est prête.
+
+## Suivi (12 nov. 2026)
+- 2 essais reçus. Choix : **l'essai 1 (Fanta)**, mis en place (`cover-src.jpg`). Dans l'essai 2, c'est Amina qui vend des robes au marché, alors qu'elle vend chaussures et sacs en ligne (`cover-essai-2-amina.jpg`, gardé).
+- Le client veut **plus fort**. Défauts de l'essai 1 : personne ne regarde le lecteur, la scène est douce, et la poignée de main est cachée par les étiquettes. Nouveau prompt ci-dessous.
+
+## Prompt v2 — plus fort
+```
+Crée une NOUVELLE image de couverture, dans EXACTEMENT le même style bande dessinée que l'image jointe, avec Fanta de la planche jointe.
+Format vertical 2:3 (1024 × 1536). AUCUN texte, AUCUNE bulle, aucune lettre, aucun logo, aucune marque.
+Au premier plan, au centre, Fanta en pose de héroïne : elle REGARDE LE LECTEUR droit dans les yeux, avec un sourire sûr et complice. D'un grand geste du bras, elle ouvre un immense rideau de théâtre en pagne vert profond et or.
+Derrière le rideau, une lumière dorée très forte jaillit et éclaire tout : on y voit son étal plein de monde, des clientes heureuses qui repartent avec leurs robes, une cliente qui lui serre la main, un jeune homme qui paie avec son téléphone (téléphone sans marque).
+Contraste fort : le côté du rideau encore fermé est sombre, le côté ouvert est lumineux et chaud. Effet spectaculaire, comme une affiche de film.
+Composition : le tiers du haut est vide, uni, vert très sombre #123B2F (pour le titre). Le visage de Fanta se trouve juste en dessous, vers le milieu de l'image. Le bas de l'image reste simple (pour des étiquettes). Couleurs : vert profond #123B2F, or #B08A3E, tons chauds.
+```

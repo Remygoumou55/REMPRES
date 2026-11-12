@@ -71,3 +71,4 @@ Ton client te demande : « C'est pas l'arnaque ? » Et toi, tu jures ? Tous les 
 
 ## Voix reçues
 - **TikTok 1** : voix ElevenLabs « Hugo » (`voix/voix-1.mp3`, 19 s). Elle finit par « Lis-le et close tes prospects ». La vidéo a été recalée sur la voix (version `A2`, 22 s), avec la musique baissée dessous : `TikTok-1-le-prix-tout-nu-AVEC-VOIX.mp4`.
+- **TikTok 2** : voix « Hugo » (`voix/voix-2.mp3`, 22 s). Il a changé la question en « Dis-moi : que pensez-vous de mon produit ? » : l'écran affiche la même phrase. Vidéo recalée sur la voix (version `B2`, 25 s) : `TikTok-2-je-vais-reflechir-AVEC-VOIX.mp4`.

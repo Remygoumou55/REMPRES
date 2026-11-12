@@ -2,7 +2,7 @@
 import numpy as np, wave, sys, json
 from scipy.signal import butter, sosfilt
 SR=44100; V=sys.argv[1]; DUR=float(sys.argv[2]) if len(sys.argv)>2 else 25.0; N=int(SR*DUR)
-CUTS={'A':[4.2,8.6,15.6,19.4],'B':[4,8.6,14.6,19.4],'C':[4.6,9,15.6,19.4],'D':[4.2,8.6,14.6,19.4],'E':[4.2,8.6,15.2,19.4],'F':[4.4,8.8,14.8,19.4],'A2':[3.6,6.1,11.3,14.1]}[V]
+CUTS={'A':[4.2,8.6,15.6,19.4],'B':[4,8.6,14.6,19.4],'C':[4.6,9,15.6,19.4],'D':[4.2,8.6,14.6,19.4],'E':[4.2,8.6,15.2,19.4],'F':[4.4,8.8,14.8,19.4],'A2':[3.6,6.1,11.3,14.1],'B2':[4.8,7.9,12.5,19.2]}[V]
 rng=np.random.default_rng(7)
 hz=lambda m:440*2**((m-69)/12)
 def T(d): return np.arange(int(SR*d))/SR

@@ -155,7 +155,6 @@ Et juste après, **un message qui confirme** : « Merci pour l'appel, Madame Bah
 - ☐ Chaque appel finit par une prochaine étape datée, confirmée par message.
 - ☐ Pas de livraison sans appel de confirmation.
 
-⚠️ **L'erreur à éviter :** avoir peur de déranger au point de **ne jamais appeler**. Un client qui hésite depuis deux jours ne sera pas dérangé si tu demandes la permission.
-
-➡️ **Et maintenant ?** Le chapitre 23 s'adresse à ceux qui vendent **aux entreprises** et des **services** : devis, décideurs, comités.
+⚠️ **L'erreur à éviter :** avoir peur de déranger au point de **ne jamais appeler**. Un client qui hésite depuis deux jours ne sera pas dérangé si tu demandes la permission.<br>
+➡️ **Et maintenant ?** Le chapitre 23 : vendre aux entreprises.
 </div>

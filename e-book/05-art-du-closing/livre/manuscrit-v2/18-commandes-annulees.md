@@ -228,7 +228,6 @@ Souvent, une annulation est un **« pas maintenant »**. Sors proprement, sans r
 - ☐ J'ai écrit mes règles avec mon livreur, et je vérifie les paiements sur mon téléphone.
 - ☐ Quand ça arrive : calme, une question, une porte. Jamais d'insulte.
 
-⚠️ **L'erreur à éviter :** envoyer le colis sur un simple « oui, emballe ». Tant qu'il n'y a pas de récapitulatif confirmé, d'heure fixée et de numéro qu'on peut appeler, le colis ne part pas.
-
-➡️ **Et maintenant ?** Fin de la partie 3. La **partie 4** adapte tout à **ta façon de vendre** : le marché, WhatsApp, le digital, le téléphone, les entreprises, la diaspora et la livraison.
+⚠️ **L'erreur à éviter :** envoyer le colis sur un simple « oui, emballe ». Tant qu'il n'y a pas de récapitulatif confirmé, d'heure fixée et de numéro qu'on peut appeler, le colis ne part pas.<br>
+➡️ **Et maintenant ?** La partie 4 adapte tout à ta façon de vendre.
 </div>

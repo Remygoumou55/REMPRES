@@ -236,7 +236,6 @@ Ils **fixent les règles avant les problèmes**. Chacun sait ce qu'il doit faire
 - ☐ Le colis contre l'argent, mobile money vérifié sur mon téléphone, jamais à un tiers sans accord écrit.
 - ☐ Ma sécurité passe avant la vente, et j'ai un accord écrit avec chaque boutique.
 
-⚠️ **L'erreur à éviter :** partir **sans avoir appelé le client**, parce qu'il a dit « oui » la veille. Entre hier et aujourd'hui, il a pu changer d'avis, de lieu, ou dépenser son argent. **Pas d'appel, pas de départ.**
-
-➡️ **Et maintenant ?** La **partie 5** transforme les techniques en **habitudes**. Le chapitre 26 t'apprend à construire **ta boîte à histoires** : une histoire vraie pour chaque peur de tes clients.
+⚠️ **L'erreur à éviter :** partir **sans avoir appelé le client**, parce qu'il a dit « oui » la veille. Entre hier et aujourd'hui, il a pu changer d'avis, de lieu, ou dépenser son argent. **Pas d'appel, pas de départ.**<br>
+➡️ **Et maintenant ?** La partie 5 : ta boîte à histoires, l'éthique, ton plan de 30 jours.
 </div>

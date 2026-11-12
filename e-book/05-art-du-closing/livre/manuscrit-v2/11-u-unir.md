@@ -184,7 +184,7 @@ Pour le client qui ne répond plus depuis longtemps, Chris Voss conseille une qu
 
 ## La fiche récapitulative : la méthode RIDEAU
 
-Garde-la sur ton téléphone, ou imprime-la et accroche-la dans ta boutique.
+Garde-la sur ton téléphone, ou accroche-la dans ta boutique.
 
 | Clé | Ce que tu fais | Ta phrase clé | L'erreur à éviter |
 |---|---|---|---|
@@ -195,8 +195,4 @@ Garde-la sur ton téléphone, ou imprime-la et accroche-la dans ta boutique.
 | **A — Apaiser** (ch. 10) | Ses paroles, une étiquette, des preuves, une histoire vraie, une porte, la valeur. | « On dirait que vous avez peur de… Vous m'avez dit que… » | Jurer, baisser ton prix, t'énerver. |
 | **U — Unir** (ch. 11) | Vérifier, proposer le dernier pas, faciliter le paiement, garder le client. | « Il reste quelque chose qui te fait hésiter, ou je te l'emballe ? » | « Vous me dites. » |
 
-<div class="suite" markdown="1">
-### ➡️ Et maintenant ?
-
-Fin de la partie 2 : tu as toute la méthode RIDEAU. La **partie 3** prend chaque situation difficile, une par une : « c'est cher », « quand j'aurai l'argent », « c'est pas l'arnaque ? », « je demande à mon mari », « je vais réfléchir », le crédit et les commandes annulées.
-</div>
+➡️ **Et maintenant ?** Tu as toute la méthode RIDEAU. La **partie 3** prend chaque situation difficile, une par une.

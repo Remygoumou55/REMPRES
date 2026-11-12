@@ -166,7 +166,6 @@ Un proche joue le client et te dit au hasard : « C'est cher », « Je vais réf
 - ☐ Je ne traite jamais un client de menteur.
 - ☐ Je demande **pour qui** ou **pour quoi** il achète.
 
-⚠️ **L'erreur à éviter :** répondre à l'objection tout de suite (« C'est cher ? Non, regarde la qualité ! »). Pose d'abord la question.
-
-➡️ **Et maintenant ?** Avant la méthode complète, regarde **toi-même** : le chapitre 5 montre les 20 erreurs qui font fuir les clients, souvent sans qu'on s'en rende compte.
+⚠️ **L'erreur à éviter :** répondre à l'objection tout de suite (« C'est cher ? Non, regarde la qualité ! »). Pose d'abord la question.<br>
+➡️ **Et maintenant ?** Le chapitre 5 : les 20 erreurs qui font fuir les clients.
 </div>

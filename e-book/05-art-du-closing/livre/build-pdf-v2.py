@@ -13,10 +13,10 @@ PHONE = os.environ.get("PHONE") == "1"
 
 VERT, OR, CREME, ENCRE = "#123B2F", "#B08A3E", "#FAF6EC", "#1E1E1E"
 CSS = f"""
-@page {{ size: A4; margin: 20mm 19mm 20mm 19mm; }}
+@page {{ size: A4; margin: 15mm 15mm 16mm 15mm; }}
 * {{ box-sizing: border-box; }}
 html {{ -webkit-print-color-adjust: exact; }}
-body {{ font-family: 'Times New Roman', 'Liberation Serif', Times, serif; font-size: 14pt; line-height: 1.45; color: {ENCRE}; text-align: left; hyphens: none; }}
+body {{ font-family: 'Times New Roman', 'Liberation Serif', Times, serif; font-size: 14pt; line-height: 1.38; color: {ENCRE}; text-align: left; hyphens: none; }}
 p {{ margin: 0 0 8pt; }}
 strong {{ color: {VERT}; }}
 em {{ color: #3a3a3a; }}
@@ -28,18 +28,18 @@ h1 .num {{ display: block; font-size: 12pt; letter-spacing: 4pt; color: {OR}; fo
 h1::after {{ content: ""; display: block; width: 60mm; height: 2.5pt; background: {OR}; margin-top: 10pt; }}
 h2 {{ font-size: 18pt; color: {VERT}; margin: 20pt 0 8pt; padding-bottom: 3pt; border-bottom: 1px solid #d9cfb5; break-after: avoid; }}
 h3 {{ font-size: 15pt; color: {VERT}; margin: 12pt 0 6pt; break-after: avoid; }}
-table {{ width: 100%; border-collapse: collapse; margin: 8pt 0 12pt; font-size: 12pt; line-height: 1.3; }}
+table {{ width: 100%; border-collapse: collapse; margin: 8pt 0 12pt; font-size: 13pt; line-height: 1.3; }}
 th {{ background: {VERT}; color: #fff; text-align: left; padding: 6pt 7pt; font-weight: bold; }}
 td {{ border-bottom: 1px solid #e3dccb; padding: 6pt 7pt; vertical-align: top; }}
 tr:nth-child(even) td {{ background: #fbf9f3; }}
-blockquote {{ margin: 10pt 0; padding: 8pt 14pt; border-left: 3pt solid {OR}; background: {CREME}; font-size: 13.5pt; break-inside: avoid; }}
+blockquote {{ margin: 10pt 0; padding: 8pt 14pt; border-left: 3pt solid {OR}; background: {CREME}; font-size: 14pt; break-inside: avoid; }}
 blockquote p {{ margin: 3pt 0; }}
-.box {{ margin: 12pt 0; padding: 10pt 14pt 6pt; border-radius: 3pt; font-size: 13.5pt; }}
+.box {{ margin: 12pt 0; padding: 10pt 14pt 6pt; border-radius: 3pt; font-size: 14pt; }}
 .box h3 {{ margin: 0 0 6pt; font-size: 14.5pt; break-after: avoid; }}
 .box li, .box tr, .box p {{ break-inside: avoid; }}
 .bref, .suite {{ break-inside: avoid; }}
 p, li {{ orphans: 1; widows: 1; }}
-.box table {{ background: #fff; font-size: 11.5pt; }}
+.box table {{ background: #fff; font-size: 13pt; }}
 .bref {{ background: {VERT}; color: #fff; border-left: 6pt solid {OR}; }}
 .bref strong, .bref h3 {{ color: #F1D9A6; }}
 .scene {{ background: {CREME}; border: 1px solid #e6dcc3; border-left: 6pt solid {OR}; }}
@@ -50,9 +50,9 @@ p, li {{ orphans: 1; widows: 1; }}
 .quiz li {{ margin: 5pt 0; }}
 .reponse {{ background: #EEF5F0; border-left: 6pt solid #2F7A55; }}
 .reponse h3 {{ color: #2F7A55; }}
-.vrai {{ background: #fff; border-top: 1px solid {OR}; border-bottom: 1px solid {OR}; font-style: italic; padding: 10pt 18pt; font-size: 13.5pt; }}
+.vrai {{ background: #fff; border-top: 1px solid {OR}; border-bottom: 1px solid {OR}; font-style: italic; padding: 10pt 18pt; font-size: 14pt; }}
 .vrai::before {{ content: "TÉMOIGNAGES RÉELS"; display: block; font-style: normal; font-size: 9.5pt; letter-spacing: 2pt; color: {OR}; font-weight: bold; margin-bottom: 4pt; }}
-.vrai .src {{ display: block; font-style: normal; font-size: 11pt; color: #6b6b6b; margin-top: 2pt; margin-bottom: 4pt; }}
+.vrai .src {{ display: block; font-style: normal; font-size: 12pt; color: #6b6b6b; margin-top: 2pt; margin-bottom: 4pt; }}
 .ecris {{ background: #fff; border: 1.5pt dashed {VERT}; }}
 .ligne {{ display: inline-block; min-width: 70mm; border-bottom: 1px solid #888; height: 1.1em; vertical-align: bottom; }}
 .ligne.court {{ min-width: 25mm; }}
@@ -60,7 +60,7 @@ td .ligne {{ min-width: 30mm; }}
 .profils {{ background: #F3F6F4; border-top: 4pt solid {VERT}; }}
 .profils p {{ margin: 6pt 0; }}
 .mots {{ background: #fff; border: 1px solid #d9cfb5; }}
-.mots table {{ font-size: 10.5pt; }} .mots td, .mots th {{ padding: 3pt 5pt; }}
+.mots table {{ font-size: 12.5pt; }} .mots td, .mots th {{ padding: 3pt 5pt; }}
 .erreur {{ background: #FBEDEA; border-left: 6pt solid #A23B2A; }}
 .erreur h3 {{ color: #A23B2A; }}
 .check {{ background: {CREME}; border: 1px solid #e6dcc3; }}
@@ -132,13 +132,13 @@ def md(text):
     return out
 
 PHONE_CSS = """
-@page { size: 110mm 196mm; margin: 9mm 8mm 11mm 8mm; }
-body { font-size: 12.5pt; line-height: 1.4; }
+@page { size: 110mm 196mm; margin: 7mm 6mm 10mm 6mm; }
+body { font-size: 14pt; line-height: 1.35; }
 h1 { font-size: 19pt; } h1 .num { font-size: 10pt; letter-spacing: 2pt; } h1::after { width: 35mm; }
-h2 { font-size: 15pt; } h3 { font-size: 13pt; }
-table { font-size: 9.5pt; } th, td { padding: 4pt 4pt; }
-.box { font-size: 12pt; padding: 8pt 9pt 4pt; } .box table { font-size: 9pt; }
-.accroche { font-size: 14pt; } blockquote { font-size: 12pt; }
+h2 { font-size: 16pt; } h3 { font-size: 14pt; }
+table { font-size: 11.5pt; } th, td { padding: 3pt 3pt; }
+.box { font-size: 13.5pt; padding: 7pt 8pt 3pt; } .box table { font-size: 11pt; } .mots table { font-size: 11pt; } .vrai { font-size: 13.5pt; padding: 8pt 8pt; } .vrai .src { font-size: 11pt; }
+.accroche { font-size: 15pt; } blockquote { font-size: 13.5pt; }
 .ligne { min-width: 45mm; } td .ligne { min-width: 12mm; }
 figure.ill img { max-height: 70mm; }
 .partpage { height: 170mm; padding: 0 6mm; } .partpage .pt { font-size: 26pt; } .partpage .pd { font-size: 13pt; } .partpage img { width: 100%; }
@@ -194,8 +194,8 @@ OUT = os.environ.get("OUT", "L-Art-du-Closing-telephone.pdf" if PHONE else "L-Ar
 jobs.append([allp, os.path.join(DIST, OUT)])
 
 SIZE = "width: '110mm', height: '196mm'," if PHONE else "format: 'A4',"
-MARG = "{ top: '9mm', bottom: '11mm', left: '8mm', right: '8mm' }" if PHONE else "{ top: '20mm', bottom: '20mm', left: '19mm', right: '19mm' }"
-FOOT = ('<div style="font-family:Times New Roman,Liberation Serif,serif;font-size:'+('7pt' if PHONE else '9pt')+';width:100%;padding:0 '+('8mm' if PHONE else '19mm')+';'
+MARG = "{ top: '7mm', bottom: '10mm', left: '6mm', right: '6mm' }" if PHONE else "{ top: '15mm', bottom: '16mm', left: '15mm', right: '15mm' }"
+FOOT = ('<div style="font-family:Times New Roman,Liberation Serif,serif;font-size:'+('7pt' if PHONE else '9pt')+';width:100%;padding:0 '+('8mm' if PHONE else '15mm')+';'
         'display:flex;justify-content:space-between;color:#8a7a55"><span>Ne laisse plus partir tes clients</span>'
         '<span class="pageNumber"></span></div>')
 js = """

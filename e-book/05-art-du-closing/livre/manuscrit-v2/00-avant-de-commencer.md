@@ -63,7 +63,7 @@ Choisis ta lettre. Dans chaque chapitre, l'encadré **« Dans ta situation »** 
 | **D — Le commercial** | Rendez-vous, appels, devis, entreprises, services. | **Koffi**, fournitures de bureau |
 | **E — Le livreur** | Tu apportes le colis et tu encaisses. | **Sékou**, livreur à moto |
 
-<figure class="ill"><img src="../illustrations/ill-00-personnages.jpg" alt="Fanta, Amina, Ibrahima, Koffi et Sékou"></figure>
+<figure class="ill"><img style="max-height:95mm" src="../illustrations/ill-00-personnages.jpg" alt="Fanta, Amina, Ibrahima, Koffi et Sékou"></figure>
 
 Lis tout, même ce qui ne te concerne pas : le vendeur en ligne comprend mieux ses annulations quand il se met à la place du livreur. Et le livreur, c'est **le dernier vendeur** : il est devant le client au moment le plus fragile, celui où il faut sortir l'argent.
 
@@ -83,14 +83,10 @@ Comme **un escalier** : chaque marche s'appuie sur la précédente.
 
 ## Une promesse honnête
 
-Ce livre ne te promet pas d'argent facile. Personne d'honnête ne peut promettre ça. Il te promet que tu sauras **quoi dire et quoi faire** quand un client hésite, discute, s'en va ou annule. C'est à ces moments-là que la vente se gagne ou se perd.
+Ce livre ne te promet pas d'argent facile. Personne d'honnête ne peut promettre ça. Il te promet que tu sauras **quoi dire et quoi faire** quand un client hésite, discute, s'en va ou annule.
 
 <div class="ecris" markdown="1">
 ### ✍️ Avant de tourner la page
 
-Écris **les 3 situations** cochées qui te coûtent le plus d'argent. À la fin du livre, tu auras une réponse pour chacune.
-
-1. <span class="ligne"></span>
-2. <span class="ligne"></span>
-3. <span class="ligne"></span>
+Dans ton cahier, écris **les 3 situations** cochées qui te coûtent le plus d'argent. À la fin du livre, tu auras une réponse pour chacune.
 </div>

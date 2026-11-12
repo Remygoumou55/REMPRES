@@ -23,5 +23,5 @@ def make(W, H, top, blend, out):
     d = np.clip((y - 0.80) / 0.14, 0, 1); d = d * d * (3 - 2 * d) * 0.9   # bas assombri pour le texte
     img = img * (1 - d[:, None, None]) + np.array([12, 40, 32]) * d[:, None, None]
     Image.fromarray(img.clip(0, 255).astype('uint8')).save(out, quality=90)
-make(1680, 2376, 0.30, 0.16, os.path.join(D, 'cover-bg-a4.jpg'))
+make(1680, 2376, 0.05, 0.10, os.path.join(D, 'cover-bg-a4.jpg'))
 print('ok', os.path.basename(src_path))

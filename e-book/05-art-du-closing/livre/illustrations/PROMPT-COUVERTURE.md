@@ -28,3 +28,8 @@ Derrière le rideau, une lumière dorée très forte jaillit et éclaire tout : 
 Contraste fort : le côté du rideau encore fermé est sombre, le côté ouvert est lumineux et chaud. Effet spectaculaire, comme une affiche de film.
 Composition : le tiers du haut est vide, uni, vert très sombre #123B2F (pour le titre). Le visage de Fanta se trouve juste en dessous, vers le milieu de l'image. Le bas de l'image reste simple (pour des étiquettes). Couleurs : vert profond #123B2F, or #B08A3E, tons chauds.
 ```
+
+## Choix final (12 nov. 2026) ✅
+- On garde l'**essai v2 n° 1** : Fanta regarde le lecteur, tend la main et ouvre le rideau ; derrière, le marché en lumière (poignée de main, paiement par téléphone, sacs). Fichier : `cover-src.jpg`.
+- Écartés : les 2 planches à 3 cases (couverture trop chargée ; flèche de « croissance », avion et camions = promesse de richesse), et l'essai n° 3 (cercles de pagne qui flottent sur les bords, gardé en `cover-essai-3-soleil.jpg`).
+- Réglages : l'image commence à 5 % du haut, l'accroche fait 132 mm de large avec une ombre, et des espaces insécables dans « … ».

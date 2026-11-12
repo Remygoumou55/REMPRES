@@ -93,7 +93,7 @@ figure.ill img {{ width: 100%; max-height: 120mm; object-fit: contain; border-ra
 .cv2 .t {{ font-size: 60pt; font-weight: 900; line-height: 1.0; margin: 8pt 0 6pt; letter-spacing: -1pt; }}
 .cv2 .t span {{ color: #E9C46A; }}
 .cv2 .rule {{ width: 40mm; height: 2.5pt; background: {OR}; margin: 8pt 0 12pt; }}
-.cv2 .acc {{ font-size: 19pt; line-height: 1.25; font-weight: bold; color: #FAF6EC; max-width: 170mm; }}
+.cv2 .acc {{ font-size: 18pt; line-height: 1.25; font-weight: bold; color: #FAF6EC; max-width: 132mm; text-shadow: 0 1pt 6pt rgba(0,0,0,.6); }}
 .cv2 .acc b {{ color: #E9C46A; }}
 .cv2 .bottom {{ position: absolute; bottom: 12mm; left: 18mm; right: 18mm; text-align: center; }}
 .cv2 .val {{ display: inline-flex; gap: 6pt; flex-wrap: wrap; justify-content: center; font-size: 11.5pt; font-weight: bold; }}
@@ -134,7 +134,7 @@ def page(body, title):
 COVER = """<section class="cv2"><img class="bg" src="../illustrations/cover-bg-a4.jpg" alt="">
 <div class="top"><div class="k">COLLECTION PLAYBOOKS</div>
 <div class="t">L'Art<br>du <span>Closing</span></div><div class="rule"></div>
-<div class="acc">« Lève le rideau : la méthode africaine pour transformer les <b>« je vais réfléchir »</b> en <b>« oui »</b>. »</div></div>
+<div class="acc">«&nbsp;Lève le rideau : la méthode africaine pour transformer les <b>«&nbsp;je vais réfléchir&nbsp;»</b> en <b style="white-space:nowrap">«&nbsp;oui&nbsp;».&nbsp;»</b></div></div>
 <div class="bottom"><div class="val"><span>La méthode RIDEAU en 6 clés</span><span>Des exemples en BD</span><span>Un plan de 30 jours</span></div>
 <div class="pays">Au marché · sur WhatsApp · au téléphone · en entreprise · à la livraison · <b>partout en Afrique</b></div></div></section>"""
 

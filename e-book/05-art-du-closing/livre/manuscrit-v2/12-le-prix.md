@@ -15,9 +15,9 @@ Tu n'as même pas fini de dire ton prix que le client fait déjà la grimace. «
 <div class="scene" markdown="1">
 ### 🎬 Exemple 2 — Ibrahima, avec sa formation
 
-**Prospect :** 15 000 F pour une formation ? Sur YouTube, c'est gratuit.
+**Client :** 15 000 F pour une formation ? Sur YouTube, c'est gratuit.
 **Ibrahima :** Bon… je peux vous la faire à 10 000.
-**Prospect :** Ah bon ? Donc elle ne valait pas 15 000 ?
+**Client :** Ah bon ? Donc elle ne valait pas 15 000 ?
 *(Il n'achète pas.)*
 </div>
 
@@ -108,7 +108,7 @@ Si tu baisses **à chaque fois**, tu ne gagnes plus rien. Si tu refuses **tout**
 | **Un prix pour la quantité** | « Une robe : 12 000. Deux robes : 22 000. » |
 | **Un bonus** (digital, services) | Une séance de questions, un modèle de document |
 
-C'est la règle du chapitre 10 : **on ne négocie pas sur le prix, on négocie sur la valeur.** Tu y as vu les techniques des vendeurs africains : le silence calme, « ajoute un peu et je fais de toi ma cliente », la remise justifiée par la fidélité ou la quantité, deux prix au lieu d'un. Si tu acceptes de baisser un peu, fais-le **toujours avec une raison**, pour que ton prix reste juste pour les autres.
+C'est la règle du chapitre 10 : **on ne négocie pas sur le prix, on négocie sur la valeur.** Tu y as vu les techniques des vendeurs africains : le silence calme, « ajoute un peu et je fais de toi ma cliente », la remise qui s'explique par la fidélité ou la quantité, deux prix au lieu d'un. Si tu acceptes de baisser un peu, fais-le **toujours avec une raison**, pour que ton prix reste juste pour les autres.
 
 ## 5. « Ailleurs, c'est moins cher »
 
@@ -175,7 +175,7 @@ Si tu découvres un **vrai mur**, ne force pas. Utilise les portes : **un modèl
 <div class="ecris" markdown="1">
 ### ✍️ Entraîne-toi
 
-**1.** Écris **ton geste préparé** (le même pour tous) et **ton prix ramené à l'usage** pour ton produit le plus vendu.
+**1.** Écris **ton geste préparé** (le même pour tous) et **ton prix par jour d'utilisation** pour ton produit le plus vendu.
 <span class="ligne"></span><span class="ligne"></span>
 
 **2. Jeu de rôle (à deux).** Ton partenaire dit dans le désordre : « C'est cher », « Laisse à… », « Ailleurs c'est moins cher », « Fais-moi une réduction ». À chaque fois : tu démasques, tu écoutes, puis tu choisis la bonne réponse.
@@ -184,23 +184,21 @@ Si tu découvres un **vrai mur**, ne force pas. Utilise les portes : **un modèl
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Marge** | Ce que tu gagnes vraiment : le prix de vente moins ce que tu as payé. | Différence entre prix de vente et coût de revient. |
-| **Geste commercial** | Un petit plus donné au lieu de baisser le prix. | Concession non tarifaire. |
-| **Prix par usage** | Le prix divisé par le nombre d'utilisations. | Coût d'usage. |
+| Mot | En simple |
+|---|---|
+| **Marge** | Ce que tu gagnes vraiment : le prix de vente moins ce que tu as payé. |
+| **Geste commercial** | Un petit plus donné au lieu de baisser le prix. |
 </div>
 
 <div class="check" markdown="1">
 ### ✅ À retenir
 
 - ☐ Au premier « c'est cher », je réponds par une question, jamais par un chiffre.
-- ☐ Je connais les 5 visages du « c'est cher ».
-- ☐ J'ai préparé mon geste, le même pour tous.
+- ☐ Je connais les 5 visages du « c'est cher », et mon geste est le même pour tous.
 - ☐ Je rends la valeur visible : toucher, filmer, prix par usage.
 - ☐ Je ne critique jamais un concurrent, et face à un vrai mur, je propose un autre produit.
 
-⚠️ **L'erreur à éviter :** baisser ton prix dès le premier « c'est cher ». Tu perds de l'argent, tu fais croire que ton prix était faux, et souvent tu ne gagnes même pas la vente.
+⚠️ **L'erreur à éviter :** baisser ton prix dès le premier « c'est cher ». Tu perds de l'argent, et souvent la vente aussi.
 
 ➡️ **Et maintenant ?** Le chapitre 13 traite le visage le plus fréquent en Afrique : **le vrai manque d'argent**.
 </div>

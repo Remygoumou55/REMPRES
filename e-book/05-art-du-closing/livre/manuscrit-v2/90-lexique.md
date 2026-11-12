@@ -1,6 +1,6 @@
 # Lexique : les mots du closing
 
-Tous les mots techniques du livre, rangés par ordre alphabétique. Pour chaque mot : ce qu'il veut dire **en simple**, et sa **traduction en anglais** (utile pour les vidéos et les livres étrangers). Le sens « pro » de chaque mot est dans l'encadré « Les mots à connaître » de son chapitre.
+Tous les mots techniques du livre, rangés par ordre alphabétique. Pour chaque mot : ce qu'il veut dire **en simple**, et sa **traduction en anglais** (utile pour les vidéos et les livres étrangers).
 
 | Mot | Sens simple | Anglais |
 |---|---|---|

@@ -13,7 +13,7 @@ Fanta a adoré le livre. Elle a souligné des phrases. Lundi matin, une cliente 
 <div class="scene" markdown="1">
 ### 🎬 Exemple 2 — Ibrahima et ses histoires
 
-Ibrahima a écrit trois histoires pour sa boîte. Il ne les a jamais racontées à voix haute. Le jour où un prospect dit « je n'y arriverai pas », il bafouille, et l'histoire tombe à plat.
+Ibrahima a écrit trois histoires pour sa boîte. Il ne les a jamais racontées à voix haute. Le jour où un client dit « je n'y arriverai pas », il bafouille, et l'histoire tombe à plat.
 </div>
 
 <div class="remarque" markdown="1">

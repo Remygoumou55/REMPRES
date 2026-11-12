@@ -26,7 +26,7 @@ Le vendeur a dit oui **pour ne pas perdre le client**… et il a perdu **le clie
 
 ## 1. Pourquoi tout le monde demande crédit
 
-Le crédit vient des réalités du chapitre 3 : l'**argent qui arrive par à-coups**, l'habitude d'**emprunter à l'entourage** plutôt qu'à une banque, et le crédit comme **preuve de relation** (« tu me connais » veut dire « si tu me fais confiance, c'est que je compte pour toi »).
+Le crédit vient des réalités du chapitre 3 : l'**argent qui n'arrive pas tous les jours**, l'habitude d'**emprunter à l'entourage** plutôt qu'à une banque, et le crédit comme **preuve de relation** (« tu me connais » veut dire « si tu me fais confiance, c'est que je compte pour toi »).
 
 <div class="vrai" markdown="1">
 « Le […] qui tient l'épicerie du coin a toujours un livre ouvert pour les pères de famille qui désirent s'y approvisionner jusqu'à la fin du mois avant de régler la note. »
@@ -152,12 +152,12 @@ Elle a raison : ce qui compte, c'est **le message de confirmation de l'opérateu
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Créance** | L'argent qu'un client te doit. | Somme due par un client. |
-| **Plafond** | Le montant maximum qu'un client peut te devoir. | Limite de crédit par client. |
-| **Échéance** | La date à laquelle le client doit payer. | Date d'exigibilité d'un paiement. |
-| **Registre** | Le cahier où tu notes ventes, crédits, remboursements. | Livre de comptes clients. |
+| Mot | En simple |
+|---|---|
+| **Créance** | L'argent qu'un client te doit. |
+| **Plafond** | Le montant maximum qu'un client peut te devoir. |
+| **Échéance** | La date à laquelle le client doit payer. |
+| **Registre** | Le cahier où tu notes ventes, crédits, remboursements. |
 </div>
 
 <div class="check" markdown="1">

@@ -37,6 +37,7 @@ blockquote p {{ margin: 3pt 0; }}
 .box h3 {{ margin: 0 0 6pt; font-size: 14.5pt; break-after: avoid; }}
 .box li, .box tr, .box p {{ break-inside: avoid; }}
 .bref, .suite {{ break-inside: avoid; }}
+p, li {{ orphans: 1; widows: 1; }}
 .box table {{ background: #fff; font-size: 11.5pt; }}
 .bref {{ background: {VERT}; color: #fff; border-left: 6pt solid {OR}; }}
 .bref strong, .bref h3 {{ color: #F1D9A6; }}

@@ -103,7 +103,7 @@ On retrouve cette plainte dans la presse de nombreux pays africains. C'est l'une
 
 ## 4. Une objection, c'est quoi ?
 
-Une **objection**, c'est **la raison que le client donne pour ne pas acheter maintenant**. Ce n'est pas une insulte, ni un « non » définitif. C'est **une pierre sur la route** : ton travail, c'est de comprendre comment la contourner. Il en existe 5 grandes familles :
+Une **objection**, c'est **la raison que le client donne pour ne pas acheter maintenant**. Ce n'est pas une insulte, ni un « non » définitif. C'est **une pierre sur la route** : ton travail, c'est de trouver comment passer à côté. Il en existe 5 grandes familles :
 
 | Ce que le client dit | La famille |
 |---|---|
@@ -160,12 +160,12 @@ Un petit calcul. Chaque jour, **20 clientes** demandent les prix de Fanta. **2**
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Closing** | Le moment où le client dit « oui » et paie, et tout ce que tu fais pour l'y amener. | Conclusion de la vente : obtenir l'engagement ferme du client. |
-| **Closer** | Le vendeur qui sait amener un client qui hésite jusqu'au « oui ». | Vendeur spécialisé dans la conclusion des ventes. |
-| **Prospect** | Quelqu'un qui pourrait acheter, mais n'a pas encore acheté. | Client potentiel identifié. |
-| **Objection** | La raison donnée pour ne pas acheter maintenant. | Frein exprimé par le prospect pendant la vente. |
+| Mot | En simple |
+|---|---|
+| **Closing** | Le moment où le client dit « oui » et paie, et tout ce que tu fais pour l'y amener. |
+| **Closer** | Le vendeur qui sait amener un client qui hésite jusqu'au « oui ». |
+| **Client** | Quelqu'un qui pourrait acheter, mais n'a pas encore acheté. |
+| **Objection** | La raison donnée pour ne pas acheter maintenant. |
 </div>
 
 <div class="check" markdown="1">

@@ -112,7 +112,7 @@ Les meilleurs vendeurs préparent **une fois** un ensemble de preuves qu'ils env
 | **2. Ton adresse ou ton repère** | Une localisation claire. Si tu n'as pas de boutique, dis-le. |
 | **3. Ta politique d'échange écrite** | « Si l'article n'est pas comme sur la vidéo, échange sous 7 jours. » |
 | **4. Tes modes de paiement** | « Paiement à la livraison, ou mobile money avec reçu. » |
-| **5. 3 à 5 vrais clients joignables** | Des clients contents qui **acceptent** qu'un prospect les appelle. Demande-leur la permission. |
+| **5. 3 à 5 vrais clients joignables** | Des clients contents qui **acceptent** qu'un client les appelle. Demande-leur la permission. |
 | **6. Ton historique** | Depuis quand tu vends, ta page active, tes publications régulières. |
 
 Mets tout ça dans un **message enregistré** ou dans ta description WhatsApp Business. **La meilleure réponse à « c'est pas l'arnaque ? », c'est celle que tu as donnée avant qu'on te pose la question.**
@@ -155,12 +155,12 @@ Un client dont le problème a été **bien réglé** devient souvent **plus fid�
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Preuve sociale** | Quand d'autres personnes confirment que tu es sérieux. | Témoignages et recommandations de tiers. |
-| **Faux profil** | Un compte d'arnaqueur qui se fait passer pour un vendeur. | Compte frauduleux usurpant une identité commerciale. |
-| **Politique d'échange** | Les règles écrites pour échanger ou rendre un produit. | Conditions de retour et de remboursement. |
-| **Imitation** | Un produit qui ressemble à une marque, sans être l'original. | Contrefaçon ou produit générique (selon le cas). |
+| Mot | En simple |
+|---|---|
+| **Preuve sociale** | Quand d'autres personnes confirment que tu es sérieux. |
+| **Faux profil** | Un compte d'arnaqueur qui se fait passer pour un vendeur. |
+| **Politique d'échange** | Les règles écrites pour échanger ou rendre un produit. |
+| **Imitation** | Un produit qui ressemble à une marque, sans être l'original. |
 </div>
 
 <div class="check" markdown="1">

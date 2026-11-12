@@ -216,13 +216,13 @@ Ils **fixent les règles avant les problèmes**. Chacun sait ce qu'il doit faire
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Paiement à la livraison** | Le client paie quand il reçoit le colis. | *Cash on delivery* (COD). |
-| **Course perdue** | Une livraison où le client ne prend pas le colis. | Échec de livraison. |
-| **Versement** | L'argent encaissé que le livreur rend au vendeur. | Reversement des encaissements. |
-| **Bon de livraison** | Le papier signé qui prouve que le colis a été remis. | Preuve de livraison. |
-| **Repère** | Un endroit connu près de l'adresse. | Point de repère. |
+| Mot | En simple |
+|---|---|
+| **Paiement à la livraison** | Le client paie quand il reçoit le colis. |
+| **Course perdue** | Une livraison où le client ne prend pas le colis. |
+| **Versement** | L'argent encaissé que le livreur rend au vendeur. |
+| **Bon de livraison** | Le papier signé qui prouve que le colis a été remis. |
+| **Repère** | Un endroit connu près de l'adresse. |
 </div>
 
 <div class="check" markdown="1">

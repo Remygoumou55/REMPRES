@@ -204,11 +204,11 @@ Souvent, une annulation est un **« pas maintenant »**. Sors proprement, sans r
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Récapitulatif de commande** | Le message qui résume tout ce qui a été convenu. | Confirmation de commande écrite. |
-| **Frais d'engagement** | Une petite somme payée d'avance, qui montre que le client est sérieux. | Acompte, *commitment fee*. |
-| **Liste d'attente** | Les clients qui attendent un article qui n'est pas en stock. | Précommandes. |
+| Mot | En simple |
+|---|---|
+| **Récapitulatif de commande** | Le message qui résume tout ce qui a été convenu. |
+| **Frais d'engagement** | Une petite somme payée d'avance, qui montre que le client est sérieux. |
+| **Liste d'attente** | Les clients qui attendent un article qui n'est pas en stock. |
 </div>
 
 <div class="check" markdown="1">
@@ -220,7 +220,7 @@ Souvent, une annulation est un **« pas maintenant »**. Sors proprement, sans r
 - ☐ J'ai écrit mes règles avec mon livreur, et je vérifie les paiements sur mon téléphone.
 - ☐ Quand ça arrive : calme, une question, une porte. Jamais d'insulte.
 
-⚠️ **L'erreur à éviter :** envoyer le colis sur un simple « oui, emballe ». Tant qu'il n'y a pas de récapitulatif confirmé, d'heure fixée et de numéro joignable, le colis ne part pas.
+⚠️ **L'erreur à éviter :** envoyer le colis sur un simple « oui, emballe ». Tant qu'il n'y a pas de récapitulatif confirmé, d'heure fixée et de numéro qu'on peut appeler, le colis ne part pas.
 
 ➡️ **Et maintenant ?** Fin de la partie 3. La **partie 4** adapte tout à **ta façon de vendre** : le marché, WhatsApp, le digital, le téléphone, les entreprises, la diaspora et la livraison.
 </div>

@@ -166,7 +166,7 @@ Le lendemain : « Le sac vous plaît ? Si quelque chose ne va pas, dites-le-moi.
 |---|---|
 | **B — Amina** | C'est ton chapitre. Cette semaine : **catalogue complet avec prix**, **5 réponses rapides** (prix, livraison, paiement, adresse, confiance), **récapitulatif** à chaque commande. |
 | **A — Fanta** | Ton WhatsApp garde les clientes du marché : tes nouvelles robes **en vidéo**, avec le prix et l'emplacement de ton étal. |
-| **C — Ibrahima** | Après une publicité, les prospects t'écrivent en privé : les 5 règles de l'écrit, et un vocal ou un appel pour les plus intéressés (chapitre 21). |
+| **C — Ibrahima** | Après une publicité, les clients t'écrivent en privé : les 5 règles de l'écrit, et un vocal ou un appel pour les plus intéressés (chapitre 21). |
 | **D — Koffi** | Confirmation de rendez-vous, devis en PDF avec un vocal de 30 secondes qui l'explique. |
 | **E — Sékou** | Le récapitulatif confirmé, c'est **sa protection** : il demande au vendeur de le lui transférer avant chaque course. |
 </div>
@@ -186,12 +186,12 @@ Le lendemain : « Le sac vous plaît ? Si quelque chose ne va pas, dites-le-moi.
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Catalogue** | La liste de tes produits avec photo et prix, dans WhatsApp. | Catalogue produits (WhatsApp Business). |
-| **Statut** | Photos et vidéos publiées pour 24 heures sur WhatsApp. | *Stories* éphémères. |
-| **Live** | Une vidéo en direct où tu présentes tes produits. | *Live shopping*. |
-| **Étiquette** | Un petit mot pour classer tes conversations. | *Label*, segmentation des contacts. |
+| Mot | En simple |
+|---|---|
+| **Catalogue** | La liste de tes produits avec photo et prix, dans WhatsApp. |
+| **Statut** | Photos et vidéos publiées pour 24 heures sur WhatsApp. |
+| **Live** | Une vidéo en direct où tu présentes tes produits. |
+| **Étiquette** | Un petit mot pour classer tes conversations. |
 </div>
 
 <div class="check" markdown="1">

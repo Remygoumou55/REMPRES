@@ -13,9 +13,9 @@ Fanta est assise derrière ses robes, fatiguée. Une jeune femme ralentit et reg
 <div class="scene" markdown="1">
 ### 🎬 Exemple 2 — Ibrahima, en ligne
 
-**Prospect :** Bonjour, j'ai vu votre vidéo.
+**Client :** Bonjour, j'ai vu votre vidéo.
 **Ibrahima** colle aussitôt un message de 40 lignes : le programme, les modules, les bonus, le prix, le lien de paiement.
-*(Le prospect lit deux lignes. Il ne répond plus.)*
+*(Le client lit deux lignes. Il ne répond plus.)*
 </div>
 
 <div class="remarque" markdown="1">
@@ -115,7 +115,7 @@ Dans un souk d'Afrique du Nord, une journaliste raconte le rituel des vendeurs :
 2. **rebondir** sur sa réponse : « Un mariage ! C'est le mariage de qui ? » ;
 3. **retenir un détail et le réutiliser** : « Pour le mariage de ta sœur, je te conseille plutôt celle-ci. » Il sent que tu l'as **vraiment écouté**. C'est rare, et c'est inoubliable.
 
-**Attention : relation, oui ; flatterie, non.** Des chercheuses ont enregistré un vendeur qui lance à une cliente silencieuse : « 1500 c'est quoi pour une belle femme comme toi ? » Elle répond que là-bas c'est 1000, pose l'habit… et part. Le compliment sonnait faux, et le vendeur n'a jamais demandé pourquoi elle hésitait. La flatterie parle du client pour le **pousser**. La vraie relation parle du client pour le **comprendre**.
+**Attention : relation, oui ; faux compliments, non.** Des chercheuses ont enregistré un vendeur qui lance à une cliente silencieuse : « 1500 c'est quoi pour une belle femme comme toi ? » Elle répond que là-bas c'est 1000, pose l'habit… et part. Le compliment sonnait faux, et le vendeur n'a jamais demandé pourquoi elle hésitait. Les faux compliments parle du client pour le **pousser**. La vraie relation parle du client pour le **comprendre**.
 
 ## 6. Les 4 pièges de la clé R
 
@@ -123,7 +123,7 @@ Dans un souk d'Afrique du Nord, une journaliste raconte le rituel des vendeurs :
 |---|---|
 | **Le racolage** (« Venez voir ! ») | Saluer et laisser regarder. |
 | **Le discours d'ouverture** (10 minutes sur ton entreprise) | Une question sur le client. |
-| **La flatterie** | S'intéresser vraiment à lui. |
+| **Les faux compliments** | S'intéresser vraiment à lui. |
 | **L'indifférence** (assis, téléphone, « oui ? ») | Se lever, sourire, être disponible. |
 
 <div class="profils" markdown="1">
@@ -150,11 +150,11 @@ Dans un souk d'Afrique du Nord, une journaliste raconte le rituel des vendeurs :
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Question ouverte** | Une question à laquelle on ne peut pas répondre par oui ou non. | Question qui invite le prospect à développer. |
-| **Relation** | Le lien de confiance entre toi et le client. | Rapport : climat de confiance vendeur-prospect. |
-| **Flatterie** | Faire des compliments pour obtenir quelque chose. | Compliment instrumental, perçu comme manipulateur. |
+| Mot | En simple |
+|---|---|
+| **Question ouverte** | Une question à laquelle on ne peut pas répondre par oui ou non. |
+| **Relation** | Le lien de confiance entre toi et le client. |
+| **Flatterie** | Faire des compliments pour obtenir quelque chose. |
 </div>
 
 <div class="check" markdown="1">

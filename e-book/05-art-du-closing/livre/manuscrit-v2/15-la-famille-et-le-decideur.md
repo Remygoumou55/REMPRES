@@ -21,7 +21,7 @@ Une jeune fille essaie une robe pour un mariage. « Elle est parfaite ! Mais c'e
 <div class="remarque" markdown="1">
 ### 👀 Tu as remarqué ?
 
-**Le client ne ment pas** : il y a vraiment quelqu'un d'autre qui décide ou qui paie. Et le vendeur **contourne** cette personne (« c'est ton argent ») ou **laisse le client défendre le produit tout seul**, avec des mots. Résultat : la décision se prend **loin du vendeur**, par quelqu'un qui n'a **jamais vu** le produit.
+**Le client ne ment pas** : il y a vraiment quelqu'un d'autre qui décide ou qui paie. Et le vendeur **passe par-dessus** cette personne (« c'est ton argent ») ou **laisse le client défendre le produit tout seul**, avec des mots. Résultat : la décision se prend **loin du vendeur**, par quelqu'un qui n'a **jamais vu** le produit.
 </div>
 
 <figure class="ill"><img src="../illustrations/ill-07-famille.jpg" alt="Le mari voit la photo du sac"></figure>
@@ -87,7 +87,7 @@ Amina **respecte** la façon dont le couple décide, puis elle **arme** sa clien
 
 ## 4. Aide ton client à défendre son achat
 
-Ton client va devoir répondre aux questions du décideur. Prépare-le. Une bonne façon de commencer : **« D'après vous, quelle question va-t-il vous poser en premier ? »** (C'est ce que fait Ibrahima quand son prospect doit en parler au grand frère qui l'aide financièrement.)
+Ton client va devoir répondre aux questions du décideur. Prépare-le. Une bonne façon de commencer : **« D'après vous, quelle question va-t-il vous poser en premier ? »** (C'est ce que fait Ibrahima quand son client doit en parler au grand frère qui l'aide financièrement.)
 
 | La question du décideur | Ce que tu donnes à ton client |
 |---|---|
@@ -144,12 +144,12 @@ Et souviens-toi : la famille, c'est aussi **ta meilleure alliée**. Un aîné bi
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Décideur** | La personne qui a le dernier mot sur l'achat. | Personne détenant le pouvoir de décision d'achat. |
-| **Appel à trois** | Vendeur, client et décideur parlent ensemble. | Conférence téléphonique tripartite. |
-| **Kit à montrer** | Photo, vidéo, prix et avantages, faits pour le décideur. | Support d'aide à la décision. |
-| **Comité** | Un groupe qui décide ensemble en entreprise. | Instance collégiale de validation des achats. |
+| Mot | En simple |
+|---|---|
+| **Décideur** | La personne qui a le dernier mot sur l'achat. |
+| **Appel à trois** | Vendeur, client et décideur parlent ensemble. |
+| **Kit à montrer** | Photo, vidéo, prix et avantages, faits pour le décideur. |
+| **Comité** | Un groupe qui décide ensemble en entreprise. |
 </div>
 
 <div class="check" markdown="1">

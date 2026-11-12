@@ -154,11 +154,11 @@ Garde la structure : **accepter → question → date précise**. (D'autres rép
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Envie / besoin** | « Ce serait bien » / « il me le faut ». | *Nice to have* / *need to have*. |
-| **Rendez-vous de décision** | Une date précise où le client donnera sa réponse. | Prochaine étape convenue (*next step*). |
-| **Question fermée** | Une question à laquelle on répond par oui, non, ou un choix simple. | Question à réponse courte. |
+| Mot | En simple |
+|---|---|
+| **Envie / besoin** | « Ce serait bien » / « il me le faut ». |
+| **Rendez-vous de décision** | Une date précise où le client donnera sa réponse. |
+| **Question fermée** | Une question à laquelle on répond par oui, non, ou un choix simple. |
 </div>
 
 <div class="check" markdown="1">

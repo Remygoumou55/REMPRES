@@ -13,7 +13,7 @@ Sous la publicité de sa formation, le premier commentaire dit : « Encore un ar
 <div class="scene" markdown="1">
 ### 🎬 Exemple 2 — Le paiement abandonné
 
-Un prospect est convaincu. Il clique sur le lien de paiement, choisit le mobile money. Le paiement ne passe pas : un code, une validation, un message qu'il ne comprend pas. Il abandonne… et ne revient jamais.
+Un client est convaincu. Il clique sur le lien de paiement, choisit le mobile money. Le paiement ne passe pas : un code, une validation, un message qu'il ne comprend pas. Il abandonne… et ne revient jamais.
 </div>
 
 <div class="remarque" markdown="1">
@@ -48,15 +48,15 @@ Fanta fait essayer la robe. Toi, trouve **l'équivalent de l'essayage** :
 | **Le sommaire détaillé** | La liste de tous les modules, avec la durée. |
 | **Ton visage et ta voix** | Une vidéo d'une minute où tu te présentes. |
 | **Du contenu gratuit utile** | 3 conseils vraiment utiles chaque semaine sur tes réseaux. |
-| **Un élève joignable** | Un élève qui accepte de **répondre au téléphone** à un prospect. |
+| **Un élève qu'on peut appeler** | Un élève qui accepte de **répondre au téléphone** à un client. |
 | **Une session de questions en direct** | Un live gratuit avant l'ouverture des inscriptions. |
 
-**Jamais de faux témoignages**, et **jamais de captures de revenus d'élèves** présentées comme une promesse. Préfère un vrai élève joignable, ou une vidéo où il parle de ce qu'il a **appris**, pas de ce qu'il a gagné.
+**Jamais de faux témoignages**, et **jamais de captures de revenus d'élèves** présentées comme une promesse. Préfère un vrai élève qu'on peut appeler, ou une vidéo où il parle de ce qu'il a **appris**, pas de ce qu'il a gagné.
 
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer
 
-Un prospect écrit à Ibrahima : « Votre formation, ça marche vraiment ? » **Quelle réponse choisis-tu ?**
+Un client écrit à Ibrahima : « Votre formation, ça marche vraiment ? » **Quelle réponse choisis-tu ?**
 
 - **A.** « Oui, c'est garanti ! Mes élèves gagnent jusqu'à 500 000 F par mois. »
 - **B.** « Je vous envoie gratuitement la première vidéo. Regardez-la, et si elle vous apprend quelque chose, vous saurez à quoi ressemble la suite. Qu'est-ce que vous aimeriez savoir faire à la fin ? »
@@ -66,11 +66,11 @@ Un prospect écrit à Ibrahima : « Votre formation, ça marche vraiment ? » **
 <div class="reponse" markdown="1">
 ### ✅ La bonne réponse : B
 
-Ibrahima ne **promet** rien : il **montre**. Le prospect juge seul la qualité. Et la question finale ouvre la clé **I** : la formation correspond-elle vraiment à son besoin ?
+Ibrahima ne **promet** rien : il **montre**. Le client juge seul la qualité. Et la question finale ouvre la clé **I** : la formation correspond-elle vraiment à son besoin ?
 
 **❌ Pourquoi pas A ?** « Garanti » et des chiffres de revenus : c'est exactement ce que disent les vendeurs de rêve. Et ça peut être une publicité trompeuse (chapitre 27).
 
-**❌ Pourquoi pas C ?** Des commentaires que le prospect peut croire truqués : une preuve faible.
+**❌ Pourquoi pas C ?** Des commentaires que le client peut croire truqués : une preuve faible.
 
 **👉 La bonne action :** prépare **un extrait gratuit** que tu peux envoyer en 5 secondes. C'est ton « essayage ».
 </div>
@@ -94,12 +94,12 @@ Utilise **ses propres paroles** (chapitre 10) : « Vous m'avez dit que vous rega
 C'est un point douloureux du digital en Afrique. Des vendeurs le disent en commentaire de vidéos : beaucoup de clients abandonnent au paiement, et il existe même des tutoriels entiers pour valider un paiement mobile sur certaines plateformes. **C'est souvent là que meurt la vente.**
 
 1. **Explique les étapes avant** : « Vous allez recevoir un code par SMS, il faudra le taper sur la page. »
-2. **Une vidéo tutoriel d'une minute**, filmée sur ton téléphone, envoyée à chaque prospect prêt à payer.
+2. **Une vidéo tutoriel d'une minute**, filmée sur ton téléphone, envoyée à chaque client prêt à payer.
 3. **Propose de rester avec lui** : « Je reste en ligne avec vous pendant le paiement ? » Un appel de 3 minutes peut sauver une vente.
 4. **Une solution de secours** : un autre moyen de paiement si le premier ne marche pas.
 5. **Confirme immédiatement** : l'accès et un message de bienvenue, tout de suite.
 
-Si un prospect écrit « Ça ne marche pas, laissez tomber », ce n'est pas un refus : c'est **un mur technique**. « Désolé, je comprends que ce soit énervant. Je vous appelle 3 minutes et on le fait ensemble ? Sinon, vous pouvez payer par un autre moyen, je vous envoie le numéro. »
+Si un client écrit « Ça ne marche pas, laissez tomber », ce n'est pas un refus : c'est **un mur technique**. « Désolé, je comprends que ce soit énervant. Je vous appelle 3 minutes et on le fait ensemble ? Sinon, vous pouvez payer par un autre moyen, je vous envoie le numéro. »
 
 ## 6. Les objections propres au digital
 
@@ -107,7 +107,7 @@ Si un prospect écrit « Ça ne marche pas, laissez tomber », ce n'est pas un r
 
 | Objection | Derrière | Ce que tu peux répondre |
 |---|---|---|
-| « C'est encore une arnaque ? » | Une mauvaise expérience, la sienne ou celle d'un proche. | « Vous avez raison de vous méfier. Vous avez déjà été déçu ? » Tu écoutes, puis tu montres : extrait gratuit, ton visage, un élève joignable, le remboursement. |
+| « C'est encore une arnaque ? » | Une mauvaise expérience, la sienne ou celle d'un proche. | « Vous avez raison de vous méfier. Vous avez déjà été déçu ? » Tu écoutes, puis tu montres : extrait gratuit, ton visage, un élève qu'on peut appeler, le remboursement. |
 | « C'est gratuit sur YouTube. » | « Je ne vois pas ce que j'aurai de plus. » | « C'est vrai. Vous avez déjà essayé ? Qu'est-ce qui vous a manqué ? » |
 | « Je n'ai pas d'ordinateur. » | Peur que ce soit trop technique. | « Tout se fait sur téléphone. Je vous montre la première vidéo ? » (seulement si c'est vrai !) |
 | « Ça marche dans mon pays ? » | Peur d'une méthode faite pour ailleurs. | Sois précis : ce qui marche partout, ce qui change selon le pays. |
@@ -135,7 +135,7 @@ Le client digital a payé **avant** de recevoir : il est très sensible à ce qu
 |---|---|
 | **C — Ibrahima** | C'est ton chapitre. Cette semaine : une promesse avec une **compétence précise**, ton **extrait gratuit**, ta **vidéo tutoriel de paiement**, et plus aucune phrase avec « riche » ou « garanti ». |
 | **B — Amina** | Si elle vend un jour un petit guide (entretenir ses chaussures en cuir), mêmes règles. |
-| **D — Koffi** | Logiciels, abonnements, formations en entreprise : démonstration gratuite, sommaire précis, client joignable. |
+| **D — Koffi** | Logiciels, abonnements, formations en entreprise : démonstration gratuite, sommaire précis, client qu'on peut appeler. |
 | **A — Fanta, E — Sékou** | Tu es peut-être **client** de formations : ce chapitre t'aide à reconnaître un vendeur honnête (promesse précise, extrait gratuit, pas de « deviens riche », remboursement clair). |
 </div>
 
@@ -153,12 +153,12 @@ Le client digital a payé **avant** de recevoir : il est très sensible à ce qu
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Produit digital** | Ce qu'on achète et reçoit sur le téléphone : formation, e-book, vidéo. | Produit numérique, infoproduit. |
-| **Extrait gratuit** | Un petit morceau offert pour juger la qualité. | Échantillon, *lead magnet*. |
-| **Piratage** | Copier et partager un produit sans payer le créateur. | Violation du droit d'auteur. |
-| **Vendeur de rêve** | Celui qui promet la richesse rapide pour vendre. | Promesse trompeuse. |
+| Mot | En simple |
+|---|---|
+| **Produit digital** | Ce qu'on achète et reçoit sur le téléphone : formation, e-book, vidéo. |
+| **Extrait gratuit** | Un petit morceau offert pour juger la qualité. |
+| **Piratage** | Copier et partager un produit sans payer le créateur. |
+| **Vendeur de rêve** | Celui qui promet la richesse rapide pour vendre. |
 </div>
 
 <div class="check" markdown="1">

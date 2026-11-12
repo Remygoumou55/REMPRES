@@ -13,7 +13,7 @@ Une femme s'arrête. Fanta, toute contente, lui sort sa plus belle robe de soir�
 <div class="scene" markdown="1">
 ### 🎬 Exemple 2 — Ibrahima, en ligne
 
-Un prospect demande des informations. Ibrahima lui présente sa formation « Expert » à 45 000 F : publicité payante, tunnels de vente, automatisation. Le prospect : « Je n'ai même pas encore de page Facebook… C'est trop compliqué pour moi. » *(Il ne savait pas qu'Ibrahima avait aussi une formation « Débutant ».)*
+Un client demande des informations. Ibrahima lui présente sa formation « Expert » à 45 000 F : publicité payante, tunnels de vente, automatisation. Le client : « Je n'ai même pas encore de page Facebook… C'est trop compliqué pour moi. » *(Il ne savait pas qu'Ibrahima avait aussi une formation « Débutant ».)*
 </div>
 
 <div class="remarque" markdown="1">
@@ -56,7 +56,7 @@ C'est vrai. Si le client te donne 30 secondes, **garde les questions 1 et 2**, e
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer
 
-Ibrahima discute avec un prospect qui vend des produits de beauté. **Quelle question est une question de « conséquence » ?**
+Ibrahima discute avec un client qui vend des produits de beauté. **Quelle question est une question de « conséquence » ?**
 
 - **A.** « Vous vendez quels produits exactement ? »
 - **B.** « Quand les clientes demandent le prix sur WhatsApp et disparaissent, combien de ventes vous perdez par semaine, à peu près ? »
@@ -66,7 +66,7 @@ Ibrahima discute avec un prospect qui vend des produits de beauté. **Quelle que
 <div class="reponse" markdown="1">
 ### ✅ La bonne réponse : B
 
-Elle aide le prospect à **mesurer ce que son problème lui coûte**. Quand il fait le calcul lui-même, il se convainc tout seul.
+Elle aide le client à **mesurer ce que son problème lui coûte**. Quand il fait le calcul lui-même, il se convainc tout seul.
 
 **❌ Pourquoi pas A ?** C'est une question de **situation** : utile, mais elle ne fait pas sentir le problème.
 
@@ -107,19 +107,19 @@ C'est la partie la plus oubliée. Tu sais maintenant ce que veut le client. Pose
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer
 
-Ibrahima découvre que son prospect n'a **pas de téléphone à lui** : il emprunte celui de sa sœur une heure par jour. La formation demande de publier tous les jours sur WhatsApp. **Que fait Ibrahima ?**
+Ibrahima découvre que son client n'a **pas de téléphone à lui** : il emprunte celui de sa sœur une heure par jour. La formation demande de publier tous les jours sur WhatsApp. **Que fait Ibrahima ?**
 
 - **A.** « Je préfère être franc : ma formation demande d'avoir un téléphone à vous quelques heures par jour. Pour l'instant, elle ne vous servira pas à grand-chose. Recontactez-moi quand vous l'aurez. En attendant, voici une vidéo gratuite pour commencer. »
 - **B.** « Ne vous inquiétez pas, ça marchera ! Payez maintenant, vous verrez après. »
-- **C.** Il ne dit rien et attend que le prospect paie.
+- **C.** Il ne dit rien et attend que le client paie.
 </div>
 
 <div class="reponse" markdown="1">
 ### ✅ La bonne réponse : A
 
-Ibrahima perd une vente **aujourd'hui**, mais il gagne la **confiance**. Quand le prospect aura son téléphone, c'est à lui qu'il pensera, et il en parlera autour de lui.
+Ibrahima perd une vente **aujourd'hui**, mais il gagne la **confiance**. Quand le client aura son téléphone, c'est à lui qu'il pensera, et il en parlera autour de lui.
 
-**❌ Pourquoi pas B ou C ?** Le prospect va payer, échouer, se sentir arnaqué… et le dire partout. Se taire en sachant que le produit ne convient pas, c'est mentir par silence.
+**❌ Pourquoi pas B ou C ?** Le client va payer, échouer, se sentir arnaqué… et le dire partout. Se taire en sachant que le produit ne convient pas, c'est mentir par silence.
 
 **👉 La bonne action :** **perdre une vente honnêtement, c'est gagner un client pour plus tard.**
 </div>
@@ -163,12 +163,12 @@ Le client n'a pas l'impression qu'on lui vend quelque chose : il a l'impression 
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Découverte** | Le moment où tu poses des questions pour comprendre le client. | Phase de découverte des besoins. |
-| **Besoin** | Ce que le client cherche vraiment, ou le problème qu'il veut régler. | Besoin explicite ou implicite du prospect. |
-| **Qualifier** | Vérifier que ton produit convient vraiment au client. | Qualification du prospect (besoin, budget, décision). |
-| **SPIN** | Une méthode de questions en 4 temps, de Neil Rackham. | *Situation, Problem, Implication, Need-payoff*. |
+| Mot | En simple |
+|---|---|
+| **Découverte** | Le moment où tu poses des questions pour comprendre le client. |
+| **Besoin** | Ce que le client cherche vraiment, ou le problème qu'il veut régler. |
+| **Qualifier** | Vérifier que ton produit convient vraiment au client. |
+| **SPIN** | Une méthode de questions en 4 temps, de Neil Rackham. |
 </div>
 
 <div class="check" markdown="1">

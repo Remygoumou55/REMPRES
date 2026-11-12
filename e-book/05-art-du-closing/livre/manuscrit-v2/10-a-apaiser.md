@@ -13,15 +13,15 @@ La cliente a peur que la robe jaune déteigne : elle a déjà acheté une robe q
 </div>
 
 <div class="scene" markdown="1">
-### 🎬 Exemple 2 — Ibrahima oublie ce que le prospect a dit
+### 🎬 Exemple 2 — Ibrahima oublie ce que le client a dit
 
-Au début, le prospect a écrit : « Je perds au moins trois clients par semaine parce que je ne sais pas leur répondre. » Dix minutes plus tard : « 15 000 F, c'est trop cher pour moi. » Ibrahima répond : « Ce n'est pas cher, il y a 12 modules et 4 bonus. » *(Le prospect ne répond plus.)*
+Au début, le client a écrit : « Je perds au moins trois clients par semaine parce que je ne sais pas leur répondre. » Dix minutes plus tard : « 15 000 F, c'est trop cher pour moi. » Ibrahima répond : « Ce n'est pas cher, il y a 12 modules et 4 bonus. » *(Le client ne répond plus.)*
 </div>
 
 <div class="remarque" markdown="1">
 ### 👀 Tu as remarqué ?
 
-Le vendeur sait **ce qui fait peur** au client. Mais pour rassurer, il a choisi les **mauvais outils** : **jurer** (c'est sa parole, et le client s'en méfie) et **défendre son prix** avec ses propres arguments, au lieu de rappeler ce que le prospect avait dit lui-même. D'autres vendeurs font pire : ils **baissent leur prix** tout de suite (le client apprend à toujours demander moins) ou ils **s'énervent** (le client perd la face).
+Le vendeur sait **ce qui fait peur** au client. Mais pour rassurer, il a choisi les **mauvais outils** : **jurer** (c'est sa parole, et le client s'en méfie) et **défendre son prix** avec ses propres arguments, au lieu de rappeler ce que le client avait dit lui-même. D'autres vendeurs font pire : ils **baissent leur prix** tout de suite (le client apprend à toujours demander moins) ou ils **s'énervent** (le client perd la face).
 </div>
 
 <figure class="ill"><img src="../illustrations/ill-06-montrer.jpg" alt="Fanta lave le tissu avec la cliente"></figure>
@@ -103,7 +103,7 @@ Tu as dit la peur **avant** lui : elle perd sa force.
 
 | Preuve faible (facile à fabriquer) | Preuve forte (vérifiable) |
 |---|---|
-| Vingt captures d'écran de « clients contents » | **Un vrai client** que le prospect peut appeler |
+| Vingt captures d'écran de « clients contents » | **Un vrai client** que le client peut appeler |
 | « Je te jure que ça ne déteint pas » | **Laver un bout de tissu devant la cliente**, ou montrer une robe déjà lavée dix fois |
 | Une photo trouvée sur internet | **Une vidéo filmée aujourd'hui**, avec ta main et ta voix |
 | « On livre partout sans problème » | **Le paiement à la réception**, et l'ouverture du colis avant de payer |
@@ -118,7 +118,7 @@ Tu as dit la peur **avant** lui : elle perd sa force.
 
 ## 5. Les histoires vraies
 
-Un argument ressemble à un argument de vendeur. Une histoire, non. Quand un prospect dit « Je ne suis pas fort avec le téléphone », Ibrahima ne répond pas « Mais si, vous allez y arriver ! ». Il raconte :
+Un argument ressemble à un argument de vendeur. Une histoire, non. Quand un client dit « Je ne suis pas fort avec le téléphone », Ibrahima ne répond pas « Mais si, vous allez y arriver ! ». Il raconte :
 
 > « Une de mes premières élèves m'a dit exactement la même chose. Elle vendait des pagnes et n'avait jamais utilisé WhatsApp Business. Les deux premières semaines, elle m'appelait tous les deux jours. Aujourd'hui, c'est elle qui explique à ses copines comment faire leur catalogue. »
 
@@ -175,10 +175,10 @@ Pour la peur que tes clients te disent le plus souvent, écris : ses paroles que
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Cohérence** | On n'aime pas se contredire. | Engagement et cohérence (Cialdini). |
-| **Étiquetage** | Mettre un mot sur ce que l'autre ressent : « On dirait que… ». | *Labeling* (Chris Voss). |
+| Mot | En simple |
+|---|---|
+| **Cohérence** | On n'aime pas se contredire. |
+| **Étiquetage** | Mettre un mot sur ce que l'autre ressent : « On dirait que… ». |
 </div>
 
 <div class="check" markdown="1">

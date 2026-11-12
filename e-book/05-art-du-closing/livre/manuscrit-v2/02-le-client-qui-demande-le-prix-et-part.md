@@ -74,7 +74,7 @@ Tu donnes le prix, puis tu enchaînes **tout de suite** avec **une question faci
 
 **Pourquoi ça marche ?** Une question appelle une réponse. Le client pense à **son** besoin plutôt qu'à ton chiffre. Et sa réponse t'apprend quelque chose : « C'est pour un mariage » → il veut du beau. « Pour tous les jours » → il veut du solide.
 
-**Une bonne question est facile** (on répond en 2 secondes), **sur le client** (son occasion, sa taille, son usage) et **sans piège** (pas de « Tu le prends alors ? » tout de suite).
+**Une bonne question est facile** (on répond en 2 secondes), **sur le client** (son occasion, sa taille, à quoi il va servir) et **sans piège** (pas de « Tu le prends alors ? » tout de suite).
 
 <div class="attention" markdown="1">
 ### 📱 En ligne : PRIX + PREUVE + QUESTION
@@ -191,12 +191,12 @@ Au bout d'une semaine, des choses reviennent : « On me demande souvent des lots
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Prix « tout nu »** | Un chiffre donné seul, sans rien autour. | Annonce de prix sans valeur ni relance. |
-| **Fenêtre** | Les quelques secondes où le client décide de rester ou de partir. | Moment critique d'engagement après la demande de prix. |
-| **Relance** | Recontacter un client qui n'a pas encore décidé. | *Follow-up* : suivi commercial d'un prospect. |
-| **Racoleur** | Un vendeur qui retient ou attrape les clients. | Sollicitation commerciale insistante. |
+| Mot | En simple |
+|---|---|
+| **Prix « tout nu »** | Un chiffre donné seul, sans rien autour. |
+| **Fenêtre** | Les quelques secondes où le client décide de rester ou de partir. |
+| **Relance** | Recontacter un client qui n'a pas encore décidé. |
+| **Racoleur** | Un vendeur qui retient ou attrape les clients. |
 </div>
 
 <div class="check" markdown="1">

@@ -79,7 +79,7 @@ C'est le 24 du mois. Une cliente pose plein de questions à Amina sur un sac à 
 - En Afrique subsaharienne, seulement **35 adultes sur 100** environ épargnent dans une banque ou sur un compte mobile (Banque mondiale, 2025).
 - En Guinée, **75 adultes sur 100** ont emprunté dans l'année, mais seulement **11 sur 100** auprès d'une banque. Les autres empruntent à la famille, aux amis, à la tontine.
 
-L'argent arrive **par à-coups** : un bon jour puis trois jours sans rien, la paie et plus rien après le 10, les **fêtes**, la **rentrée** ou un **deuil** qui vident les poches.
+L'argent n'arrive **pas tous les jours** : un bon jour puis trois jours sans rien, la paie et plus rien après le 10, les **fêtes**, la **rentrée** ou un **deuil** qui vident les poches.
 
 <div class="vrai" markdown="1">
 « On dirait que les gens n'ont pas d'argent. Cette année, beaucoup de personnes font des commandes mais ne peuvent pas honorer leur engagement, obligés qu'ils sont de recourir à des prêts. »
@@ -167,10 +167,10 @@ Le petit cadeau à la place de la baisse existe **partout en Afrique**. Au Niger
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Secteur informel** | Le travail sans contrat officiel et sans salaire fixe. | Activités économiques non enregistrées. |
-| **Décideur** | La personne qui a le dernier mot sur l'achat. | Personne détenant le pouvoir de décision d'achat. |
+| Mot | En simple |
+|---|---|
+| **Secteur informel** | Le travail sans contrat officiel et sans salaire fixe. |
+| **Décideur** | La personne qui a le dernier mot sur l'achat. |
 </div>
 
 <div class="check" markdown="1">

@@ -65,7 +65,7 @@ Une cliente dit à Fanta : « J'ai peur que la couleur passe au lavage. » Laque
 <div class="reponse" markdown="1">
 ### ✅ La bonne réponse : B
 
-**La même peur** (« déçue ailleurs »), **ce qui s'est passé** (trois lavages), **le résultat** (elle en a repris deux), et **une question** qui ramène vers l'achat. Courte, précise, crédible. À une condition : **qu'elle soit vraie**.
+**La même peur** (« déçue ailleurs »), **ce qui s'est passé** (trois lavages), **le résultat** (elle en a repris deux), et **une question** qui ramène vers l'achat. Courte, précise, facile à croire. À une condition : **qu'elle soit vraie**.
 
 **❌ Pourquoi pas A ?** C'est une affirmation. Tous les vendeurs disent ça.
 
@@ -99,12 +99,12 @@ Tu as déjà des histoires : tu ne les as jamais rangées. Cherche dans **tes an
 | **3. APRÈS** | Le **résultat**. | « Elle a reçu sa taille exacte. Depuis, elle a commandé deux autres paires. » |
 | **4. ET TOI ?** | **Une question** qui ramène vers le client. | « On fait pareil ? Mesure ton pied et envoie-moi la photo. » |
 
-Le détail concret rend l'histoire **crédible** : « une vidéo de la semelle avec un mètre » est plus fort que « j'ai fait attention ».
+Le détail concret rend l'histoire **facile à croire** : « une vidéo de la semelle avec un mètre » est plus fort que « j'ai fait attention ».
 
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer
 
-Un prospect écrit à Ibrahima : « Je ne suis pas fort avec le téléphone, je n'y arriverai pas. » Ibrahima a deux histoires vraies. Laquelle doit-il raconter ?
+Un client écrit à Ibrahima : « Je ne suis pas fort avec le téléphone, je n'y arriverai pas. » Ibrahima a deux histoires vraies. Laquelle doit-il raconter ?
 
 - **A.** Celle d'un élève qui a doublé ses ventes en un mois grâce à la formation.
 - **B.** Celle d'une élève de 52 ans qui n'avait jamais envoyé un vocal, qui a suivi les vidéos une par une avec l'aide de sa nièce, et qui a mis en ligne son premier catalogue au bout de trois semaines.
@@ -167,10 +167,10 @@ Une page de ton cahier, ou une note sur ton téléphone :
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Boîte à histoires** | Ta liste d'histoires vraies, une par peur fréquente. | Banque de récits clients liés aux objections. |
-| **Détail concret** | Un petit fait précis qui rend l'histoire crédible. | Élément de preuve dans un récit. |
+| Mot | En simple |
+|---|---|
+| **Boîte à histoires** | Ta liste d'histoires vraies, une par peur fréquente. |
+| **Détail concret** | Un petit fait précis qui rend l'histoire facile à croire. |
 </div>
 
 <div class="check" markdown="1">

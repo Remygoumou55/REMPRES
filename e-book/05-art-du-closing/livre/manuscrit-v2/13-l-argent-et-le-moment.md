@@ -25,7 +25,7 @@ Le client **ne ment pas**. Il n'a simplement **pas l'argent au bon moment**. Et 
 
 ## 1. D'abord : vrai mur ou rideau ?
 
-Tu l'as vu au chapitre 3 : pour beaucoup de clients, l'argent arrive **par à-coups**. Souvent, « je n'ai pas l'argent » est **la vérité**. Mais parfois, c'est une façon polie de dire « ça ne me plaît pas assez ». Le formateur américain Brian Tracy conseille une question simple, à dire avec douceur :
+Tu l'as vu au chapitre 3 : pour beaucoup de clients, l'argent n'arrive **pas tous les jours**. Souvent, « je n'ai pas l'argent » est **la vérité**. Mais parfois, c'est une façon polie de dire « ça ne me plaît pas assez ». Le formateur américain Brian Tracy conseille une question simple, à dire avec douceur :
 
 > **« Si tu avais l'argent aujourd'hui, tu le prendrais ? »**
 
@@ -135,12 +135,12 @@ Le jour J, un message **court et utile**, pas un « alors ? » : « Bonjour ! Co
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Acompte** | Une partie du prix payée d'avance pour réserver. | Paiement partiel qui engage l'acheteur. |
-| **Paiement échelonné** | Payer en plusieurs fois, à des dates fixées. | Paiement fractionné selon un échéancier. |
-| **Prix plancher** | Le prix en dessous duquel tu perds de l'argent. | Seuil de rentabilité unitaire. |
-| **Tontine** | Un groupe où chacun cotise et reçoit la cagnotte à son tour. | Association rotative d'épargne et de crédit. |
+| Mot | En simple |
+|---|---|
+| **Acompte** | Une partie du prix payée d'avance pour réserver. |
+| **Paiement échelonné** | Payer en plusieurs fois, à des dates fixées. |
+| **Prix plancher** | Le prix en dessous duquel tu perds de l'argent. |
+| **Tontine** | Un groupe où chacun cotise et reçoit la cagnotte à son tour. |
 </div>
 
 <div class="check" markdown="1">

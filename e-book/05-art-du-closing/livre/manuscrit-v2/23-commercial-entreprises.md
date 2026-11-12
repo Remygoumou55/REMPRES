@@ -149,12 +149,12 @@ Un service (formation, réparation, nettoyage, comptabilité, sécurité, transp
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Devis** | Le document qui donne le prix détaillé avant la commande. | Proposition commerciale chiffrée. |
-| **Ambassadeur** | Ton contact qui défend ton offre quand tu n'es pas là. | *Champion* (vente complexe). |
-| **Bon de commande** | Le papier signé qui confirme l'achat. | Ordre d'achat. |
-| **Paiement à 30 jours** | Le client paie un mois après la facture. | Délai de paiement. |
+| Mot | En simple |
+|---|---|
+| **Devis** | Le document qui donne le prix détaillé avant la commande. |
+| **Ambassadeur** | Ton contact qui défend ton offre quand tu n'es pas là. |
+| **Bon de commande** | Le papier signé qui confirme l'achat. |
+| **Paiement à 30 jours** | Le client paie un mois après la facture. |
 </div>
 
 <div class="check" markdown="1">

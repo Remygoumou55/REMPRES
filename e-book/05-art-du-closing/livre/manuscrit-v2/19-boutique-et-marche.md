@@ -72,7 +72,7 @@ Au marché, discuter le prix est souvent une **conversation**, presque un jeu so
 1. **Connais ton prix plancher** (ce que tu as payé + transport + ta part de loyer et de taxes). Écris-le pour chaque modèle. Tu ne descends **jamais** en dessous.
 2. **Le même prix de base pour tous.**
 3. **Échange, ne donne pas** : « D'accord pour 14 000, si tu prends aujourd'hui. » « Pour deux robes, je fais 27 000. »
-4. **Préfère le cadeau à la baisse** : un foulard, un ourlet gratuit. Et souviens-toi des techniques des vendeurs africains du chapitre 10 : le silence calme, « ajoute un peu et je fais de toi ma cliente », la remise justifiée par la fidélité.
+4. **Préfère le cadeau à la baisse** : un foulard, un ourlet gratuit. Et souviens-toi des techniques des vendeurs africains du chapitre 10 : le silence calme, « ajoute un peu et je fais de toi ma cliente », la remise qui s'explique par la fidélité.
 
 ⚠️ **« Tu es mon premier client »**, seulement si c'est vrai. C'est une belle tradition pour la première vente de la journée. Mais si tu le dis à trois clientes qui se parlent, ta parole ne vaut plus rien.
 
@@ -157,11 +157,11 @@ Et si un fidèle demande à payer plus tard : chapitre 17.
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Étal** | La table où tu montres ta marchandise au marché. | Point de vente, présentoir. |
-| **Accompagnateur** | La personne qui vient avec le client et donne son avis. | Prescripteur de la décision d'achat. |
-| **Fidéliser** | Faire en sorte que le client revienne. | Rétention de la clientèle. |
+| Mot | En simple |
+|---|---|
+| **Étal** | La table où tu montres ta marchandise au marché. |
+| **Accompagnateur** | La personne qui vient avec le client et donne son avis. |
+| **Fidéliser** | Faire en sorte que le client revienne. |
 </div>
 
 <div class="check" markdown="1">

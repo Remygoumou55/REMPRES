@@ -13,7 +13,7 @@ Une cliente hésite depuis deux jours sur WhatsApp pour une paire de chaussures 
 <div class="scene" markdown="1">
 ### 🎬 Exemple 2 — Ibrahima et le silence qui fait peur
 
-Au téléphone, un prospect dit : « Hum… c'est un peu cher. » Ibrahima panique. Il parle, il explique tout, il baisse son prix sans qu'on le lui demande. À la fin, le prospect dit : « Je vais réfléchir. »
+Au téléphone, un client dit : « Hum… c'est un peu cher. » Ibrahima panique. Il parle, il explique tout, il baisse son prix sans qu'on le lui demande. À la fin, le client dit : « Je vais réfléchir. »
 </div>
 
 <div class="remarque" markdown="1">
@@ -78,7 +78,7 @@ Amina **ne présente pas son produit** au début : elle commence par **le client
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer
 
-Au téléphone, un prospect dit à Ibrahima : « C'est intéressant, mais 15 000, c'est beaucoup pour moi en ce moment. » **Que fait Ibrahima ?**
+Au téléphone, un client dit à Ibrahima : « C'est intéressant, mais 15 000, c'est beaucoup pour moi en ce moment. » **Que fait Ibrahima ?**
 
 - **A.** Une petite pause, puis : « Je comprends. Quand vous dites "en ce moment", c'est que l'argent arrive bientôt, ou que c'est le prix lui-même qui vous paraît trop haut ? »
 - **B.** Il répond aussitôt : « Je peux vous le faire à 10 000 si vous payez aujourd'hui ! »
@@ -92,7 +92,7 @@ Ibrahima **ne panique pas**. Sa question sépare **le rideau du mur** : un probl
 
 **❌ Pourquoi pas B ?** Il baisse son prix d'un tiers **sans savoir** si c'était le problème, et invente une urgence.
 
-**❌ Pourquoi pas C ?** Un long monologue, alors que le prospect a parlé d'argent, pas d'informations.
+**❌ Pourquoi pas C ?** Un long monologue, alors que le client a parlé d'argent, pas d'informations.
 
 **👉 La bonne action :** après chaque objection, compte « un, deux » dans ta tête, puis pose **une** question.
 </div>
@@ -138,11 +138,11 @@ Et juste après, **un message qui confirme** : « Merci pour l'appel, Madame Bah
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Appel à froid** | Appeler quelqu'un qui ne t'a jamais contacté. | Prospection téléphonique, *cold call*. |
-| **Appel de découverte** | Un appel pour comprendre le besoin, avant de vendre. | *Discovery call*. |
-| **Prochaine étape** | Ce qui est prévu après l'appel, avec une date. | *Next step*. |
+| Mot | En simple |
+|---|---|
+| **Appel à froid** | Appeler quelqu'un qui ne t'a jamais contacté. |
+| **Appel de découverte** | Un appel pour comprendre le besoin, avant de vendre. |
+| **Prochaine étape** | Ce qui est prévu après l'appel, avec une date. |
 </div>
 
 <div class="check" markdown="1">

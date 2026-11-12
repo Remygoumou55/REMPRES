@@ -7,9 +7,9 @@
 <div class="scene" markdown="1">
 ### 🎬 Exemple 1 — Ibrahima, en ligne
 
-**Prospect :** C'est très intéressant. Je vais réfléchir et je vous reviens.
+**Client :** C'est très intéressant. Je vais réfléchir et je vous reviens.
 **Ibrahima :** Pas de souci, prenez votre temps 🙏
-*(Le prospect ne revient pas.)*
+*(Le client ne revient pas.)*
 </div>
 
 <div class="scene" markdown="1">
@@ -60,13 +60,13 @@ Elle **ne parle pas de l'objection**. Le client a dit « je vais réfléchir »,
 
 Bastien Pelissier dit l'avoir reprise de l'Américain **Jordan Belfort**, « le Loup de Wall Street ». Il faut savoir qui est cet homme. Dans les années 1990, son entreprise a **trompé plus d'un millier d'investisseurs** avec des actions qui ne valaient rien. Il a plaidé coupable de **fraude boursière** et de **blanchiment**, et il a été condamné en 2003 à **42 mois de prison**.
 
-Dans son livre *Way of the Wolf* (en français *Vendre. Les secrets de ma méthode*), il présente les objections comme des **« écrans de fumée »** qui cachent un manque de certitude, et il conseille de demander : « Est-ce que l'idée vous plaît ? » Chez lui, la question sert à **relancer la vente**. Ici, on s'en sert pour **comprendre** le client, et si sa peur est fondée, pour **ne pas lui vendre**. **La même technique peut servir à aider ou à tromper.** Toi, tu l'utiliseras pour aider.
+Dans son livre *Way of the Wolf* (en français *Vendre. Les secrets de ma méthode*), il présente les objections comme des **« écrans de fumée »** qui cachent un manque de certitude, et il conseille de demander : « Est-ce que l'idée vous plaît ? » Chez lui, la question sert à **relancer la vente**. Ici, on s'en sert pour **comprendre** le client, et si sa peur est vraie, pour **ne pas lui vendre**. **La même technique peut servir à aider ou à tromper.** Toi, tu l'utiliseras pour aider.
 </div>
 
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer
 
-Le prospect d'Ibrahima écrit : « Je vais réfléchir et je vous reviens. » **Quelle réponse choisis-tu ?**
+Le client d'Ibrahima écrit : « Je vais réfléchir et je vous reviens. » **Quelle réponse choisis-tu ?**
 
 - **A.** « Pas de souci, prenez votre temps 🙏 »
 - **B.** « Ne réfléchissez pas trop ! Le prix augmente bientôt ! »
@@ -104,7 +104,7 @@ Pelissier, après Belfort, compare la vente à **une ligne droite**, du premier 
 
 Parfois, le client garde son rideau et donne **une autre excuse**. Pelissier raconte l'exemple d'une cliente à qui on présente des produits de beauté :
 
-1. « Je reviens vers vous. » → « Avec plaisir. Mais concrètement, que pensez-vous des produits ? » *(boucle 1)*
+1. « Je reviens vers vous. » → « Avec plaisir. Mais en vrai, que pensez-vous des produits ? » *(boucle 1)*
 2. « Ils m'intéressent, je vais réfléchir. » → « Y a-t-il une information que vous espériez ? » *(boucle 2)*
 3. « Non… J'ai besoin de comparer. » → « Vous avez raison. Qu'espérez-vous trouver chez les autres ? » *(boucle 3)*
 4. « En fait… j'ai la peau compliquée. Je dois être sûre que vos produits me conviennent. »
@@ -181,12 +181,12 @@ Une raison **précise et vérifiable** : c'est un **mur d'argent**. Sékou cherc
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Démasquer** | Découvrir la vraie raison cachée derrière ce que dit le client. | Clarifier l'objection (faire émerger l'objection réelle). |
-| **Boucle** | Une question douce qui ramène le client dans la conversation. | *Looping* : retour à la ligne de vente après une objection. |
-| **Ligne droite** | L'image de la vente, du premier bonjour (A) au paiement (B). | *Straight Line* (Jordan Belfort). |
-| **Fraude boursière** | Tromper des gens pour qu'ils achètent des actions qui ne valent rien. | Manipulation frauduleuse de titres financiers. |
+| Mot | En simple |
+|---|---|
+| **Démasquer** | Découvrir la vraie raison cachée derrière ce que dit le client. |
+| **Boucle** | Une question douce qui ramène le client dans la conversation. |
+| **Ligne droite** | L'image de la vente, du premier bonjour (A) au paiement (B). |
+| **Fraude boursière** | Tromper des gens pour qu'ils achètent des actions qui ne valent rien. |
 </div>
 
 <div class="check" markdown="1">

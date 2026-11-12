@@ -117,7 +117,7 @@ Pelissier parle de trouver **« l'épiphanie de la crainte »** : le moment pré
 
 Sékou n'a rien juré. Il a **écouté**, trouvé **la source** (une expérience précise) et proposé une réponse **qui correspond exactement** à cette peur.
 
-## 6. La peur est-elle fondée ?
+## 6. La peur est-elle vraie ?
 
 Une fois la source trouvée, demande-toi honnêtement : **le client a-t-il raison d'avoir peur ?**
 
@@ -152,12 +152,12 @@ Un proche te raconte sa journée, un problème au travail, un achat raté. Tu as
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Écoute active** | Écouter pour comprendre, et montrer qu'on a compris. | Technique de communication (Rogers et Farson, 1957) : attention, reformulation. |
-| **Effet miroir** | Répéter les derniers mots du client sur un ton de question. | *Mirroring* (Chris Voss). |
-| **Peur fondée** | Une peur qui correspond à un vrai risque. | Objection légitime, justifiée par les faits. |
-| **Source de la peur** | L'événement ou l'histoire qui a fait naître la peur. | Origine de l'objection (vécue, rapportée, réputation, contrainte). |
+| Mot | En simple |
+|---|---|
+| **Écoute active** | Écouter pour comprendre, et montrer qu'on a compris. |
+| **Effet miroir** | Répéter les derniers mots du client sur un ton de question. |
+| **Peur fondée** | Une peur qui correspond à un vrai risque. |
+| **Source de la peur** | L'événement ou l'histoire qui a fait naître la peur. |
 </div>
 
 <div class="check" markdown="1">
@@ -166,7 +166,7 @@ Un proche te raconte sa journée, un problème au travail, un achat raté. Tu as
 - ☐ Quand le client dit sa peur, je ne fonce pas : je reconnais d'abord ce qu'il ressent.
 - ☐ Je demande « Qu'est-ce qui vous fait penser ça ? », j'utilise l'effet miroir, et je me tais.
 - ☐ Je laisse le client raconter son histoire jusqu'au bout.
-- ☐ Je cherche la source de sa peur, puis je décide honnêtement si elle est fondée.
+- ☐ Je cherche la source de sa peur, puis je décide honnêtement si elle est vraie.
 - ☐ Si mon produit ne lui convient pas, je le lui dis.
 
 ⚠️ **L'erreur à éviter :** utiliser le moment du thé comme une ruse, pour trouver le point faible du client. Il finit toujours par le sentir. **Écoute sincèrement, ou n'écoute pas du tout.**

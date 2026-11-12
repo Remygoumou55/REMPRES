@@ -44,7 +44,7 @@ Toutes les techniques de ce livre sont **puissantes**. Et ce qui fonctionne peut
 
 ## 2. Un bon closer refuse parfois de vendre
 
-**Si le produit ne convient pas au client, tu ne le vends pas.** Bastien Pelissier le dit clairement : quand on cherche d'où vient la peur du client, le but est aussi de savoir **si elle est fondée**. Si elle l'est, il **refuse** de vendre. Par éthique, et parce qu'un client mécontent coûte cher : du temps, des réclamations, une mauvaise réputation. Le vrai closer dit :
+**Si le produit ne convient pas au client, tu ne le vends pas.** Bastien Pelissier le dit clairement : quand on cherche d'où vient la peur du client, le but est aussi de savoir **si elle est vraie**. Si elle l'est, il **refuse** de vendre. Par éthique, et parce qu'un client mécontent coûte cher : du temps, des réclamations, une mauvaise réputation. Le vrai closer dit :
 
 > « Honnêtement, ce modèle n'est pas fait pour ce que tu veux en faire. Je préfère te le dire maintenant. Voilà ce que je te conseille à la place. »
 
@@ -83,7 +83,7 @@ Le prix est **le même pour tout le monde**. Fanta peut discuter sur la quantit�
 <div class="attention" markdown="1">
 ### ⚖️ À lire avant le tableau
 
-Ce tableau n'est **pas un conseil juridique**. Il résume des textes publics, vérifiés dans des sources officielles ou dans la presse. Les lois changent : en cas de doute, renseigne-toi auprès des services du commerce de ton pays. Et attention : **il n'existe pas d'acte uniforme OHADA sur la consommation**. Tout dépend des lois de chaque pays.
+Ce tableau n'est **pas un conseil juridique**. Il résume des textes publics, vérifiés dans des sources officielles ou dans la presse. Les lois changent : en cas de doute, demande aux services du commerce de ton pays. Et attention : **il n'existe pas d'acte uniforme OHADA sur la consommation**. Tout dépend des lois de chaque pays.
 </div>
 
 | Pays ou espace | Le texte | En résumé (le texte officiel fait foi) |
@@ -92,7 +92,7 @@ Ce tableau n'est **pas un conseil juridique**. Il résume des textes publics, v�
 | **Kenya** | Loi sur la concurrence de 2010 ; l'autorité de la concurrence (CAK) | Les fausses informations sur le prix sont punies. L'autorité cite nommément la **fausse urgence** parmi les pratiques trompeuses du commerce en ligne. |
 | **Afrique du Sud** | Loi sur la protection du consommateur de 2008 (Consumer Protection Act) | Interdit d'annoncer un prix d'appel sans avoir de stock raisonnable, les fausses informations sur la disponibilité ou sur les avantages de prix, et **la pression ou la contrainte** sur le client. |
 | **Pays de l'UEMOA** | Directive n° 01/2023/CM/UEMOA du 16 juin 2023 | Un cadre commun aux huit pays de l'Union, que chaque État doit appliquer avec ses propres lois et sanctions. |
-| **Guinée** | Loi de 1994 sur la protection des consommateurs ; loi sur la publicité adoptée en janvier 2024 (selon la presse) | Selon la presse, la publicité **mensongère ou trompeuse** peut être sanctionnée. Le texte complet n'a pas pu être consulté : renseigne-toi auprès des services du commerce. |
+| **Guinée** | Loi de 1994 sur la protection des consommateurs ; loi sur la publicité adoptée en janvier 2024 (selon la presse) | Selon la presse, la publicité **mensongère ou trompeuse** peut être sanctionnée. Le texte complet n'a pas pu être consulté : demande aux services du commerce. |
 | **Cameroun** | Loi-cadre n° 2011/012 du 6 mai 2011 | Interdit la **publicité trompeuse** comme pratique déloyale. |
 | **Nigeria** | Loi de 2018 sur la concurrence et la protection du consommateur (FCCPA), article 115 | Oblige à **afficher le prix** des biens exposés ou annoncés. |
 | **Sénégal, Mali** | Loi n° 2021-25 (Sénégal) ; loi n° 2015-036 (Mali) | Des lois de protection du consommateur existent, avec des sanctions. |
@@ -169,11 +169,11 @@ Tu as vu au chapitre 8 que la technique de la « boucle » vient de **Jordan Bel
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Manipuler** | Pousser quelqu'un à agir contre son intérêt, par le mensonge ou la pression. | Influence déloyale. |
-| **Pratique trompeuse** | Faire croire quelque chose de faux pour vendre. | Pratique commerciale déloyale par action ou omission trompeuse. |
-| **Pratique agressive** | Mettre trop de pression sur le client. | Pratique déloyale par harcèlement, contrainte ou influence injustifiée. |
+| Mot | En simple |
+|---|---|
+| **Manipuler** | Pousser quelqu'un à agir contre son intérêt, par le mensonge ou la pression. |
+| **Pratique trompeuse** | Faire croire quelque chose de faux pour vendre. |
+| **Pratique agressive** | Mettre trop de pression sur le client. |
 </div>
 
 <div class="check" markdown="1">

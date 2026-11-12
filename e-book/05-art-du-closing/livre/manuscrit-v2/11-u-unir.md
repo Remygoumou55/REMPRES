@@ -13,9 +13,9 @@ La cliente se regarde dans le miroir avec la robe verte. Elle sourit : ses doute
 <div class="scene" markdown="1">
 ### 🎬 Exemple 2 — Ibrahima envoie un lien… et c'est tout
 
-**Prospect :** D'accord, je veux m'inscrire.
+**Client :** D'accord, je veux m'inscrire.
 Ibrahima envoie le lien de paiement, sans un mot de plus.
-*(Le prospect tombe sur une page qu'il ne comprend pas, son code mobile money ne passe pas… et il abandonne.)*
+*(Le client tombe sur une page qu'il ne comprend pas, son code mobile money ne passe pas… et il abandonne.)*
 </div>
 
 <div class="remarque" markdown="1">
@@ -77,7 +77,7 @@ Pendant un direct sur TikTok, une cliente écrit : « Regarde celui-là, il est 
 <span class="src">— une vendeuse en direct sur TikTok, Afrique de l'Ouest</span>
 </div>
 
-**Quand quelqu'un d'autre décide** (le directeur de la cliente de Koffi, par exemple), ne contourne pas ton contact et ne mets pas de fausse urgence. Aide-le à présenter l'offre et propose un petit pas daté : « Je vous prépare une note d'une page avec les trois points qui vous ont intéressée. Je peux passer 10 minutes avec vous deux mardi ou mercredi ? »
+**Quand quelqu'un d'autre décide** (le directeur de la cliente de Koffi, par exemple), ne passe pas par-dessus ton contact et ne mets pas de fausse urgence. Aide-le à présenter l'offre et propose un petit pas daté : « Je vous prépare une note d'une page avec les trois points qui vous ont intéressée. Je peux passer 10 minutes avec vous deux mardi ou mercredi ? »
 
 ## 4. Rendre le paiement facile
 
@@ -94,9 +94,9 @@ Le moment du paiement est **fragile** : la moindre difficulté devient une excus
 <div class="scene" markdown="1">
 ### 🎬 Ibrahima rejoue la fin
 
-**Prospect :** D'accord, je veux m'inscrire.
+**Client :** D'accord, je veux m'inscrire.
 **Ibrahima :** Super ! Le total est de 15 000 F, une seule fois. Vous préférez payer par Orange Money ou par Wave ?
-**Prospect :** Orange Money.
+**Client :** Orange Money.
 **Ibrahima :** Je vous envoie le lien. Si quelque chose bloque, envoyez-moi une capture, je vous aide. Dès que c'est payé, vous recevez votre accès dans les 5 minutes.
 *(Dix minutes plus tard, la capture du paiement arrive. Ibrahima envoie l'accès et un message de bienvenue.)*
 </div>
@@ -130,7 +130,7 @@ Si le client n'est **pas** content, ne te cache pas : reconnais, excuse-toi, ré
 
 Personne ne vend à tous les clients. Ce qui compte, c'est **comment tu acceptes le non** : **remercie** (« Merci de m'avoir dit franchement »), **demande pourquoi une seule fois** (« Pour que je m'améliore : qu'est-ce qui n'a pas marché ? »), et **laisse la porte ouverte**.
 
-Pour le prospect qui ne répond plus depuis longtemps, Chris Voss conseille une question dont la réponse naturelle est « non » : **« Bonjour ! Est-ce que vous avez abandonné l'idée de la formation ? »** Beaucoup répondent : « Non, non, c'est juste que… », et la conversation reprend.
+Pour le client qui ne répond plus depuis longtemps, Chris Voss conseille une question dont la réponse naturelle est « non » : **« Bonjour ! Est-ce que vous avez abandonné l'idée de la formation ? »** Beaucoup répondent : « Non, non, c'est juste que… », et la conversation reprend.
 
 <div class="vrai" markdown="1">
 « Ça ne me dérange pas qu'on me laisse sans réponse ; moi aussi je le fais. La clé, c'est de relancer jusqu'à obtenir un "non" net. La plupart du temps j'obtiens un oui ; et quand c'est non, je propose autre chose. »
@@ -161,12 +161,12 @@ Pour le prospect qui ne répond plus depuis longtemps, Chris Voss conseille une 
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Conclure** | Aider le client à faire le dernier pas vers l'achat. | *Closing* : obtenir l'engagement du client. |
-| **Choix entre deux** | Deux options qui avancent toutes les deux. | *Alternative close*. |
-| **Petit pas** | Un engagement plus petit que l'achat, mais qui fait avancer. | *Advance* (Neil Rackham). |
-| **Recommandation** | Quand un client content parle de toi à ses proches. | Parrainage, *referral*. |
+| Mot | En simple |
+|---|---|
+| **Conclure** | Aider le client à faire le dernier pas vers l'achat. |
+| **Choix entre deux** | Deux options qui avancent toutes les deux. |
+| **Petit pas** | Un engagement plus petit que l'achat, mais qui fait avancer. |
+| **Recommandation** | Quand un client content parle de toi à ses proches. |
 </div>
 
 <div class="check" markdown="1">
@@ -190,7 +190,7 @@ Garde-la sur ton téléphone, ou imprime-la et accroche-la dans ta boutique.
 | **R — Retenir** (ch. 6) | Accueil, PRIX + QUESTION, relation. | « Bonjour ! C'est 15 000. C'est pour une cérémonie ou pour tous les jours ? » | Le prix « tout nu », puis le silence. |
 | **I — Interroger** (ch. 7) | Besoin, problème, pour qui. Ton produit lui convient-il ? | « C'est pour qui ? Pour quelle occasion ? » | Présenter avant de connaître le client. |
 | **D — Démasquer** (ch. 8) | Tu lèves le rideau : rideau ou mur ? | « Dis-moi la vérité : ça te plaît vraiment ? » | Répondre à l'objection avant de connaître la vraie raison. |
-| **É — Écouter** (ch. 9) | Le moment du thé : d'où vient la peur, est-elle fondée ? | « Qu'est-ce qui vous fait penser ça ? Racontez-moi. » | Foncer pour rassurer. |
+| **É — Écouter** (ch. 9) | Le moment du thé : d'où vient la peur, est-elle vraie ? | « Qu'est-ce qui vous fait penser ça ? Racontez-moi. » | Foncer pour rassurer. |
 | **A — Apaiser** (ch. 10) | Ses paroles, une étiquette, des preuves, une histoire vraie, une porte, la valeur. | « On dirait que vous avez peur de… Vous m'avez dit que… » | Jurer, baisser ton prix, t'énerver. |
 | **U — Unir** (ch. 11) | Vérifier, proposer le dernier pas, faciliter le paiement, garder le client. | « Il reste quelque chose qui te fait hésiter, ou je te l'emballe ? » | « Vous me dites. » |
 

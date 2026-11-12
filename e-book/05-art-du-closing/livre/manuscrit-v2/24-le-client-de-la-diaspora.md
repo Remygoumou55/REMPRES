@@ -123,7 +123,7 @@ Pour lui, **chaque jour sans nouvelles est un jour d'angoisse**. Un homme d'affa
 <span class="src">— un commentaire sous une histoire de diaspora trahie, Afrique de l'Ouest anglophone (traduit de l'anglais)</span>
 </div>
 
-**Rendre des comptes** et **être sincère** : c'est exactement ce qu'il cherche chez un vendeur. Et quand Ibrahima répond à un prospect de l'étranger « Vous pouvez me faire confiance », il ne donne rien : un appel vidéo et un ancien élève joignable valent mieux que cette phrase.
+**Rendre des comptes** et **être sincère** : c'est exactement ce qu'il cherche chez un vendeur. Et quand Ibrahima répond à un client de l'étranger « Vous pouvez me faire confiance », il ne donne rien : un appel vidéo et un ancien élève qu'on peut appeler valent mieux que cette phrase.
 
 ## 5. Le « prix diaspora » : la pire erreur
 
@@ -195,12 +195,12 @@ Quand il trouve enfin un vendeur **fiable**, il ne le lâche plus : chaque fête
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Diaspora** | Les personnes originaires d'un pays qui vivent dans un autre. | Communauté expatriée. |
-| **Transfert d'argent** | L'argent envoyé depuis l'étranger vers le pays. | Envois de fonds (*remittances*). |
-| **Tiers de confiance** | Une personne ou structure neutre qui vérifie ou garde l'argent. | Tiers séquestre. |
-| **Prix diaspora** | Le prix plus cher fait à quelqu'un parce qu'il vit à l'étranger. | Discrimination tarifaire (à bannir). |
+| Mot | En simple |
+|---|---|
+| **Diaspora** | Les personnes originaires d'un pays qui vivent dans un autre. |
+| **Transfert d'argent** | L'argent envoyé depuis l'étranger vers le pays. |
+| **Tiers de confiance** | Une personne ou structure neutre qui vérifie ou garde l'argent. |
+| **Prix diaspora** | Le prix plus cher fait à quelqu'un parce qu'il vit à l'étranger. |
 </div>
 
 <div class="check" markdown="1">

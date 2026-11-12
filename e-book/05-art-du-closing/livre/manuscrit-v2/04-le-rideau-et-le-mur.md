@@ -59,7 +59,7 @@ Parfois, le rideau cache même **une stratégie**. Une mère de famille, elle-m�
 
 ## 3. Les murs : quand le client dit la vérité
 
-Au chapitre 3, tu as vu les vraies contraintes : l'argent qui arrive par à-coups, la décision en famille. Elles font des **murs** :
+Au chapitre 3, tu as vu les vraies contraintes : l'argent qui n'arrive pas tous les jours, la décision en famille. Elles font des **murs** :
 
 | Le mur | Exemple |
 |---|---|
@@ -93,7 +93,7 @@ Le client répond souvent : **« Oui, il me plaît, mais… »** Ce qui vient ap
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer : rideau ou mur ?
 
-1. « Je vais réfléchir. » Ibrahima pose la question. Le prospect : « La formation m'intéresse, mais je ne sais pas si ça marche dans mon pays. » R ☐ M ☐
+1. « Je vais réfléchir. » Ibrahima pose la question. Le client : « La formation m'intéresse, mais je ne sais pas si ça marche dans mon pays. » R ☐ M ☐
 2. « Je prends les baskets, mais je n'aurai l'argent que le 30. » On est le 12. R ☐ M ☐
 3. « Je dois en parler à mon directeur. » Koffi demande ce qu'elle en pense. La secrétaire : « Moi je trouve ça bien, mais c'est lui qui signe tous les achats. » R ☐ M ☐
 </div>
@@ -149,11 +149,11 @@ Un proche joue le client et te dit au hasard : « C'est cher », « Je vais réf
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple | En pro |
-|---|---|---|
-| **Objection-rideau** | Une excuse qui cache une autre raison. | Objection de surface (prétexte) qui masque l'objection réelle. |
-| **Objection-mur** | Un vrai problème qui empêche d'acheter maintenant. | Objection réelle et fondée (budget, décision, adéquation). |
-| **Porte** | Une autre solution quand il y a un vrai problème. | Alternative commerciale (échéancier, réservation, entrée de gamme). |
+| Mot | En simple |
+|---|---|
+| **Objection-rideau** | Une excuse qui cache une autre raison. |
+| **Objection-mur** | Un vrai problème qui empêche d'acheter maintenant. |
+| **Porte** | Une autre solution quand il y a un vrai problème. |
 </div>
 
 <div class="check" markdown="1">

@@ -86,6 +86,19 @@ figure.ill img {{ width: 100%; max-height: 120mm; object-fit: contain; border-ra
 .partpage .pt {{ color: {VERT}; font-size: 38pt; font-weight: bold; line-height: 1.1; margin: 10pt 0; }}
 .partpage .rule {{ width: 50mm; height: 2pt; background: {OR}; margin: 8pt 0 16pt; }}
 .partpage .pd {{ font-size: 16pt; font-style: italic; color: #4a4a4a; max-width: 140mm; }}
+.cv2 {{ position: relative; width: 210mm; height: 296mm; overflow: hidden; color: #fff; break-after: page; font-family: 'Liberation Sans', Arial, sans-serif; }}
+.cv2 .bg {{ position: absolute; inset: 0; width: 100%; height: 100%; }}
+.cv2 .top {{ position: absolute; top: 20mm; left: 18mm; right: 18mm; }}
+.cv2 .k {{ color: {OR}; letter-spacing: 5pt; font-size: 11pt; font-weight: bold; }}
+.cv2 .t {{ font-size: 60pt; font-weight: 900; line-height: 1.0; margin: 8pt 0 6pt; letter-spacing: -1pt; }}
+.cv2 .t span {{ color: #E9C46A; }}
+.cv2 .rule {{ width: 40mm; height: 2.5pt; background: {OR}; margin: 8pt 0 12pt; }}
+.cv2 .acc {{ font-size: 19pt; line-height: 1.25; font-weight: bold; color: #FAF6EC; max-width: 170mm; }}
+.cv2 .acc b {{ color: #E9C46A; }}
+.cv2 .bottom {{ position: absolute; bottom: 12mm; left: 18mm; right: 18mm; text-align: center; }}
+.cv2 .val {{ display: inline-flex; gap: 6pt; flex-wrap: wrap; justify-content: center; font-size: 11.5pt; font-weight: bold; }}
+.cv2 .val span {{ background: rgba(250,246,236,.95); color: {VERT}; padding: 4pt 10pt; border-radius: 20pt; }}
+.cv2 .pays {{ margin-top: 7pt; font-size: 10.5pt; color: #EADDBE; }}
 .cover {{ position: relative; height: 255mm; margin: 0; background: {VERT}; color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 0 22mm; break-after: page; }}
 .cover::before {{ content: ""; position: absolute; inset: 7mm; border: 1.2pt solid {OR}; }}
 .cover::after {{ content: ""; position: absolute; inset: 9.5mm; border: 0.5pt solid {OR}; }}
@@ -118,10 +131,12 @@ def md(text):
 def page(body, title):
     return f'<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><title>{H.escape(title)}</title><style>{CSS}</style></head><body>{body}</body></html>'
 
-COVER = """<div class="cover"><div class="k">COLLECTION PLAYBOOKS</div>
-<div class="t">L'Art<br>du Closing</div><div class="rule"></div>
-<div class="s">Lève le rideau : la méthode africaine pour transformer les « je vais réfléchir » en « oui »</div>
-<div class="v">VERSION DE TRAVAIL · NOVEMBRE 2026</div></div>"""
+COVER = """<section class="cv2"><img class="bg" src="../illustrations/cover-bg-a4.jpg" alt="">
+<div class="top"><div class="k">COLLECTION PLAYBOOKS</div>
+<div class="t">L'Art<br>du <span>Closing</span></div><div class="rule"></div>
+<div class="acc">« Lève le rideau : la méthode africaine pour transformer les <b>« je vais réfléchir »</b> en <b>« oui »</b>. »</div></div>
+<div class="bottom"><div class="val"><span>La méthode RIDEAU en 6 clés</span><span>Des exemples en BD</span><span>Un plan de 30 jours</span></div>
+<div class="pays">Au marché · sur WhatsApp · au téléphone · en entreprise · à la livraison · <b>partout en Afrique</b></div></div></section>"""
 
 files = sorted(glob.glob(os.path.join(SRC, "*.md")))
 PARTS = [(1, "Partie 1", "Comprendre", "Ce qu'est le closing, pourquoi les clients partent, ce qu'ils pensent vraiment, et les erreurs qu'on fait sans le savoir."),
@@ -151,7 +166,9 @@ for f in files:
 toc.append("</section>")
 jobs = []
 allp = os.path.join(DIST, "_all.html")
-open(allp, "w", encoding="utf-8").write(page(COVER + "".join(toc) + "".join(chapters), "L'Art du Closing"))
+open(allp, "w", encoding="utf-8").write(page("".join(toc) + "".join(chapters), "L'Art du Closing"))
+covp = os.path.join(DIST, "_cover.html")
+open(covp, "w", encoding="utf-8").write(page(COVER, "Couverture").replace("</style>", "@page { size: A4; margin: 0; } body { margin: 0; }</style>"))
 OUT = os.environ.get("OUT", "L-Art-du-Closing-livre-complet.pdf")
 jobs.append([allp, os.path.join(DIST, OUT)])
 
@@ -170,12 +187,19 @@ const { chromium } = require('playwright');
       headerTemplate: '<span></span>', footerTemplate: '%s',
       margin: { top: '20mm', bottom: '20mm', left: '19mm', right: '19mm' } });
   }
+  await p.goto('file://' + %s, { waitUntil: 'load' });
+  await p.pdf({ path: %s, format: 'A4', printBackground: true, margin: { top: 0, bottom: 0, left: 0, right: 0 } });
   await b.close();
 })();
-""" % (json.dumps(jobs), FOOT)
+""" % (json.dumps(jobs), FOOT, json.dumps(covp), json.dumps(os.path.join(DIST, "_cover.pdf")))
 jsp = os.path.join(DIST, "_render.js")
 open(jsp, "w").write(js)
 subprocess.run(["node", jsp], check=True, cwd=ROOT)
 for h, _ in jobs: os.remove(h)
+import pypdf
+cv = os.path.join(DIST, "_cover.pdf")
+for _, o in jobs:
+    w = pypdf.PdfWriter(); w.append(cv); w.append(o); w.write(o)
+os.remove(cv); os.remove(covp)
 os.remove(jsp)
 print("\n".join(o for _, o in jobs))

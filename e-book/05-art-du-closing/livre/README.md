@@ -4,6 +4,8 @@
 
 **11 nov. 2026 — ILLUSTRATIONS :** 13 prompts BD pour ChatGPT, plus une planche des personnages, dans `illustrations/PROMPTS-ILLUSTRATIONS-BD.md`. Le client crée les images et les dépose dans `illustrations/` (noms `ill-01-…png` à `ill-13-…png`). Ensuite, on les place dans le livre (environ 148 pages au total). **12 nov. :** les images sont en JPG dans `illustrations/`, placées avec `<figure class="ill">` dans le manuscrit. L'image de la partie 2 passe par `PART_IMG` dans `build-pdf-v2.py`. Suivi image par image : en bas du fichier des prompts.
 
+**12 nov. — COUVERTURE :** la couverture est en pleine page. Elle est rendue à part (`_cover.html`, marge 0), puis collée devant le livre avec pypdf. Le fond vient de `make-cover-bg.py` (vert + image fondue). Le texte (titre, accroche, étiquettes) est dans `COVER` de `build-pdf-v2.py`. L'image actuelle est provisoire (ill-01) : on la remplacera par `illustrations/cover-src.jpg`, à faire selon `illustrations/PROMPT-COUVERTURE.md`.
+
 # Livre — « L'Art du Closing » : manuscrit
 
 **ÉTAT (9 nov. 2026) : VERSION COURTE v3 = LA VERSION OFFICIELLE.** Le client a refusé le pavé de 226 pages (règle : 55–80 pages max).

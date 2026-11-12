@@ -12,4 +12,8 @@ Aperçu des 5 couvertures : `livre/illustrations/APERCU-5-TITRES.png`. Le mot «
 
 Aucun titre ne promet d'argent ni de résultat (pas de « garanti », pas de « devenir riche »).
 
-⏳ Le client choisit.
+## ✅ Choix (12 nov. 2026)
+Le client a aimé le titre A et le titre D, qui se comprend plus vite. On garde donc **le titre D**, avec **l'idée du A dans le sous-titre** :
+- **Titre :** Ne laisse plus partir tes clients
+- **Sous-titre :** « Transforme les "je vais réfléchir" en "oui", sans forcer. L'art du closing à l'africaine. »
+C'est en place sur la couverture et en bas de chaque page.

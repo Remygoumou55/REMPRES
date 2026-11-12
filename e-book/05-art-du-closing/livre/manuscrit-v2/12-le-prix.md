@@ -176,7 +176,6 @@ Si tu découvres un **vrai mur**, ne force pas. Utilise les portes. **Un modèle
 ### ✍️ Entraîne-toi
 
 **1.** Écris **ton geste préparé** (le même pour tous) et **ton prix par jour d'utilisation** pour ton produit le plus vendu.
-<span class="ligne"></span><span class="ligne"></span>
 
 **2. Jeu de rôle (à deux).** Ton partenaire dit dans le désordre : « C'est cher », « Laisse à… », « Ailleurs c'est moins cher », « Fais-moi une réduction ». À chaque fois : tu démasques, tu écoutes, puis tu choisis la bonne réponse.
 </div>
@@ -196,12 +195,9 @@ Si tu découvres un **vrai mur**, ne force pas. Utilise les portes. **Un modèle
 <div class="check" markdown="1">
 ### ✅ À retenir
 
-- ☐ Au premier « c'est cher », je réponds par une question, jamais par un chiffre.
-- ☐ Je connais les 5 visages du « c'est cher », et mon geste est le même pour tous.
-- ☐ Je rends la valeur visible : toucher, filmer, prix par usage.
-- ☐ Je ne critique jamais un concurrent, et face à un vrai mur, je propose un autre produit.
+- ☐ Au premier « c'est cher », je pose une question. Mon geste est le même pour tous.
+- ☐ Je rends la valeur visible. Je ne critique jamais un concurrent.
 
-⚠️ **L'erreur à éviter :** baisser ton prix dès le premier « c'est cher ». Tu perds de l'argent, et souvent la vente aussi.
-
+⚠️ **L'erreur à éviter :** baisser ton prix dès le premier « c'est cher ». Tu perds de l'argent, et souvent la vente aussi.<br>
 ➡️ **Et maintenant ?** Le chapitre 13 traite le visage le plus fréquent en Afrique : **le vrai manque d'argent**.
 </div>

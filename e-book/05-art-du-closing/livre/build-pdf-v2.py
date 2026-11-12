@@ -16,7 +16,7 @@ CSS = f"""
 @page {{ size: A4; margin: 15mm 15mm 16mm 15mm; }}
 * {{ box-sizing: border-box; }}
 html {{ -webkit-print-color-adjust: exact; }}
-body {{ font-family: 'Times New Roman', 'Liberation Serif', Times, serif; font-size: 14pt; line-height: 1.38; color: {ENCRE}; text-align: left; hyphens: none; }}
+body {{ font-family: 'Times New Roman', 'Liberation Serif', Times, serif; font-size: 15pt; line-height: 1.33; color: {ENCRE}; text-align: left; hyphens: none; }}
 p {{ margin: 0 0 8pt; }}
 strong {{ color: {VERT}; }}
 em {{ color: #3a3a3a; }}
@@ -27,19 +27,19 @@ h1 {{ font-size: 26pt; line-height: 1.15; color: {VERT}; margin: 0 0 18pt; font-
 h1 .num {{ display: block; font-size: 12pt; letter-spacing: 4pt; color: {OR}; font-weight: bold; text-transform: uppercase; margin-bottom: 6pt; }}
 h1::after {{ content: ""; display: block; width: 60mm; height: 2.5pt; background: {OR}; margin-top: 10pt; }}
 h2 {{ font-size: 18pt; color: {VERT}; margin: 20pt 0 8pt; padding-bottom: 3pt; border-bottom: 1px solid #d9cfb5; break-after: avoid; }}
-h3 {{ font-size: 15pt; color: {VERT}; margin: 12pt 0 6pt; break-after: avoid; }}
-table {{ width: 100%; border-collapse: collapse; margin: 8pt 0 12pt; font-size: 13pt; line-height: 1.3; }}
+h3 {{ font-size: 16pt; color: {VERT}; margin: 12pt 0 6pt; break-after: avoid; }}
+table {{ width: 100%; border-collapse: collapse; margin: 8pt 0 12pt; font-size: 14.5pt; line-height: 1.3; }}
 th {{ background: {VERT}; color: #fff; text-align: left; padding: 6pt 7pt; font-weight: bold; }}
 td {{ border-bottom: 1px solid #e3dccb; padding: 6pt 7pt; vertical-align: top; }}
 tr:nth-child(even) td {{ background: #fbf9f3; }}
-blockquote {{ margin: 10pt 0; padding: 8pt 14pt; border-left: 3pt solid {OR}; background: {CREME}; font-size: 14pt; break-inside: avoid; }}
+blockquote {{ margin: 10pt 0; padding: 8pt 14pt; border-left: 3pt solid {OR}; background: {CREME}; font-size: 15pt; break-inside: avoid; }}
 blockquote p {{ margin: 3pt 0; }}
-.box {{ margin: 12pt 0; padding: 10pt 14pt 6pt; border-radius: 3pt; font-size: 14pt; }}
-.box h3 {{ margin: 0 0 6pt; font-size: 14.5pt; break-after: avoid; }}
+.box {{ margin: 12pt 0; padding: 10pt 14pt 6pt; border-radius: 3pt; font-size: 15pt; }}
+.box h3 {{ margin: 0 0 6pt; font-size: 15.5pt; break-after: avoid; }}
 .box li, .box tr, .box p {{ break-inside: avoid; }}
 .bref, .suite {{ break-inside: avoid; }}
 p, li {{ orphans: 1; widows: 1; }}
-.box table {{ background: #fff; font-size: 13pt; }}
+.box table {{ background: #fff; font-size: 14.5pt; }}
 .bref {{ background: {VERT}; color: #fff; border-left: 6pt solid {OR}; }}
 .bref strong, .bref h3 {{ color: #F1D9A6; }}
 .scene {{ background: {CREME}; border: 1px solid #e6dcc3; border-left: 6pt solid {OR}; }}
@@ -50,9 +50,9 @@ p, li {{ orphans: 1; widows: 1; }}
 .quiz li {{ margin: 5pt 0; }}
 .reponse {{ background: #EEF5F0; border-left: 6pt solid #2F7A55; }}
 .reponse h3 {{ color: #2F7A55; }}
-.vrai {{ background: #fff; border-top: 1px solid {OR}; border-bottom: 1px solid {OR}; font-style: italic; padding: 10pt 18pt; font-size: 14pt; }}
+.vrai {{ background: #fff; border-top: 1px solid {OR}; border-bottom: 1px solid {OR}; font-style: italic; padding: 10pt 18pt; font-size: 15pt; }}
 .vrai::before {{ content: "TÉMOIGNAGES RÉELS"; display: block; font-style: normal; font-size: 9.5pt; letter-spacing: 2pt; color: {OR}; font-weight: bold; margin-bottom: 4pt; }}
-.vrai .src {{ display: block; font-style: normal; font-size: 12pt; color: #6b6b6b; margin-top: 2pt; margin-bottom: 4pt; }}
+.vrai .src {{ display: block; font-style: normal; font-size: 13pt; color: #6b6b6b; margin-top: 2pt; margin-bottom: 4pt; }}
 .ecris {{ background: #fff; border: 1.5pt dashed {VERT}; }}
 .ligne {{ display: inline-block; min-width: 70mm; border-bottom: 1px solid #888; height: 1.1em; vertical-align: bottom; }}
 .ligne.court {{ min-width: 25mm; }}
@@ -60,7 +60,7 @@ td .ligne {{ min-width: 30mm; }}
 .profils {{ background: #F3F6F4; border-top: 4pt solid {VERT}; }}
 .profils p {{ margin: 6pt 0; }}
 .mots {{ background: #fff; border: 1px solid #d9cfb5; }}
-.mots table {{ font-size: 12.5pt; }} .mots td, .mots th {{ padding: 3pt 5pt; }}
+.mots table {{ font-size: 14pt; }} .mots td, .mots th {{ padding: 3pt 5pt; }}
 .erreur {{ background: #FBEDEA; border-left: 6pt solid #A23B2A; }}
 .erreur h3 {{ color: #A23B2A; }}
 .check {{ background: {CREME}; border: 1px solid #e6dcc3; }}
@@ -133,12 +133,12 @@ def md(text):
 
 PHONE_CSS = """
 @page { size: 110mm 196mm; margin: 7mm 6mm 10mm 6mm; }
-body { font-size: 14pt; line-height: 1.35; }
+body { font-size: 15pt; line-height: 1.33; }
 h1 { font-size: 19pt; } h1 .num { font-size: 10pt; letter-spacing: 2pt; } h1::after { width: 35mm; }
 h2 { font-size: 16pt; } h3 { font-size: 14pt; }
-table { font-size: 11.5pt; } th, td { padding: 3pt 3pt; }
-.box { font-size: 13.5pt; padding: 7pt 8pt 3pt; } .box table { font-size: 11pt; } .mots table { font-size: 11pt; } .vrai { font-size: 13.5pt; padding: 8pt 8pt; } .vrai .src { font-size: 11pt; }
-.accroche { font-size: 15pt; } blockquote { font-size: 13.5pt; }
+table { font-size: 12.5pt; } th, td { padding: 3pt 3pt; }
+.box { font-size: 14.5pt; padding: 7pt 8pt 3pt; } .box table { font-size: 12pt; } .mots table { font-size: 12pt; } .vrai { font-size: 14.5pt; padding: 8pt 8pt; } .vrai .src { font-size: 12pt; }
+.accroche { font-size: 16pt; } blockquote { font-size: 14.5pt; }
 .ligne { min-width: 45mm; } td .ligne { min-width: 12mm; }
 figure.ill img { max-height: 70mm; }
 .partpage { height: 170mm; padding: 0 6mm; } .partpage .pt { font-size: 26pt; } .partpage .pd { font-size: 13pt; } .partpage img { width: 100%; }

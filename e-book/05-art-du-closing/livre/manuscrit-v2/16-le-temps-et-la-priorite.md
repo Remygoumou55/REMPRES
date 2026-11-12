@@ -172,7 +172,6 @@ Garde la structure : **accepter → question → date précise**. (D'autres rép
 - ☐ Je transforme chaque « je reviens » en rendez-vous précis (Quand ? Quoi ? Qui ?), et c'est **moi** qui recontacte.
 - ☐ J'accepte un « non » franc, et je laisse la porte ouverte.
 
-⚠️ **L'erreur à éviter :** « Ne réfléchissez pas trop ! » Le client se sent poussé… et part réfléchir **pour de bon**.
-
+⚠️ **L'erreur à éviter :** « Ne réfléchissez pas trop ! » Le client se sent poussé… et part réfléchir **pour de bon**.<br>
 ➡️ **Et maintenant ?** Le chapitre 17 parle du client qui veut le produit maintenant… et payer plus tard : **le crédit**.
 </div>

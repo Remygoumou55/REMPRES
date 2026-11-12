@@ -181,7 +181,6 @@ Le client n'a pas l'impression qu'on lui vend quelque chose : il a l'impression 
 - ☐ Si mon produit ne convient pas, je le dis et j'oriente le client.
 - ☐ Je présente avec « Tu m'as dit… alors… », avec peu de choix mais les bons.
 
-⚠️ **L'erreur à éviter :** l'interrogatoire de police, dix questions d'affilée sans sourire. **Une question à la fois, et rebondis sur ses réponses.**
-
+⚠️ **L'erreur à éviter :** l'interrogatoire de police, dix questions d'affilée sans sourire. **Une question à la fois, et rebondis sur ses réponses.**<br>
 ➡️ **Et maintenant ?** Même après une bonne présentation, le client va souvent hésiter : « je vais réfléchir ». La clé **D comme Démasquer** (chapitre 8) te montre comment **lever le rideau**.
 </div>

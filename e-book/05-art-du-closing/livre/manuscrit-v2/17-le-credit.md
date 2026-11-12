@@ -22,6 +22,8 @@ Une cliente fidèle depuis deux ans choisit une robe à 15 000 F. « Fanta, tu m
 Le vendeur a dit oui **pour ne pas perdre le client**… et il a perdu **le client ET l'argent**. Ces clients ne sont pas tous des voleurs. Mais une dette non payée **abîme la relation** : le client a honte, il t'évite, il va ailleurs. **Le crédit qu'on fait pour garder un client est souvent ce qui le fait partir.**
 </div>
 
+<figure class="ill"><img src="../illustrations/ill-08-credit.jpg" alt="Fanta et sa cliente écrivent la date"></figure>
+
 ## 1. Pourquoi tout le monde demande crédit
 
 Le crédit vient des réalités du chapitre 3 : l'**argent qui arrive par à-coups**, l'habitude d'**emprunter à l'entourage** plutôt qu'à une banque, et le crédit comme **preuve de relation** (« tu me connais » veut dire « si tu me fais confiance, c'est que je compte pour toi »).

@@ -24,6 +24,8 @@ Au début, le prospect a écrit : « Je perds au moins trois clients par semaine
 Le vendeur sait **ce qui fait peur** au client. Mais pour rassurer, il a choisi les **mauvais outils** : **jurer** (c'est sa parole, et le client s'en méfie) et **défendre son prix** avec ses propres arguments, au lieu de rappeler ce que le prospect avait dit lui-même. D'autres vendeurs font pire : ils **baissent leur prix** tout de suite (le client apprend à toujours demander moins) ou ils **s'énervent** (le client perd la face).
 </div>
 
+<figure class="ill"><img src="../illustrations/ill-06-montrer.jpg" alt="Fanta lave le tissu avec la cliente"></figure>
+
 ## 1. La règle des 3 choses (+ 1)
 
 Bastien Pelissier donne une règle simple. Pour rassurer sans forcer, **seules 3 choses doivent sortir de ta bouche** :

@@ -24,6 +24,8 @@ Une jeune fille essaie une robe pour un mariage. « Elle est parfaite ! Mais c'e
 **Le client ne ment pas** : il y a vraiment quelqu'un d'autre qui décide ou qui paie. Et le vendeur **contourne** cette personne (« c'est ton argent ») ou **laisse le client défendre le produit tout seul**, avec des mots. Résultat : la décision se prend **loin du vendeur**, par quelqu'un qui n'a **jamais vu** le produit.
 </div>
 
+<figure class="ill"><img src="../illustrations/ill-07-famille.jpg" alt="Le mari voit la photo du sac"></figure>
+
 ## 1. Vraie décision partagée ou rideau ?
 
 Deux questions font la différence :

@@ -143,4 +143,9 @@ Avec 13 images, le livre prendra environ 8 à 10 pages de plus (autour de 148 pa
 | ill-02 | ✅ placée au chapitre 2 |
 | ill-03 | ✅ placée au chapitre 4 |
 | ill-04 | ✅ placée sur la page de la partie 2 |
-| ill-05 à ill-13 | ⏳ à faire |
+| ill-05 | ✅ placée au chapitre 9 |
+| ill-06 | ✅ placée au chapitre 10 |
+| ill-07 | ✅ placée au chapitre 15 |
+| ill-08 | ✅ placée au chapitre 17 |
+| ill-09 | ✅ placée au chapitre 18 (point 2, la vidéo). ⚠️ Les baskets ressemblent à un modèle de marque connu : à refaire avec des baskets sans forme reconnaissable, si possible |
+| ill-10 à ill-13 | ⏳ à faire |

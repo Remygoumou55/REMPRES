@@ -89,6 +89,8 @@ Le client **écrit lui-même** son accord : c'est la cohérence du chapitre 10. 
 
 **Point 2 — La vidéo de l'article exact**, avant d'emballer : couleur, taille visible sur l'étiquette, état. « Voici exactement ce que vous allez recevoir. » À la porte, il ne pourra plus dire honnêtement « ce n'est pas la couleur ».
 
+<figure class="ill"><img src="../illustrations/ill-09-confirmation.jpg" alt="La vidéo des baskets en 39, et le OK du client"></figure>
+
 **Point 3 — L'appel juste avant le départ.** « Bonjour Madame, c'est Amina pour vos baskets. Le livreur part dans une heure, il sera chez vous vers 15 h. Vous serez bien là ? » **Pas de réponse à l'appel ni au message : le colis ne part pas.**
 
 **Point 4 — Heure, lieu, personne, numéro de secours.** Un créneau de 2 heures, un repère précis, le nom de la personne qui reçoit, et un deuxième numéro.

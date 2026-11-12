@@ -24,6 +24,8 @@ La cliente a fini par dire : « Elle est belle… mais j'ai peur qu'elle déteig
 Le vendeur a fait la partie difficile : le client a **dit sa vraie peur**. Et puis… il a **foncé** : il a juré, il s'est défendu. Il a répondu à la peur **sans la comprendre**. Le client a senti un vendeur pressé de vendre, pas une personne qui l'écoutait.
 </div>
 
+<figure class="ill"><img src="../illustrations/ill-05-ecouter.jpg" alt="Koffi écoute la gérante"></figure>
+
 ## 1. Pourquoi foncer fait fuir
 
 Mets-toi à la place du client. Tu viens de dire ce qui te fait peur, et le vendeur répond en une seconde : « Non, ce n'est pas vrai ! Faites-moi confiance ! » Tu penses : **« Évidemment qu'il dit ça. Il veut vendre. »** Comme le dit Bastien Pelissier, **les clients ne sont pas idiots** : quand tu fonces, ta parole ne vaut presque rien. Et la pression monte encore. Un client coincé fait une seule chose : **il cherche la sortie.**

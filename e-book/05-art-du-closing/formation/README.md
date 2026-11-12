@@ -10,4 +10,5 @@
 - Partie 1 — `Partie-1-Comprendre-Episodes-00-a-11.pptx` (épisodes 00 à 11, livre ch. 0 à 5).
 - Partie 2 — `Partie-2-Methode-RIDEAU-Episodes-12-a-23.pptx` (épisodes 12 à 23, livre ch. 6 à 11, 128 diapos) : R, I ×2, D ×2, É ×2, A ×2, U ×2 + fiche RIDEAU. Validée (validate.py) et contrôlée visuellement.
 - 13 nov. : analyse du format vidéo (`ANALYSE-FORMAT-VIDEO.md`) ; recommandation : diapos + voix + visage en médaillon (OBS), pilote sur les épisodes 00 et 01.
+- 13 nov. : client a installé OBS. Kit d'enregistrement dans `enregistrement/` : guide OBS, masque rond pour la webcam, texte à lire au format téléphone (épisodes 00 et 01, pilote).
 - À faire : partie 3 (situations difficiles, ch. 12 à 18), partie 4 (canaux, ch. 19 à 25), partie 5 (ch. 26 à 28 + épisode final).

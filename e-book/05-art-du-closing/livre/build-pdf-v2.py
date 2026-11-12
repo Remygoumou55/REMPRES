@@ -133,8 +133,8 @@ def page(body, title):
 
 COVER = """<section class="cv2"><img class="bg" src="../illustrations/cover-bg-a4.jpg" alt="">
 <div class="top"><div class="k">COLLECTION PLAYBOOKS</div>
-<div class="t">L'Art<br>du <span>Closing</span></div><div class="rule"></div>
-<div class="acc">«&nbsp;Lève le rideau : la méthode africaine pour transformer les <b>«&nbsp;je vais réfléchir&nbsp;»</b> en <b style="white-space:nowrap">«&nbsp;oui&nbsp;».&nbsp;»</b></div></div>
+<div class="t" style="font-size:50pt">Ne laisse plus<br>partir <span>tes clients</span></div><div class="rule"></div>
+<div class="acc">«&nbsp;Transforme les <b>«&nbsp;je vais réfléchir&nbsp;»</b> en <b style="white-space:nowrap">«&nbsp;oui&nbsp;»</b>, sans forcer. L'art du closing à l'africaine.&nbsp;»</div></div>
 <div class="bottom"><div class="val"><span>La méthode RIDEAU en 6 clés</span><span>Des exemples en BD</span><span>Un plan de 30 jours</span></div>
 <div class="pays">Au marché · sur WhatsApp · au téléphone · en entreprise · à la livraison · <b>partout en Afrique</b></div></div></section>"""
 
@@ -166,14 +166,14 @@ for f in files:
 toc.append("</section>")
 jobs = []
 allp = os.path.join(DIST, "_all.html")
-open(allp, "w", encoding="utf-8").write(page("".join(toc) + "".join(chapters), "L'Art du Closing"))
+open(allp, "w", encoding="utf-8").write(page("".join(toc) + "".join(chapters), "Ne laisse plus partir tes clients"))
 covp = os.path.join(DIST, "_cover.html")
 open(covp, "w", encoding="utf-8").write(page(COVER, "Couverture").replace("</style>", "@page { size: A4; margin: 0; } body { margin: 0; }</style>"))
 OUT = os.environ.get("OUT", "L-Art-du-Closing-livre-complet.pdf")
 jobs.append([allp, os.path.join(DIST, OUT)])
 
 FOOT = ('<div style="font-family:Times New Roman,Liberation Serif,serif;font-size:9pt;width:100%;padding:0 19mm;'
-        'display:flex;justify-content:space-between;color:#8a7a55"><span>L&#39;Art du Closing</span>'
+        'display:flex;justify-content:space-between;color:#8a7a55"><span>Ne laisse plus partir tes clients</span>'
         '<span class="pageNumber"></span></div>')
 js = """
 const { chromium } = require('playwright');

@@ -38,3 +38,33 @@ Le client dit « emballe ! », le livreur part… et il ne décroche plus. Carbu
 - Publie **une vidéo par jour**, entre 19 h et 22 h.
 - Épingle en haut de ton profil celle qui marche le mieux.
 - Réponds à chaque commentaire avec une question (« Tu vends quoi ? »), comme dans le livre.
+
+## TikTok 4 — « C'est cher » (`TikTok-4-c-est-cher.mp4`)
+**Légende :**
+```
+Le client dit « c'est cher »… et tu baisses ton prix ? ❌ Pose d'abord CETTE question 👇 📘 « Ne laisse plus partir tes clients » · 6 900 F · lien en bio. #vendeur #négociation #ventesenligne #commerce #afrique
+```
+**Voix off :**
+```
+Le client dit « c'est cher »… et tu baisses ton prix ? Tu perds de l'argent, et souvent la vente aussi. D'abord, demande : « Cher par rapport à quoi ? » Puis écoute sa vraie raison. Ne baisse pas : ajoute un petit plus. « Mon prix est le même pour toutes, mais je t'ajoute le foulard. » Toute la méthode est dans le livre. Lien en bio.
+```
+
+## TikTok 5 — « C'est pas l'arnaque ? » (`TikTok-5-c-est-pas-l-arnaque.mp4`)
+**Légende :**
+```
+« C'est pas l'arnaque ? » 🤨 Ne jure pas : MONTRE. Les 4 preuves qui rassurent un client 👇 📘 « Ne laisse plus partir tes clients » · 6 900 F · lien en bio. #ventesenligne #confiance #vendeuse #commerce #afrique
+```
+**Voix off :**
+```
+Ton client te demande : « C'est pas l'arnaque ? » Et toi, tu jures ? Tous les arnaqueurs disent « je te jure ». Alors montre, ne jure pas. Une vidéo du vrai produit, la date du jour écrite sur un papier, le paiement à la livraison, un vrai client qu'il peut appeler. Le client croit ce qu'il voit, pas ce que tu dis. Toute la méthode est dans le livre. Lien en bio.
+```
+
+## TikTok 6 — Le crédit (`TikTok-6-le-credit.mp4`)
+**Légende :**
+```
+« Tu me connais, je te paie à la fin du mois ! » 😅 Comment dire non au crédit SANS perdre ta cliente 👇 📘 « Ne laisse plus partir tes clients » · 6 900 F · lien en bio. #commerçante #boutique #vendeuse #commerce #afrique
+```
+**Voix off :**
+```
+« Tu me connais, je te paie à la fin du mois ! » Tu dis oui pour ne pas vexer… et ta boutique se vide. Dis plutôt « non, mais… » : « Je ne fais plus de crédit, c'est la règle pour toutes mes clientes. Mais je te la garde avec un petit acompte. » Une règle pour tout le monde, et une porte à la place. Tu gardes le client, et ton argent. Lien en bio.
+```

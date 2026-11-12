@@ -184,10 +184,13 @@ Si tu découvres un **vrai mur**, ne force pas. Utilise les portes : **un modèl
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple |
-|---|---|
-| **Marge** | Ce que tu gagnes vraiment : le prix de vente moins ce que tu as payé. |
-| **Geste commercial** | Un petit plus donné au lieu de baisser le prix. |
+| Mot | En simple | En pro |
+|---|---|---|
+| **Marge** | Ce que tu gagnes vraiment : le prix de vente moins ce que tu as payé. | Différence entre prix de vente et coût de revient. |
+| **Geste commercial** | Un petit plus donné au lieu de baisser le prix. | Concession non tarifaire. |
+| **Prix par usage** | Le prix divisé par le nombre d'utilisations. | Coût d'usage. |
+| **Valeur** | Ce que le client gagne en achetant. | Bénéfice perçu par l'acheteur, comparé au prix. |
+| **Jara** | Au Nigeria, le petit supplément offert au client. | Pratique de la gratification dans le marchandage. |
 </div>
 
 <div class="check" markdown="1">

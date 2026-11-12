@@ -152,12 +152,14 @@ Elle a raison : ce qui compte, c'est **le message de confirmation de l'opérateu
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple |
-|---|---|
-| **Créance** | L'argent qu'un client te doit. |
-| **Plafond** | Le montant maximum qu'un client peut te devoir. |
-| **Échéance** | La date à laquelle le client doit payer. |
-| **Registre** | Le cahier où tu notes ventes, crédits, remboursements. |
+| Mot | En simple | En pro |
+|---|---|---|
+| **Créance** | L'argent qu'un client te doit. | Somme due par un client. |
+| **Plafond** | Le montant maximum qu'un client peut te devoir. | Limite de crédit par client. |
+| **Échéance** | La date à laquelle le client doit payer. | Date d'exigibilité d'un paiement. |
+| **Registre** | Le cahier où tu notes ventes, crédits, remboursements. | Livre de comptes clients. |
+| **Crédit** | Donner le produit maintenant, être payé plus tard. | Vente à paiement différé (crédit client). |
+| **Mise de côté** | Garder un article pour un client jusqu'à une date. | Réservation (avec ou sans acompte). |
 </div>
 
 <div class="check" markdown="1">

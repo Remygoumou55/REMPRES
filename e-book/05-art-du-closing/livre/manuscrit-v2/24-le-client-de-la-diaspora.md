@@ -195,12 +195,13 @@ Quand il trouve enfin un vendeur **fiable**, il ne le lâche plus : chaque fête
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple |
-|---|---|
-| **Diaspora** | Les personnes originaires d'un pays qui vivent dans un autre. |
-| **Transfert d'argent** | L'argent envoyé depuis l'étranger vers le pays. |
-| **Tiers de confiance** | Une personne ou structure neutre qui vérifie ou garde l'argent. |
-| **Prix diaspora** | Le prix plus cher fait à quelqu'un parce qu'il vit à l'étranger. |
+| Mot | En simple | En pro |
+|---|---|---|
+| **Diaspora** | Les personnes originaires d'un pays qui vivent dans un autre. | Communauté expatriée. |
+| **Transfert d'argent** | L'argent envoyé depuis l'étranger vers le pays. | Envois de fonds (*remittances*). |
+| **Tiers de confiance** | Une personne ou structure neutre qui vérifie ou garde l'argent. | Tiers séquestre. |
+| **Prix diaspora** | Le prix plus cher fait à quelqu'un parce qu'il vit à l'étranger. | Discrimination tarifaire (à bannir). |
+| **Appel vidéo** | Un appel où on se voit en direct. | Visioconférence. |
 </div>
 
 <div class="check" markdown="1">

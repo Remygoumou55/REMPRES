@@ -163,12 +163,13 @@ Le client n'a pas l'impression qu'on lui vend quelque chose : il a l'impression 
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple |
-|---|---|
-| **Découverte** | Le moment où tu poses des questions pour comprendre le client. |
-| **Besoin** | Ce que le client cherche vraiment, ou le problème qu'il veut régler. |
-| **Qualifier** | Vérifier que ton produit convient vraiment au client. |
-| **SPIN** | Une méthode de questions en 4 temps, de Neil Rackham. |
+| Mot | En simple | En pro |
+|---|---|---|
+| **Découverte** | Le moment où tu poses des questions pour comprendre le client. | Phase de découverte des besoins. |
+| **Besoin** | Ce que le client cherche vraiment, ou le problème qu'il veut régler. | Besoin explicite ou implicite du prospect. |
+| **Qualifier** | Vérifier que ton produit convient vraiment au client. | Qualification du prospect (besoin, budget, décision). |
+| **SPIN** | Une méthode de questions en 4 temps, de Neil Rackham. | *Situation, Problem, Implication, Need-payoff*. |
+| **Budget** | La somme que le client a prévu de dépenser. | Enveloppe budgétaire. |
 </div>
 
 <div class="check" markdown="1">

@@ -181,12 +181,13 @@ Une raison **précise et vérifiable** : c'est un **mur d'argent**. Sékou cherc
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple |
-|---|---|
-| **Démasquer** | Découvrir la vraie raison cachée derrière ce que dit le client. |
-| **Boucle** | Une question douce qui ramène le client dans la conversation. |
-| **Ligne droite** | L'image de la vente, du premier bonjour (A) au paiement (B). |
-| **Fraude boursière** | Tromper des gens pour qu'ils achètent des actions qui ne valent rien. |
+| Mot | En simple | En pro |
+|---|---|---|
+| **Démasquer** | Découvrir la vraie raison cachée derrière ce que dit le client. | Clarifier l'objection (faire émerger l'objection réelle). |
+| **Boucle** | Une question douce qui ramène le client dans la conversation. | *Looping* : retour à la ligne de vente après une objection. |
+| **Ligne droite** | L'image de la vente, du premier bonjour (A) au paiement (B). | *Straight Line* (Jordan Belfort). |
+| **Fraude boursière** | Tromper des gens pour qu'ils achètent des actions qui ne valent rien. | Manipulation frauduleuse de titres financiers. |
+| **Écran de fumée** | Une excuse qui empêche de voir la vraie raison (comme un rideau). | Objection de surface masquant un manque de certitude. |
 </div>
 
 <div class="check" markdown="1">

@@ -138,11 +138,12 @@ Et juste après, **un message qui confirme** : « Merci pour l'appel, Madame Bah
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple |
-|---|---|
-| **Appel à froid** | Appeler quelqu'un qui ne t'a jamais contacté. |
-| **Appel de découverte** | Un appel pour comprendre le besoin, avant de vendre. |
-| **Prochaine étape** | Ce qui est prévu après l'appel, avec une date. |
+| Mot | En simple | En pro |
+|---|---|---|
+| **Appel à froid** | Appeler quelqu'un qui ne t'a jamais contacté. | Prospection téléphonique, *cold call*. |
+| **Appel de découverte** | Un appel pour comprendre le besoin, avant de vendre. | *Discovery call*. |
+| **Prochaine étape** | Ce qui est prévu après l'appel, avec une date. | *Next step*. |
+| **Monologue** | Parler longtemps tout seul sans laisser l'autre parler. | Prise de parole prolongée. |
 </div>
 
 <div class="check" markdown="1">

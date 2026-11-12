@@ -155,11 +155,12 @@ La semaine prochaine, refais le test et choisis 3 nouvelles erreurs.
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple |
-|---|---|
-| **Fausse urgence** | Faire croire qu'il faut acheter tout de suite alors que c'est faux. |
-| **Frais cachés** | Un coût qu'on découvre seulement au moment de payer. |
-| **Service après-vente** | Ce que fait le vendeur pour le client après l'achat. |
+| Mot | En simple | En pro |
+|---|---|---|
+| **Fausse urgence** | Faire croire qu'il faut acheter tout de suite alors que c'est faux. | Pratique commerciale trompeuse (fausse rareté, faux compte à rebours). |
+| **Frais cachés** | Un coût qu'on découvre seulement au moment de payer. | *Drip pricing* : prix annoncé incomplet. |
+| **Service après-vente** | Ce que fait le vendeur pour le client après l'achat. | SAV : retours, réclamations, suivi client. |
+| **Réputation** | Ce que les gens disent de toi quand tu n'es pas là. | Image perçue d'un vendeur ou d'une marque. |
 </div>
 
 <div class="check" markdown="1">

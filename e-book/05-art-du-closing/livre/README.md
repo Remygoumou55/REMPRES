@@ -1,4 +1,4 @@
-**ÉTAT AU 12 NOV. 2026 — PRÊT À VENDRE.** Titre : « Ne laisse plus partir tes clients ».
+**ÉTAT AU 12 NOV. 2026 — PRÊT À VENDRE.** RÈGLE DU CLIENT : on garde TOUJOURS les 2 définitions (« en simple » + « en pro ») dans les encadrés « Les mots à connaître » et dans le lexique. Ne jamais retirer de mot-clé. Titre : « Ne laisse plus partir tes clients ».
 - Livre A4 : `python3 build-pdf-v2.py` → `dist-v2/L-Art-du-Closing-livre-complet.pdf` (143 p.).
 - Livre téléphone : `PHONE=1 python3 build-pdf-v2.py` → `dist-v2/L-Art-du-Closing-telephone.pdf` (212 p.).
 - Kits (A4 et téléphone) : `KIT=$PWD/kits/kit-N-….md [PHONE=1] OUT=… python3 build-pdf-v3.py` → `dist-v3/`.

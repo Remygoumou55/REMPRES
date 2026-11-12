@@ -144,12 +144,13 @@ Et souviens-toi : la famille, c'est aussi **ta meilleure alliée**. Un aîné bi
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple |
-|---|---|
-| **Décideur** | La personne qui a le dernier mot sur l'achat. |
-| **Appel à trois** | Vendeur, client et décideur parlent ensemble. |
-| **Kit à montrer** | Photo, vidéo, prix et avantages, faits pour le décideur. |
-| **Comité** | Un groupe qui décide ensemble en entreprise. |
+| Mot | En simple | En pro |
+|---|---|---|
+| **Décideur** | La personne qui a le dernier mot sur l'achat. | Personne détenant le pouvoir de décision d'achat. |
+| **Appel à trois** | Vendeur, client et décideur parlent ensemble. | Conférence téléphonique tripartite. |
+| **Kit à montrer** | Photo, vidéo, prix et avantages, faits pour le décideur. | Support d'aide à la décision. |
+| **Comité** | Un groupe qui décide ensemble en entreprise. | Instance collégiale de validation des achats. |
+| **Influenceur (dans la décision)** | Quelqu'un qui donne son avis, sans décider seul. | Prescripteur dans le processus d'achat. |
 </div>
 
 <div class="check" markdown="1">

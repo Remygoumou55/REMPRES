@@ -191,12 +191,12 @@ Au bout d'une semaine, des choses reviennent : « On me demande souvent des lots
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple |
-|---|---|
-| **Prix « tout nu »** | Un chiffre donné seul, sans rien autour. |
-| **Fenêtre** | Les quelques secondes où le client décide de rester ou de partir. |
-| **Relance** | Recontacter un client qui n'a pas encore décidé. |
-| **Racoleur** | Un vendeur qui retient ou attrape les clients. |
+| Mot | En simple | En pro |
+|---|---|---|
+| **Prix « tout nu »** | Un chiffre donné seul, sans rien autour. | Annonce de prix sans valeur ni relance. |
+| **Fenêtre** | Les quelques secondes où le client décide de rester ou de partir. | Moment critique d'engagement après la demande de prix. |
+| **Relance** | Recontacter un client qui n'a pas encore décidé. | *Follow-up* : suivi commercial d'un prospect. |
+| **Racoleur** | Un vendeur qui retient ou attrape les clients. | Sollicitation commerciale insistante. |
 </div>
 
 <div class="check" markdown="1">

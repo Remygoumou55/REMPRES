@@ -157,11 +157,12 @@ Et si un fidèle demande à payer plus tard : chapitre 17.
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple |
-|---|---|
-| **Étal** | La table où tu montres ta marchandise au marché. |
-| **Accompagnateur** | La personne qui vient avec le client et donne son avis. |
-| **Fidéliser** | Faire en sorte que le client revienne. |
+| Mot | En simple | En pro |
+|---|---|---|
+| **Étal** | La table où tu montres ta marchandise au marché. | Point de vente, présentoir. |
+| **Accompagnateur** | La personne qui vient avec le client et donne son avis. | Prescripteur de la décision d'achat. |
+| **Fidéliser** | Faire en sorte que le client revienne. | Rétention de la clientèle. |
+| **Prix plancher** | Le prix le plus bas possible, sous lequel tu perds de l'argent. | Prix de revient majoré du seuil de marge minimum. |
 </div>
 
 <div class="check" markdown="1">

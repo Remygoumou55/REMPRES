@@ -160,12 +160,13 @@ Un petit calcul. Chaque jour, **20 clientes** demandent les prix de Fanta. **2**
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple |
-|---|---|
-| **Closing** | Le moment où le client dit « oui » et paie, et tout ce que tu fais pour l'y amener. |
-| **Closer** | Le vendeur qui sait amener un client qui hésite jusqu'au « oui ». |
-| **Client** | Quelqu'un qui pourrait acheter, mais n'a pas encore acheté. |
-| **Objection** | La raison donnée pour ne pas acheter maintenant. |
+| Mot | En simple | En pro |
+|---|---|---|
+| **Closing** | Le moment où le client dit « oui » et paie, et tout ce que tu fais pour l'y amener. | Conclusion de la vente : obtenir l'engagement ferme du client. |
+| **Closer** | Le vendeur qui sait amener un client qui hésite jusqu'au « oui ». | Vendeur spécialisé dans la conclusion des ventes. |
+| **Prospect** | Quelqu'un qui pourrait acheter, mais n'a pas encore acheté. | Client potentiel identifié. |
+| **Objection** | La raison donnée pour ne pas acheter maintenant. | Frein exprimé par le prospect pendant la vente. |
+| **Taux de conversion** | Sur 10 personnes qui demandent, combien achètent. | Nombre de ventes ÷ nombre de prospects. |
 </div>
 
 <div class="check" markdown="1">

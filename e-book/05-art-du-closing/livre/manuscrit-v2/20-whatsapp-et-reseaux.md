@@ -186,12 +186,13 @@ Le lendemain : « Le sac vous plaît ? Si quelque chose ne va pas, dites-le-moi.
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple |
-|---|---|
-| **Catalogue** | La liste de tes produits avec photo et prix, dans WhatsApp. |
-| **Statut** | Photos et vidéos publiées pour 24 heures sur WhatsApp. |
-| **Live** | Une vidéo en direct où tu présentes tes produits. |
-| **Étiquette** | Un petit mot pour classer tes conversations. |
+| Mot | En simple | En pro |
+|---|---|---|
+| **Catalogue** | La liste de tes produits avec photo et prix, dans WhatsApp. | Catalogue produits (WhatsApp Business). |
+| **Statut** | Photos et vidéos publiées pour 24 heures sur WhatsApp. | *Stories* éphémères. |
+| **Live** | Une vidéo en direct où tu présentes tes produits. | *Live shopping*. |
+| **Étiquette** | Un petit mot pour classer tes conversations. | *Label*, segmentation des contacts. |
+| **Récapitulatif** | Le message qui résume toute la commande avant la livraison. | Confirmation de commande. |
 </div>
 
 <div class="check" markdown="1">

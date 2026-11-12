@@ -204,11 +204,14 @@ Souvent, une annulation est un **« pas maintenant »**. Sors proprement, sans r
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple |
-|---|---|
-| **Récapitulatif de commande** | Le message qui résume tout ce qui a été convenu. |
-| **Frais d'engagement** | Une petite somme payée d'avance, qui montre que le client est sérieux. |
-| **Liste d'attente** | Les clients qui attendent un article qui n'est pas en stock. |
+| Mot | En simple | En pro |
+|---|---|---|
+| **Récapitulatif de commande** | Le message qui résume tout ce qui a été convenu. | Confirmation de commande écrite. |
+| **Frais d'engagement** | Une petite somme payée d'avance, qui montre que le client est sérieux. | Acompte, *commitment fee*. |
+| **Liste d'attente** | Les clients qui attendent un article qui n'est pas en stock. | Précommandes. |
+| **Annulation** | Le client dit qu'il ne veut plus, après avoir dit oui. | Rétractation ou annulation de commande avant paiement. |
+| **Paiement à la livraison** | Le client paie quand il reçoit le colis. | *Cash on delivery* (COD). |
+| **Liste des annuleurs** | La liste des numéros qui ont déjà annulé sans raison. | Historique de fiabilité client. |
 </div>
 
 <div class="check" markdown="1">

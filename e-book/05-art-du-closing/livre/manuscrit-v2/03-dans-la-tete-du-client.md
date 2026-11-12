@@ -167,10 +167,13 @@ Le petit cadeau à la place de la baisse existe **partout en Afrique**. Au Niger
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple |
-|---|---|
-| **Secteur informel** | Le travail sans contrat officiel et sans salaire fixe. |
-| **Décideur** | La personne qui a le dernier mot sur l'achat. |
+| Mot | En simple | En pro |
+|---|---|---|
+| **Secteur informel** | Le travail sans contrat officiel et sans salaire fixe. | Activités économiques non enregistrées. |
+| **Décideur** | La personne qui a le dernier mot sur l'achat. | Personne détenant le pouvoir de décision d'achat. |
+| **Paiement à la livraison** | On paie quand on reçoit le produit, pas avant. | *Cash on delivery* (COD). |
+| **Système pyramidal** | Une fausse affaire où l'on gagne seulement en faisant payer d'autres personnes. Elle finit toujours par s'écrouler. | Montage frauduleux fondé sur le recrutement de nouveaux participants. |
+| **Acompte** | Une partie du prix payée d'avance pour réserver. | Paiement partiel qui engage l'acheteur. |
 </div>
 
 <div class="check" markdown="1">

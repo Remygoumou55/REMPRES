@@ -152,12 +152,13 @@ Un proche te raconte sa journée, un problème au travail, un achat raté. Tu as
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple |
-|---|---|
-| **Écoute active** | Écouter pour comprendre, et montrer qu'on a compris. |
-| **Effet miroir** | Répéter les derniers mots du client sur un ton de question. |
-| **Peur fondée** | Une peur qui correspond à un vrai risque. |
-| **Source de la peur** | L'événement ou l'histoire qui a fait naître la peur. |
+| Mot | En simple | En pro |
+|---|---|---|
+| **Écoute active** | Écouter pour comprendre, et montrer qu'on a compris. | Technique de communication (Rogers et Farson, 1957) : attention, reformulation. |
+| **Effet miroir** | Répéter les derniers mots du client sur un ton de question. | *Mirroring* (Chris Voss). |
+| **Peur fondée** | Une peur qui correspond à un vrai risque. | Objection légitime, justifiée par les faits. |
+| **Source de la peur** | L'événement ou l'histoire qui a fait naître la peur. | Origine de l'objection (vécue, rapportée, réputation, contrainte). |
+| **Question ouverte** | Une question à laquelle on ne peut pas répondre par oui ou non. | Question qui invite à développer (« Comment… ? », « Qu'est-ce que… ? »). |
 </div>
 
 <div class="check" markdown="1">

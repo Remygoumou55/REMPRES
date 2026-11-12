@@ -48,7 +48,7 @@ Toutes les techniques de ce livre sont **puissantes**. Et ce qui fonctionne peut
 
 > « Honnêtement, ce modèle n'est pas fait pour ce que tu veux en faire. Je préfère te le dire maintenant. Voilà ce que je te conseille à la place. »
 
-Le client s'en souviendra. Il reviendra, et il enverra ses proches. **Ta franchise d'aujourd'hui, ce sont tes ventes de demain.**
+**Ta franchise d'aujourd'hui, ce sont tes ventes de demain.**
 
 ## 3. Le prix honnête : le même pour tous
 
@@ -145,10 +145,9 @@ Tu as vu au chapitre 8 que la technique de la « boucle » vient de **Jordan Bel
 ### ✍️ Entraîne-toi : l'audit de tes messages
 
 **1.** Relis tes 10 dernières publications ou annonces. Pour chacune : « Serais-je à l'aise si le client savait tout ce que je sais ? » Corrige celles qui ne passent pas le test.
-<span class="ligne"></span><span class="ligne"></span>
+<span class="ligne"></span>
 
 **2.** Écris ta politique d'échange en 3 lignes, et affiche-la (page, catalogue, boutique).
-<span class="ligne"></span><span class="ligne"></span>
 
 **3.** Écris une phrase pour refuser une vente quand le produit ne convient pas, sans perdre le client.
 <span class="ligne"></span>
@@ -169,11 +168,14 @@ Tu as vu au chapitre 8 que la technique de la « boucle » vient de **Jordan Bel
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple |
-|---|---|
-| **Manipuler** | Pousser quelqu'un à agir contre son intérêt, par le mensonge ou la pression. |
-| **Pratique trompeuse** | Faire croire quelque chose de faux pour vendre. |
-| **Pratique agressive** | Mettre trop de pression sur le client. |
+| Mot | En simple | En pro |
+|---|---|---|
+| **Manipuler** | Pousser quelqu'un à agir contre son intérêt, par le mensonge ou la pression. | Influence déloyale. |
+| **Pratique trompeuse** | Faire croire quelque chose de faux pour vendre. | Pratique commerciale déloyale par action ou omission trompeuse. |
+| **Pratique agressive** | Mettre trop de pression sur le client. | Pratique déloyale par harcèlement, contrainte ou influence injustifiée. |
+| **Persuader** | Aider quelqu'un à prendre une décision avec des vérités et des preuves. | Influence éthique fondée sur des informations exactes. |
+| **Abus de faiblesse** | Profiter d'une personne fragile pour lui vendre. | Exploitation de la vulnérabilité d'un consommateur. |
+| **Publicité mensongère** | Une annonce qui dit des choses fausses. | Communication commerciale contenant des allégations fausses ou trompeuses. |
 </div>
 
 <div class="check" markdown="1">
@@ -185,7 +187,6 @@ Tu as vu au chapitre 8 que la technique de la « boucle » vient de **Jordan Bel
 - ☐ Aucune promesse de gains, uniquement de vrais témoignages.
 - ☐ Une politique d'échange écrite, et respectée.
 
-⚠️ **L'erreur à éviter :** penser « tout le monde le fait, alors moi aussi ». C'est justement pour ça que **le vendeur honnête se remarque**. Dans un marché plein de méfiance, l'honnêteté est ton **avantage**.
-
+⚠️ **L'erreur à éviter :** penser « tout le monde le fait, alors moi aussi ». C'est justement pour ça que **le vendeur honnête se remarque**. Dans un marché plein de méfiance, l'honnêteté est ton **avantage**.<br>
 ➡️ **Et maintenant ?** Ce n'est pas la lecture qui change un vendeur : c'est la pratique. Le chapitre 28 te donne un plan de 30 jours, jour après jour.
 </div>

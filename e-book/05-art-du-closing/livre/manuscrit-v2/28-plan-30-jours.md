@@ -195,6 +195,17 @@ Si une des trois n'a pas encore de réponse, retourne au chapitre de la partie 3
 | **E — Sékou** | L'appel avant d'arriver, le calme à la porte, « Vous voulez ouvrir et vérifier d'abord ? », et l'accord écrit avec chaque boutique. |
 </div>
 
+<div class="mots" markdown="1">
+### 📖 Les mots à connaître
+
+| Mot | En simple | En pro |
+|---|---|---|
+| **Jeu de rôle** | Faire semblant d'être le client et le vendeur pour s'entraîner. | Simulation de situation de vente (*role play*). |
+| **Journal des objections** | Le cahier où tu notes chaque client qui hésite, et pourquoi. | Registre de suivi des objections et des issues de vente. |
+| **Auto-évaluation** | Te donner une note toi-même, honnêtement. | Évaluation de ses propres compétences. |
+| **Habitude** | Ce que tu fais sans y penser, parce que tu l'as fait souvent. | Automatisme acquis par la répétition. |
+</div>
+
 <div class="check" markdown="1">
 ### ✅ À retenir
 

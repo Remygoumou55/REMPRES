@@ -155,12 +155,13 @@ Un client dont le problème a été **bien réglé** devient souvent **plus fid�
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple |
-|---|---|
-| **Preuve sociale** | Quand d'autres personnes confirment que tu es sérieux. |
-| **Faux profil** | Un compte d'arnaqueur qui se fait passer pour un vendeur. |
-| **Politique d'échange** | Les règles écrites pour échanger ou rendre un produit. |
-| **Imitation** | Un produit qui ressemble à une marque, sans être l'original. |
+| Mot | En simple | En pro |
+|---|---|---|
+| **Preuve sociale** | Quand d'autres personnes confirment que tu es sérieux. | Témoignages et recommandations de tiers. |
+| **Faux profil** | Un compte d'arnaqueur qui se fait passer pour un vendeur. | Compte frauduleux usurpant une identité commerciale. |
+| **Politique d'échange** | Les règles écrites pour échanger ou rendre un produit. | Conditions de retour et de remboursement. |
+| **Imitation** | Un produit qui ressemble à une marque, sans être l'original. | Contrefaçon ou produit générique (selon le cas). |
+| **Preuve** | Quelque chose que le client peut voir ou vérifier lui-même. | Élément de réassurance vérifiable. |
 </div>
 
 <div class="check" markdown="1">

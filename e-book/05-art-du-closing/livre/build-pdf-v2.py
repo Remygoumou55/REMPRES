@@ -60,6 +60,7 @@ td .ligne {{ min-width: 30mm; }}
 .profils {{ background: #F3F6F4; border-top: 4pt solid {VERT}; }}
 .profils p {{ margin: 6pt 0; }}
 .mots {{ background: #fff; border: 1px solid #d9cfb5; }}
+.mots table {{ font-size: 10.5pt; }} .mots td, .mots th {{ padding: 3pt 5pt; }}
 .erreur {{ background: #FBEDEA; border-left: 6pt solid #A23B2A; }}
 .erreur h3 {{ color: #A23B2A; }}
 .check {{ background: {CREME}; border: 1px solid #e6dcc3; }}

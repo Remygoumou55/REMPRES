@@ -153,12 +153,13 @@ Le client digital a payé **avant** de recevoir : il est très sensible à ce qu
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple |
-|---|---|
-| **Produit digital** | Ce qu'on achète et reçoit sur le téléphone : formation, e-book, vidéo. |
-| **Extrait gratuit** | Un petit morceau offert pour juger la qualité. |
-| **Piratage** | Copier et partager un produit sans payer le créateur. |
-| **Vendeur de rêve** | Celui qui promet la richesse rapide pour vendre. |
+| Mot | En simple | En pro |
+|---|---|---|
+| **Produit digital** | Ce qu'on achète et reçoit sur le téléphone : formation, e-book, vidéo. | Produit numérique, infoproduit. |
+| **Extrait gratuit** | Un petit morceau offert pour juger la qualité. | Échantillon, *lead magnet*. |
+| **Piratage** | Copier et partager un produit sans payer le créateur. | Violation du droit d'auteur. |
+| **Vendeur de rêve** | Celui qui promet la richesse rapide pour vendre. | Promesse trompeuse. |
+| **Remboursement** | Rendre l'argent au client s'il n'est pas satisfait, selon une règle annoncée. | Garantie de remboursement. |
 </div>
 
 <div class="check" markdown="1">

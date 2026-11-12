@@ -135,12 +135,13 @@ Le jour J, un message **court et utile**, pas un « alors ? » : « Bonjour ! Co
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple |
-|---|---|
-| **Acompte** | Une partie du prix payée d'avance pour réserver. |
-| **Paiement échelonné** | Payer en plusieurs fois, à des dates fixées. |
-| **Prix plancher** | Le prix en dessous duquel tu perds de l'argent. |
-| **Tontine** | Un groupe où chacun cotise et reçoit la cagnotte à son tour. |
+| Mot | En simple | En pro |
+|---|---|---|
+| **Acompte** | Une partie du prix payée d'avance pour réserver. | Paiement partiel qui engage l'acheteur. |
+| **Paiement échelonné** | Payer en plusieurs fois, à des dates fixées. | Paiement fractionné selon un échéancier. |
+| **Prix plancher** | Le prix en dessous duquel tu perds de l'argent. | Seuil de rentabilité unitaire. |
+| **Tontine** | Un groupe où chacun cotise et reçoit la cagnotte à son tour. | Association rotative d'épargne et de crédit. |
+| **Réservation** | Garder un produit pour un client jusqu'à une date. | Mise de côté d'un article contre engagement de l'acheteur. |
 </div>
 
 <div class="check" markdown="1">

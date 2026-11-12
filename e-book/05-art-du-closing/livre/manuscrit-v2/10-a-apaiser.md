@@ -175,10 +175,13 @@ Pour la peur que tes clients te disent le plus souvent, écris : ses paroles que
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple |
-|---|---|
-| **Cohérence** | On n'aime pas se contredire. |
-| **Étiquetage** | Mettre un mot sur ce que l'autre ressent : « On dirait que… ». |
+| Mot | En simple | En pro |
+|---|---|---|
+| **Cohérence** | On n'aime pas se contredire. | Engagement et cohérence (Cialdini). |
+| **Étiquetage** | Mettre un mot sur ce que l'autre ressent : « On dirait que… ». | *Labeling* (Chris Voss). |
+| **Audit des accusations** | Dire soi-même, au début, ce que le client pourrait reprocher. | *Accusation audit* (Chris Voss) : désamorçage préventif des objections. |
+| **Preuve vérifiable** | Une preuve que le client peut contrôler lui-même. | Élément de réassurance objectivable (test, garantie, référence contactable). |
+| **Valeur** | Tout ce que le client gagne en achetant, pas seulement le produit. | Bénéfice perçu (produit, service, garanties, avantages). |
 </div>
 
 <div class="check" markdown="1">

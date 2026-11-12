@@ -39,7 +39,7 @@ Au chapitre 10, tu as vu les trois choses qui apaisent une peur : **des question
 <div class="attention" markdown="1">
 ### 🔎 Attention aux fausses vérités sur les histoires
 
-Tu entendras peut-être : « Une histoire est 22 fois plus mémorable qu'un chiffre », ou « l'amygdale, une glande du cerveau, libère des hormones ». **Ces deux phrases sont fausses ou sans source** : le « 22 fois » n'a jamais été retrouvé dans une étude, et l'amygdale n'est pas une glande. Les recherches sur l'effet des histoires sont encore discutées. Tu n'as pas besoin de fausse science : **ton expérience de tous les jours suffit**.
+Tu entendras peut-être : « Une histoire est 22 fois plus mémorable qu'un chiffre », ou « l'amygdale, une glande du cerveau, libère des hormones ». **Ces deux phrases sont fausses ou sans source**. Tu n'as pas besoin de fausse science : **ton expérience de tous les jours suffit**.
 </div>
 
 ## 2. La méthode : une peur = une histoire
@@ -99,7 +99,7 @@ Tu as déjà des histoires : tu ne les as jamais rangées. Cherche dans **tes an
 | **3. APRÈS** | Le **résultat**. | « Elle a reçu sa taille exacte. Depuis, elle a commandé deux autres paires. » |
 | **4. ET TOI ?** | **Une question** qui ramène vers le client. | « On fait pareil ? Mesure ton pied et envoie-moi la photo. » |
 
-Le détail concret rend l'histoire **facile à croire** : « une vidéo de la semelle avec un mètre » est plus fort que « j'ai fait attention ».
+Le détail concret rend l'histoire **facile à croire**.
 
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer
@@ -156,30 +156,31 @@ Une page de ton cahier, ou une note sur ton téléphone :
 ### ✍️ Entraîne-toi : remplis ta boîte
 
 **1.** Écris les 5 peurs que tu entends le plus (reprends ton journal des objections du chapitre 2).
-<span class="ligne"></span><span class="ligne"></span>
+<span class="ligne"></span>
 
 **2.** Pour 3 de ces peurs, écris UNE histoire vraie avec AVANT · MOMENT · APRÈS · ET TOI ?
-<span class="ligne"></span><span class="ligne"></span>
+<span class="ligne"></span>
 
-**3.** Raconte chaque histoire à voix haute, chronomètre en main. Plus d'une minute ? Coupe. Pas encore d'histoire pour une peur ? **Ne l'invente pas** : écris « à trouver » et observe tes prochains clients.
+**3.** Raconte chaque histoire à voix haute : moins d'une minute. Pas d'histoire vraie ? **Ne l'invente pas.**
 </div>
 
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple |
-|---|---|
-| **Boîte à histoires** | Ta liste d'histoires vraies, une par peur fréquente. |
-| **Détail concret** | Un petit fait précis qui rend l'histoire facile à croire. |
+| Mot | En simple | En pro |
+|---|---|---|
+| **Boîte à histoires** | Ta liste d'histoires vraies, une par peur fréquente. | Banque de récits clients liés aux objections. |
+| **Détail concret** | Un petit fait précis qui rend l'histoire facile à croire. | Élément de preuve dans un récit. |
+| **Storytelling** | L'art de raconter une histoire pour faire comprendre ou convaincre. | Communication narrative. |
+| **Témoignage client** | Ce qu'un vrai client raconte de son expérience. | Preuve sociale fondée sur l'expérience d'un client réel. |
+| **Proverbe** | Une phrase courte et connue qui donne une leçon de vie. | Énoncé sapientiel de la tradition orale. |
 </div>
 
 <div class="check" markdown="1">
 ### ✅ À retenir
 
-- ☐ J'ai noté mes 5 peurs fréquentes, et j'ai au moins 3 histoires vraies dans ma boîte.
-- ☐ Chaque histoire suit AVANT · MOMENT · APRÈS · ET TOI ?, dure moins d'une minute, arrive **après** la vraie peur, et ne cite personne sans accord.
+- ☐ J'ai au moins 3 histoires vraies dans ma boîte. Chacune suit AVANT · MOMENT · APRÈS · ET TOI ?, dure moins d'une minute, arrive **après** la vraie peur, et ne cite personne sans accord.
 
-⚠️ **L'erreur à éviter :** inventer ou « arranger » une histoire : un seul mensonge découvert, et plus **aucune** histoire n'est crue.
-
+⚠️ **L'erreur à éviter :** inventer ou « arranger » une histoire : un seul mensonge découvert, et plus **aucune** histoire n'est crue.<br>
 ➡️ **Et maintenant ?** Le chapitre 27 trace la ligne entre persuader et manipuler.
 </div>

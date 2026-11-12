@@ -161,12 +161,13 @@ Pour le client qui ne répond plus depuis longtemps, Chris Voss conseille une qu
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple |
-|---|---|
-| **Conclure** | Aider le client à faire le dernier pas vers l'achat. |
-| **Choix entre deux** | Deux options qui avancent toutes les deux. |
-| **Petit pas** | Un engagement plus petit que l'achat, mais qui fait avancer. |
-| **Recommandation** | Quand un client content parle de toi à ses proches. |
+| Mot | En simple | En pro |
+|---|---|---|
+| **Conclure** | Aider le client à faire le dernier pas vers l'achat. | *Closing* : obtenir l'engagement du client. |
+| **Choix entre deux** | Deux options qui avancent toutes les deux. | *Alternative close*. |
+| **Petit pas** | Un engagement plus petit que l'achat, mais qui fait avancer. | *Advance* (Neil Rackham). |
+| **Recommandation** | Quand un client content parle de toi à ses proches. | Parrainage, *referral*. |
+| **Question de vérification** | Une question pour savoir s'il reste un doute. | Question de contrôle (*trial close*). |
 </div>
 
 <div class="check" markdown="1">

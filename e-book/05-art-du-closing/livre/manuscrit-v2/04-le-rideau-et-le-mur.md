@@ -149,11 +149,12 @@ Un proche joue le client et te dit au hasard : « C'est cher », « Je vais réf
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple |
-|---|---|
-| **Objection-rideau** | Une excuse qui cache une autre raison. |
-| **Objection-mur** | Un vrai problème qui empêche d'acheter maintenant. |
-| **Porte** | Une autre solution quand il y a un vrai problème. |
+| Mot | En simple | En pro |
+|---|---|---|
+| **Objection-rideau** | Une excuse qui cache une autre raison. | Objection de surface (prétexte) qui masque l'objection réelle. |
+| **Objection-mur** | Un vrai problème qui empêche d'acheter maintenant. | Objection réelle et fondée (budget, décision, adéquation). |
+| **Porte** | Une autre solution quand il y a un vrai problème. | Alternative commerciale (échéancier, réservation, entrée de gamme). |
+| **Vraie raison** | Ce que le client pense vraiment, derrière ses mots. | Objection réelle, motif profond du refus. |
 </div>
 
 <div class="check" markdown="1">

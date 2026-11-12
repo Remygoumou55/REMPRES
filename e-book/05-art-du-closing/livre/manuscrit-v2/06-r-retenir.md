@@ -150,11 +150,13 @@ Dans un souk d'Afrique du Nord, une journaliste raconte le rituel des vendeurs :
 <div class="mots" markdown="1">
 ### 📖 Les mots à connaître
 
-| Mot | En simple |
-|---|---|
-| **Question ouverte** | Une question à laquelle on ne peut pas répondre par oui ou non. |
-| **Relation** | Le lien de confiance entre toi et le client. |
-| **Flatterie** | Faire des compliments pour obtenir quelque chose. |
+| Mot | En simple | En pro |
+|---|---|---|
+| **Question ouverte** | Une question à laquelle on ne peut pas répondre par oui ou non. | Question qui invite le prospect à développer. |
+| **Relation** | Le lien de confiance entre toi et le client. | Rapport : climat de confiance vendeur-prospect. |
+| **Flatterie** | Faire des compliments pour obtenir quelque chose. | Compliment instrumental, perçu comme manipulateur. |
+| **Accueil** | La façon dont tu reçois le client dans les premières secondes. | Phase d'ouverture de l'entretien de vente. |
+| **Racolage** | Appeler ou retenir les passants pour les faire entrer. | Sollicitation insistante. |
 </div>
 
 <div class="check" markdown="1">

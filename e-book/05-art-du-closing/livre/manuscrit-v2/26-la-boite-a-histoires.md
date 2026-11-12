@@ -4,6 +4,8 @@
 Tu peux donner dix bonnes raisons à un client : il ne les croira pas, parce que c'est toi qui les dis. Raconte-lui **une seule histoire vraie** : il s'en souviendra encore demain.
 </div>
 
+<figure class="ill"><img src="../illustrations/ill-13-boite-histoires.jpg" alt="La boîte à histoires"></figure>
+
 <div class="scene" markdown="1">
 ### 🎬 Exemple 1 — Fanta, au marché
 
@@ -154,10 +156,10 @@ Une page de ton cahier, ou une note sur ton téléphone :
 ### ✍️ Entraîne-toi : remplis ta boîte
 
 **1.** Écris les 5 peurs que tu entends le plus (reprends ton journal des objections du chapitre 2).
-<span class="ligne"></span><span class="ligne"></span><span class="ligne"></span>
+<span class="ligne"></span><span class="ligne"></span>
 
 **2.** Pour 3 de ces peurs, écris UNE histoire vraie avec AVANT · MOMENT · APRÈS · ET TOI ?
-<span class="ligne"></span><span class="ligne"></span><span class="ligne"></span>
+<span class="ligne"></span><span class="ligne"></span>
 
 **3.** Raconte chaque histoire à voix haute, chronomètre en main. Plus d'une minute ? Coupe. Pas encore d'histoire pour une peur ? **Ne l'invente pas** : écris « à trouver » et observe tes prochains clients.
 </div>
@@ -168,20 +170,16 @@ Une page de ton cahier, ou une note sur ton téléphone :
 | Mot | En simple | En pro |
 |---|---|---|
 | **Boîte à histoires** | Ta liste d'histoires vraies, une par peur fréquente. | Banque de récits clients liés aux objections. |
-| **Storytelling** | L'art de raconter une histoire pour convaincre. | Communication narrative. |
 | **Détail concret** | Un petit fait précis qui rend l'histoire crédible. | Élément de preuve dans un récit. |
-| **Proverbe** | Une phrase courte et connue qui donne une leçon. | Énoncé de la tradition orale. |
 </div>
 
 <div class="check" markdown="1">
 ### ✅ À retenir
 
 - ☐ J'ai noté mes 5 peurs fréquentes, et j'ai au moins 3 histoires vraies dans ma boîte.
-- ☐ Chaque histoire suit AVANT · MOMENT · APRÈS · ET TOI ?, dure moins d'une minute et contient un détail concret.
-- ☐ Je la raconte **après** avoir trouvé la vraie peur.
-- ☐ Je protège mes clients (pas de nom sans accord), je n'invente et n'exagère rien.
+- ☐ Chaque histoire suit AVANT · MOMENT · APRÈS · ET TOI ?, dure moins d'une minute, arrive **après** la vraie peur, et ne cite personne sans accord.
 
-⚠️ **L'erreur à éviter :** inventer ou « arranger » une histoire (« cent lavages », « il a tout réussi en un mois »). Le jour où le client découvre le mensonge, il ne croit plus **aucune** de tes histoires, même les vraies.
+⚠️ **L'erreur à éviter :** inventer ou « arranger » une histoire : un seul mensonge découvert, et plus **aucune** histoire n'est crue.
 
-➡️ **Et maintenant ?** Mal utilisées, toutes ces techniques peuvent devenir de la manipulation. Le chapitre 27 trace la ligne : ce qu'un closer honnête s'interdit, et ce que la loi interdit.
+➡️ **Et maintenant ?** Le chapitre 27 trace la ligne entre persuader et manipuler.
 </div>

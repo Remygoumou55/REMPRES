@@ -127,11 +127,11 @@ Aucun texte.
 | ill-06 | 10 | Après les exemples |
 | ill-07 | 15 | Après les exemples |
 | ill-08 | 17 | Après les exemples |
-| ill-09 | 18 | Section « confirmation » |
+| ill-09 | ✅ refaite avec des baskets sans marque, placée au chapitre 18 |
 | ill-10 | 22 | Section « oser le silence » |
-| ill-11 | 24 | Section « les preuves » |
-| ill-12 | 25 | Section « à la porte » |
-| ill-13 | 26 | Après l'accroche |
+| ill-11 | ✅ refaite en BD, placée au chapitre 24 (les preuves) |
+| ill-12 | ✅ refaite en BD, placée au chapitre 25 (à la porte) |
+| ill-13 | ✅ refaite en BD, placée au début du chapitre 26 |
 
 Avec 13 images, le livre prendra environ 8 à 10 pages de plus (autour de 148 pages). On reste sous les 150.
 
@@ -147,8 +147,8 @@ Avec 13 images, le livre prendra environ 8 à 10 pages de plus (autour de 148 pa
 | ill-06 | ✅ placée au chapitre 10 |
 | ill-07 | ✅ placée au chapitre 15 |
 | ill-08 | ✅ placée au chapitre 17 |
-| ill-09 | ✅ placée au chapitre 18 (point 2, la vidéo). ⚠️ Les baskets ressemblent à un modèle de marque connu : à refaire avec des baskets sans forme reconnaissable, si possible |
+| ill-09 | ✅ refaite avec des baskets sans marque, placée au chapitre 18 |
 | ill-10 | ✅ placée au chapitre 22 (oser le silence). Petit défaut : Ibrahima n'a pas ses lunettes |
-| ill-11 | ❌ à refaire : style photo (pas BD), logo Apple visible sur le téléphone, la vendeuse n'est pas Amina |
-| ill-12 | ❌ à refaire : style photo, gilet orange au lieu du vert, ce n'est pas le visage de Sékou, baskets de marque |
-| ill-13 | ❌ à refaire : style photo, les 5 personnages ne sont pas les nôtres |
+| ill-11 | ✅ refaite en BD, placée au chapitre 24 (les preuves) |
+| ill-12 | ✅ refaite en BD, placée au chapitre 25 (à la porte) |
+| ill-13 | ✅ refaite en BD, placée au début du chapitre 26 |

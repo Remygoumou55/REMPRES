@@ -58,6 +58,8 @@ La dirigeante de cette société a elle-même reconnu qu'« il n'y avait pas bea
 
 Il ne peut pas voir. **Tu dois voir pour lui**, et le lui montrer.
 
+<figure class="ill"><img src="../illustrations/ill-11-diaspora.jpg" alt="Moussa voit le téléphone en appel vidéo"></figure>
+
 | Preuve | Comment la donner |
 |---|---|
 | **L'appel vidéo en direct** | Tu montres le produit, tu le tournes, tu l'allumes, tu montres l'étiquette. Une vidéo en direct ne se copie pas sur internet. |

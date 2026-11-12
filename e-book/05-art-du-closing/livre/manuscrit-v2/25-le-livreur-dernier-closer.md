@@ -70,6 +70,8 @@ Sékou a entendu **le doute**. Il fixe avec elle **une heure sûre** : c'est la 
 ## 3. À la porte : les 6 règles du livreur qui encaisse
 
 Pour le client, **tu es la boutique**. Si tu es poli et rassurant, il pense : « Cette boutique est sérieuse. »
+
+<figure class="ill"><img src="../illustrations/ill-12-livreur.jpg" alt="Sékou laisse la cliente vérifier"></figure>
 1. **Salue et présente-toi** : « Bonjour Madame, je suis Sékou, le livreur de la boutique d'Amina. Voici vos chaussures. »
 2. **Tenue propre, ton calme**, même fatigué, même en retard.
 3. **Laisse vérifier** : « Vous pouvez ouvrir et vérifier. » Un client qui vérifie devant toi ne pourra pas dire plus tard que ce n'était pas le bon produit.

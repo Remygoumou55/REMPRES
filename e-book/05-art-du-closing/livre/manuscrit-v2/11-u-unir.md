@@ -26,11 +26,11 @@ Le client était **prêt**. Et pourtant, la vente n'a pas eu lieu : **personne n
 
 ## 1. Pourquoi on n'ose pas demander
 
-Au moment de demander « Tu la prends ? », beaucoup de vendeurs ont peur : peur du « non », peur de passer pour un vendeur qui pousse, peur de gâcher une bonne discussion. Alors ils attendent. Mais **le client aussi attend**. Et dans ce silence gêné, il trouve la sortie la plus facile : « Je te reviens. »
+Au moment de demander « Tu la prends ? », beaucoup de vendeurs ont peur. Peur du « non ». Peur d'avoir l'air de pousser. Peur de gâcher une bonne discussion. Alors ils attendent. Mais **le client aussi attend**. Et dans ce silence gêné, il trouve la sortie la plus facile : « Je te reviens. »
 
 > **Le client qui est prêt a besoin qu'on lui propose le dernier pas.** Si tu ne le proposes pas, quelqu'un d'autre le fera.
 
-Et un « non » n'est pas une catastrophe. Pour Chris Voss, **un « oui » trop rapide est souvent faux**, une façon polie de partir, alors qu'un « non » est souvent sincère : le client te dit ce qui ne va pas. Si tu entends « pas encore », tu retournes simplement à la clé D : « D'accord. Qu'est-ce qui vous retient encore ? »
+Et un « non » n'est pas une catastrophe. Pour Chris Voss, **un « oui » trop rapide est souvent faux** : c'est une façon polie de partir. Un « non », lui, est souvent sincère : le client te dit ce qui ne va pas. Si tu entends « pas encore », tu retournes simplement à la clé D : « D'accord. Qu'est-ce qui vous retient encore ? »
 
 ## 2. Vérifier qu'il ne reste plus de doute
 
@@ -128,7 +128,7 @@ Si le client n'est **pas** content, ne te cache pas : reconnais, excuse-toi, ré
 
 ## 7. Et quand c'est « non » ?
 
-Personne ne vend à tous les clients. Ce qui compte, c'est **comment tu acceptes le non** : **remercie** (« Merci de m'avoir dit franchement »), **demande pourquoi une seule fois** (« Pour que je m'améliore : qu'est-ce qui n'a pas marché ? »), et **laisse la porte ouverte**.
+Personne ne vend à tous les clients. Ce qui compte, c'est **comment tu acceptes le non**. **Remercie** : « Merci de m'avoir dit franchement. » **Demande pourquoi, une seule fois** : « Pour que je m'améliore : qu'est-ce qui n'a pas marché ? » Et **laisse la porte ouverte**.
 
 Pour le client qui ne répond plus depuis longtemps, Chris Voss conseille une question dont la réponse naturelle est « non » : **« Bonjour ! Est-ce que vous avez abandonné l'idée de la formation ? »** Beaucoup répondent : « Non, non, c'est juste que… », et la conversation reprend.
 
@@ -198,5 +198,5 @@ Garde-la sur ton téléphone, ou imprime-la et accroche-la dans ta boutique.
 <div class="suite" markdown="1">
 ### ➡️ Et maintenant ?
 
-Fin de la partie 2 : tu as toute la méthode RIDEAU. La **partie 3** l'applique à chaque situation difficile, une par une : « c'est cher », « quand j'aurai l'argent », « c'est pas l'arnaque ? », « je demande à mon mari », « je vais réfléchir », le crédit et les commandes annulées.
+Fin de la partie 2 : tu as toute la méthode RIDEAU. La **partie 3** prend chaque situation difficile, une par une : « c'est cher », « quand j'aurai l'argent », « c'est pas l'arnaque ? », « je demande à mon mari », « je vais réfléchir », le crédit et les commandes annulées.
 </div>

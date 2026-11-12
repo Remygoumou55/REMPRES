@@ -19,12 +19,12 @@ Un client est convaincu. Il clique sur le lien de paiement, choisit le mobile mo
 <div class="remarque" markdown="1">
 ### 👀 Tu as remarqué ?
 
-La formation d'Ibrahima n'est pas mauvaise. Mais **le client ne peut pas la voir avant d'acheter** : il a peur d'acheter « du vent », il compare avec le gratuit, il bloque au paiement, et parfois il préfère la copie piratée. **Dans le digital, ton vrai produit, c'est la confiance** que tu construis avant, pendant et après l'achat.
+La formation d'Ibrahima n'est pas mauvaise. Mais **le client ne peut pas la voir avant d'acheter**. Il a peur d'acheter « du vent ». Il compare avec ce qui est gratuit. Il bloque au moment de payer. Et parfois, il préfère une copie volée. **Dans le digital, ton vrai produit, c'est la confiance** que tu construis avant, pendant et après l'achat.
 </div>
 
 ## 1. Pourquoi le digital fait si peur
 
-Des milliers de personnes ont perdu de l'argent dans des systèmes pyramidaux et des « formations » qui promettaient la richesse (chapitre 3). Résultat : pour beaucoup, **formation en ligne = arnaque probable**. Ce n'est pas juste pour les vendeurs honnêtes, mais c'est la réalité de départ. Et le client ne peut ni **toucher** le produit, ni le **rendre** comme une robe ; il ne sait pas toujours **où tu es** ; il a du mal à **payer en ligne** ; et il trouve beaucoup de **gratuit** sur internet. Ton travail n'est pas de te vexer : c'est de **retirer ces peurs, une par une**.
+Des milliers de personnes ont perdu de l'argent dans des systèmes pyramidaux et des « formations » qui promettaient la richesse (chapitre 3). Résultat : pour beaucoup, **formation en ligne = arnaque probable**. Ce n'est pas juste pour les vendeurs honnêtes, mais c'est la réalité de départ. Et le client ne peut pas **toucher** le produit, ni le **rendre** comme une robe. Il ne sait pas toujours **où tu es**. Il a du mal à **payer en ligne**. Et il trouve beaucoup de choses **gratuites** sur internet. Ton travail n'est pas de te vexer : c'est de **retirer ces peurs, une par une**.
 
 ## 2. La promesse honnête
 
@@ -36,7 +36,7 @@ Des milliers de personnes ont perdu de l'argent dans des systèmes pyramidaux et
 | « Gagne 500 000 F par mois sans rien faire ! » | « 12 vidéos courtes, 1 cahier d'exercices, et un groupe pour poser tes questions pendant 30 jours. » |
 | « Résultat garanti ! » | « Si tu suis les étapes et que la formation ne t'apprend rien de nouveau, je te rembourse sous 7 jours. » |
 
-Une promesse honnête contient **une compétence précise** (ce que le client saura faire), **un contenu concret** (combien de vidéos, de pages, quelle durée) et **une limite claire** : « Cette formation ne te rendra pas riche. Elle t'apprend une méthode. Le résultat dépend de ton travail. » Dire ce que ton produit ne fait pas, **ça rassure** : « Lui, au moins, il ne me ment pas. »
+Une promesse honnête dit 3 choses. **Ce que le client saura faire.** **Ce qu'il reçoit** : combien de vidéos, de pages, quelle durée. Et **une limite claire** : « Cette formation ne te rendra pas riche. Elle t'apprend une méthode. Le résultat dépend de ton travail. » Dire ce que ton produit ne fait pas, **ça rassure** : « Lui, au moins, il ne me ment pas. »
 
 ## 3. Faire « toucher » ce qu'on ne peut pas toucher
 
@@ -120,9 +120,14 @@ Si un client écrit « Ça ne marche pas, laissez tomber », ce n'est pas un ref
 <span class="src">— article de presse sur le piratage des livres, Afrique de l'Ouest anglophone (traduit de l'anglais)</span>
 </div>
 
-Une enquête menée par un auteur auprès de plus de 100 lecteurs, surtout au Nigeria, a montré que les gens piratent surtout quand **ils ne peuvent pas payer le livre (59 %)** ou quand **ils ne trouvent pas où l'acheter (43 %)**. Le piratage est donc souvent une question **d'argent** et **d'accès**, pas seulement de malhonnêteté.
+Un auteur a interrogé plus de 100 lecteurs, surtout au Nigeria. Les gens copient un livre sans payer surtout dans deux cas : **ils ne peuvent pas le payer (59 %)**, ou **ils ne trouvent pas où l'acheter (43 %)**. Le piratage est donc souvent une question **d'argent** et **d'accès**, pas seulement de malhonnêteté.
 
-Ce que tu peux faire : un **prix accessible** pour la version de base ; un **achat facile** ; mettre ta valeur dans **ce que le PDF piraté ne donne pas** (le groupe, le suivi, les mises à jour, les modèles) ; **ton nom sur chaque page** (celui qui reçoit une copie sait qui l'a écrite, et peut venir chez toi pour la suite) ; et une réponse calme au commentaire « Qui a le PDF ? » : « Il est à 3 000 F ici [lien], avec l'accès au groupe d'entraide en plus 🙂 »
+Ce que tu peux faire :
+- un **petit prix** pour la version de base ;
+- un **achat facile** ;
+- mettre ta valeur dans **ce que la copie volée ne donne pas** : le groupe, le suivi, les mises à jour, les modèles ;
+- **ton nom sur chaque page** : celui qui reçoit une copie sait qui l'a écrite, et peut venir chez toi pour la suite ;
+- une réponse calme au commentaire « Qui a le PDF ? » : « Il est à 3 000 F ici [lien], avec l'accès au groupe d'entraide en plus 🙂 »
 
 ## 8. Après l'achat : accueillir le client
 

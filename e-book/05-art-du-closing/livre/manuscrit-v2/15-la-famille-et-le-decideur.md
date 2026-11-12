@@ -42,7 +42,7 @@ Si la réponse à la question 2 est « oui », vous êtes **d'accord sur tout** 
 
 ## 2. Pourquoi c'est souvent la vérité
 
-Tu l'as vu au chapitre 3 : en Afrique, on décide souvent **en groupe**, surtout pour les gros achats, et la famille est le groupe en qui on a le plus confiance. L'argent du foyer est souvent **partagé** et **serré** :
+Tu l'as vu au chapitre 3 : en Afrique, on décide souvent **en groupe**, surtout pour les gros achats. Et la famille est le groupe en qui on a le plus confiance. L'argent du foyer est souvent **partagé** et **serré** :
 
 <div class="vrai" markdown="1">
 « Et moi mon mari ne travaille plus. Je suis là pour chercher des habits pour mes deux enfants. Mais partout où tu pars c'est cher. Je me demande comment nous allons faire. »
@@ -87,7 +87,7 @@ Amina **respecte** la façon dont le couple décide, puis elle **arme** sa clien
 
 ## 4. Aide ton client à défendre son achat
 
-Ton client va devoir répondre aux questions du décideur. Prépare-le. Une bonne façon de commencer : **« D'après vous, quelle question va-t-il vous poser en premier ? »** (C'est ce que fait Ibrahima quand son client doit en parler au grand frère qui l'aide financièrement.)
+Ton client va devoir répondre aux questions du décideur. Prépare-le. Une bonne façon de commencer : **« D'après vous, quelle question va-t-il vous poser en premier ? »** (C'est ce que fait Ibrahima : son client doit en parler à son grand frère, qui l'aide avec l'argent.)
 
 | La question du décideur | Ce que tu donnes à ton client |
 |---|---|
@@ -107,15 +107,19 @@ Pour Koffi, la personne qu'il rencontre n'est pas toujours celle qui **signe**. 
 3. **« Comment se passe la décision chez vous ? »** (réunion, comité, signature ?) ;
 4. **« Est-ce que je peux vous aider à présenter l'offre ? »**
 
-Puis il prépare **une page simple** pour le décideur (le besoin, la solution, le prix total, ce que l'entreprise gagne), propose un **rendez-vous court avec les deux**, et fixe **une relance datée** : « Le directeur rentre quand ? Je vous rappelle le lendemain, ça vous va ? »
+Puis il prépare **une page simple** pour le décideur : le besoin, la solution, le prix total, ce que l'entreprise gagne. Il propose un **rendez-vous court avec les deux**. Et il fixe **une date pour rappeler** : « Le directeur rentre quand ? Je vous rappelle le lendemain, ça vous va ? »
 
-> En entreprise comme en famille : **ne contourne jamais la personne qui t'a ouvert la porte.** Fais-en ton alliée : elle connaît le décideur mieux que toi.
+> En entreprise comme en famille : **ne passe jamais par-dessus la personne qui t'a ouvert la porte.** Fais-en ton alliée : elle connaît le décideur mieux que toi.
 
 ## 6. Et si le décideur dit non ?
 
 1. **Respecte la décision devant ton client.** Ne dis jamais « ton mari ne comprend rien ».
 2. **Demande la raison, gentiment :** « Il a dit pourquoi ? C'est le prix, le moment, ou le modèle ? » Le « non » du décideur est souvent lui aussi un rideau ou un mur.
-3. **Propose une porte qui répond à SA raison** : un modèle plus simple ou un paiement en 2 fois s'il trouve que c'est cher ; une réservation datée si ce n'est pas le moment ; ta preuve de confiance ou un appel à trois s'il doute du sérieux ; une autre couleur si elle ne lui plaît pas.
+3. **Propose une porte qui répond à SA raison :**
+    - il trouve que c'est cher → un modèle plus simple, ou un paiement en 2 fois ;
+    - ce n'est pas le moment → une réservation avec une date ;
+    - il doute du sérieux → ta preuve de confiance, ou un appel à trois ;
+    - la couleur ne lui plaît pas → une autre couleur.
 4. **Garde la porte ouverte :** « Merci d'en avoir parlé avec lui. Si un jour vous voulez revoir mes nouveaux modèles, je suis là. »
 
 Et souviens-toi : la famille, c'est aussi **ta meilleure alliée**. Un aîné bien reçu devient un client fidèle, et il t'envoie les jeunes de sa famille.

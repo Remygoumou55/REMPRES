@@ -44,7 +44,7 @@ Tu entendras peut-être : « Une histoire est 22 fois plus mémorable qu'un chif
 
 ## 2. La méthode : une peur = une histoire
 
-Le formateur français **Bastien Pelissier**, dont la méthode CDD a inspiré ce livre, parle de « poupée vaudou éthique » : à chaque peur du client, il « pique » une histoire vraie qui la fait disparaître. Nous l'appelons plus simplement **la boîte à histoires** :
+Le formateur français **Bastien Pelissier** a inspiré ce livre avec sa méthode CDD. Il parle de « poupée vaudou éthique » : à chaque peur du client, il « pique » une histoire vraie qui la fait disparaître. Nous l'appelons plus simplement **la boîte à histoires** :
 
 > **À chaque peur qui revient souvent chez tes clients, tu prépares UNE histoire vraie qui y répond.**
 
@@ -76,7 +76,13 @@ Une cliente dit à Fanta : « J'ai peur que la couleur passe au lavage. » Laque
 
 ## 3. Trouver tes histoires, et les 4 règles d'or
 
-Tu as déjà des histoires : tu ne les as jamais rangées. Cherche dans **tes anciens clients qui avaient peur** (celui qui croyait à une arnaque et qui est devenu fidèle), **les problèmes que tu as réglés** (le colis abîmé échangé sans discuter), **ta propre histoire** (pourquoi tu vends ce produit, ce que tu as appris en te trompant), **les clients revenus** (celle qui a recommandé sa sœur), et **les messages reçus** (remerciements, photos, gardés avec accord).
+Tu as déjà des histoires : tu ne les as jamais rangées. Cherche dans :
+- **tes anciens clients qui avaient peur** : celui qui croyait à une arnaque et qui est devenu fidèle ;
+- **les problèmes que tu as réglés** : le colis abîmé, échangé sans discuter ;
+- **ta propre histoire** : pourquoi tu vends ce produit, ce que tu as appris de tes erreurs ;
+- **les clients revenus** : celle qui a recommandé sa sœur ;
+- **les messages reçus** : remerciements, photos (gardés avec accord).
+
 
 1. **Elle est vraie.** Jamais d'histoire inventée : si le client découvre le mensonge, tu perds tout, et c'est parfois interdit (chapitre 27).
 2. **Elle protège le client dont tu parles.** Pas de nom, pas d'adresse, rien qui permette de le reconnaître, sauf accord.
@@ -107,7 +113,7 @@ Le détail concret rend l'histoire **facile à croire**.
 Un client écrit à Ibrahima : « Je ne suis pas fort avec le téléphone, je n'y arriverai pas. » Ibrahima a deux histoires vraies. Laquelle doit-il raconter ?
 
 - **A.** Celle d'un élève qui a doublé ses ventes en un mois grâce à la formation.
-- **B.** Celle d'une élève de 52 ans qui n'avait jamais envoyé un vocal, qui a suivi les vidéos une par une avec l'aide de sa nièce, et qui a mis en ligne son premier catalogue au bout de trois semaines.
+- **B.** Celle d'une élève de 52 ans qui n'avait jamais envoyé un vocal. Elle a suivi les vidéos une par une, avec l'aide de sa nièce. Au bout de trois semaines, elle a mis en ligne son premier catalogue.
 </div>
 
 <div class="reponse" markdown="1">
@@ -115,7 +121,7 @@ Un client écrit à Ibrahima : « Je ne suis pas fort avec le téléphone, je n'
 
 Elle parle **exactement de sa peur** : quelqu'un de pas à l'aise avec le téléphone, qui y est arrivé. Et elle ne promet pas d'argent : elle raconte un progrès réel et modeste.
 
-**❌ Pourquoi pas A ?** Elle répond à une question qu'il n'a pas posée (« est-ce que ça rapporte ? »), peut lui faire peur (« lui était déjà doué »), et ressemble aux « vendeurs de rêve » (chapitre 21).
+**❌ Pourquoi pas A ?** Elle répond à une question qu'il n'a pas posée : « est-ce que ça rapporte ? ». Elle peut lui faire peur : « lui était déjà doué ». Et elle ressemble aux « vendeurs de rêve » (chapitre 21).
 
 **👉 La bonne action :** choisis l'histoire qui répond à **la peur que le client vient d'exprimer**, pas ta « meilleure » histoire.
 </div>
@@ -124,7 +130,7 @@ Elle parle **exactement de sa peur** : quelqu'un de pas à l'aise avec le télé
 
 Les contes, les griots, les proverbes : beaucoup de clients africains sont habitués à écouter une histoire et à en tirer la leçon eux-mêmes. C'est un **avantage énorme**.
 
-**Les proverbes, avec soin.** Après l'histoire d'une cliente qui a commencé petit puis a recommandé : « Petit à petit, l'oiseau fait son nid. » Mais choisis des proverbes **que ton client connaît** ; le proverbe est **la conclusion, pas la preuve** (la preuve, c'est ce qui est vraiment arrivé) ; et ne te moque jamais d'une croyance ou d'une coutume.
+**Les proverbes, avec soin.** Après l'histoire d'une cliente qui a commencé petit puis a recommandé : « Petit à petit, l'oiseau fait son nid. » Mais choisis des proverbes **que ton client connaît**. Le proverbe est **la conclusion, pas la preuve** : la preuve, c'est ce qui est vraiment arrivé. Et ne te moque jamais d'une croyance ou d'une coutume.
 
 **Le message vocal.** En ligne, une histoire écrite est lue en diagonale. En **vocal** de 30 à 45 secondes, avec ta vraie voix, elle garde toute sa force, et prouve qu'il y a une vraie personne derrière l'écran.
 
@@ -155,13 +161,9 @@ Une page de ton cahier, ou une note sur ton téléphone :
 <div class="ecris" markdown="1">
 ### ✍️ Entraîne-toi : remplis ta boîte
 
-**1.** Écris les 5 peurs que tu entends le plus (reprends ton journal des objections du chapitre 2).
-<span class="ligne"></span>
+**1.** Écris les 5 peurs que tu entends le plus (reprends ton journal du chapitre 2).
 
-**2.** Pour 3 de ces peurs, écris UNE histoire vraie avec AVANT · MOMENT · APRÈS · ET TOI ?
-<span class="ligne"></span>
-
-**3.** Raconte chaque histoire à voix haute : moins d'une minute. Pas d'histoire vraie ? **Ne l'invente pas.**
+**2.** Pour 3 de ces peurs, écris UNE histoire vraie (AVANT · MOMENT · APRÈS · ET TOI ?), puis raconte-la à voix haute en moins d'une minute.
 </div>
 
 <div class="mots" markdown="1">

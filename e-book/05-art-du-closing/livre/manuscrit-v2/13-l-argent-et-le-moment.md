@@ -35,15 +35,21 @@ Tu l'as vu au chapitre 3 : pour beaucoup de clients, l'argent n'arrive **pas tou
 | « Oui… mais je voudrais d'abord voir… » | un **rideau** : il reste un doute | Clé **D** : « Voir quoi exactement ? » |
 | « Euh… je ne sais pas trop. » | un **rideau** : le produit ne le convainc pas | Clé **I** : son besoin a-t-il été compris ? |
 
-Si le client dit « oui, tout de suite », vous êtes **d'accord sur tout**, sauf le moment de payer. Il ne reste qu'un obstacle, et vous allez le régler **ensemble**. Et souviens-toi de la vendeuse du chapitre 9, qui avait simplement reconnu la difficulté de son client (« la vie est dure ») : **reconnaître la difficulté, c'est déjà apaiser.**
+Si le client dit « oui, tout de suite », vous êtes **d'accord sur tout**, sauf le moment de payer. Il ne reste qu'un obstacle, et vous allez le régler **ensemble**. Souviens-toi de la vendeuse du chapitre 9. Elle avait simplement dit à son client : « la vie est dure ». **Reconnaître la difficulté, c'est déjà rassurer.**
 
 ## 2. Les 6 portes
 
 Choisis celle qui convient à ton produit et à ton client, pas toutes à la fois.
 
-**Porte 1 — La réservation avec un petit acompte.** « Tu me laisses 3 000 aujourd'hui, je mets ton nom dessus, et je te la garde jusqu'à samedi. » Quelqu'un qui a payé 3 000 revient : il ne veut pas perdre son argent. **Règles :** un **reçu** (montant payé, reste à payer, date limite), ce qui se passe si le client ne revient pas (acompte rendu, gardé ou transformé en bon d'achat ?) **décidé et écrit à l'avance**, et l'article **vraiment** mis de côté.
+**Porte 1 — La réservation avec un petit acompte.** « Tu me laisses 3 000 aujourd'hui, je mets ton nom dessus, et je te la garde jusqu'à samedi. » Quelqu'un qui a payé 3 000 revient : il ne veut pas perdre son argent. **Règles :**
+- un **reçu** : montant payé, reste à payer, date limite ;
+- **décidé et écrit à l'avance** : si le client ne revient pas, l'acompte est-il rendu, gardé, ou transformé en bon d'achat ?
+- l'article est **vraiment** mis de côté.
 
-**Porte 2 — Payer en 2 ou 3 fois, honnêtement.** « 6 000 aujourd'hui, 6 000 le 5 du mois prochain. Tu prends la robe le jour du deuxième paiement. » **Règles :** dates fixées **avec** le client, selon **ses** rentrées d'argent (paie, tontine) ; tout est **écrit** ; le produit est remis **à la fin**, ou au moins après la plus grosse partie. Sinon, c'est du **crédit**, et c'est dangereux (chapitre 17).
+**Porte 2 — Payer en 2 ou 3 fois, honnêtement.** « 6 000 aujourd'hui, 6 000 le 5 du mois prochain. Tu prends la robe le jour du deuxième paiement. » **Règles :**
+- les dates sont fixées **avec** le client, selon le jour où **son** argent arrive (paie, tontine) ;
+- tout est **écrit** ;
+- le produit est remis **à la fin**, ou au moins après la plus grosse partie. Sinon, c'est du **crédit**, et c'est dangereux (chapitre 17).
 
 **Porte 3 — Un produit plus petit, tout de suite.** « Tu as 7 000 ? J'ai une robe du même style, plus simple, à 7 000. Je te la montre ? » En digital : un petit module, une première séance, un e-book au lieu du coaching complet. Ce n'est pas baisser ton prix : c'est **un autre produit**, à son prix juste.
 
@@ -95,7 +101,7 @@ Les meilleurs vendeurs savent **quand** l'argent arrive chez leurs clients, et i
 | **Jour de tontine** | Un membre reçoit une grosse somme. | Demande et note la date. |
 | **Budgets d'entreprise** | Le budget de l'année suivante se prépare. | Présente ton offre **avant** que le budget soit fait. |
 
-Quand un directeur dit à Koffi « Le budget de l'année est dépensé, revenez en janvier », la bonne réponse n'est pas « Je vous rappelle en janvier » (en janvier, tout sera décidé). C'est : « Vous préparez le budget de l'année prochaine quand, et avec qui ? Je peux vous envoyer un devis à présenter à ce moment-là. »
+Un directeur dit à Koffi : « Le budget de l'année est dépensé, revenez en janvier. » La bonne réponse n'est pas « Je vous rappelle en janvier ». En janvier, tout sera déjà décidé. C'est : « Vous préparez le budget de l'année prochaine quand, et avec qui ? Je peux vous envoyer un devis à présenter à ce moment-là. »
 
 > **Vendre au bon moment, ce n'est pas profiter des gens.** C'est être là quand ils **peuvent** acheter.
 

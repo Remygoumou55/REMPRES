@@ -123,7 +123,12 @@ Un service (formation, réparation, nettoyage, comptabilité, sécurité, transp
 | **Un engagement écrit** | Ce que tu fais, quand, comment on mesure, ce qui se passe si c'est mal fait. |
 | **Un interlocuteur unique** | « C'est moi que vous appelez s'il y a le moindre problème. » |
 
-**Le paiement.** Beaucoup d'entreprises paient **à 30 jours** ou plus. Ce n'est pas une objection, c'est leur règle. Protège-toi : un **bon de commande signé** avant de livrer, une **facture claire** envoyée le jour même, un **acompte** pour les grosses commandes, et un **rappel poli** quelques jours avant l'échéance (chapitre 17).
+**Le paiement.** Beaucoup d'entreprises paient **à 30 jours** ou plus. Ce n'est pas une objection, c'est leur règle. Protège-toi :
+- un **bon de commande signé** avant de livrer ;
+- une **facture claire**, envoyée le jour même ;
+- un **acompte** pour les grosses commandes ;
+- un **rappel poli** quelques jours avant la date de paiement (chapitre 17).
+
 
 <div class="profils" markdown="1">
 ### 👥 Dans ta situation

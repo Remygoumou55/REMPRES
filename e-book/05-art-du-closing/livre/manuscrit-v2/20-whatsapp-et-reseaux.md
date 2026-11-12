@@ -32,7 +32,7 @@ Beaucoup de **vues**, beaucoup de **messages**, peu de **ventes**. En ligne, le 
 | Il part poliment. | Il disparaît sans un mot (deux coches bleues). |
 | Il compare avec 2 ou 3 voisins. | Il compare avec 20 vendeurs en même temps. |
 
-En ligne, le client a **peur** (chapitres 3 et 14). Mais c'est aussi **une immense chance** : dans une grande étude dans 28 pays africains (Sagaci, 2024), **54 %** des utilisateurs de réseaux sociaux disent avoir déjà acheté ou vendu par ce canal.
+En ligne, le client a **peur** (chapitres 3 et 14). Mais c'est aussi **une immense chance**. Une grande étude a été faite dans 28 pays africains (Sagaci, 2024). Plus de la moitié des gens sur les réseaux sociaux (**54 %**) disent y avoir déjà acheté ou vendu.
 
 <div class="vrai" markdown="1">
 « Auparavant, je me promenais dans les services où l'on prenait une dizaine d'articles à crédit. Mais actuellement je parviens à vendre mes sacs à mains même à des femmes qui sont [loin d'ici] ou dans la sous-région. »
@@ -153,7 +153,7 @@ Sous tes publications, **tout le monde lit**.
 | « Arnaqueuse ! » | « Je suis désolée que vous pensiez ça. Je vous écris en privé pour comprendre ce qui s'est passé. » |
 | « J'ai reçu mon sac, il est top ! » | « Merci beaucoup ! » Puis demande-lui en privé si tu peux partager une photo. |
 
-Les avis qui rassurent vraiment ne sont pas les captures d'écran : ce sont un **client réel qu'on peut appeler**, une **vidéo** d'un client qui reçoit son colis (avec son accord), et ton **historique** (une page active depuis longtemps).
+Les captures d'écran ne rassurent plus beaucoup. Ce qui rassure vraiment : un **vrai client qu'on peut appeler**, une **vidéo** d'un client qui reçoit son colis (avec son accord), et une page **active depuis longtemps**.
 
 ## 9. Garder les clients après la livraison
 

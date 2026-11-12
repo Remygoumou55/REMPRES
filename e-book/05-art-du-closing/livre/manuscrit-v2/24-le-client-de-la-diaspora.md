@@ -123,7 +123,7 @@ Pour lui, **chaque jour sans nouvelles est un jour d'angoisse**. Un homme d'affa
 <span class="src">— un commentaire sous une histoire de diaspora trahie, Afrique de l'Ouest anglophone (traduit de l'anglais)</span>
 </div>
 
-**Rendre des comptes** et **être sincère** : c'est exactement ce qu'il cherche chez un vendeur. Et quand Ibrahima répond à un client de l'étranger « Vous pouvez me faire confiance », il ne donne rien : un appel vidéo et un ancien élève qu'on peut appeler valent mieux que cette phrase.
+**Rendre des comptes** et **être sincère** : c'est exactement ce qu'il cherche chez un vendeur. Ibrahima, lui, répond à un client de l'étranger : « Vous pouvez me faire confiance. » Cette phrase ne prouve rien. Un appel vidéo et un ancien élève qu'on peut appeler valent beaucoup plus.
 
 ## 5. Le « prix diaspora » : la pire erreur
 

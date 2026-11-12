@@ -37,7 +37,7 @@ Le client **n'accuse pas vraiment le vendeur** : il **se protège**, parce que l
 
 Quand ton client a peur, **ce n'est pas contre toi** : c'est contre **tous les faux vendeurs** passés avant toi. Ton travail est de lui montrer que tu n'es pas comme eux, **avec des preuves, pas avec des mots**.
 
-Bastien Pelissier explique **le paradoxe du « faites-moi confiance »** : le client te demande « Pourquoi je devrais vous faire confiance ? », mais il **ne croira pas** ta réponse si elle vient de ta bouche. Il pense : « Évidemment qu'il dit ça, il veut mon argent. » Il croira seulement ce qu'il peut **voir**, **vérifier**, ou entendre d'**une autre personne**.
+Bastien Pelissier explique **le piège du « faites-moi confiance »**. Le client te demande : « Pourquoi je devrais vous faire confiance ? » Mais il **ne croira pas** ta réponse, parce qu'elle vient de ta bouche. Il pense : « Évidemment qu'il dit ça, il veut mon argent. » Il croira seulement ce qu'il peut **voir**, **vérifier**, ou entendre d'**une autre personne**.
 
 ## 2. Première règle : ne jamais te vexer
 
@@ -78,7 +78,7 @@ Encore mieux : **dis la peur avant lui** (l'audit des accusations du chapitre 10
 | 7 | **Un vrai client qu'il peut contacter**, ou un proche qui te recommande | ✅✅ Très forte | La confiance passe par quelqu'un d'autre que toi. |
 | 8 | **Vérifier avant de payer** : paiement à la livraison, ou petit acompte avec reçu | ✅✅ Très forte | Il ne prend presque plus de risque. |
 
-> **Les preuves qui viennent de toi rassurent peu. Les preuves que le client peut vérifier lui-même rassurent beaucoup.** Et la confiance vaut de l'argent : tu as vu au chapitre 3 que les clients paient volontiers un peu plus pour une marque en qui ils ont confiance.
+> **Les preuves qui viennent de toi rassurent peu. Les preuves que le client peut vérifier lui-même rassurent beaucoup.** Et la confiance vaut de l'argent. Tu l'as vu au chapitre 3 : les clients paient volontiers un peu plus une marque en qui ils ont confiance.
 
 ## 4. Les réponses, phrase par phrase
 
@@ -88,7 +88,7 @@ Encore mieux : **dis la peur avant lui** (l'audit des accusations du chapitre 10
 
 **« Envoie la vraie photo. »** Ne t'énerve pas : il a peut-être déjà reçu autre chose que la photo. → « Je vous filme l'article maintenant, avec un papier où j'écris la date d'aujourd'hui à côté. » Ce petit détail prouve que la vidéo n'a **pas été copiée** ailleurs.
 
-**« C'est l'original ou la copie ? »** Une seule règle : **dis la vérité.** → « C'est une bonne imitation, pas l'original de la marque. C'est pour ça que le prix est à 25 000 et pas à 150 000. Je vous montre la qualité des coutures. » Si c'est l'original, **montre-le** au lieu de le jurer : la facture du fournisseur, l'étiquette, le numéro de série. ⚠️ Vendre une copie comme l'original, c'est mentir, c'est interdit dans beaucoup de pays (chapitre 27), et le jour où le client le découvre, tu perds tout.
+**« C'est l'original ou la copie ? »** Une seule règle : **dis la vérité.** → « C'est une bonne imitation, pas l'original de la marque. C'est pour ça que le prix est à 25 000 et pas à 150 000. Je vous montre la qualité des coutures. » Si c'est l'original, **montre-le** au lieu de le jurer : la facture du fournisseur, l'étiquette, le numéro de série. ⚠️ Vendre une copie comme l'original, c'est mentir. C'est interdit dans beaucoup de pays (chapitre 27). Et le jour où le client le découvre, tu perds tout.
 
 **« J'ai déjà été arnaqué. »** C'est le moment d'**écouter** (chapitre 9), pas de te défendre, ni d'envoyer quinze captures d'écran. → « Je suis vraiment désolé. Qu'est-ce qui s'est passé ? » Laisse-le raconter. Puis reprends **ses mots** pour montrer que tu fais l'inverse : « Si je comprends bien, le vendeur avait pris l'acompte puis ne répondait plus. Chez moi, vous ne payez rien avant d'avoir le colis dans les mains. »
 

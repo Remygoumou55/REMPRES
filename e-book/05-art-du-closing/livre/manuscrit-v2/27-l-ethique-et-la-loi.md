@@ -52,7 +52,7 @@ Toutes les techniques de ce livre sont **puissantes**. Et ce qui fonctionne peut
 
 ## 3. Le prix honnête : le même pour tous
 
-Tu as vu le danger du **prix « selon la tête du client »** (chapitres 3 et 5), et au chapitre 24, la vendeuse d'huile de palme qui a préféré **perdre un contrat** plutôt que gonfler son prix pour un couple de la diaspora. Elle a gardé ce qui vaut plus qu'une vente : **sa parole**.
+Tu as vu le danger du **prix « selon la tête du client »** (chapitres 3 et 5). Et au chapitre 24, tu as vu la vendeuse d'huile de palme. Elle a préféré **perdre un contrat** plutôt que gonfler son prix pour un couple de la diaspora. Elle a gardé ce qui vaut plus qu'une vente : **sa parole**.
 
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer
@@ -97,7 +97,7 @@ Ce tableau n'est **pas un conseil juridique**. Il résume des textes publics, v�
 | **Nigeria** | Loi de 2018 sur la concurrence et la protection du consommateur (FCCPA), article 115 | Oblige à **afficher le prix** des biens exposés ou annoncés. |
 | **Sénégal, Mali** | Loi n° 2021-25 (Sénégal) ; loi n° 2015-036 (Mali) | Des lois de protection du consommateur existent, avec des sanctions. |
 
-Retiens ceci : **mentir sur ton produit, inventer une urgence, cacher des frais ou mettre une pression excessive, c'est risqué partout.** Et même là où personne ne te poursuivra, **tes clients te jugeront** : une capture d'écran voyage plus vite que n'importe quel tribunal.
+Retiens ceci : **mentir sur ton produit, inventer une urgence, cacher des frais ou mettre trop de pression, c'est risqué partout.** Et même là où personne ne te poursuivra, **tes clients te jugeront** : une capture d'écran voyage plus vite que n'importe quel tribunal.
 
 ## 5. La liste rouge : les techniques interdites dans ce livre
 

@@ -24,7 +24,7 @@ Tu n'as même pas fini de dire ton prix que le client fait déjà la grimace. «
 <div class="remarque" markdown="1">
 ### 👀 Tu as remarqué ?
 
-Amina a **critiqué le concurrent**. Ibrahima a **baissé son prix tout de suite**, et il n'a même pas gagné la vente : en baissant si vite, il a fait croire que son prix de départ était faux. D'autres vendeurs **ferment la porte** (« c'est ça ou rien »). Aucun n'a cherché à savoir **ce que voulait dire ce « c'est cher »**.
+Amina a **critiqué le concurrent**. Ibrahima a **baissé son prix tout de suite**. Et il n'a même pas gagné la vente. En baissant si vite, il a fait croire que son premier prix était faux. D'autres vendeurs **ferment la porte** (« c'est ça ou rien »). Aucun n'a cherché à savoir **ce que voulait dire ce « c'est cher »**.
 </div>
 
 ## Comment utiliser la partie 3
@@ -46,7 +46,7 @@ Chaque chapitre de cette partie traite une **famille d'objections** : le prix (1
 | **4. La comparaison** | « J'ai vu moins cher ailleurs. » | Il cite un autre vendeur ou une autre page. |
 | **5. Le vrai mur d'argent** | « Je n'ai vraiment pas cette somme. » | Il compte son argent, parle de sa paie → chapitre 13. |
 
-Bastien Pelissier résume le visage n° 1 avec une image : si quelqu'un de sérieux te vendait 10 000 un ticket qui va sûrement te rapporter 100 000, tu trouverais l'argent. **Quand un client dit « c'est cher », il dit souvent : « Je ne vois pas encore assez clairement ce que je gagne. »** Le vendeur américain Grant Cardone va dans le même sens : « ce n'est presque jamais le prix ».
+Bastien Pelissier explique le visage n° 1 avec une image. Imagine qu'une personne sérieuse te vende à 10 000 un ticket qui va sûrement te rapporter 100 000. Tu trouverais l'argent, non ? **Quand un client dit « c'est cher », il dit souvent : « Je ne vois pas encore assez clairement ce que je gagne. »** Le vendeur américain Grant Cardone va dans le même sens : « ce n'est presque jamais le prix ».
 
 **Mais attention à l'Afrique :** le vrai mur d'argent est **beaucoup plus fréquent** chez nous (chapitre 3). Ne dis jamais « ce n'est jamais le prix ». Dis : **« Ce n'est pas toujours le prix. Je vais vérifier. »**
 
@@ -108,7 +108,7 @@ Si tu baisses **à chaque fois**, tu ne gagnes plus rien. Si tu refuses **tout**
 | **Un prix pour la quantité** | « Une robe : 12 000. Deux robes : 22 000. » |
 | **Un bonus** (digital, services) | Une séance de questions, un modèle de document |
 
-C'est la règle du chapitre 10 : **on ne négocie pas sur le prix, on négocie sur la valeur.** Tu y as vu les techniques des vendeurs africains : le silence calme, « ajoute un peu et je fais de toi ma cliente », la remise qui s'explique par la fidélité ou la quantité, deux prix au lieu d'un. Si tu acceptes de baisser un peu, fais-le **toujours avec une raison**, pour que ton prix reste juste pour les autres.
+C'est la règle du chapitre 10 : **on ne négocie pas sur le prix, on négocie sur la valeur.** Tu y as vu les techniques des vendeurs africains. Le silence calme. « Ajoute un peu et je fais de toi ma cliente. » La remise pour une cliente fidèle ou pour une grosse quantité. Deux prix au lieu d'un. Si tu acceptes de baisser un peu, fais-le **toujours avec une raison**, pour que ton prix reste juste pour les autres.
 
 ## 5. « Ailleurs, c'est moins cher »
 
@@ -117,7 +117,7 @@ Trois règles :
 2. **Ne critique jamais le concurrent** : tu passerais pour un jaloux.
 3. **Fais comparer les bonnes choses** : la qualité, la livraison, l'échange, le service. Pas seulement le chiffre.
 
-**Attention : le prix trop bas est parfois un piège.** Un média du Nigeria a raconté l'histoire d'une cliente qui avait trouvé un téléphone haut de gamme presque deux fois moins cher ailleurs. Un vendeur l'a aidée à poser les bonnes questions. Résultat :
+**Attention : le prix trop bas est parfois un piège.** Un journal du Nigeria a raconté l'histoire d'une cliente. Elle avait trouvé un très bon téléphone presque deux fois moins cher ailleurs. Un vendeur l'a aidée à poser les bonnes questions. Résultat :
 
 <div class="vrai" markdown="1">
 « Le vendeur a avoué que c'était un iPhone XR dans une coque d'iPhone 13. »
@@ -154,11 +154,11 @@ Pour une formation ou un service, la demande arrive souvent **à la fin**, quand
 
 > « Par respect pour mes autres clients et pour la valeur de la formation, je ne peux pas baisser le prix. En revanche, si vous la commencez aujourd'hui, je vous offre une séance de questions de 30 minutes. Qu'en pensez-vous ? »
 
-Tu restes **juste** avec ceux qui ont payé le plein prix, tu **protèges la valeur** (un prix qui baisse au premier mot fait douter), et le client repart avec un petit plus. ⚠️ « Si vous la commencez aujourd'hui » doit être **vrai** : sinon, c'est une fausse urgence.
+Tu restes **juste** avec ceux qui ont payé le plein prix. Tu **protèges la valeur** : un prix qui baisse au premier mot fait douter. Et le client repart avec un petit plus. ⚠️ « Si vous la commencez aujourd'hui » doit être **vrai** : sinon, c'est une fausse urgence.
 
 ## 7. Quand le prix est vraiment trop haut pour lui
 
-Si tu découvres un **vrai mur**, ne force pas. Utilise les portes : **un modèle plus simple** (« le même style à 8 000, sans la broderie »), **un plus petit format**, ou une **réservation** et un **paiement en plusieurs fois** honnête (chapitre 13). **Proposer moins cher, ce n'est pas baisser ton prix : c'est proposer un autre produit, à son prix juste.**
+Si tu découvres un **vrai mur**, ne force pas. Utilise les portes. **Un modèle plus simple** : « le même style à 8 000, sans la broderie ». **Un plus petit format**. Ou une **réservation** et un **paiement en plusieurs fois**, honnête (chapitre 13). **Proposer moins cher, ce n'est pas baisser ton prix : c'est proposer un autre produit, à son prix juste.**
 
 <div class="profils" markdown="1">
 ### 👥 Dans ta situation : tes phrases clés

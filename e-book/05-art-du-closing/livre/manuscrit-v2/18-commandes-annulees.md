@@ -102,7 +102,12 @@ Le client **écrit lui-même** son accord : c'est la cohérence du chapitre 10. 
 | **Frais de livraison payés d'avance** | « La livraison (2 000 F) se paie à la commande, le reste à la réception. » | Nouveaux clients, livraisons loin. |
 | **Acompte** | « Pour les articles commandés spécialement pour vous, je demande 30 % à la commande. » | Achats exprès, sur mesure, gros montants. |
 
-Une cliente qui défend pourtant le paiement à la livraison le propose elle-même : « Une suggestion valable serait d'introduire des frais d'engagement. Tu perds une somme payée d'avance si tu refuses la livraison d'un article commandé sans raison. » **Trois règles pour que ce soit honnête :** l'annoncer **avant**, dans le récapitulatif ; **rembourser** si c'est **toi** qui as tort (article non conforme, gros retard) ; **garder** l'acompte seulement si le client annule sans raison valable. Tu perdras quelques clients qui refusent de payer quoi que ce soit d'avance : ce sont souvent… ceux qui allaient annuler.
+Une cliente qui défend pourtant le paiement à la livraison le propose elle-même : « Une suggestion valable serait d'introduire des frais d'engagement. Tu perds une somme payée d'avance si tu refuses la livraison d'un article commandé sans raison. » **Trois règles pour que ce soit honnête :**
+1. l'annoncer **avant**, dans le récapitulatif ;
+2. **rembourser** si c'est **toi** qui as tort (mauvais article, gros retard) ;
+3. **garder** l'acompte seulement si le client annule sans bonne raison.
+
+Tu perdras quelques clients qui refusent de payer quoi que ce soit d'avance : ce sont souvent… ceux qui allaient annuler.
 
 **Point 6 — Ne jamais acheter « exprès » sans acompte.** **Si tu dois sortir ton argent pour aller chercher l'article, le client sort une partie du sien d'abord.** « Comme je l'achète spécialement pour vous, je demande 30 % d'acompte. Je vous envoie la vidéo dès que je l'ai. »
 

@@ -37,11 +37,11 @@ Tu sais (chapitre 4) que beaucoup d'objections sont des **rideaux**. La méthode
 | **A — Apaiser** | Tu dissipes la peur, ou tu ouvres une porte dans le mur. | Quand tu connais la vraie raison | 10 |
 | **U — Unir** | Tu conclus **avec** lui, par un petit pas, puis tu le gardes. | À la fin, et après | 11 |
 
-**D'où vient cette méthode ?** Les clés **D, É et A** reprennent la méthode **CDD** du formateur français **Bastien Pelissier** (Clarifier, Discuter, Démonter) : on ne répond pas à une objection avant d'avoir découvert la peur qui se cache derrière. Mais le CDD commence au moment de l'objection. En Afrique, beaucoup de clients partent **avant**. Il fallait donc ajouter deux clés avant (Retenir, Interroger) et une après (Unir), avec ce que font les vendeurs africains qui réussissent.
+**D'où vient cette méthode ?** Les clés **D, É et A** reprennent la méthode **CDD** du formateur français **Bastien Pelissier** (Clarifier, Discuter, Démonter). L'idée : on ne répond pas à une objection avant d'avoir trouvé la peur cachée derrière. Mais le CDD commence au moment de l'objection. En Afrique, beaucoup de clients partent **avant**. Il fallait donc ajouter deux clés avant (Retenir, Interroger) et une après (Unir), avec ce que font les vendeurs africains qui réussissent.
 
 ## 2. Les deux questions des premières secondes
 
-Quand un client arrive ou t'écrit, il se pose deux questions, sans s'en rendre compte : **« Est-ce que je me sens bien ici ? »** et **« Est-ce que ce vendeur est sérieux ? »** Il y répond **avant** de regarder ton prix, avec ton visage, ta voix, ton premier mot, la vitesse de ta réponse. Si c'est « non », tout est perdu d'avance.
+Quand un client arrive ou t'écrit, il se pose deux questions, sans s'en rendre compte : **« Est-ce que je me sens bien ici ? »** et **« Est-ce que ce vendeur est sérieux ? »** Il trouve la réponse **avant** de regarder ton prix. Il la trouve dans ton visage, ta voix, ton premier mot et la vitesse de ta réponse. Si c'est « non », tout est perdu d'avance.
 
 > **Retenir, ce n'est pas attraper le client. C'est lui donner envie de rester.**
 
@@ -77,7 +77,7 @@ Les **3 gestes** : saluer, être disponible, laisser libre. Et Fanta invite à *
 
 ## 4. Arrête de dire « Je peux vous aider ? »
 
-À « Je peux vous aider ? », presque tous les clients du monde répondent : « Non merci, je regarde. » C'est une question à laquelle on répond « non » en un mot, et ce « non » permet de partir sans gêne. **La bonne ouverture est une question facile, sur le client, à laquelle on ne répond pas par oui ou non.**
+À « Je peux vous aider ? », presque tous les clients du monde répondent : « Non merci, je regarde. » On y répond « non » en un mot. Et ce « non » permet de partir sans gêne. **La bonne ouverture est une question facile, sur le client, à laquelle on ne répond pas par oui ou non.**
 
 | Au lieu de… | Dis… |
 |---|---|
@@ -91,14 +91,14 @@ Tu peux aussi **commenter ce qu'il regarde** : « Celle-là, c'est la préféré
 <div class="attention" markdown="1">
 ### 📱 En ligne : ton premier message, c'est ton visage
 
-Il doit faire les 3 gestes à l'écrit : **remercier** (« Bonsoir et merci pour votre message ! »), **répondre vite** (en 5 minutes, ça dit « tu comptes » ; 3 heures plus tard, ça dit « tu n'es pas important »), et rester **court, avec une question**. Pas de pavé de 40 lignes. Pour Ibrahima : « Merci d'avoir regardé la vidéo ! 🙏 Qu'est-ce qui vous a parlé le plus ? Vous vendez déjà, ou vous voulez commencer ? » Le programme complet viendra plus tard, **s'il le demande**. Et pense au **message vocal** : 20 secondes de ta vraie voix rassurent plus que 20 lignes.
+Il doit faire les 3 gestes à l'écrit. **Remercier** : « Bonsoir et merci pour votre message ! » **Répondre vite** : en 5 minutes, ça dit « tu comptes » ; 3 heures plus tard, ça dit « tu n'es pas important ». Et rester **court, avec une question**. Pas de pavé de 40 lignes. Pour Ibrahima : « Merci d'avoir regardé la vidéo ! 🙏 Qu'est-ce qui vous a parlé le plus ? Vous vendez déjà, ou vous voulez commencer ? » Le programme complet viendra plus tard, **s'il le demande**. Et pense au **message vocal** : 20 secondes de ta vraie voix rassurent plus que 20 lignes.
 </div>
 
 ## 5. Créer la relation : les gens adorent parler d'eux
 
-Quand Bastien Pelissier était enfant, son père lui a donné un conseil avant sa rentrée dans une nouvelle école : **« Pour être intéressant, intéresse-toi aux autres. »** La science le confirme :
+Quand Bastien Pelissier était enfant, il allait entrer dans une nouvelle école. Son père lui a donné un conseil : **« Pour être intéressant, intéresse-toi aux autres. »** La science le confirme :
 - en 2012, deux chercheurs de Harvard (Tamir et Mitchell) ont montré que **parler de soi active le circuit du plaisir** dans le cerveau ;
-- en 2017, une équipe de Harvard (Huang et ses collègues) a observé que ceux qui posent **plus de questions**, surtout des questions qui **rebondissent** sur ce que l'autre vient de dire, sont **plus appréciés** ;
+- en 2017, une équipe de Harvard (Huang et ses collègues) a observé ceci : ceux qui posent **plus de questions** sont **plus appréciés**, surtout quand la question **repart** de ce que l'autre vient de dire ;
 - et en 1936, Dale Carnegie l'écrivait déjà dans *Comment se faire des amis*.
 
 > **Le client qui a parlé de lui se sent écouté. Le client qui se sent écouté fait confiance. Et le client qui fait confiance achète.**

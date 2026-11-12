@@ -54,7 +54,7 @@ La plupart des vendeurs **attendent leur tour pour parler** : pendant que le cli
 - **chercher à comprendre, pas à répondre** : « Qu'est-ce qu'il veut dire exactement ? » ;
 - **montrer que tu as compris** : « Si je comprends bien, la dernière fois le colis est arrivé abîmé, et vous avez peur que ça recommence. »
 
-On entend souvent : « Un bon vendeur écoute 80 % du temps. » **Ce chiffre n'a aucune source.** Ce qui a été mesuré : l'entreprise **Gong** a étudié environ **326 000 appels** de vente entre entreprises en 2025. Dans les ventes **gagnées**, le vendeur parlait environ **57 %** du temps ; dans les ventes **perdues**, environ **62 %**. La différence n'est pas énorme, mais elle va dans le même sens : **le vendeur qui gagne parle un peu moins.** Retiens : écoute plus que tu ne parles, surtout juste après que le client a dit sa peur.
+On entend souvent : « Un bon vendeur écoute 80 % du temps. » **Ce chiffre n'a aucune source.** Voici ce qui a été vraiment mesuré. En 2025, l'entreprise **Gong** a étudié environ **326 000 appels** de vente entre entreprises. Dans les ventes **gagnées**, le vendeur parlait environ **57 %** du temps ; dans les ventes **perdues**, environ **62 %**. La différence n'est pas énorme, mais elle va dans le même sens : **le vendeur qui gagne parle un peu moins.** Retiens : écoute plus que tu ne parles. Surtout juste après que le client a dit sa peur.
 
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer
@@ -80,7 +80,7 @@ Amina **reconnaît** ce que le client a vécu, sans se défendre, puis lui deman
 
 ## 4. Les 4 outils de l'écoute
 
-1. **« Qu'est-ce qui vous fait penser ça ? »** Elle ne juge pas, elle invite à expliquer. « J'ai peur qu'elle déteigne. » → « Ah bon ? Qu'est-ce qui te fait penser ça ? » L'ancien négociateur du FBI **Chris Voss** conseille les questions en **« Comment… ? »** ou **« Qu'est-ce que… ? »** plutôt qu'en « Pourquoi ? », qui met sur la défensive.
+1. **« Qu'est-ce qui vous fait penser ça ? »** Elle ne juge pas, elle invite à expliquer. « J'ai peur qu'elle déteigne. » → « Ah bon ? Qu'est-ce qui te fait penser ça ? » **Chris Voss**, ancien négociateur du FBI, conseille les questions en **« Comment… ? »** ou **« Qu'est-ce que… ? »**. Évite « Pourquoi ? » : le client a l'impression qu'il doit se défendre.
 2. **« Racontez-moi. »** « Ça vous est déjà arrivé ? Ça s'est passé comment ? » Chaque détail de l'histoire est **un indice**.
 3. **L'effet miroir** (Chris Voss). Tu répètes les **1 à 3 derniers mots** du client, sur un ton de question… puis tu te tais.
 
@@ -172,5 +172,5 @@ Un proche te raconte sa journée, un problème au travail, un achat raté. Tu as
 
 ⚠️ **L'erreur à éviter :** utiliser le moment du thé comme une ruse, pour trouver le point faible du client. Il finit toujours par le sentir. **Écoute sincèrement, ou n'écoute pas du tout.**
 
-➡️ **Et maintenant ?** Tu connais la peur et sa source. La clé **A comme Apaiser** (chapitre 10) t'apprend à l'enlever sans forcer : ses propres paroles, des histoires vraies, des preuves, et la valeur plutôt que le prix.
+➡️ **Et maintenant ?** Tu connais la peur et sa source. La clé **A comme Apaiser** (chapitre 10) t'apprend à l'enlever sans forcer. Avec ses propres paroles, des histoires vraies, des preuves. Et avec la valeur, pas avec le prix.
 </div>

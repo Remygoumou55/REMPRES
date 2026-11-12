@@ -50,7 +50,7 @@ Dans les années 1970-1980, le chercheur anglais **Neil Rackham** et son équipe
 <div class="attention" markdown="1">
 ### 🌍 Au marché, on n'a pas le temps de poser 4 questions !
 
-C'est vrai. Si le client te donne 30 secondes, **garde les questions 1 et 2**, en une phrase chacune : « C'est pour le travail ou pour sortir ? » … « Qu'est-ce que tu n'aimais pas dans ta dernière robe ? » Les 4 questions complètes, c'est pour les ventes plus longues : formations, services, entreprises, gros achats.
+C'est vrai. Si le client te donne seulement 30 secondes, **garde les questions 1 et 2**. Une phrase pour chacune : « C'est pour le travail ou pour sortir ? » … « Qu'est-ce que tu n'aimais pas dans ta dernière robe ? » Les 4 questions, c'est pour les ventes plus longues : formations, services, entreprises, gros achats.
 </div>
 
 <div class="quiz" markdown="1">
@@ -80,7 +80,7 @@ Elle aide le client à **mesurer ce que son problème lui coûte**. Quand il fai
 Même en très peu de temps, ces 3 questions marchent presque toujours :
 
 1. **« C'est pour qui ? »** Quand tu sais pour qui il achète (sa mère, sa sœur, un enfant), tu sais ce qui compte vraiment. Et c'est souvent plus fort que le prix.
-2. **« C'est pour quand ? » ou « Pour quelle occasion ? »** Tu connais l'**urgence réelle** (« le baptême est samedi » : ce n'est pas toi qui l'inventes, c'est **sa** vie) et le bon produit (on ne propose pas la même robe pour un deuil ou un mariage).
+2. **« C'est pour quand ? » ou « Pour quelle occasion ? »** Tu connais la **vraie urgence** : « le baptême est samedi ». Ce n'est pas toi qui l'inventes, c'est **sa** vie. Et tu connais le bon produit : on ne propose pas la même robe pour un deuil et pour un mariage.
 3. **« Tu avais prévu combien ? »** Cette question rend service : elle t'évite de montrer des articles trop chers et de mettre le client mal à l'aise.
 
 <div class="vrai" markdown="1">
@@ -102,7 +102,7 @@ Combien de questions ? **Assez pour savoir quoi proposer.** Au marché, deux ou 
 
 ## 5. Vérifier que ton produit lui convient vraiment
 
-C'est la partie la plus oubliée. Tu sais maintenant ce que veut le client. Pose-toi honnêtement la question : **« Est-ce que mon produit est vraiment bon pour lui ? »** Si non, **tu ne vends pas** : tu proposes autre chose, ou tu l'envoies vers quelqu'un qui a ce qu'il lui faut. **Un client à qui tu as vendu le mauvais produit le dira à dix personnes.** Un client que tu as honnêtement orienté ailleurs le dira aussi, mais en bien. Et il reviendra.
+C'est la partie la plus oubliée. Tu sais maintenant ce que veut le client. Pose-toi honnêtement la question : **« Est-ce que mon produit est vraiment bon pour lui ? »** Si non, **tu ne vends pas**. Tu proposes autre chose, ou tu l'envoies chez quelqu'un qui a ce qu'il lui faut. **Un client à qui tu as vendu le mauvais produit le dira à dix personnes.** Un client que tu as honnêtement orienté ailleurs le dira aussi, mais en bien. Et il reviendra.
 
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer
@@ -157,7 +157,7 @@ Le client n'a pas l'impression qu'on lui vend quelque chose : il a l'impression 
 **2.** Transforme avec « Tu m'as dit… alors… » : « Ce sac a deux poches. » (La cliente prend le bus tous les jours et a peur des vols.)
 <span class="ligne"></span>
 
-*Une réponse possible :* « Tu m'as dit que tu prends le bus et que tu as peur des vols : ce sac se ferme avec une fermeture éclair, et la poche intérieure est cachée contre ton corps. »
+*Une réponse possible :* « Tu m'as dit que tu prends le bus et que tu as peur des vols. Ce sac se ferme avec une fermeture éclair. Et la poche intérieure est cachée contre ton corps. »
 </div>
 
 <div class="mots" markdown="1">

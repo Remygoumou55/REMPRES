@@ -2,7 +2,7 @@
 
 Bonjour, et bienvenue. Avant tout, une seule question : **pourquoi tu as ouvert ce livre ?**
 
-Je vais deviner. Tu vends quelque chose : des habits, des chaussures, des téléphones, des produits de beauté, une formation en ligne, un service… Ou bien c'est toi qui **livres** ce que les autres vendent. Et il t'arrive des choses qui font mal, presque tous les jours. **Coche tout ce qui t'est déjà arrivé.**
+Je vais deviner. Tu vends quelque chose : des habits, des chaussures, des téléphones, des produits de beauté, une formation, un service… Ou bien c'est toi qui **livres** ce que les autres vendent. Et il t'arrive des choses qui font mal, presque tous les jours. **Coche tout ce qui t'est déjà arrivé.**
 
 <div class="vecu" markdown="1">
 ### 💬 Ça t'est déjà arrivé ?
@@ -67,7 +67,7 @@ Choisis ta lettre. Dans chaque chapitre, l'encadré **« Dans ta situation »** 
 
 Lis tout, même ce qui ne te concerne pas : le vendeur en ligne comprend mieux ses annulations quand il se met à la place du livreur. Et le livreur, c'est **le dernier vendeur** : il est devant le client au moment le plus fragile, celui où il faut sortir l'argent.
 
-Ces personnages sont **inventés**, comme **Moussa**, un client qui vit à l'étranger et que tu rencontreras plus loin. Les prix sont en « F » : adapte-les à ton pays. Les encadrés **« Témoignages réels »**, eux, contiennent de **vraies paroles** de vendeurs et de clients africains, publiées dans la presse ou des études, sans noms ni lieux. Les sources sont à la fin du livre.
+Ces personnages sont **inventés**, comme **Moussa**, un client qui vit à l'étranger et que tu rencontreras plus loin. Les prix sont en « F » : adapte-les à ton pays. Les encadrés **« Témoignages réels »**, eux, contiennent de **vraies paroles** de vendeurs et de clients africains. Elles viennent de journaux ou d'études. On a enlevé les noms et les lieux. Les sources sont à la fin du livre.
 
 ## Comment ce livre est construit
 

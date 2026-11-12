@@ -87,7 +87,7 @@ Tu l'as découvert au chapitre 2. Chaque soir, **5 minutes** : une ligne par cli
 
 ## 6. Semaine 4 — Unir, garder et tout assembler (jours 22 à 30)
 
-**Objectif de la semaine :** conclure sans pression, éviter les annulations, garder tes clients, et faire toute la méthode RIDEAU d'un seul geste. (Chapitres 11, 17, 18 et ton chapitre de la partie 4.)
+**Objectif de la semaine :** conclure sans pression. Éviter les annulations. Garder tes clients. Et faire toute la méthode RIDEAU d'un seul coup. (Chapitres 11, 17, 18 et ton chapitre de la partie 4.)
 
 | Jour | Ta mission | Temps |
 |---|---|---|

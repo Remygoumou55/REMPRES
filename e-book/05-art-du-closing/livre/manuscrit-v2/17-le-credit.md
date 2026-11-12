@@ -26,7 +26,11 @@ Le vendeur a dit oui **pour ne pas perdre le client**… et il a perdu **le clie
 
 ## 1. Pourquoi tout le monde demande crédit
 
-Le crédit vient des réalités du chapitre 3 : l'**argent qui n'arrive pas tous les jours**, l'habitude d'**emprunter à l'entourage** plutôt qu'à une banque, et le crédit comme **preuve de relation** (« tu me connais » veut dire « si tu me fais confiance, c'est que je compte pour toi »).
+Le crédit vient des réalités du chapitre 3 :
+- l'**argent n'arrive pas tous les jours** ;
+- on a l'habitude d'**emprunter à ses proches**, pas à une banque ;
+- le crédit est une **preuve d'amitié** : « tu me connais » veut dire « si tu me fais confiance, c'est que je compte pour toi ».
+
 
 <div class="vrai" markdown="1">
 « Le […] qui tient l'épicerie du coin a toujours un livre ouvert pour les pères de famille qui désirent s'y approvisionner jusqu'à la fin du mois avant de régler la note. »
@@ -46,7 +50,12 @@ Pour le client, le crédit est **un service**, et même une raison de rester fid
 <span class="src">— une vendeuse d'habits qui a failli tout perdre, Afrique de l'Ouest</span>
 </div>
 
-Toute l'histoire du crédit qui tourne mal est là : **on dit oui par gentillesse** ; **le client ne rembourse pas** (souvent parce qu'il ne peut pas) ; **il a honte et va acheter ailleurs** ; et **la boutique se vide**, parce que sans argent on ne peut plus racheter de marchandise.
+Voici comment le crédit tourne mal, étape par étape :
+1. **on dit oui par gentillesse** ;
+2. **le client ne rembourse pas**, souvent parce qu'il ne peut pas ;
+3. **il a honte et va acheter ailleurs** ;
+4. **la boutique se vide** : sans argent, on ne peut plus racheter de marchandise.
+
 
 **Le calcul qui fait peur.** Fanta fait le total de son cahier : cinq clientes lui doivent en tout **65 000 F**, certaines depuis 4 mois. Elle achète ses robes environ 8 000 F pièce. **65 000 F, ce sont 8 robes qu'elle ne peut pas racheter**, donc 8 ventes perdues avec des clientes qui auraient payé comptant. Et dans le prix d'une robe, il n'y a pas que le bénéfice : il y a surtout **l'argent qu'elle a investi**.
 
@@ -115,7 +124,7 @@ Parfois, tu décides de faire crédit : un client très fidèle, une vraie urgen
 - **Le bon moment** : quand l'argent existe (jour de paie, jour de tontine, jour où il vend lui-même).
 - **Les bons mots** : un rappel **privé** et **calme**, avec une question : « Bonjour ma sœur, j'espère que la famille va bien. Je fais mes comptes : pour les 15 000 de la robe, tu penses pouvoir passer quand ? »
 - **Un plan** s'il n'a vraiment pas l'argent : « On fait 5 000 chaque samedi pendant trois semaines, ça te va ? » Un client qui rembourse petit à petit **n'a plus honte** : il continue à venir.
-- **Jamais** de réclamation en public, ni de statut WhatsApp du genre « Payez mon argent ! » visant un client : **tous tes autres clients le voient**, et se disent que tu feras pareil avec eux. Et jamais d'insultes ni de menaces.
+- **Jamais** de réclamation en public, ni de statut WhatsApp du genre « Payez mon argent ! » visant un client : **tous tes autres clients le voient**. Et ils se disent que tu feras pareil avec eux. Et jamais d'insultes ni de menaces.
 
 ## 6. Le crédit à distance : jamais sans paiement
 
@@ -145,8 +154,7 @@ Elle a raison : ce qui compte, c'est **le message de confirmation de l'opérateu
 
 **1. Ton cahier.** Total de ce que tes clients te doivent aujourd'hui : <span class="ligne court"></span> F. Combien d'articles ne peux-tu pas racheter ? <span class="ligne court"></span>
 
-**2.** Écris ta phrase **« non, mais… »** (règle pour tout le monde + une porte), puis dis-la 5 fois devant un miroir, en souriant. Le jour où une cliente fidèle te demandera crédit, ta voix ne doit pas trembler.
-<span class="ligne"></span>
+**2.** Écris ta phrase **« non, mais… »** (règle pour tout le monde + une porte), puis dis-la 5 fois devant un miroir, en souriant.
 </div>
 
 <div class="mots" markdown="1">
@@ -165,13 +173,11 @@ Elle a raison : ce qui compte, c'est **le message de confirmation de l'opérateu
 <div class="check" markdown="1">
 ### ✅ À retenir
 
-- ☐ J'ai fait le total de mon cahier, et je sais ce qu'il me coûte.
-- ☐ J'ai une règle écrite, et je dis « non, mais… » avec une porte.
+- ☐ J'ai fait le total de mon cahier. J'ai une règle écrite, et je dis « non, mais… » avec une porte.
 - ☐ Si je fais crédit : plafond, date, tout par écrit, pas de nouveau crédit avant remboursement, clients connus seulement.
 - ☐ Je réclame en privé, au bon moment, avec un plan de petits paiements.
 - ☐ À distance : pas de paiement confirmé par mon opérateur, pas de colis.
 
-⚠️ **L'erreur à éviter :** faire crédit **pour ne pas vexer**. **Un non gentil, avec une porte, garde mieux un client qu'un oui qui finit en dette.**
-
+⚠️ **L'erreur à éviter :** faire crédit **pour ne pas vexer**. Un non gentil, avec une porte, vaut mieux qu'un oui qui finit en dette.<br>
 ➡️ **Et maintenant ?** Il y a une blessure encore plus douloureuse : le client qui dit « emballe »… puis qui annule. C'est le chapitre 18.
 </div>

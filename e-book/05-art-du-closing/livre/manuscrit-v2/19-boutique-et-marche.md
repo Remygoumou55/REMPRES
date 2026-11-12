@@ -100,7 +100,7 @@ Fanta est **honnête**, elle **bouge un peu** pour respecter le jeu, et elle **a
 
 ## 5. Le client qui ne vient pas seul
 
-Les clients viennent souvent avec une amie, une sœur, une mère ou un mari, et l'accompagnateur a **beaucoup d'influence**. **Ne l'ignore jamais** : salue-le avec le même respect, demande son avis (« Et toi, ma sœur, elle lui va bien ? »), fais-en un allié (« Toi qui la connais, le jaune ou le bleu ? »). Quand il se sent respecté, il devient souvent **ton meilleur vendeur**. Si l'amie dit « c'est cher, on va trouver mieux », parle-lui à elle : « Tu as raison de faire attention pour ta copine. Touche le tissu, regarde les coutures. Si tu trouves la même qualité moins cher, revenez me dire, on discute. »
+Les clients viennent souvent avec une amie, une sœur, une mère ou un mari, et l'accompagnateur a **beaucoup d'influence**. **Ne l'ignore jamais.** Salue-le avec le même respect. Demande son avis : « Et toi, ma sœur, elle lui va bien ? » Fais-en un allié : « Toi qui la connais, le jaune ou le bleu ? » Quand il se sent respecté, il devient souvent **ton meilleur vendeur**. Si l'amie dit « c'est cher, on va trouver mieux », parle-lui à elle : « Tu as raison de faire attention pour ta copine. Touche le tissu, regarde les coutures. Si tu trouves la même qualité moins cher, revenez me dire, on discute. »
 
 ## 6. Les voisins concurrents
 
@@ -112,7 +112,7 @@ Au marché, ton concurrent est **juste à côté**. Quatre règles :
 
 ## 7. Le pont vers ton WhatsApp
 
-Le meilleur moyen de faire revenir un client aujourd'hui, c'est **ton numéro WhatsApp** : une petite carte avec ton nom, ton numéro et l'emplacement de ton étal ; un carton visible (« Nouveautés chaque semaine sur WhatsApp : 00 00 00 00 ») ; et la phrase : « Je reçois du nouveau samedi. Tu veux que je t'envoie la vidéo ? » Le client du marché devient **aussi** un contact en ligne (chapitre 20).
+Aujourd'hui, le meilleur moyen de faire revenir un client, c'est **ton numéro WhatsApp**. Donne une petite carte avec ton nom, ton numéro et la place de ton étal. Mets un carton bien visible : « Nouveautés chaque semaine sur WhatsApp : 00 00 00 00 ». Et dis la phrase : « Je reçois du nouveau samedi. Tu veux que je t'envoie la vidéo ? » Le client du marché devient **aussi** un contact en ligne (chapitre 20).
 
 <div class="vrai" markdown="1">
 « J'ai commencé avec une petite cantine, mais aujourd'hui, les réseaux sociaux me permettent de fidéliser une clientèle incroyable. »

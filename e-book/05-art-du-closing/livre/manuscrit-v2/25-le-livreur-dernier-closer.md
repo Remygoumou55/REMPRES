@@ -24,7 +24,7 @@ La vente était **presque finie** : produit choisi, prix accepté, colis en rout
 
 ## 1. Le livreur, le dernier vendeur
 
-En ligne, l'étape 6 de la vente (chapitre 1), « il dit oui et il paie », est **coupée en deux** : le « oui », le vendeur l'obtient par message ; le « paie », **le livreur** l'obtient à la porte. Entre les deux, le client a eu le temps de comparer, d'en parler, ou d'avoir moins d'argent. Le livreur entend donc des **objections**, exactement comme un vendeur.
+En ligne, l'étape 6 de la vente (chapitre 1), « il dit oui et il paie », est **coupée en deux**. Le « oui », c'est le vendeur qui l'obtient, par message. Le « paie », c'est **le livreur** qui l'obtient, à la porte. Entre les deux, le client a eu le temps de comparer, d'en parler, ou d'avoir moins d'argent. Le livreur entend donc des **objections**, exactement comme un vendeur.
 
 Tu as vu au chapitre 18 qu'environ une commande payable à la livraison sur quatre échoue chez Jumia. Chaque course perdue coûte : le carburant, le temps du livreur (d'autres livraisons ratées), l'emballage, parfois un produit abîmé, et un article bloqué qu'un autre client aurait acheté. Souvent **plus que le bénéfice** de la vente. **La meilleure façon de gagner une vente à la porte, c'est de la préparer avant de partir.**
 
@@ -41,7 +41,7 @@ Le chapitre 18 explique comment le vendeur confirme la commande. Côté livreur 
 
 > « Bonjour Madame, c'est Sékou, le livreur de la boutique d'Amina. Je vous apporte vos chaussures noires en 39. **Ce sera 20 000 F en tout.** Vous êtes toujours disponible ? Je peux être là dans 30 minutes. Vous êtes à quel repère exactement ? Vous payez en espèces ou en mobile money ? »
 
-Ce n'est **pas** un interrogatoire, c'est de l'organisation. Le **montant redit** évite « je ne savais pas que c'était ce prix » ; le **moyen de paiement** évite « je n'ai pas la monnaie » ; le **« vous êtes disponible »** évite le client absent.
+Ce n'est **pas** un interrogatoire, c'est de l'organisation. Redire le **montant** évite « je ne savais pas que c'était ce prix ». Demander le **moyen de paiement** évite « je n'ai pas la monnaie ». Et « **vous êtes disponible ?** » évite le client absent.
 
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer
@@ -107,7 +107,7 @@ Depuis, comme beaucoup d'autres, elle veut **tout vérifier devant le livreur**.
 <span class="src">— une vendeuse de chaussures en ligne, Afrique de l'Ouest anglophone (traduit de l'anglais)</span>
 </div>
 
-Une entreprise qui lutte contre les « annuleurs en série » au Nigeria décrit aussi les clients qui se présentent seulement pour **refuser le produit** (« la couleur n'est pas bonne », « je l'ai vu moins cher en ligne »). Tu n'es pas seul à vivre ça.
+Au Nigeria, une entreprise lutte contre les clients qui annulent sans arrêt. Elle parle aussi des clients qui viennent juste pour **refuser le produit** : « la couleur n'est pas bonne », « je l'ai vu moins cher en ligne ». Tu n'es pas seul à vivre ça.
 
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer

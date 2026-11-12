@@ -50,7 +50,7 @@ Moussa écrit : « Le prix est un peu élevé pour moi. » **Qu'est-ce qu'il veu
 <div class="reponse" markdown="1">
 ### ✅ La réponse la plus probable : C
 
-Moussa a choisi ce téléphone exprès : l'argent n'est sans doute pas le problème. Il a **peur**. Mais dire « Je ne vous fais pas confiance » serait vexant, alors il dit « c'est cher ». C'est **plus poli**. Si le vendeur baisse son prix, Moussa aura toujours peur. S'il propose **le paiement à la livraison** à la sœur, ou une vidéo en direct du téléphone avec la facture, la peur disparaît… et le prix n'est plus un problème.
+Moussa a choisi ce téléphone exprès : l'argent n'est sans doute pas le problème. Il a **peur**. Mais dire « Je ne vous fais pas confiance » serait vexant, alors il dit « c'est cher ». C'est **plus poli**. Si le vendeur baisse son prix, Moussa aura toujours peur. Il peut proposer **le paiement à la livraison** à la sœur, ou une vidéo en direct du téléphone avec la facture. Alors la peur disparaît… et le prix n'est plus un problème.
 
 **❌ Pourquoi pas A ou B ?** Même avec une réduction, Moussa aurait toujours peur d'envoyer l'avance. La remise ne règle pas sa vraie crainte.
 
@@ -64,9 +64,17 @@ Moussa a choisi ce téléphone exprès : l'argent n'est sans doute pas le probl�
 <span class="src">— une cliente, Afrique de l'Ouest</span>
 </div>
 
-Après ça, cette cliente n'a plus acheté ses habits qu'en boutique. **Une seule mauvaise vendeuse a fait perdre une cliente à tous les vendeurs en ligne.** Et elle trouvait les captures d'écran de clients contents « truquées » : **elles ne suffisent plus.** Il faut des preuves plus fortes : une vidéo du vrai produit filmée aujourd'hui, ta voix, une adresse réelle, le paiement à la livraison ou un acompte avec reçu, une politique d'échange claire, un vrai client qu'il peut appeler. On voit tout ça en détail au chapitre 14.
+Après ça, cette cliente n'a plus acheté ses habits qu'en boutique. **Une seule mauvaise vendeuse a fait perdre une cliente à tous les vendeurs en ligne.** Et elle trouvait les captures d'écran de clients contents « truquées » : **elles ne suffisent plus.** Il faut des preuves plus fortes :
+- une vidéo du vrai produit, filmée aujourd'hui ;
+- ta voix ;
+- une vraie adresse ;
+- le paiement à la livraison, ou un acompte avec un reçu ;
+- une politique d'échange claire ;
+- un vrai client qu'il peut appeler.
 
-Bonne nouvelle : une étude de Kantar (2025) dans 5 pays africains montre que, même quand l'argent manque, les gens **préfèrent les marques en qui ils ont confiance**. Ils acceptent même de payer **jusqu'à 14 % de plus** pour une marque qu'ils jugent vraiment différente.
+On voit tout ça en détail au chapitre 14.
+
+Bonne nouvelle : une étude de Kantar (2025) a été faite dans 5 pays africains. Elle montre que, même quand l'argent manque, les gens **préfèrent les marques en qui ils ont confiance**. Ils acceptent même de payer **jusqu'à 14 % de plus** pour une marque qu'ils jugent vraiment différente.
 
 > **Le client ne cherche pas toujours le prix le plus bas. Il cherche le prix le plus sûr.**
 
@@ -79,20 +87,20 @@ C'est le 24 du mois. Une cliente pose plein de questions à Amina sur un sac à 
 - En Afrique subsaharienne, seulement **35 adultes sur 100** environ épargnent dans une banque ou sur un compte mobile (Banque mondiale, 2025).
 - En Guinée, **75 adultes sur 100** ont emprunté dans l'année, mais seulement **11 sur 100** auprès d'une banque. Les autres empruntent à la famille, aux amis, à la tontine.
 
-L'argent n'arrive **pas tous les jours** : un bon jour puis trois jours sans rien, la paie et plus rien après le 10, les **fêtes**, la **rentrée** ou un **deuil** qui vident les poches.
+L'argent n'arrive **pas tous les jours**. Un bon jour, puis trois jours sans rien. La paie, puis plus rien après le 10. Et les **fêtes**, la **rentrée** ou un **deuil** vident les poches.
 
 <div class="vrai" markdown="1">
 « On dirait que les gens n'ont pas d'argent. Cette année, beaucoup de personnes font des commandes mais ne peuvent pas honorer leur engagement, obligés qu'ils sont de recourir à des prêts. »
 <span class="src">— une vendeuse en ligne, Afrique de l'Ouest</span>
 </div>
 
-**Ce que ça change :** vends **au bon moment** (début du mois, jour de paie, avant les fêtes) et prépare des **solutions** (réservation, acompte, paiement en 2 fois, petit format). Mais attention au crédit sans limite : chapitre 17.
+**Ce que ça change :** vends **au bon moment** : début du mois, jour de paie, avant les fêtes. Et prépare des **solutions** : réservation, acompte, paiement en 2 fois, petit format. Mais attention au crédit sans limite : chapitre 17.
 
 ## Réalité n° 3 — La famille
 
-Une jeune femme essaie un ensemble chez Fanta. Il lui va très bien. Puis : « Il est beau… mais je dois d'abord montrer à mon mari. » **La bonne réponse :** « Bien sûr. On fait une photo de toi avec, pour lui montrer tout de suite ? Je te le garde jusqu'à demain midi. » Fanta **respecte** la façon dont le couple décide et elle **aide** la cliente à convaincre : la photo montre l'ensemble **porté**, pas seulement un prix. « C'est toi qui le portes, pas lui ! » la ferait se sentir jugée.
+Une jeune femme essaie un ensemble chez Fanta. Il lui va très bien. Puis : « Il est beau… mais je dois d'abord montrer à mon mari. » **La bonne réponse :** « Bien sûr. On fait une photo de toi avec, pour lui montrer tout de suite ? Je te le garde jusqu'à demain midi. » Fanta **respecte** la façon dont le couple décide. Et elle **aide** la cliente à convaincre son mari : la photo montre l'ensemble **porté**, pas seulement un prix. « C'est toi qui le portes, pas lui ! » la ferait se sentir jugée.
 
-**Pourquoi c'est souvent la vérité.** En Afrique, on vit et on décide souvent **en groupe**, surtout pour les gros achats. Dans une grande enquête dans 39 pays africains (Afrobarometer, enquêtes 2021-2023), **la famille est le seul groupe** en qui une majorité de gens (**58 %**) disent avoir « beaucoup » confiance. Et dans beaucoup de pays, une grande partie des femmes mariées disent **ne pas participer** aux décisions sur les gros achats du foyer (enquêtes DHS).
+**Pourquoi c'est souvent la vérité.** En Afrique, on vit et on décide souvent **en groupe**, surtout pour les gros achats. Une grande enquête a été faite dans 39 pays africains (Afrobarometer, 2021-2023). Résultat : **la famille est le seul groupe** en qui plus de la moitié des gens (**58 %**) ont « beaucoup » confiance. Et dans beaucoup de pays, une grande partie des femmes mariées disent **ne pas participer** aux décisions sur les gros achats du foyer (enquêtes DHS).
 
 **Ce que ça change :** ne traite pas cette phrase comme une excuse. **Fais entrer le décideur dans la vente** : photo portée, vidéo, message vocal à transférer, appel à trois (chapitre 15). Et souviens-toi : la famille, c'est aussi **ta meilleure publicité**.
 

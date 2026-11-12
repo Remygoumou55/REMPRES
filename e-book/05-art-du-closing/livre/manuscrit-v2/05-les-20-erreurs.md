@@ -66,7 +66,7 @@ Réponds honnêtement : personne ne te regarde. Coche **Oui** si ça t'arrive, m
 <span class="src">— liste de frustrations d'acheteurs en ligne publiée par un média, Afrique de l'Ouest anglophone</span>
 </div>
 
-Deux faits à connaître. Au Nigeria, la loi de 2018 sur la protection du consommateur (article 115) oblige à **afficher le prix** des biens proposés. Et une étude de la *Harvard Business Review* (2011) sur **2 241 entreprises** aux États-Unis a montré que **23 %** n'ont **jamais** répondu à une demande de client en ligne. Ne fais pas partie de ceux-là.
+Deux faits à connaître. Au Nigeria, la loi de 2018 sur la protection du consommateur (article 115) oblige à **afficher le prix** des biens proposés. Une étude de la *Harvard Business Review* (2011) a regardé **2 241 entreprises** aux États-Unis. **23 %** d'entre elles n'ont **jamais** répondu à un client qui écrivait en ligne. Ne fais pas partie de ceux-là.
 
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer

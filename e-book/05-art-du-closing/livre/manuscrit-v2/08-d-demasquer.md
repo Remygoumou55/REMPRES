@@ -60,7 +60,7 @@ Elle **ne parle pas de l'objection**. Le client a dit « je vais réfléchir »,
 
 Bastien Pelissier dit l'avoir reprise de l'Américain **Jordan Belfort**, « le Loup de Wall Street ». Il faut savoir qui est cet homme. Dans les années 1990, son entreprise a **trompé plus d'un millier d'investisseurs** avec des actions qui ne valaient rien. Il a plaidé coupable de **fraude boursière** et de **blanchiment**, et il a été condamné en 2003 à **42 mois de prison**.
 
-Dans son livre *Way of the Wolf* (en français *Vendre. Les secrets de ma méthode*), il présente les objections comme des **« écrans de fumée »** qui cachent un manque de certitude, et il conseille de demander : « Est-ce que l'idée vous plaît ? » Chez lui, la question sert à **relancer la vente**. Ici, on s'en sert pour **comprendre** le client, et si sa peur est vraie, pour **ne pas lui vendre**. **La même technique peut servir à aider ou à tromper.** Toi, tu l'utiliseras pour aider.
+Dans son livre *Way of the Wolf* (en français *Vendre. Les secrets de ma méthode*), il dit que les objections sont des **« écrans de fumée »**. Elles cachent un doute. Il conseille de demander : « Est-ce que l'idée vous plaît ? » Chez lui, la question sert à **relancer la vente**. Ici, on s'en sert pour **comprendre** le client, et si sa peur est vraie, pour **ne pas lui vendre**. **La même technique peut servir à aider ou à tromper.** Toi, tu l'utiliseras pour aider.
 </div>
 
 <div class="quiz" markdown="1">
@@ -96,7 +96,7 @@ Pelissier, après Belfort, compare la vente à **une ligne droite**, du premier 
 | **3. La comparaison** | « Je vais faire le tour », « Je compare » | « Vous avez raison de comparer. Qu'espérez-vous trouver ailleurs que vous n'avez pas trouvé ici ? » |
 | **4. Le prix** | « C'est cher », « C'est trop » | « Je comprends. Cher par rapport à quoi ? » |
 
-- La **boucle de l'information** a souvent cette réponse : « En fait, je voulais savoir si on peut payer en deux fois. » Tu réponds **tout de suite**, au lieu d'envoyer un document qu'il ne lira pas. Koffi ajoute : « Et qui d'autre va lire cette proposition avec vous ? » Il découvre ainsi qu'un associé doit valider (chapitre 15).
+- La **boucle de l'information** a souvent cette réponse : « En fait, je voulais savoir si on peut payer en deux fois. » Tu réponds **tout de suite**. Pas besoin d'envoyer un document qu'il ne lira pas. Koffi ajoute : « Et qui d'autre va lire cette proposition avec vous ? » Il découvre ainsi qu'un associé doit valider (chapitre 15).
 - La **boucle du prix** ne défend pas le prix : elle demande **sur quoi le client se base** (chapitre 12).
 - **Attention au « Pourquoi ? »**, qui sonne comme un reproche, surtout à l'écrit. Préfère **« Qu'est-ce qui… »** : « Qu'est-ce qui te fait hésiter ? »
 
@@ -109,7 +109,7 @@ Parfois, le client garde son rideau et donne **une autre excuse**. Pelissier rac
 3. « Non… J'ai besoin de comparer. » → « Vous avez raison. Qu'espérez-vous trouver chez les autres ? » *(boucle 3)*
 4. « En fait… j'ai la peau compliquée. Je dois être sûre que vos produits me conviennent. »
 
-**Trois rideaux cachaient une seule peur : sa peau.** Maintenant, le vendeur peut l'aider : un échantillon, un produit pour peau sensible… ou lui dire franchement que ce produit n'est pas pour elle.
+**Trois rideaux cachaient une seule peur : sa peau.** Maintenant, le vendeur peut l'aider. Il peut proposer un échantillon, ou un produit pour peau sensible. Ou lui dire franchement que ce produit n'est pas pour elle.
 
 **Combien de boucles ?** **3 au maximum**, et à chaque fois avec encore plus de douceur. Arrête-toi dès que le client répond plus sèchement, recule, sort son téléphone, dit clairement « non merci », ou répond par un seul mot. Alors, ferme la porte poliment et laisse une raison de revenir (chapitre 2). **Boucler, c'est ouvrir des portes, pas bloquer la sortie.**
 
@@ -173,7 +173,7 @@ Une raison **précise et vérifiable** : c'est un **mur d'argent**. Sékou cherc
 <div class="ecris" markdown="1">
 ### ✍️ Entraîne-toi
 
-**1. Le jeu des 3 rideaux (avec un proche).** Ton partenaire choisit en secret une **vraie raison** (« j'ai peur que la couleur déteigne »), puis te donne **trois excuses** l'une après l'autre. Tu boucles à chaque fois, avec douceur. Tu gagnes si tu trouves la vraie raison en 3 boucles au maximum. Puis inversez les rôles.
+**1. Le jeu des 3 rideaux (avec un proche).** Ton partenaire choisit en secret une **vraie raison**, par exemple : « j'ai peur que la couleur déteigne ». Puis il te donne **trois excuses**, l'une après l'autre. Tu boucles à chaque fois, avec douceur. Tu gagnes si tu trouves la vraie raison en 3 boucles au maximum. Puis inversez les rôles.
 
 **2. Défi de la semaine :** pendant 7 jours, ne réponds plus jamais « D'accord » tout seul à un « je vais réfléchir ». Note la vraie raison découverte à chaque fois.
 </div>

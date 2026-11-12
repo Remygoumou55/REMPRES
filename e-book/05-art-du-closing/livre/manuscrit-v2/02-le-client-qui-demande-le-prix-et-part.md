@@ -74,7 +74,7 @@ Tu donnes le prix, puis tu enchaînes **tout de suite** avec **une question faci
 
 **Pourquoi ça marche ?** Une question appelle une réponse. Le client pense à **son** besoin plutôt qu'à ton chiffre. Et sa réponse t'apprend quelque chose : « C'est pour un mariage » → il veut du beau. « Pour tous les jours » → il veut du solide.
 
-**Une bonne question est facile** (on répond en 2 secondes), **sur le client** (son occasion, sa taille, à quoi il va servir) et **sans piège** (pas de « Tu le prends alors ? » tout de suite).
+Une bonne question a 3 qualités. Elle est **facile** : on répond en 2 secondes. Elle parle **du client** : son occasion, sa taille, à quoi le produit va servir. Et elle est **sans piège** : pas de « Tu le prends alors ? » tout de suite.
 
 <div class="attention" markdown="1">
 ### 📱 En ligne : PRIX + PREUVE + QUESTION
@@ -141,7 +141,7 @@ Dans une friperie, des chercheuses ont enregistré cette scène. Une cliente ren
 
 ## 5. Règle n° 3 — Quand il est parti : une raison et un moyen de revenir
 
-Une vente perdue aujourd'hui n'est pas perdue pour toujours, si tu laisses au client **un moyen** de revenir (ton numéro WhatsApp, ta carte, l'endroit exact de ta boutique) et **une raison** de revenir (« Je reçois du nouveau la semaine prochaine, laisse-moi ton numéro, je t'envoie la vidéo »). Et la phrase qui garde la porte ouverte : « Si tu trouves la même chose ailleurs, reviens me voir, on discute. »
+Une vente perdue aujourd'hui n'est pas perdue pour toujours. Laisse au client **un moyen** de revenir : ton numéro WhatsApp, ta carte, l'endroit exact de ta boutique. Et donne-lui **une raison** de revenir : « Je reçois du nouveau la semaine prochaine. Laisse-moi ton numéro, je t'envoie la vidéo. » Et la phrase qui garde la porte ouverte : « Si tu trouves la même chose ailleurs, reviens me voir, on discute. »
 
 ### En ligne : la relance en 3 messages
 

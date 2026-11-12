@@ -21,7 +21,7 @@ Au début, le client a écrit : « Je perds au moins trois clients par semaine p
 <div class="remarque" markdown="1">
 ### 👀 Tu as remarqué ?
 
-Le vendeur sait **ce qui fait peur** au client. Mais pour rassurer, il a choisi les **mauvais outils** : **jurer** (c'est sa parole, et le client s'en méfie) et **défendre son prix** avec ses propres arguments, au lieu de rappeler ce que le client avait dit lui-même. D'autres vendeurs font pire : ils **baissent leur prix** tout de suite (le client apprend à toujours demander moins) ou ils **s'énervent** (le client perd la face).
+Le vendeur sait **ce qui fait peur** au client. Mais pour rassurer, il a choisi les **mauvais outils**. Il a **juré**, et le client se méfie de la parole d'un vendeur. Et il a **défendu son prix** avec ses propres arguments. Il aurait dû rappeler ce que le client avait dit lui-même. D'autres vendeurs font pire : ils **baissent leur prix** tout de suite (le client apprend à toujours demander moins) ou ils **s'énervent** (le client perd la face).
 </div>
 
 <figure class="ill"><img src="../illustrations/ill-06-montrer.jpg" alt="Fanta lave le tissu avec la cliente"></figure>
@@ -75,7 +75,7 @@ Fanta **reconnaît** que le prix n'est pas rien, **rappelle les mots** de la cli
 
 ## 3. Nommer ce que le client ressent
 
-Cet outil vient de **Chris Voss**, qui a travaillé **24 ans au FBI** et a fini négociateur principal pour les enlèvements à l'étranger (livre *Never Split the Difference*, 2016, en français *Ne coupez jamais la poire en deux*). Petite précision honnête : Pelissier raconte une histoire de braqueur attribuée à Voss qui **ne se trouve pas dans son livre**. Voici la vraie technique.
+Cet outil vient de **Chris Voss**. Il a travaillé **24 ans au FBI**, où il négociait pour libérer des personnes enlevées à l'étranger. Son livre : *Never Split the Difference* (2016), en français *Ne coupez jamais la poire en deux*. Petite précision honnête : Pelissier raconte une histoire de braqueur attribuée à Voss qui **ne se trouve pas dans son livre**. Voici la vraie technique.
 
 **L'étiquetage**, c'est **nommer à voix haute ce que l'autre ressent**, avec « **On dirait que…** », « **J'ai l'impression que…** ». Tu ne dis pas « je suis d'accord » : tu dis « je vois ce que tu ressens ».
 
@@ -168,7 +168,7 @@ Il reste « **c'est cher** », quand c'est une négociation et pas un vrai mur. 
 <div class="ecris" markdown="1">
 ### ✍️ Entraîne-toi : ta fiche « une peur, une réponse »
 
-Pour la peur que tes clients te disent le plus souvent, écris : ses paroles que tu peux rappeler · ton étiquette (« On dirait que… ») · ta preuve vérifiable · ton histoire vraie · ton petit plus qui coûte peu.
+Prends la peur que tes clients te disent le plus souvent. Écris : les paroles du client que tu peux rappeler · ta phrase « On dirait que… » · ta preuve · ton histoire vraie · ton petit plus qui coûte peu.
 <span class="ligne"></span><span class="ligne"></span>
 </div>
 

@@ -51,7 +51,7 @@ Ce client dit « on reviendra »… et dans la même phrase, il demande le derni
 > **2. « Pour t'aider à bien réfléchir : qu'est-ce qui te fait hésiter ? »** (Tu démasques.)
 > **3. Tu te tais, et tu écoutes.** (Clé É.)
 
-Quand il dit qu'il a « besoin de temps », la variante de Bastien Pelissier : **« Dites-moi si je me trompe : ce dont vous avez besoin, ce n'est peut-être pas de plus de temps, mais de plus d'informations. Qu'est-ce que vous auriez aimé savoir ? »** Et quand il veut « comparer » : **« Qu'espérez-vous trouver ailleurs, que vous n'avez pas trouvé ici ? »**
+Quand il dit qu'il a « besoin de temps », Bastien Pelissier propose cette phrase : **« Dites-moi si je me trompe : ce dont vous avez besoin, ce n'est peut-être pas de plus de temps, mais de plus d'informations. Qu'est-ce que vous auriez aimé savoir ? »** Et quand il veut « comparer » : **« Qu'espérez-vous trouver ailleurs, que vous n'avez pas trouvé ici ? »**
 
 <div class="quiz" markdown="1">
 ### 🎯 À toi de jouer
@@ -83,7 +83,7 @@ Tu ne peux pas **créer** un besoin qui n'existe pas, et tu ne dois pas inventer
 
 Exemple avec Ibrahima : « Vous m'avez dit que vous vouliez lancer votre boutique en ligne avant la Tabaski. C'est dans six semaines, et la formation dure trois semaines. Si vous commencez le mois prochain, vous lancez après la fête. C'est ça qui compte pour vous, ou le lancement peut attendre ? » Il n'a rien inventé : il a rappelé **les paroles du client** et **une vraie date**. Si le client répond « ça peut attendre », c'est son droit.
 
-De même, quand le gérant dit à Koffi « rappelez-moi dans trois mois », Koffi peut rappeler ce que le gérant lui a dit lui-même : « Vous m'avez dit que votre imprimante tombe en panne chaque semaine. Pendant ces trois mois, qu'est-ce que ces pannes vont vous coûter ? » Si le gérant répond « le budget est bloqué jusqu'en mars », c'est un vrai mur : Koffi fixe une date précise.
+De même, quand le gérant dit à Koffi « rappelez-moi dans trois mois », Koffi peut rappeler ce que le gérant lui a dit lui-même : « Vous m'avez dit que votre imprimante tombe en panne chaque semaine. Pendant ces trois mois, qu'est-ce que ces pannes vont vous coûter ? » Si le gérant répond « le budget est bloqué jusqu'en mars », c'est un vrai mur. Alors Koffi fixe une date précise.
 
 <div class="attention" markdown="1">
 ### ⚖️ Urgence vraie ou fausse urgence ?

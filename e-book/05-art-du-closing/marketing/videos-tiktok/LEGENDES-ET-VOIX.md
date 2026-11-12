@@ -68,3 +68,6 @@ Ton client te demande : « C'est pas l'arnaque ? » Et toi, tu jures ? Tous les 
 ```
 « Tu me connais, je te paie à la fin du mois ! » Tu dis oui pour ne pas vexer… et ta boutique se vide. Dis plutôt « non, mais… » : « Je ne fais plus de crédit, c'est la règle pour toutes mes clientes. Mais je te la garde avec un petit acompte. » Une règle pour tout le monde, et une porte à la place. Tu gardes le client, et ton argent. Lien en bio.
 ```
+
+## Voix reçues
+- **TikTok 1** : voix ElevenLabs « Hugo » (`voix/voix-1.mp3`, 19 s). Elle finit par « Lis-le et close tes prospects ». La vidéo a été recalée sur la voix (version `A2`, 22 s), avec la musique baissée dessous : `TikTok-1-le-prix-tout-nu-AVEC-VOIX.mp4`.

@@ -83,7 +83,7 @@ Comme **un escalier** : chaque marche s'appuie sur la précédente.
 
 ## Une promesse honnête
 
-Ce livre ne te promet pas de devenir riche. Personne d'honnête ne peut te promettre ça. Il te promet que tu sauras **quoi dire et quoi faire** quand un client hésite, discute, s'en va ou annule. C'est à ces moments-là que la vente se gagne ou se perd.
+Ce livre ne te promet pas d'argent facile. Personne d'honnête ne peut promettre ça. Il te promet que tu sauras **quoi dire et quoi faire** quand un client hésite, discute, s'en va ou annule. C'est à ces moments-là que la vente se gagne ou se perd.
 
 <div class="ecris" markdown="1">
 ### ✍️ Avant de tourner la page

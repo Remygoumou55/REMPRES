@@ -46,7 +46,7 @@
 2. Promets **une compétence précise** : « Tu sauras faire X, étape par étape. »
 3. **Un extrait gratuit** (le premier module) pour prouver ta qualité.
 4. **Ton vrai visage et ta vraie voix** : vidéo, direct, vocal.
-5. **Une garantie de remboursement claire** (par exemple 7 jours).
+5. **Une politique de remboursement claire** (par exemple 7 jours).
 6. **Prix affiché, paiement facile** : Orange Money, Wave, MTN MoMo.
 7. **Interroge avant de vendre** : « Vous vendez déjà, ou vous voulez commencer ? »
 8. Si le paiement est abandonné : **un message d'aide**, pas un reproche.
@@ -62,7 +62,7 @@
 1. **Interroge avant de présenter** : situation, problème, conséquence, envie.
 2. **Écoute plus que tu ne parles.**
 3. Ne présente que **ce qui répond à son besoin**, pas tout ton catalogue.
-4. **Repère le vrai décideur** dès le début : « Qui d'autre décide avec vous ? »
+4. **Repère la vraie personne qui décide** dès le début : « Qui d'autre décide avec vous ? »
 5. **Aide ton contact à convaincre** son directeur : une note d'une page.
 6. **Le devis complet**, sans frais cachés.
 7. **Toujours un rendez-vous précis** : « Je vous rappelle mardi à 10 h. »

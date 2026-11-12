@@ -24,4 +24,5 @@ def make(W, H, top, blend, out):
     img = img * (1 - d[:, None, None]) + np.array([12, 40, 32]) * d[:, None, None]
     Image.fromarray(img.clip(0, 255).astype('uint8')).save(out, quality=90)
 make(1680, 2376, 0.05, 0.10, os.path.join(D, 'cover-bg-a4.jpg'))
+make(880, 1564, 0.05, 0.10, os.path.join(D, 'cover-bg-phone.jpg'))
 print('ok', os.path.basename(src_path))

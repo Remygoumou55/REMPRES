@@ -1,3 +1,10 @@
+**ÉTAT AU 12 NOV. 2026 — PRÊT À VENDRE.** Titre : « Ne laisse plus partir tes clients ».
+- Livre A4 : `python3 build-pdf-v2.py` → `dist-v2/L-Art-du-Closing-livre-complet.pdf` (143 p.).
+- Livre téléphone : `PHONE=1 python3 build-pdf-v2.py` → `dist-v2/L-Art-du-Closing-telephone.pdf` (212 p.).
+- Kits (A4 et téléphone) : `KIT=$PWD/kits/kit-N-….md [PHONE=1] OUT=… python3 build-pdf-v3.py` → `dist-v3/`.
+- ZIP : `bash make-zip.sh` → `dist-v2/Ne-laisse-plus-partir-tes-clients-pack-complet.zip`.
+- Couverture : `python3 make-cover-bg.py` fabrique les fonds A4 et téléphone à partir de `illustrations/cover-src.jpg`.
+
 **DÉCISION DU CLIENT (11 nov. 2026) : on travaille sur la VERSION LONGUE de 226 pages** (`manuscrit-v2/`, build `python3 build-pdf-v2.py`, PDF `dist-v2/L-Art-du-Closing-livre-complet.pdf`). La version courte v3 (60 p.) et ses kits restent disponibles.
 
 **11 nov. 2026 — ALLÈGEMENT FAIT (choix « B ») : la version longue passe de 226 à 139 pages A4**, sans perdre d'idée. Règles et tableau chapitre par chapitre : `REGLES-ALLEGEMENT-V2.md`. Phrases retirées à remettre dans les kits : `kits/A-AJOUTER-DEPUIS-V2.md`.

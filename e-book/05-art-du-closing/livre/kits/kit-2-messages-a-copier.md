@@ -106,3 +106,17 @@ Copie le message, remplace ce qui est entre [crochets], et **garde ton ton à to
 
 **Message 21 — La relance du devis**
 > Madame [Nom], je reviens vers vous pour le devis du [date]. Votre directeur a-t-il pu le regarder ? Je peux préparer une note d'une page pour lui, si cela vous aide.
+
+## Partie 8 — Rouvrir une conversation sur WhatsApp (chapitre 16)
+
+**Message 22 — Le client n'a plus répondu**
+> Bonjour ! Vous avez eu le temps de regarder ? Il vous reste une question sur la taille ou la livraison ? Je vous réponds en 2 minutes 🙂
+
+**Message 23 — Aider à choisir**
+> Petite question rapide : entre le noir et le marron, lequel vous plaisait le plus ? Je vous envoie une vidéo de celui-là porté.
+
+**Message 24 — Si le prix a fait hésiter**
+> Je me dis que le prix vous a peut-être fait hésiter. J'ai aussi un modèle à [15 000 F], presque le même. Je vous envoie la photo ?
+
+**Message 25 — Recontacter au bon moment**
+> Bonjour ! Les [baskets] que vous aimiez sont toujours là. Je vous les envoie cette semaine ?

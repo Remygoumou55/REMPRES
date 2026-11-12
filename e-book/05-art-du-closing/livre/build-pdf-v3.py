@@ -125,7 +125,7 @@ table { font-size: 9.5pt; } th, td { padding: 4pt 4pt; }
 .box { font-size: 12pt; padding: 8pt 9pt 4pt; } .box table { font-size: 9pt; }
 .accroche { font-size: 14pt; }
 .ligne { min-width: 45mm; } td .ligne { min-width: 12mm; }
-.cover { height: 175mm; padding: 0 10mm; } .cover::before { inset: 4mm; } .cover::after { inset: 6mm; }
+.cover { height: 168mm; padding: 0 10mm; } .cover::before { inset: 4mm; } .cover::after { inset: 6mm; }
 .cover .t { font-size: 34pt; } .cover .s { font-size: 13pt; } .cover .v { bottom: 12mm; left: 10mm; font-size: 8pt; }
 .partpage { height: 170mm; padding: 0 6mm; } .partpage .pt { font-size: 26pt; } .partpage .pd { font-size: 13pt; }
 .toc .row { font-size: 11.5pt; }
@@ -177,7 +177,7 @@ allp = os.path.join(DIST, "_all.html")
 if KIT:
     kt = open(KIT, encoding="utf-8").readline().strip("# \n")
     kn, kname = kt.split(" — ", 1)
-    KCOVER = f'''<div class="cover"><div class="k">L'ART DU CLOSING · {H.escape(kn.upper())}</div><div class="t">{H.escape(kname)}</div><div class="rule"></div><div class="s">Le kit pratique qui accompagne le livre « L'Art du Closing — Lève le rideau ».</div><div class="v">VERSION DE TRAVAIL · NOVEMBRE 2026</div></div>'''
+    KCOVER = f'''<div class="cover"><div class="k">NE LAISSE PLUS PARTIR TES CLIENTS · {H.escape(kn.upper())}</div><div class="t">{H.escape(kname)}</div><div class="rule"></div><div class="s">Le kit pratique qui accompagne le livre « Ne laisse plus partir tes clients ».</div><div class="v">NOVEMBRE 2026</div></div>'''
     open(allp, "w", encoding="utf-8").write(page(KCOVER + "".join(chapters), kt))
 else:
     open(allp, "w", encoding="utf-8").write(page(COVER + "".join(toc) + "".join(chapters), "L'Art du Closing"))
@@ -185,7 +185,7 @@ OUT = os.environ.get("OUT", "L-Art-du-Closing-telephone.pdf" if PHONE else "L-Ar
 jobs.append([allp, os.path.join(DIST, OUT)])
 
 FOOT = ('<div style="font-family:Times New Roman,Liberation Serif,serif;font-size:9pt;width:100%;padding:0 19mm;'
-        'display:flex;justify-content:space-between;color:#8a7a55"><span>L&#39;Art du Closing</span>'
+        'display:flex;justify-content:space-between;color:#8a7a55"><span>Ne laisse plus partir tes clients · Kit</span>'
         '<span class="pageNumber"></span></div>')
 js = """
 const { chromium } = require('playwright');

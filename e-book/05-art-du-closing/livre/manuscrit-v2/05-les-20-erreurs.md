@@ -30,7 +30,7 @@ Réponds honnêtement : personne ne te regarde. Coche **Oui** si ça t'arrive, m
 | 4 | d'appeler ou de retenir les passants ? | ☐ |
 | 5 | de donner le prix avant même de dire bonjour ? | ☐ |
 | 6 | d'être sur ton téléphone quand un client arrive ? | ☐ |
-| 7 | de promettre des gains (« tu vas devenir riche ») ? | ☐ |
+| 7 | de promettre des gains (« tu vas gagner gros ») ? | ☐ |
 | 8 | de ne pas savoir répondre à une question précise sur ton produit ? | ☐ |
 | 9 | de parler longtemps sans laisser le client parler ? | ☐ |
 | 10 | d'insister quand le client hésite ? | ☐ |

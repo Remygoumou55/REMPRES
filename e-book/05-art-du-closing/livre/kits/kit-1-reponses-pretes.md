@@ -4,7 +4,7 @@
 **Comment utiliser ce kit**
 
 1. Repère la phrase du client dans la bonne fiche.
-2. **Avant de répondre**, pose la question qui fait tomber le rideau : « Dis-moi la vérité, ça te plaît vraiment ? » (chapitre 3 du livre).
+2. **Avant de répondre**, pose la question qui fait tomber le rideau : « Dis-moi la vérité, ça te plaît vraiment ? » (chapitres 4 et 8 du livre).
 3. Choisis la réponse qui correspond à **la vraie raison**, puis adapte les mots à ta façon de parler.
 
 Les lettres renvoient aux profils : **A** vendeur en face · **B** vendeur en ligne · **C** produits digitaux · **D** commercial · **E** livreur. « Tous » = valable pour tout le monde.
@@ -66,7 +66,7 @@ Les lettres renvoient aux profils : **A** vendeur en face · **B** vendeur en li
 
 **À ne jamais dire :** « Faites-moi confiance ! » · « Vous êtes trop méfiant. » Et ne bloque jamais un client qui doute.
 
-## Fiche 4 — La famille et le décideur
+## Fiche 4 — La famille et la personne qui décide
 
 | Le client dit | Profil | Tu réponds |
 |---|---|---|
@@ -93,6 +93,9 @@ Les lettres renvoient aux profils : **A** vendeur en face · **B** vendeur en li
 | « Ce n'est pas urgent pour moi. » | Tous | « Je comprends. Qu'est-ce qui changerait si vous l'aviez déjà ? » |
 | (le silence après le prix) | B | Le lendemain : « Bonjour ! Vous avez trouvé votre pointure ? J'ai reçu du 42 ce matin 🙂 » |
 | « Je vous rappelle. » | D | « Très bien. Pour ne pas vous déranger, je vous rappelle mardi à 10 h, ça vous va ? » |
+| « On va voir. » | Tous | « D'accord. Qu'est-ce qu'il faudrait pour que ce soit oui ? » |
+| « Je vais en parler à… » | Tous | « Bien sûr. Qu'est-ce qu'il ou elle va vouloir savoir ? Je te prépare ça. » (chapitre 15) |
+| « Rappelez-moi dans 3 mois. » | D | « Avec plaisir. D'ici là, qu'est-ce qui va changer chez vous : le budget, la personne qui décide, autre chose ? » |
 
 **À ne jamais dire :** « La promo se termine ce soir ! » (si ce n'est pas vrai).
 
@@ -120,5 +123,21 @@ Les lettres renvoient aux profils : **A** vendeur en face · **B** vendeur en li
 | « J'ai vu moins cher ailleurs. » (à la porte) | E | « Je ne peux pas changer le prix, je suis le livreur. J'appelle la boutique, si vous voulez. » |
 | « Je n'ai pas la monnaie. » | E | « Vous pouvez payer par mobile money, je vous donne le numéro de la boutique. » |
 | (client qui a déjà annulé 2 fois) | B | « Pour cette commande, je demande les frais de livraison d'avance. Comme ça, on est tous les deux sûrs. » |
+| « Mon mari a dit non. » | B | « Je comprends. Qu'est-ce qui l'a fait hésiter ? Je t'envoie une vidéo des baskets portées pour lui montrer, ou on l'appelle ensemble ? » |
+| « J'ai trouvé moins cher. » | B | « Tu as bien fait de comparer. Tu m'envoies la photo ? Si c'est exactement le même article, on regarde ensemble. Sinon, je t'explique la différence. » |
+| Il veut payer seulement la moitié | E | « Je n'ai pas le droit de laisser le colis à moitié payé. On appelle la boutique ensemble pour trouver une solution ? » |
+| Il annule pour de bon | B | « Pas de souci, merci de m'avoir prévenu. Je vous garde dans mes contacts pour les prochains arrivages. » |
 
 **À ne jamais faire :** insulter le client, publier sa photo ou son numéro, laisser un colis sans paiement **vérifié** (attention aux faux messages de mobile money).
+
+## Fiche 8 — « C'est cher » : les phrases de chaque profil
+
+Toutes ces phrases viennent du chapitre 12. Dans l'ordre : d'abord **comprendre**, puis **montrer la valeur**, puis un **petit plus** (le même pour tous). Le prix ne bouge pas.
+
+| Profil | Les phrases |
+|---|---|
+| **A — Fanta** | « Cher par rapport à quoi, ma sœur ? » · « Touche le tissu, regarde les coutures. Essaie-la, le miroir est là. » · « Mon prix est le même pour toutes, mais je t'ajoute le foulard. » · « Une robe 12 000, deux robes 22 000. » · Si l'argent manque vraiment : « J'ai un modèle plus simple à 8 000, tu veux voir ? » |
+| **B — Amina** | « D'accord. Vous comparez avec quel prix ? » · « Pour comparer la même chose : chez eux, la livraison est comprise ? L'échange est possible ? » · « Je vous filme la semelle et l'étiquette maintenant. » · « Le prix ne bouge pas, mais je vous offre la livraison. » |
+| **C — Ibrahima** | « Que voulez-vous dire exactement par "cher" ? » · « Qu'est-ce que ça vous coûte aujourd'hui de ne pas savoir faire ça ? » · « Vous avez raison, beaucoup de choses sont gratuites. Ici, vous payez l'ordre des étapes et mon aide. Vous voulez voir le premier module gratuitement pour juger ? » · « Je ne baisse pas le prix, mais je vous offre 30 minutes de questions. » |
+| **D — Koffi** | « Plus cher que votre fournisseur : sur quel article exactement ? » · « Comparons le coût total : livraison, délais, ruptures de stock, papier qui bloque les imprimantes… » · « Le prix reste le même, mais je vous livre gratuitement chaque semaine. » |
+| **E — Sékou** | « Je comprends. Le prix a été fixé par la boutique, je ne peux pas le changer. » · « Ouvrez, vérifiez bien avant de payer, prenez votre temps. » · « Vous voulez qu'on appelle la boutique ensemble ? » |

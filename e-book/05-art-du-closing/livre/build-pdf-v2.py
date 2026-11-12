@@ -9,6 +9,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(ROOT, "manuscrit-v2")
 DIST = os.path.join(ROOT, "dist-v2")
 os.makedirs(DIST, exist_ok=True)
+PHONE = os.environ.get("PHONE") == "1"
 
 VERT, OR, CREME, ENCRE = "#123B2F", "#B08A3E", "#FAF6EC", "#1E1E1E"
 CSS = f"""
@@ -129,8 +130,26 @@ def md(text):
     out = re.sub(r"<h1>Chapitre (\d+) — (.*?)</h1>", r'<h1><span class="num">Chapitre \1</span>\2</h1>', out)
     return out
 
+PHONE_CSS = """
+@page { size: 110mm 196mm; margin: 9mm 8mm 11mm 8mm; }
+body { font-size: 12.5pt; line-height: 1.4; }
+h1 { font-size: 19pt; } h1 .num { font-size: 10pt; letter-spacing: 2pt; } h1::after { width: 35mm; }
+h2 { font-size: 15pt; } h3 { font-size: 13pt; }
+table { font-size: 9.5pt; } th, td { padding: 4pt 4pt; }
+.box { font-size: 12pt; padding: 8pt 9pt 4pt; } .box table { font-size: 9pt; }
+.accroche { font-size: 14pt; } blockquote { font-size: 12pt; }
+.ligne { min-width: 45mm; } td .ligne { min-width: 12mm; }
+figure.ill img { max-height: 70mm; }
+.partpage { height: 170mm; padding: 0 6mm; } .partpage .pt { font-size: 26pt; } .partpage .pd { font-size: 13pt; } .partpage img { width: 100%; }
+.toc .row { font-size: 11.5pt; }
+.cv2 { width: 110mm; height: 195.5mm; }
+.cv2 .top { top: 11mm; left: 9mm; right: 9mm; } .cv2 .k { font-size: 7pt; letter-spacing: 3pt; }
+.cv2 .t { font-size: 29pt !important; } .cv2 .rule { width: 24mm; margin: 5pt 0 7pt; }
+.cv2 .acc { font-size: 11pt; max-width: 80mm; }
+.cv2 .bottom { bottom: 6mm; left: 5mm; right: 5mm; } .cv2 .val { font-size: 7pt; gap: 3pt; } .cv2 .val span { padding: 2pt 5pt; } .cv2 .pays { font-size: 6pt; margin-top: 4pt; }
+"""
 def page(body, title):
-    return f'<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><title>{H.escape(title)}</title><style>{CSS}</style></head><body>{body}</body></html>'
+    return f'<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><title>{H.escape(title)}</title><style>{CSS}{PHONE_CSS if PHONE else ""}</style></head><body>{body}</body></html>'
 
 COVER = """<section class="cv2"><img class="bg" src="../illustrations/cover-bg-a4.jpg" alt="">
 <div class="top"><div class="k">COLLECTION PLAYBOOKS</div>
@@ -169,11 +188,13 @@ jobs = []
 allp = os.path.join(DIST, "_all.html")
 open(allp, "w", encoding="utf-8").write(page("".join(toc) + "".join(chapters), "Ne laisse plus partir tes clients"))
 covp = os.path.join(DIST, "_cover.html")
-open(covp, "w", encoding="utf-8").write(page(COVER, "Couverture").replace("</style>", "@page { size: A4; margin: 0; } body { margin: 0; }</style>"))
-OUT = os.environ.get("OUT", "L-Art-du-Closing-livre-complet.pdf")
+open(covp, "w", encoding="utf-8").write(page(COVER.replace("cover-bg-a4", "cover-bg-phone") if PHONE else COVER, "Couverture").replace("</style>", ("@page { size: 110mm 196mm; margin: 0; }" if PHONE else "@page { size: A4; margin: 0; }") + " body { margin: 0; }</style>"))
+OUT = os.environ.get("OUT", "L-Art-du-Closing-telephone.pdf" if PHONE else "L-Art-du-Closing-livre-complet.pdf")
 jobs.append([allp, os.path.join(DIST, OUT)])
 
-FOOT = ('<div style="font-family:Times New Roman,Liberation Serif,serif;font-size:9pt;width:100%;padding:0 19mm;'
+SIZE = "width: '110mm', height: '196mm'," if PHONE else "format: 'A4',"
+MARG = "{ top: '9mm', bottom: '11mm', left: '8mm', right: '8mm' }" if PHONE else "{ top: '20mm', bottom: '20mm', left: '19mm', right: '19mm' }"
+FOOT = ('<div style="font-family:Times New Roman,Liberation Serif,serif;font-size:'+('7pt' if PHONE else '9pt')+';width:100%;padding:0 '+('8mm' if PHONE else '19mm')+';'
         'display:flex;justify-content:space-between;color:#8a7a55"><span>Ne laisse plus partir tes clients</span>'
         '<span class="pageNumber"></span></div>')
 js = """
@@ -184,15 +205,15 @@ const { chromium } = require('playwright');
   const p = await b.newPage();
   for (const [h, o] of jobs) {
     await p.goto('file://' + h, { waitUntil: 'load' });
-    await p.pdf({ path: o, format: 'A4', printBackground: true, displayHeaderFooter: true,
+    await p.pdf({ path: o, %s printBackground: true, displayHeaderFooter: true,
       headerTemplate: '<span></span>', footerTemplate: '%s',
-      margin: { top: '20mm', bottom: '20mm', left: '19mm', right: '19mm' } });
+      margin: %s });
   }
   await p.goto('file://' + %s, { waitUntil: 'load' });
-  await p.pdf({ path: %s, format: 'A4', printBackground: true, margin: { top: 0, bottom: 0, left: 0, right: 0 } });
+  await p.pdf({ path: %s, %s printBackground: true, margin: { top: 0, bottom: 0, left: 0, right: 0 } });
   await b.close();
 })();
-""" % (json.dumps(jobs), FOOT, json.dumps(covp), json.dumps(os.path.join(DIST, "_cover.pdf")))
+""" % (json.dumps(jobs), SIZE, FOOT, MARG, json.dumps(covp), json.dumps(os.path.join(DIST, "_cover.pdf")), SIZE)
 jsp = os.path.join(DIST, "_render.js")
 open(jsp, "w").write(js)
 subprocess.run(["node", jsp], check=True, cwd=ROOT)

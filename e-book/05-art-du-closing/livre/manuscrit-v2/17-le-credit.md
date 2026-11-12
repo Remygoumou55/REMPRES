@@ -64,7 +64,7 @@ Tu peux dire non **et** garder le client. Le secret : ne pas dire « non » tout
 |---|---|---|
 | **Mettre de côté** | « Je te la garde jusqu'à samedi. Tu viens avec l'argent, elle est à toi. » | Tu gardes l'article. |
 | **Petit acompte** | « Tu me laisses 5 000 aujourd'hui, et le reste en la prenant. » | Elle s'engage, et tu as déjà une partie. |
-| **Payer en plusieurs fois, AVANT de prendre** | « En 3 fois, chaque samedi. Au dernier paiement, tu repars avec. » | Elle paie d'abord. Zéro risque pour toi. |
+| **Payer en plusieurs fois, AVANT de prendre** | « En 3 fois, chaque samedi. Au dernier paiement, tu repars avec. » | Elle paie d'abord. Tu ne perds rien. |
 | **Plus petit, moins cher** | « Avec 8 000, j'ai ce modèle-ci, presque pareil. » | La vente se fait aujourd'hui. |
 | **La bonne date** | « Ta paie tombe le 30 ? Je te l'envoie le 30 au matin, tu paies à la réception. » | Tu vends quand l'argent existe. |
 

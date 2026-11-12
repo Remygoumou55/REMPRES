@@ -65,6 +65,8 @@ Amina **ne présente pas son produit** au début : elle commence par **le client
 
 **Oser le silence après une objection.** C'est le point le plus important de ce chapitre, et la leçon de l'exemple 2 : **quand le client hésite, ne panique pas. Respire. Puis pose une question.** Au téléphone, tu ne vois pas son visage : ce qu'il dit après ton silence est ta seule information.
 
+<figure class="ill"><img src="../illustrations/ill-10-silence.jpg" alt="Ibrahima compte deux secondes avant de répondre"></figure>
+
 | Le client dit… | Le vendeur qui panique | Toi |
 |---|---|---|
 | « Hum… c'est un peu cher. » | Il explique tout, il baisse le prix. | *(2 secondes de silence)* « Cher par rapport à quoi ? » |

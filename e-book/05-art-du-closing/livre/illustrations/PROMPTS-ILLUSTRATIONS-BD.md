@@ -148,4 +148,7 @@ Avec 13 images, le livre prendra environ 8 à 10 pages de plus (autour de 148 pa
 | ill-07 | ✅ placée au chapitre 15 |
 | ill-08 | ✅ placée au chapitre 17 |
 | ill-09 | ✅ placée au chapitre 18 (point 2, la vidéo). ⚠️ Les baskets ressemblent à un modèle de marque connu : à refaire avec des baskets sans forme reconnaissable, si possible |
-| ill-10 à ill-13 | ⏳ à faire |
+| ill-10 | ✅ placée au chapitre 22 (oser le silence). Petit défaut : Ibrahima n'a pas ses lunettes |
+| ill-11 | ❌ à refaire : style photo (pas BD), logo Apple visible sur le téléphone, la vendeuse n'est pas Amina |
+| ill-12 | ❌ à refaire : style photo, gilet orange au lieu du vert, ce n'est pas le visage de Sékou, baskets de marque |
+| ill-13 | ❌ à refaire : style photo, les 5 personnages ne sont pas les nôtres |

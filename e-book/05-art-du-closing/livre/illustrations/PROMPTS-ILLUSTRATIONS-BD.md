@@ -134,3 +134,13 @@ Aucun texte.
 | ill-13 | 26 | Après l'accroche |
 
 Avec 13 images, le livre prendra environ 8 à 10 pages de plus (autour de 148 pages). On reste sous les 150.
+
+## Suivi (12 nov. 2026)
+| Image | État |
+|---|---|
+| Personnages | ✅ reçue, placée au chapitre 0 (« Qui es-tu ? ») |
+| ill-01 | ❌ texte faux dans la bulle (« Dis-moi : que pensez vous du produit ? »). À refaire avec : « Dis-moi la vérité : elle te plaît vraiment ? ». Gardée en `ill-01-premier-non-A-CORRIGER.jpg` |
+| ill-02 | ✅ placée au chapitre 2 |
+| ill-03 | ✅ placée au chapitre 4 |
+| ill-04 | ✅ placée sur la page de la partie 2 |
+| ill-05 à ill-13 | ⏳ à faire |

@@ -33,6 +33,8 @@ Fanta a cru que c'était le prix : c'était la **peur**. Amina a cru que c'étai
 
 **Le mur 🧱.** Tu peux pousser un mur, crier, taper : il ne bouge pas. Certaines objections sont des murs : **de vrais problèmes**. Pousser ne sert à rien. Il faut chercher **la porte**.
 
+<figure class="ill"><img src="../illustrations/ill-03-rideau-et-mur.jpg" alt="Le rideau et le mur"></figure>
+
 | | Le rideau | Le mur |
 |---|---|---|
 | **C'est quoi ?** | Une excuse qui cache une autre raison | Un vrai problème |

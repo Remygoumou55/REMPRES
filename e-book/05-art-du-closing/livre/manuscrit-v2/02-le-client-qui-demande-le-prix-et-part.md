@@ -27,6 +27,8 @@ Il hoche la tête et continue son chemin. Tout a duré **quatre secondes**.
 Dans les deux exemples, **le vendeur a fait exactement ce qu'on lui demandait** : il a donné le prix. Et **la vente est morte juste après**. Ce n'est pas un hasard : c'est un piège dans lequel tombent même les bons vendeurs.
 </div>
 
+<figure class="ill"><img src="../illustrations/ill-02-prix-tout-nu.jpg" alt="Le prix tout nu, puis le prix avec une question"></figure>
+
 <div class="vrai" markdown="1">
 « Les gens viennent, demandent les prix, touchent les articles, puis repartent. Je ne comprends pas. »
 <span class="src">— un vendeur de fournitures scolaires, Afrique de l'Ouest</span>

@@ -63,6 +63,8 @@ Choisis ta lettre. Dans chaque chapitre, l'encadré **« Dans ta situation »** 
 | **D — Le commercial** | Rendez-vous, appels, devis, entreprises, services. | **Koffi**, fournitures de bureau |
 | **E — Le livreur** | Tu apportes le colis et tu encaisses. | **Sékou**, livreur à moto |
 
+<figure class="ill"><img src="../illustrations/ill-00-personnages.jpg" alt="Fanta, Amina, Ibrahima, Koffi et Sékou"></figure>
+
 Lis tout, même ce qui ne te concerne pas : le vendeur en ligne comprend mieux ses annulations quand il se met à la place du livreur. Et le livreur, c'est **le dernier vendeur** : il est devant le client au moment le plus fragile, celui où il faut sortir l'argent.
 
 Ces personnages sont **inventés**, comme **Moussa**, un client qui vit à l'étranger et que tu rencontreras plus loin. Les prix sont en « F » : adapte-les à ton pays. Les encadrés **« Témoignages réels »**, eux, contiennent de **vraies paroles** de vendeurs et de clients africains, publiées dans la presse ou des études, sans noms ni lieux. Les sources sont à la fin du livre.

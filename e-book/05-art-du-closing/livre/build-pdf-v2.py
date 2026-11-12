@@ -73,6 +73,9 @@ td .ligne {{ min-width: 30mm; }}
 .vecu p {{ margin: 10pt 0 2pt; color: {VERT}; }}
 .suite strong, .suite h3 {{ color: #F1D9A6; }}
 .chapter {{ break-before: page; }}
+figure.ill {{ margin: 12pt 0; text-align: center; break-inside: avoid; }}
+figure.ill img {{ width: 100%; max-height: 120mm; object-fit: contain; border-radius: 6pt; }}
+.partpage img {{ width: 85%; margin: 14pt auto 0; display: block; border-radius: 8pt; }}
 .toc {{ break-before: page; }}
 .toc h1::after {{ display: none; }}
 .toc .row {{ display: flex; justify-content: space-between; border-bottom: 1px dotted #b9ab86; padding: 6pt 0; font-size: 14pt; }}
@@ -127,6 +130,7 @@ PARTS = [(1, "Partie 1", "Comprendre", "Ce qu'est le closing, pourquoi les clien
          (19, "Partie 4", "Selon ta façon de vendre", "Le marché, WhatsApp et les réseaux, les produits digitaux, le téléphone, les entreprises, la diaspora, la livraison."),
          (26, "Partie 5", "Devenir un closer", "Ta boîte à histoires, l'éthique et la loi, et ton plan d'entraînement de 30 jours."),
          (90, "Annexes", "Pour aller plus loin", "Le lexique, les sources et les mentions.")]
+PART_IMG = {6: '<img src="../illustrations/ill-04-six-cles.jpg" alt="Les 6 clés RIDEAU">'}
 def num(f):
     m = re.match(r"(\d+)", os.path.basename(f)); return int(m.group(1)) if m else 0
 toc = ['<section class="toc"><h1>Sommaire</h1>']
@@ -137,7 +141,7 @@ for f in files:
     for start, pn, pt, pd in PARTS:
         if n == start or (start == 90 and n >= 90 and not any(num(g) >= 90 and num(g) < n for g in files)):
             toc.append(f'<div class="part">{pn} — {H.escape(pt)}</div>')
-            chapters.append(f'<section class="partpage"><div class="pk">{pn}</div><div class="pt">{H.escape(pt)}</div><div class="rule"></div><div class="pd">{H.escape(pd)}</div></section>')
+            chapters.append(f'<section class="partpage"><div class="pk">{pn}</div><div class="pt">{H.escape(pt)}</div><div class="rule"></div><div class="pd">{H.escape(pd)}</div>{PART_IMG.get(start, "")}</section>')
     if n == 0:
         toc.insert(1, f'<div class="part">Pour commencer</div><div class="row"><span>{H.escape(title)}</span></div>')
     else:

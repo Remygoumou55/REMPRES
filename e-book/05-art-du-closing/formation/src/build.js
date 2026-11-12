@@ -106,7 +106,7 @@ const R = {
     kicker(s, ep, d.kicker);
     s.addText(d.titre, { placeholder: "title" });
     const rows = [d.entetes.map(h => ({ text: h, options: { bold: true, color: HEX.or, fill: { color: HEX.vert } } }))]
-      .concat(d.lignes.map((l, i) => l.map((c, j) => ({ text: c, options: { bold: j === 0, color: j === 0 ? HEX.vert : HEX.encre, fill: { color: i % 2 ? HEX.blanc : HEX.creme } } }))));
+      .concat(d.lignes.map((l, i) => l.map((c, j) => ({ text: String(c).replace(/\*\*/g, ""), options: { bold: j === 0, color: j === 0 ? HEX.vert : HEX.encre, fill: { color: i % 2 ? HEX.blanc : HEX.creme } } }))));
     s.addTable(rows, { x: 0.6, y: 1.45, w: 12.1, colW: d.colW, fontSize: d.taille || 20, fontFace: "Calibri", valign: "middle", rowH: Math.min(0.95, 5.1 / (d.lignes.length + 1)), border: { type: "solid", pt: 0.5, color: "E3DCC8" }, margin: 0.08 });
   },
   quiz(s, ep, d) {

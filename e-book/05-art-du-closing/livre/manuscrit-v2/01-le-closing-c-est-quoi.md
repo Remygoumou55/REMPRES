@@ -4,6 +4,8 @@
 Le client était intéressé. Il a posé des questions. Il a peut-être même dit « oui »… et puis tout s'est arrêté. **Que s'est-il passé dans ces quelques secondes ?**
 </div>
 
+<figure class="ill"><img src="../illustrations/ill-01-premier-non.jpg" alt="Fanta : « Dis-moi la vérité : elle te plaît vraiment ? »"></figure>
+
 <div class="scene" markdown="1">
 ### 🎬 Exemple 1 — Fanta, au marché
 

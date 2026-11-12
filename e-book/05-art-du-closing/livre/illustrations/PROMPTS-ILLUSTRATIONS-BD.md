@@ -119,7 +119,7 @@ Aucun texte.
 ## Où chaque image ira dans le livre
 | Image | Chapitre | Place |
 |---|---|---|
-| ill-01 | 1 | Après l'accroche |
+| ill-01 | ✅ corrigée, placée au début du chapitre 1 |
 | ill-02 | 2 | Après « Tu as remarqué ? » |
 | ill-03 | 4 | Au début de la section 1 |
 | ill-04 | Page de la partie 2 | Au centre de la page |
@@ -135,11 +135,11 @@ Aucun texte.
 
 Avec 13 images, le livre prendra environ 8 à 10 pages de plus (autour de 148 pages). On reste sous les 150.
 
-## Suivi (12 nov. 2026)
+## Suivi (12 nov. 2026) — LES 13 IMAGES + LA PLANCHE SONT DANS LE LIVRE ✅
 | Image | État |
 |---|---|
 | Personnages | ✅ reçue, placée au chapitre 0 (« Qui es-tu ? ») |
-| ill-01 | ❌ texte faux dans la bulle (« Dis-moi : que pensez vous du produit ? »). À refaire avec : « Dis-moi la vérité : elle te plaît vraiment ? ». Gardée en `ill-01-premier-non-A-CORRIGER.jpg` |
+| ill-01 | ✅ corrigée, placée au début du chapitre 1 |
 | ill-02 | ✅ placée au chapitre 2 |
 | ill-03 | ✅ placée au chapitre 4 |
 | ill-04 | ✅ placée sur la page de la partie 2 |

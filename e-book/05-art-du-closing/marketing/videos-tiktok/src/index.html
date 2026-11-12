@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
+<style>
+@font-face { font-family: Anton; src: url(anton.woff2); }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #123B2F; font-family: 'Liberation Sans', Arial, sans-serif; }
+#bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, #1d5a47 0%, #123B2F 55%, #0b2a21 100%); }
+.sc { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 70px; opacity: 0; }
+.big { font-family: Anton, Impact, sans-serif; color: #fff; font-size: 118px; line-height: 1.08; text-align: center; text-transform: uppercase; letter-spacing: 1px; }
+.big .g { color: #E9C46A; }
+.mid { color: #FAF6EC; font-size: 62px; line-height: 1.25; text-align: center; font-weight: bold; }
+.mid .g { color: #E9C46A; }
+.line { opacity: 0; }
+img.ill { width: 960px; border-radius: 28px; border: 6px solid #E9C46A; box-shadow: 0 20px 60px rgba(0,0,0,.5); margin: 40px 0; }
+.chat { width: 900px; }
+.bub { font-size: 54px; line-height: 1.3; padding: 26px 34px; border-radius: 34px; margin: 26px 0; max-width: 800px; opacity: 0; position: relative; }
+.bub.c { background: #fff; color: #1e1e1e; border-bottom-left-radius: 6px; }
+.bub.v { background: #DCF8C6; color: #1e1e1e; margin-left: auto; border-bottom-right-radius: 6px; }
+.mark { position: absolute; right: -90px; top: 50%; transform: translateY(-50%); font-family: Anton; font-size: 90px; }
+.no { color: #ff6b5b; } .yes { color: #7be08a; }
+.list { width: 960px; }
+.li { display: flex; align-items: center; gap: 30px; background: rgba(250,246,236,.97); color: #123B2F; font-size: 54px; font-weight: bold; border-radius: 26px; padding: 26px 34px; margin: 22px 0; opacity: 0; }
+.li b { background: #123B2F; color: #E9C46A; font-family: Anton; font-size: 56px; border-radius: 18px; padding: 6px 22px; }
+img.cover { width: 600px; border-radius: 12px; box-shadow: 0 30px 90px rgba(0,0,0,.6); }
+.price { margin-top: 50px; background: #E9C46A; color: #123B2F; font-family: Anton; font-size: 92px; padding: 18px 60px; border-radius: 80px; }
+.cta { margin-top: 30px; color: #fff; font-size: 56px; font-weight: bold; }
+.tag { margin-top: 26px; color: #E9C46A; font-size: 44px; font-weight: bold; text-align: center; }
+</style></head><body><div id="bg"></div><div id="root"></div>
+<script>
+const V = {
+ A: { dur: 25, scenes: [
+  {t:[0,4.2], html:`<div class="big"><div class="line" data-at="0">Ton client</div><div class="line" data-at=".35">demande le prix…</div><div class="line g" data-at="1.6"><span class="g">…et il disparaît ?</span></div></div>`},
+  {t:[4.2,8.6], html:`<div class="mid line" data-at="0">L'erreur : donner<br>le prix <span class="g">tout seul</span>.</div><img class="ill line" data-at=".5" src="ill02.jpg">`},
+  {t:[8.6,15.6], html:`<div class="chat"><div class="bub c" data-at="0">C'est combien ?</div><div class="bub v" data-at=".8">25 000 F<span class="mark no">✕</span></div><div class="bub v" data-at="2.6">25 000 F, livraison comprise. C'est pour vous ou pour offrir ?<span class="mark yes">✓</span></div><div class="bub c" data-at="4.6">Pour ma femme !</div></div>`},
+  {t:[15.6,19.4], html:`<div class="big"><div class="line" data-at="0">Une seule</div><div class="line" data-at=".3"><span class="g">question.</span></div></div><div class="mid line" data-at="1.2" style="margin-top:50px">Et la conversation continue.</div>`},
+  {t:[19.4,25], cta:true},
+ ]},
+ B: { dur: 25, scenes: [
+  {t:[0,4], html:`<div class="big"><div class="line" data-at="0"><span class="g">« Je vais</span></div><div class="line" data-at=".25"><span class="g">réfléchir… »</span></div><div class="line" data-at="1.5" style="font-size:96px">Et tu réponds<br>« d'accord » ?</div></div>`},
+  {t:[4,8.6], html:`<div class="mid line" data-at="0">Souvent, ce n'est pas<br>la <span class="g">vraie raison</span>.<br>C'est un <span class="g">rideau</span>.</div><img class="ill line" data-at=".6" src="ill03.jpg">`},
+  {t:[8.6,14.6], html:`<div class="mid line" data-at="0">Derrière, il y a une peur :</div><div class="list" style="margin-top:30px"><div class="li" data-at=".6"><b>?</b> « C'est une arnaque ? »</div><div class="li" data-at="1.4"><b>?</b> « Mon mari va dire non… »</div><div class="li" data-at="2.2"><b>?</b> « La couleur va passer… »</div></div>`},
+  {t:[14.6,19.4], html:`<div class="mid line" data-at="0">Avant de répondre, demande :</div><div class="chat" style="margin-top:30px"><div class="bub v" data-at=".7" style="font-size:60px">« Dis-moi la vérité : ça te plaît vraiment ? »</div></div><div class="mid line" data-at="2.4" style="margin-top:20px">Le rideau tombe. <span class="g">Tu sais quoi répondre.</span></div>`},
+  {t:[19.4,25], cta:true},
+ ]},
+ C: { dur: 25, scenes: [
+  {t:[0,4.6], html:`<div class="big" style="font-size:100px"><div class="line" data-at="0">Le client dit</div><div class="line" data-at=".3"><span class="g">« emballe ! »</span></div><div class="line" data-at="1.4">le livreur part…</div><div class="line" data-at="2.6"><span class="g">et il ne décroche plus.</span></div></div>`},
+  {t:[4.6,9], html:`<div class="mid line" data-at="0">Carburant perdu. Temps perdu.<br><span class="g">Vente perdue.</span></div><img class="ill line" data-at=".6" src="ill12.jpg">`},
+  {t:[9,15.6], html:`<div class="big" style="font-size:96px"><div class="line" data-at="0">Avant chaque départ :</div><div class="line" data-at=".3"><span class="g">les 4 « OK »</span></div></div><div class="list" style="margin-top:40px"><div class="li" data-at="1"><b>1</b> OK produit</div><div class="li" data-at="1.8"><b>2</b> OK client (appel)</div><div class="li" data-at="2.6"><b>3</b> OK adresse</div><div class="li" data-at="3.4"><b>4</b> OK montant</div></div>`},
+  {t:[15.6,19.4], html:`<div class="big"><div class="line" data-at="0">Pas d'appel,</div><div class="line" data-at=".4"><span class="g">pas de départ.</span></div></div>`},
+  {t:[19.4,25], cta:true},
+ ]},
+};
+const CTA = `<div class="mid line" data-at="0" style="font-size:54px;margin-bottom:40px">Toute la méthode est dans le livre :</div><img class="cover line" data-at=".3" src="cover.jpg"><div class="price line" data-at="1.2">6 900 F CFA</div><div class="tag line" data-at="1.6">Le livre + 4 kits · Version téléphone</div><div class="cta line" data-at="2.2">Lien en bio</div>`;
+const key = new URLSearchParams(location.search).get('v') || 'A';
+const cfg = V[key]; window.DUR = cfg.dur;
+const root = document.getElementById('root');
+cfg.scenes.forEach(s => { const d = document.createElement('div'); d.className = 'sc'; d.innerHTML = (s.cta ? CTA : s.html).replace(/« /g,'«\u00a0').replace(/ »/g,'\u00a0»').replace(/ ([?!])/g,'\u00a0$1'); root.appendChild(d); s.el = d; });
+const ease = x => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3);
+window.render = (t) => {
+  cfg.scenes.forEach(s => {
+    const [a, b] = s.t; const on = t >= a - .01 && t < b;
+    const fade = Math.min(1, (t - a) / .25, (b - t) / .25);
+    s.el.style.opacity = on ? Math.max(0, fade) : 0;
+    if (!on) return;
+    const lt = t - a;
+    s.el.querySelectorAll('[data-at]').forEach(e => {
+      const p = ease((lt - parseFloat(e.dataset.at)) / .4);
+      e.style.opacity = p; e.style.transform = `translateY(${(1 - p) * 40}px) scale(${.96 + .04 * p})`;
+    });
+    const zoom = 1 + .03 * (lt / (b - a));
+    s.el.style.transform = `scale(${zoom})`;
+  });
+};
+render(0);
+</script></body></html>

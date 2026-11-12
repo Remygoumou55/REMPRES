@@ -1,0 +1,50 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1080px;height:1529px;background:#fff;font-family:Inter,sans-serif;color:#1d2433;position:relative;padding:48px 87px 0}
+h3{font-family:'Inter Display',Inter;font-weight:800;font-size:25px;color:#13254a;margin:24px 0 10px}
+table{width:100%;border-collapse:collapse;font-size:18.5px;line-height:1.42}
+th{background:#13254a;color:#fff;text-align:left;font-weight:700;padding:12px 12px}
+th:first-child{border-top-left-radius:8px} th:last-child{border-top-right-radius:8px}
+td{padding:10px 12px;border-bottom:1px solid #dde2ea;vertical-align:top}
+tr:nth-child(even) td{background:#f4f6f9}
+td.m{font-weight:700;color:#13254a;width:230px}
+td.e{width:190px}
+.sch{border:1px solid #e3e6ec;border-radius:10px;padding:14px 12px 12px;margin:20px 0 6px}
+.row{display:flex;align-items:stretch;gap:8px} .ar{align-self:center}
+.st{flex:1;background:#fdeee4;border-radius:8px;padding:10px 6px 12px;text-align:center;font-weight:700;color:#13254a;font-size:18px;line-height:1.3}
+.st i{display:block;width:24px;height:24px;line-height:24px;border-radius:50%;background:#e8672a;color:#fff;font-style:normal;font-size:14px;margin:0 auto 6px}
+.st small{display:block;font-weight:400;color:#6b7383;font-size:14.5px;margin-top:4px}
+.ar{color:#e8672a;font-weight:700}
+.sch p{text-align:center;color:#13254a;font-weight:700;font-size:16.5px;margin-top:12px}
+.cap{font-size:16px;color:#6b7383;margin-top:10px} .cap b{color:#4a5263}
+.foot{position:absolute;bottom:36px;left:87px;right:87px;display:flex;justify-content:space-between;font-size:15px;color:#9aa3b2}
+.foot b{color:#e8672a;font-size:17px}
+</style></head><body>
+<table><tr><th>Document</th><th>En clair</th><th>Exemple</th><th>En anglais</th></tr>
+<tr><td class="m" style="width:170px">Bon de retour</td><td>Ce qui revient au magasin, ou repart chez le fournisseur</td><td>5 sacs pas utilisés, rapportés par un chantier</td><td class="e">Return note</td></tr>
+<tr><td class="m" style="width:170px">Facture</td><td>Le papier où le fournisseur demande son argent</td><td>Facture de 97 sacs</td><td class="e">Invoice</td></tr></table>
+<div class="sch"><div class="row">
+<div class="st"><i>1</i>Bon de commande<small>ce qu'on a demandé</small></div><span class="ar">→</span>
+<div class="st"><i>2</i>Bon de livraison<small>ce que dit le fournisseur</small></div><span class="ar">→</span>
+<div class="st"><i>3</i>Bon d'entrée<small>ce qu'on a gardé</small></div><span class="ar">→</span>
+<div class="st"><i>4</i>Fiche de stock<small>ce qui reste</small></div><span class="ar">→</span>
+<div class="st"><i>5</i>Bon de sortie<small>ce qui part, signé</small></div></div>
+<p>Avant de payer, on vérifie que la commande, ce qu'on a reçu et la facture disent la même chose.</p>
+<div class="cap"><b>Schéma 2.1</b> · Le chemin des papiers.</div></div>
+<h3>Le suivi</h3>
+<table><tr><th>Mot</th><th>En clair</th><th>En anglais</th></tr>
+<tr><td class="m">Stock théorique</td><td>Ce que dit la fiche ou l'ordinateur</td><td class="e">Book stock</td></tr>
+<tr><td class="m">Stock physique</td><td>Ce que tu comptes vraiment sur les étagères</td><td class="e">Physical stock</td></tr>
+<tr><td class="m">Inventaire</td><td>Compter le stock pour le comparer à la fiche</td><td class="e">Stock count</td></tr>
+<tr><td class="m">Petit comptage</td><td>Compter quelques articles chaque semaine, au lieu de tout compter une fois par an</td><td class="e">Cycle count</td></tr>
+<tr><td class="m">Écart</td><td>La différence entre ce que tu comptes et ce que dit la fiche</td><td class="e">Variance</td></tr>
+<tr><td class="m">Réserves</td><td>Ce que tu écris sur le papier du livreur, <b>avant de signer</b>, quand quelque chose ne va pas</td><td class="e">Remarks</td></tr></table>
+<h3>Les règles simples</h3>
+<table><tr><th>Mot</th><th>En clair</th><th>En anglais</th></tr>
+<tr><td class="m">FIFO</td><td>Ce qui est arrivé en premier sort en premier</td><td class="e">First In, First Out</td></tr>
+<tr><td class="m">FEFO</td><td>Ce qui périme en premier sort en premier</td><td class="e">First Expired, First Out</td></tr>
+<tr><td class="m">Délai de livraison</td><td>Le nombre de jours entre la commande et l'arrivée au magasin</td><td class="e">Lead time</td></tr>
+<tr><td class="m">Stock de réserve</td><td>Un petit stock en plus, pour les retards et les imprévus</td><td class="e">Safety stock</td></tr>
+<tr><td class="m">Niveau d'alerte</td><td>Quand il reste ce nombre, il faut recommander, pour ne pas tomber à zéro</td><td class="e">Reorder point</td></tr></table>
+<div class="foot"><span>Les Pros du Stock · Du débutant à l'expert</span><b>22</b></div>
+</body></html>

@@ -78,7 +78,7 @@ const R = {
       const x = 0.6 + i * (w + gap);
       card(s, x, y, w, h, c.fond === "vert" ? HEX.vert : HEX.creme);
       const dark = c.fond === "vert";
-      s.addText(c.icone || String(i + 1), { isTextBox: true, x: x + 0.3, y: y + 0.25, w: 0.9, h: 0.7, fontSize: 30, bold: true, color: dark ? HEX.or : HEX.bronze, margin: 0 });
+      s.addText(c.icone || String(i + 1), { isTextBox: true, x: x + 0.3, y: y + 0.25, w: w - 0.6, h: 0.7, fontSize: 30, bold: true, color: dark ? HEX.or : HEX.bronze, margin: 0 });
       s.addText(c.t, { isTextBox: true, x: x + 0.3, y: y + 1.0, w: w - 0.6, h: 0.9, fontSize: 22, bold: true, fontFace: "Cambria", color: dark ? HEX.blanc : HEX.vert, valign: "top", margin: 0 });
       s.addText(rich(c.txt), { isTextBox: true, x: x + 0.3, y: y + 1.95, w: w - 0.6, h: h - 2.2, fontSize: 21, color: dark ? HEX.creme : HEX.encre, valign: "top", margin: 0 });
     });

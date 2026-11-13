@@ -8,7 +8,7 @@
 |---|---|---|
 | `CONTEXTE.md` | Le résumé de tout le projet (à lire en premier) | ✅ |
 | `01-recherche/` | Les rapports des 3 agents de recherche | ⏳ à ajouter depuis le zip |
-| `02-niches/` | Les 50 niches, le Top 3, l'angle émotionnel | ⏳ à ajouter depuis le zip |
+| `02-niches/` | Les 50 niches, le Top 3, l'angle émotionnel | ✅ Top 10/5/3 · ✅ angle émotionnel · ⏳ les 50 niches |
 | `03-strategie/` | Le cahier des charges (LE document de référence) | ✅ cahier des charges · ⏳ plan de publication |
 | `04-journal/journal.md` | Le journal des sessions | ✅ |
 | `05-scripts/` | Les scripts, semaine par semaine | ✅ semaine 1 |

@@ -12,7 +12,8 @@
 | `03-strategie/` | Le cahier des charges (LE document de référence) | ✅ cahier des charges · ⏳ plan de publication |
 | `04-journal/journal.md` | Le journal des sessions | ✅ |
 | `05-scripts/` | Les scripts, semaine par semaine | ✅ semaine 1 |
-| `06-marque/` | Le logo et le reçu (SVG et PNG) | ⏳ à ajouter depuis le zip |
+| `06-marque/` | Le logo, la couverture Facebook, le tampon, les reçus des vidéos 1 et 2 (SVG et PNG) | ✅ refaits le 13 nov. |
+| `outils/` | Le programme qui fabrique les reçus | ✅ |
 | `07-stats/` | Le tableau de suivi et les bilans | ✅ modèle prêt |
 
 ## Pourquoi ce dossier est ici, et pas dans un dépôt « Remy-Contenu »

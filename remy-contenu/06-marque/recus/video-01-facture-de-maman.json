@@ -1,0 +1,13 @@
+{
+  "titre": "LA FACTURE DE MAMAN",
+  "numero": "0001",
+  "date": "15/11/2026",
+  "lignes": [
+    {"libelle": "Repas", "detail": "3 par jour × 18 ans = 19 710", "montant": "≈ 9 855 000 FCFA"},
+    {"libelle": "Couches", "detail": "changées une par une", "montant": "3 500"},
+    {"libelle": "Nuits blanches", "detail": "fièvres, cauchemars", "montant": "∞"},
+    {"libelle": "Prières pour toi", "detail": "", "montant": "∞"}
+  ],
+  "total": "INESTIMABLE",
+  "question": "Tu l'as déjà remerciée ?"
+}

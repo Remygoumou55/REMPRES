@@ -1,0 +1,13 @@
+{
+  "titre": "LA FACTURE #1 : L'ÉCOLE",
+  "numero": "0002",
+  "date": "16/11/2026",
+  "lignes": [
+    {"libelle": "Primaire", "detail": "6 ans × 150 000", "montant": "900 000 FCFA"},
+    {"libelle": "Collège", "detail": "4 ans × 250 000", "montant": "1 000 000 FCFA"},
+    {"libelle": "Lycée", "detail": "3 ans × 300 000", "montant": "900 000 FCFA"},
+    {"libelle": "Emprunts en silence", "detail": "", "montant": "∞"}
+  ],
+  "total": "2 800 000 FCFA",
+  "question": "Tu l'as déjà remercié ?"
+}

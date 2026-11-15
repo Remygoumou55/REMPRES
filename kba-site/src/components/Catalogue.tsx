@@ -32,7 +32,7 @@ function Select({ label, value, onChange, options }: { label: string; value: str
   return (
     <label className="flex flex-col gap-1.5">
       <span className="font-mono text-[10px] uppercase tracking-label text-muted">{label}</span>
-      <select value={value} onChange={(e) => onChange(e.target.value)} className="h-11 rounded-md border border-line bg-white px-3 text-[14px] text-ink outline-none focus:border-blue-600">
+      <select data-filter={label} value={value} onChange={(e) => onChange(e.target.value)} className="h-11 rounded-md border border-line bg-white px-3 text-[14px] text-ink outline-none focus:border-blue-600">
         {options.map(([v, l]) => (
           <option key={v} value={v}>
             {l}
@@ -83,7 +83,7 @@ export function Catalogue({ cars, brands }: { cars: Car[]; brands: string[] }) {
         <label className="relative flex-1">
           <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
           <span className="sr-only">Rechercher</span>
-          <input value={q} onChange={(e) => set(setQ)(e.target.value)} placeholder="Marque, modèle ou numéro KBA" className="h-12 w-full rounded-md border border-line bg-white pl-10 pr-4 text-[14px] outline-none placeholder:text-muted focus:border-blue-600" />
+          <input data-search-input="" value={q} onChange={(e) => set(setQ)(e.target.value)} placeholder="Marque, modèle ou numéro KBA" className="h-12 w-full rounded-md border border-line bg-white pl-10 pr-4 text-[14px] outline-none placeholder:text-muted focus:border-blue-600" />
         </label>
         <button type="button" onClick={() => setShowFilters((s) => !s)} className="btn-outline h-12 md:hidden">
           <SlidersHorizontal className="h-4 w-4" /> Filtres {active > 0 && `(${active})`}
@@ -97,6 +97,7 @@ export function Catalogue({ cars, brands }: { cars: Car[]; brands: string[] }) {
             <button
               key={t.key}
               role="tab"
+              data-tab={t.key}
               aria-selected={tab === t.key}
               onClick={() => set(() => setTab(t.key))("")}
               className={clsx("shrink-0 rounded-full border px-4 py-2 text-[13px] font-medium transition-colors", tab === t.key ? "border-navy-900 bg-navy-900 text-white" : "border-line bg-white text-muted hover:border-ink/30 hover:text-ink")}
@@ -118,7 +119,7 @@ export function Catalogue({ cars, brands }: { cars: Car[]; brands: string[] }) {
 
       <div className="mt-8 flex flex-col gap-3 border-b border-line pb-4 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-[14px] text-muted">
-          <span className="font-semibold text-ink">{filtered.length}</span> voiture{filtered.length > 1 ? "s" : ""}
+          <span data-count="" className="font-semibold text-ink">{filtered.length}</span> voiture{filtered.length > 1 ? "s" : ""}
           {tab !== "all" && <> · {bodyLabel[tab]}</>}
           {(active > 0 || q || tab !== "all") && (
             <button onClick={reset} className="ml-3 inline-flex items-center gap-1 text-blue-600 hover:underline">
@@ -128,7 +129,7 @@ export function Catalogue({ cars, brands }: { cars: Car[]; brands: string[] }) {
         </p>
         <label className="flex items-center gap-2 text-[13px] text-muted">
           Trier :
-          <select value={sort} onChange={(e) => setSort(e.target.value as keyof typeof sorts)} className="h-9 rounded-md border border-line bg-white px-2 text-[13px] text-ink">
+          <select data-sort="" value={sort} onChange={(e) => setSort(e.target.value as keyof typeof sorts)} className="h-9 rounded-md border border-line bg-white px-2 text-[13px] text-ink">
             {Object.entries(sorts).map(([k, v]) => (
               <option key={k} value={k}>
                 {v.label}
@@ -139,7 +140,7 @@ export function Catalogue({ cars, brands }: { cars: Car[]; brands: string[] }) {
       </div>
 
       {shown.length > 0 ? (
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div data-grid="" className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {shown.map((c) => (
             <CarCard key={c.slug} car={c} />
           ))}

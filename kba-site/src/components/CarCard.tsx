@@ -10,7 +10,7 @@ export function CarCard({ car }: { car: Car }) {
   const total = totalPort(car);
   const docsOk = Object.values(car.docs).every(Boolean);
   return (
-    <Link href={`/voitures/${car.slug}`} className="group card flex flex-col overflow-hidden transition-shadow hover:shadow-[0_12px_32px_-12px_rgba(11,31,58,0.25)]">
+    <Link href={`/voitures/${car.slug}`} data-car="" data-body={car.body} data-brand={car.brand} data-fuel={car.fuel} data-gearbox={car.gearbox} data-price={total} data-year={car.year} data-km={car.km} data-added={car.addedAt} data-search={`${car.brand} ${car.model} ${car.version} ${car.ref}`.toLowerCase()} className="group card flex flex-col overflow-hidden transition-shadow hover:shadow-[0_12px_32px_-12px_rgba(11,31,58,0.25)]">
       <div className="relative">
         <CarPhoto car={car} className="aspect-[4/3] transition-transform duration-300 group-hover:scale-[1.015]" />
         <div className="absolute left-3 top-3 flex gap-1.5">

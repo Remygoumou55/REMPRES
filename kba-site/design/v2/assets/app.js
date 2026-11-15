@@ -37,6 +37,8 @@
   /* ================= Voitures (exemples) ================= */
   var IMG = "assets/img/";
   var cars = [
+    { ref: "KBA-0009", real: true, type: "berline", brand: "Chevrolet", model: "Malibu", version: "LT", year: 2012, km: 175491, fuel: "Essence", box: "Automatique", engine: null, seats: 5, status: "dispo", price: [2600, 1450, 60], customs: null, // TODO : prix parc 2 600 $ ; ajouter la commission KBA et confirmer le fret
+      photos: ["malibu/01-avant-3-4.jpg", "malibu/02-avant-3-4-droit.jpg", "malibu/03-avant-3-4-gauche.jpg", "malibu/04-profil-droit.jpg", "malibu/05-arriere-3-4-gauche.jpg", "malibu/06-arriere-3-4-droit.jpg", "malibu/07-face-avant.jpg", "malibu/08-phare.jpg", "malibu/09-poste-conduite.jpg", "malibu/10-volant.jpg", "malibu/11-compteur.jpg", "malibu/12-console.jpg", "malibu/13-ecran-camera.jpg", "malibu/14-banquette-arriere.jpg", "malibu/15-porte-arriere.jpg", "malibu/16-defaut-aile-arriere.jpg"] },
     { ref: "KBA-0001", type: "compacte", brand: "Toyota", model: "Corolla Hatchback", version: "SE", year: 2019, km: 78400, fuel: "Essence", box: "Automatique", engine: "2.0 L · 168 ch", seats: 5, status: "dispo", price: [12900, 1450, 140], customs: [3200, 4100], photos: ["05-profil-droit.jpg", "02-arriere.jpg", "01-arriere-3-4-droit.jpg", "03-arriere-3-4-gauche.jpg", "06-avant-droit.jpg", "07-vue-dessus.jpg"] },
     { ref: "KBA-0002", type: "suv", brand: "Hyundai", model: "Tucson", version: "2.0 Modern", year: 2019, km: 82000, fuel: "Essence", box: "Automatique", engine: "2.0 L · 155 ch", seats: 5, status: "dispo", price: [13800, 1550, 150], customs: [3400, 4400], photos: [] },
     { ref: "KBA-0004", type: "suv", brand: "Hyundai", model: "Santa Fe", version: "2.2 CRDi", year: 2018, km: 104000, fuel: "Diesel", box: "Automatique", engine: "2.2 L diesel · 200 ch", seats: 7, status: "dispo", price: [16900, 1650, 180], customs: [4200, 5400], photos: [] },
@@ -62,7 +64,7 @@
     var media = c.photos.length ? '<img src="' + IMG + c.photos[0] + '" alt="' + esc(c.brand + " " + c.model) + '" loading="lazy">' : poster(c);
     var cls = c.status === "res" ? " res" : c.status === "route" ? " route" : "";
     return '<button class="car rv" data-i="' + i + '" data-type="' + c.type + '"' + (filter !== "all" && filter !== c.type ? ' style="display:none"' : "") + ">" +
-      '<div class="car-media">' + media + '<div class="car-badges"><span class="badge label' + cls + '"><i></i>' + T.arr.status[c.status] + '</span><span class="badge ex label">' + T.arr.ex + '</span></div><span class="car-view label">' + T.arr.open + "</span></div>" +
+      '<div class="car-media">' + media + '<div class="car-badges"><span class="badge label' + cls + '"><i></i>' + T.arr.status[c.status] + '</span>' + (c.real ? "" : '<span class="badge ex label">' + T.arr.ex + "</span>") + '</div><span class="car-view label">' + T.arr.open + "</span></div>" +
       '<div class="car-body"><div class="car-ref label"><span>' + c.ref + "</span><span>" + T.arr.types[c.type] + "</span></div>" +
       '<div class="car-name">' + esc(c.brand + " " + c.model) + " <span>" + esc(c.version) + "</span></div>" +
       '<div class="car-spec">' + c.year + " · " + kmFmt(c.km) + " · " + T.arr.fuel[c.fuel] + " · " + T.arr.box[c.box] + "</div>" +
@@ -168,6 +170,7 @@
   }
 
   var drawer = $("#drawer"), panel = $("#drawerPanel"), bg = $("#drawerBg"), lenis = null, gi = 0, current = null;
+  if (HAS_GSAP) gsap.set(panel, { xPercent: 100 });
   function gallery(c) {
     if (!c.photos.length) return '<div class="dw-gal">' + poster(c, true) + "</div>";
     return '<div class="dw-gal"><img id="dwImg" src="' + IMG + c.photos[gi] + '" alt="' + esc(c.brand + " " + c.model) + '"><button class="dw-nav p" data-d="-1" aria-label="' + T.ui.prev + '">‹</button><button class="dw-nav n" data-d="1" aria-label="' + T.ui.next + '">›</button><span class="dw-count label" id="dwCount">' + (gi + 1) + " / " + c.photos.length + "</span></div>" +
@@ -190,14 +193,15 @@
       '<h3 class="display dw-title">' + esc(c.brand) + "<br>" + esc(c.model) + "</h3>" +
       '<div class="dw-sub">' + esc(c.version) + " · " + c.year + " · " + kmFmt(c.km) + " · " + T.arr.fuel[c.fuel] + " · " + T.arr.box[c.box] + "</div>" +
       '<div class="dw-price"><div class="dw-price-top"><span class="label" style="color:#6b7789">' + T.dw.priceTitle + "</span><strong>" + money(t) + "</strong></div>" +
-      '<div class="dw-rows"><div><span>' + T.dw.car + "</span><span>" + money(c.price[0]) + "</span></div><div><span>" + T.dw.ship + "</span><span>" + money(c.price[1]) + "</span></div><div><span>" + T.dw.ins + "</span><span>" + money(c.price[2]) + '</span></div><div class="sep"><span>' + T.dw.cus + "</span><span>" + money(c.customs[0]) + " – " + money(c.customs[1]) + "</span></div></div>" +
+      '<div class="dw-rows"><div><span>' + T.dw.car + "</span><span>" + money(c.price[0]) + "</span></div><div><span>" + T.dw.ship + "</span><span>" + money(c.price[1]) + "</span></div><div><span>" + T.dw.ins + "</span><span>" + money(c.price[2]) + '</span></div><div class="sep"><span>' + T.dw.cus + "</span><span>" + (c.customs ? money(c.customs[0]) + " – " + money(c.customs[1]) : T.dw.cusQuote) + "</span></div></div>" +
       '<div class="dw-pay"><b>' + T.dw.payTitle + "</b><br>" + T.dw.pay1.replace("{a}", money(half)) + "<br>" + T.dw.pay2.replace("{b}", money(t - half)) + "<br>" + T.dw.pay3 + "</div></div>" +
       '<div class="dw-actions"><a class="btn btn-wa" target="_blank" rel="noopener" href="' + wa(T.wa.reserve.replace("{car}", name).replace("{ref}", c.ref)) + '">' + T.dw.reserve + "</a>" +
       '<a class="btn btn-dark" target="_blank" rel="noopener" href="' + wa(T.wa.video.replace("{car}", name).replace("{ref}", c.ref)) + '">' + T.dw.video + "</a></div>" +
-      '<div class="dw-grid"><div><span>' + T.dw.engine + "</span>" + esc(c.engine) + "</div><div><span>" + T.dw.seats + "</span>" + c.seats + "</div><div><span>" + T.dw.box + "</span>" + T.arr.box[c.box] + "</div><div><span>" + T.dw.wheel + "</span>" + T.dw.left + "</div></div>" +
+      '<div class="dw-grid"><div><span>' + T.dw.engine + "</span>" + (c.engine ? esc(c.engine) : T.arr.fuel[c.fuel] + " · " + T.dw.tbc) + "</div><div><span>" + T.dw.seats + "</span>" + c.seats + "</div><div><span>" + T.dw.box + "</span>" + T.arr.box[c.box] + "</div><div><span>" + T.dw.wheel + "</span>" + T.dw.left + "</div></div>" +
       '<div class="dw-h label">' + T.dw.equip + '</div><ul class="dw-list">' + txt[0].map(function (e) { return "<li>✓ " + esc(e) + "</li>"; }).join("") + "</ul>" +
       '<div class="dw-h label">' + T.dw.defects + '</div><ul class="dw-list">' + txt[1].map(function (e) { return '<li><span style="color:var(--amber)">▲</span> ' + esc(e) + "</li>"; }).join("") + "</ul>" +
-      '<div class="dw-note">' + T.dw.note + "</div>";
+      (txt[2] ? '<div class="dw-note" style="box-shadow:0 0 0 1.5px #e6a23c"><b style="color:#b26b00">⚠ </b>' + esc(txt[2]) + "</div>" : "") +
+      '<div class="dw-note">' + (c.real ? T.dw.noteReal : T.dw.note) + "</div>";
     $$(".dw-nav").forEach(function (b) { b.addEventListener("click", function () { setPhoto(gi + +b.getAttribute("data-d")); }); });
     $$(".dw-thumbs button").forEach(function (b) { b.addEventListener("click", function () { setPhoto(+b.getAttribute("data-k")); }); });
     if (refresh) return;
@@ -205,14 +209,14 @@
     if (lenis) lenis.stop();
     if (HAS_GSAP) {
       gsap.to(bg, { opacity: 1, duration: 0.5 });
-      gsap.fromTo(panel, { xPercent: 100 }, { xPercent: 0, duration: 0.8, ease: "expo.out" });
+      gsap.fromTo(panel, { xPercent: 100, x: 0 }, { xPercent: 0, x: 0, duration: 0.8, ease: "expo.out" });
       gsap.from("#drawerBody > *", { y: 30, opacity: 0, duration: 0.8, stagger: 0.04, ease: "expo.out", delay: 0.15 });
     } else { bg.style.opacity = 1; panel.style.transform = "none"; }
     $("#drawerX").focus();
   }
   function closeCar() {
     var done = function () { drawer.style.visibility = "hidden"; drawer.setAttribute("aria-hidden", "true"); current = null; if (lenis) lenis.start(); };
-    if (HAS_GSAP) { gsap.to(bg, { opacity: 0, duration: 0.4 }); gsap.to(panel, { xPercent: 100, duration: 0.6, ease: "expo.in", onComplete: done }); } else done();
+    if (HAS_GSAP) { gsap.to(bg, { opacity: 0, duration: 0.4 }); gsap.to(panel, { xPercent: 100, x: 0, duration: 0.6, ease: "expo.in", onComplete: done }); } else done();
   }
   $("#drawerX").addEventListener("click", closeCar);
   bg.addEventListener("click", closeCar);

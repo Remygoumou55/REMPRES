@@ -37,6 +37,8 @@
   /* ================= Voitures (exemples) ================= */
   var IMG = "assets/img/";
   var cars = [
+    { ref: "KBA-0014", real: true, type: "suv", brand: "Lexus", model: "RX 450h", version: "Hybride, toutes options", year: 2018, km: 89000, fuel: "Hybride", box: "Automatique", engine: "3.5 L V6 + électrique", seats: 5, status: "dispo", price: [30000, 1550, 300], customs: null, // TODO : prix parc 30 000 $ ; commission KBA, fret
+      photos: ["lexus-rx/01-face-avant.jpg", "lexus-rx/02-roue-retroviseur.jpg", "lexus-rx/03-poste-conduite.jpg", "lexus-rx/04-planche-bord-passager.jpg", "lexus-rx/05-console-arriere.jpg", "lexus-rx/06-banquette-arriere.jpg", "lexus-rx/07-porte-arriere.jpg", "lexus-rx/08-porte-arriere-2.jpg", "lexus-rx/09-plafonnier-toit.jpg", "lexus-rx/10-plaque-constructeur.jpg"] },
     { ref: "KBA-0013", real: true, type: "berline", brand: "Kia", model: "K5", version: "2.4 GDi", year: 2011, km: 227893, fuel: "Essence", box: "Automatique", engine: "2.4 L GDi", seats: 5, status: "dispo", price: null, customs: null, // TODO : prix au parc à recevoir
       videos: ["k5/video-1", "k5/video-2", "k5/video-3"],
       photos: ["k5/01-avant-3-4-gauche.jpg", "k5/02-avant-3-4-droit.jpg", "k5/03-face-avant.jpg", "k5/04-profil-gauche.jpg", "k5/05-arriere-3-4-droit.jpg", "k5/05b-face-arriere.jpg", "k5/06-coffre.jpg", "k5/07-poste-conduite.jpg", "k5/08-volant.jpg", "k5/09-compteur.jpg", "k5/10-console.jpg", "k5/11-toit-panoramique.jpg", "k5/12-commandes-porte.jpg", "k5/13-retroviseur.jpg", "k5/14-plaque-constructeur.jpg"] },

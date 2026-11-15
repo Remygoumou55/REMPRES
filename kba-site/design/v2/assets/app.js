@@ -165,6 +165,22 @@
     }
     $$("[data-seg]", wrap).forEach(function (e) { var i = +e.getAttribute("data-seg"); e.onmouseenter = e.onfocus = function () { hl(i); }; e.onmouseleave = e.onblur = function () { hl(null); }; });
   }
+  var priceRef = "KBA-0002";
+  function fillPriceCars() {
+    var sel = $("#priceCar"); if (!sel) return;
+    sel.innerHTML = cars.filter(function (c) { return c.price; }).map(function (c) { return '<option value="' + c.ref + '">' + c.ref + " · " + esc(c.brand + " " + c.model) + " " + c.year + "</option>"; }).join("");
+    sel.value = priceRef; sel.onchange = function () { setPriceCar(sel.value, true); };
+    setPriceCar(priceRef, false);
+  }
+  function setPriceCar(ref, anim) {
+    var c = cars.filter(function (x) { return x.ref === ref; })[0]; if (!c || !c.price) return;
+    priceRef = ref;
+    var t = c.price[0] + c.price[1] + c.price[2];
+    $$(".pl-row b").forEach(function (b, i) { b.setAttribute("data-usd", c.price[i]); if (anim) b.dataset.done = 1; });
+    $$(".pl-tot b, .donut-c b").forEach(function (b) { b.setAttribute("data-usd", t); if (anim) b.dataset.done = 1; });
+    if (anim) { renderPrices(); var on = donutOn; donutOn = false; buildDonut(); if (on) showDonut(); else donutOn = false; }
+    else buildDonut();
+  }
   function showDonut() { donutOn = true; $$("#donut .seg").forEach(function (c, i) { setTimeout(function () { c.setAttribute("stroke-dasharray", c.getAttribute("data-len") + " " + DC); }, 150 + i * 280); }); }
 
   /* ================= Déclencheur à l'apparition ================= */
@@ -232,7 +248,7 @@
     $("#checks").innerHTML = T.dos.items.map(function (t) { return '<li><span class="ck">' + ICON_CHECK + "</span>" + esc(t) + '<span class="st">' + T.dos.wait + "</span></li>"; }).join("");
     $("#dsteps").innerHTML = T.dos.steps.map(function (s, i) { return '<div class="d-step" data-check="' + i + '"><span class="label">' + esc(s[0]) + '</span><h3 class="h3">' + esc(s[1]) + "</h3><p>" + esc(s[2]) + "</p></div>"; }).join("");
     $("#flowMobile").innerHTML = T.mo.mob.map(function (m, i) { return '<div' + (i === 2 ? ' class="bad"' : "") + "><b>" + esc(m[0]) + "</b><span>" + esc(m[1]) + "</span></div>"; }).join("");
-    buildPhone(); buildDonut();
+    buildPhone(); fillPriceCars();
     $("#flowPoints").innerHTML = T.mo.pts.map(function (p) { return '<div class="rv"><h3 class="h3">' + esc(p[0]) + "</h3><p>" + esc(p[1]) + "</p></div>"; }).join("");
     $("#checks6").innerHTML = T.ve.checks.map(function (c, i) { return '<div class="c6 rv"><div class="n">' + String(i + 1).padStart(2, "0") + '</div><h3 class="h3">' + esc(c[0]) + "</h3><p>" + esc(c[1]) + "</p></div>"; }).join("");
     $("#scamList").innerHTML = T.ve.scam.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("");
@@ -516,7 +532,7 @@
   });
   $$("[data-anim]").forEach(function (e) {
     var to = +e.getAttribute("data-usd"), o = { v: 0 }; e.textContent = money(0);
-    ScrollTrigger.create({ trigger: e, start: "top 92%", once: true, onEnter: function () { gsap.to(o, { v: to, duration: 1.8, ease: "expo.out", onUpdate: function () { if (!e.dataset.done) e.textContent = money(o.v); }, onComplete: function () { e.dataset.done = 1; e.textContent = money(to); } }); } });
+    ScrollTrigger.create({ trigger: e, start: "top 92%", once: true, onEnter: function () { gsap.to(o, { v: to, duration: 1.8, ease: "expo.out", onUpdate: function () { if (!e.dataset.done) e.textContent = money(o.v); }, onComplete: function () { e.dataset.done = 1; e.textContent = money(+e.getAttribute("data-usd")); } }); } });
   });
 
   /* ---------- Bandeaux défilants ---------- */
@@ -599,9 +615,8 @@
 
 
   /* ---------- Argent : le flux se dessine ---------- */
-  ["#l1", "#l2", "#l3"].forEach(function (id) { var p = $(id), l = p.getTotalLength(); gsap.set(p, { strokeDasharray: l, strokeDashoffset: l }); });
+  ["#l1", "#l2"].forEach(function (id) { var p = $(id), l = p.getTotalLength(); gsap.set(p, { strokeDasharray: l, strokeDashoffset: l }); });
   gsap.set(["#flow .node", "#lab1", "#lab2"], { opacity: 0, y: 20 });
-  gsap.set("#bad .x", { strokeDasharray: 300, strokeDashoffset: 300 });
   gsap.timeline({ scrollTrigger: { trigger: "#flow", start: "top 75%", once: true } })
     .to("#flow .node.me", { opacity: 1, y: 0, duration: 0.7, ease: "expo.out" })
     .to("#l1", { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut" }, "-=0.2")
@@ -610,9 +625,7 @@
     .to("#l2", { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut" }, "-=0.1")
     .to("#lab2", { opacity: 1, y: 0, duration: 0.5 }, "-=0.4")
     .to("#flow .node.tr", { opacity: 1, y: 0, duration: 0.7, ease: "expo.out" }, "-=0.2")
-    .to("#l3", { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut" }, "+=0.1")
-    .to("#bad", { opacity: 1, y: 0, duration: 0.5 }, "-=0.2")
-    .to("#bad .x", { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" });
+    .to("#bad", { opacity: 1, y: 0, duration: 0.6, ease: "back.out(1.7)" }, "+=0.2");
 
   /* ---------- Parallaxes ---------- */
   gsap.to("#heroMap", { yPercent: -16, scale: 1.06, ease: "none", scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true } });

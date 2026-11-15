@@ -237,11 +237,12 @@
     </div>
     <div class="price-box rv">
       <div class="price-legend">
-        <div class="label price-cap"><span data-i18n="pr.note"></span> · <span data-i18n="pr.cap"></span></div>
+        <div class="price-top"><label class="label price-cap" for="priceCar" data-i18n="pr.pick"></label><div class="ctl price-sel"><select id="priceCar"></select></div></div>
         <div class="pl-row" data-seg="0"><i class="sw s0"></i><span data-i18n="pr.rows.0"></span><em class="pct"></em><b data-usd="14000" data-anim></b></div>
         <div class="pl-row" data-seg="1"><i class="sw s1"></i><span data-i18n="pr.rows.1"></span><em class="pct"></em><b data-usd="1550" data-anim></b></div>
         <div class="pl-row" data-seg="2"><i class="sw s2"></i><span data-i18n="pr.rows.2"></span><em class="pct"></em><b data-usd="150" data-anim></b></div>
         <div class="pl-tot"><span data-i18n="pr.rows.3"></span><b data-usd="15700" data-anim></b></div>
+        <p class="pl-est" data-i18n="pr.est"></p>
         <div class="pl-cus"><i class="sw sx"></i><span data-i18n="pr.rows.4"></span><b data-i18n="dw.cusQuote"></b></div>
       </div>
       <div class="donut-wrap">
@@ -262,16 +263,15 @@
       <p class="lead" data-i18n="mo.lead"></p>
     </div>
     <div class="flow" id="flow">
-      <svg viewBox="0 0 1200 440" role="img">
+      <svg viewBox="0 0 1200 450" role="img">
         <path class="ln" id="l1" d="M320 205 C 470 205, 450 95, 600 95"/>
         <path class="ln" id="l2" d="M320 245 C 470 245, 450 265, 600 265"/>
-        <path class="ln ln-bad" id="l3" d="M180 280 C 180 392, 380 392, 600 392"/>
         <text class="lab" id="lab1" x="452" y="132" text-anchor="middle" data-i18n="mo.p1"></text>
         <text class="lab" id="lab2" x="452" y="236" text-anchor="middle" data-i18n="mo.p2"></text>
         <g class="node me"><rect x="40" y="160" width="280" height="120" rx="22"/><text class="tm" x="68" y="198" data-i18n="mo.me.0"></text><text class="t1" x="68" y="230" data-i18n="mo.me.1"></text><text class="t2" x="68" y="256" data-i18n="mo.me.2"></text></g>
         <g class="node kba"><rect x="600" y="30" width="540" height="130" rx="22"/><text class="tm" x="630" y="72" data-i18n="mo.kba.0"></text><text class="t1" x="630" y="106" data-i18n="mo.kba.1"></text><text class="t2" x="630" y="134" data-i18n="mo.kba.2"></text><circle class="num" cx="1100" cy="70" r="18"/><text class="numt" x="1100" y="76" text-anchor="middle">1</text></g>
         <g class="node tr"><rect x="600" y="200" width="540" height="130" rx="22"/><text class="tm" x="630" y="242" data-i18n="mo.tr.0"></text><text class="t1" x="630" y="276" data-i18n="mo.tr.1"></text><text class="t2" x="630" y="304" data-i18n="mo.tr.2"></text><circle class="num" cx="1100" cy="240" r="18"/><text class="numt" x="1100" y="246" text-anchor="middle">2</text></g>
-        <g class="node bad" id="bad"><rect x="600" y="364" width="540" height="58" rx="16"/><text class="t2" x="630" y="399" data-i18n="mo.bad"></text><line class="x" x1="600" y1="368" x2="1140" y2="418"/></g>
+        <g class="node bad" id="bad"><rect x="330" y="370" width="540" height="58" rx="29"/><text class="t2 warn" x="600" y="405" text-anchor="middle">⚠  <tspan data-i18n="mo.bad"></tspan></text></g>
       </svg>
       <div class="flow-mobile" id="flowMobile"></div>
     </div>

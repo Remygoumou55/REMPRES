@@ -1,0 +1,11 @@
+[
+ {"id":"00","full":true,"title":"NOUVEL ARRIVAGE","text":"Direct de Corée du Sud 🇰🇷 → chez toi","big":"TOYOTA COROLLA HATCHBACK SE","dur":3.2},
+ {"id":"01","photo":"02-arriere.jpg","tag":"À VENDRE","title":"Toyota Corolla<br>Hatchback SE","text":"Compacte, sportive, économique","dur":3.6,"pan":"up"},
+ {"id":"02","photo":"05-profil-droit.jpg","tag":"MOTEUR","title":"2.0 L · 168 ch","text":"Moteur Dynamic Force, fiable et nerveux","dur":3.6,"pan":"right"},
+ {"id":"03","photo":"01-arriere-3-4-droit.jpg","tag":"ÉCONOMIE","title":"≈ 7 L / 100 km","text":"Boîte automatique CVT, conduite douce en ville","dur":3.6,"pan":"left"},
+ {"id":"04","photo":"07-vue-dessus.jpg","tag":"SÉCURITÉ","title":"Toyota Safety Sense","text":"Freinage d'urgence auto · Maintien de voie · Régulateur adaptatif","dur":4.0,"pan":"down"},
+ {"id":"05","photo":"03-arriere-3-4-gauche.jpg","tag":"CONFORT","title":"Écran tactile 8\"","text":"Apple CarPlay · Caméra de recul · Bluetooth","dur":3.6,"pan":"right"},
+ {"id":"06","photo":"06-avant-droit.jpg","tag":"TRANSPARENCE","tagColor":"red","title":"On te montre tout","text":"À signaler : bas du pare-chocs avant à refixer","dur":3.6,"pan":"left"},
+ {"id":"07","full":true,"title":"PAIEMENT SÉCURISÉ","steps":"① Acompte → achat + vidéo live<br>② Solde → à l'embarquement (B/L)<br>③ Douane → tu récupères ta voiture","big":"Prix : XX XXX $","dur":4.6},
+ {"id":"08","full":true,"title":"ÉCRIS-NOUS","text":"Vidéo en direct de la voiture<br>avec ton nom, sur demande","big":"WhatsApp : +224 XXX XX XX XX","dur":3.8}
+]

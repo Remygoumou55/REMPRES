@@ -41,3 +41,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+projet-auto-coree/video/src/ov_*.png
+projet-auto-coree/video/src/clip_*.mp4

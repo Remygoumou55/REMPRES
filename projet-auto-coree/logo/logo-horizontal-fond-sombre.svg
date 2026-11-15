@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 400" width="1400" height="400">
+  <g transform="translate(40,40) scale(0.625)">
+    <rect width="512" height="512" rx="112" fill="#0B1F3A"/>
+    <path d="M86 330 Q256 120 426 330" fill="none" stroke="#F2B33D" stroke-width="30" stroke-linecap="round"/>
+    <rect x="70" y="322" width="372" height="26" rx="13" fill="#FFFFFF"/>
+    <g stroke="#F2B33D" stroke-width="10" stroke-linecap="round">
+      <line x1="171" y1="246" x2="171" y2="322"/><line x1="256" y1="226" x2="256" y2="322"/><line x1="341" y1="246" x2="341" y2="322"/>
+    </g>
+    <circle cx="86" cy="335" r="30" fill="#D7263D"/><circle cx="426" cy="335" r="30" fill="#1FA45B"/>
+    <text x="256" y="445" text-anchor="middle" font-family="Inter, sans-serif" font-weight="800" font-size="92" fill="#FFFFFF" letter-spacing="6">K·B</text>
+  </g>
+  <text x="400" y="200" font-family="Inter, sans-serif" font-weight="800" font-size="120" fill="#FFFFFF" letter-spacing="2">K-BRIDGE</text>
+  <text x="1035" y="200" font-family="Inter, sans-serif" font-weight="300" font-size="120" fill="#F2B33D">AUTO</text>
+  <text x="404" y="275" font-family="Inter, sans-serif" font-weight="600" font-size="31" fill="#FFFFFF" letter-spacing="5">CORÉE <tspan fill="#D7263D">●</tspan> AFRIQUE  ·  LIVRAISON SÉCURISÉE</text>
+</svg>

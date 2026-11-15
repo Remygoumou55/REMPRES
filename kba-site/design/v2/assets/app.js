@@ -5,8 +5,8 @@
   "use strict";
 
   /* ================= Réglages ================= */
-  var WA_NUMBER = "224000000000";        // TODO : numéro WhatsApp Business (format international, sans + ni espaces)
-  var PHONE_DISPLAY = "+224 000 00 00 00"; // TODO : numéro affiché
+  var WA_NUMBER = "821072229167";
+  var PHONE_DISPLAY = "+82 10-7222-9167";
   var MAIN_CUR = ["USD", "EUR", "GNF", "XOF", "XAF", "KRW", "GBP", "CAD", "CNY", "AED", "NGN", "GHS", "MAD"];
   var LOCALE = { fr: "fr-FR", en: "en-US", ko: "ko-KR" };
 

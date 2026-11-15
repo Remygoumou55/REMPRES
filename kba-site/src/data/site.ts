@@ -10,8 +10,8 @@ export const site = {
     "Korea Business Auto sélectionne et vérifie des voitures d'occasion en Corée du Sud et les fait livrer en Guinée, au Sénégal, au Mali et dans toute l'Afrique de l'Ouest. Prix total affiché, documents coréens traduits, paiement à l'entreprise qui vend, suivi jusqu'aux clés.",
   url: "https://koreabusinessauto.com", // TODO : nom de domaine à acheter
   // TODO : numéro WhatsApp Business définitif (format international, sans + ni espaces)
-  whatsapp: "224000000000",
-  phoneDisplay: "+224 000 00 00 00", // TODO
+  whatsapp: "821072229167",
+  phoneDisplay: "+82 10-7222-9167",
   email: "contact@koreabusinessauto.com", // TODO : créer l'adresse
   address: {
     city: "Conakry",

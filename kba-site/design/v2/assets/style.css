@@ -488,3 +488,6 @@ section { position: relative; }
   .manifesto .w { opacity: 1; }
   .scroll-cue::after, .live i { animation: none; }
 }
+
+.dw-videos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+.dw-videos video { width: 100%; aspect-ratio: 9 / 16; max-height: 520px; border-radius: 14px; background: #0b1f3a; object-fit: cover; }

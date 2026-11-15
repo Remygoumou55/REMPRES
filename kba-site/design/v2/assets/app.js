@@ -37,6 +37,9 @@
   /* ================= Voitures (exemples) ================= */
   var IMG = "assets/img/";
   var cars = [
+    { ref: "KBA-0013", real: true, type: "berline", brand: "Kia", model: "K5", version: "2.4 GDi", year: 2011, km: 227893, fuel: "Essence", box: "Automatique", engine: "2.4 L GDi", seats: 5, status: "dispo", price: null, customs: null, // TODO : prix au parc à recevoir
+      videos: ["k5/video-1", "k5/video-2"],
+      photos: ["k5/01-avant-3-4-gauche.jpg", "k5/02-avant-3-4-droit.jpg", "k5/03-face-avant.jpg", "k5/04-profil-gauche.jpg", "k5/05-arriere-3-4-droit.jpg", "k5/06-coffre.jpg", "k5/07-poste-conduite.jpg", "k5/08-volant.jpg", "k5/09-compteur.jpg", "k5/10-console.jpg", "k5/11-toit-panoramique.jpg", "k5/12-commandes-porte.jpg", "k5/13-retroviseur.jpg", "k5/14-plaque-constructeur.jpg"] },
     { ref: "KBA-0012", real: true, type: "berline", brand: "Hyundai", model: "Grandeur", version: "HG", year: 2016, km: 124308, fuel: "Essence", box: "Automatique", engine: null, seats: 5, status: "dispo", price: [3600, 1450, 60], customs: null, // TODO : prix parc 3 600 $ ; commission KBA, fret
       photos: ["grandeur/01-avant-3-4-gauche.jpg", "grandeur/02-avant-3-4-droit.jpg", "grandeur/03-avant-3-4-gauche-2.jpg", "grandeur/04-face-avant.jpg", "grandeur/05-profil-gauche.jpg", "grandeur/06-profil-droit.jpg", "grandeur/07-arriere-3-4-gauche.jpg", "grandeur/08-arriere-3-4-droit.jpg", "grandeur/09-face-arriere.jpg", "grandeur/10-optique-avant.jpg", "grandeur/11-feu-arriere.jpg", "grandeur/12-roue-avant.jpg", "grandeur/19-tableau-de-bord-complet.jpg", "grandeur/20-poste-conduite.jpg", "grandeur/21-planche-de-bord.jpg", "grandeur/22-compteur.jpg", "grandeur/23-volant.jpg", "grandeur/24-ecran-gps.jpg", "grandeur/25-camera-recul.jpg", "grandeur/26-console.jpg", "grandeur/27-commandes.jpg", "grandeur/28-sieges-avant.jpg", "grandeur/29-siege-conducteur.jpg", "grandeur/30-siege-passager.jpg", "grandeur/31-planche-passager.jpg", "grandeur/35-planche-de-bord-cote.jpg", "grandeur/36-siege-passager-2.jpg", "grandeur/37-porte-avant-droite.jpg", "grandeur/38-banquette-arriere.jpg", "grandeur/39-banquette-arriere-droite.jpg", "grandeur/40-places-arriere.jpg", "grandeur/41-places-arriere-2.jpg", "grandeur/42-porte-arriere-droite.jpg", "grandeur/43-coffre.jpg", "grandeur/32-porte-avant.jpg", "grandeur/33-porte-arriere.jpg", "grandeur/34-deux-cles.jpg", "grandeur/13-plaque-constructeur.jpg"] },
     { ref: "KBA-0011", real: true, type: "berline", brand: "Hyundai", model: "Sonata Hybrid", version: "Full option", year: 2012, km: null, fuel: "Hybride", box: "Automatique", engine: "2.0 L + électrique", seats: 5, status: "dispo", price: [3500, 1450, 60], customs: null, // TODO : prix parc 3 500 $ ; commission KBA, fret, kilométrage à confirmer
@@ -53,7 +56,8 @@
     { ref: "KBA-0008", type: "minibus", brand: "Hyundai", model: "Grand Starex", version: "12", year: 2017, km: 135000, fuel: "Diesel", box: "Automatique", engine: "2.5 L diesel · 175 ch", seats: 12, status: "dispo", price: [14200, 1900, 160], customs: [3500, 4600], photos: [] },
     { ref: "KBA-0006", type: "citadine", brand: "Kia", model: "Morning", version: "1.0 Luxury", year: 2020, km: 48000, fuel: "Essence", box: "Automatique", engine: "1.0 L · 76 ch", seats: 5, status: "route", price: [6900, 1350, 90], customs: [1700, 2300], photos: [] },
   ];
-  var total = function (c) { return c.price[0] + c.price[1] + c.price[2]; };
+  var total = function (c) { return c.price ? c.price[0] + c.price[1] + c.price[2] : 0; };
+  var priceTxt = function (c) { return c.price ? money(total(c)) : T.arr.onRequest; };
   var kmFmt = function (n) { return n == null ? "km " + T.dw.tbc : new Intl.NumberFormat(LOCALE[lang]).format(n) + " km"; };
   var carTxt = function (c) { return ((window.KBA_CARS_TXT || {})[c.ref] || {})[lang] || [[], []]; };
   var filter = "all";
@@ -69,7 +73,7 @@
     var ICON_IMG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg>';
     var media = c.photos.length
       ? '<div class="slides">' + c.photos.map(function (p, k) { return '<img class="slide' + (k ? "" : " on") + '" ' + (k ? 'data-src="' : 'src="') + IMG + p + '" alt="' + esc(c.brand + " " + c.model) + " · " + (k + 1) + '">'; }).join("") + "</div>" +
-        '<span class="car-year-pill label">' + c.year + '</span><span class="car-count label">' + ICON_IMG + c.photos.length + " " + T.arr.photos + "</span>"
+        '<span class="car-year-pill label">' + c.year + '</span><span class="car-count label">' + ICON_IMG + c.photos.length + " " + T.arr.photos + (c.videos ? " · " + c.videos.length + " " + T.arr.vids : "") + "</span>"
       : poster(c);
     var cls = c.status === "res" ? " res" : c.status === "route" ? " route" : "";
     return '<button class="car rv" data-i="' + i + '" data-type="' + c.type + '"' + (filter !== "all" && filter !== c.type ? ' style="display:none"' : "") + ">" +
@@ -77,7 +81,7 @@
       '<div class="car-body"><div class="car-ref label"><span>' + c.ref + "</span><span>" + T.arr.types[c.type] + "</span></div>" +
       '<div class="car-name">' + esc(c.brand + " " + c.model) + " <span>" + esc(c.version) + "</span></div>" +
       '<div class="car-spec">' + c.year + " · " + kmFmt(c.km) + " · " + T.arr.fuel[c.fuel] + " · " + T.arr.box[c.box] + "</div>" +
-      '<div class="car-price"><div><span class="label" style="color:var(--d-muted)">' + T.arr.total + "</span><strong>" + money(total(c)) + "</strong></div>" +
+      '<div class="car-price"><div><span class="label" style="color:var(--d-muted)">' + T.arr.total + "</span><strong>" + priceTxt(c) + "</strong></div>" +
       '<span class="car-ok">' + ICON_SHIELD + T.arr.ok + "</span></div></div></button>";
   }
 
@@ -183,7 +187,7 @@
       cur = s.value; store.set("kba-cur", cur);
       $$(".js-cur").forEach(function (o) { o.value = cur; });
       renderPrices();
-      $$("#cars .car").forEach(function (b, i) { var st = $(".car-price strong", b); if (st) st.textContent = money(total(cars[i])); });
+      $$("#cars .car").forEach(function (b, i) { var st = $(".car-price strong", b); if (st) st.textContent = priceTxt(cars[i]); });
       if (current !== null) openCar(current, true);
     });
   });
@@ -228,14 +232,15 @@
   }
   function openCar(i, refresh) {
     var c = cars[i]; if (!refresh) gi = 0; current = i;
-    var t = total(c), half = Math.round(c.price[0] / 2), name = c.brand + " " + c.model + " " + c.year, txt = carTxt(c);
+    var t = total(c), half = c.price ? Math.round(c.price[0] / 2) : 0, name = c.brand + " " + c.model + " " + c.year, txt = carTxt(c);
     $("#dwRef").textContent = c.ref + " · " + T.arr.status[c.status];
     $("#drawerBody").innerHTML = gallery(c) +
       '<h3 class="display dw-title">' + esc(c.brand) + "<br>" + esc(c.model) + "</h3>" +
       '<div class="dw-sub">' + esc(c.version) + " · " + c.year + " · " + kmFmt(c.km) + " · " + T.arr.fuel[c.fuel] + " · " + T.arr.box[c.box] + "</div>" +
-      '<div class="dw-price"><div class="dw-price-top"><span class="label" style="color:#6b7789">' + T.dw.priceTitle + "</span><strong>" + money(t) + "</strong></div>" +
+      (c.price ? '<div class="dw-price"><div class="dw-price-top"><span class="label" style="color:#6b7789">' + T.dw.priceTitle + "</span><strong>" + money(t) + "</strong></div>" +
       '<div class="dw-rows"><div><span>' + T.dw.car + "</span><span>" + money(c.price[0]) + "</span></div><div><span>" + T.dw.ship + "</span><span>" + money(c.price[1]) + "</span></div><div><span>" + T.dw.ins + "</span><span>" + money(c.price[2]) + '</span></div><div class="sep"><span>' + T.dw.cus + "</span><span>" + (c.customs ? money(c.customs[0]) + " – " + money(c.customs[1]) : T.dw.cusQuote) + "</span></div></div>" +
-      '<div class="dw-pay"><b>' + T.dw.payTitle + "</b><br>" + T.dw.pay1.replace("{a}", money(half)) + "<br>" + T.dw.pay2.replace("{b}", money(t - half)) + "<br>" + T.dw.pay3 + "</div></div>" +
+      '<div class="dw-pay"><b>' + T.dw.payTitle + "</b><br>" + T.dw.pay1.replace("{a}", money(half)) + "<br>" + T.dw.pay2.replace("{b}", money(t - half)) + "<br>" + T.dw.pay3 + "</div></div>" : '<div class="dw-price"><div class="dw-price-top"><span class="label" style="color:#6b7789">' + T.dw.priceTitle + '</span><strong style="font-size:32px">' + T.arr.onRequest + '</strong><span style="color:#6b7789;font-size:14px">' + T.dw.priceSoon + '</span></div></div>') +
+      (c.videos ? '<div class="dw-h label">' + T.dw.videos + '</div><div class="dw-videos">' + c.videos.map(function (v) { return '<video controls playsinline preload="none" poster="' + IMG + v + '.jpg" src="' + IMG + v + '.mp4"></video>'; }).join("") + "</div>" : "") +
       '<div class="dw-actions"><a class="btn btn-wa" target="_blank" rel="noopener" href="' + wa(T.wa.reserve.replace("{car}", name).replace("{ref}", c.ref)) + '">' + T.dw.reserve + "</a>" +
       '<a class="btn btn-dark" target="_blank" rel="noopener" href="' + wa(T.wa.video.replace("{car}", name).replace("{ref}", c.ref)) + '">' + T.dw.video + "</a></div>" +
       '<div class="dw-grid"><div><span>' + T.dw.engine + "</span>" + (c.engine ? esc(c.engine) : T.arr.fuel[c.fuel] + " · " + T.dw.tbc) + "</div><div><span>" + T.dw.seats + "</span>" + c.seats + "</div><div><span>" + T.dw.box + "</span>" + T.arr.box[c.box] + "</div><div><span>" + T.dw.wheel + "</span>" + T.dw.left + "</div></div>" +

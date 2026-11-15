@@ -66,15 +66,50 @@
     return '<div class="car-lines"></div><div class="car-year"' + (big ? ' style="font-size:200px;top:40px"' : "") + ">" + c.year + '</div><div class="car-poster"' + (big ? ' style="bottom:56px"' : "") + '><span class="label">' + esc(c.brand + " · " + c.version) + "</span><b" + (big ? ' style="font-size:56px"' : "") + ">" + esc(c.model) + '</b></div><span class="car-pending label">' + T.arr.pending + "</span>";
   }
   function carCard(c, i) {
-    var media = c.photos.length ? '<img src="' + IMG + c.photos[0] + '" alt="' + esc(c.brand + " " + c.model) + '" loading="lazy">' : poster(c);
+    var ICON_IMG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg>';
+    var media = c.photos.length
+      ? '<div class="slides">' + c.photos.map(function (p, k) { return '<img class="slide' + (k ? "" : " on") + '" ' + (k ? 'data-src="' : 'src="') + IMG + p + '" alt="' + esc(c.brand + " " + c.model) + " · " + (k + 1) + '">'; }).join("") + "</div>" +
+        '<span class="car-year-pill label">' + c.year + '</span><span class="car-count label">' + ICON_IMG + c.photos.length + " " + T.arr.photos + "</span>"
+      : poster(c);
     var cls = c.status === "res" ? " res" : c.status === "route" ? " route" : "";
     return '<button class="car rv" data-i="' + i + '" data-type="' + c.type + '"' + (filter !== "all" && filter !== c.type ? ' style="display:none"' : "") + ">" +
-      '<div class="car-media">' + media + '<div class="car-badges"><span class="badge label' + cls + '"><i></i>' + T.arr.status[c.status] + '</span>' + (c.real ? "" : '<span class="badge ex label">' + T.arr.ex + "</span>") + '</div><span class="car-view label">' + T.arr.open + "</span></div>" +
+      '<div class="car-media">' + media + '<div class="car-badges"><span class="badge label' + cls + '"><i></i>' + T.arr.status[c.status] + '</span>' + (c.real ? "" : '<span class="badge ex label">' + T.arr.ex + "</span>") + "</div></div>" +
       '<div class="car-body"><div class="car-ref label"><span>' + c.ref + "</span><span>" + T.arr.types[c.type] + "</span></div>" +
       '<div class="car-name">' + esc(c.brand + " " + c.model) + " <span>" + esc(c.version) + "</span></div>" +
       '<div class="car-spec">' + c.year + " · " + kmFmt(c.km) + " · " + T.arr.fuel[c.fuel] + " · " + T.arr.box[c.box] + "</div>" +
       '<div class="car-price"><div><span class="label" style="color:var(--d-muted)">' + T.arr.total + "</span><strong>" + money(total(c)) + "</strong></div>" +
       '<span class="car-ok">' + ICON_SHIELD + T.arr.ok + "</span></div></div></button>";
+  }
+
+  /* ================= Diaporama des cartes ================= */
+  var slideTimers = [];
+  var FX = ["fade", "zoom", "slideL", "wipe", "blur", "slideR", "rise"];
+  function startSlideshows() {
+    slideTimers.forEach(clearTimeout); slideTimers = [];
+    $$("#cars .car").forEach(function (card, n) {
+      var imgs = $$(".slide", card); if (imgs.length < 2) return;
+      var i = 0, fx = n % FX.length;
+      function load(img) { if (img.dataset.src) { img.src = img.dataset.src; delete img.dataset.src; } }
+      load(imgs[1]);
+      function next() {
+        if (card.offsetParent === null || document.hidden || current !== null) { slideTimers[n] = setTimeout(next, 1500); return; }
+        var a = imgs[i]; i = (i + 1) % imgs.length; var b = imgs[i]; load(b); load(imgs[(i + 1) % imgs.length]);
+        var kind = FX[fx++ % FX.length];
+        if (!HAS_GSAP) { a.classList.toggle("on", false); b.classList.add("on"); }
+        else {
+          gsap.killTweensOf([a, b]);
+          var from = { zoom: { opacity: 0, scale: 1.18 }, slideL: { xPercent: 100, opacity: 1 }, slideR: { xPercent: -100, opacity: 1 }, wipe: { clipPath: "inset(0 0 0 100%)", opacity: 1 }, blur: { opacity: 0, filter: "blur(14px)", scale: 1.05 }, rise: { yPercent: 100, opacity: 1 } }[kind] || { opacity: 0 };
+          var outTo = { slideL: { xPercent: -30 }, slideR: { xPercent: 30 }, rise: { yPercent: -25 } }[kind] || {};
+          gsap.set(b, Object.assign({ xPercent: 0, yPercent: 0, scale: 1, filter: "blur(0px)", clipPath: "inset(0 0 0 0%)", zIndex: 2 }, from));
+          gsap.set(a, { zIndex: 1 });
+          b.classList.add("on");
+          gsap.to(b, { opacity: 1, xPercent: 0, yPercent: 0, scale: 1, filter: "blur(0px)", clipPath: "inset(0 0 0 0%)", duration: 1.4, ease: "power3.inOut" });
+          gsap.to(a, Object.assign({ duration: 1.4, ease: "power3.inOut", onComplete: function () { a.classList.toggle("on", false); gsap.set(a, { opacity: 0, xPercent: 0, yPercent: 0, zIndex: 0 }); } }, outTo));
+        }
+        slideTimers[n] = setTimeout(next, 4200);
+      }
+      slideTimers[n] = setTimeout(next, 3000 + n * 700);
+    });
   }
 
   /* ================= Textes ================= */
@@ -124,6 +159,7 @@
     $$("#filters .chip").forEach(function (b) { b.addEventListener("click", function () { setFilter(b.getAttribute("data-f")); }); });
     $("#cars").innerHTML = cars.map(carCard).join("");
     $$("#cars .car").forEach(function (b) { b.addEventListener("click", function () { openCar(+b.getAttribute("data-i")); }); });
+    startSlideshows();
   }
 
   function renderPrices() {

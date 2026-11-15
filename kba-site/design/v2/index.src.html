@@ -117,23 +117,38 @@
   <div class="mq-row" data-dir="1" id="mq2"></div>
 </div>
 
-<!-- MANIFESTE -->
-<section class="light sec manifesto">
-  <div class="wrap">
-    <div class="sec-head"><span class="pill" data-i18n="man.pill"></span></div>
-    <p class="big" id="manifesto"></p>
-    <div class="manifesto-foot"><span class="label" data-i18n="man.a"></span><span class="label" data-i18n="man.b"></span></div>
+<!-- POURQUOI KBA : texte + téléphone animé -->
+<section class="light sec why" id="pourquoi">
+  <div class="wrap why-grid">
+    <div class="why-txt">
+      <span class="pill" data-i18n="man.pill"></span>
+      <h2 class="h2 why-h" data-split data-i18n="man.h"></h2>
+      <p class="big" id="manifesto"></p>
+      <div class="manifesto-foot"><span class="label" data-i18n="man.a"></span><span class="label" data-i18n="man.b"></span></div>
+    </div>
+    <div class="why-phone">
+      <div class="phone" id="phone">
+        <div class="ph-screen">
+          <div class="ph-status"><span>9:41</span><i class="ph-island"></i><span class="ph-bat"></span></div>
+          <div class="ph-tabs" role="tablist"><button class="on" data-scene="0" data-i18n="man.before"></button><button data-scene="1" data-i18n="man.after"></button><i class="ph-ink"></i></div>
+          <div class="ph-head"><span class="ph-av" id="phAv"></span><div><b id="phName"></b><small id="phSub"></small></div></div>
+          <div class="ph-body" id="phBody"></div>
+          <div class="ph-input"><span></span><i></i></div>
+        </div>
+      </div>
+      <span class="label ph-demo" data-i18n="man.demo"></span>
+    </div>
   </div>
 </section>
 
 <!-- CHIFFRES -->
 <section class="light stats-sec">
   <div class="wrap">
-    <div class="stats">
-      <div class="stat rv"><div class="stat-n"><span data-count="0">0</span><sup>$</sup></div><p data-i18n="stats.0"></p></div>
-      <div class="stat rv"><div class="stat-n"><span data-count="10">0</span></div><p data-i18n="stats.1"></p></div>
-      <div class="stat rv"><div class="stat-n">50<span class="accent">/</span>50</div><p data-i18n="stats.2"></p></div>
-      <div class="stat rv"><div class="stat-n">&lt;<span data-count="2">0</span><sup>H</sup></div><p data-i18n="stats.3"></p></div>
+    <div class="stats" id="stats">
+      <div class="stat rv"><span class="stat-k label" data-i18n="statsK.0"></span><div class="stat-n"><span data-count="0">0</span><sup>$</sup></div><div class="sv sv-eq"><i></i><i></i></div><p data-i18n="stats.0"></p></div>
+      <div class="stat rv"><span class="stat-k label" data-i18n="statsK.1"></span><div class="stat-n"><span data-count="10">0</span></div><div class="sv sv-dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><p data-i18n="stats.1"></p></div>
+      <div class="stat rv"><span class="stat-k label" data-i18n="statsK.2"></span><div class="stat-n">50<span class="accent">/</span>50</div><div class="sv sv-split"><i></i><i></i></div><p data-i18n="stats.2"></p></div>
+      <div class="stat rv"><span class="stat-k label" data-i18n="statsK.3"></span><div class="stat-n">&lt;<span data-count="2">0</span><sup>H</sup></div><div class="sv sv-clock"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="16"/><circle class="arc" cx="20" cy="20" r="16"/></svg></div><p data-i18n="stats.3"></p></div>
     </div>
   </div>
 </section>
@@ -204,15 +219,19 @@
       <h2 class="h2" data-split data-i18n="pr.h2"></h2>
       <p class="lead" data-i18n="pr.lead"></p>
     </div>
-    <div class="price-box">
-      <div class="label price-cap" data-i18n="pr.cap"></div>
-      <div class="bar" id="bar"><div class="b1"></div><div class="b2"></div><div class="b3"></div><div class="b4"></div></div>
-      <div class="legend">
-        <div><i style="background:#0b1f3a"></i><span data-i18n="pr.rows.0"></span><b data-usd="14000" data-anim></b></div>
-        <div><i style="background:var(--blue-deep)"></i><span data-i18n="pr.rows.1"></span><b data-usd="1550" data-anim></b></div>
-        <div><i style="background:#8db2ff"></i><span data-i18n="pr.rows.2"></span><b data-usd="150" data-anim></b></div>
-        <div class="tot"><i style="background:transparent"></i><span data-i18n="pr.rows.3"></span><b data-usd="15700" data-anim></b></div>
-        <div class="cus" style="border:0;padding-top:4px"><i style="box-shadow:inset 0 0 0 1.5px rgba(10,20,36,.3)"></i><span data-i18n="pr.rows.4"></span><b data-i18n="dw.cusQuote"></b></div>
+    <div class="price-box rv">
+      <div class="price-legend">
+        <div class="label price-cap"><span data-i18n="pr.note"></span> · <span data-i18n="pr.cap"></span></div>
+        <div class="pl-row" data-seg="0"><i class="sw s0"></i><span data-i18n="pr.rows.0"></span><em class="pct"></em><b data-usd="14000" data-anim></b></div>
+        <div class="pl-row" data-seg="1"><i class="sw s1"></i><span data-i18n="pr.rows.1"></span><em class="pct"></em><b data-usd="1550" data-anim></b></div>
+        <div class="pl-row" data-seg="2"><i class="sw s2"></i><span data-i18n="pr.rows.2"></span><em class="pct"></em><b data-usd="150" data-anim></b></div>
+        <div class="pl-tot"><span data-i18n="pr.rows.3"></span><b data-usd="15700" data-anim></b></div>
+        <div class="pl-cus"><i class="sw sx"></i><span data-i18n="pr.rows.4"></span><b data-i18n="dw.cusQuote"></b></div>
+      </div>
+      <div class="donut-wrap">
+        <svg class="donut" id="donut" viewBox="0 0 240 240" role="img"></svg>
+        <div class="donut-c"><span class="label" data-i18n="pr.center"></span><b data-usd="15700"></b></div>
+        <div class="donut-tip" id="donutTip"></div>
       </div>
     </div>
   </div>
@@ -227,16 +246,16 @@
       <p class="lead" data-i18n="mo.lead"></p>
     </div>
     <div class="flow" id="flow">
-      <svg viewBox="0 0 1200 360" role="img">
-        <path class="ln" id="l1" d="M290 180 H 455"/>
-        <path class="ln" id="l2" d="M745 180 H 900"/>
-        <path class="ln" id="l3" d="M170 222 C 170 300, 230 312, 455 312"/>
-        <text class="lab" id="lab1" x="372" y="166" text-anchor="middle">50 % + 50 %</text>
-        <g class="node me"><rect x="50" y="130" width="240" height="100" rx="20"/><text class="tm" x="78" y="168" data-i18n="mo.me.0"></text><text class="t1" x="78" y="198" data-i18n="mo.me.1"></text></g>
-        <g class="node kba"><rect x="455" y="120" width="290" height="120" rx="20"/><text class="tm" x="481" y="158" data-i18n="mo.kba.0"></text><text class="t1" x="481" y="190" data-i18n="mo.kba.1"></text><text class="t2" x="481" y="214" data-i18n="mo.kba.2"></text></g>
-        <g class="node"><rect x="900" y="130" width="260" height="100" rx="20"/><text class="tm" x="926" y="166" data-i18n="mo.parc.0"></text><text class="t1" x="926" y="196" data-i18n="mo.parc.1"></text><text class="t2" x="926" y="218" data-i18n="mo.parc.2"></text></g>
-        <g class="node tr"><rect x="455" y="268" width="290" height="88" rx="18"/><text class="tm" x="481" y="300" data-i18n="mo.tr.0"></text><text class="t1" x="481" y="328" data-i18n="mo.tr.1"></text></g>
-        <g class="node bad" id="bad"><rect x="840" y="276" width="320" height="64" rx="16"/><text class="t2" x="864" y="314" data-i18n="mo.bad"></text><line class="x" x1="840" y1="280" x2="1160" y2="336"/></g>
+      <svg viewBox="0 0 1200 440" role="img">
+        <path class="ln" id="l1" d="M320 205 C 470 205, 450 95, 600 95"/>
+        <path class="ln" id="l2" d="M320 245 C 470 245, 450 265, 600 265"/>
+        <path class="ln ln-bad" id="l3" d="M180 280 C 180 392, 380 392, 600 392"/>
+        <text class="lab" id="lab1" x="452" y="132" text-anchor="middle" data-i18n="mo.p1"></text>
+        <text class="lab" id="lab2" x="452" y="236" text-anchor="middle" data-i18n="mo.p2"></text>
+        <g class="node me"><rect x="40" y="160" width="280" height="120" rx="22"/><text class="tm" x="68" y="198" data-i18n="mo.me.0"></text><text class="t1" x="68" y="230" data-i18n="mo.me.1"></text><text class="t2" x="68" y="256" data-i18n="mo.me.2"></text></g>
+        <g class="node kba"><rect x="600" y="30" width="540" height="130" rx="22"/><text class="tm" x="630" y="72" data-i18n="mo.kba.0"></text><text class="t1" x="630" y="106" data-i18n="mo.kba.1"></text><text class="t2" x="630" y="134" data-i18n="mo.kba.2"></text><circle class="num" cx="1100" cy="70" r="18"/><text class="numt" x="1100" y="76" text-anchor="middle">1</text></g>
+        <g class="node tr"><rect x="600" y="200" width="540" height="130" rx="22"/><text class="tm" x="630" y="242" data-i18n="mo.tr.0"></text><text class="t1" x="630" y="276" data-i18n="mo.tr.1"></text><text class="t2" x="630" y="304" data-i18n="mo.tr.2"></text><circle class="num" cx="1100" cy="240" r="18"/><text class="numt" x="1100" y="246" text-anchor="middle">2</text></g>
+        <g class="node bad" id="bad"><rect x="600" y="364" width="540" height="58" rx="16"/><text class="t2" x="630" y="399" data-i18n="mo.bad"></text><line class="x" x1="600" y1="368" x2="1140" y2="418"/></g>
       </svg>
       <div class="flow-mobile" id="flowMobile"></div>
     </div>

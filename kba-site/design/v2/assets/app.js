@@ -86,6 +86,92 @@
       '<span class="car-ok">' + ICON_SHIELD + T.arr.ok + "</span></div></div></button>";
   }
 
+  /* ================= Téléphone « Avant KBA / Avec KBA » ================= */
+  var phTl = null, phVisible = true;
+  var CAR_SIL = '<svg viewBox="0 0 120 54" aria-hidden="true"><path d="M8 40c0-6 4-9 10-10l16-12c4-3 8-4 13-4h22c6 0 10 2 14 6l11 10c9 1 18 3 18 10v6c0 2-1 3-3 3h-8a10 10 0 0 1-20 0H44a10 10 0 0 1-20 0h-9c-4 0-7-3-7-7z" fill="currentColor"/><circle cx="34" cy="46" r="7" fill="#fff" opacity=".5"/><circle cx="91" cy="46" r="7" fill="#fff" opacity=".5"/></svg>';
+  var ICON_DOC = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>';
+  function phMsg(m, k) {
+    var dir = m[0], kind = m[1], txt = esc(m[2]);
+    if (dir === "sys") return '<div class="msg sys">' + txt + "</div>";
+    var media = "";
+    if (kind === "photo") media = '<div class="m-photo">' + CAR_SIL + "<span>photo.jpg</span></div>";
+    if (kind === "video") media = '<div class="m-video"><img src="' + IMG + 'sportage/02-avant-3-4-droit.jpg" alt=""><span class="m-sheet">' + esc(T.man.sheet) + '</span><span class="m-play"></span></div>';
+    if (kind === "doc") media = '<span class="m-doc">' + ICON_DOC + "</span>";
+    if (kind === "ship") media = '<div class="m-ship"><div class="m-route"><span>' + esc(T.man.track[0]) + '</span><i><em></em></i><span>' + esc(T.man.track[1]) + '</span></div></div>';
+    var after = kind === "ship" ? '<span class="m-btn">' + esc(T.man.follow) + "</span>" : "";
+    return '<div class="msg ' + dir + (kind ? " k-" + kind : "") + '">' + media + "<p>" + txt + "</p>" + after + "<time>" + (10 + k) + ":0" + k + (dir === "out" ? " ✓✓" : "") + "</time></div>";
+  }
+  function phHeader(s) {
+    var p = $("#phone"); if (!p) return;
+    p.classList.toggle("s1", s === 1);
+    $$(".ph-tabs button", p).forEach(function (b, i) { b.classList.toggle("on", i === s); b.setAttribute("aria-selected", i === s); });
+    $("#phAv").textContent = s ? "KBA" : "AD";
+    $("#phName").textContent = s ? T.man.kName : T.man.sName;
+    $("#phSub").innerHTML = s ? '<span class="vf">✓</span> ' + esc(T.man.kSub) : esc(T.man.sSub);
+    $$(".ph-scene", p).forEach(function (e, i) { e.classList.toggle("on", i === s); });
+  }
+  function phShowAll(s) { phHeader(s); $$(".ph-scene .msg").forEach(function (m) { if (!m.classList.contains("typing")) m.classList.add("show"); }); }
+  function phRun(s) {
+    if (phTl) phTl.kill();
+    var sc = $$(".ph-scene")[s]; if (!sc) return;
+    var msgs = $$(".msg", sc).filter(function (m) { return !m.classList.contains("typing"); }), typing = $(".typing", sc);
+    msgs.forEach(function (m) { m.classList.toggle("show", false); }); typing.classList.toggle("show", false);
+    phHeader(s);
+    phTl = gsap.timeline({ onComplete: function () { phRun(1 - s); } });
+    phTl.to({}, { duration: 0.5 });
+    msgs.forEach(function (m) {
+      var isIn = m.classList.contains("in");
+      if (isIn) phTl.call(function () { typing.classList.add("show"); }).to({}, { duration: 0.95 }).call(function () { typing.classList.toggle("show", false); });
+      phTl.call(function () { m.classList.add("show"); })
+        .fromTo(m, { opacity: 0, y: 18, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)", transformOrigin: m.classList.contains("out") ? "100% 100%" : "0% 100%" })
+        .to({}, { duration: m.classList.contains("out") ? 0.6 : 1 });
+      if (m.classList.contains("k-ship")) phTl.fromTo($("em", m), { width: "0%" }, { width: "100%", duration: 1.6, ease: "power1.inOut" }, "-=0.7");
+    });
+    phTl.to({}, { duration: 2.8 });
+    if (!phVisible) phTl.pause();
+  }
+  function buildPhone() {
+    var body = $("#phBody"); if (!body) return;
+    body.innerHTML = [T.man.chatA, T.man.chatB].map(function (list, s) { return '<div class="ph-scene' + (s ? " kba" : " scam") + '">' + list.map(phMsg).join("") + '<div class="msg in typing"><i></i><i></i><i></i></div></div>'; }).join("");
+    $$(".ph-tabs button").forEach(function (b) { b.onclick = function () { var s = +b.getAttribute("data-scene"); if (HAS_GSAP) phRun(s); else phShowAll(s); }; });
+    if (HAS_GSAP) phRun(0); else phShowAll(1);
+  }
+  if ("IntersectionObserver" in window && $("#phone")) {
+    new IntersectionObserver(function (es) { es.forEach(function (e) { phVisible = e.isIntersecting; if (phTl) { if (phVisible) phTl.resume(); else phTl.pause(); } }); }).observe($("#phone"));
+  }
+
+  /* ================= Prix : diagramme circulaire ================= */
+  var donutOn = false, DR = 92, DC = 2 * Math.PI * 92;
+  function buildDonut() {
+    var svg = $("#donut"); if (!svg) return;
+    var rows = $$(".pl-row"), vals = rows.map(function (r) { return +$("b", r).getAttribute("data-usd"); });
+    var total = vals.reduce(function (a, b) { return a + b; }, 0), GAP = 4, off = 0;
+    var pf = new Intl.NumberFormat(LOCALE[lang], { style: "percent", maximumFractionDigits: 1 });
+    svg.setAttribute("aria-label", rows.map(function (r, i) { return $("span", r).textContent + " " + pf.format(vals[i] / total); }).join(", "));
+    svg.innerHTML = '<circle class="d-track" cx="120" cy="120" r="' + DR + '"/>' + vals.map(function (v, i) {
+      var len = Math.max(v / total * DC - GAP, 2.5);
+      var c = '<circle class="seg s' + i + '" data-seg="' + i + '" tabindex="-1" cx="120" cy="120" r="' + DR + '" stroke-dasharray="' + (donutOn ? len : 0) + " " + DC + '" data-len="' + len + '" stroke-dashoffset="' + (-off) + '" transform="rotate(-90 120 120)"/>';
+      off += v / total * DC; return c;
+    }).join("");
+    rows.forEach(function (r, i) { $(".pct", r).textContent = pf.format(vals[i] / total); r.setAttribute("tabindex", "0"); });
+    var wrap = $(".price-box"), tip = $("#donutTip");
+    function hl(i) {
+      wrap.classList.toggle("hl", i !== null);
+      $$("[data-seg]", wrap).forEach(function (e) { e.classList.toggle("on", +e.getAttribute("data-seg") === i); });
+      if (i === null) { tip.classList.toggle("on", false); return; }
+      tip.innerHTML = "<span>" + esc($("span", rows[i]).textContent) + "</span><b>" + money(vals[i]) + "</b><em>" + pf.format(vals[i] / total) + "</em>"; tip.classList.add("on");
+    }
+    $$("[data-seg]", wrap).forEach(function (e) { var i = +e.getAttribute("data-seg"); e.onmouseenter = e.onfocus = function () { hl(i); }; e.onmouseleave = e.onblur = function () { hl(null); }; });
+  }
+  function showDonut() { donutOn = true; $$("#donut .seg").forEach(function (c, i) { setTimeout(function () { c.setAttribute("stroke-dasharray", c.getAttribute("data-len") + " " + DC); }, 150 + i * 280); }); }
+
+  /* ================= Déclencheur à l'apparition ================= */
+  function onView(el, fn) {
+    if (!el) return;
+    if (!("IntersectionObserver" in window) || REDUCED) { fn(); return; }
+    var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { fn(); io.disconnect(); } }, { rootMargin: "0px 0px -15% 0px" }); io.observe(el);
+  }
+
   /* ================= Diaporama des cartes ================= */
   var slideTimers = [];
   var FX = ["fade", "zoom", "slideL", "wipe", "blur", "slideR", "rise"];
@@ -143,7 +229,8 @@
     }).join("");
     $("#checks").innerHTML = T.dos.items.map(function (t) { return '<li><span class="ck">' + ICON_CHECK + "</span>" + esc(t) + '<span class="st">' + T.dos.wait + "</span></li>"; }).join("");
     $("#dsteps").innerHTML = T.dos.steps.map(function (s, i) { return '<div class="d-step" data-check="' + i + '"><span class="label">' + esc(s[0]) + '</span><h3 class="h3">' + esc(s[1]) + "</h3><p>" + esc(s[2]) + "</p></div>"; }).join("");
-    $("#flowMobile").innerHTML = T.mo.mob.map(function (m) { return "<div><b>" + esc(m[0]) + "</b><span>" + esc(m[1]) + "</span></div>"; }).join("");
+    $("#flowMobile").innerHTML = T.mo.mob.map(function (m, i) { return '<div' + (i === 2 ? ' class="bad"' : "") + "><b>" + esc(m[0]) + "</b><span>" + esc(m[1]) + "</span></div>"; }).join("");
+    buildPhone(); buildDonut();
     $("#flowPoints").innerHTML = T.mo.pts.map(function (p) { return '<div class="rv"><h3 class="h3">' + esc(p[0]) + "</h3><p>" + esc(p[1]) + "</p></div>"; }).join("");
     $("#checks6").innerHTML = T.ve.checks.map(function (c, i) { return '<div class="c6 rv"><div class="n">' + String(i + 1).padStart(2, "0") + '</div><h3 class="h3">' + esc(c[0]) + "</h3><p>" + esc(c[1]) + "</p></div>"; }).join("");
     $("#scamList").innerHTML = T.ve.scam.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("");
@@ -345,6 +432,8 @@
 
   /* ================= Premier rendu ================= */
   applyTexts(); fillCurrencies(); renderLists(); renderPrices(); portLabels(); setShip(HAS_GSAP ? 0 : 1); drawDots();
+  onView($("#stats"), function () { $("#stats").classList.add("on"); });
+  onView($("#donut"), showDonut);
 
   /* ================= Changement de langue ================= */
   function setLang(l) {
@@ -506,24 +595,21 @@
   bindDossier();
   gsap.to("#filePhoto", { scale: 1, ease: "none", scrollTrigger: { trigger: "#dossier", start: "top bottom", end: "bottom top", scrub: true } });
 
-  /* ---------- Prix : la barre se construit ---------- */
-  gsap.set("#bar > div", { scaleX: 0 });
-  ScrollTrigger.create({ trigger: "#bar", start: "top 82%", once: true, onEnter: function () { gsap.to("#bar > div", { scaleX: 1, duration: 1.3, stagger: 0.18, ease: "expo.out" }); } });
 
   /* ---------- Argent : le flux se dessine ---------- */
   ["#l1", "#l2", "#l3"].forEach(function (id) { var p = $(id), l = p.getTotalLength(); gsap.set(p, { strokeDasharray: l, strokeDashoffset: l }); });
-  gsap.set(["#flow .node", "#lab1"], { opacity: 0, y: 20 });
+  gsap.set(["#flow .node", "#lab1", "#lab2"], { opacity: 0, y: 20 });
   gsap.set("#bad .x", { strokeDasharray: 300, strokeDashoffset: 300 });
   gsap.timeline({ scrollTrigger: { trigger: "#flow", start: "top 75%", once: true } })
     .to("#flow .node.me", { opacity: 1, y: 0, duration: 0.7, ease: "expo.out" })
     .to("#l1", { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut" }, "-=0.2")
     .to("#lab1", { opacity: 1, y: 0, duration: 0.5 }, "-=0.4")
     .to("#flow .node.kba", { opacity: 1, y: 0, duration: 0.7, ease: "expo.out" }, "-=0.2")
-    .to("#l2", { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut" }, "-=0.2")
-    .to("#flow .node:not(.me):not(.kba):not(.tr):not(.bad)", { opacity: 1, y: 0, duration: 0.7, ease: "expo.out" }, "-=0.2")
-    .to("#l3", { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut" })
-    .to("#flow .node.tr", { opacity: 1, y: 0, duration: 0.7, ease: "expo.out" }, "-=0.3")
-    .to("#bad", { opacity: 1, y: 0, duration: 0.5 }, "+=0.1")
+    .to("#l2", { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut" }, "-=0.1")
+    .to("#lab2", { opacity: 1, y: 0, duration: 0.5 }, "-=0.4")
+    .to("#flow .node.tr", { opacity: 1, y: 0, duration: 0.7, ease: "expo.out" }, "-=0.2")
+    .to("#l3", { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut" }, "+=0.1")
+    .to("#bad", { opacity: 1, y: 0, duration: 0.5 }, "-=0.2")
     .to("#bad .x", { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" });
 
   /* ---------- Parallaxes ---------- */

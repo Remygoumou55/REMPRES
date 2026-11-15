@@ -104,7 +104,8 @@
   function phHeader(s) {
     var p = $("#phone"); if (!p) return;
     p.classList.toggle("s1", s === 1);
-    $$(".ph-tabs button", p).forEach(function (b, i) { b.classList.toggle("on", i === s); b.setAttribute("aria-selected", i === s); });
+    $$("[data-scene]", p).forEach(function (b) { var on = +b.getAttribute("data-scene") === s; b.classList.toggle("on", on); b.setAttribute("aria-selected", on); });
+    $("#tbMode").textContent = s ? T.man.after : T.man.before;
     $("#phAv").textContent = s ? "KBA" : "AD";
     $("#phName").textContent = s ? T.man.kName : T.man.sName;
     $("#phSub").innerHTML = s ? '<span class="vf">✓</span> ' + esc(T.man.kSub) : esc(T.man.sSub);
@@ -132,8 +133,9 @@
   }
   function buildPhone() {
     var body = $("#phBody"); if (!body) return;
-    body.innerHTML = [T.man.chatA, T.man.chatB].map(function (list, s) { return '<div class="ph-scene' + (s ? " kba" : " scam") + '">' + list.map(phMsg).join("") + '<div class="msg in typing"><i></i><i></i><i></i></div></div>'; }).join("");
-    $$(".ph-tabs button").forEach(function (b) { b.onclick = function () { var s = +b.getAttribute("data-scene"); if (HAS_GSAP) phRun(s); else phShowAll(s); }; });
+    body.innerHTML = [T.man.chatA, T.man.chatB].map(function (list, s) { return '<div class="ph-scene' + (s ? " sc-kba" : " sc-scam") + '">' + list.map(phMsg).join("") + '<div class="msg in typing"><i></i><i></i><i></i></div></div>'; }).join("");
+    [T.man.chatA, T.man.chatB].forEach(function (list, i) { $("#tbN" + i).textContent = i ? T.man.kName : T.man.sName; $("#tbP" + i).textContent = list[list.length - 1][2]; });
+    $$("#phone [data-scene]").forEach(function (b) { b.onclick = function () { var s = +b.getAttribute("data-scene"); if (HAS_GSAP) phRun(s); else phShowAll(s); }; });
     if (HAS_GSAP) phRun(0); else phShowAll(1);
   }
   if ("IntersectionObserver" in window && $("#phone")) {

@@ -37,6 +37,8 @@
   /* ================= Voitures (exemples) ================= */
   var IMG = "assets/img/";
   var cars = [
+    { ref: "KBA-0011", real: true, type: "berline", brand: "Hyundai", model: "Sonata Hybrid", version: "Full option", year: 2012, km: null, fuel: "Hybride", box: "Automatique", engine: "2.0 L + électrique", seats: 5, status: "dispo", price: [3500, 1450, 60], customs: null, // TODO : prix parc 3 500 $ ; commission KBA, fret, kilométrage à confirmer
+      photos: ["sonata/01-avant-3-4.jpg", "sonata/02-avant-3-4-droit.jpg", "sonata/03-avant-3-4-gauche.jpg", "sonata/04-face-avant.jpg", "sonata/05-profil-gauche.jpg", "sonata/06-profil-droit.jpg", "sonata/07-arriere-3-4-gauche.jpg", "sonata/08-arriere-3-4-droit.jpg", "sonata/09-face-arriere.jpg", "sonata/10-optique-avant.jpg", "sonata/11-feu-arriere.jpg", "sonata/12-aile-avant.jpg", "sonata/13-poste-conduite.jpg", "sonata/14-porte-avant.jpg", "sonata/15-plaque-constructeur.jpg"] },
     { ref: "KBA-0010", real: true, type: "suv", brand: "Kia", model: "Sportage", version: "1.6 T-GDi", year: 2022, km: 36916, fuel: "Essence", box: "Automatique", engine: null, seats: 5, status: "dispo", price: [14000, 1550, 150], customs: null, // TODO : prix parc 14 000 $ ; ajouter la commission KBA, confirmer le fret ; km à confirmer (lu sur photo)
       photos: ["sportage/01-avant-3-4.jpg", "sportage/02-avant-3-4-droit.jpg", "sportage/03-avant-3-4-gauche.jpg", "sportage/04-face-avant.jpg", "sportage/05-profil-gauche.jpg", "sportage/06-profil-droit.jpg", "sportage/07-arriere-3-4.jpg", "sportage/09-feu-arriere.jpg", "sportage/08-roue-avant.jpg", "sportage/10-poste-conduite.jpg", "sportage/11-console.jpg", "sportage/12-sieges-avant.jpg", "sportage/13-siege-passager.jpg", "sportage/14-banquette-arriere.jpg", "sportage/15-porte-avant-gauche.jpg", "sportage/16-porte-avant-droite.jpg"] },
     { ref: "KBA-0009", real: true, type: "berline", brand: "Chevrolet", model: "Malibu", version: "LT", year: 2012, km: 175491, fuel: "Essence", box: "Automatique", engine: null, seats: 5, status: "dispo", price: [2600, 1450, 60], customs: null, // TODO : prix parc 2 600 $ ; ajouter la commission KBA et confirmer le fret
@@ -50,7 +52,7 @@
     { ref: "KBA-0006", type: "citadine", brand: "Kia", model: "Morning", version: "1.0 Luxury", year: 2020, km: 48000, fuel: "Essence", box: "Automatique", engine: "1.0 L · 76 ch", seats: 5, status: "route", price: [6900, 1350, 90], customs: [1700, 2300], photos: [] },
   ];
   var total = function (c) { return c.price[0] + c.price[1] + c.price[2]; };
-  var kmFmt = function (n) { return new Intl.NumberFormat(LOCALE[lang]).format(n) + " km"; };
+  var kmFmt = function (n) { return n == null ? "km " + T.dw.tbc : new Intl.NumberFormat(LOCALE[lang]).format(n) + " km"; };
   var carTxt = function (c) { return ((window.KBA_CARS_TXT || {})[c.ref] || {})[lang] || [[], []]; };
   var filter = "all";
 

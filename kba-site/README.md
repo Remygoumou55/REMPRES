@@ -9,6 +9,7 @@ cd kba-site
 npm install
 npm run dev        # http://localhost:3100
 npm run build && npm start   # version de production
+npm run export     # site statique dans out/ (Netlify Drop, etc.)
 ```
 
 ## Technologies

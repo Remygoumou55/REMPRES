@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Korea Business Auto · Voitures coréennes vérifiées, livrées en Afrique de l'Ouest</title>
+<meta name="description" content="Voitures d'occasion choisies dans des parcs vérifiés en Corée du Sud, livrées à Conakry et dans toute l'Afrique de l'Ouest. Vidéo à votre nom avant de payer. Prix total affiché.">
+<meta name="theme-color" content="#050b16">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="is-loading">
+
+<!-- Préchargement -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader-logo"><svg id="loaderSvg" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 290"><defs>
+  <linearGradient id="y-b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5B93FF"/><stop offset="1" stop-color="#1E5BD8"/></linearGradient>
+  <linearGradient id="y-s" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E3E8EF"/><stop offset="1" stop-color="#8E99A8"/></linearGradient>
+</defs><path d="M150 50 C 260 -8, 590 22, 544 162 C 526 90, 340 18, 150 50 Z" fill="url(#y-b)"/>
+<path d="M129.05 205.0V100.0H163.85000000000002V138.10000000000002L198.35000000000002 100.0H236.9L194.9 146.2L239.0 205.0H198.05L171.8 170.2L163.85000000000002 179.05V205.0ZM241.8 205.0V100.0H297.9Q319.65 100.0 330.0 107.725Q340.35 115.45 340.35 127.45Q340.35 135.4 336.0 141.55Q332.25 146.8 325.95 150.1Q326.25 150.25 326.7 150.4Q335.55 153.85 340.425 160.375Q345.3 166.9 345.3 176.05Q345.3 189.7 333.975 197.35Q322.65 205.0 300.9 205.0ZM276.6 180.25H297.9Q303.75 180.25 306.675 178.15Q309.6 176.05 309.6 172.0Q309.6 167.95 306.675 165.85Q303.75 163.75 297.9 163.75H276.6ZM276.6 140.35000000000002H293.1Q299.1 140.35000000000002 301.875 138.32500000000002Q304.65 136.3 304.65 132.55Q304.65 128.65 301.875 126.7Q299.1 124.75 293.1 124.75H276.6ZM344.34999999999997 205.0 390.25 100.0H425.04999999999995L470.95 205.0H434.34999999999997L427.29999999999995 186.7H387.4L380.34999999999997 205.0ZM417.54999999999995 161.2 407.34999999999997 134.8 397.15 161.2Z" fill="#FFFFFF"/>
+<path d="M434.3 205.0 L470.9 205.0 L458.5 176.5 L423.4 176.5 Z" fill="#1E5BD8"/>
+<path d="M420 262 C 310 308, 10 274, 58 156 C 76 220, 280 282, 420 262 Z" fill="url(#y-s)"/></svg>
+</div>
+  <div class="loader-meta">
+    <div class="label">Incheon <span class="accent">→</span> Conakry</div>
+    <div class="loader-count" id="loaderCount">00</div>
+  </div>
+  <div class="loader-bar" id="loaderBar"></div>
+</div>
+
+<div class="progress" id="progress"></div>
+<div class="cursor" id="cursor"></div>
+
+<!-- En-tête -->
+<header class="hdr" id="hdr">
+  <div class="wrap hdr-in">
+    <a href="#top" class="brand" aria-label="Korea Business Auto, retour en haut">
+      <img src="assets/kba-symbole.svg" alt="" width="600" height="290">
+      <span class="brand-txt label">Korea<br>Business Auto</span>
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#arrivages">Arrivages</a>
+      <a href="#parcours">Le parcours</a>
+      <a href="#prix">Le prix</a>
+      <a href="#garanties">Vérifiez-nous</a>
+      <a href="#pays">Pays livrés</a>
+      <a href="#faq">Questions</a>
+    </nav>
+    <div class="hdr-cta">
+      <a class="btn btn-wa btn-sm" data-wa="Bonjour KBA, je voudrais des informations sur vos voitures." data-magnetic target="_blank" rel="noopener"><svg class="wa-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4A8.5 8.5 0 1 1 8 19.6z"/><path d="M9 9.2c.2 1.9 1.9 3.9 4 4.7l1.2-1.1 1.8.8-.4 1.6c-3.6.2-7-3.3-7-6.9l1.6-.4.8 1.8z" fill="currentColor" stroke="none"/></svg> WhatsApp</a>
+      <button class="burger" id="burger" aria-label="Ouvrir le menu"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="menu" aria-hidden="true">
+  <button class="menu-close" id="menuClose" aria-label="Fermer le menu">×</button>
+  <a class="m-link" href="#arrivages">Arrivages</a>
+  <a class="m-link" href="#parcours">Le parcours</a>
+  <a class="m-link" href="#prix">Le prix</a>
+  <a class="m-link" href="#garanties">Vérifiez-nous</a>
+  <a class="m-link" href="#pays">Pays livrés</a>
+  <a class="m-link" href="#faq">Questions</a>
+  <a class="btn btn-wa" style="margin-top:32px;align-self:flex-start" data-wa="Bonjour KBA, je voudrais des informations." target="_blank" rel="noopener"><svg class="wa-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4A8.5 8.5 0 1 1 8 19.6z"/><path d="M9 9.2c.2 1.9 1.9 3.9 4 4.7l1.2-1.1 1.8.8-.4 1.6c-3.6.2-7-3.3-7-6.9l1.6-.4.8 1.8z" fill="currentColor" stroke="none"/></svg> Écrire sur WhatsApp</a>
+</div>
+
+<main id="top">
+
+<!-- 1. HÉROS -->
+<section class="hero grain" id="hero">
+  <div class="hero-map" id="heroMap">
+    <canvas id="mapDots" width="1600" height="860"></canvas>
+    <svg id="mapSvg" viewBox="0 0 1600 860" aria-hidden="true"></svg>
+  </div>
+  <div class="hero-fade"></div>
+  <div class="wrap hero-content">
+    <div class="kicker label" data-hero-in>Korea Business Auto · Import automobile</div>
+    <h1 class="display hero-title" aria-label="La Corée. Vérifiée. Livrée.">
+      <span class="mask"><span>La Corée.</span></span>
+      <span class="mask"><span class="outline">Vérifiée.</span></span>
+      <span class="mask"><span class="accent">Livrée.</span></span>
+    </h1>
+    <div class="hero-bottom">
+      <div>
+        <p class="lead" data-hero-in>Des voitures d'occasion choisies dans des parcs vérifiés à Incheon, livrées à Conakry et dans toute l'Afrique de l'Ouest. Vous voyez la voiture filmée à votre nom <em>avant</em> de payer quoi que ce soit.</p>
+        <div class="hero-actions" data-hero-in>
+          <a href="#arrivages" class="btn btn-primary" data-magnetic>Voir les arrivages <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-ghost" data-wa="Bonjour KBA, je cherche une voiture." data-magnetic target="_blank" rel="noopener"><svg class="wa-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4A8.5 8.5 0 1 1 8 19.6z"/><path d="M9 9.2c.2 1.9 1.9 3.9 4 4.7l1.2-1.1 1.8.8-.4 1.6c-3.6.2-7-3.3-7-6.9l1.6-.4.8 1.8z" fill="currentColor" stroke="none"/></svg> Parler à un conseiller</a>
+        </div>
+      </div>
+      <div class="track" data-hero-in aria-label="Exemple de suivi d'une voiture en mer">
+        <div class="track-top">
+          <span class="live label"><i></i> Suivi en direct</span>
+          <span class="label">Démonstration · KBA-0001</span>
+        </div>
+        <div class="track-main">
+          <div><div class="label" style="color:var(--muted-dark)">Jour</div><div class="track-day" id="trackDay">J+00</div></div>
+          <div class="track-leg"><small class="label">Position</small><span id="trackLeg">Port d'Incheon</span></div>
+        </div>
+        <div class="track-bar"><i id="trackBar"></i></div>
+        <div class="track-steps label"><span data-leg="0" class="on">Incheon</span><span data-leg="1">Singapour</span><span data-leg="2">Le Cap</span><span data-leg="3">Conakry</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue" aria-hidden="true"></div>
+</section>
+
+<!-- 2. BANDEAUX -->
+<div class="marquee" aria-label="Nos engagements : voitures vérifiées, prix total sans surprise, vidéo à votre nom, paiement à l'entreprise qui vend, suivi du bateau, volant à gauche">
+  <div class="mq-row" data-dir="-1"><span class="mq-item">Voitures vérifiées<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item o">Prix total sans surprise<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item">Vidéo à votre nom<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item o">Paiement à l&#x27;entreprise<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item">Suivi du bateau<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item">Voitures vérifiées<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item o">Prix total sans surprise<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item">Vidéo à votre nom<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item o">Paiement à l&#x27;entreprise<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item">Suivi du bateau<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item">Voitures vérifiées<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item o">Prix total sans surprise<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item">Vidéo à votre nom<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item o">Paiement à l&#x27;entreprise<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item">Suivi du bateau<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span></div>
+  <div class="mq-row" data-dir="1"><span class="mq-item">Hyundai<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item o">Kia<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item">Genesis<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item o">Toyota<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item">SUV<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item o">Berlines<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item">Utilitaires<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item o">Minibus<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item">Hyundai<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item o">Kia<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item">Genesis<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item o">Toyota<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item">SUV<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item o">Berlines<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item">Utilitaires<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item o">Minibus<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item">Hyundai<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item o">Kia<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item">Genesis<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item o">Toyota<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item">SUV<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item o">Berlines<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item">Utilitaires<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span><span class="mq-item o">Minibus<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/></svg></span></div>
+</div>
+
+<!-- 3. MANIFESTE -->
+<section class="light sec manifesto">
+  <div class="wrap">
+    <div class="kicker label">Pourquoi KBA existe</div>
+    <p id="manifesto">Sur les réseaux, on vous demande d'envoyer des milliers de dollars à un inconnu, sur une simple photo. Chez KBA, vous ne payez jamais sans preuve&nbsp;: la voiture filmée à votre nom, son historique officiel coréen, et le document du bateau à votre nom.</p>
+    <div class="manifesto-foot">
+      <span class="label">Désiré · Incheon, Corée du Sud</span>
+      <span class="label">Rémi · Conakry, Guinée</span>
+    </div>
+  </div>
+</section>
+
+<!-- 4. CHIFFRES -->
+<section class="light" style="padding-bottom:clamp(96px,12vw,180px)">
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat rv"><div class="stat-n"><span data-count="0">0</span><sup>$</sup></div><p>de frais cachés. Le prix affiché est le prix jusqu'au port.</p></div>
+      <div class="stat rv"><div class="stat-n"><span data-count="10">0</span></div><p>étapes, et une preuve à chacune, de la Corée jusqu'aux clés.</p></div>
+      <div class="stat rv"><div class="stat-n">50<span class="accent">/</span>50</div><p>Paiement en deux fois, directement à l'entreprise qui vend.</p></div>
+      <div class="stat rv"><div class="stat-n">&lt;<span data-count="2">0</span><sup>H</sup></div><p>pour vous répondre sur WhatsApp, du lundi au samedi.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. ARRIVAGES -->
+<section class="sec" id="arrivages" style="background:var(--ink)">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="kicker label">01 — Arrivages</div>
+        <h2 class="h2" data-split>Choisies en Corée.<br><span class="outline">Vérifiées pour vous.</span></h2>
+      </div>
+      <div>
+        <p class="lead rv">Chaque voiture a un numéro KBA, un dossier complet et un <strong style="color:#fff">prix total jusqu'au port de Conakry</strong>. Cliquez pour ouvrir le dossier.</p>
+        <div class="filters rv" id="filters" style="margin-top:24px"></div>
+      </div>
+    </div>
+    <div class="cars" id="cars"></div>
+    <p class="label" style="color:var(--muted-dark);margin-top:28px">Voitures d'exemple pour la présentation · les vrais arrivages sont publiés au lancement</p>
+  </div>
+</section>
+
+<!-- 6. PARCOURS (horizontal) -->
+<section class="journey" id="parcours" style="background:var(--ink)">
+  <div class="journey-pin" id="journeyPin">
+    <div class="wrap journey-top">
+      <div>
+        <div class="kicker label">02 — Le parcours</div>
+        <h2 class="h2" data-split>10 étapes.<br><span class="accent">10 preuves.</span></h2>
+      </div>
+      <p class="lead rv" style="max-width:420px">Vous ne payez jamais «&nbsp;dans le vide&nbsp;». Chaque paiement est précédé d'une preuve que vous vérifiez vous-même.</p>
+    </div>
+    <div class="journey-rail" aria-hidden="true"><i id="railFill"></i><b id="railDot"></b></div>
+    <div class="journey-track" id="journeyTrack"><article class="step"><div class="step-n">01</div><h3 class="h3">Le choix</h3><p>Vous choisissez une voiture. Vous recevez sa fiche complète et un devis jusqu&#x27;au port.</p><span class="proof label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Fiche + devis détaillé</span></article><article class="step"><div class="step-n">02</div><h3 class="h3">La vérification</h3><p>Nous reconfirmons sa disponibilité et la filmons avec une feuille à votre nom.</p><span class="proof label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Vidéo à votre nom</span></article><article class="step"><div class="step-n">03</div><h3 class="h3">Le contrat</h3><p>Bon de commande et facture du vendeur à votre nom : prix, délais, remboursement.</p><span class="proof label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Contrat en français</span></article><article class="step pay"><span class="pay-tag label">Paiement</span><div class="step-n">04</div><h3 class="h3">L&#x27;acompte 50 %</h3><p>Vous payez par virement l&#x27;entreprise coréenne qui vend. Jamais un compte personnel.</p><span class="proof label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Reçu du vendeur</span></article><article class="step"><div class="step-n">05</div><h3 class="h3">La préparation</h3><p>Le vendeur radie l&#x27;immatriculation coréenne, prépare l&#x27;export et réserve le bateau.</p><span class="proof label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Certificat de radiation</span></article><article class="step"><div class="step-n">06</div><h3 class="h3">L&#x27;embarquement</h3><p>La voiture monte à bord. Le connaissement (B/L) porte votre nom.</p><span class="proof label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>B/L + photos du chargement</span></article><article class="step pay"><span class="pay-tag label">Paiement</span><div class="step-n">07</div><h3 class="h3">Le solde 50 %</h3><p>Vous vérifiez vous-même le B/L chez la compagnie maritime, puis vous payez le reste.</p><span class="proof label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>B/L original ou télex</span></article><article class="step"><div class="step-n">08</div><h3 class="h3">Le voyage</h3><p>Vous suivez le navire en direct. Nous vous écrivons à chaque étape.</p><span class="proof label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Lien de suivi du navire</span></article><article class="step"><div class="step-n">09</div><h3 class="h3">L&#x27;arrivée</h3><p>Vous payez la douane au transitaire et inspectez la voiture au port.</p><span class="proof label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Reçus officiels</span></article><article class="step"><div class="step-n">10</div><h3 class="h3">Les clés</h3><p>Remise des clés à Conakry, avec tous les papiers pour l&#x27;immatriculer.</p><span class="proof label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Dossier complet à votre nom</span></article></div>
+  </div>
+</section>
+
+<!-- 7. LE DOSSIER -->
+<section class="light sec" id="dossier">
+  <div class="wrap">
+    <div class="dossier-grid">
+      <div class="dossier-sticky">
+        <div class="file rv" id="file">
+          <div class="file-photo">
+            <img src="assets/img/05-profil-droit.jpg" alt="Toyota Corolla Hatchback SE 2019, profil" id="filePhoto">
+            <span class="file-tag label">Dossier KBA-0001</span>
+            <span class="file-ex label">Exemple</span>
+          </div>
+          <div class="file-body">
+            <div class="file-title"><b>Toyota Corolla Hatchback SE</b><span class="label" style="color:var(--muted)">2019 · 78 400 km</span></div>
+            <ul class="checks" id="checks">
+              <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Numéro de châssis vérifié<span class="st">En cours</span></li>
+              <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Historique officiel CarHistory<span class="st">En cours</span></li>
+              <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Rapport d'inspection du parc<span class="st">En cours</span></li>
+              <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Vidéo à votre nom<span class="st">En cours</span></li>
+            </ul>
+            <div class="file-total"><span class="label" style="color:var(--muted)">Total rendu Conakry</span><strong>14 490 $</strong></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="kicker label">03 — Le dossier</div>
+        <h2 class="h2" data-split style="margin-bottom:40px">Avant de payer,<br><span class="accent">vous savez tout.</span></h2>
+        <div class="d-step" data-check="0"><span class="label">Vérification 01</span><h3 class="h3">Le même numéro de châssis, partout.</h3><p>Le VIN est la carte d'identité de la voiture. Il doit être identique sur la carte grise coréenne, le rapport d'inspection, la vidéo, le certificat d'export et le document du bateau. Un seul chiffre différent&nbsp;: on arrête tout.</p></div>
+        <div class="d-step" data-check="1"><span class="label">Vérification 02</span><h3 class="h3">Son historique officiel coréen.</h3><p>Le rapport CarHistory de l'organisme des assurances coréennes montre les accidents déclarés, les inondations et les changements de propriétaire. Nous vous le traduisons en français.</p></div>
+        <div class="d-step" data-check="2"><span class="label">Vérification 03</span><h3 class="h3">Le rapport d'inspection, et les défauts.</h3><p>Moteur, boîte, carrosserie, pièces changées&nbsp;: tout est écrit. Et chaque défaut est photographié. Une occasion sans défaut n'existe pas&nbsp;; ce qui compte, c'est de le savoir avant.</p></div>
+        <div class="d-step" data-check="3"><span class="label">Vérification 04</span><h3 class="h3">Une vidéo, à votre nom.</h3><p>Avant votre acompte, la voiture est filmée avec une feuille portant votre nom, la date et son numéro de châssis. Moteur qui démarre, compteur allumé. Une photo copiée sur Internet ne peut pas faire ça.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. LE PRIX -->
+<section class="light sec" id="prix" style="padding-top:0">
+  <div class="wrap">
+    <div class="price-grid">
+      <div>
+        <div class="kicker label">04 — Le prix</div>
+        <h2 class="h2" data-split>Le prix affiché.<br><span class="outline">Le prix payé.</span></h2>
+        <p class="lead rv" style="margin-top:28px">Pas de «&nbsp;prix à demander&nbsp;», pas de frais qui apparaissent à l'arrivée. Tout est détaillé avant votre commande, et le prix de la voiture est bloqué dès l'acompte.</p>
+      </div>
+      <div id="priceBox">
+        <div class="label" style="color:var(--muted);margin-bottom:16px">Exemple · Toyota Corolla Hatchback SE 2019</div>
+        <div class="bar" id="bar"><div class="b1"></div><div class="b2"></div><div class="b3"></div><div class="b4"></div></div>
+        <div class="legend">
+          <div><i style="background:var(--navy)"></i><span>Voiture, achetée en Corée</span><b><span data-count="12900" data-fmt>0</span> $</b></div>
+          <div><i style="background:var(--blue-deep)"></i><span>Transport maritime</span><b><span data-count="1450" data-fmt>0</span> $</b></div>
+          <div><i style="background:var(--blue-2)"></i><span>Assurance transport</span><b><span data-count="140" data-fmt>0</span> $</b></div>
+          <div class="tot"><i style="background:transparent"></i><span>Total rendu port de Conakry</span><b><span data-count="14490" data-fmt>0</span> $</b></div>
+          <div style="border:0;padding-top:4px"><i style="box-shadow:inset 0 0 0 1.5px rgba(10,20,36,.3)"></i><span style="color:var(--muted)">Douane + port, payés par vous au transitaire (estimation écrite avant commande)</span><b style="color:var(--muted)">3 200 – 4 100 $</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. L'ARGENT -->
+<section class="sec grain" id="argent" style="background:var(--navy)">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="kicker label">05 — Votre argent</div>
+        <h2 class="h2" data-split>Jamais sur un<br><span class="accent">compte personnel.</span></h2>
+      </div>
+      <p class="lead rv">Vous payez la voiture à l'entreprise coréenne qui la vend, et la douane au transitaire. Notre commission est payée par le vendeur. Personne ne vous demandera de Western Union.</p>
+    </div>
+    <div class="flow" id="flow">
+      <svg viewBox="0 0 1200 380" aria-label="Qui paie qui">
+        <path class="ln" id="l1" d="M300 190 C 470 190, 520 80, 760 80"/>
+        <path class="ln" id="l2" d="M300 190 C 470 190, 520 300, 760 300"/>
+        <path class="ln d" id="l3" d="M1010 112 L 1010 158"/>
+        <g class="node me"><rect x="60" y="140" width="240" height="100" rx="20"/><text class="tm" x="88" y="178" style="fill:rgba(255,255,255,.75)">Vous</text><text class="t1" x="88" y="208">Le client</text></g>
+        <g class="node"><rect x="760" y="30" width="400" height="100" rx="20"/><text class="tm" x="788" y="66">Prix de la voiture · 50 % + 50 %</text><text class="t1" x="788" y="96">L'entreprise coréenne qui vend</text><text class="t2" x="788" y="118">Virement, facture à votre nom</text></g>
+        <g class="node kba"><rect x="860" y="160" width="300" height="70" rx="18"/><text class="tm" x="884" y="190">Commission</text><text class="t2" x="884" y="214">KBA, payée par le vendeur</text></g>
+        <g class="node"><rect x="760" y="250" width="400" height="100" rx="20"/><text class="tm" x="788" y="286">Douane + port</text><text class="t1" x="788" y="316">Le transitaire agréé, à Conakry</text><text class="t2" x="788" y="338">Reçu officiel</text></g>
+        <g class="node bad" id="bad"><rect x="360" y="296" width="250" height="64" rx="16"/><text class="t2" x="384" y="334" style="fill:#ff9b9b">Compte personnel · Western Union</text><line class="x" x1="360" y1="300" x2="610" y2="356"/></g>
+      </svg>
+      <div class="flow-mobile">
+        <div><b>Prix de la voiture</b><span>À l'entreprise coréenne qui vend · 50 % + 50 %</span></div>
+        <div><b>Douane + port</b><span>Au transitaire agréé, avec un reçu officiel</span></div>
+        <div><b>Notre commission</b><span>Payée par le vendeur, déjà comprise dans le prix</span></div>
+      </div>
+    </div>
+    <div class="flow-points">
+      <div class="rv"><h3 class="h3">Vérifiable</h3><p>Le numéro d'entreprise du vendeur se vérifie sur le site officiel des impôts coréens.</p></div>
+      <div class="rv"><h3 class="h3">Traçable</h3><p>Uniquement par virement bancaire, avec une facture et un reçu à votre nom.</p></div>
+      <div class="rv"><h3 class="h3">Remboursable</h3><p>Si la voiture ne peut pas partir, le contrat prévoit un remboursement à 100&nbsp;%.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. VÉRIFIEZ-NOUS -->
+<section class="light sec" id="garanties">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="kicker label">06 — Vérifiez-nous</div>
+        <h2 class="h2" data-split>Ne nous croyez pas.<br><span class="accent">Vérifiez.</span></h2>
+      </div>
+      <p class="lead rv">Six vérifications à faire vous-même, avant d'envoyer le moindre franc. À nous, comme à n'importe qui.</p>
+    </div>
+    <div class="checks6"><div class="c6 rv"><div class="n">01</div><h3 class="h3">L&#x27;entreprise qui vend</h3><p>Son numéro d&#x27;entreprise coréen à 10 chiffres se vérifie gratuitement sur le site officiel des impôts coréens. Il doit être « actif ».</p></div><div class="c6 rv"><div class="n">02</div><h3 class="h3">Le même numéro de châssis</h3><p>Identique sur la carte grise, l&#x27;inspection, la vidéo, le certificat d&#x27;export et le B/L.</p></div><div class="c6 rv"><div class="n">03</div><h3 class="h3">Une vidéo à votre nom</h3><p>Votre nom, la date, le numéro de châssis, le moteur qui démarre. Avant tout paiement.</p></div><div class="c6 rv"><div class="n">04</div><h3 class="h3">Le B/L, vérifié par vous</h3><p>Le solde se paie après votre vérification sur le site officiel de la compagnie maritime.</p></div><div class="c6 rv"><div class="n">05</div><h3 class="h3">Un compte d&#x27;entreprise</h3><p>Vous payez l&#x27;entreprise inscrite sur la facture. Jamais Western Union, jamais une personne.</p></div><div class="c6 rv"><div class="n">06</div><h3 class="h3">Rencontrez-nous</h3><p>Au bureau de Conakry, ou en appel vidéo depuis le parc en Corée. Une vraie entreprise montre son visage.</p></div></div>
+    <div class="scam rv">
+      <div><div class="label" style="color:#d64545">Signaux d'arnaque</div><h3 class="h3" style="font-size:28px;margin-top:10px">Arrêtez tout si vous voyez ça.</h3></div>
+      <ul>
+        <li>Un prix très en dessous du marché</li>
+        <li>Pas de numéro de châssis avant de payer</li>
+        <li>Refus d'un appel vidéo</li>
+        <li>Paiement sur un compte personnel</li>
+        <li>« Payez aujourd'hui, un autre client attend »</li>
+        <li>Un numéro de compte qui change en route</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 11. PAYS -->
+<section class="sec" id="pays" style="background:var(--ink)">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="kicker label">07 — Pays livrés</div>
+        <h2 class="h2" data-split>Conakry d'abord.<br><span class="outline">L'Afrique de l'Ouest ensuite.</span></h2>
+      </div>
+      <p class="lead rv">Avant de vous proposer une voiture, nous vérifions la limite d'âge et les règles de votre pays. Les voitures coréennes ont toutes le volant à gauche.</p>
+    </div>
+    <div class="countries"><div class="ctry rv"><div class="ctry-name"><small>GN</small>Guinée</div><div class="ctry-v"><span class="label">Âge max.</span>13 ans</div><div class="ctry-v"><span class="label">Arrivée</span>Port de Conakry</div><div class="ctry-v"><span class="label">Délai</span>45 – 70 jours</div></div><div class="ctry rv"><div class="ctry-name"><small>SN</small>Sénégal</div><div class="ctry-v"><span class="label">Âge max.</span>10 ans</div><div class="ctry-v"><span class="label">Arrivée</span>Port de Dakar</div><div class="ctry-v"><span class="label">Délai</span>45 – 70 jours</div></div><div class="ctry rv"><div class="ctry-name"><small>ML</small>Mali</div><div class="ctry-v"><span class="label">Âge max.</span>À confirmer</div><div class="ctry-v"><span class="label">Arrivée</span>Via Conakry ou Dakar</div><div class="ctry-v"><span class="label">Délai</span>55 – 85 jours</div></div><div class="ctry rv"><div class="ctry-name"><small>CI</small>Côte d&#x27;Ivoire</div><div class="ctry-v"><span class="label">Âge max.</span>5 ans</div><div class="ctry-v"><span class="label">Arrivée</span>Port d&#x27;Abidjan</div><div class="ctry-v"><span class="label">Délai</span>50 – 75 jours</div></div><div class="ctry rv"><div class="ctry-name"><small>TG · BJ</small>Togo · Bénin</div><div class="ctry-v"><span class="label">Âge max.</span>Libre · 10 ans</div><div class="ctry-v"><span class="label">Arrivée</span>Lomé · Cotonou</div><div class="ctry-v"><span class="label">Délai</span>45 – 65 jours</div></div><div class="ctry rv"><div class="ctry-name"><small>EU</small>Diaspora</div><div class="ctry-v"><span class="label">Âge max.</span>Selon le pays</div><div class="ctry-v"><span class="label">Arrivée</span>Remise à votre famille</div><div class="ctry-v"><span class="label">Délai</span>Suivi WhatsApp</div></div></div>
+  </div>
+</section>
+
+<!-- 12. SUR MESURE -->
+<section class="sec custom" id="sur-mesure">
+  <div class="wrap custom-grid">
+    <div>
+      <div class="kicker label" style="color:#fff">08 — Sur mesure</div>
+      <h2 class="h2" data-split>Votre modèle<br>n'est pas là&nbsp;?</h2>
+      <p class="lead rv" style="color:rgba(255,255,255,.85);margin-top:24px">Nos parcs partenaires ont des centaines d'autres voitures. Décrivez la vôtre&nbsp;: notre équipe à Incheon la cherche et vous répond sous 24 à 48&nbsp;heures, avec photos et prix total.</p>
+    </div>
+    <form class="form rv" id="findForm">
+      <label>Marque<input name="brand" required placeholder="Hyundai, Kia, Toyota…"></label>
+      <label>Modèle<input name="model" placeholder="Tucson, Sportage…"></label>
+      <label>Budget total<input name="budget" placeholder="15 000 $"></label>
+      <label>Année minimum<input name="year" inputmode="numeric" placeholder="2018"></label>
+      <label>Livraison<select name="country"><option>Guinée</option><option>Sénégal</option><option>Mali</option><option>Côte d'Ivoire</option><option>Togo / Bénin</option><option>Autre</option></select></label>
+      <label>Votre nom<input name="name" required></label>
+      <button class="btn btn-dark" type="submit">Préparer ma demande <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <div class="form-out" id="formOut"><b>Votre demande est prête.</b><a class="btn btn-wa" id="formLink" target="_blank" rel="noopener"><svg class="wa-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4A8.5 8.5 0 1 1 8 19.6z"/><path d="M9 9.2c.2 1.9 1.9 3.9 4 4.7l1.2-1.1 1.8.8-.4 1.6c-3.6.2-7-3.3-7-6.9l1.6-.4.8 1.8z" fill="currentColor" stroke="none"/></svg> Ouvrir WhatsApp</a></div>
+    </form>
+  </div>
+</section>
+
+<!-- 13. FAQ -->
+<section class="light sec" id="faq">
+  <div class="wrap faq-grid">
+    <div>
+      <div class="kicker label">09 — Questions</div>
+      <h2 class="h2" data-split>Vos questions.<br><span class="accent">Nos réponses.</span></h2>
+    </div>
+    <div id="faqList"><div class="qa"><button class="qa-q" aria-expanded="false">Comment savoir que vous n&#x27;êtes pas une arnaque ?<span class="qa-ico"></span></button><div class="qa-a"><p>Ne nous croyez pas sur parole : vérifiez. Vous recevez le numéro d&#x27;entreprise du vendeur coréen, une vidéo de la voiture à votre nom, et vous vérifiez vous-même le B/L. Vous payez uniquement une entreprise enregistrée, jamais une personne. Et vous pouvez nous rencontrer à Conakry.</p></div></div><div class="qa"><button class="qa-q" aria-expanded="false">À qui j&#x27;envoie l&#x27;argent ?<span class="qa-ico"></span></button><div class="qa-a"><p>Directement à l&#x27;entreprise coréenne qui vend la voiture, par virement, avec une facture à votre nom. La douane, vous la payez au transitaire. L&#x27;argent de la voiture ne passe jamais par un compte personnel.</p></div></div><div class="qa"><button class="qa-q" aria-expanded="false">Le prix affiché comprend quoi ?<span class="qa-ico"></span></button><div class="qa-a"><p>La voiture, le transport en bateau et l&#x27;assurance jusqu&#x27;au port. La douane est estimée à part, car vous la payez vous-même au transitaire. Aucun autre frais ne s&#x27;ajoute.</p></div></div><div class="qa"><button class="qa-q" aria-expanded="false">Combien de temps pour recevoir ma voiture ?<span class="qa-ico"></span></button><div class="qa-a"><p>En général 45 à 70 jours entre l&#x27;acompte et les clés pour Conakry, selon les départs de bateaux. Vous recevez les dates prévues dès la commande, et le suivi du navire en direct.</p></div></div><div class="qa"><button class="qa-q" aria-expanded="false">La voiture a-t-elle eu un accident ?<span class="qa-ico"></span></button><div class="qa-a"><p>Vous recevez son historique officiel coréen (CarHistory), traduit en français, avant de payer. Il montre les sinistres déclarés à l&#x27;assurance et les inondations.</p></div></div><div class="qa"><button class="qa-q" aria-expanded="false">Je vis en Europe : qui récupère la voiture ?<span class="qa-ico"></span></button><div class="qa-a"><p>La personne que vous désignez par écrit, accompagnée par notre équipe à Conakry. Vous suivez tout sur WhatsApp, avec photos et suivi du bateau.</p></div></div></div>
+  </div>
+</section>
+
+<!-- 14. FINAL -->
+<section class="final grain">
+  <div class="wrap">
+    <div class="kicker label" style="justify-content:center">Passez à l'action</div>
+    <h2 class="display final-title" data-split>Votre voiture<br><span class="accent">vous attend</span><br>à Incheon.</h2>
+    <p class="lead">Écrivez-nous ce que vous cherchez. Vous recevez des voitures vérifiées, avec le prix total jusqu'à Conakry, en moins de 2&nbsp;heures.</p>
+    <div class="final-cta"><a class="btn btn-wa" data-wa="Bonjour KBA, je suis prêt(e) à commander une voiture." data-magnetic target="_blank" rel="noopener"><svg class="wa-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4A8.5 8.5 0 1 1 8 19.6z"/><path d="M9 9.2c.2 1.9 1.9 3.9 4 4.7l1.2-1.1 1.8.8-.4 1.6c-3.6.2-7-3.3-7-6.9l1.6-.4.8 1.8z" fill="currentColor" stroke="none"/></svg> Écrire sur WhatsApp</a></div>
+  </div>
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <img class="foot-logo" src="assets/kba-symbole.svg" alt="Korea Business Auto" width="600" height="290">
+          <p style="color:var(--muted-dark);max-width:34ch;margin-top:18px">Voitures d'occasion sélectionnées en Corée du Sud, vérifiées et livrées en Afrique de l'Ouest.</p>
+        </div>
+        <div><h4 class="label">Acheter</h4><ul><li><a href="#arrivages">Arrivages</a></li><li><a href="#sur-mesure">Sur mesure</a></li><li><a href="#parcours">Le parcours</a></li><li><a href="#prix">Le prix</a></li></ul></div>
+        <div><h4 class="label">Confiance</h4><ul><li><a href="#garanties">Vérifiez-nous</a></li><li><a href="#argent">Votre argent</a></li><li><a href="#faq">Questions</a></li></ul></div>
+        <div><h4 class="label">Contact</h4><ul><li><a data-wa="Bonjour KBA !" target="_blank" rel="noopener">WhatsApp · +224 000 00 00 00</a></li><li>contact@koreabusinessauto.com</li><li>Conakry, Guinée</li><li>Incheon, Corée du Sud</li></ul></div>
+      </div>
+      <div class="foot-bottom label"><span>© 2026 Korea Business Auto</span><span>RCCM : en cours d'immatriculation</span></div>
+    </div>
+    <div class="mega" aria-hidden="true">KBA</div>
+  </footer>
+</section>
+</main>
+
+<a class="fab" id="fab" data-wa="Bonjour KBA, j'ai une question." target="_blank" rel="noopener" aria-label="Écrire à KBA sur WhatsApp"><svg class="wa-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4A8.5 8.5 0 1 1 8 19.6z"/><path d="M9 9.2c.2 1.9 1.9 3.9 4 4.7l1.2-1.1 1.8.8-.4 1.6c-3.6.2-7-3.3-7-6.9l1.6-.4.8 1.8z" fill="currentColor" stroke="none"/></svg></a>
+
+<!-- Fiche voiture -->
+<div class="drawer" id="drawer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Dossier de la voiture">
+  <div class="drawer-bg" id="drawerBg"></div>
+  <div class="drawer-panel" id="drawerPanel" data-lenis-prevent>
+    <div class="drawer-head"><span class="label" id="dwRef">KBA</span><button class="drawer-x" id="drawerX" aria-label="Fermer">×</button></div>
+    <div class="drawer-body" id="drawerBody"></div>
+  </div>
+</div>
+
+<script src="assets/js/gsap.min.js"></script>
+<script src="assets/js/ScrollTrigger.min.js"></script>
+<script src="assets/js/lenis.min.js"></script>
+<script src="assets/js/map-data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

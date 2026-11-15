@@ -1,6 +1,20 @@
 # K-BRIDGE AUTO : le guide complet pour vendre des voitures de Corée en Afrique
 
 *Préparé le 15 novembre 2026, à partir de 4 recherches faites sur internet (concurrents, audience et publicité, pays et douane, confiance et paiement). Les détails et les sources sont dans le dossier `recherches/`.*
+*Mis à jour le même jour, après la conversation entre Rémi (Conakry) et Désiré (Corée).*
+
+---
+
+## ⭐ Ce qui a changé après la conversation avec Désiré
+
+1. **Désiré a deux façons de vendre :**
+   - **le stock** : il achète des voitures avec son propre argent, les met dans un conteneur, et le client **paie seulement quand la voiture est arrivée** ;
+   - **la commande** : le client choisit une voiture et paie en deux fois.
+2. **👉 Le stock devient notre offre principale.** Le client paie seulement à l'arrivée, donc il ne prend aucun risque. C'est l'argument le plus fort contre la peur de l'arnaque, et presque aucun concurrent ne peut le proposer.
+3. **La douane est déjà bien gérée.** Désiré met le client en contact direct avec le transitaire. Le client le paie lui-même et reçoit un reçu. **L'argent de la douane ne passe jamais par nous.**
+4. **Désiré a déjà fait ses preuves :** en ce moment, 3 voitures sont en route, dont 2 déjà réservées, et une voiture a été livrée hier à un client content. **Nos premiers contenus sont déjà là.**
+5. **Désiré est à 100 % d'accord pour la page officielle.** Le groupe WhatsApp continue d'exister. Nos deux numéros seront sur la page, et chacun aura son pourcentage. **Ce pourcentage reste à fixer par écrit** (voir partie 1.4).
+6. **Un frère en Belgique veut se lancer.** Il peut devenir notre relais pour la **diaspora en Europe** (voir partie 3).
 
 ---
 
@@ -9,15 +23,36 @@
 1. **Le business est bon.** En 2025, la Corée a battu son record d'exportation de voitures d'occasion (environ 8,4 milliards $ sur 11 mois). Les Hyundai et Kia se vendent très bien en Afrique.
 2. **Vous avez un avantage que beaucoup ignorent : les voitures coréennes ont le volant à gauche.** La Guinée, le Mali, le Burkina et le Niger interdisent le volant à droite, donc beaucoup de voitures japonaises y sont exclues. Les voitures coréennes ne sont pas concernées.
 3. **Le vrai problème n'est pas de trouver des clients. C'est la CONFIANCE.** Les arnaques du type « envoie l'acompte et je disparais » sont partout sur Facebook. Le client a peur, et il a raison.
-4. **Telle qu'elle est aujourd'hui, la procédure ressemble à une arnaque**, même si ton frère est honnête : le client paie tout avant de voir quoi que ce soit, à quelqu'un qu'il ne connaît pas. Il faut donc ajouter des **preuves** à chaque étape (voir parties 1 et 2).
-5. **Protège-toi aussi.** C'est TON visage et TON numéro guinéen qui seront sur la page. Si une voiture n'arrive pas, c'est toi qu'on viendra chercher. Avant de lancer, vérifie ton associé (check-list en partie 1.3).
+4. **La vente sur commande ressemble à une arnaque** pour un client qui ne vous connaît pas, même si Désiré est honnête : il paie avant de voir la voiture. Il faut donc ajouter des **preuves** à chaque étape (voir parties 1 et 2). Pour le **stock payé à l'arrivée**, ce problème n'existe pas : c'est pour ça qu'on le met en avant.
+5. **Protégez-vous tous les deux.** C'est le visage et le numéro guinéen de Rémi qui seront sur la page. Écrivez votre accord (partie 1.4), et **Rémi ne touche jamais l'argent des voitures**.
 6. **Oui, je peux faire les vidéos.** J'en ai déjà fait une avec tes photos (`video/demo-corolla-tiktok.mp4`). Pour aller plus loin (voix off, plans IA), je te donne les outils et les prompts (partie 7).
 
 ---
 
-## 1. La procédure de paiement : ce que j'en pense et comment l'améliorer
+## 1. Nos deux offres et la procédure de paiement
 
-### 1.1 La procédure actuelle (celle de ton frère)
+### 1.0 Offre n°1 (la principale) : « STOCK EN ROUTE, PAYEZ À L'ARRIVÉE » 🚢
+C'est comme ça que Désiré travaille avec ses propres voitures. **Le client ne paie rien tant que la voiture n'est pas arrivée.**
+
+| Étape | Ce qui se passe | Ce qu'on publie |
+|---|---|---|
+| 1. Achat | Désiré achète la voiture avec son argent en Corée | Une vidéo de la voiture au parc en Corée : « Nouvelle voiture achetée ! » |
+| 2. Conteneur | La voiture part au port et entre dans le conteneur | Une vidéo du chargement, avec le nom du bateau et la date d'arrivée prévue |
+| 3. En mer | On fait la promo. Le client **réserve** la voiture | « En route, arrivée prévue le … Il en reste X ». Le suivi du bateau est partagé |
+| 4. Arrivée | Le client **voit la voiture, puis paie** | Une vidéo de l'arrivée au port |
+| 5. Douane | Le client **paie lui-même le transitaire** et reçoit un reçu | — |
+| 6. Remise des clés | Le client récupère la voiture et la clé | **Une vidéo-témoignage** du client content |
+
+**Le message à répéter partout :** *« Nos voitures sont déjà achetées et en route. Vous payez seulement quand vous la voyez arrivée à Conakry. »*
+
+**La réservation, à discuter avec Désiré.** Pour éviter qu'un client réserve puis disparaisse, on peut demander un **petit acompte de réservation**, remboursable si la voiture ne correspond pas à la vidéo. Par exemple 300 à 500 $, ou un montant fixe en GNF. Il doit être **écrit sur un reçu**.
+
+**La limite de cette offre :** elle dépend de l'argent que Désiré peut avancer. Plus on vend vite, plus il peut racheter vite. C'est pour ça que la page doit vendre les voitures **pendant qu'elles sont en mer**.
+
+### 1.1 Offre n°2 : « SUR COMMANDE »
+Pour le client qui veut un modèle précis qui n'est pas dans le stock.
+
+#### La procédure actuelle
 ```
 Client paie 50 %  →  le frère achète et embarque  →  client paie 50 % (bateau en mer)  →  arrivée au port : client paie la douane  →  client récupère la voiture
 ```
@@ -28,7 +63,7 @@ Client paie 50 %  →  le frère achète et embarque  →  client paie 50 % (bat
 
 > Exemple : Mamadou à Conakry voit une Tucson à 14 000 $. Il envoie 7 000 $ à un inconnu en Corée. Deux semaines plus tard, on lui dit « la voiture est en mer, envoie les 7 000 $ restants ». **Comment peut-il savoir que c'est vrai ?** Il ne peut pas. Alors il n'achète pas.
 
-### 1.2 La procédure améliorée (même logique, mais avec des preuves)
+#### La procédure améliorée (même logique, mais avec des preuves)
 
 | Étape | Ce que fait le client | Ce qu'il reçoit EN ÉCHANGE (la preuve) |
 |---|---|---|
@@ -36,24 +71,37 @@ Client paie 50 %  →  le frère achète et embarque  →  client paie 50 % (bat
 | **1. Acompte de 50 %** | Virement **sur le compte de l'ENTREPRISE coréenne** (jamais un compte personnel, jamais Western Union) | Un **contrat signé** et une **facture**. Sous 48 h : une **vidéo de la voiture avec une feuille portant son nom**, la date et le VIN |
 | **2. Embarquement** | Il ne paie rien | Le **B/L** (connaissement, le « ticket du bateau ») **à son nom**. Il le vérifie lui-même sur le site de la compagnie maritime |
 | **3. Solde de 50 %** | Il paie **seulement après avoir vérifié le B/L** | Le lien pour **suivre son bateau en direct** (MarineTraffic) et des nouvelles WhatsApp à chaque étape |
-| **4. Arrivée au port** | Il paie la douane via un **transitaire partenaire agréé** | Il **inspecte la voiture au port**. Le B/L original ou le « télex release » lui est remis |
+| **4. Arrivée au port** | Il paie la douane **directement au transitaire** (comme Désiré le fait déjà) et reçoit un reçu | Il **inspecte la voiture au port**. Le B/L original ou le « télex release » lui est remis |
 | **5. Remise des clés** | — | Une **garantie de 30 jours** (moteur et boîte) dans un garage partenaire à Conakry, et une **vidéo-témoignage** s'il est d'accord |
 
 **Option « Client prudent » :** pour les gros montants ou la diaspora, proposer un paiement par **séquestre (Escrow.com)**. L'argent est bloqué chez un tiers jusqu'à l'embarquement. Le service coûte environ 1 à 3 %, payés par le client s'il le souhaite. *Il faut vérifier que la Guinée est acceptée.*
 
-### 1.3 Avant de lancer : vérifie ton associé (c'est pour TA protection)
-1. ☐ Son **numéro d'entreprise coréen** (사업자등록증, 10 chiffres) : le vérifier sur **hometax.go.kr** (« 사업자상태 조회 »). Il doit être « actif ».
-2. ☐ Son **compte bancaire** est-il au nom de l'entreprise ?
-3. ☐ Son **adresse** : la vérifier sur Naver Map, puis faire une visite en vidéo en direct. Les exportateurs sont souvent dans le complexe de **Songdo / Ongnyeon-dong, à Incheon**.
-4. ☐ Est-il membre de l'association des exportateurs **KCIE** ?
-5. ☐ Demande-lui **3 à 5 anciens clients africains** et appelle-les toi-même.
-6. ☐ Faites **une commande test** jusqu'à Conakry AVANT de faire de la publicité.
-7. ☐ Signez un **contrat d'agent écrit** qui précise ta commission, **qui rembourse le client si ça ne marche pas** (lui, pas toi), et à qui appartiennent la page et le compte TikTok.
-8. ☐ **Ne touche jamais l'argent des voitures toi-même.** Le client paie directement l'entreprise coréenne, et toi, tu touches une commission. Si un jour tu dois encaisser, crée d'abord une société (APIP / RCCM à Conakry) et vois un avocat.
+### 1.3 Les preuves à rassembler (pour rassurer les clients)
+Désiré est de la famille et il livre déjà. Ces preuves ne servent donc pas à se méfier de lui : elles servent à **convaincre les clients qui ne le connaissent pas**.
+1. ☐ Le **numéro d'entreprise coréen** de Désiré, s'il en a un (사업자등록증, 10 chiffres). Il se vérifie sur **hometax.go.kr**. S'il travaille sans entreprise, il faut en parler, car c'est une preuve forte pour les clients.
+2. ☐ Le **compte bancaire** où les clients « sur commande » paient. Idéalement, il est au nom de l'entreprise. Il est publié une seule fois.
+3. ☐ Une **visite vidéo** du parc ou du port en Corée, avec Désiré face caméra.
+4. ☐ Les **anciens clients satisfaits**, à commencer par celui d'hier. Demander leur accord pour une vidéo ou un message.
+5. ☐ Le **nom du transitaire** à Conakry avec qui Désiré travaille, pour le présenter comme partenaire.
+6. ☐ Les papiers des **3 voitures en route** : photos, fiches, nom du bateau, date d'arrivée.
+
+### 1.4 L'accord entre Désiré et Rémi (à écrire, même en famille)
+Un papier simple, signé par les deux et envoyé aussi sur WhatsApp, suffit. Ce n'est pas de la méfiance : c'est ce qui **garde la bonne entente** quand l'argent arrive.
+1. ☐ **Le pourcentage** : combien chacun touche, sur quoi (le prix de vente ou le bénéfice), et **quand** (à la vente ou à la livraison). *Exemple : « Rémi touche X % du bénéfice sur chaque voiture vendue grâce à la page, payé à la remise des clés. »*
+2. ☐ **Qui répond aux clients** et sur quel numéro en premier. *Exemple : Rémi répond et qualifie le client, Désiré confirme la voiture et les prix.*
+3. ☐ **Qui encaisse.** Règle conseillée : **Rémi ne touche jamais l'argent des voitures.** Le client paie Désiré, ou le transitaire pour la douane.
+4. ☐ **Qui rembourse** si un problème arrive : celui qui a reçu l'argent, donc Désiré.
+5. ☐ **À qui appartiennent** la page Facebook, le compte TikTok et le compte publicitaire. Mettre les deux comme administrateurs.
+6. ☐ **Qui paie la publicité** : on partage, ou Désiré la paie.
+7. ☐ **Le frère en Belgique** : quel rôle et quel pourcentage s'il entre dans l'affaire.
+
+Si un jour Rémi doit encaisser de l'argent, il faut d'abord créer une société à Conakry (APIP / RCCM) et demander conseil à un avocat.
 
 ---
 
 ## 2. Les 10 propositions pour que le client ait confiance
+
+> **La proposition n°0, plus forte que toutes les autres : « Payez à l'arrivée »** (offre stock, partie 1.0). Les 10 propositions ci-dessous servent surtout pour la **vente sur commande**. Elles renforcent aussi l'image de toute la marque.
 
 1. **📁 Le dossier avant de payer.** Pour chaque voiture : VIN, rapport CarHistory traduit en français, rapport d'inspection, 30 photos, 1 vidéo moteur. *Exemple : « Avant de payer 1 franc, vous recevez tout le dossier de la voiture. »*
 2. **🎥 La vidéo à ton nom.** La voiture filmée avec une feuille « Mr DIALLO – 15/11/2026 – VIN …4521 », moteur qui démarre, compteur, dessous de caisse. Impossible à copier pour un arnaqueur.
@@ -62,7 +110,7 @@ Client paie 50 %  →  le frère achète et embarque  →  client paie 50 % (bat
 5. **🚢 Le solde contre le B/L.** Le client paie les 50 % restants seulement après avoir vérifié lui-même le B/L à son nom sur le site du transporteur.
 6. **📍 Le suivi en 7 étapes sur WhatsApp :** achat → au port coréen → chargée → bateau parti → en mer (lien de suivi) → arrivée → dédouanée. Le client n'a jamais à demander.
 7. **🛡️ Assurance maritime incluse (CIF).** Si le bateau a un problème, la voiture est assurée.
-8. **💰 Le prix total, sans surprise.** Prix en Corée + bateau + assurance + estimation de douane + transitaire, détaillés ligne par ligne, en dollars et en GNF ou FCFA, valables 7 jours. *Presque aucun concurrent ne le fait.*
+8. **💰 Le prix total, sans surprise, et la douane payée directement au transitaire.** Prix de la voiture + estimation de douane + frais du transitaire, détaillés ligne par ligne, en dollars et en GNF ou FCFA, valables 7 jours. *« La douane, vous la payez vous-même au transitaire, avec un reçu officiel. Nous ne touchons pas cet argent. »* Presque aucun concurrent ne le fait.
 9. **🔧 Inspection au port et garantie de 30 jours** sur le moteur et la boîte, dans un garage partenaire à Conakry (Madina ou Matoto).
 10. **🤝 Des preuves réelles.** Bureau ou point de contact à Conakry, numéro guinéen, vidéos de vrais clients qui reçoivent leurs clés, et un **parrainage** (100 $ offerts pour chaque client qui achète grâce à un ami).
 
@@ -77,7 +125,7 @@ Client paie 50 %  →  le frère achète et embarque  →  client paie 50 % (bat
 | ⭐ 3 | **Mali** | Grand marché, sans limite d'âge stricte | Livraison par Conakry ou Dakar, routes à risque |
 | 4 | **Togo / Bénin** | Pas de limite d'âge au Togo. **Bateau direct de Corée jusqu'à Cotonou** | Plus loin de toi |
 | 5 | **Côte d'Ivoire** | Le meilleur pouvoir d'achat | **5 ans maximum**, donc seulement des voitures récentes |
-| 6 | **Diaspora** (France, Belgique, USA, Canada) | Elle a l'argent, elle achète pour sa famille, elle paie en € ou en $ | Pub plus chère (3 à 10 $ par contact) |
+| ⭐ 6 | **Diaspora** (d'abord la **Belgique**, puis la France, les USA et le Canada) | Elle a l'argent, elle achète pour sa famille, elle paie en € ou en $. **Le frère en Belgique peut être notre relais sur place** : il rencontre les clients, les rassure et répond à leurs questions | Pub plus chère (3 à 10 $ par contact) |
 
 **Règle d'or :** on ne vend JAMAIS une voiture interdite dans le pays du client (trop vieille, par exemple). Le dire publiquement est un argument de confiance.
 
@@ -156,7 +204,7 @@ Client paie 50 %  →  le frère achète et embarque  →  client paie 50 % (bat
 - ✅ Te donner les **prompts** pour les outils d'IA (voix, musique, plans d'ambiance).
 - ❌ Je ne génère pas moi-même de voix ni de vidéo IA. Il faut utiliser les outils ci-dessous.
 
-**Comment on travaille pour chaque voiture :** ton frère t'envoie les photos et la fiche (marque, modèle, année, kilométrage, moteur, options, prix). Tu me les envoies ici, et je monte la vidéo avec le logo, la fiche et le prix. Le script `video/src/build.py` le fait automatiquement.
+**Comment on travaille pour chaque voiture :** Désiré envoie à Rémi les photos et la fiche (marque, modèle, année, kilométrage, moteur, options, prix). Rémi me les envoie ici, et je monte la vidéo avec le logo, la fiche et le prix. Le script `video/src/build.py` le fait automatiquement.
 
 ### 7.3 ⚠️ La règle d'or avec l'IA
 **Ne JAMAIS utiliser l'IA pour fabriquer ou embellir la voiture vendue** (couleur, état, intérieur…). Si le client reçoit une voiture différente de la vidéo, la marque est morte. L'IA sert **seulement** à :
@@ -188,7 +236,7 @@ Client paie 50 %  →  le frère achète et embarque  →  client paie 50 % (bat
 **🎵 Musique (CapCut ou Suno) :**
 > « Afrobeat / amapiano instrumental, énergique et moderne, 30 secondes, sans paroles, ambiance premium »
 
-### 7.6 Ce que ton frère doit filmer pour CHAQUE voiture (la liste à lui envoyer)
+### 7.6 Ce que Désiré doit filmer pour CHAQUE voiture (la liste à lui envoyer)
 1. 4 photos des côtés (avant, arrière, gauche, droite) + 4 photos de trois-quarts, **sur un fond propre et de jour**.
 2. Le compteur kilométrique **moteur allumé** (on voit le kilométrage et aucun voyant).
 3. Le tableau de bord, l'écran, les sièges avant et arrière, le coffre.
@@ -202,12 +250,12 @@ Client paie 50 %  →  le frère achète et embarque  →  client paie 50 % (bat
 ### 7.7 Le planning de la semaine
 | Jour | TikTok (1 à 2 par jour) | Facebook |
 |---|---|---|
-| Lundi | Nouvel arrivage (vidéo de voiture) | Album photo + prix détaillé |
+| Lundi | **« En route ! »** : les voitures du conteneur, la date d'arrivée, « payez à l'arrivée », « il en reste X » | Album photo + prix détaillé |
 | Mardi | « Combien coûte une Tucson rendue à Conakry ? » (le prix décomposé) | Reel |
 | Mercredi | Coulisses en Corée (parc, chargement) | Reel |
 | Jeudi | Comparatif « Tucson ou Sportage ? » | Publication éducative (limite d'âge, douane) |
 | Vendredi | **Témoignage d'un client qui reçoit ses clés** | Témoignage |
-| Samedi | **LIVE depuis le parc en Corée** (ton frère) | Live partagé |
+| Samedi | **LIVE depuis le parc en Corée** (Désiré) | Live partagé |
 | Dimanche | Questions des clients (FAQ en vidéo) | Récap de la semaine |
 
 **Meilleures heures pour publier :** 12h-14h et 19h-22h (heure de Conakry), et le week-end après-midi.
@@ -219,6 +267,19 @@ Client paie 50 %  →  le frère achète et embarque  →  client paie 50 % (bat
 ## 8. La publicité payante
 
 **Le principe : chaque pub doit faire écrire le client sur WhatsApp** (pub « Click-to-WhatsApp »).
+
+### Booster ou faire une campagne ? (la bonne explication)
+| | **Booster** une publication | **Campagne** (Gestionnaire de publicités) |
+|---|---|---|
+| C'est quoi | On paie pour qu'une publication **déjà publiée** sur la page soit vue par plus de monde. La publication peut contenir 1 photo, plusieurs photos ou une vidéo | On crée des pubs dans un outil complet, **business.facebook.com**, en choisissant d'abord un **objectif** |
+| Réglages | Peu : pays, âge, budget, durée | Beaucoup : objectif, plusieurs pubs comparées, villes, centres d'intérêt, retargeting, diaspora… |
+| Quand l'utiliser | Pour démarrer vite, ou pour pousser une publication qui marche déjà bien | Dès qu'on veut des résultats sérieux et savoir **combien coûte un client** |
+
+La différence n'est donc pas « 1 image contre 5 images ». C'est **le contrôle** : avec une campagne, on choisit précisément le résultat voulu et on voit ce qui marche.
+
+**L'objectif à choisir pour nous : « Interaction » → « Messages » → WhatsApp.** Ne pas choisir « Ventes » : cet objectif demande un site internet avec un outil de suivi.
+
+**Pour commencer :** booster les 2 ou 3 meilleures vidéos (5 $/jour chacune, pendant 5 jours). Puis passer aux campagnes ci-dessous.
 
 | Campagne | Pays et villes | Âge | Budget de départ |
 |---|---|---|---|
@@ -237,24 +298,32 @@ Client paie 50 %  →  le frère achète et embarque  →  client paie 50 % (bat
 
 ## 9. Ton plan d'action, semaine par semaine
 
-### Semaines 1 et 2 : préparer (sans dépenser en pub)
-- [ ] Faire les vérifications de la partie 1.3 (HomeTax, compte bancaire, anciens clients).
-- [ ] Signer le **contrat d'agent** avec ton frère.
+### Tout de suite (cette semaine)
+- [ ] **Le client livré hier** : lui demander une photo ou une vidéo avec ses clés, ou au moins un message vocal. **C'est le premier témoignage.**
+- [ ] **Les 3 voitures en route** : récupérer auprès de Désiré les photos, les fiches, le nom du bateau et la date d'arrivée. Rémi m'envoie tout et je fais les vidéos « En route ».
+- [ ] **La 3e voiture, encore libre** : la publier en premier, avec « payez à l'arrivée ».
+- [ ] Se faire **ajouter au groupe WhatsApp** de Désiré.
+
+### Semaines 1 et 2 : préparer
+- [ ] Rassembler les preuves de la partie 1.3.
+- [ ] Écrire et signer **l'accord Désiré–Rémi** (partie 1.4), surtout **le pourcentage**.
+- [ ] Parler avec le **frère en Belgique** de son rôle.
 - [ ] Choisir le nom et vérifier qu'il est libre. Créer la **Page Facebook**, le **TikTok** et le **WhatsApp Business** (numéro guinéen dédié).
-- [ ] Mettre le logo et la bannière. Écrire la bio : *« Voitures de Corée 🇰🇷 livrées en Afrique. Paiement sécurisé en 3 étapes · Suivi du bateau · Vidéo à votre nom »*.
-- [ ] Trouver **un transitaire agréé à Conakry** et **un garage partenaire**.
+- [ ] Mettre le logo et la bannière. Écrire la bio : *« Voitures de Corée 🇰🇷 livrées en Afrique. Stock en route : payez à l'arrivée · Douane payée directement au transitaire · Suivi du bateau »*.
+- [ ] Présenter **le transitaire de Désiré** comme partenaire, et trouver **un garage partenaire** à Conakry.
 - [ ] Préparer les modèles de contrat, de facture et de messages WhatsApp (les 7 étapes du suivi).
 
 ### Semaines 3 et 4 : publier (sans pub)
-- [ ] Publier **3 vidéos « confiance » épinglées** : (1) qui nous sommes, avec le visage de ton frère en Corée et le tien à Conakry ; (2) « comment fonctionne le paiement sécurisé » ; (3) « comment vérifier qu'on n'est pas une arnaque ».
-- [ ] Publier 10 à 15 voitures (vidéo + album).
+- [ ] Publier **3 vidéos « confiance » épinglées** : (1) qui nous sommes, avec Désiré en Corée et Rémi à Conakry ; (2) « Stock en route : vous payez à l'arrivée » ; (3) « la douane, vous la payez vous-même au transitaire ».
+- [ ] Publier toutes les voitures du stock, plus des modèles disponibles sur commande (vidéo + album).
 - [ ] Faire **le premier live** depuis le parc en Corée.
-- [ ] **Commande test** ou première vente : la filmer de A à Z.
+- [ ] **Filmer l'arrivée des 3 voitures** au port de Conakry et la remise des clés.
+- [ ] Prochain conteneur : **commencer la promo dès l'achat**, pour que tout soit réservé avant l'arrivée.
 
 ### Mois 2 : accélérer
 - [ ] Lancer les pubs (budget test).
 - [ ] Publier le **premier témoignage client**.
-- [ ] Ouvrir le Sénégal et le Mali.
+- [ ] Ouvrir le Sénégal et le Mali, et lancer une campagne diaspora en **Belgique** avec le relais du frère sur place.
 
 ### Mois 3 et après : grandir
 - [ ] Garder ce qui marche et couper le reste.

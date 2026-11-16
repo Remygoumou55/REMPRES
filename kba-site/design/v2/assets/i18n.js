@@ -2,158 +2,2006 @@
    ⚠️ Le coréen est à faire relire par un locuteur natif (Désiré en Corée) avant la mise en ligne.
    Les clés entre crochets [n] correspondent à des listes affichées dans l'ordre. */
 window.KBA_I18N = {
-  fr: {
-    meta: { title: "Korea Business Auto · Voitures coréennes vérifiées, livrées en Afrique de l'Ouest", desc: "Voitures coréennes choisies au parc, filmées à votre nom avant tout paiement et livrées clés en main à Conakry et dans toute l'Afrique de l'Ouest. Paiement sur le compte de l'entreprise." },
-    nav: { arrivals: "Arrivages", journey: "Le parcours", price: "Le prix", verify: "Vérifiez-nous", countries: "Pays livrés", faq: "Questions" },
-    ui: { wa: "WhatsApp", waLong: "Écrire sur WhatsApp", theme: "Changer de thème", lang: "Langue", cur: "Devise", menu: "Ouvrir le menu", close: "Fermer", top: "Retour en haut", main: "Devises principales", all: "Toutes les devises", rates: "Taux indicatifs du", prev: "Précédent", next: "Suivant" },
-    wa: { info: "Bonjour KBA, je voudrais des informations sur vos voitures.", find: "Bonjour KBA, je cherche une voiture.", ready: "Bonjour KBA, je suis prêt(e) à commander une voiture.", hello: "Bonjour KBA, j'ai une question.", reserve: "Bonjour KBA, je suis intéressé(e) par la {car} (réf. {ref}). Est-elle toujours disponible ?", video: "Bonjour KBA, pouvez-vous m'envoyer une vidéo à mon nom de la {car} (réf. {ref}) ? Mon nom : ", form: "Bonjour KBA, je cherche une voiture :", formYear: "Année minimum", formBudget: "Budget total", formTo: "Livraison", formName: "Mon nom" },
-    hero: { kicker: "Korea Business Auto · De la Corée à l'Afrique de l'Ouest", l1: "Voyez-la.", l2: "Vérifiez-la.", l3: "Recevez-la.", lead: "Choisissez votre voiture en Corée. Avant de payer, vous la voyez filmée avec votre nom. Vous payez sur le compte de l'entreprise, jamais à un inconnu, et vous recevez les clés en main à Conakry ou dans votre pays.", cta1: "Voir les arrivages", cta2: "Parler à un conseiller", live: "Suivi en direct", demo: "Démonstration", day: "Jour", pos: "Position", dayPrefix: "J+", legs: ["Port d'Incheon", "Mer de Chine", "Singapour", "Océan Indien", "Large de Madagascar", "Cap de Bonne-Espérance", "Golfe de Guinée", "Port de Conakry"], marks: ["Incheon", "Singapour", "Le Cap", "Conakry"], ports: { incheon: "Incheon · KR", singapour: "Singapour", cap: "Le Cap", conakry: "Conakry · GN", dakar: "Dakar", abidjan: "Abidjan", cotonou: "Cotonou" } },
-    mq1: ["Voitures vérifiées", "Prix total sans surprise", "Vidéo à votre nom", "Paiement sécurisé", "Suivi du bateau"],
-    mq2: ["Hyundai", "Kia", "Genesis", "Toyota", "SUV", "Berlines", "Utilitaires", "Minibus"],
-    man: {"pill": "Pourquoi KBA existe", "h": "Sur les réseaux, on paie sur une photo.<br><span class=\"accent\">Chez KBA, on paie sur des preuves.</span>", "text": "On vous demande d'envoyer des milliers de dollars à un inconnu, sur une simple photo. Chez KBA, vous ne payez jamais sans preuve : la voiture filmée à votre nom, son historique officiel coréen traduit en français, et le document du bateau à votre nom, avec le lien pour suivre votre voiture jusqu'au port.", "hl": ["preuve", "nom,", "officiel", "français,", "bateau", "suivre"], "a": "Désiré · Incheon, Corée du Sud", "b": "Rémi · Conakry, Guinée", "before": "Avant KBA", "after": "Avec KBA", "demo": "Scène de démonstration", "sName": "Auto Deals 🔥", "sSub": "en ligne", "kName": "KBA · Korea Business Auto", "kSub": "Compte professionnel vérifié", "chatA": [["in", "photo", "Toyota RAV4 2019, 6 500 $ seulement 🔥"], ["out", "", "Je peux voir la voiture en vidéo ?"], ["in", "", "Pas le temps frère, un autre client attend. Envoie 50 % par Western Union aujourd'hui."], ["out", "", "Vous avez une facture ? Le numéro de châssis ?"], ["in", "", "Fais-moi confiance 🙏"], ["sys", "", "⚠️ Ce compte n'existe plus · 3 250 $ perdus"]], "chatB": [["in", "video", "Votre vidéo : Kia Sportage 2022, filmée avec votre nom et la date."], ["in", "doc", "Historique officiel CarHistory, traduit en français"], ["in", "doc", "Facture KBA à votre nom · paiement sur le compte de l'entreprise"], ["out", "", "1er paiement fait ✅"], ["in", "ship", "À bord ! B/L à votre nom + lien pour suivre le navire"], ["in", "", "🔑 Votre voiture est à Conakry. Clés en main !"]], "sheet": "M. DIALLO · 15/11 · VIN …4821", "track": ["Incheon", "Conakry"], "follow": "Suivre le navire"},
-    stats: ["de frais cachés. Le prix affiché est le prix jusqu'au port.", "étapes, et une preuve à chacune, de la Corée jusqu'à la remise des clés en main.", "Paiement en deux fois, sur le compte de l'entreprise KBA.", "pour vous répondre sur WhatsApp, du lundi au samedi."], statsK: ["Frais cachés", "Étapes vérifiées", "Paiement", "Réponse"],
-    arr: { pill: "Arrivages", h2: "Choisies en Corée.<br><span class=\"outline\">Vérifiées pour vous.</span>", lead: "Chaque voiture a un numéro KBA, un dossier complet et un <strong>prix total jusqu'au port de Conakry</strong>. Cliquez pour ouvrir le dossier.", note: "", types: { all: "Toutes", suv: "SUV", berline: "Berlines", compacte: "Compactes", citadine: "Citadines", utilitaire: "Utilitaires", minibus: "Minibus" }, status: { dispo: "Disponible en Corée", res: "Réservée", route: "En route" }, ex: "En vente", photos: "photos", vids: "vidéos", onRequest: "Prix sur demande", open: "Dossier", total: "Total rendu port", ok: "Dossier vérifié", pending: "Photos du parc en cours de réception", fuel: { Essence: "Essence", Diesel: "Diesel", Hybride: "Hybride" }, box: { Automatique: "Automatique", Manuelle: "Manuelle" } },
-    dw: { aria: "Dossier de la voiture", priceTitle: "Prix total rendu port de Conakry", car: "Prix de la voiture en Corée", ship: "Transport maritime", ins: "Assurance transport", cus: "Douane + port (estimation)", payTitle: "Paiement en 2 fois, sur le compte de KBA.", pay1: "1. Acompte {a}, après la vidéo à votre nom", pay2: "2. Solde {b}, après vérification du B/L", pay3: "3. Douane au transitaire, à l'arrivée", reserve: "Réserver sur WhatsApp", video: "Demander une vidéo à mon nom", engine: "Moteur", seats: "Places", box: "Boîte", wheel: "Volant", left: "À gauche", equip: "Équipements", defects: "Défauts signalés", note: "<b>Voiture d'exemple.</b> Cette fiche montre comment chaque voiture est présentée. Le dossier complet (carte grise, inspection, CarHistory, vidéo) est envoyé sur WhatsApp avant tout paiement.", photo: "Photo", cusQuote: "Sur devis, selon le pays", videos: "Vidéos de la voiture", priceSoon: "Écrivez-nous : prix total envoyé sous 24 h", tbc: "à confirmer", noteReal: "<b>Voiture réelle, disponible au parc.</b> Le dossier complet (carte grise, inspection, CarHistory, vidéo à votre nom) vous est envoyé sur WhatsApp avant tout paiement." },
-    jr: { pill: "Le parcours", h2: "10 étapes.<br><span class=\"accent\">10 preuves.</span>", lead: "Vous ne payez jamais « dans le vide ». Chaque paiement est précédé d'une preuve que vous vérifiez vous-même.", payTag: "Paiement", steps: [
-      ["Le choix", "Vous choisissez une voiture. Vous recevez sa fiche complète et un devis jusqu'au port.", "Fiche + devis détaillé"],
-      ["La vérification", "Nous reconfirmons qu'elle est disponible, puis nous la filmons avec une feuille de papier où sont écrits votre nom, la date du jour et son numéro de châssis.", "Vidéo à votre nom"],
-      ["Le contrat", "Bon de commande et facture KBA à votre nom : prix, délais, remboursement.", "Contrat en français"],
-      ["1er paiement · 50 %", "Vous payez chez KBA, par virement sur le compte de l'entreprise. Jamais sur un compte personnel.", "Reçu officiel KBA"],
-      ["La radiation", "En suivant vos instructions, KBA fait radier votre voiture au parc (elle est retirée du registre coréen, c'est obligatoire pour l'export) et prépare les papiers d'export.", "Certificat de radiation"],
-      ["L'embarquement", "La voiture monte à bord du bateau. Le connaissement (B/L), le document officiel du transport, porte votre nom. KBA vous envoie le lien pour suivre votre voiture jusqu'au port.", "B/L + lien de suivi"],
-      ["2e paiement · solde 50 % (reste à payer)", "À payer quand vous avez reçu le B/L à votre nom et le lien de suivi de la compagnie maritime. Vous vérifiez vous-même le B/L sur le site de la compagnie, puis vous payez le reste chez KBA.", "Reçu + B/L original"],
-      ["Le voyage", "Vous suivez le navire en direct grâce au lien de la compagnie maritime. Nous vous écrivons aussi à chaque étape pour vous tenir informé.", "Lien de suivi du navire"],
-      ["L'arrivée", "Une fois la voiture au port, vous payez la douane au transitaire de votre choix (le nôtre ou le vôtre), puis vous inspectez la voiture au port.", "Reçus officiels"],
-      ["Les clés en main", "Remise des clés à Conakry, avec tous les papiers pour immatriculer la voiture.", "Dossier complet à votre nom"] ] },
-    dos: { pill: "Le dossier", h2: "Avant de payer,<br><span class=\"accent\">vous savez tout.</span>", photoAlt: "Kia Sportage 2022 blanc, vue avant", tag: "Dossier KBA-0002", ex: "En vente", items: ["Numéro de châssis vérifié", "Historique officiel CarHistory", "Rapport d'inspection du parc", "Vidéo à votre nom"], wait: "En cours", done: "Vérifié", total: "Total rendu Conakry", steps: [
-      ["Vérification 01", "Le même numéro de châssis, partout.", "Le VIN (de l'anglais Vehicle Identification Number : numéro d'identification du véhicule) est la carte d'identité de la voiture : 17 lettres et chiffres gravés sur le châssis. Il doit être identique sur la carte grise coréenne, le rapport d'inspection, la vidéo, le certificat d'export et le document du bateau. Un seul chiffre différent : on arrête tout."],
-      ["Vérification 02", "Son historique officiel coréen.", "Le rapport CarHistory de l'organisme des assurances coréennes montre les accidents déclarés, les inondations et les changements de propriétaire. Nous vous le traduisons."],
-      ["Vérification 03", "Le rapport d'inspection, et les défauts.", "Moteur, boîte, carrosserie, pièces changées : tout est écrit. Et chaque défaut est photographié. Une occasion sans défaut n'existe pas ; ce qui compte, c'est de le savoir avant."],
-      ["Vérification 04", "Une vidéo, à votre nom.", "Avant votre premier paiement, nous filmons la voiture avec une feuille de papier posée dessus, où sont écrits à la main votre nom, la date du jour et son numéro de châssis. On voit le moteur démarrer et le compteur allumé. Une photo copiée sur Internet ne peut pas faire ça."] ] },
-    pr: { pick: "Choisissez une voiture", est: "Prix indicatif hors commission KBA : le prix final, tout compris, est confirmé sur votre devis écrit avant le premier paiement.", pill: "Le prix", h2: "Le prix affiché.<br><span class=\"outline\">Le prix payé.</span>", lead: "Vous voyez le détail de chaque dollar avant de commander : la voiture, le bateau, l'assurance. Rien ne s'ajoute à l'arrivée, sauf la douane, que vous payez vous-même au transitaire. Le prix de la voiture est bloqué dès le premier paiement.", cap: "KBA-0002 · Kia Sportage 1.6 T-GDi 2022", rows: ["Prix de la voiture en Corée", "Transport en bateau", "Assurance transport", "Total jusqu'au port de Conakry", "Douane + port : payés par vous au transitaire (estimation écrite avant commande)"], of: "du total", center: "Prix total", note: "Exemple réel" },
-    mo: { pill: "Votre argent", h2: "Un seul compte.<br><span class=\"accent\">Celui de l'entreprise.</span>", lead: "Vous payez chez KBA, sur le compte bancaire de l'entreprise, avec une facture à votre nom. KBA s'occupe de toutes les procédures et règle tout avec le parc, jusqu'à la remise des clés en main. La douane, vous la payez au transitaire une fois la voiture au port.", me: ["Vous", "Le client", "2 paiements seulement"], kba: ["Paiement 1 · 50 % + 50 %", "KBA, compte de l'entreprise", "Prix de la voiture · facture à votre nom"], tr: ["Paiement 2 · à l'arrivée", "Le transitaire agréé", "Douane + port · le vôtre ou celui de KBA"], p1: "Virement", p2: "Au port", bad: "Jamais sur un compte personnel ni par Western Union", mob: [["Paiement 1 · prix de la voiture", "Chez KBA, sur le compte de l'entreprise · 50 % + 50 %"], ["Paiement 2 · douane + port", "Au transitaire agréé de votre choix (le vôtre ou celui de KBA), une fois la voiture au port"], ["Jamais", "Compte personnel · Western Union"]], pts: [["Vérifiable", "KBA est une entreprise enregistrée, avec un bureau à Conakry et une équipe à Incheon."], ["Traçable", "Uniquement par virement bancaire, avec une facture et un reçu à votre nom."], ["Remboursable", "Si la voiture ne peut pas partir, le contrat prévoit un remboursement à 100 %."]] },
-    ve: { pill: "Vérifiez-nous", h2: "Ne nous croyez pas.<br><span class=\"accent\">Vérifiez.</span>", lead: "Six vérifications à faire vous-même, avant d'envoyer le moindre franc. À nous, comme à n'importe qui.", checks: [
-      ["L'entreprise KBA", "Demandez notre numéro d'immatriculation (RCCM) et venez au bureau. Une vraie entreprise se vérifie."],
-      ["Le même numéro de châssis", "Identique sur la carte grise, l'inspection, la vidéo, le certificat d'export et le B/L."],
-      ["Une vidéo à votre nom", "Une feuille avec votre nom, la date et le numéro de châssis, filmée sur la voiture, moteur allumé. Avant tout paiement."],
-      ["Le B/L, vérifié par vous", "Le solde se paie après votre vérification sur le site officiel de la compagnie maritime."],
-      ["Le compte de l'entreprise", "Vous payez chez KBA, sur le compte au nom de l'entreprise. Jamais par Western Union, jamais à une personne."],
-      ["Rencontrez-nous", "Au bureau de Conakry, ou en appel vidéo depuis le parc en Corée. Une vraie entreprise montre son visage."] ], scamPill: "Signaux d'arnaque", scamH: "Arrêtez tout si vous voyez ça.", scam: ["Un prix très en dessous du marché", "Pas de numéro de châssis avant de payer", "Refus d'un appel vidéo", "Paiement sur un compte personnel", "« Payez aujourd'hui, un autre client attend »", "Un numéro de compte qui change en route"] },
-    co: { pill: "Pays livrés", h2: "Conakry d'abord.<br><span class=\"outline\">L'Afrique de l'Ouest ensuite.</span>", lead: "Avant de vous proposer une voiture, nous vérifions la limite d'âge et les règles de votre pays. Les voitures coréennes ont toutes le volant à gauche.", age: "Âge max.", port: "Arrivée", delay: "Délai", list: [
-      ["GN", "Guinée", "13 ans", "Port de Conakry", "45 – 70 jours"], ["SN", "Sénégal", "10 ans", "Port de Dakar", "45 – 70 jours"], ["ML", "Mali", "À confirmer", "Via Conakry ou Dakar", "55 – 85 jours"], ["CI", "Côte d'Ivoire", "5 ans", "Port d'Abidjan", "50 – 75 jours"], ["TG · BJ", "Togo · Bénin", "Libre · 10 ans", "Lomé · Cotonou", "45 – 65 jours"], ["EU", "Diaspora", "Selon le pays", "Remise à votre famille", "Suivi WhatsApp"] ] },
-    cu: { pill: "Sur mesure", h2: "Votre modèle<br>n'est pas là ?", lead: "Nos parcs partenaires ont des centaines d'autres voitures. Décrivez la vôtre : notre équipe à Incheon la cherche et vous répond sous 24 à 48 heures, avec photos et prix total.", brand: "Marque", model: "Modèle", budget: "Budget total", year: "Année minimum", to: "Livraison", name: "Votre nom", phBrand: "Hyundai, Kia, Toyota…", phModel: "Tucson, Sportage…", phBudget: "15 000 $", send: "Envoyer ma demande", ready: "Votre demande est prête.", open: "Ouvrir WhatsApp", opts: ["Guinée", "Sénégal", "Mali", "Côte d'Ivoire", "Togo / Bénin", "Autre"] },
-    fq: { pill: "Questions", h2: "Vos questions.<br><span class=\"accent\">Nos réponses.</span>", list: [
-      ["Comment savoir que vous n'êtes pas une arnaque ?", "Ne nous croyez pas sur parole : vérifiez. Vous recevez une vidéo de la voiture à votre nom, son historique officiel, et vous vérifiez vous-même le B/L. Vous payez uniquement le compte de l'entreprise KBA, jamais une personne. Et vous pouvez nous rencontrer à Conakry."],
-      ["À qui j'envoie l'argent ?", "Le prix de la voiture, vous le payez chez KBA, par virement sur le compte bancaire de l'entreprise, avec une facture à votre nom. KBA s'occupe ensuite de toutes les procédures avec le parc, jusqu'à la remise des clés en main. La douane, vous la payez directement au transitaire de votre choix."],
-      ["Le prix affiché comprend quoi ?", "La voiture, le transport en bateau et l'assurance jusqu'au port. La douane est estimée à part, car vous la payez vous-même au transitaire. Aucun autre frais ne s'ajoute."],
-      ["Combien de temps pour recevoir ma voiture ?", "En général 45 à 70 jours entre l'acompte et les clés pour Conakry, selon les départs de bateaux. Vous recevez les dates prévues dès la commande, et le suivi du navire en direct."],
-      ["La voiture a-t-elle eu un accident ?", "Vous recevez son historique officiel coréen (CarHistory), traduit, avant de payer. Il montre les sinistres déclarés à l'assurance et les inondations."],
-      ["Je vis en Europe : qui récupère la voiture ?", "La personne que vous désignez par écrit, accompagnée par notre équipe à Conakry. Vous suivez tout sur WhatsApp, avec photos et suivi du bateau."] ] },
-    fi: { pill: "Passez à l'action", h2: "Votre voiture<br><span class=\"accent\">vous attend</span><br>à Incheon.", lead: "Écrivez-nous ce que vous cherchez. Vous recevez des voitures vérifiées, avec le prix total jusqu'à Conakry, en moins de 2 heures.", cta: "Écrire sur WhatsApp", about: "Voitures coréennes choisies au parc, vérifiées et livrées clés en main en Afrique de l'Ouest.", buy: "Acheter", trust: "Confiance", contact: "Contact", custom: "Sur mesure", money: "Votre argent", gn: "Conakry, Guinée", kr: "Incheon, Corée du Sud", rccm: "RCCM : en cours d'immatriculation" }
+ "fr": {
+  "meta": {
+   "title": "Korea Business Auto · Voitures coréennes sélectionnées, livrées clés en main en Afrique",
+   "desc": "Voitures coréennes choisies au parc, filmées à votre nom avant tout paiement et livrées clés en main partout en Afrique. Un seul interlocuteur, un seul compte : KBA."
   },
-
-  en: {
-    meta: { title: "Korea Business Auto · Verified Korean cars, delivered to West Africa", desc: "Korean cars chosen at the dealer, filmed with your name before any payment and delivered keys in hand to Conakry and across West Africa. Payment to the company account." },
-    nav: { arrivals: "Cars", journey: "The process", price: "Pricing", verify: "Verify us", countries: "Countries", faq: "FAQ" },
-    ui: { wa: "WhatsApp", waLong: "Message us on WhatsApp", theme: "Switch theme", lang: "Language", cur: "Currency", menu: "Open menu", close: "Close", top: "Back to top", main: "Main currencies", all: "All currencies", rates: "Indicative rates as of", prev: "Previous", next: "Next" },
-    wa: { info: "Hello KBA, I would like some information about your cars.", find: "Hello KBA, I am looking for a car.", ready: "Hello KBA, I am ready to order a car.", hello: "Hello KBA, I have a question.", reserve: "Hello KBA, I am interested in the {car} (ref. {ref}). Is it still available?", video: "Hello KBA, could you send me a video in my name of the {car} (ref. {ref})? My name: ", form: "Hello KBA, I am looking for a car:", formYear: "Minimum year", formBudget: "Total budget", formTo: "Delivery", formName: "My name" },
-    hero: { kicker: "Korea Business Auto · From Korea to West Africa", l1: "See it.", l2: "Check it.", l3: "Get it.", lead: "Choose your car in Korea. Before you pay, you see it filmed with your name. You pay into the company account, never to a stranger, and you get the keys in hand in Conakry or in your country.", cta1: "See the cars", cta2: "Talk to an advisor", live: "Live tracking", demo: "Demo", day: "Day", pos: "Position", dayPrefix: "D+", legs: ["Port of Incheon", "China Sea", "Singapore", "Indian Ocean", "Off Madagascar", "Cape of Good Hope", "Gulf of Guinea", "Port of Conakry"], marks: ["Incheon", "Singapore", "Cape Town", "Conakry"], ports: { incheon: "Incheon · KR", singapour: "Singapore", cap: "Cape Town", conakry: "Conakry · GN", dakar: "Dakar", abidjan: "Abidjan", cotonou: "Cotonou" } },
-    mq1: ["Verified cars", "Full price, no surprises", "A video in your name", "Secure payment", "Ship tracking"],
-    mq2: ["Hyundai", "Kia", "Genesis", "Toyota", "SUVs", "Sedans", "Utility", "Minibuses"],
-    man: {"pill": "Why KBA exists", "h": "On social media, people pay for a photo.<br><span class=\"accent\">At KBA, you pay for proof.</span>", "text": "People ask you to send thousands of dollars to a stranger, based on a single photo. At KBA, you never pay without proof: the car filmed with your name, its official Korean history translated for you, and the shipping document in your name, with the link to follow your car to the port.", "hl": ["proof:", "name,", "official", "you,", "shipping", "follow"], "a": "Désiré · Incheon, South Korea", "b": "Rémi · Conakry, Guinea", "before": "Before KBA", "after": "With KBA", "demo": "Demo scene", "sName": "Auto Deals 🔥", "sSub": "online", "kName": "KBA · Korea Business Auto", "kSub": "Verified business account", "chatA": [["in", "photo", "Toyota RAV4 2019, only $6,500 🔥"], ["out", "", "Can I see the car on video?"], ["in", "", "No time bro, another buyer is waiting. Send 50% by Western Union today."], ["out", "", "Do you have an invoice? The chassis number?"], ["in", "", "Just trust me 🙏"], ["sys", "", "⚠️ This account no longer exists · $3,250 lost"]], "chatB": [["in", "video", "Your video: 2022 Kia Sportage, filmed with your name and the date."], ["in", "doc", "Official CarHistory report, translated"], ["in", "doc", "KBA invoice in your name · payment to the company account"], ["out", "", "1st payment done ✅"], ["in", "ship", "On board! B/L in your name + link to follow the ship"], ["in", "", "🔑 Your car is in Conakry. Keys in hand!"]], "sheet": "MR DIALLO · 11/15 · VIN …4821", "track": ["Incheon", "Conakry"], "follow": "Track the ship"},
-    stats: ["hidden fees. The price shown is the price to the port.", "steps, each with a proof, from Korea to the keys in your hand.", "Two payments, to KBA's company bank account.", "to reply on WhatsApp, Monday to Saturday."], statsK: ["Hidden fees", "Verified steps", "Payment", "Reply time"],
-    arr: { pill: "Cars", h2: "Chosen in Korea.<br><span class=\"outline\">Verified for you.</span>", lead: "Every car has a KBA number, a complete file and a <strong>full price delivered to the port of Conakry</strong>. Click to open the file.", note: "", types: { all: "All", suv: "SUVs", berline: "Sedans", compacte: "Hatchbacks", citadine: "City cars", utilitaire: "Utility", minibus: "Minibuses" }, status: { dispo: "Available in Korea", res: "Reserved", route: "On its way" }, ex: "For sale", photos: "photos", vids: "videos", onRequest: "Price on request", open: "File", total: "Delivered to port", ok: "Verified file", pending: "Dealer photos on the way", fuel: { Essence: "Petrol", Diesel: "Diesel", Hybride: "Hybrid" }, box: { Automatique: "Automatic", Manuelle: "Manual" } },
-    dw: { aria: "Car file", priceTitle: "Full price delivered to the port of Conakry", car: "Car price in Korea", ship: "Sea freight", ins: "Transport insurance", cus: "Customs + port (estimate)", payTitle: "Two payments, to KBA's account.", pay1: "1. Deposit {a}, after the video in your name", pay2: "2. Balance {b}, after you check the B/L", pay3: "3. Customs to the clearing agent, on arrival", reserve: "Reserve on WhatsApp", video: "Ask for a video in my name", engine: "Engine", seats: "Seats", box: "Gearbox", wheel: "Steering", left: "Left-hand drive", equip: "Equipment", defects: "Reported defects", note: "<b>Sample car.</b> This file shows how each car is presented. The complete file (registration, inspection, CarHistory, video) is sent on WhatsApp before any payment.", photo: "Photo", cusQuote: "On quote, depends on the country", videos: "Car videos", priceSoon: "Message us: full price sent within 24 h", tbc: "to be confirmed", noteReal: "<b>Real car, available at the dealer.</b> The complete file (registration, inspection, CarHistory, video in your name) is sent to you on WhatsApp before any payment." },
-    jr: { pill: "The process", h2: "10 steps.<br><span class=\"accent\">10 proofs.</span>", lead: "You never pay blindly. Every payment comes after a proof that you check yourself.", payTag: "Payment", steps: [
-      ["The choice", "You choose a car. You receive its complete file and a quote to the port.", "File + detailed quote"],
-      ["The check", "We reconfirm it is available, then film it with a sheet of paper showing your name, today's date and its chassis number.", "Video in your name"],
-      ["The contract", "Purchase order and KBA invoice in your name: price, timing, refund terms.", "Written contract"],
-      ["1st payment · 50 %", "You pay KBA by bank transfer, into the company account. Never a personal account.", "Official KBA receipt"],
-      ["Deregistration", "Following your instructions, KBA has your car deregistered at the dealer (removed from the Korean register, required for export) and prepares the export papers.", "Deregistration certificate"],
-      ["Loading", "The car goes on board the ship. The bill of lading (B/L), the official transport document, is in your name. KBA sends you the link to follow your car to the port.", "B/L + tracking link"],
-      ["2nd payment · balance 50 % (still to pay)", "Paid once you have the B/L in your name and the shipping line's tracking link. You check the B/L yourself on the shipping line's website, then pay the rest to KBA.", "Receipt + original B/L"],
-      ["The voyage", "You follow the ship live with the shipping line's link. We also message you at every stage to keep you informed.", "Ship tracking link"],
-      ["Arrival", "Once the car is at the port, you pay customs to the clearing agent of your choice (ours or yours), then inspect the car at the port.", "Official receipts"],
-      ["Keys in hand", "Keys handed over in Conakry, with all the papers to register the car.", "Complete file in your name"] ] },
-    dos: { pill: "The file", h2: "Before you pay,<br><span class=\"accent\">you know everything.</span>", photoAlt: "White 2022 Kia Sportage, front view", tag: "File KBA-0002", ex: "For sale", items: ["Chassis number checked", "Official CarHistory report", "Dealer inspection report", "Video in your name"], wait: "Pending", done: "Verified", total: "Delivered to Conakry", steps: [
-      ["Check 01", "The same chassis number, everywhere.", "The VIN (Vehicle Identification Number) is the car's ID card: 17 letters and digits stamped on the chassis. It must match on the Korean registration, the inspection report, the video, the export certificate and the shipping document. One different digit and we stop."],
-      ["Check 02", "Its official Korean history.", "The CarHistory report from the Korean insurance body shows declared accidents, floods and changes of owner. We translate it for you."],
-      ["Check 03", "The inspection report, and the defects.", "Engine, gearbox, body, replaced parts: it is all written down. And every defect is photographed. No used car is perfect; what matters is knowing beforehand."],
-      ["Check 04", "A video, in your name.", "Before your first payment, we film the car with a sheet of paper placed on it, handwritten with your name, today's date and its chassis number. You see the engine start and the dashboard on. A photo copied from the internet can't do that."] ] },
-    pr: { pick: "Choose a car", est: "Indicative price excluding KBA's fee: the final all-in price is confirmed on your written quote before the first payment.", pill: "Pricing", h2: "The price shown.<br><span class=\"outline\">The price paid.</span>", lead: "You see where every dollar goes before you order: the car, the ship, the insurance. Nothing is added on arrival except customs, which you pay yourself to the clearing agent. The car's price is locked from the first payment.", cap: "KBA-0002 · Kia Sportage 1.6 T-GDi 2022", rows: ["Car price in Korea", "Shipping", "Transport insurance", "Total to the port of Conakry", "Customs + port: paid by you to the clearing agent (written estimate before ordering)"], of: "of the total", center: "Total price", note: "Real example" },
-    mo: { pill: "Your money", h2: "One account.<br><span class=\"accent\">The company's.</span>", lead: "You pay KBA, into the company bank account, with an invoice in your name. KBA handles every procedure and settles everything with the dealer, all the way to the keys in your hand. Customs, you pay to the clearing agent once the car is at the port.", me: ["You", "The customer", "Only 2 payments"], kba: ["Payment 1 · 50 % + 50 %", "KBA, company account", "Car price · invoice in your name"], tr: ["Payment 2 · on arrival", "Licensed clearing agent", "Customs + port · yours or KBA's"], p1: "Bank transfer", p2: "At the port", bad: "Never to a personal account or by Western Union", mob: [["Payment 1 · car price", "To KBA, company account · 50 % + 50 %"], ["Payment 2 · customs + port", "To the licensed clearing agent of your choice (yours or KBA's), once the car is at the port"], ["Never", "Personal account · Western Union"]], pts: [["Verifiable", "KBA is a registered company, with an office in Conakry and a team in Incheon."], ["Traceable", "Bank transfer only, with an invoice and a receipt in your name."], ["Refundable", "If the car cannot ship, the contract provides a 100 % refund."]] },
-    ve: { pill: "Verify us", h2: "Don't believe us.<br><span class=\"accent\">Check.</span>", lead: "Six checks to do yourself before sending a single franc. To us, or to anyone.", checks: [
-      ["The KBA company", "Ask for our company registration number (RCCM) and visit our office. A real company can be checked."],
-      ["The same chassis number", "Identical on the registration, the inspection, the video, the export certificate and the B/L."],
-      ["A video in your name", "A sheet with your name, the date and the chassis number, filmed on the car with the engine running. Before any payment."],
-      ["The B/L, checked by you", "The balance is paid after you check it on the shipping line's official website."],
-      ["The company account", "You pay KBA, into the account in the company's name. Never Western Union, never an individual."],
-      ["Meet us", "At our Conakry office, or on a video call from the dealer's yard in Korea. A real company shows its face."] ], scamPill: "Scam warning signs", scamH: "Stop if you see any of these.", scam: ["A price far below the market", "No chassis number before you pay", "Refusing a video call", "Payment to a personal account", "\"Pay today, another buyer is waiting\"", "A bank account that changes along the way"] },
-    co: { pill: "Countries", h2: "Conakry first.<br><span class=\"outline\">Then all of West Africa.</span>", lead: "Before offering you a car, we check your country's age limit and rules. Korean cars are all left-hand drive.", age: "Max age", port: "Arrival", delay: "Time", list: [
-      ["GN", "Guinea", "13 years", "Port of Conakry", "45 – 70 days"], ["SN", "Senegal", "10 years", "Port of Dakar", "45 – 70 days"], ["ML", "Mali", "To be confirmed", "Via Conakry or Dakar", "55 – 85 days"], ["CI", "Côte d'Ivoire", "5 years", "Port of Abidjan", "50 – 75 days"], ["TG · BJ", "Togo · Benin", "None · 10 years", "Lomé · Cotonou", "45 – 65 days"], ["EU", "Diaspora", "Depends on country", "Handed to your family", "WhatsApp updates"] ] },
-    cu: { pill: "Made to order", h2: "Your model<br>isn't listed?", lead: "Our partner dealers have hundreds of other cars. Describe yours: our team in Incheon finds it and replies within 24 to 48 hours, with photos and the full price.", brand: "Make", model: "Model", budget: "Total budget", year: "Minimum year", to: "Delivery", name: "Your name", phBrand: "Hyundai, Kia, Toyota…", phModel: "Tucson, Sportage…", phBudget: "$15,000", send: "Send my request", ready: "Your request is ready.", open: "Open WhatsApp", opts: ["Guinea", "Senegal", "Mali", "Côte d'Ivoire", "Togo / Benin", "Other"] },
-    fq: { pill: "FAQ", h2: "Your questions.<br><span class=\"accent\">Our answers.</span>", list: [
-      ["How do I know this isn't a scam?", "Don't take our word for it: check. You receive a video of the car in your name, its official history, and you check the B/L yourself. You only ever pay KBA's company account, never an individual. And you can meet us in Conakry."],
-      ["Who do I send the money to?", "You pay the car price to KBA, by bank transfer to the company account, with an invoice in your name. KBA then handles every procedure with the dealer, all the way to the keys in your hand. Customs, you pay directly to the clearing agent of your choice."],
-      ["What does the price include?", "The car, sea freight and insurance to the port. Customs are estimated separately, because you pay them yourself to the clearing agent. Nothing else is added."],
-      ["How long until I get my car?", "Usually 45 to 70 days from deposit to keys for Conakry, depending on sailings. You get the expected dates when you order, and live ship tracking."],
-      ["Has the car been in an accident?", "You receive its official Korean history (CarHistory), translated, before you pay. It shows insurance claims and floods."],
-      ["I live in Europe: who collects the car?", "The person you name in writing, accompanied by our team in Conakry. You follow everything on WhatsApp, with photos and ship tracking."] ] },
-    fi: { pill: "Take action", h2: "Your car<br><span class=\"accent\">is waiting</span><br>in Incheon.", lead: "Tell us what you are looking for. You receive verified cars, with the full price to Conakry, in under 2 hours.", cta: "Message us on WhatsApp", about: "Korean cars chosen at the dealer, verified and delivered keys in hand to West Africa.", buy: "Buy", trust: "Trust", contact: "Contact", custom: "Made to order", money: "Your money", gn: "Conakry, Guinea", kr: "Incheon, South Korea", rccm: "RCCM: registration in progress" }
+  "nav": {
+   "arrivals": "Arrivages",
+   "journey": "Le parcours",
+   "price": "Le prix",
+   "verify": "Vérifiez-nous",
+   "countries": "Pays livrés",
+   "faq": "Questions",
+   "home": "Accueil"
   },
-
-  ko: {
-    meta: { title: "Korea Business Auto · 검증된 한국 중고차, 서아프리카 배송", desc: "매매상사에서 고른 한국 차량을 결제 전에 고객님 이름과 함께 촬영해 보여드리고, 코나크리와 서아프리카 전역에 키까지 인도합니다. 법인 계좌로만 결제." },
-    nav: { arrivals: "차량", journey: "진행 과정", price: "가격", verify: "검증하기", countries: "배송 국가", faq: "자주 묻는 질문" },
-    ui: { wa: "WhatsApp", waLong: "WhatsApp으로 문의하기", theme: "테마 변경", lang: "언어", cur: "통화", menu: "메뉴 열기", close: "닫기", top: "맨 위로", main: "주요 통화", all: "모든 통화", rates: "참고 환율 기준일", prev: "이전", next: "다음" },
-    wa: { info: "안녕하세요 KBA, 차량에 대해 문의드립니다.", find: "안녕하세요 KBA, 차를 찾고 있습니다.", ready: "안녕하세요 KBA, 차량을 주문하고 싶습니다.", hello: "안녕하세요 KBA, 질문이 있습니다.", reserve: "안녕하세요 KBA, {car} (번호 {ref}) 차량에 관심이 있습니다. 아직 구매 가능한가요?", video: "안녕하세요 KBA, {car} (번호 {ref}) 차량을 제 이름으로 촬영한 영상을 보내주실 수 있나요? 제 이름: ", form: "안녕하세요 KBA, 차를 찾고 있습니다:", formYear: "최소 연식", formBudget: "총 예산", formTo: "배송지", formName: "이름" },
-    hero: { kicker: "Korea Business Auto · 한국에서 서아프리카까지", l1: "직접 보고.", l2: "확인하고.", l3: "받으세요.", lead: "한국에서 차를 고르세요. 결제 전에 고객님 이름과 함께 촬영한 영상을 먼저 보여드립니다. 결제는 모르는 사람이 아닌 법인 계좌로만, 그리고 코나크리 또는 고객님 나라에서 키를 받으세요.", cta1: "차량 보기", cta2: "상담하기", live: "실시간 추적", demo: "데모", day: "일차", pos: "현재 위치", dayPrefix: "D+", legs: ["인천항", "동중국해", "싱가포르", "인도양", "마다가스카르 앞바다", "희망봉", "기니만", "코나크리항"], marks: ["인천", "싱가포르", "케이프타운", "코나크리"], ports: { incheon: "인천 · KR", singapour: "싱가포르", cap: "케이프타운", conakry: "코나크리 · GN", dakar: "다카르", abidjan: "아비장", cotonou: "코토누" } },
-    mq1: ["검증된 차량", "숨은 비용 없는 총액", "고객 이름이 담긴 영상", "안전한 결제", "선박 실시간 추적"],
-    mq2: ["Hyundai", "Kia", "Genesis", "Toyota", "SUV", "세단", "화물차", "승합차"],
-    man: {"pill": "KBA가 존재하는 이유", "h": "SNS에서는 사진 한 장에 돈을 보냅니다.<br><span class=\"accent\">KBA에서는 증거를 보고 냅니다.</span>", "text": "모르는 사람에게 사진 한 장만 보고 수천 달러를 보내라고 합니다. KBA에서는 증거 없이 결제하는 일이 없습니다. 고객님 이름으로 촬영한 차량 영상, 번역된 한국 공식 이력, 그리고 고객님 명의의 선적 서류와 항구까지 차량을 추적할 수 있는 링크.", "hl": ["증거", "이름으로", "공식", "이력,", "선적", "링크."], "a": "Désiré · 대한민국 인천", "b": "Rémi · 기니 코나크리", "before": "KBA 이전", "after": "KBA와 함께", "demo": "데모 화면", "sName": "Auto Deals 🔥", "sSub": "온라인", "kName": "KBA · Korea Business Auto", "kSub": "인증된 비즈니스 계정", "chatA": [["in", "photo", "토요타 RAV4 2019, 단돈 6,500달러 🔥"], ["out", "", "차를 영상으로 볼 수 있나요?"], ["in", "", "시간 없어요, 다른 손님이 기다려요. 오늘 Western Union으로 50% 보내세요."], ["out", "", "인보이스 있나요? 차대번호는요?"], ["in", "", "그냥 믿으세요 🙏"], ["sys", "", "⚠️ 존재하지 않는 계정 · 3,250달러 손실"]], "chatB": [["in", "video", "고객님 영상: 기아 스포티지 2022, 고객님 이름과 날짜와 함께 촬영."], ["in", "doc", "카히스토리 공식 이력, 번역본"], ["in", "doc", "고객님 명의 KBA 인보이스 · 법인 계좌 결제"], ["out", "", "1차 결제 완료 ✅"], ["in", "ship", "선적 완료! 고객님 명의 B/L + 선박 추적 링크"], ["in", "", "🔑 차량이 코나크리에 도착했습니다. 키 인도!"]], "sheet": "DIALLO 님 · 11/15 · VIN …4821", "track": ["인천", "코나크리"], "follow": "선박 추적"},
-    stats: ["숨은 비용. 표시된 가격이 항구까지의 가격입니다.", "단계, 한국에서 키를 받을 때까지 단계마다 증거.", "두 번에 나눠 KBA 법인 계좌로 결제합니다.", "시간 이내 WhatsApp 답변, 월요일부터 토요일까지."], statsK: ["숨은 비용", "검증 단계", "결제", "답변"],
-    arr: { pill: "차량", h2: "한국에서 고르고.<br><span class=\"outline\">고객님을 위해 검증합니다.</span>", lead: "모든 차량에는 KBA 번호, 완전한 서류, 그리고 <strong>코나크리항 도착 총액</strong>이 있습니다. 클릭하면 차량 서류가 열립니다.", note: "", types: { all: "전체", suv: "SUV", berline: "세단", compacte: "해치백", citadine: "경차", utilitaire: "화물차", minibus: "승합차" }, status: { dispo: "한국에서 구매 가능", res: "예약됨", route: "운송 중" }, ex: "판매 중", photos: "장", vids: "영상", onRequest: "가격 문의", open: "서류", total: "항구 도착 총액", ok: "서류 검증 완료", pending: "매매상사 사진 준비 중", fuel: { Essence: "가솔린", Diesel: "디젤", Hybride: "하이브리드" }, box: { Automatique: "자동", Manuelle: "수동" } },
-    dw: { aria: "차량 서류", priceTitle: "코나크리항 도착 총액", car: "한국 차량 가격", ship: "해상 운송", ins: "운송 보험", cus: "통관 + 항만 비용 (예상)", payTitle: "KBA 계좌로 2회 분할 결제.", pay1: "1. 계약금 {a}, 고객님 이름이 담긴 영상 확인 후", pay2: "2. 잔금 {b}, 선하증권(B/L) 확인 후", pay3: "3. 통관비는 도착 시 통관 대리인에게", reserve: "WhatsApp으로 예약하기", video: "제 이름으로 영상 요청하기", engine: "엔진", seats: "좌석", box: "변속기", wheel: "핸들", left: "좌핸들", equip: "옵션", defects: "확인된 결함", note: "<b>예시 차량입니다.</b> 각 차량이 어떻게 소개되는지 보여주는 페이지입니다. 결제 전에 모든 서류(자동차등록증, 성능점검기록부, 카히스토리, 영상)를 WhatsApp으로 보내드립니다.", photo: "사진", cusQuote: "국가별 견적", videos: "차량 영상", priceSoon: "문의 주시면 24시간 내 총액 안내", tbc: "확인 필요", noteReal: "<b>실제 판매 차량입니다.</b> 결제 전에 모든 서류(자동차등록증, 성능점검기록부, 카히스토리, 고객님 이름이 담긴 영상)를 WhatsApp으로 보내드립니다." },
-    jr: { pill: "진행 과정", h2: "10단계.<br><span class=\"accent\">10가지 증거.</span>", lead: "확인 없이 결제하는 일은 없습니다. 모든 결제 전에 고객님이 직접 확인할 수 있는 증거를 드립니다.", payTag: "결제", steps: [
-      ["차량 선택", "차량을 선택하시면 전체 서류와 항구까지의 견적서를 받습니다.", "차량 서류 + 상세 견적"],
-      ["확인", "구매 가능 여부를 다시 확인하고, 고객님 이름·오늘 날짜·차대번호를 적은 종이와 함께 차량을 촬영합니다.", "고객님 이름이 담긴 영상"],
-      ["계약", "고객님 명의의 주문서와 KBA 인보이스: 가격, 일정, 환불 조건.", "서면 계약서"],
-      ["1차 결제 · 50 %", "KBA 법인 계좌로 송금합니다. 개인 계좌는 절대 사용하지 않습니다.", "KBA 공식 영수증"],
-      ["말소", "고객님의 요청에 따라 KBA가 매매상사에서 차량 말소(한국 등록 취소, 수출에 필수)를 진행하고 수출 서류를 준비합니다.", "말소사실증명서"],
-      ["선적", "차량이 배에 실립니다. 공식 운송 서류인 선하증권(B/L)은 고객님 명의이며, KBA가 항구까지 차량을 추적할 수 있는 링크를 보내드립니다.", "B/L + 추적 링크"],
-      ["2차 결제 · 잔금 50 % (남은 금액)", "고객님 명의의 B/L과 선사 추적 링크를 받은 뒤 결제합니다. 선사 웹사이트에서 B/L을 직접 확인한 후 잔금을 KBA에 냅니다.", "영수증 + B/L 원본"],
-      ["운송", "선사 링크로 선박을 실시간으로 추적합니다. 단계마다 저희도 메시지로 알려드립니다.", "선박 추적 링크"],
-      ["도착", "차량이 항구에 도착하면 원하시는 통관 대리인(저희 쪽 또는 고객님 쪽)에게 통관비를 내고, 항구에서 차량을 확인합니다.", "공식 영수증"],
-      ["키 인도", "코나크리에서 차 키와 등록에 필요한 모든 서류를 드립니다.", "고객님 명의의 전체 서류"] ] },
-    dos: { pill: "차량 서류", h2: "결제 전에<br><span class=\"accent\">모든 것을 확인하세요.</span>", photoAlt: "기아 스포티지 2022 흰색, 앞모습", tag: "서류 KBA-0002", ex: "판매 중", items: ["차대번호 확인", "공식 카히스토리 이력", "성능점검기록부", "고객님 이름이 담긴 영상"], wait: "확인 중", done: "확인 완료", total: "코나크리 도착 총액", steps: [
-      ["확인 01", "모든 서류에 같은 차대번호.", "VIN(Vehicle Identification Number, 차대번호)은 차체에 새겨진 17자리 영문·숫자로, 차량의 신분증입니다. 자동차등록증, 성능점검기록부, 영상, 수출 서류, 선적 서류의 번호가 모두 같아야 합니다. 한 자리라도 다르면 진행하지 않습니다."],
-      ["확인 02", "한국의 공식 이력.", "보험개발원의 카히스토리 보고서는 보험 처리된 사고, 침수, 소유자 변경 이력을 보여줍니다. 번역해서 드립니다."],
-      ["확인 03", "성능점검기록부, 그리고 결함.", "엔진, 변속기, 차체, 교환 부품까지 모두 기록되어 있습니다. 모든 결함은 사진으로 보여드립니다. 결함 없는 중고차는 없습니다. 중요한 것은 미리 아는 것입니다."],
-      ["확인 04", "고객님 이름이 담긴 영상.", "1차 결제 전에 고객님 이름, 오늘 날짜, 차대번호를 손으로 적은 종이를 차량 위에 올려 두고 촬영합니다. 시동 거는 모습과 계기판까지. 인터넷에서 가져온 사진으로는 할 수 없는 일입니다."] ] },
-    pr: { pick: "차량 선택", est: "KBA 수수료 제외 참고 가격입니다. 최종 총액은 1차 결제 전 서면 견적서로 확정됩니다.", pill: "가격", h2: "보이는 가격이<br><span class=\"outline\">내는 가격입니다.</span>", lead: "주문 전에 모든 금액의 내역을 보여드립니다: 차량, 운송, 보험. 도착 후 추가되는 비용은 없으며, 통관비만 고객님이 통관 대리인에게 직접 냅니다. 1차 결제 순간 차량 가격이 고정됩니다.", cap: "KBA-0002 · 기아 스포티지 1.6 T-GDi 2022", rows: ["한국 차량 가격", "해상 운송", "운송 보험", "코나크리항까지 총액", "통관 + 항만 비용: 고객님이 통관 대리인에게 직접 지불 (주문 전 서면 견적)"], of: "총액 대비", center: "총액", note: "실제 예시" },
-    mo: { pill: "결제 안전", h2: "계좌는 하나.<br><span class=\"accent\">법인 계좌뿐입니다.</span>", lead: "KBA 법인 계좌로 결제하시고 고객님 명의의 인보이스를 받습니다. KBA가 매매상사와 모든 절차를 처리하고, 키 인도까지 책임집니다. 통관비는 차량이 항구에 도착하면 통관 대리인에게 냅니다.", me: ["고객님", "구매자", "결제는 단 2번"], kba: ["결제 1 · 50 % + 50 %", "KBA 법인 계좌", "차량 대금 · 고객님 명의 인보이스"], tr: ["결제 2 · 도착 시", "공인 통관 대리인", "통관 + 항만 · 고객님 측 또는 KBA 측"], p1: "계좌 이체", p2: "항구에서", bad: "개인 계좌나 Western Union으로는 절대 결제하지 마세요", mob: [["결제 1 · 차량 대금", "KBA 법인 계좌로 · 50 % + 50 %"], ["결제 2 · 통관 + 항만", "차량이 항구에 도착하면 원하시는 공인 통관 대리인(고객님 측 또는 KBA 측)에게"], ["절대 안 됨", "개인 계좌 · Western Union"]], pts: [["확인 가능", "KBA는 코나크리 사무실과 인천 팀을 둔 등록 법인입니다."], ["추적 가능", "계좌 이체만 받으며, 고객님 명의의 인보이스와 영수증을 드립니다."], ["환불 가능", "차량이 선적되지 못하면 계약서에 따라 100 % 환불해 드립니다."]] },
-    ve: { pill: "검증하기", h2: "믿지 마세요.<br><span class=\"accent\">확인하세요.</span>", lead: "돈을 보내기 전에 직접 할 수 있는 6가지 확인. 저희에게도, 누구에게도.", checks: [
-      ["KBA 법인", "사업자 등록번호(RCCM)를 요청하시고 사무실을 방문하세요. 진짜 회사는 확인할 수 있습니다."],
-      ["같은 차대번호", "자동차등록증, 성능점검기록부, 영상, 수출 서류, B/L의 번호가 모두 같아야 합니다."],
-      ["고객님 이름이 담긴 영상", "고객님 이름, 날짜, 차대번호를 적은 종이를 차량 위에 두고 시동 건 상태로 촬영. 결제 전에."],
-      ["직접 확인하는 B/L", "잔금은 선사 공식 웹사이트에서 직접 확인하신 후에 결제합니다."],
-      ["법인 계좌", "KBA 법인 명의 계좌로만 결제합니다. Western Union이나 개인 계좌는 절대 아닙니다."],
-      ["직접 만나보세요", "코나크리 사무실에서, 또는 한국 매매상사에서 영상 통화로. 진짜 회사는 얼굴을 보여줍니다."] ], scamPill: "사기 경고 신호", scamH: "이런 경우에는 바로 멈추세요.", scam: ["시세보다 지나치게 싼 가격", "결제 전에 차대번호를 주지 않음", "영상 통화 거절", "개인 계좌로 결제 요구", "\"오늘 결제하세요, 다른 손님이 기다려요\"", "중간에 바뀌는 계좌번호"] },
-    co: { pill: "배송 국가", h2: "코나크리부터.<br><span class=\"outline\">그리고 서아프리카 전역.</span>", lead: "차량을 제안하기 전에 고객님 나라의 연식 제한과 규정을 확인합니다. 한국 차량은 모두 좌핸들입니다.", age: "최대 연식", port: "도착지", delay: "소요 기간", list: [
-      ["GN", "기니", "13년", "코나크리항", "45 – 70일"], ["SN", "세네갈", "10년", "다카르항", "45 – 70일"], ["ML", "말리", "확인 필요", "코나크리 또는 다카르 경유", "55 – 85일"], ["CI", "코트디부아르", "5년", "아비장항", "50 – 75일"], ["TG · BJ", "토고 · 베냉", "제한 없음 · 10년", "로메 · 코토누", "45 – 65일"], ["EU", "해외 교민", "국가별 상이", "가족에게 인도", "WhatsApp 안내"] ] },
-    cu: { pill: "맞춤 검색", h2: "원하는 모델이<br>없나요?", lead: "협력 매매상사에는 수백 대의 다른 차량이 있습니다. 원하시는 차를 알려주시면 인천 팀이 찾아서 24~48시간 안에 사진과 총액을 보내드립니다.", brand: "브랜드", model: "모델", budget: "총 예산", year: "최소 연식", to: "배송지", name: "이름", phBrand: "현대, 기아, 토요타…", phModel: "투싼, 스포티지…", phBudget: "15,000달러", send: "요청 보내기", ready: "요청이 준비되었습니다.", open: "WhatsApp 열기", opts: ["기니", "세네갈", "말리", "코트디부아르", "토고 / 베냉", "기타"] },
-    fq: { pill: "자주 묻는 질문", h2: "궁금하신 점.<br><span class=\"accent\">답해 드립니다.</span>", list: [
-      ["사기가 아닌지 어떻게 알 수 있나요?", "저희 말을 믿지 말고 직접 확인하세요. 고객님 이름이 담긴 차량 영상과 공식 이력을 받고, B/L은 직접 확인하십니다. 결제는 KBA 법인 계좌로만 하며 개인에게 보내는 일은 없습니다. 코나크리에서 직접 만나실 수도 있습니다."],
-      ["돈은 누구에게 보내나요?", "차량 대금은 KBA 법인 계좌로 이체하시고 고객님 명의의 인보이스를 받습니다. 이후 KBA가 매매상사와 모든 절차를 처리하고 키 인도까지 책임집니다. 통관비는 원하시는 통관 대리인에게 직접 냅니다."],
-      ["표시된 가격에는 무엇이 포함되나요?", "차량, 해상 운송, 항구까지의 보험이 포함됩니다. 통관비는 고객님이 통관 대리인에게 직접 내시기 때문에 따로 예상 금액을 알려드립니다. 그 외 추가 비용은 없습니다."],
-      ["차를 받기까지 얼마나 걸리나요?", "코나크리 기준 보통 계약금 후 45~70일이며, 선박 일정에 따라 다릅니다. 주문 시 예상 일정과 실시간 선박 추적 링크를 드립니다."],
-      ["사고 이력이 있나요?", "결제 전에 한국 공식 이력(카히스토리)을 번역해서 드립니다. 보험 처리된 사고와 침수 이력을 확인할 수 있습니다."],
-      ["유럽에 사는데 차는 누가 받나요?", "고객님이 서면으로 지정한 분이 코나크리 팀과 함께 받습니다. 모든 과정을 WhatsApp으로 사진과 선박 추적과 함께 확인하실 수 있습니다."] ] },
-    fi: { pill: "지금 시작하세요", h2: "고객님의 차가<br><span class=\"accent\">인천에서</span><br>기다립니다.", lead: "찾으시는 차를 알려주세요. 2시간 안에 코나크리까지의 총액과 함께 검증된 차량을 보내드립니다.", cta: "WhatsApp으로 문의하기", about: "매매상사에서 고르고 검증한 한국 차량을 서아프리카에 키까지 인도합니다.", buy: "구매", trust: "신뢰", contact: "연락처", custom: "맞춤 검색", money: "결제 안전", gn: "기니 코나크리", kr: "대한민국 인천", rccm: "RCCM: 등록 진행 중" }
+  "ui": {
+   "wa": "WhatsApp",
+   "waLong": "Écrire sur WhatsApp",
+   "theme": "Changer de thème",
+   "lang": "Langue",
+   "cur": "Devise",
+   "menu": "Ouvrir le menu",
+   "close": "Fermer",
+   "top": "Retour en haut",
+   "main": "Devises principales",
+   "all": "Toutes les devises",
+   "rates": "Taux indicatifs du",
+   "prev": "Précédent",
+   "next": "Suivant"
+  },
+  "wa": {
+   "info": "Bonjour KBA, je voudrais des informations sur vos voitures.",
+   "find": "Bonjour KBA, je cherche une voiture.",
+   "ready": "Bonjour KBA, je suis prêt(e) à commander une voiture.",
+   "hello": "Bonjour KBA, j'ai une question.",
+   "reserve": "Bonjour KBA, je suis intéressé(e) par la {car} (réf. {ref}). Est-elle toujours disponible ?",
+   "video": "Bonjour KBA, pouvez-vous m'envoyer une vidéo à mon nom de la {car} (réf. {ref}) ? Mon nom : ",
+   "form": "Bonjour KBA, je cherche une voiture :",
+   "formYear": "Année minimum",
+   "formBudget": "Budget total",
+   "formTo": "Livraison",
+   "formName": "Mon nom"
+  },
+  "hero": {
+   "kicker": "Korea Business Auto · De la Corée en Afrique",
+   "l1": "Voyez-la.",
+   "l2": "Vérifiez-la.",
+   "l3": "Recevez-la.",
+   "lead": "Choisissez votre voiture en Corée. Avant de payer, vous la voyez filmée avec votre nom. Vous payez sur le compte de l'entreprise, jamais à un inconnu, et vous recevez les clés en main à Conakry ou dans votre pays.",
+   "cta1": "Voir les arrivages",
+   "cta2": "Parler à un conseiller",
+   "live": "Suivi en direct",
+   "demo": "Démonstration",
+   "day": "Jour",
+   "pos": "Position",
+   "dayPrefix": "J+",
+   "legs": [
+    "Port d'Incheon",
+    "Mer de Chine",
+    "Singapour",
+    "Océan Indien",
+    "Large de Madagascar",
+    "Cap de Bonne-Espérance",
+    "Golfe de Guinée",
+    "Port de Conakry"
+   ],
+   "marks": [
+    "Incheon",
+    "Singapour",
+    "Le Cap",
+    "Conakry"
+   ],
+   "ports": {
+    "incheon": "Incheon · KR",
+    "singapour": "Singapour",
+    "cap": "Le Cap",
+    "conakry": "Conakry · GN",
+    "dakar": "Dakar",
+    "abidjan": "Abidjan",
+    "cotonou": "Cotonou"
+   }
+  },
+  "mq1": [
+   "Voitures vérifiées",
+   "Prix total sans surprise",
+   "Vidéo à votre nom",
+   "Paiement sécurisé",
+   "Suivi du bateau"
+  ],
+  "mq2": [
+   "Hyundai",
+   "Kia",
+   "Genesis",
+   "Toyota",
+   "SUV",
+   "Berlines",
+   "Utilitaires",
+   "Minibus"
+  ],
+  "man": {
+   "pill": "La différence KBA",
+   "h": "Ailleurs, on paie sur une photo.<br><span class=\"accent\">Chez KBA, sur des preuves.</span>",
+   "text": "On vous demande d'envoyer des milliers de dollars à un inconnu, sur une simple photo. Chez KBA, vous ne payez jamais sans preuve : la voiture filmée à votre nom, son historique officiel coréen traduit en français, et le document du bateau à votre nom, avec le lien pour suivre votre voiture jusqu'au port.",
+   "hl": [
+    "preuve",
+    "nom,",
+    "officiel",
+    "français,",
+    "bateau",
+    "suivre"
+   ],
+   "a": "Désiré · Incheon, Corée du Sud",
+   "b": "Rémi · Conakry, Guinée",
+   "before": "Avant KBA",
+   "after": "Avec KBA",
+   "demo": "Scène de démonstration",
+   "sName": "Auto Deals 🔥",
+   "sSub": "en ligne",
+   "kName": "KBA · Korea Business Auto",
+   "kSub": "Compte professionnel vérifié",
+   "chatA": [
+    [
+     "in",
+     "photo",
+     "Toyota RAV4 2019, 6 500 $ seulement 🔥"
+    ],
+    [
+     "out",
+     "",
+     "Je peux voir la voiture en vidéo ?"
+    ],
+    [
+     "in",
+     "",
+     "Pas le temps frère, un autre client attend. Envoie 50 % par Western Union aujourd'hui."
+    ],
+    [
+     "out",
+     "",
+     "Vous avez une facture ? Le numéro de châssis ?"
+    ],
+    [
+     "in",
+     "",
+     "Fais-moi confiance 🙏"
+    ],
+    [
+     "sys",
+     "",
+     "⚠️ Ce compte n'existe plus · 3 250 $ perdus"
+    ]
+   ],
+   "chatB": [
+    [
+     "in",
+     "video",
+     "Votre vidéo : Kia Sportage 2022, filmée avec votre nom et la date."
+    ],
+    [
+     "in",
+     "doc",
+     "Historique officiel CarHistory, traduit en français"
+    ],
+    [
+     "in",
+     "doc",
+     "Facture KBA à votre nom · paiement sur le compte de l'entreprise"
+    ],
+    [
+     "out",
+     "",
+     "1er paiement fait ✅"
+    ],
+    [
+     "in",
+     "ship",
+     "À bord ! B/L à votre nom + lien pour suivre le navire"
+    ],
+    [
+     "in",
+     "",
+     "🔑 Votre voiture est à Conakry. Clés en main !"
+    ]
+   ],
+   "sheet": "M. DIALLO · 15/11 · VIN …4821",
+   "track": [
+    "Incheon",
+    "Conakry"
+   ],
+   "follow": "Suivre le navire"
+  },
+  "stats": [
+   "de frais cachés. Un prix clés en main, payé à KBA uniquement.",
+   "étapes, et une preuve à chacune, de la Corée jusqu'à la remise des clés en main.",
+   "Paiement en deux tranches, uniquement sur le compte de l'entreprise KBA.",
+   "pour vous répondre sur WhatsApp, du lundi au samedi."
+  ],
+  "statsK": [
+   "Frais cachés",
+   "Étapes vérifiées",
+   "Paiement",
+   "Réponse"
+  ],
+  "arr": {
+   "pill": "Arrivages",
+   "h2": "Choisies en Corée.<br><span class=\"outline\">Vérifiées pour vous.</span>",
+   "lead": "Chaque voiture a un numéro KBA, un dossier complet et un <strong>prix total jusqu'au port de Conakry</strong>. Cliquez pour ouvrir le dossier.",
+   "note": "",
+   "types": {
+    "all": "Toutes",
+    "suv": "SUV",
+    "berline": "Berlines",
+    "compacte": "Compactes",
+    "citadine": "Citadines",
+    "utilitaire": "Utilitaires",
+    "minibus": "Minibus"
+   },
+   "status": {
+    "dispo": "Disponible en Corée",
+    "res": "Réservée",
+    "route": "En route"
+   },
+   "ex": "En vente",
+   "photos": "photos",
+   "vids": "vidéos",
+   "onRequest": "Prix sur demande",
+   "open": "Dossier",
+   "total": "Total rendu port",
+   "ok": "Dossier vérifié",
+   "pending": "Photos du parc en cours de réception",
+   "fuel": {
+    "Essence": "Essence",
+    "Diesel": "Diesel",
+    "Hybride": "Hybride"
+   },
+   "box": {
+    "Automatique": "Automatique",
+    "Manuelle": "Manuelle"
+   }
+  },
+  "dw": {
+   "aria": "Dossier de la voiture",
+   "priceTitle": "Prix total rendu port de Conakry",
+   "car": "Prix de la voiture en Corée",
+   "ship": "Transport maritime",
+   "ins": "Assurance transport",
+   "cus": "Douane, port et transitaire",
+   "payTitle": "Un seul interlocuteur : KBA. Paiement en 2 tranches.",
+   "pay1": "1. 1re tranche {a}, après la vidéo à votre nom",
+   "pay2": "2. 2e tranche {b}, quand vous recevez le B/L à votre nom",
+   "pay3": "KBA règle lui-même la douane, le port et le transitaire.",
+   "reserve": "Réserver sur WhatsApp",
+   "video": "Demander une vidéo à mon nom",
+   "engine": "Moteur",
+   "seats": "Places",
+   "box": "Boîte",
+   "wheel": "Volant",
+   "left": "À gauche",
+   "equip": "Équipements",
+   "defects": "Défauts signalés",
+   "note": "<b>Voiture d'exemple.</b> Cette fiche montre comment chaque voiture est présentée. Le dossier complet (carte grise, inspection, CarHistory, vidéo) est envoyé sur WhatsApp avant tout paiement.",
+   "photo": "Photo",
+   "cusQuote": "Réglés par KBA · inclus dans votre devis",
+   "videos": "Vidéos de la voiture",
+   "priceSoon": "Écrivez-nous : prix total envoyé sous 24 h",
+   "tbc": "à confirmer",
+   "noteReal": "<b>Voiture réelle, disponible au parc.</b> Le dossier complet (carte grise, inspection, CarHistory, vidéo à votre nom) vous est envoyé sur WhatsApp avant tout paiement."
+  },
+  "jr": {
+   "pill": "Le parcours",
+   "h2": "10 étapes.<br><span class=\"accent\">10 preuves.</span>",
+   "lead": "Vous ne payez jamais « dans le vide ». Chaque paiement est précédé d'une preuve que vous vérifiez vous-même.",
+   "payTag": "Paiement",
+   "steps": [
+    [
+     "Le choix",
+     "Vous choisissez une voiture. Vous recevez sa fiche complète et un devis jusqu'au port.",
+     "Fiche + devis détaillé"
+    ],
+    [
+     "La vérification",
+     "Nous reconfirmons qu'elle est disponible, puis nous la filmons avec une feuille de papier où sont écrits votre nom, la date du jour et son numéro de châssis.",
+     "Vidéo à votre nom"
+    ],
+    [
+     "Le contrat",
+     "Bon de commande et facture KBA à votre nom : prix, délais, remboursement.",
+     "Contrat en français"
+    ],
+    [
+     "1re tranche · 50 %",
+     "Vous payez chez KBA, par virement sur le compte de l'entreprise. C'est le seul compte sur lequel vous payez, jusqu'aux clés.",
+     "Reçu officiel KBA"
+    ],
+    [
+     "La radiation",
+     "En suivant vos instructions, KBA fait radier votre voiture au parc (elle est retirée du registre coréen, c'est obligatoire pour l'export) et prépare les papiers d'export.",
+     "Certificat de radiation"
+    ],
+    [
+     "L'embarquement",
+     "La voiture monte à bord du bateau. Le connaissement (B/L), le document officiel du transport, porte votre nom. KBA vous envoie le lien pour suivre votre voiture jusqu'au port.",
+     "B/L + lien de suivi"
+    ],
+    [
+     "2e tranche · solde 50 %",
+     "À payer quand vous avez reçu le B/L à votre nom et le lien de suivi. Vous vérifiez le B/L sur le site de la compagnie maritime, puis vous payez le solde chez KBA. Plus rien d'autre à payer.",
+     "Reçu + B/L original"
+    ],
+    [
+     "Le voyage",
+     "Vous suivez le navire en direct grâce au lien de la compagnie maritime. Nous vous écrivons aussi à chaque étape pour vous tenir informé.",
+     "Lien de suivi du navire"
+    ],
+    [
+     "L'arrivée",
+     "Au port, KBA s'occupe de tout : douane, frais de port et transitaire. Vous n'avez rien de plus à payer. Vous inspectez la voiture avec nous.",
+     "Reçus de douane remis"
+    ],
+    [
+     "Les clés en main",
+     "Remise des clés à Conakry, avec tous les papiers pour immatriculer la voiture.",
+     "Dossier complet à votre nom"
+    ]
+   ]
+  },
+  "dos": {
+   "pill": "Le dossier",
+   "h2": "Avant de payer,<br><span class=\"accent\">vous savez tout.</span>",
+   "photoAlt": "Kia Sportage 2022 blanc, vue avant",
+   "tag": "Dossier KBA-0002",
+   "ex": "En vente",
+   "items": [
+    "Numéro de châssis vérifié",
+    "Historique officiel CarHistory",
+    "Rapport d'inspection du parc",
+    "Vidéo à votre nom"
+   ],
+   "wait": "En cours",
+   "done": "Vérifié",
+   "total": "Total rendu Conakry",
+   "steps": [
+    [
+     "Vérification 01",
+     "Le même numéro de châssis, partout.",
+     "Le VIN (de l'anglais Vehicle Identification Number : numéro d'identification du véhicule) est la carte d'identité de la voiture : 17 lettres et chiffres gravés sur le châssis. Il doit être identique sur la carte grise coréenne, le rapport d'inspection, la vidéo, le certificat d'export et le document du bateau. Un seul chiffre différent : on arrête tout."
+    ],
+    [
+     "Vérification 02",
+     "Son historique officiel coréen.",
+     "Le rapport CarHistory de l'organisme des assurances coréennes montre les accidents déclarés, les inondations et les changements de propriétaire. Nous vous le traduisons."
+    ],
+    [
+     "Vérification 03",
+     "Le rapport d'inspection, et les défauts.",
+     "Moteur, boîte, carrosserie, pièces changées : tout est écrit. Et chaque défaut est photographié. Une occasion sans défaut n'existe pas ; ce qui compte, c'est de le savoir avant."
+    ],
+    [
+     "Vérification 04",
+     "Une vidéo, à votre nom.",
+     "Avant votre premier paiement, nous filmons la voiture avec une feuille de papier posée dessus, où sont écrits à la main votre nom, la date du jour et son numéro de châssis. On voit le moteur démarrer et le compteur allumé. Une photo copiée sur Internet ne peut pas faire ça."
+    ]
+   ]
+  },
+  "pr": {
+   "pick": "Choisissez une voiture",
+   "est": "Prix indicatif hors commission KBA et hors douane : votre devis écrit donne le prix final tout compris, clés en main, avant le premier paiement.",
+   "pill": "Le prix",
+   "h2": "Le prix affiché.<br><span class=\"outline\">Le prix payé.</span>",
+   "lead": "Un seul prix, un seul interlocuteur. La voiture, le bateau et l'assurance, puis la douane, le port et le transitaire réglés par KBA : vous payez tout chez KBA, en deux tranches. Le prix de la voiture est bloqué dès la 1re tranche.",
+   "cap": "KBA-0002 · Kia Sportage 1.6 T-GDi 2022",
+   "rows": [
+    "Prix de la voiture en Corée",
+    "Transport en bateau",
+    "Assurance transport",
+    "Voiture + transport jusqu'à Conakry",
+    "Douane, port et transitaire : réglés par KBA et ajoutés à votre devis tout compris (selon votre pays)"
+   ],
+   "of": "du total",
+   "center": "Prix total",
+   "note": "Exemple réel"
+  },
+  "mo": {
+   "pill": "Votre argent",
+   "h2": "Un seul compte.<br><span class=\"accent\">Celui de l'entreprise.</span>",
+   "lead": "Vous ne payez qu'à un seul endroit : KBA, sur le compte bancaire de l'entreprise, en deux tranches, avec une facture à votre nom. KBA règle ensuite tout lui-même : le parc, le bateau, la douane, le port et le transitaire, jusqu'aux clés en main.",
+   "me": [
+    "Vous",
+    "Le client",
+    "Paiement en 2 tranches"
+   ],
+   "kba": [
+    "Un seul paiement · 50 % + 50 %",
+    "KBA, compte de l'entreprise",
+    "Prix tout compris · facture à votre nom"
+   ],
+   "tr": [
+    "KBA s'occupe de tout",
+    "Parc · bateau · douane",
+    "Port · transitaire · clés"
+   ],
+   "p1": "Virement",
+   "p2": "KBA règle",
+   "bad": "Jamais sur un compte personnel ni par Western Union",
+   "mob": [
+    [
+     "Vous payez en 2 tranches",
+     "Chez KBA, sur le compte de l'entreprise · 50 % + 50 %"
+    ],
+    [
+     "KBA s'occupe de tout",
+     "Le parc, le bateau, la douane, le port et le transitaire. Rien d'autre à payer."
+    ],
+    [
+     "Jamais",
+     "Compte personnel · Western Union"
+    ]
+   ],
+   "pts": [
+    [
+     "Vérifiable",
+     "KBA est une entreprise enregistrée, avec un bureau à Conakry et une équipe à Incheon."
+    ],
+    [
+     "Traçable",
+     "Uniquement par virement bancaire, avec une facture et un reçu à votre nom."
+    ],
+    [
+     "Remboursable",
+     "Si la voiture ne peut pas partir, le contrat prévoit un remboursement à 100 %."
+    ]
+   ]
+  },
+  "ve": {
+   "pill": "Vérifiez-nous",
+   "h2": "Ne nous croyez pas.<br><span class=\"accent\">Vérifiez.</span>",
+   "lead": "Six vérifications à faire vous-même, avant d'envoyer le moindre franc. À nous, comme à n'importe qui.",
+   "checks": [
+    [
+     "L'entreprise KBA",
+     "Demandez notre numéro d'immatriculation (RCCM) et venez au bureau. Une vraie entreprise se vérifie."
+    ],
+    [
+     "Le même numéro de châssis",
+     "Identique sur la carte grise, l'inspection, la vidéo, le certificat d'export et le B/L."
+    ],
+    [
+     "Une vidéo à votre nom",
+     "Une feuille avec votre nom, la date et le numéro de châssis, filmée sur la voiture, moteur allumé. Avant tout paiement."
+    ],
+    [
+     "Le B/L, vérifié par vous",
+     "Le solde se paie après votre vérification sur le site officiel de la compagnie maritime."
+    ],
+    [
+     "Le compte de l'entreprise",
+     "Vous payez chez KBA, sur le compte au nom de l'entreprise. Jamais par Western Union, jamais à une personne."
+    ],
+    [
+     "Rencontrez-nous",
+     "Au bureau de Conakry, ou en appel vidéo depuis le parc en Corée. Une vraie entreprise montre son visage."
+    ]
+   ],
+   "scamPill": "Signaux d'arnaque",
+   "scamH": "Arrêtez tout si vous voyez ça.",
+   "scam": [
+    "Un prix très en dessous du marché",
+    "Pas de numéro de châssis avant de payer",
+    "Refus d'un appel vidéo",
+    "Paiement sur un compte personnel",
+    "« Payez aujourd'hui, un autre client attend »",
+    "Un numéro de compte qui change en route"
+   ]
+  },
+  "co": {
+   "pill": "Pays livrés",
+   "h2": "Conakry d'abord.<br><span class=\"outline\">Toute l'Afrique ensuite.</span>",
+   "lead": "Avant de vous proposer une voiture, nous vérifions la limite d'âge et les règles de votre pays. Les voitures coréennes ont toutes le volant à gauche.",
+   "age": "Âge max.",
+   "port": "Arrivée",
+   "delay": "Délai",
+   "list": [
+    [
+     "GN",
+     "Guinée",
+     "13 ans",
+     "Port de Conakry",
+     "45 – 70 jours"
+    ],
+    [
+     "SN",
+     "Sénégal",
+     "10 ans",
+     "Port de Dakar",
+     "45 – 70 jours"
+    ],
+    [
+     "ML",
+     "Mali",
+     "À confirmer",
+     "Via Conakry ou Dakar",
+     "55 – 85 jours"
+    ],
+    [
+     "CI",
+     "Côte d'Ivoire",
+     "5 ans",
+     "Port d'Abidjan",
+     "50 – 75 jours"
+    ],
+    [
+     "TG · BJ",
+     "Togo · Bénin",
+     "Libre · 10 ans",
+     "Lomé · Cotonou",
+     "45 – 65 jours"
+    ],
+    [
+     "EU",
+     "Diaspora",
+     "Selon le pays",
+     "Remise à votre famille",
+     "Suivi WhatsApp"
+    ]
+   ]
+  },
+  "cu": {
+   "pill": "Sur mesure",
+   "h2": "Votre modèle<br>n'est pas là ?",
+   "lead": "Nos parcs partenaires ont des centaines d'autres voitures. Décrivez la vôtre : notre équipe à Incheon la cherche et vous répond sous 24 à 48 heures, avec photos et prix total.",
+   "brand": "Marque",
+   "model": "Modèle",
+   "budget": "Budget total",
+   "year": "Année minimum",
+   "to": "Livraison",
+   "name": "Votre nom",
+   "phBrand": "Hyundai, Kia, Toyota…",
+   "phModel": "Tucson, Sportage…",
+   "phBudget": "15 000 $",
+   "send": "Envoyer ma demande",
+   "ready": "Votre demande est prête.",
+   "open": "Ouvrir WhatsApp",
+   "opts": [
+    "Guinée",
+    "Sénégal",
+    "Mali",
+    "Côte d'Ivoire",
+    "Togo / Bénin",
+    "Autre"
+   ]
+  },
+  "fq": {
+   "pill": "Questions",
+   "h2": "Vos questions.<br><span class=\"accent\">Nos réponses.</span>",
+   "list": [
+    [
+     "Comment savoir que vous n'êtes pas une arnaque ?",
+     "Ne nous croyez pas sur parole : vérifiez. Vous recevez une vidéo de la voiture à votre nom, son historique officiel, et vous vérifiez vous-même le B/L. Vous payez uniquement le compte de l'entreprise KBA, jamais une personne. Et vous pouvez nous rencontrer à Conakry."
+    ],
+    [
+     "À qui j'envoie l'argent ?",
+     "Uniquement à KBA, par virement sur le compte bancaire de l'entreprise, en deux tranches, avec une facture à votre nom. KBA règle ensuite lui-même le parc, le bateau, la douane, le port et le transitaire. Vous n'avez personne d'autre à payer."
+    ],
+    [
+     "Le prix comprend quoi ?",
+     "Votre devis tout compris contient la voiture, le transport en bateau, l'assurance, la douane, les frais de port et le transitaire. Vous payez ce montant à KBA en deux tranches, et rien d'autre ne s'ajoute à l'arrivée."
+    ],
+    [
+     "Combien de temps pour recevoir ma voiture ?",
+     "En général 45 à 70 jours entre l'acompte et les clés pour Conakry, selon les départs de bateaux. Vous recevez les dates prévues dès la commande, et le suivi du navire en direct."
+    ],
+    [
+     "La voiture a-t-elle eu un accident ?",
+     "Vous recevez son historique officiel coréen (CarHistory), traduit, avant de payer. Il montre les sinistres déclarés à l'assurance et les inondations."
+    ],
+    [
+     "Je vis en Europe : qui récupère la voiture ?",
+     "La personne que vous désignez par écrit, accompagnée par notre équipe à Conakry. Vous suivez tout sur WhatsApp, avec photos et suivi du bateau."
+    ]
+   ]
+  },
+  "fi": {
+   "pill": "Passez à l'action",
+   "h2": "Votre voiture<br><span class=\"accent\">vous attend</span><br>à Incheon.",
+   "lead": "Écrivez-nous ce que vous cherchez. Vous recevez des voitures vérifiées, avec le prix total jusqu'à Conakry, en moins de 2 heures.",
+   "cta": "Écrire sur WhatsApp",
+   "about": "Voitures coréennes sélectionnées au parc, vérifiées et livrées clés en main en Afrique.",
+   "buy": "Acheter",
+   "trust": "Confiance",
+   "contact": "Contact",
+   "custom": "Sur mesure",
+   "money": "Votre argent",
+   "gn": "Conakry, Guinée",
+   "kr": "Incheon, Corée du Sud",
+   "rccm": "RCCM : en cours d'immatriculation",
+   "tag": "De la Corée en Afrique",
+   "offices": "Nos bureaux",
+   "more": "Découvrir"
+  },
+  "brand": {
+   "pill": "La maison KBA",
+   "h": "Sélectionnées en Corée.<br><span class=\"accent\">Préparées pour l'Afrique.</span>",
+   "lead": "Korea Business Auto est née d'une conviction simple : une voiture coréenne de qualité doit pouvoir arriver en Afrique sans mauvaise surprise. Nous choisissons chaque véhicule au parc, nous le contrôlons, nous l'expédions et nous vous remettons les clés.",
+   "pillars": [
+    [
+     "Sélection",
+     "Chaque voiture est choisie à la main par notre équipe d'Incheon, parc par parc. Celles qui ne passent pas nos contrôles ne sont jamais proposées."
+    ],
+    [
+     "Transparence",
+     "Dossier complet, défauts photographiés, vidéo à votre nom, document du bateau à votre nom. Vous voyez tout avant de payer."
+    ],
+    [
+     "Clés en main",
+     "Achat, export, bateau, douane, port, transitaire : KBA s'occupe de tout. Vous payez un seul interlocuteur, et vous recevez vos clés."
+    ]
+   ],
+   "founders": [
+    [
+     "D",
+     "Désiré",
+     "Incheon, Corée du Sud",
+     "Je choisis chaque voiture comme si c'était pour ma famille."
+    ],
+    [
+     "R",
+     "Rémi",
+     "Conakry, Guinée",
+     "Je vous accompagne jusqu'au jour où vous prenez le volant."
+    ]
+   ],
+   "cta1": "Découvrir les arrivages",
+   "cta2": "Notre méthode"
+  },
+  "pg": {
+   "arrivages": [
+    "Arrivages",
+    "Nos voitures,<br><span class=\"accent\">prêtes à partir.</span>",
+    "Chaque voiture a son dossier, ses photos réelles, ses défauts écrits et son prix. Choisissez, nous nous occupons du reste."
+   ],
+   "parcours": [
+    "Le parcours",
+    "De la Corée<br><span class=\"accent\">à vos clés.</span>",
+    "10 étapes, une preuve à chacune. Voici exactement comment votre voiture voyage, et ce que vous recevez à chaque moment."
+   ],
+   "prix": [
+    "Le prix",
+    "Un seul prix.<br><span class=\"accent\">Un seul compte.</span>",
+    "Le détail de chaque dollar, et pourquoi vous ne payez qu'à KBA."
+   ],
+   "verifiez": [
+    "Vérifiez-nous",
+    "Ne nous croyez pas.<br><span class=\"accent\">Vérifiez.</span>",
+    "Les preuves que nous vous donnons, et les signaux qui doivent vous faire tout arrêter, chez nous comme ailleurs."
+   ],
+   "pays": [
+    "Pays livrés",
+    "De la Corée<br><span class=\"accent\">en Afrique.</span>",
+    "Limite d'âge, port d'arrivée, délai : ce qu'il faut savoir pour votre pays."
+   ],
+   "questions": [
+    "Questions",
+    "Vos questions.<br><span class=\"accent\">Nos réponses.</span>",
+    "Tout ce qu'on nous demande le plus souvent, en clair."
+   ]
   }
+ },
+ "en": {
+  "meta": {
+   "title": "Korea Business Auto · Selected Korean cars, delivered keys in hand across Africa",
+   "desc": "Korean cars chosen at the dealer, filmed with your name before any payment and delivered keys in hand anywhere in Africa. One partner, one account: KBA."
+  },
+  "nav": {
+   "arrivals": "Cars",
+   "journey": "The process",
+   "price": "Pricing",
+   "verify": "Verify us",
+   "countries": "Countries",
+   "faq": "FAQ",
+   "home": "Home"
+  },
+  "ui": {
+   "wa": "WhatsApp",
+   "waLong": "Message us on WhatsApp",
+   "theme": "Switch theme",
+   "lang": "Language",
+   "cur": "Currency",
+   "menu": "Open menu",
+   "close": "Close",
+   "top": "Back to top",
+   "main": "Main currencies",
+   "all": "All currencies",
+   "rates": "Indicative rates as of",
+   "prev": "Previous",
+   "next": "Next"
+  },
+  "wa": {
+   "info": "Hello KBA, I would like some information about your cars.",
+   "find": "Hello KBA, I am looking for a car.",
+   "ready": "Hello KBA, I am ready to order a car.",
+   "hello": "Hello KBA, I have a question.",
+   "reserve": "Hello KBA, I am interested in the {car} (ref. {ref}). Is it still available?",
+   "video": "Hello KBA, could you send me a video in my name of the {car} (ref. {ref})? My name: ",
+   "form": "Hello KBA, I am looking for a car:",
+   "formYear": "Minimum year",
+   "formBudget": "Total budget",
+   "formTo": "Delivery",
+   "formName": "My name"
+  },
+  "hero": {
+   "kicker": "Korea Business Auto · From Korea to Africa",
+   "l1": "See it.",
+   "l2": "Check it.",
+   "l3": "Get it.",
+   "lead": "Choose your car in Korea. Before you pay, you see it filmed with your name. You pay into the company account, never to a stranger, and you get the keys in hand in Conakry or in your country.",
+   "cta1": "See the cars",
+   "cta2": "Talk to an advisor",
+   "live": "Live tracking",
+   "demo": "Demo",
+   "day": "Day",
+   "pos": "Position",
+   "dayPrefix": "D+",
+   "legs": [
+    "Port of Incheon",
+    "China Sea",
+    "Singapore",
+    "Indian Ocean",
+    "Off Madagascar",
+    "Cape of Good Hope",
+    "Gulf of Guinea",
+    "Port of Conakry"
+   ],
+   "marks": [
+    "Incheon",
+    "Singapore",
+    "Cape Town",
+    "Conakry"
+   ],
+   "ports": {
+    "incheon": "Incheon · KR",
+    "singapour": "Singapore",
+    "cap": "Cape Town",
+    "conakry": "Conakry · GN",
+    "dakar": "Dakar",
+    "abidjan": "Abidjan",
+    "cotonou": "Cotonou"
+   }
+  },
+  "mq1": [
+   "Verified cars",
+   "Full price, no surprises",
+   "A video in your name",
+   "Secure payment",
+   "Ship tracking"
+  ],
+  "mq2": [
+   "Hyundai",
+   "Kia",
+   "Genesis",
+   "Toyota",
+   "SUVs",
+   "Sedans",
+   "Utility",
+   "Minibuses"
+  ],
+  "man": {
+   "pill": "The KBA difference",
+   "h": "Elsewhere, people pay for a photo.<br><span class=\"accent\">At KBA, you pay for proof.</span>",
+   "text": "People ask you to send thousands of dollars to a stranger, based on a single photo. At KBA, you never pay without proof: the car filmed with your name, its official Korean history translated for you, and the shipping document in your name, with the link to follow your car to the port.",
+   "hl": [
+    "proof:",
+    "name,",
+    "official",
+    "you,",
+    "shipping",
+    "follow"
+   ],
+   "a": "Désiré · Incheon, South Korea",
+   "b": "Rémi · Conakry, Guinea",
+   "before": "Before KBA",
+   "after": "With KBA",
+   "demo": "Demo scene",
+   "sName": "Auto Deals 🔥",
+   "sSub": "online",
+   "kName": "KBA · Korea Business Auto",
+   "kSub": "Verified business account",
+   "chatA": [
+    [
+     "in",
+     "photo",
+     "Toyota RAV4 2019, only $6,500 🔥"
+    ],
+    [
+     "out",
+     "",
+     "Can I see the car on video?"
+    ],
+    [
+     "in",
+     "",
+     "No time bro, another buyer is waiting. Send 50% by Western Union today."
+    ],
+    [
+     "out",
+     "",
+     "Do you have an invoice? The chassis number?"
+    ],
+    [
+     "in",
+     "",
+     "Just trust me 🙏"
+    ],
+    [
+     "sys",
+     "",
+     "⚠️ This account no longer exists · $3,250 lost"
+    ]
+   ],
+   "chatB": [
+    [
+     "in",
+     "video",
+     "Your video: 2022 Kia Sportage, filmed with your name and the date."
+    ],
+    [
+     "in",
+     "doc",
+     "Official CarHistory report, translated"
+    ],
+    [
+     "in",
+     "doc",
+     "KBA invoice in your name · payment to the company account"
+    ],
+    [
+     "out",
+     "",
+     "1st payment done ✅"
+    ],
+    [
+     "in",
+     "ship",
+     "On board! B/L in your name + link to follow the ship"
+    ],
+    [
+     "in",
+     "",
+     "🔑 Your car is in Conakry. Keys in hand!"
+    ]
+   ],
+   "sheet": "MR DIALLO · 11/15 · VIN …4821",
+   "track": [
+    "Incheon",
+    "Conakry"
+   ],
+   "follow": "Track the ship"
+  },
+  "stats": [
+   "hidden fees. A keys-in-hand price, paid to KBA only.",
+   "steps, each with a proof, from Korea to the keys in your hand.",
+   "Two instalments, only to KBA's company bank account.",
+   "to reply on WhatsApp, Monday to Saturday."
+  ],
+  "statsK": [
+   "Hidden fees",
+   "Verified steps",
+   "Payment",
+   "Reply time"
+  ],
+  "arr": {
+   "pill": "Cars",
+   "h2": "Chosen in Korea.<br><span class=\"outline\">Verified for you.</span>",
+   "lead": "Every car has a KBA number, a complete file and a <strong>full price delivered to the port of Conakry</strong>. Click to open the file.",
+   "note": "",
+   "types": {
+    "all": "All",
+    "suv": "SUVs",
+    "berline": "Sedans",
+    "compacte": "Hatchbacks",
+    "citadine": "City cars",
+    "utilitaire": "Utility",
+    "minibus": "Minibuses"
+   },
+   "status": {
+    "dispo": "Available in Korea",
+    "res": "Reserved",
+    "route": "On its way"
+   },
+   "ex": "For sale",
+   "photos": "photos",
+   "vids": "videos",
+   "onRequest": "Price on request",
+   "open": "File",
+   "total": "Delivered to port",
+   "ok": "Verified file",
+   "pending": "Dealer photos on the way",
+   "fuel": {
+    "Essence": "Petrol",
+    "Diesel": "Diesel",
+    "Hybride": "Hybrid"
+   },
+   "box": {
+    "Automatique": "Automatic",
+    "Manuelle": "Manual"
+   }
+  },
+  "dw": {
+   "aria": "Car file",
+   "priceTitle": "Full price delivered to the port of Conakry",
+   "car": "Car price in Korea",
+   "ship": "Sea freight",
+   "ins": "Transport insurance",
+   "cus": "Customs, port and clearing agent",
+   "payTitle": "One partner: KBA. Payment in 2 instalments.",
+   "pay1": "1. 1st instalment {a}, after the video in your name",
+   "pay2": "2. 2nd instalment {b}, when you receive the B/L in your name",
+   "pay3": "KBA itself pays customs, port fees and the clearing agent.",
+   "reserve": "Reserve on WhatsApp",
+   "video": "Ask for a video in my name",
+   "engine": "Engine",
+   "seats": "Seats",
+   "box": "Gearbox",
+   "wheel": "Steering",
+   "left": "Left-hand drive",
+   "equip": "Equipment",
+   "defects": "Reported defects",
+   "note": "<b>Sample car.</b> This file shows how each car is presented. The complete file (registration, inspection, CarHistory, video) is sent on WhatsApp before any payment.",
+   "photo": "Photo",
+   "cusQuote": "Paid by KBA · included in your quote",
+   "videos": "Car videos",
+   "priceSoon": "Message us: full price sent within 24 h",
+   "tbc": "to be confirmed",
+   "noteReal": "<b>Real car, available at the dealer.</b> The complete file (registration, inspection, CarHistory, video in your name) is sent to you on WhatsApp before any payment."
+  },
+  "jr": {
+   "pill": "The process",
+   "h2": "10 steps.<br><span class=\"accent\">10 proofs.</span>",
+   "lead": "You never pay blindly. Every payment comes after a proof that you check yourself.",
+   "payTag": "Payment",
+   "steps": [
+    [
+     "The choice",
+     "You choose a car. You receive its complete file and a quote to the port.",
+     "File + detailed quote"
+    ],
+    [
+     "The check",
+     "We reconfirm it is available, then film it with a sheet of paper showing your name, today's date and its chassis number.",
+     "Video in your name"
+    ],
+    [
+     "The contract",
+     "Purchase order and KBA invoice in your name: price, timing, refund terms.",
+     "Written contract"
+    ],
+    [
+     "1st instalment · 50 %",
+     "You pay KBA by bank transfer, into the company account. It is the only account you pay, all the way to the keys.",
+     "Official KBA receipt"
+    ],
+    [
+     "Deregistration",
+     "Following your instructions, KBA has your car deregistered at the dealer (removed from the Korean register, required for export) and prepares the export papers.",
+     "Deregistration certificate"
+    ],
+    [
+     "Loading",
+     "The car goes on board the ship. The bill of lading (B/L), the official transport document, is in your name. KBA sends you the link to follow your car to the port.",
+     "B/L + tracking link"
+    ],
+    [
+     "2nd instalment · balance 50 %",
+     "Paid once you have the B/L in your name and the tracking link. You check the B/L on the shipping line's website, then pay the balance to KBA. Nothing else to pay.",
+     "Receipt + original B/L"
+    ],
+    [
+     "The voyage",
+     "You follow the ship live with the shipping line's link. We also message you at every stage to keep you informed.",
+     "Ship tracking link"
+    ],
+    [
+     "Arrival",
+     "At the port, KBA handles everything: customs, port fees and the clearing agent. You have nothing more to pay. You inspect the car with us.",
+     "Customs receipts handed over"
+    ],
+    [
+     "Keys in hand",
+     "Keys handed over in Conakry, with all the papers to register the car.",
+     "Complete file in your name"
+    ]
+   ]
+  },
+  "dos": {
+   "pill": "The file",
+   "h2": "Before you pay,<br><span class=\"accent\">you know everything.</span>",
+   "photoAlt": "White 2022 Kia Sportage, front view",
+   "tag": "File KBA-0002",
+   "ex": "For sale",
+   "items": [
+    "Chassis number checked",
+    "Official CarHistory report",
+    "Dealer inspection report",
+    "Video in your name"
+   ],
+   "wait": "Pending",
+   "done": "Verified",
+   "total": "Delivered to Conakry",
+   "steps": [
+    [
+     "Check 01",
+     "The same chassis number, everywhere.",
+     "The VIN (Vehicle Identification Number) is the car's ID card: 17 letters and digits stamped on the chassis. It must match on the Korean registration, the inspection report, the video, the export certificate and the shipping document. One different digit and we stop."
+    ],
+    [
+     "Check 02",
+     "Its official Korean history.",
+     "The CarHistory report from the Korean insurance body shows declared accidents, floods and changes of owner. We translate it for you."
+    ],
+    [
+     "Check 03",
+     "The inspection report, and the defects.",
+     "Engine, gearbox, body, replaced parts: it is all written down. And every defect is photographed. No used car is perfect; what matters is knowing beforehand."
+    ],
+    [
+     "Check 04",
+     "A video, in your name.",
+     "Before your first payment, we film the car with a sheet of paper placed on it, handwritten with your name, today's date and its chassis number. You see the engine start and the dashboard on. A photo copied from the internet can't do that."
+    ]
+   ]
+  },
+  "pr": {
+   "pick": "Choose a car",
+   "est": "Indicative price excluding KBA's fee and customs: your written quote gives the final all-in, keys-in-hand price before the first payment.",
+   "pill": "Pricing",
+   "h2": "The price shown.<br><span class=\"outline\">The price paid.</span>",
+   "lead": "One price, one partner. The car, shipping and insurance, then customs, port and clearing agent paid by KBA: you pay everything to KBA, in two instalments. The car's price is locked from the 1st instalment.",
+   "cap": "KBA-0002 · Kia Sportage 1.6 T-GDi 2022",
+   "rows": [
+    "Car price in Korea",
+    "Shipping",
+    "Transport insurance",
+    "Car + transport to Conakry",
+    "Customs, port and clearing agent: paid by KBA and added to your all-in quote (depends on your country)"
+   ],
+   "of": "of the total",
+   "center": "Total price",
+   "note": "Real example"
+  },
+  "mo": {
+   "pill": "Your money",
+   "h2": "One account.<br><span class=\"accent\">The company's.</span>",
+   "lead": "You pay in one place only: KBA, into the company bank account, in two instalments, with an invoice in your name. KBA then pays everything itself: the dealer, the ship, customs, the port and the clearing agent, all the way to your keys.",
+   "me": [
+    "You",
+    "The customer",
+    "Payment in 2 instalments"
+   ],
+   "kba": [
+    "One payment · 50 % + 50 %",
+    "KBA, company account",
+    "All-in price · invoice in your name"
+   ],
+   "tr": [
+    "KBA handles everything",
+    "Dealer · ship · customs",
+    "Port · clearing · keys"
+   ],
+   "p1": "Bank transfer",
+   "p2": "KBA pays",
+   "bad": "Never to a personal account or by Western Union",
+   "mob": [
+    [
+     "You pay in 2 instalments",
+     "To KBA, company account · 50 % + 50 %"
+    ],
+    [
+     "KBA handles everything",
+     "The dealer, the ship, customs, the port and the clearing agent. Nothing else to pay."
+    ],
+    [
+     "Never",
+     "Personal account · Western Union"
+    ]
+   ],
+   "pts": [
+    [
+     "Verifiable",
+     "KBA is a registered company, with an office in Conakry and a team in Incheon."
+    ],
+    [
+     "Traceable",
+     "Bank transfer only, with an invoice and a receipt in your name."
+    ],
+    [
+     "Refundable",
+     "If the car cannot ship, the contract provides a 100 % refund."
+    ]
+   ]
+  },
+  "ve": {
+   "pill": "Verify us",
+   "h2": "Don't believe us.<br><span class=\"accent\">Check.</span>",
+   "lead": "Six checks to do yourself before sending a single franc. To us, or to anyone.",
+   "checks": [
+    [
+     "The KBA company",
+     "Ask for our company registration number (RCCM) and visit our office. A real company can be checked."
+    ],
+    [
+     "The same chassis number",
+     "Identical on the registration, the inspection, the video, the export certificate and the B/L."
+    ],
+    [
+     "A video in your name",
+     "A sheet with your name, the date and the chassis number, filmed on the car with the engine running. Before any payment."
+    ],
+    [
+     "The B/L, checked by you",
+     "The balance is paid after you check it on the shipping line's official website."
+    ],
+    [
+     "The company account",
+     "You pay KBA, into the account in the company's name. Never Western Union, never an individual."
+    ],
+    [
+     "Meet us",
+     "At our Conakry office, or on a video call from the dealer's yard in Korea. A real company shows its face."
+    ]
+   ],
+   "scamPill": "Scam warning signs",
+   "scamH": "Stop if you see any of these.",
+   "scam": [
+    "A price far below the market",
+    "No chassis number before you pay",
+    "Refusing a video call",
+    "Payment to a personal account",
+    "\"Pay today, another buyer is waiting\"",
+    "A bank account that changes along the way"
+   ]
+  },
+  "co": {
+   "pill": "Countries",
+   "h2": "Conakry first.<br><span class=\"outline\">Then all of Africa.</span>",
+   "lead": "Before offering you a car, we check your country's age limit and rules. Korean cars are all left-hand drive.",
+   "age": "Max age",
+   "port": "Arrival",
+   "delay": "Time",
+   "list": [
+    [
+     "GN",
+     "Guinea",
+     "13 years",
+     "Port of Conakry",
+     "45 – 70 days"
+    ],
+    [
+     "SN",
+     "Senegal",
+     "10 years",
+     "Port of Dakar",
+     "45 – 70 days"
+    ],
+    [
+     "ML",
+     "Mali",
+     "To be confirmed",
+     "Via Conakry or Dakar",
+     "55 – 85 days"
+    ],
+    [
+     "CI",
+     "Côte d'Ivoire",
+     "5 years",
+     "Port of Abidjan",
+     "50 – 75 days"
+    ],
+    [
+     "TG · BJ",
+     "Togo · Benin",
+     "None · 10 years",
+     "Lomé · Cotonou",
+     "45 – 65 days"
+    ],
+    [
+     "EU",
+     "Diaspora",
+     "Depends on country",
+     "Handed to your family",
+     "WhatsApp updates"
+    ]
+   ]
+  },
+  "cu": {
+   "pill": "Made to order",
+   "h2": "Your model<br>isn't listed?",
+   "lead": "Our partner dealers have hundreds of other cars. Describe yours: our team in Incheon finds it and replies within 24 to 48 hours, with photos and the full price.",
+   "brand": "Make",
+   "model": "Model",
+   "budget": "Total budget",
+   "year": "Minimum year",
+   "to": "Delivery",
+   "name": "Your name",
+   "phBrand": "Hyundai, Kia, Toyota…",
+   "phModel": "Tucson, Sportage…",
+   "phBudget": "$15,000",
+   "send": "Send my request",
+   "ready": "Your request is ready.",
+   "open": "Open WhatsApp",
+   "opts": [
+    "Guinea",
+    "Senegal",
+    "Mali",
+    "Côte d'Ivoire",
+    "Togo / Benin",
+    "Other"
+   ]
+  },
+  "fq": {
+   "pill": "FAQ",
+   "h2": "Your questions.<br><span class=\"accent\">Our answers.</span>",
+   "list": [
+    [
+     "How do I know this isn't a scam?",
+     "Don't take our word for it: check. You receive a video of the car in your name, its official history, and you check the B/L yourself. You only ever pay KBA's company account, never an individual. And you can meet us in Conakry."
+    ],
+    [
+     "Who do I send the money to?",
+     "Only to KBA, by bank transfer to the company account, in two instalments, with an invoice in your name. KBA then pays the dealer, the ship, customs, the port and the clearing agent itself. There is nobody else to pay."
+    ],
+    [
+     "What does the price include?",
+     "Your all-in quote covers the car, shipping, insurance, customs, port fees and the clearing agent. You pay that amount to KBA in two instalments, and nothing is added on arrival."
+    ],
+    [
+     "How long until I get my car?",
+     "Usually 45 to 70 days from deposit to keys for Conakry, depending on sailings. You get the expected dates when you order, and live ship tracking."
+    ],
+    [
+     "Has the car been in an accident?",
+     "You receive its official Korean history (CarHistory), translated, before you pay. It shows insurance claims and floods."
+    ],
+    [
+     "I live in Europe: who collects the car?",
+     "The person you name in writing, accompanied by our team in Conakry. You follow everything on WhatsApp, with photos and ship tracking."
+    ]
+   ]
+  },
+  "fi": {
+   "pill": "Take action",
+   "h2": "Your car<br><span class=\"accent\">is waiting</span><br>in Incheon.",
+   "lead": "Tell us what you are looking for. You receive verified cars, with the full price to Conakry, in under 2 hours.",
+   "cta": "Message us on WhatsApp",
+   "about": "Korean cars selected at the dealer, verified and delivered keys in hand across Africa.",
+   "buy": "Buy",
+   "trust": "Trust",
+   "contact": "Contact",
+   "custom": "Made to order",
+   "money": "Your money",
+   "gn": "Conakry, Guinea",
+   "kr": "Incheon, South Korea",
+   "rccm": "RCCM: registration in progress",
+   "tag": "From Korea to Africa",
+   "offices": "Our offices",
+   "more": "Explore"
+  },
+  "brand": {
+   "pill": "The KBA house",
+   "h": "Selected in Korea.<br><span class=\"accent\">Prepared for Africa.</span>",
+   "lead": "Korea Business Auto was born from a simple belief: a quality Korean car should reach Africa without bad surprises. We choose every vehicle at the dealer, check it, ship it and hand you the keys.",
+   "pillars": [
+    [
+     "Selection",
+     "Every car is hand-picked by our Incheon team, dealer by dealer. Cars that fail our checks are never offered."
+    ],
+    [
+     "Transparency",
+     "Complete file, photographed defects, a video in your name, the shipping document in your name. You see everything before paying."
+    ],
+    [
+     "Keys in hand",
+     "Purchase, export, shipping, customs, port, clearing agent: KBA handles it all. You pay one partner, and you get your keys."
+    ]
+   ],
+   "founders": [
+    [
+     "D",
+     "Désiré",
+     "Incheon, South Korea",
+     "I choose every car as if it were for my own family."
+    ],
+    [
+     "R",
+     "Rémi",
+     "Conakry, Guinea",
+     "I stay with you until the day you take the wheel."
+    ]
+   ],
+   "cta1": "Discover the cars",
+   "cta2": "Our method"
+  },
+  "pg": {
+   "arrivages": [
+    "Cars",
+    "Our cars,<br><span class=\"accent\">ready to ship.</span>",
+    "Every car has its file, real photos, written defects and its price. You choose, we handle the rest."
+   ],
+   "parcours": [
+    "The process",
+    "From Korea<br><span class=\"accent\">to your keys.</span>",
+    "10 steps, one proof at each. Exactly how your car travels, and what you receive at every moment."
+   ],
+   "prix": [
+    "Pricing",
+    "One price.<br><span class=\"accent\">One account.</span>",
+    "Where every dollar goes, and why you only pay KBA."
+   ],
+   "verifiez": [
+    "Verify us",
+    "Don't believe us.<br><span class=\"accent\">Check.</span>",
+    "The proof we give you, and the warning signs that should make you stop, with us or anyone."
+   ],
+   "pays": [
+    "Countries",
+    "From Korea<br><span class=\"accent\">to Africa.</span>",
+    "Age limit, arrival port, timing: what you need to know for your country."
+   ],
+   "questions": [
+    "FAQ",
+    "Your questions.<br><span class=\"accent\">Our answers.</span>",
+    "Everything we are asked most often, clearly answered."
+   ]
+  }
+ },
+ "ko": {
+  "meta": {
+   "title": "Korea Business Auto · 엄선한 한국 차량, 아프리카 전역 키 인도",
+   "desc": "매매상사에서 고른 한국 차량을 결제 전에 고객님 이름과 함께 촬영해 보여드리고, 아프리카 어디든 키까지 인도합니다. 창구도 계좌도 하나, KBA."
+  },
+  "nav": {
+   "arrivals": "차량",
+   "journey": "진행 과정",
+   "price": "가격",
+   "verify": "검증하기",
+   "countries": "배송 국가",
+   "faq": "자주 묻는 질문",
+   "home": "홈"
+  },
+  "ui": {
+   "wa": "WhatsApp",
+   "waLong": "WhatsApp으로 문의하기",
+   "theme": "테마 변경",
+   "lang": "언어",
+   "cur": "통화",
+   "menu": "메뉴 열기",
+   "close": "닫기",
+   "top": "맨 위로",
+   "main": "주요 통화",
+   "all": "모든 통화",
+   "rates": "참고 환율 기준일",
+   "prev": "이전",
+   "next": "다음"
+  },
+  "wa": {
+   "info": "안녕하세요 KBA, 차량에 대해 문의드립니다.",
+   "find": "안녕하세요 KBA, 차를 찾고 있습니다.",
+   "ready": "안녕하세요 KBA, 차량을 주문하고 싶습니다.",
+   "hello": "안녕하세요 KBA, 질문이 있습니다.",
+   "reserve": "안녕하세요 KBA, {car} (번호 {ref}) 차량에 관심이 있습니다. 아직 구매 가능한가요?",
+   "video": "안녕하세요 KBA, {car} (번호 {ref}) 차량을 제 이름으로 촬영한 영상을 보내주실 수 있나요? 제 이름: ",
+   "form": "안녕하세요 KBA, 차를 찾고 있습니다:",
+   "formYear": "최소 연식",
+   "formBudget": "총 예산",
+   "formTo": "배송지",
+   "formName": "이름"
+  },
+  "hero": {
+   "kicker": "Korea Business Auto · 한국에서 아프리카로",
+   "l1": "직접 보고.",
+   "l2": "확인하고.",
+   "l3": "받으세요.",
+   "lead": "한국에서 차를 고르세요. 결제 전에 고객님 이름과 함께 촬영한 영상을 먼저 보여드립니다. 결제는 모르는 사람이 아닌 법인 계좌로만, 그리고 코나크리 또는 고객님 나라에서 키를 받으세요.",
+   "cta1": "차량 보기",
+   "cta2": "상담하기",
+   "live": "실시간 추적",
+   "demo": "데모",
+   "day": "일차",
+   "pos": "현재 위치",
+   "dayPrefix": "D+",
+   "legs": [
+    "인천항",
+    "동중국해",
+    "싱가포르",
+    "인도양",
+    "마다가스카르 앞바다",
+    "희망봉",
+    "기니만",
+    "코나크리항"
+   ],
+   "marks": [
+    "인천",
+    "싱가포르",
+    "케이프타운",
+    "코나크리"
+   ],
+   "ports": {
+    "incheon": "인천 · KR",
+    "singapour": "싱가포르",
+    "cap": "케이프타운",
+    "conakry": "코나크리 · GN",
+    "dakar": "다카르",
+    "abidjan": "아비장",
+    "cotonou": "코토누"
+   }
+  },
+  "mq1": [
+   "검증된 차량",
+   "숨은 비용 없는 총액",
+   "고객 이름이 담긴 영상",
+   "안전한 결제",
+   "선박 실시간 추적"
+  ],
+  "mq2": [
+   "Hyundai",
+   "Kia",
+   "Genesis",
+   "Toyota",
+   "SUV",
+   "세단",
+   "화물차",
+   "승합차"
+  ],
+  "man": {
+   "pill": "KBA의 차이",
+   "h": "다른 곳은 사진 한 장에 돈을 보냅니다.<br><span class=\"accent\">KBA는 증거를 보고 냅니다.</span>",
+   "text": "모르는 사람에게 사진 한 장만 보고 수천 달러를 보내라고 합니다. KBA에서는 증거 없이 결제하는 일이 없습니다. 고객님 이름으로 촬영한 차량 영상, 번역된 한국 공식 이력, 그리고 고객님 명의의 선적 서류와 항구까지 차량을 추적할 수 있는 링크.",
+   "hl": [
+    "증거",
+    "이름으로",
+    "공식",
+    "이력,",
+    "선적",
+    "링크."
+   ],
+   "a": "Désiré · 대한민국 인천",
+   "b": "Rémi · 기니 코나크리",
+   "before": "KBA 이전",
+   "after": "KBA와 함께",
+   "demo": "데모 화면",
+   "sName": "Auto Deals 🔥",
+   "sSub": "온라인",
+   "kName": "KBA · Korea Business Auto",
+   "kSub": "인증된 비즈니스 계정",
+   "chatA": [
+    [
+     "in",
+     "photo",
+     "토요타 RAV4 2019, 단돈 6,500달러 🔥"
+    ],
+    [
+     "out",
+     "",
+     "차를 영상으로 볼 수 있나요?"
+    ],
+    [
+     "in",
+     "",
+     "시간 없어요, 다른 손님이 기다려요. 오늘 Western Union으로 50% 보내세요."
+    ],
+    [
+     "out",
+     "",
+     "인보이스 있나요? 차대번호는요?"
+    ],
+    [
+     "in",
+     "",
+     "그냥 믿으세요 🙏"
+    ],
+    [
+     "sys",
+     "",
+     "⚠️ 존재하지 않는 계정 · 3,250달러 손실"
+    ]
+   ],
+   "chatB": [
+    [
+     "in",
+     "video",
+     "고객님 영상: 기아 스포티지 2022, 고객님 이름과 날짜와 함께 촬영."
+    ],
+    [
+     "in",
+     "doc",
+     "카히스토리 공식 이력, 번역본"
+    ],
+    [
+     "in",
+     "doc",
+     "고객님 명의 KBA 인보이스 · 법인 계좌 결제"
+    ],
+    [
+     "out",
+     "",
+     "1차 결제 완료 ✅"
+    ],
+    [
+     "in",
+     "ship",
+     "선적 완료! 고객님 명의 B/L + 선박 추적 링크"
+    ],
+    [
+     "in",
+     "",
+     "🔑 차량이 코나크리에 도착했습니다. 키 인도!"
+    ]
+   ],
+   "sheet": "DIALLO 님 · 11/15 · VIN …4821",
+   "track": [
+    "인천",
+    "코나크리"
+   ],
+   "follow": "선박 추적"
+  },
+  "stats": [
+   "숨은 비용. 키 인도까지의 가격, KBA에만 결제.",
+   "단계, 한국에서 키를 받을 때까지 단계마다 증거.",
+   "두 번에 나눠 KBA 법인 계좌로만 결제합니다.",
+   "시간 이내 WhatsApp 답변, 월요일부터 토요일까지."
+  ],
+  "statsK": [
+   "숨은 비용",
+   "검증 단계",
+   "결제",
+   "답변"
+  ],
+  "arr": {
+   "pill": "차량",
+   "h2": "한국에서 고르고.<br><span class=\"outline\">고객님을 위해 검증합니다.</span>",
+   "lead": "모든 차량에는 KBA 번호, 완전한 서류, 그리고 <strong>코나크리항 도착 총액</strong>이 있습니다. 클릭하면 차량 서류가 열립니다.",
+   "note": "",
+   "types": {
+    "all": "전체",
+    "suv": "SUV",
+    "berline": "세단",
+    "compacte": "해치백",
+    "citadine": "경차",
+    "utilitaire": "화물차",
+    "minibus": "승합차"
+   },
+   "status": {
+    "dispo": "한국에서 구매 가능",
+    "res": "예약됨",
+    "route": "운송 중"
+   },
+   "ex": "판매 중",
+   "photos": "장",
+   "vids": "영상",
+   "onRequest": "가격 문의",
+   "open": "서류",
+   "total": "항구 도착 총액",
+   "ok": "서류 검증 완료",
+   "pending": "매매상사 사진 준비 중",
+   "fuel": {
+    "Essence": "가솔린",
+    "Diesel": "디젤",
+    "Hybride": "하이브리드"
+   },
+   "box": {
+    "Automatique": "자동",
+    "Manuelle": "수동"
+   }
+  },
+  "dw": {
+   "aria": "차량 서류",
+   "priceTitle": "코나크리항 도착 총액",
+   "car": "한국 차량 가격",
+   "ship": "해상 운송",
+   "ins": "운송 보험",
+   "cus": "통관, 항만, 통관 대리인",
+   "payTitle": "창구는 KBA 하나. 2회 분할 결제.",
+   "pay1": "1. 1차 {a}, 고객님 이름이 담긴 영상 확인 후",
+   "pay2": "2. 2차 {b}, 고객님 명의 B/L 수령 시",
+   "pay3": "통관비, 항만 비용, 통관 대리인은 KBA가 직접 지불합니다.",
+   "reserve": "WhatsApp으로 예약하기",
+   "video": "제 이름으로 영상 요청하기",
+   "engine": "엔진",
+   "seats": "좌석",
+   "box": "변속기",
+   "wheel": "핸들",
+   "left": "좌핸들",
+   "equip": "옵션",
+   "defects": "확인된 결함",
+   "note": "<b>예시 차량입니다.</b> 각 차량이 어떻게 소개되는지 보여주는 페이지입니다. 결제 전에 모든 서류(자동차등록증, 성능점검기록부, 카히스토리, 영상)를 WhatsApp으로 보내드립니다.",
+   "photo": "사진",
+   "cusQuote": "KBA가 처리 · 견적에 포함",
+   "videos": "차량 영상",
+   "priceSoon": "문의 주시면 24시간 내 총액 안내",
+   "tbc": "확인 필요",
+   "noteReal": "<b>실제 판매 차량입니다.</b> 결제 전에 모든 서류(자동차등록증, 성능점검기록부, 카히스토리, 고객님 이름이 담긴 영상)를 WhatsApp으로 보내드립니다."
+  },
+  "jr": {
+   "pill": "진행 과정",
+   "h2": "10단계.<br><span class=\"accent\">10가지 증거.</span>",
+   "lead": "확인 없이 결제하는 일은 없습니다. 모든 결제 전에 고객님이 직접 확인할 수 있는 증거를 드립니다.",
+   "payTag": "결제",
+   "steps": [
+    [
+     "차량 선택",
+     "차량을 선택하시면 전체 서류와 항구까지의 견적서를 받습니다.",
+     "차량 서류 + 상세 견적"
+    ],
+    [
+     "확인",
+     "구매 가능 여부를 다시 확인하고, 고객님 이름·오늘 날짜·차대번호를 적은 종이와 함께 차량을 촬영합니다.",
+     "고객님 이름이 담긴 영상"
+    ],
+    [
+     "계약",
+     "고객님 명의의 주문서와 KBA 인보이스: 가격, 일정, 환불 조건.",
+     "서면 계약서"
+    ],
+    [
+     "1차 결제 · 50 %",
+     "KBA 법인 계좌로 송금합니다. 키를 받을 때까지 결제하는 계좌는 이곳 하나뿐입니다.",
+     "KBA 공식 영수증"
+    ],
+    [
+     "말소",
+     "고객님의 요청에 따라 KBA가 매매상사에서 차량 말소(한국 등록 취소, 수출에 필수)를 진행하고 수출 서류를 준비합니다.",
+     "말소사실증명서"
+    ],
+    [
+     "선적",
+     "차량이 배에 실립니다. 공식 운송 서류인 선하증권(B/L)은 고객님 명의이며, KBA가 항구까지 차량을 추적할 수 있는 링크를 보내드립니다.",
+     "B/L + 추적 링크"
+    ],
+    [
+     "2차 결제 · 잔금 50 %",
+     "고객님 명의 B/L과 추적 링크를 받은 뒤 결제합니다. 선사 웹사이트에서 B/L을 확인하고 잔금을 KBA에 냅니다. 그 외 추가 결제는 없습니다.",
+     "영수증 + B/L 원본"
+    ],
+    [
+     "운송",
+     "선사 링크로 선박을 실시간으로 추적합니다. 단계마다 저희도 메시지로 알려드립니다.",
+     "선박 추적 링크"
+    ],
+    [
+     "도착",
+     "항구에서는 통관, 항만 비용, 통관 대리인까지 KBA가 모두 처리합니다. 추가로 내실 금액은 없습니다. 저희와 함께 차량을 확인하세요.",
+     "통관 영수증 전달"
+    ],
+    [
+     "키 인도",
+     "코나크리에서 차 키와 등록에 필요한 모든 서류를 드립니다.",
+     "고객님 명의의 전체 서류"
+    ]
+   ]
+  },
+  "dos": {
+   "pill": "차량 서류",
+   "h2": "결제 전에<br><span class=\"accent\">모든 것을 확인하세요.</span>",
+   "photoAlt": "기아 스포티지 2022 흰색, 앞모습",
+   "tag": "서류 KBA-0002",
+   "ex": "판매 중",
+   "items": [
+    "차대번호 확인",
+    "공식 카히스토리 이력",
+    "성능점검기록부",
+    "고객님 이름이 담긴 영상"
+   ],
+   "wait": "확인 중",
+   "done": "확인 완료",
+   "total": "코나크리 도착 총액",
+   "steps": [
+    [
+     "확인 01",
+     "모든 서류에 같은 차대번호.",
+     "VIN(Vehicle Identification Number, 차대번호)은 차체에 새겨진 17자리 영문·숫자로, 차량의 신분증입니다. 자동차등록증, 성능점검기록부, 영상, 수출 서류, 선적 서류의 번호가 모두 같아야 합니다. 한 자리라도 다르면 진행하지 않습니다."
+    ],
+    [
+     "확인 02",
+     "한국의 공식 이력.",
+     "보험개발원의 카히스토리 보고서는 보험 처리된 사고, 침수, 소유자 변경 이력을 보여줍니다. 번역해서 드립니다."
+    ],
+    [
+     "확인 03",
+     "성능점검기록부, 그리고 결함.",
+     "엔진, 변속기, 차체, 교환 부품까지 모두 기록되어 있습니다. 모든 결함은 사진으로 보여드립니다. 결함 없는 중고차는 없습니다. 중요한 것은 미리 아는 것입니다."
+    ],
+    [
+     "확인 04",
+     "고객님 이름이 담긴 영상.",
+     "1차 결제 전에 고객님 이름, 오늘 날짜, 차대번호를 손으로 적은 종이를 차량 위에 올려 두고 촬영합니다. 시동 거는 모습과 계기판까지. 인터넷에서 가져온 사진으로는 할 수 없는 일입니다."
+    ]
+   ]
+  },
+  "pr": {
+   "pick": "차량 선택",
+   "est": "KBA 수수료와 통관비 제외 참고 가격입니다. 최종 총액(키 인도까지)은 1차 결제 전 서면 견적서로 확정됩니다.",
+   "pill": "가격",
+   "h2": "보이는 가격이<br><span class=\"outline\">내는 가격입니다.</span>",
+   "lead": "가격도 창구도 하나. 차량, 운송, 보험, 그리고 KBA가 처리하는 통관·항만·통관 대리인까지 모두 KBA에 두 번에 나눠 결제합니다. 1차 결제 순간 차량 가격이 고정됩니다.",
+   "cap": "KBA-0002 · 기아 스포티지 1.6 T-GDi 2022",
+   "rows": [
+    "한국 차량 가격",
+    "해상 운송",
+    "운송 보험",
+    "코나크리까지 차량 + 운송",
+    "통관, 항만, 통관 대리인: KBA가 처리하며 전체 견적에 포함 (국가별 상이)"
+   ],
+   "of": "총액 대비",
+   "center": "총액",
+   "note": "실제 예시"
+  },
+  "mo": {
+   "pill": "결제 안전",
+   "h2": "계좌는 하나.<br><span class=\"accent\">법인 계좌뿐입니다.</span>",
+   "lead": "결제는 한 곳, KBA 법인 계좌로 두 번에 나눠 하시고 고객님 명의 인보이스를 받습니다. 이후 매매상사, 선박, 통관, 항만, 통관 대리인까지 KBA가 직접 지불하고 키 인도까지 책임집니다.",
+   "me": [
+    "고객님",
+    "구매자",
+    "2회 분할 결제"
+   ],
+   "kba": [
+    "결제는 한 번 · 50 % + 50 %",
+    "KBA 법인 계좌",
+    "전체 포함 가격 · 고객님 명의 인보이스"
+   ],
+   "tr": [
+    "KBA가 모두 처리",
+    "매매상사 · 선박 · 통관",
+    "항만 · 통관 대리인 · 키"
+   ],
+   "p1": "계좌 이체",
+   "p2": "KBA 지불",
+   "bad": "개인 계좌나 Western Union으로는 절대 결제하지 마세요",
+   "mob": [
+    [
+     "2회 분할 결제",
+     "KBA 법인 계좌로 · 50 % + 50 %"
+    ],
+    [
+     "KBA가 모두 처리",
+     "매매상사, 선박, 통관, 항만, 통관 대리인. 추가 결제 없음."
+    ],
+    [
+     "절대 안 됨",
+     "개인 계좌 · Western Union"
+    ]
+   ],
+   "pts": [
+    [
+     "확인 가능",
+     "KBA는 코나크리 사무실과 인천 팀을 둔 등록 법인입니다."
+    ],
+    [
+     "추적 가능",
+     "계좌 이체만 받으며, 고객님 명의의 인보이스와 영수증을 드립니다."
+    ],
+    [
+     "환불 가능",
+     "차량이 선적되지 못하면 계약서에 따라 100 % 환불해 드립니다."
+    ]
+   ]
+  },
+  "ve": {
+   "pill": "검증하기",
+   "h2": "믿지 마세요.<br><span class=\"accent\">확인하세요.</span>",
+   "lead": "돈을 보내기 전에 직접 할 수 있는 6가지 확인. 저희에게도, 누구에게도.",
+   "checks": [
+    [
+     "KBA 법인",
+     "사업자 등록번호(RCCM)를 요청하시고 사무실을 방문하세요. 진짜 회사는 확인할 수 있습니다."
+    ],
+    [
+     "같은 차대번호",
+     "자동차등록증, 성능점검기록부, 영상, 수출 서류, B/L의 번호가 모두 같아야 합니다."
+    ],
+    [
+     "고객님 이름이 담긴 영상",
+     "고객님 이름, 날짜, 차대번호를 적은 종이를 차량 위에 두고 시동 건 상태로 촬영. 결제 전에."
+    ],
+    [
+     "직접 확인하는 B/L",
+     "잔금은 선사 공식 웹사이트에서 직접 확인하신 후에 결제합니다."
+    ],
+    [
+     "법인 계좌",
+     "KBA 법인 명의 계좌로만 결제합니다. Western Union이나 개인 계좌는 절대 아닙니다."
+    ],
+    [
+     "직접 만나보세요",
+     "코나크리 사무실에서, 또는 한국 매매상사에서 영상 통화로. 진짜 회사는 얼굴을 보여줍니다."
+    ]
+   ],
+   "scamPill": "사기 경고 신호",
+   "scamH": "이런 경우에는 바로 멈추세요.",
+   "scam": [
+    "시세보다 지나치게 싼 가격",
+    "결제 전에 차대번호를 주지 않음",
+    "영상 통화 거절",
+    "개인 계좌로 결제 요구",
+    "\"오늘 결제하세요, 다른 손님이 기다려요\"",
+    "중간에 바뀌는 계좌번호"
+   ]
+  },
+  "co": {
+   "pill": "배송 국가",
+   "h2": "코나크리부터.<br><span class=\"outline\">그리고 아프리카 전역.</span>",
+   "lead": "차량을 제안하기 전에 고객님 나라의 연식 제한과 규정을 확인합니다. 한국 차량은 모두 좌핸들입니다.",
+   "age": "최대 연식",
+   "port": "도착지",
+   "delay": "소요 기간",
+   "list": [
+    [
+     "GN",
+     "기니",
+     "13년",
+     "코나크리항",
+     "45 – 70일"
+    ],
+    [
+     "SN",
+     "세네갈",
+     "10년",
+     "다카르항",
+     "45 – 70일"
+    ],
+    [
+     "ML",
+     "말리",
+     "확인 필요",
+     "코나크리 또는 다카르 경유",
+     "55 – 85일"
+    ],
+    [
+     "CI",
+     "코트디부아르",
+     "5년",
+     "아비장항",
+     "50 – 75일"
+    ],
+    [
+     "TG · BJ",
+     "토고 · 베냉",
+     "제한 없음 · 10년",
+     "로메 · 코토누",
+     "45 – 65일"
+    ],
+    [
+     "EU",
+     "해외 교민",
+     "국가별 상이",
+     "가족에게 인도",
+     "WhatsApp 안내"
+    ]
+   ]
+  },
+  "cu": {
+   "pill": "맞춤 검색",
+   "h2": "원하는 모델이<br>없나요?",
+   "lead": "협력 매매상사에는 수백 대의 다른 차량이 있습니다. 원하시는 차를 알려주시면 인천 팀이 찾아서 24~48시간 안에 사진과 총액을 보내드립니다.",
+   "brand": "브랜드",
+   "model": "모델",
+   "budget": "총 예산",
+   "year": "최소 연식",
+   "to": "배송지",
+   "name": "이름",
+   "phBrand": "현대, 기아, 토요타…",
+   "phModel": "투싼, 스포티지…",
+   "phBudget": "15,000달러",
+   "send": "요청 보내기",
+   "ready": "요청이 준비되었습니다.",
+   "open": "WhatsApp 열기",
+   "opts": [
+    "기니",
+    "세네갈",
+    "말리",
+    "코트디부아르",
+    "토고 / 베냉",
+    "기타"
+   ]
+  },
+  "fq": {
+   "pill": "자주 묻는 질문",
+   "h2": "궁금하신 점.<br><span class=\"accent\">답해 드립니다.</span>",
+   "list": [
+    [
+     "사기가 아닌지 어떻게 알 수 있나요?",
+     "저희 말을 믿지 말고 직접 확인하세요. 고객님 이름이 담긴 차량 영상과 공식 이력을 받고, B/L은 직접 확인하십니다. 결제는 KBA 법인 계좌로만 하며 개인에게 보내는 일은 없습니다. 코나크리에서 직접 만나실 수도 있습니다."
+    ],
+    [
+     "돈은 누구에게 보내나요?",
+     "KBA 법인 계좌로만, 두 번에 나눠 이체하시고 고객님 명의 인보이스를 받습니다. 매매상사, 선박, 통관, 항만, 통관 대리인은 KBA가 직접 지불합니다. 다른 곳에 결제할 일은 없습니다."
+    ],
+    [
+     "가격에는 무엇이 포함되나요?",
+     "전체 견적에는 차량, 해상 운송, 보험, 통관, 항만 비용, 통관 대리인이 포함됩니다. 이 금액을 KBA에 두 번에 나눠 내시며, 도착 후 추가되는 비용은 없습니다."
+    ],
+    [
+     "차를 받기까지 얼마나 걸리나요?",
+     "코나크리 기준 보통 계약금 후 45~70일이며, 선박 일정에 따라 다릅니다. 주문 시 예상 일정과 실시간 선박 추적 링크를 드립니다."
+    ],
+    [
+     "사고 이력이 있나요?",
+     "결제 전에 한국 공식 이력(카히스토리)을 번역해서 드립니다. 보험 처리된 사고와 침수 이력을 확인할 수 있습니다."
+    ],
+    [
+     "유럽에 사는데 차는 누가 받나요?",
+     "고객님이 서면으로 지정한 분이 코나크리 팀과 함께 받습니다. 모든 과정을 WhatsApp으로 사진과 선박 추적과 함께 확인하실 수 있습니다."
+    ]
+   ]
+  },
+  "fi": {
+   "pill": "지금 시작하세요",
+   "h2": "고객님의 차가<br><span class=\"accent\">인천에서</span><br>기다립니다.",
+   "lead": "찾으시는 차를 알려주세요. 2시간 안에 코나크리까지의 총액과 함께 검증된 차량을 보내드립니다.",
+   "cta": "WhatsApp으로 문의하기",
+   "about": "매매상사에서 엄선하고 검증한 한국 차량을 아프리카에 키까지 인도합니다.",
+   "buy": "구매",
+   "trust": "신뢰",
+   "contact": "연락처",
+   "custom": "맞춤 검색",
+   "money": "결제 안전",
+   "gn": "기니 코나크리",
+   "kr": "대한민국 인천",
+   "rccm": "RCCM: 등록 진행 중",
+   "tag": "한국에서 아프리카로",
+   "offices": "사무소",
+   "more": "둘러보기"
+  },
+  "brand": {
+   "pill": "KBA 하우스",
+   "h": "한국에서 고르고.<br><span class=\"accent\">아프리카를 위해 준비합니다.</span>",
+   "lead": "Korea Business Auto는 좋은 한국 차가 불쾌한 일 없이 아프리카에 도착해야 한다는 믿음에서 시작했습니다. 매매상사에서 차량을 직접 고르고, 점검하고, 선적하고, 키를 전해 드립니다.",
+   "pillars": [
+    [
+     "선별",
+     "인천 팀이 매매상사마다 차량을 직접 고릅니다. 점검을 통과하지 못한 차는 절대 제안하지 않습니다."
+    ],
+    [
+     "투명성",
+     "전체 서류, 사진으로 남긴 결함, 고객님 이름이 담긴 영상, 고객님 명의 선적 서류. 결제 전에 모두 확인하세요."
+    ],
+    [
+     "키 인도까지",
+     "구매, 수출, 선적, 통관, 항만, 통관 대리인까지 KBA가 모두 처리합니다. 한 곳에만 결제하고 키를 받으세요."
+    ]
+   ],
+   "founders": [
+    [
+     "D",
+     "Désiré",
+     "대한민국 인천",
+     "가족에게 줄 차를 고르듯 한 대 한 대 고릅니다."
+    ],
+    [
+     "R",
+     "Rémi",
+     "기니 코나크리",
+     "고객님이 핸들을 잡는 날까지 함께합니다."
+    ]
+   ],
+   "cta1": "차량 보기",
+   "cta2": "진행 방식"
+  },
+  "pg": {
+   "arrivages": [
+    "차량",
+    "출발 준비가 된<br><span class=\"accent\">우리 차량.</span>",
+    "모든 차량에 서류, 실제 사진, 결함 기록, 가격이 있습니다. 고르시면 나머지는 저희가 합니다."
+   ],
+   "parcours": [
+    "진행 과정",
+    "한국에서<br><span class=\"accent\">고객님의 키까지.</span>",
+    "10단계, 단계마다 증거. 차량이 어떻게 이동하고 언제 무엇을 받는지 정확히 보여드립니다."
+   ],
+   "prix": [
+    "가격",
+    "가격도 하나.<br><span class=\"accent\">계좌도 하나.</span>",
+    "모든 금액의 내역, 그리고 KBA에만 결제하는 이유."
+   ],
+   "verifiez": [
+    "검증하기",
+    "믿지 마세요.<br><span class=\"accent\">확인하세요.</span>",
+    "저희가 드리는 증거, 그리고 어디서든 거래를 멈춰야 할 신호."
+   ],
+   "pays": [
+    "배송 국가",
+    "한국에서<br><span class=\"accent\">아프리카로.</span>",
+    "연식 제한, 도착 항구, 소요 기간: 고객님 나라에 필요한 정보."
+   ],
+   "questions": [
+    "자주 묻는 질문",
+    "궁금하신 점.<br><span class=\"accent\">답해 드립니다.</span>",
+    "가장 많이 받는 질문을 쉽게 정리했습니다."
+   ]
+  }
+ }
 };
 
-/* Contenu des voitures d'exemple par langue (équipements et défauts). */
 window.KBA_CARS_TXT = {
   "KBA-0018": {
     fr: [["SUV diesel e-VGT (badge eco dynamics), boîte automatique", "Sièges en cuir noir, garnitures façon bois", "Phares à projecteurs, antibrouillards, feux arrière LED", "Jantes alliage 17 pouces, barres de toit, becquet arrière", "Baguettes latérales chromées, déflecteurs de vitres", "Vitres et rétroviseurs électriques, commandes au volant, régulateur de vitesse", "Écran GPS 8 pouces + caméra de recul avec lignes de guidage", "Démarrage sans clé (bouton Start/Stop)", "Sièges avant chauffants et volant chauffant", "Climatisation automatique bizone, aérateurs pour les places arrière", "Sélecteur Drive Mode, Stop & Start, contrôle de stabilité (ESC)", "Banquette arrière avec accoudoir et porte-gobelets, grand coffre", "Prises USB, AUX et 12 V", "Fabriqué en 2015 (plaque constructeur photographiée)"], ["Vernis du capot abîmé (aspect froissé sur la photo de près)", "Petites marques sur le pare-chocs avant", "Cuir du volant pelé, cuir du siège conducteur usé", "Garnitures des 4 portes très rayées en bas (surtout les portes arrière)", "Cuir de la banquette arrière et dos des sièges avant usés et marqués, tapis sales", "Photos prises sous la pluie : carrosserie à revoir à sec", "Kilométrage élevé : 129 417 km (compteur photographié)"], "Voiture de 2015 : elle respecte la limite d'âge de la Guinée (13 ans). Elle dépasse celle du Sénégal (10 ans) et de la Côte d'Ivoire (5 ans)."],

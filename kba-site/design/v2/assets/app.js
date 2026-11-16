@@ -104,6 +104,37 @@
       '<span class="car-ok">' + ICON_SHIELD + T.arr.ok + "</span></div></div></button>";
   }
 
+  /* ================= Page courante + fonds animés ================= */
+  var PAGE = document.body.getAttribute("data-page") || "home";
+  var STEP_BG = ["kona/01-avant-3-4-droit.jpg", "k5/video-1.mp4", "lexus-rx/03-poste-conduite.jpg", "sorento/14-volant-ecran-gps.jpg", "sorento/20-plaque-constructeur.jpg", "korando/20-benne-ouverte.jpg", "kona/13h-camera-recul.jpg", "pilot/04-arriere-3-4-gauche.jpg", "santafe/01-avant-3-4-droit.jpg", "kona/13f-deux-cles.jpg"];
+  var KB_SETS = {
+    brand: ["lexus-rx/01-face-avant.jpg", "kona/01-avant-3-4-droit.jpg", "pilot/01-avant-3-4-gauche.jpg", "sorento/01-avant-3-4-droit.jpg", "santafe/01-avant-3-4-droit.jpg", "sportage/01-avant-3-4.jpg"],
+    mega: ["sportage/01-avant-3-4.jpg", "k7/01-avant-3-4-droit.jpg", "maxcruz/01-avant-3-4-droit.jpg", "grandeur/01-avant-3-4-gauche.jpg", "korando/01-avant-3-4-droit.jpg", "veloster/01-avant-3-4-droit.jpg", "pilot/01-avant-3-4-gauche.jpg"],
+    page: {
+      arrivages: ["kona/01-avant-3-4-droit.jpg", "santafe/01-avant-3-4-droit.jpg", "pilot/01-avant-3-4-gauche.jpg"],
+      parcours: ["sorento/06-face-arriere.jpg", "korando/20-benne-ouverte.jpg", "kona/13f-deux-cles.jpg"],
+      prix: ["lexus-rx/01-face-avant.jpg", "sorento/14-volant-ecran-gps.jpg", "k7/01-avant-3-4-droit.jpg"],
+      verifiez: ["sorento/20-plaque-constructeur.jpg", "kona/13h-camera-recul.jpg", "sportage/01-avant-3-4.jpg"],
+      pays: ["pilot/04-arriere-3-4-gauche.jpg", "maxcruz/01-avant-3-4-droit.jpg", "korando/01-avant-3-4-droit.jpg"],
+      questions: ["grandeur/01-avant-3-4-gauche.jpg", "veloster/01-avant-3-4-droit.jpg", "santafe/01-avant-3-4-droit.jpg"]
+    }
+  };
+  function buildKB() {
+    $$(".kb").forEach(function (box) {
+      var key = box.getAttribute("data-kb"), list = key === "page" ? KB_SETS.page[PAGE] : KB_SETS[key];
+      if (!list || box.dataset.ready) return; box.dataset.ready = 1;
+      box.innerHTML = list.map(function (p, i) { return '<img class="kb-img' + (i ? "" : " on") + '" ' + (i ? "data-src" : "src") + '="' + IMG + p + '" alt="">'; }).join("");
+      var imgs = $$(".kb-img", box), k = 0;
+      if (imgs.length < 2 || REDUCED) return;
+      setInterval(function () {
+        if (document.hidden) return;
+        var n = imgs[(k + 1) % imgs.length]; if (n.dataset.src) { n.src = n.dataset.src; delete n.dataset.src; }
+        imgs[k].classList.remove("on"); k = (k + 1) % imgs.length; imgs[k].classList.add("on");
+        var nn = imgs[(k + 1) % imgs.length]; if (nn.dataset.src) { nn.src = nn.dataset.src; delete nn.dataset.src; }
+      }, 6000);
+    });
+  }
+
   /* ================= Téléphone « Avant KBA / Avec KBA » ================= */
   var phTl = null, phVisible = true;
   var CAR_SIL = '<svg viewBox="0 0 120 54" aria-hidden="true"><path d="M8 40c0-6 4-9 10-10l16-12c4-3 8-4 13-4h22c6 0 10 2 14 6l11 10c9 1 18 3 18 10v6c0 2-1 3-3 3h-8a10 10 0 0 1-20 0H44a10 10 0 0 1-20 0h-9c-4 0-7-3-7-7z" fill="currentColor"/><circle cx="34" cy="46" r="7" fill="#fff" opacity=".5"/><circle cx="91" cy="46" r="7" fill="#fff" opacity=".5"/></svg>';
@@ -113,7 +144,7 @@
     if (dir === "sys") return '<div class="msg sys">' + txt + "</div>";
     var media = "";
     if (kind === "photo") media = '<div class="m-photo">' + CAR_SIL + "<span>photo.jpg</span></div>";
-    if (kind === "video") media = '<div class="m-video"><img src="' + IMG + 'sportage/02-avant-3-4-droit.jpg" alt=""><span class="m-sheet">' + esc(T.man.sheet) + '</span><span class="m-play"></span></div>';
+    if (kind === "video") media = '<div class="m-video"><img src="' + IMG + 'sportage/01-avant-3-4.jpg" alt=""><span class="m-sheet">' + esc(T.man.sheet) + '</span><span class="m-play"></span></div>';
     if (kind === "doc") media = '<span class="m-doc">' + ICON_DOC + "</span>";
     if (kind === "ship") media = '<div class="m-ship"><div class="m-route"><span>' + esc(T.man.track[0]) + '</span><i><em></em></i><span>' + esc(T.man.track[1]) + '</span></div></div>';
     var after = kind === "ship" ? '<span class="m-btn">' + esc(T.man.follow) + "</span>" : "";
@@ -261,10 +292,16 @@
     $("#manifesto").innerHTML = words.map(function (w, i) { var hl = i > words.length * 0.42 && T.man.hl.indexOf(w) >= 0; return '<span class="w' + (hl ? " hl" : "") + '">' + esc(w) + "</span>"; }).join(" ");
     $("#journeyTrack").innerHTML = T.jr.steps.map(function (s, i) {
       var pay = i === 3 || i === 6;
-      return '<article class="step' + (pay ? " pay" : "") + '">' + (pay ? '<span class="pay-tag label">' + T.jr.payTag + "</span>" : "") + '<div class="step-n">' + String(i + 1).padStart(2, "0") + '</div><h3 class="h3">' + esc(s[0]) + "</h3><p>" + esc(s[1]) + '</p><span class="proof label">' + ICON_CHECK + esc(s[2]) + "</span></article>";
+      var bg = STEP_BG[i], media = /\.mp4$/.test(bg) ? '<video class="step-bg" muted loop playsinline autoplay preload="none" poster="' + IMG + bg.replace(".mp4", ".jpg") + '" src="' + IMG + bg + '"></video>' : '<img class="step-bg" src="' + IMG + bg + '" alt="" loading="lazy">';
+      return '<article class="step has-bg' + (pay ? " pay" : "") + '">' + media + '<span class="step-veil"></span>' + (pay ? '<span class="pay-tag label">' + T.jr.payTag + "</span>" : "") + '<div class="step-n">' + String(i + 1).padStart(2, "0") + '</div><h3 class="h3">' + esc(s[0]) + "</h3><p>" + esc(s[1]) + '</p><span class="proof label">' + ICON_CHECK + esc(s[2]) + "</span></article>";
     }).join("");
     $("#checks").innerHTML = T.dos.items.map(function (t) { return '<li><span class="ck">' + ICON_CHECK + "</span>" + esc(t) + '<span class="st">' + T.dos.wait + "</span></li>"; }).join("");
     $("#dsteps").innerHTML = T.dos.steps.map(function (s, i) { return '<div class="d-step" data-check="' + i + '"><span class="label">' + esc(s[0]) + '</span><h3 class="h3">' + esc(s[1]) + "</h3><p>" + esc(s[2]) + "</p></div>"; }).join("");
+    var pil = $("#pillars");
+    if (pil) pil.innerHTML = T.brand.pillars.map(function (p, i) { return '<div class="pillar rv"><span class="pillar-n">0' + (i + 1) + '</span><h3 class="h3">' + esc(p[0]) + "</h3><p>" + esc(p[1]) + "</p></div>"; }).join("");
+    var fo = $("#founders");
+    if (fo) fo.innerHTML = T.brand.founders.map(function (f) { return '<figure class="founder rv"><span class="founder-av">' + esc(f[0]) + '</span><figcaption><b>' + esc(f[1]) + '</b><small class="label">' + esc(f[2]) + '</small><q>' + esc(f[3]) + "</q></figcaption></figure>"; }).join("");
+    if (PAGE !== "home" && T.pg[PAGE]) { $("#pgPill").textContent = T.pg[PAGE][0]; $("#pgTitle").innerHTML = T.pg[PAGE][1]; $("#pgLead").textContent = T.pg[PAGE][2]; document.title = T.pg[PAGE][0] + " · Korea Business Auto"; }
     $("#flowMobile").innerHTML = T.mo.mob.map(function (m, i) { return '<div' + (i === 2 ? ' class="bad"' : "") + "><b>" + esc(m[0]) + "</b><span>" + esc(m[1]) + "</span></div>"; }).join("");
     buildPhone(); fillPriceCars();
     $("#flowPoints").innerHTML = T.mo.pts.map(function (p) { return '<div class="rv"><h3 class="h3">' + esc(p[0]) + "</h3><p>" + esc(p[1]) + "</p></div>"; }).join("");
@@ -467,7 +504,7 @@
   function portLabels() { Object.keys(portTexts).forEach(function (k) { portTexts[k].textContent = T.hero.ports[k]; }); }
 
   /* ================= Premier rendu ================= */
-  applyTexts(); fillCurrencies(); renderLists(); renderPrices(); portLabels(); setShip(HAS_GSAP ? 0 : 1); drawDots();
+  applyTexts(); fillCurrencies(); renderLists(); renderPrices(); portLabels(); setShip(HAS_GSAP ? 0 : 1); drawDots(); buildKB();
   onView($("#stats"), function () { $("#stats").classList.add("on"); });
   onView($("#donut"), showDonut);
 

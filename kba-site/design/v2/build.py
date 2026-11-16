@@ -23,5 +23,11 @@ out = src.replace("{{LOGO}}", logo)
 for k, v in ICONS.items():
     out = out.replace("{{" + k + "}}", v)
 assert "{{" not in out, re.findall(r"\{\{\w+\}\}", out)
-(ROOT / "index.html").write_text(out)
-print("index.html :", len(out) // 1024, "Ko")
+# Une page par onglet : même gabarit, seules les sections de la page sont affichées (data-page)
+PAGES = {"index": "home", "arrivages": "arrivages", "parcours": "parcours", "prix": "prix", "verifiez": "verifiez", "pays": "pays", "questions": "questions"}
+for name, page in PAGES.items():
+    html = out.replace('<body class="is-loading">', '<body class="is-loading" data-page="%s">' % page, 1)
+    if page != "home":
+        html = html.replace('<a href="%s.html" data-i18n' % name, '<a class="on" href="%s.html" data-i18n' % name, 1)
+    (ROOT / (name + ".html")).write_text(html)
+print("7 pages :", len(out) // 1024, "Ko chacune")

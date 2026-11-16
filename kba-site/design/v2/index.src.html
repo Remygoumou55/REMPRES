@@ -31,18 +31,18 @@
 <!-- En-tête -->
 <header class="hdr" id="hdr">
   <div class="wrap hdr-in">
-    <a href="#top" class="brand" data-i18n-aria="ui.top">
+    <a href="index.html" class="brand" data-i18n-aria="ui.top">
       <img class="logo-dark" src="assets/kba-symbole-sombre.svg" alt="Korea Business Auto" width="600" height="290">
       <img class="logo-light" src="assets/kba-symbole-clair.svg" alt="Korea Business Auto" width="600" height="290">
       <span class="brand-txt label">Korea<br>Business Auto</span>
     </a>
     <nav class="nav" aria-label="Navigation">
-      <a href="#arrivages" data-i18n="nav.arrivals"></a>
-      <a href="#parcours" data-i18n="nav.journey"></a>
-      <a href="#prix" data-i18n="nav.price"></a>
-      <a href="#garanties" data-i18n="nav.verify"></a>
-      <a href="#pays" data-i18n="nav.countries"></a>
-      <a href="#faq" data-i18n="nav.faq"></a>
+      <a href="arrivages.html" data-i18n="nav.arrivals"></a>
+      <a href="parcours.html" data-i18n="nav.journey"></a>
+      <a href="prix.html" data-i18n="nav.price"></a>
+      <a href="verifiez.html" data-i18n="nav.verify"></a>
+      <a href="pays.html" data-i18n="nav.countries"></a>
+      <a href="questions.html" data-i18n="nav.faq"></a>
     </nav>
     <div class="hdr-cta">
       <label class="ctl"><span class="sr" hidden data-i18n="ui.lang"></span><select class="js-lang" data-i18n-aria="ui.lang"><option value="fr">FR</option><option value="en">EN</option><option value="ko">한국어</option></select></label>
@@ -56,12 +56,12 @@
 
 <div class="menu" id="menu" aria-hidden="true">
   <button class="menu-close" id="menuClose" data-i18n-aria="ui.close">×</button>
-  <a class="m-link" href="#arrivages" data-i18n="nav.arrivals"></a>
-  <a class="m-link" href="#parcours" data-i18n="nav.journey"></a>
-  <a class="m-link" href="#prix" data-i18n="nav.price"></a>
-  <a class="m-link" href="#garanties" data-i18n="nav.verify"></a>
-  <a class="m-link" href="#pays" data-i18n="nav.countries"></a>
-  <a class="m-link" href="#faq" data-i18n="nav.faq"></a>
+  <a class="m-link" href="arrivages.html" data-i18n="nav.arrivals"></a>
+  <a class="m-link" href="parcours.html" data-i18n="nav.journey"></a>
+  <a class="m-link" href="prix.html" data-i18n="nav.price"></a>
+  <a class="m-link" href="verifiez.html" data-i18n="nav.verify"></a>
+  <a class="m-link" href="pays.html" data-i18n="nav.countries"></a>
+  <a class="m-link" href="questions.html" data-i18n="nav.faq"></a>
   <div class="menu-ctl">
     <label class="ctl"><select class="js-lang" data-i18n-aria="ui.lang"><option value="fr">FR</option><option value="en">EN</option><option value="ko">한국어</option></select></label>
     <label class="ctl"><select class="js-cur" data-i18n-aria="ui.cur"></select></label>
@@ -72,8 +72,20 @@
 
 <main id="top">
 
+<!-- EN-TÊTE DES PAGES DÉDIÉES -->
+<section class="page-hero" id="pageHero">
+  <div class="kb" data-kb="page"></div>
+  <div class="kb-veil"></div>
+  <div class="wrap page-hero-in">
+    <a class="label page-back" href="index.html">{{ARROW_L}} <span data-i18n="nav.home"></span></a>
+    <span class="pill page-pill" id="pgPill"></span>
+    <h1 class="display page-title" id="pgTitle"></h1>
+    <p class="lead" id="pgLead"></p>
+  </div>
+</section>
+
 <!-- HÉROS -->
-<section class="hero grain" id="hero">
+<section class="hero grain" id="hero" data-pg="home">
   <div class="hero-map" id="heroMap">
     <canvas id="mapDots" width="1600" height="860"></canvas>
     <svg id="mapSvg" viewBox="0 0 1600 860" aria-hidden="true"></svg>
@@ -90,7 +102,7 @@
       <div>
         <p class="lead" data-hero-in data-i18n="hero.lead"></p>
         <div class="hero-actions" data-hero-in>
-          <a href="#arrivages" class="btn btn-primary"><span data-i18n="hero.cta1"></span> {{ARROW}}</a>
+          <a href="arrivages.html" class="btn btn-primary"><span data-i18n="hero.cta1"></span> {{ARROW}}</a>
           <a class="btn btn-ghost" data-wa="find" target="_blank" rel="noopener">{{WA}} <span data-i18n="hero.cta2"></span></a>
         </div>
       </div>
@@ -112,13 +124,32 @@
 </section>
 
 <!-- BANDEAUX -->
-<div class="marquee">
+<div class="marquee" data-pg="home">
   <div class="mq-row" data-dir="-1" id="mq1"></div>
   <div class="mq-row" data-dir="1" id="mq2"></div>
 </div>
 
-<!-- POURQUOI KBA : texte + téléphone animé -->
-<section class="light sec why" id="pourquoi">
+<!-- LA MAISON KBA (marque) -->
+<section class="brand-sec" id="maison" data-pg="home">
+  <div class="kb" data-kb="brand"></div>
+  <div class="kb-veil"></div>
+  <div class="wrap brand-in">
+    <div class="brand-head">
+      <span class="pill" data-i18n="brand.pill"></span>
+      <h2 class="h2 brand-h" data-split data-i18n="brand.h"></h2>
+      <p class="lead brand-lead" data-i18n="brand.lead"></p>
+      <div class="hero-actions">
+        <a href="arrivages.html" class="btn btn-primary"><span data-i18n="brand.cta1"></span> {{ARROW}}</a>
+        <a href="parcours.html" class="btn btn-ghost brand-ghost"><span data-i18n="brand.cta2"></span></a>
+      </div>
+    </div>
+    <div class="pillars" id="pillars"></div>
+    <div class="founders" id="founders"></div>
+  </div>
+</section>
+
+<!-- LA DIFFÉRENCE KBA : texte + téléphone animé -->
+<section class="light sec why" id="pourquoi" data-pg="home verifiez">
   <div class="wrap why-grid">
     <div class="why-txt">
       <span class="pill" data-i18n="man.pill"></span>
@@ -142,7 +173,7 @@
 </section>
 
 <!-- CHIFFRES -->
-<section class="light stats-sec">
+<section class="light stats-sec" data-pg="home">
   <div class="wrap">
     <div class="stats" id="stats">
       <div class="stat rv"><span class="stat-k label" data-i18n="statsK.0"></span><div class="stat-n"><span data-count="0">0</span><sup>$</sup></div><div class="sv sv-eq"><i></i><i></i></div><p data-i18n="stats.0"></p></div>
@@ -154,7 +185,7 @@
 </section>
 
 <!-- 01 ARRIVAGES -->
-<section class="sec dark" id="arrivages">
+<section class="sec dark" id="arrivages" data-pg="home arrivages">
   <div class="wrap">
     <div class="sec-head">
       <span class="pill"><span class="n">01</span><span data-i18n="arr.pill"></span></span>
@@ -168,7 +199,7 @@
 </section>
 
 <!-- 02 PARCOURS (carrousel automatique) -->
-<section class="sec dark" id="parcours" style="padding-top:0">
+<section class="sec dark" id="parcours" style="padding-top:0" data-pg="home parcours">
   <div class="wrap">
     <div class="sec-head">
       <span class="pill"><span class="n">02</span><span data-i18n="jr.pill"></span></span>
@@ -185,7 +216,7 @@
 </section>
 
 <!-- 03 LE DOSSIER -->
-<section class="light sec" id="dossier">
+<section class="light sec" id="dossier" data-pg="home parcours">
   <div class="wrap">
     <div class="sec-head">
       <span class="pill"><span class="n">03</span><span data-i18n="dos.pill"></span></span>
@@ -195,7 +226,7 @@
       <div class="dossier-sticky">
         <div class="file rv">
           <div class="file-photo">
-            <img src="assets/img/sportage/02-avant-3-4-droit.jpg" alt="" data-i18n-alt="dos.photoAlt" id="filePhoto">
+            <img src="assets/img/sportage/01-avant-3-4.jpg" alt="" data-i18n-alt="dos.photoAlt" id="filePhoto">
             <span class="file-tag label" data-i18n="dos.tag"></span>
             <span class="file-ex label" data-i18n="dos.ex"></span>
           </div>
@@ -212,7 +243,7 @@
 </section>
 
 <!-- 04 LE PRIX -->
-<section class="light sec" id="prix" style="padding-top:0">
+<section class="light sec" id="prix" style="padding-top:0" data-pg="home prix">
   <div class="wrap">
     <div class="sec-head">
       <span class="pill"><span class="n">04</span><span data-i18n="pr.pill"></span></span>
@@ -239,7 +270,7 @@
 </section>
 
 <!-- 05 L'ARGENT -->
-<section class="sec money grain" id="argent">
+<section class="sec money grain" id="argent" data-pg="home prix">
   <div class="wrap">
     <div class="sec-head">
       <span class="pill"><span class="n">05</span><span data-i18n="mo.pill"></span></span>
@@ -247,15 +278,15 @@
       <p class="lead" data-i18n="mo.lead"></p>
     </div>
     <div class="flow" id="flow">
-      <svg viewBox="0 0 1200 450" role="img">
-        <path class="ln" id="l1" d="M320 205 C 470 205, 450 95, 600 95"/>
-        <path class="ln" id="l2" d="M320 245 C 470 245, 450 265, 600 265"/>
-        <text class="lab" id="lab1" x="452" y="132" text-anchor="middle" data-i18n="mo.p1"></text>
-        <text class="lab" id="lab2" x="452" y="236" text-anchor="middle" data-i18n="mo.p2"></text>
-        <g class="node me"><rect x="40" y="160" width="280" height="120" rx="22"/><text class="tm" x="68" y="198" data-i18n="mo.me.0"></text><text class="t1" x="68" y="230" data-i18n="mo.me.1"></text><text class="t2" x="68" y="256" data-i18n="mo.me.2"></text></g>
-        <g class="node kba"><rect x="600" y="30" width="540" height="130" rx="22"/><text class="tm" x="630" y="72" data-i18n="mo.kba.0"></text><text class="t1" x="630" y="106" data-i18n="mo.kba.1"></text><text class="t2" x="630" y="134" data-i18n="mo.kba.2"></text><circle class="num" cx="1100" cy="70" r="18"/><text class="numt" x="1100" y="76" text-anchor="middle">1</text></g>
-        <g class="node tr"><rect x="600" y="200" width="540" height="130" rx="22"/><text class="tm" x="630" y="242" data-i18n="mo.tr.0"></text><text class="t1" x="630" y="276" data-i18n="mo.tr.1"></text><text class="t2" x="630" y="304" data-i18n="mo.tr.2"></text><circle class="num" cx="1100" cy="240" r="18"/><text class="numt" x="1100" y="246" text-anchor="middle">2</text></g>
-        <g class="node bad" id="bad"><rect x="330" y="370" width="540" height="58" rx="29"/><text class="t2 warn" x="600" y="405" text-anchor="middle">⚠  <tspan data-i18n="mo.bad"></tspan></text></g>
+      <svg viewBox="0 0 1200 420" role="img">
+        <path class="ln" id="l1" d="M300 170 H 430"/>
+        <path class="ln" id="l2" d="M770 170 H 880"/>
+        <text class="lab" id="lab1" x="365" y="154" text-anchor="middle" data-i18n="mo.p1"></text>
+        <text class="lab" id="lab2" x="825" y="154" text-anchor="middle" data-i18n="mo.p2"></text>
+        <g class="node me"><rect x="20" y="105" width="280" height="130" rx="22"/><text class="tm" x="48" y="146" data-i18n="mo.me.0"></text><text class="t1" x="48" y="180" data-i18n="mo.me.1"></text><text class="t2" x="48" y="208" data-i18n="mo.me.2"></text></g>
+        <g class="node kba"><rect x="430" y="95" width="340" height="150" rx="24"/><text class="tm" x="458" y="140" data-i18n="mo.kba.0"></text><text class="t1" x="458" y="176" data-i18n="mo.kba.1"></text><text class="t2" x="458" y="206" data-i18n="mo.kba.2"></text></g>
+        <g class="node tr"><rect x="880" y="105" width="300" height="130" rx="22"/><text class="tm" x="908" y="146" data-i18n="mo.tr.0"></text><text class="t1" x="908" y="180" data-i18n="mo.tr.1"></text><text class="t2" x="908" y="208" data-i18n="mo.tr.2"></text></g>
+        <g class="node bad" id="bad"><rect x="330" y="320" width="540" height="58" rx="29"/><text class="t2 warn" x="600" y="355" text-anchor="middle">⚠  <tspan data-i18n="mo.bad"></tspan></text></g>
       </svg>
       <div class="flow-mobile" id="flowMobile"></div>
     </div>
@@ -264,7 +295,7 @@
 </section>
 
 <!-- 06 VÉRIFIEZ-NOUS -->
-<section class="light sec" id="garanties">
+<section class="light sec" id="garanties" data-pg="home verifiez">
   <div class="wrap">
     <div class="sec-head">
       <span class="pill"><span class="n">06</span><span data-i18n="ve.pill"></span></span>
@@ -280,7 +311,7 @@
 </section>
 
 <!-- 07 PAYS -->
-<section class="sec dark" id="pays">
+<section class="sec dark" id="pays" data-pg="home pays">
   <div class="wrap">
     <div class="sec-head">
       <span class="pill"><span class="n">07</span><span data-i18n="co.pill"></span></span>
@@ -292,7 +323,7 @@
 </section>
 
 <!-- 08 SUR MESURE -->
-<section class="sec custom" id="sur-mesure">
+<section class="sec custom" id="sur-mesure" data-pg="home arrivages pays">
   <div class="wrap">
     <div class="sec-head">
       <span class="pill"><span class="n">08</span><span data-i18n="cu.pill"></span></span>
@@ -313,7 +344,7 @@
 </section>
 
 <!-- 09 FAQ -->
-<section class="light sec" id="faq">
+<section class="light sec" id="faq" data-pg="home questions">
   <div class="wrap">
     <div class="sec-head">
       <span class="pill"><span class="n">09</span><span data-i18n="fq.pill"></span></span>
@@ -335,19 +366,33 @@
   </div>
   <footer class="foot">
     <div class="wrap">
-      <div class="foot-grid">
-        <div>
-          <img class="foot-logo logo-dark" src="assets/kba-symbole-sombre.svg" alt="Korea Business Auto" width="600" height="290">
-          <img class="foot-logo logo-light" src="assets/kba-symbole-clair.svg" alt="Korea Business Auto" width="600" height="290">
-          <p style="color:var(--d-muted);max-width:34ch;margin-top:18px" data-i18n="fi.about"></p>
+      <div class="foot-top">
+        <div class="foot-brand">
+          <a href="index.html" class="foot-logo-link" aria-label="Korea Business Auto">
+            <img class="foot-logo logo-dark" src="assets/kba-symbole-sombre.svg" alt="Korea Business Auto" width="600" height="290">
+            <img class="foot-logo logo-light" src="assets/kba-symbole-clair.svg" alt="Korea Business Auto" width="600" height="290">
+            <span class="foot-name label">Korea Business Auto<br><small data-i18n="fi.tag"></small></span>
+          </a>
+          <p class="foot-about" data-i18n="fi.about"></p>
+          <a class="btn btn-wa btn-sm" data-wa="hello" target="_blank" rel="noopener">{{WA}} <span class="js-phone"></span></a>
         </div>
-        <div><h4 class="label" data-i18n="fi.buy"></h4><ul><li><a href="#arrivages" data-i18n="nav.arrivals"></a></li><li><a href="#sur-mesure" data-i18n="fi.custom"></a></li><li><a href="#parcours" data-i18n="nav.journey"></a></li><li><a href="#prix" data-i18n="nav.price"></a></li></ul></div>
-        <div><h4 class="label" data-i18n="fi.trust"></h4><ul><li><a href="#garanties" data-i18n="nav.verify"></a></li><li><a href="#argent" data-i18n="fi.money"></a></li><li><a href="#faq" data-i18n="nav.faq"></a></li></ul></div>
-        <div><h4 class="label" data-i18n="fi.contact"></h4><ul><li><a data-wa="hello" target="_blank" rel="noopener">WhatsApp · <span class="js-phone"></span></a></li><li>contact@koreabusinessauto.com</li><li data-i18n="fi.gn"></li><li data-i18n="fi.kr"></li></ul></div>
+        <div class="foot-cols">
+          <div><h4 class="label" data-i18n="fi.buy"></h4><ul><li><a href="arrivages.html" data-i18n="nav.arrivals"></a></li><li><a href="arrivages.html#sur-mesure" data-i18n="fi.custom"></a></li><li><a href="prix.html" data-i18n="nav.price"></a></li></ul></div>
+          <div><h4 class="label" data-i18n="fi.trust"></h4><ul><li><a href="parcours.html" data-i18n="nav.journey"></a></li><li><a href="verifiez.html" data-i18n="nav.verify"></a></li><li><a href="prix.html#argent" data-i18n="fi.money"></a></li></ul></div>
+          <div><h4 class="label" data-i18n="fi.more"></h4><ul><li><a href="pays.html" data-i18n="nav.countries"></a></li><li><a href="questions.html" data-i18n="nav.faq"></a></li><li><a href="mailto:contact@koreabusinessauto.com">contact@koreabusinessauto.com</a></li></ul></div>
+        </div>
+      </div>
+      <div class="offices">
+        <div class="office"><span class="label">KR · <span data-i18n="fi.offices"></span></span><b data-i18n="fi.kr"></b></div>
+        <div class="office"><span class="label">GN · <span data-i18n="fi.offices"></span></span><b data-i18n="fi.gn"></b></div>
       </div>
       <div class="foot-bottom label"><span>© 2026 Korea Business Auto</span><span id="ratesNote"></span><span data-i18n="fi.rccm"></span></div>
     </div>
-    <div class="mega" aria-hidden="true">KBA</div>
+    <div class="mega-wrap">
+      <div class="kb" data-kb="mega"></div>
+      <div class="kb-veil mega-veil"></div>
+      <div class="mega" aria-hidden="true">KBA</div>
+    </div>
   </footer>
 </section>
 </main>

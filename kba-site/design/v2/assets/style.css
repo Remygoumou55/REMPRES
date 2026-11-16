@@ -691,3 +691,94 @@ section { position: relative; }
 /* Argent : avertissement centré, non relié */
 .flow .node.bad rect { fill: rgba(255, 80, 80, 0.1); stroke: rgba(255, 110, 110, 0.55); }
 .flow .warn { font-size: 15px; font-weight: 600; fill: #ff9b9b; }
+
+/* ==========================================================================
+   Site de marque : fonds animés, bloc « La maison KBA », pages dédiées,
+   cartes des étapes illustrées, bas de page refait
+   ========================================================================== */
+
+/* ---------- Fonds animés (photos qui zooment et glissent lentement) ---------- */
+.kb { position: absolute; inset: 0; overflow: hidden; background: #050b16; }
+.kb-img { position: absolute; inset: -2%; width: 104%; height: 104%; object-fit: cover; opacity: 0; transition: opacity 1.8s var(--ease); will-change: transform, opacity; }
+.kb-img.on { opacity: 1; animation: kbMove 14s linear forwards; }
+.kb-img:nth-child(even).on { animation-name: kbMove2; }
+@keyframes kbMove { from { transform: scale(1.02) translate3d(0, 0, 0); } to { transform: scale(1.14) translate3d(-2%, -1.5%, 0); } }
+@keyframes kbMove2 { from { transform: scale(1.14) translate3d(-2%, 1%, 0); } to { transform: scale(1.02) translate3d(1.5%, 0, 0); } }
+.kb-veil { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5, 11, 22, 0.92) 0%, rgba(5, 11, 22, 0.72) 45%, rgba(5, 11, 22, 0.35) 100%), linear-gradient(0deg, rgba(5, 11, 22, 0.9) 0%, transparent 45%); }
+@media (prefers-reduced-motion: reduce) { .kb-img.on, .step-bg { animation: none !important; } }
+
+/* ---------- La maison KBA ---------- */
+.brand-sec { position: relative; overflow: hidden; color: #fff; padding: clamp(96px, 11vw, 170px) 0 clamp(64px, 7vw, 110px); min-height: 100svh; display: flex; align-items: center; }
+.brand-in { position: relative; z-index: 2; display: grid; gap: clamp(44px, 5vw, 72px); }
+.brand-head { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; max-width: 860px; }
+.brand-sec .pill { background: rgba(255, 255, 255, 0.08); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2); color: #fff; }
+.brand-h { font-size: clamp(38px, 5.4vw, 92px); color: #fff; }
+.brand-lead { color: rgba(255, 255, 255, 0.82); max-width: 640px; }
+.brand-ghost { color: #fff !important; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35) !important; background: rgba(255, 255, 255, 0.04) !important; }
+.pillars { display: grid; gap: 14px; }
+@media (min-width: 900px) { .pillars { grid-template-columns: repeat(3, 1fr); } }
+.pillar { padding: 28px 26px 30px; border-radius: 22px; background: rgba(8, 20, 38, 0.55); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12); transition: transform 0.5s var(--ease), box-shadow 0.5s; }
+.pillar:hover { transform: translateY(-4px); box-shadow: inset 0 0 0 1px rgba(141, 178, 255, 0.5); }
+.pillar-n { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; color: #8db2ff; }
+.pillar h3 { font-size: clamp(22px, 1.8vw, 28px); margin: 16px 0 10px; color: #fff; }
+.pillar p { margin: 0; color: rgba(255, 255, 255, 0.75); font-size: 15px; }
+.founders { display: grid; gap: 14px; }
+@media (min-width: 900px) { .founders { grid-template-columns: 1fr 1fr; max-width: 980px; } }
+.founder { display: flex; gap: 18px; align-items: center; margin: 0; padding: 18px 20px; border-radius: 18px; background: rgba(255, 255, 255, 0.05); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1); }
+.founder-av { flex: none; display: grid; place-items: center; width: 58px; height: 58px; border-radius: 50%; background: linear-gradient(135deg, #1e5bd8, #0b1f3a); font-family: var(--display); font-weight: 800; font-size: 22px; box-shadow: 0 0 0 3px rgba(141, 178, 255, 0.35); }
+.founder b { display: block; font-size: 17px; }
+.founder small { display: block; color: #8db2ff; margin: 3px 0 6px; font-size: 10.5px; }
+.founder q { color: rgba(255, 255, 255, 0.8); font-size: 14.5px; font-style: italic; }
+
+/* ---------- Pages dédiées ---------- */
+.page-hero { display: none; position: relative; overflow: hidden; color: #fff; min-height: 64svh; padding: 150px 0 clamp(48px, 6vw, 80px); }
+body:not([data-page="home"]) .page-hero { display: flex; align-items: flex-end; }
+.page-hero-in { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+.page-back { display: inline-flex; align-items: center; gap: 8px; color: rgba(255, 255, 255, 0.75); }
+.page-back:hover { color: #fff; }
+.page-back svg { width: 16px; height: 16px; }
+.page-hero .pill { background: rgba(255, 255, 255, 0.08); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2); color: #fff; }
+.page-title { font-size: clamp(42px, 6.6vw, 112px); color: #fff; }
+.page-hero .lead { color: rgba(255, 255, 255, 0.82); }
+body:not([data-page="home"]) main [data-pg] { display: none; }
+body[data-page="arrivages"] main [data-pg~="arrivages"], body[data-page="parcours"] main [data-pg~="parcours"], body[data-page="prix"] main [data-pg~="prix"],
+body[data-page="verifiez"] main [data-pg~="verifiez"], body[data-page="pays"] main [data-pg~="pays"], body[data-page="questions"] main [data-pg~="questions"] { display: block; }
+body:not([data-page="home"]) main [data-pg] + [data-pg] { padding-top: clamp(64px, 7.5vw, 116px); }
+.nav a.on { color: var(--d-fg); }
+.nav a.on::after { transform: scaleX(1); }
+
+/* ---------- Cartes des 10 étapes illustrées ---------- */
+.step.has-bg { overflow: hidden; color: #fff; background: #081426 !important; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1) !important; }
+.step-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; animation: kbMove 16s linear infinite alternate; }
+.step-veil { position: absolute; inset: 0; z-index: 0; background: linear-gradient(180deg, rgba(5, 11, 22, 0.55) 0%, rgba(5, 11, 22, 0.35) 35%, rgba(5, 11, 22, 0.88) 70%, rgba(5, 11, 22, 0.96) 100%); }
+.step.has-bg > *:not(.step-bg):not(.step-veil) { position: relative; z-index: 1; }
+.step.has-bg .pay-tag { position: absolute !important; z-index: 2; }
+.step.has-bg .step-n { -webkit-text-stroke: 1.2px rgba(255, 255, 255, 0.7) !important; }
+.step.has-bg h3 { color: #fff; }
+.step.has-bg p { color: rgba(255, 255, 255, 0.82) !important; }
+.step.has-bg.pay .step-veil { background: linear-gradient(180deg, rgba(30, 91, 216, 0.55) 0%, rgba(5, 11, 22, 0.4) 35%, rgba(5, 11, 22, 0.9) 70%, rgba(5, 11, 22, 0.97) 100%); }
+.step.has-bg.cur { box-shadow: inset 0 0 0 1.5px rgba(141, 178, 255, 0.7) !important; }
+
+/* ---------- Bas de page ---------- */
+.foot { padding-top: clamp(48px, 5vw, 72px); }
+.foot-top { display: grid; gap: 44px; }
+@media (min-width: 960px) { .foot-top { grid-template-columns: 1fr 1.5fr; gap: 64px; } }
+.foot-brand { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+.foot-logo-link { display: flex; align-items: center; gap: 16px; }
+.foot-logo { width: 104px !important; height: auto; }
+.foot-name { color: var(--d-fg); font-size: 13px; line-height: 1.5; }
+.foot-name small { color: var(--d-muted); font-size: 11px; }
+.foot-about { margin: 0; color: var(--d-muted); max-width: 40ch; font-size: 15px; }
+.foot-cols { display: grid; gap: 32px; grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 640px) { .foot-cols { grid-template-columns: repeat(3, 1fr); } }
+.foot-cols ul { font-size: 15px; }
+.foot-cols ul a { word-break: break-word; }
+.offices { display: grid; gap: 12px; margin-top: 44px; }
+@media (min-width: 700px) { .offices { grid-template-columns: 1fr 1fr; } }
+.office { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 18px 22px; border-radius: 16px; background: var(--d-pill); box-shadow: inset 0 0 0 1px var(--d-line); }
+.office .label { color: var(--d-muted); }
+.office b { font-weight: 600; }
+.mega-wrap { position: relative; overflow: hidden; height: clamp(230px, 31vw, 500px); margin-top: 40px; display: grid; place-items: center; }
+.mega-veil { background: linear-gradient(180deg, rgba(5, 11, 22, 0.55), rgba(5, 11, 22, 0.75)); }
+.mega-wrap .mega { position: relative; z-index: 2; margin: 0; color: #fff; -webkit-text-stroke: 0; opacity: 0.94; font-size: clamp(120px, 26vw, 420px); line-height: 0.8; text-shadow: 0 10px 60px rgba(0, 0, 0, 0.45); }
+[data-theme="light"] .mega-wrap .mega { -webkit-text-stroke: 0; color: #fff; }

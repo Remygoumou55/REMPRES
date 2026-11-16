@@ -843,3 +843,23 @@ body:not([data-page="home"]) main [data-pg] + [data-pg] { padding-top: clamp(64p
 /* Titre du héros : ne touche jamais la carte de l'Afrique */
 .hero-title { font-size: clamp(34px, 3.7vw, 54px); }
 @media (max-width: 900px) { .hero-title { font-size: clamp(40px, 11vw, 58px); } }
+
+/* ==== Catalogue + bloc final compact ==== */
+.pager { flex-direction: column; gap: 12px; }
+.more-btn { height: 52px; padding: 0 30px; }
+.more-n { color: var(--d-muted); }
+/* La page Catalogue : les voitures, la demande sur mesure, le bas de page. Rien d'autre. */
+body[data-page="arrivages"] .page-hero { display: none !important; }
+body[data-page="arrivages"] [data-final] > .wrap { display: none; }
+body[data-page="arrivages"] [data-final] { padding-top: 0; }
+body[data-page="arrivages"] #arrivages { padding-top: 130px; }
+body[data-page="arrivages"] .foot { margin-top: 0; }
+/* Bloc final : une bande compacte */
+.final { padding: clamp(48px, 5vw, 72px) 0 0; text-align: left; }
+.final-band { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px 40px; padding: clamp(26px, 3vw, 40px) clamp(24px, 3vw, 44px); border-radius: 28px; background: linear-gradient(120deg, rgba(30, 91, 216, 0.28), rgba(8, 20, 38, 0.6)); box-shadow: inset 0 0 0 1px rgba(141, 178, 255, 0.28); }
+[data-theme="light"] .final-band { background: linear-gradient(120deg, #e3ecff, #f4f7fc); box-shadow: inset 0 0 0 1px rgba(30, 91, 216, 0.25); }
+.final-txt { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; max-width: 760px; }
+.final-title { margin: 0; font-family: var(--display); font-stretch: 112%; font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1.05; font-size: clamp(24px, 2.6vw, 40px); }
+.final-txt p { margin: 0; color: var(--d-muted); font-size: 16px; }
+.final-btn { flex: none; height: 58px; padding: 0 30px; font-size: 16px; }
+.final .foot { margin-top: clamp(44px, 5vw, 64px); }

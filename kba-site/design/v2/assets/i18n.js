@@ -8,7 +8,7 @@ window.KBA_I18N = {
    "desc": "Voitures coréennes choisies au parc, filmées à votre nom avant tout paiement et livrées clés en main partout en Afrique. Un seul interlocuteur, un seul compte : KBA."
   },
   "nav": {
-   "arrivals": "Arrivages",
+   "arrivals": "Catalogue",
    "journey": "Le parcours",
    "price": "Le prix",
    "verify": "Vérifiez-nous",
@@ -50,7 +50,7 @@ window.KBA_I18N = {
    "l2": "coréenne,",
    "l3": "clés en main.",
    "lead": "Hyundai, Kia, Genesis : nous sélectionnons votre voiture dans les parcs de Corée, nous la filmons à votre nom, puis nous gérons tout jusqu'à la remise des clés, bateau, douane et port compris. Un seul interlocuteur, un seul paiement : KBA.",
-   "cta1": "Voir les arrivages",
+   "cta1": "Voir le catalogue",
    "cta2": "Parler à un conseiller",
    "live": "Suivi en direct",
    "demo": "Démonstration",
@@ -223,7 +223,7 @@ window.KBA_I18N = {
    "Réponse"
   ],
   "arr": {
-   "pill": "Arrivages",
+   "pill": "Catalogue",
    "h2": "Choisies en Corée.<br><span class=\"outline\">Vérifiées pour vous.</span>",
    "lead": "Chaque voiture a un numéro KBA, un dossier complet et un <strong>prix total jusqu'au port de Conakry</strong>. Cliquez pour ouvrir le dossier.",
    "note": "",
@@ -257,7 +257,9 @@ window.KBA_I18N = {
    "box": {
     "Automatique": "Automatique",
     "Manuelle": "Manuelle"
-   }
+   },
+   "more": "Voir plus",
+   "moreN": "{n} voitures au catalogue"
   },
   "dw": {
    "aria": "Dossier de la voiture",
@@ -602,8 +604,8 @@ window.KBA_I18N = {
   },
   "fi": {
    "pill": "Passez à l'action",
-   "h2": "Votre voiture<br><span class=\"accent\">vous attend</span><br>à Incheon.",
-   "lead": "Écrivez-nous ce que vous cherchez. Vous recevez des voitures vérifiées, avec le prix total jusqu'à Conakry, en moins de 2 heures.",
+   "h2": "Votre prochaine voiture <span class=\"accent\">est en Corée.</span>",
+   "lead": "Dites-nous ce que vous cherchez : réponse sur WhatsApp en moins de 2 heures.",
    "cta": "Écrire sur WhatsApp",
    "about": "Voitures coréennes sélectionnées au parc, vérifiées et livrées clés en main en Afrique.",
    "buy": "Acheter",
@@ -650,14 +652,14 @@ window.KBA_I18N = {
      "Je vous accompagne jusqu'au jour où vous prenez le volant."
     ]
    ],
-   "cta1": "Découvrir les arrivages",
+   "cta1": "Découvrir le catalogue",
    "cta2": "Notre méthode"
   },
   "pg": {
    "arrivages": [
-    "Arrivages",
-    "Nos voitures,<br><span class=\"accent\">prêtes à partir.</span>",
-    "Chaque voiture a son dossier, ses photos réelles, ses défauts écrits et son prix. Choisissez, nous nous occupons du reste."
+    "Catalogue",
+    "Le catalogue<br><span class=\"accent\">KBA.</span>",
+    ""
    ],
    "parcours": [
     "Le parcours",
@@ -692,7 +694,7 @@ window.KBA_I18N = {
    "desc": "Korean cars chosen at the dealer, filmed with your name before any payment and delivered keys in hand anywhere in Africa. One partner, one account: KBA."
   },
   "nav": {
-   "arrivals": "Cars",
+   "arrivals": "Catalogue",
    "journey": "The process",
    "price": "Pricing",
    "verify": "Verify us",
@@ -734,7 +736,7 @@ window.KBA_I18N = {
    "l2": "car,",
    "l3": "keys in hand.",
    "lead": "Hyundai, Kia, Genesis: we select your car from Korean dealers, film it with your name, then handle everything up to the handover of the keys, shipping, customs and port included. One partner, one payment: KBA.",
-   "cta1": "See the cars",
+   "cta1": "See the catalogue",
    "cta2": "Talk to an advisor",
    "live": "Live tracking",
    "demo": "Demo",
@@ -907,7 +909,7 @@ window.KBA_I18N = {
    "Reply time"
   ],
   "arr": {
-   "pill": "Cars",
+   "pill": "Catalogue",
    "h2": "Chosen in Korea.<br><span class=\"outline\">Verified for you.</span>",
    "lead": "Every car has a KBA number, a complete file and a <strong>full price delivered to the port of Conakry</strong>. Click to open the file.",
    "note": "",
@@ -941,7 +943,9 @@ window.KBA_I18N = {
    "box": {
     "Automatique": "Automatic",
     "Manuelle": "Manual"
-   }
+   },
+   "more": "See more",
+   "moreN": "{n} cars in the catalogue"
   },
   "dw": {
    "aria": "Car file",
@@ -1286,8 +1290,8 @@ window.KBA_I18N = {
   },
   "fi": {
    "pill": "Take action",
-   "h2": "Your car<br><span class=\"accent\">is waiting</span><br>in Incheon.",
-   "lead": "Tell us what you are looking for. You receive verified cars, with the full price to Conakry, in under 2 hours.",
+   "h2": "Your next car <span class=\"accent\">is in Korea.</span>",
+   "lead": "Tell us what you are looking for: a reply on WhatsApp in under 2 hours.",
    "cta": "Message us on WhatsApp",
    "about": "Korean cars selected at the dealer, verified and delivered keys in hand across Africa.",
    "buy": "Buy",
@@ -1334,14 +1338,14 @@ window.KBA_I18N = {
      "I stay with you until the day you take the wheel."
     ]
    ],
-   "cta1": "Discover the cars",
+   "cta1": "Discover the catalogue",
    "cta2": "Our method"
   },
   "pg": {
    "arrivages": [
-    "Cars",
-    "Our cars,<br><span class=\"accent\">ready to ship.</span>",
-    "Every car has its file, real photos, written defects and its price. You choose, we handle the rest."
+    "Catalogue",
+    "The KBA<br><span class=\"accent\">catalogue.</span>",
+    ""
    ],
    "parcours": [
     "The process",
@@ -1376,7 +1380,7 @@ window.KBA_I18N = {
    "desc": "매매상사에서 고른 한국 차량을 결제 전에 고객님 이름과 함께 촬영해 보여드리고, 아프리카 어디든 키까지 인도합니다. 창구도 계좌도 하나, KBA."
   },
   "nav": {
-   "arrivals": "차량",
+   "arrivals": "카탈로그",
    "journey": "진행 과정",
    "price": "가격",
    "verify": "검증하기",
@@ -1418,7 +1422,7 @@ window.KBA_I18N = {
    "l2": "한국 자동차.",
    "l3": "키까지 전해 드립니다.",
    "lead": "현대, 기아, 제네시스: 한국 매매상사에서 차량을 고르고, 고객님 이름과 함께 촬영한 뒤, 선적·통관·항만까지 키 인도 전 과정을 처리합니다. 창구도 결제도 하나, KBA.",
-   "cta1": "차량 보기",
+   "cta1": "카탈로그 보기",
    "cta2": "상담하기",
    "live": "실시간 추적",
    "demo": "데모",
@@ -1591,7 +1595,7 @@ window.KBA_I18N = {
    "답변"
   ],
   "arr": {
-   "pill": "차량",
+   "pill": "카탈로그",
    "h2": "한국에서 고르고.<br><span class=\"outline\">고객님을 위해 검증합니다.</span>",
    "lead": "모든 차량에는 KBA 번호, 완전한 서류, 그리고 <strong>코나크리항 도착 총액</strong>이 있습니다. 클릭하면 차량 서류가 열립니다.",
    "note": "",
@@ -1625,7 +1629,9 @@ window.KBA_I18N = {
    "box": {
     "Automatique": "자동",
     "Manuelle": "수동"
-   }
+   },
+   "more": "더 보기",
+   "moreN": "카탈로그 차량 {n}대"
   },
   "dw": {
    "aria": "차량 서류",
@@ -1970,8 +1976,8 @@ window.KBA_I18N = {
   },
   "fi": {
    "pill": "지금 시작하세요",
-   "h2": "고객님의 차가<br><span class=\"accent\">인천에서</span><br>기다립니다.",
-   "lead": "찾으시는 차를 알려주세요. 2시간 안에 코나크리까지의 총액과 함께 검증된 차량을 보내드립니다.",
+   "h2": "다음 차는 <span class=\"accent\">한국에 있습니다.</span>",
+   "lead": "찾으시는 차를 알려주세요. WhatsApp으로 2시간 안에 답변드립니다.",
    "cta": "WhatsApp으로 문의하기",
    "about": "매매상사에서 엄선하고 검증한 한국 차량을 아프리카에 키까지 인도합니다.",
    "buy": "구매",
@@ -2018,14 +2024,14 @@ window.KBA_I18N = {
      "고객님이 핸들을 잡는 날까지 함께합니다."
     ]
    ],
-   "cta1": "차량 보기",
+   "cta1": "카탈로그 둘러보기",
    "cta2": "진행 방식"
   },
   "pg": {
    "arrivages": [
-    "차량",
-    "출발 준비가 된<br><span class=\"accent\">우리 차량.</span>",
-    "모든 차량에 서류, 실제 사진, 결함 기록, 가격이 있습니다. 고르시면 나머지는 저희가 합니다."
+    "카탈로그",
+    "KBA<br><span class=\"accent\">카탈로그.</span>",
+    ""
    ],
    "parcours": [
     "진행 과정",

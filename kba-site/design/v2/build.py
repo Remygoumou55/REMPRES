@@ -24,7 +24,7 @@ for k, v in ICONS.items():
     out = out.replace("{{" + k + "}}", v)
 assert "{{" not in out, re.findall(r"\{\{\w+\}\}", out)
 # Une page par onglet : même gabarit, seules les sections de la page sont affichées (data-page)
-PAGES = {"index": "home", "arrivages": "arrivages", "parcours": "parcours", "prix": "prix", "verifiez": "verifiez", "pays": "pays", "questions": "questions"}
+PAGES = {"index": "home", "catalogue": "arrivages", "parcours": "parcours", "prix": "prix", "verifiez": "verifiez", "pays": "pays", "questions": "questions"}
 for name, page in PAGES.items():
     html = out.replace('<body class="is-loading">', '<body class="is-loading" data-page="%s">' % page, 1)
     if page != "home":

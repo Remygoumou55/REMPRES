@@ -106,6 +106,7 @@
 
   /* ================= Page courante + fonds animés ================= */
   var PAGE = document.body.getAttribute("data-page") || "home";
+  var ARROW_HTML = '<svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
   var STEP_BG = ["kona/01-avant-3-4-droit.jpg", "k5/video-1.mp4", "lexus-rx/03-poste-conduite.jpg", "sorento/14-volant-ecran-gps.jpg", "sorento/20-plaque-constructeur.jpg", "korando/20-benne-ouverte.jpg", "kona/13h-camera-recul.jpg", "pilot/04-arriere-3-4-gauche.jpg", "santafe/01-avant-3-4-droit.jpg", "kona/13f-deux-cles.jpg"];
   var KB_SETS = {
     brand: ["lexus-rx/01-face-avant.jpg", "kona/01-avant-3-4-droit.jpg", "pilot/01-avant-3-4-gauche.jpg", "sorento/01-avant-3-4-droit.jpg", "santafe/01-avant-3-4-droit.jpg", "sportage/01-avant-3-4.jpg"],
@@ -366,7 +367,7 @@
   $$(".js-theme").forEach(function (b) { b.addEventListener("click", function () { setTheme(document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light"); }); });
 
   /* ================= Filtres et fiche voiture ================= */
-  var carPage = 0, PER_PAGE = 9;
+  var carPage = 0, PER_PAGE = PAGE === "home" ? 9 : 1000;
   function showCars(anim, scroll) {
     var cards = $$("#cars .car"), match = cards.filter(function (c) { return filter === "all" || c.getAttribute("data-type") === filter; });
     var pages = Math.max(1, Math.ceil(match.length / PER_PAGE)); if (carPage >= pages) carPage = pages - 1;
@@ -374,7 +375,9 @@
     cards.forEach(function (c) { c.style.display = show.indexOf(c) >= 0 ? "" : "none"; });
     var pg = $("#carPager");
     if (pg) {
-      if (pages < 2) pg.innerHTML = "";
+      if (PAGE === "home") {
+        pg.innerHTML = match.length > PER_PAGE ? '<a class="btn btn-primary more-btn" href="catalogue.html"><span>' + esc(T.arr.more) + "</span> " + ARROW_HTML + '</a><span class="label more-n">' + esc(T.arr.moreN.replace("{n}", cars.length)) + "</span>" : "";
+      } else if (pages < 2) pg.innerHTML = "";
       else {
         var btn = function (k, lab, cls, dis) { return '<button class="pg-b' + (cls || "") + '" data-p="' + k + '"' + (dis ? " disabled" : "") + ">" + lab + "</button>"; };
         pg.innerHTML = btn(carPage - 1, "‹", " pg-arrow", carPage === 0) + Array.from({ length: pages }, function (_, k) { return btn(k, k + 1, k === carPage ? " on" : ""); }).join("") + btn(carPage + 1, "›", " pg-arrow", carPage === pages - 1);

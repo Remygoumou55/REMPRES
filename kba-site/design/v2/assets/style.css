@@ -828,3 +828,14 @@ body:not([data-page="home"]) main [data-pg] + [data-pg] { padding-top: clamp(64p
 @supports (-webkit-background-clip: text) or (background-clip: text) {
   .mega-wrap .mega { background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.06)); -webkit-background-clip: text; background-clip: text; color: transparent !important; }
 }
+
+/* Héros : photos qui défilent à gauche, fondues dans la carte (la carte n'est pas touchée) */
+.hero-kb { position: absolute; top: 0; bottom: 0; left: 0; width: 60%; z-index: 0; pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 45%, transparent 100%); mask-image: linear-gradient(90deg, #000 0%, #000 45%, transparent 100%); }
+.hero-kb .kb { background: transparent; }
+.hero-kb .kb-img.on { opacity: 0.55; }
+.hero-kb::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, color-mix(in srgb, var(--d-bg) 72%, transparent), color-mix(in srgb, var(--d-bg) 55%, transparent)), linear-gradient(0deg, var(--d-bg) 0%, transparent 30%); }
+[data-theme="light"] .hero-kb .kb-img.on { opacity: 0.32; }
+[data-theme="light"] .hero-kb::after { background: linear-gradient(90deg, rgba(249, 251, 254, 0.8), rgba(249, 251, 254, 0.62)), linear-gradient(0deg, #fff 0%, transparent 30%); }
+.hero-content { z-index: 2; }
+@media (max-width: 900px) { .hero-kb { width: 100%; -webkit-mask-image: linear-gradient(0deg, #000 0%, #000 55%, transparent 90%); mask-image: linear-gradient(0deg, #000 0%, #000 55%, transparent 90%); } }

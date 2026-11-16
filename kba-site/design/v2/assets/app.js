@@ -109,6 +109,7 @@
   var STEP_BG = ["kona/01-avant-3-4-droit.jpg", "k5/video-1.mp4", "lexus-rx/03-poste-conduite.jpg", "sorento/14-volant-ecran-gps.jpg", "sorento/20-plaque-constructeur.jpg", "korando/20-benne-ouverte.jpg", "kona/13h-camera-recul.jpg", "pilot/04-arriere-3-4-gauche.jpg", "santafe/01-avant-3-4-droit.jpg", "kona/13f-deux-cles.jpg"];
   var KB_SETS = {
     brand: ["lexus-rx/01-face-avant.jpg", "kona/01-avant-3-4-droit.jpg", "pilot/01-avant-3-4-gauche.jpg", "sorento/01-avant-3-4-droit.jpg", "santafe/01-avant-3-4-droit.jpg", "sportage/01-avant-3-4.jpg"],
+    hero: ["kona/01-avant-3-4-droit.jpg", "lexus-rx/01-face-avant.jpg", "santafe/01-avant-3-4-droit.jpg", "pilot/01-avant-3-4-gauche.jpg", "sorento/01-avant-3-4-droit.jpg"],
     why: ["sorento/12-planche-bord.jpg", "kona/13f-deux-cles.jpg", "pilot/20-plaque-constructeur.jpg", "kona/13h-camera-recul.jpg", "lexus-rx/03-poste-conduite.jpg"],
     mega: ["sportage/01-avant-3-4.jpg", "k7/01-avant-3-4-droit.jpg", "maxcruz/01-avant-3-4-droit.jpg", "grandeur/01-avant-3-4-gauche.jpg", "korando/01-avant-3-4-droit.jpg", "veloster/01-avant-3-4-droit.jpg", "pilot/01-avant-3-4-gauche.jpg"],
     page: {

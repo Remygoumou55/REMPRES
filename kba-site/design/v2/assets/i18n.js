@@ -46,10 +46,10 @@ window.KBA_I18N = {
   },
   "hero": {
    "kicker": "Korea Business Auto · De la Corée en Afrique",
-   "l1": "Voyez-la.",
-   "l2": "Vérifiez-la.",
-   "l3": "Recevez-la.",
-   "lead": "Choisissez votre voiture en Corée. Avant de payer, vous la voyez filmée avec votre nom. Vous payez sur le compte de l'entreprise, jamais à un inconnu, et vous recevez les clés en main à Conakry ou dans votre pays.",
+   "l1": "Votre voiture",
+   "l2": "coréenne,",
+   "l3": "clés en main.",
+   "lead": "Hyundai, Kia, Genesis : nous sélectionnons votre voiture dans les parcs de Corée, nous la filmons à votre nom, puis nous gérons tout jusqu'à la remise des clés, bateau, douane et port compris. Un seul interlocuteur, un seul paiement : KBA.",
    "cta1": "Voir les arrivages",
    "cta2": "Parler à un conseiller",
    "live": "Suivi en direct",
@@ -101,7 +101,24 @@ window.KBA_I18N = {
    "Minibus"
   ],
   "man": {
-  "cmp": {"a": "Ailleurs", "b": "Avec KBA", "bad": ["Une photo copiée sur Internet", "« Payez vite, un autre client attend »", "Un compte personnel ou Western Union", "Aucun document à votre nom", "La douane découverte à l'arrivée"], "good": ["La voiture filmée avec votre nom et la date", "Un dossier complet, défauts photographiés", "Un seul compte : celui de l'entreprise KBA", "Facture et B/L à votre nom, suivi du bateau", "Un prix clés en main, douane comprise"]},
+   "cmp": {
+    "a": "Ailleurs",
+    "b": "Avec KBA",
+    "bad": [
+     "Une photo copiée sur Internet",
+     "« Payez vite, un autre client attend »",
+     "Un compte personnel ou Western Union",
+     "Aucun document à votre nom",
+     "La douane découverte à l'arrivée"
+    ],
+    "good": [
+     "La voiture filmée avec votre nom et la date",
+     "Un dossier complet, défauts photographiés",
+     "Un seul compte : celui de l'entreprise KBA",
+     "Facture et B/L à votre nom, suivi du bateau",
+     "Un prix clés en main, douane comprise"
+    ]
+   },
    "pill": "La différence KBA",
    "h": "Ailleurs, on paie sur une photo.<br><span class=\"accent\">Chez KBA, sur des preuves.</span>",
    "text": "On vous demande d'envoyer des milliers de dollars à un inconnu, sur une simple photo. Chez KBA, vous ne payez jamais sans preuve : la voiture filmée à votre nom, son historique officiel coréen traduit en français, et le document du bateau à votre nom, avec le lien pour suivre votre voiture jusqu'au port.",
@@ -713,10 +730,10 @@ window.KBA_I18N = {
   },
   "hero": {
    "kicker": "Korea Business Auto · From Korea to Africa",
-   "l1": "See it.",
-   "l2": "Check it.",
-   "l3": "Get it.",
-   "lead": "Choose your car in Korea. Before you pay, you see it filmed with your name. You pay into the company account, never to a stranger, and you get the keys in hand in Conakry or in your country.",
+   "l1": "Your Korean",
+   "l2": "car,",
+   "l3": "keys in hand.",
+   "lead": "Hyundai, Kia, Genesis: we select your car from Korean dealers, film it with your name, then handle everything up to the handover of the keys, shipping, customs and port included. One partner, one payment: KBA.",
    "cta1": "See the cars",
    "cta2": "Talk to an advisor",
    "live": "Live tracking",
@@ -768,7 +785,24 @@ window.KBA_I18N = {
    "Minibuses"
   ],
   "man": {
-  "cmp": {"a": "Elsewhere", "b": "With KBA", "bad": ["A photo copied from the internet", "\"Pay fast, another buyer is waiting\"", "A personal account or Western Union", "No document in your name", "Customs discovered on arrival"], "good": ["The car filmed with your name and the date", "A complete file, defects photographed", "One account: KBA's company account", "Invoice and B/L in your name, ship tracking", "A keys-in-hand price, customs included"]},
+   "cmp": {
+    "a": "Elsewhere",
+    "b": "With KBA",
+    "bad": [
+     "A photo copied from the internet",
+     "\"Pay fast, another buyer is waiting\"",
+     "A personal account or Western Union",
+     "No document in your name",
+     "Customs discovered on arrival"
+    ],
+    "good": [
+     "The car filmed with your name and the date",
+     "A complete file, defects photographed",
+     "One account: KBA's company account",
+     "Invoice and B/L in your name, ship tracking",
+     "A keys-in-hand price, customs included"
+    ]
+   },
    "pill": "The KBA difference",
    "h": "Elsewhere, people pay for a photo.<br><span class=\"accent\">At KBA, you pay for proof.</span>",
    "text": "People ask you to send thousands of dollars to a stranger, based on a single photo. At KBA, you never pay without proof: the car filmed with your name, its official Korean history translated for you, and the shipping document in your name, with the link to follow your car to the port.",
@@ -1380,10 +1414,10 @@ window.KBA_I18N = {
   },
   "hero": {
    "kicker": "Korea Business Auto · 한국에서 아프리카로",
-   "l1": "직접 보고.",
-   "l2": "확인하고.",
-   "l3": "받으세요.",
-   "lead": "한국에서 차를 고르세요. 결제 전에 고객님 이름과 함께 촬영한 영상을 먼저 보여드립니다. 결제는 모르는 사람이 아닌 법인 계좌로만, 그리고 코나크리 또는 고객님 나라에서 키를 받으세요.",
+   "l1": "고객님의",
+   "l2": "한국 자동차.",
+   "l3": "키까지 전해 드립니다.",
+   "lead": "현대, 기아, 제네시스: 한국 매매상사에서 차량을 고르고, 고객님 이름과 함께 촬영한 뒤, 선적·통관·항만까지 키 인도 전 과정을 처리합니다. 창구도 결제도 하나, KBA.",
    "cta1": "차량 보기",
    "cta2": "상담하기",
    "live": "실시간 추적",
@@ -1435,7 +1469,24 @@ window.KBA_I18N = {
    "승합차"
   ],
   "man": {
-  "cmp": {"a": "다른 곳", "b": "KBA와 함께", "bad": ["인터넷에서 가져온 사진", "\"빨리 결제하세요, 다른 손님이 기다려요\"", "개인 계좌 또는 Western Union", "고객님 명의 서류 없음", "도착해서야 알게 되는 통관비"], "good": ["고객님 이름과 날짜와 함께 촬영한 차량", "결함 사진까지 포함한 전체 서류", "계좌는 하나: KBA 법인 계좌", "고객님 명의 인보이스와 B/L, 선박 추적", "통관비 포함, 키 인도까지의 가격"]},
+   "cmp": {
+    "a": "다른 곳",
+    "b": "KBA와 함께",
+    "bad": [
+     "인터넷에서 가져온 사진",
+     "\"빨리 결제하세요, 다른 손님이 기다려요\"",
+     "개인 계좌 또는 Western Union",
+     "고객님 명의 서류 없음",
+     "도착해서야 알게 되는 통관비"
+    ],
+    "good": [
+     "고객님 이름과 날짜와 함께 촬영한 차량",
+     "결함 사진까지 포함한 전체 서류",
+     "계좌는 하나: KBA 법인 계좌",
+     "고객님 명의 인보이스와 B/L, 선박 추적",
+     "통관비 포함, 키 인도까지의 가격"
+    ]
+   },
    "pill": "KBA의 차이",
    "h": "다른 곳은 사진 한 장에 돈을 보냅니다.<br><span class=\"accent\">KBA는 증거를 보고 냅니다.</span>",
    "text": "모르는 사람에게 사진 한 장만 보고 수천 달러를 보내라고 합니다. KBA에서는 증거 없이 결제하는 일이 없습니다. 고객님 이름으로 촬영한 차량 영상, 번역된 한국 공식 이력, 그리고 고객님 명의의 선적 서류와 항구까지 차량을 추적할 수 있는 링크.",

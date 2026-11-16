@@ -149,7 +149,9 @@
 </section>
 
 <!-- LA DIFFÉRENCE KBA : texte + téléphone animé -->
-<section class="light sec why" id="pourquoi" data-pg="home verifiez">
+<section class="sec why why-dark" id="pourquoi" data-pg="home verifiez">
+  <div class="kb" data-kb="why"></div>
+  <div class="kb-veil why-veil"></div>
   <div class="wrap why-grid">
     <div class="why-txt">
       <span class="pill" data-i18n="man.pill"></span>
@@ -157,18 +159,7 @@
       <p class="big" id="manifesto"></p>
       <div class="manifesto-foot"><span class="label" data-i18n="man.a"></span><span class="label" data-i18n="man.b"></span></div>
     </div>
-    <div class="why-phone">
-      <div class="phone" id="phone">
-        <div class="ph-screen">
-          <div class="ph-status"><span>9:41</span><i class="ph-island"></i><span class="ph-bat"></span></div>
-          <div class="ph-tabs" role="tablist"><button class="on" data-scene="0" data-i18n="man.before"></button><button data-scene="1" data-i18n="man.after"></button><i class="ph-ink"></i></div>
-          <div class="ph-head"><span class="ph-av" id="phAv"></span><div><b id="phName"></b><small id="phSub"></small></div></div>
-          <div class="ph-body" id="phBody"></div>
-          <div class="ph-input"><span></span><i></i></div>
-        </div>
-      </div>
-      <span class="label ph-demo" data-i18n="man.demo"></span>
-    </div>
+    <div class="cmp" id="cmp"></div>
   </div>
 </section>
 
@@ -194,6 +185,7 @@
       <div class="filters" id="filters"></div>
     </div>
     <div class="cars" id="cars"></div>
+    <nav class="pager" id="carPager" aria-label="Pages"></nav>
     <p class="label cars-note" data-i18n="arr.note"></p>
   </div>
 </section>

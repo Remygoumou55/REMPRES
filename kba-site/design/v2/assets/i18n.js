@@ -101,6 +101,7 @@ window.KBA_I18N = {
    "Minibus"
   ],
   "man": {
+  "cmp": {"a": "Ailleurs", "b": "Avec KBA", "bad": ["Une photo copiée sur Internet", "« Payez vite, un autre client attend »", "Un compte personnel ou Western Union", "Aucun document à votre nom", "La douane découverte à l'arrivée"], "good": ["La voiture filmée avec votre nom et la date", "Un dossier complet, défauts photographiés", "Un seul compte : celui de l'entreprise KBA", "Facture et B/L à votre nom, suivi du bateau", "Un prix clés en main, douane comprise"]},
    "pill": "La différence KBA",
    "h": "Ailleurs, on paie sur une photo.<br><span class=\"accent\">Chez KBA, sur des preuves.</span>",
    "text": "On vous demande d'envoyer des milliers de dollars à un inconnu, sur une simple photo. Chez KBA, vous ne payez jamais sans preuve : la voiture filmée à votre nom, son historique officiel coréen traduit en français, et le document du bateau à votre nom, avec le lien pour suivre votre voiture jusqu'au port.",
@@ -113,7 +114,7 @@ window.KBA_I18N = {
     "suivre"
    ],
    "a": "Désiré · Incheon, Corée du Sud",
-   "b": "Rémi · Conakry, Guinée",
+   "b": "Rémy · Conakry, Guinée",
    "before": "Avant KBA",
    "after": "Avec KBA",
    "demo": "Scène de démonstration",
@@ -627,7 +628,7 @@ window.KBA_I18N = {
     ],
     [
      "R",
-     "Rémi",
+     "Rémy",
      "Conakry, Guinée",
      "Je vous accompagne jusqu'au jour où vous prenez le volant."
     ]
@@ -767,6 +768,7 @@ window.KBA_I18N = {
    "Minibuses"
   ],
   "man": {
+  "cmp": {"a": "Elsewhere", "b": "With KBA", "bad": ["A photo copied from the internet", "\"Pay fast, another buyer is waiting\"", "A personal account or Western Union", "No document in your name", "Customs discovered on arrival"], "good": ["The car filmed with your name and the date", "A complete file, defects photographed", "One account: KBA's company account", "Invoice and B/L in your name, ship tracking", "A keys-in-hand price, customs included"]},
    "pill": "The KBA difference",
    "h": "Elsewhere, people pay for a photo.<br><span class=\"accent\">At KBA, you pay for proof.</span>",
    "text": "People ask you to send thousands of dollars to a stranger, based on a single photo. At KBA, you never pay without proof: the car filmed with your name, its official Korean history translated for you, and the shipping document in your name, with the link to follow your car to the port.",
@@ -779,7 +781,7 @@ window.KBA_I18N = {
     "follow"
    ],
    "a": "Désiré · Incheon, South Korea",
-   "b": "Rémi · Conakry, Guinea",
+   "b": "Rémy · Conakry, Guinea",
    "before": "Before KBA",
    "after": "With KBA",
    "demo": "Demo scene",
@@ -1293,7 +1295,7 @@ window.KBA_I18N = {
     ],
     [
      "R",
-     "Rémi",
+     "Rémy",
      "Conakry, Guinea",
      "I stay with you until the day you take the wheel."
     ]
@@ -1433,6 +1435,7 @@ window.KBA_I18N = {
    "승합차"
   ],
   "man": {
+  "cmp": {"a": "다른 곳", "b": "KBA와 함께", "bad": ["인터넷에서 가져온 사진", "\"빨리 결제하세요, 다른 손님이 기다려요\"", "개인 계좌 또는 Western Union", "고객님 명의 서류 없음", "도착해서야 알게 되는 통관비"], "good": ["고객님 이름과 날짜와 함께 촬영한 차량", "결함 사진까지 포함한 전체 서류", "계좌는 하나: KBA 법인 계좌", "고객님 명의 인보이스와 B/L, 선박 추적", "통관비 포함, 키 인도까지의 가격"]},
    "pill": "KBA의 차이",
    "h": "다른 곳은 사진 한 장에 돈을 보냅니다.<br><span class=\"accent\">KBA는 증거를 보고 냅니다.</span>",
    "text": "모르는 사람에게 사진 한 장만 보고 수천 달러를 보내라고 합니다. KBA에서는 증거 없이 결제하는 일이 없습니다. 고객님 이름으로 촬영한 차량 영상, 번역된 한국 공식 이력, 그리고 고객님 명의의 선적 서류와 항구까지 차량을 추적할 수 있는 링크.",
@@ -1445,7 +1448,7 @@ window.KBA_I18N = {
     "링크."
    ],
    "a": "Désiré · 대한민국 인천",
-   "b": "Rémi · 기니 코나크리",
+   "b": "Rémy · 기니 코나크리",
    "before": "KBA 이전",
    "after": "KBA와 함께",
    "demo": "데모 화면",
@@ -1959,7 +1962,7 @@ window.KBA_I18N = {
     ],
     [
      "R",
-     "Rémi",
+     "Rémy",
      "기니 코나크리",
      "고객님이 핸들을 잡는 날까지 함께합니다."
     ]

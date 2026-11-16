@@ -782,3 +782,49 @@ body:not([data-page="home"]) main [data-pg] + [data-pg] { padding-top: clamp(64p
 .mega-veil { background: linear-gradient(180deg, rgba(5, 11, 22, 0.55), rgba(5, 11, 22, 0.75)); }
 .mega-wrap .mega { position: relative; z-index: 2; margin: 0; color: #fff; -webkit-text-stroke: 0; opacity: 0.94; font-size: clamp(120px, 26vw, 420px); line-height: 0.8; text-shadow: 0 10px 60px rgba(0, 0, 0, 0.45); }
 [data-theme="light"] .mega-wrap .mega { -webkit-text-stroke: 0; color: #fff; }
+
+/* ==== Retouches : comparaison, pagination, défilement horizontal, KBA transparent ==== */
+.why-dark { position: relative; overflow: hidden; color: #fff; background: #050b16; }
+.why-dark .why-grid { position: relative; z-index: 2; }
+.why-veil { background: linear-gradient(90deg, rgba(5, 11, 22, 0.94) 0%, rgba(5, 11, 22, 0.8) 50%, rgba(5, 11, 22, 0.6) 100%); }
+.why-dark .pill { background: rgba(255, 255, 255, 0.08); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2); color: #fff; }
+.why-dark .why-h { color: #fff; }
+.why-dark #manifesto { color: #fff; }
+.why-dark #manifesto .w.hl { color: #8db2ff; }
+.why-dark .manifesto-foot { color: rgba(255, 255, 255, 0.6); }
+@media (min-width: 1000px) { .why-dark .why-grid { min-height: 0; grid-template-columns: 1fr 1fr; } }
+.cmp { display: grid; gap: 14px; }
+.cmp-col { padding: 24px 24px 22px; border-radius: 22px; -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+.cmp-col .label { display: inline-block; margin-bottom: 14px; }
+.cmp-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px; }
+.cmp-col li { display: flex; gap: 12px; align-items: flex-start; font-size: 15.5px; line-height: 1.4; }
+.cmp-col li i { flex: none; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; font-style: normal; font-size: 12px; font-weight: 700; margin-top: 1px; }
+.cmp-col.bad { background: rgba(214, 69, 69, 0.08); box-shadow: inset 0 0 0 1px rgba(255, 110, 110, 0.3); color: rgba(255, 255, 255, 0.62); }
+.cmp-col.bad .label { color: #ff9b9b; }
+.cmp-col.bad li { text-decoration: line-through; text-decoration-color: rgba(255, 110, 110, 0.55); }
+.cmp-col.bad li i { background: rgba(255, 110, 110, 0.18); color: #ff9b9b; }
+.cmp-col.good { background: rgba(30, 91, 216, 0.22); box-shadow: inset 0 0 0 1px rgba(141, 178, 255, 0.45), 0 30px 60px -30px rgba(0, 0, 0, 0.6); color: #fff; }
+.cmp-col.good .label { color: #8db2ff; }
+.cmp-col.good li i { background: #1fae5f; color: #fff; }
+
+.founders { margin: 0 auto; width: 100%; justify-content: center; }
+@media (min-width: 900px) { .founders { grid-template-columns: repeat(2, minmax(0, 440px)); } }
+
+.pager { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 40px; flex-wrap: wrap; }
+.pg-b { min-width: 46px; height: 46px; padding: 0 14px; border-radius: 100px; box-shadow: inset 0 0 0 1px var(--d-line2); color: var(--d-fg); font-family: var(--mono); font-size: 14px; transition: background 0.3s, color 0.3s, box-shadow 0.3s; }
+.pg-b:hover:not([disabled]) { box-shadow: inset 0 0 0 1px var(--blue); }
+.pg-b.on { background: var(--blue); color: #fff; box-shadow: none; }
+.pg-b[disabled] { opacity: 0.3; cursor: default; }
+.pg-arrow { font-size: 20px; }
+
+.car-viewport { overflow-x: auto; overflow-y: hidden; scrollbar-width: none; -ms-overflow-style: none; overscroll-behavior-x: contain; cursor: grab; }
+.car-viewport::-webkit-scrollbar { display: none; }
+.car-viewport.dragging { cursor: grabbing; user-select: none; }
+.car-viewport.dragging * { pointer-events: none; }
+.journey-track { width: max-content; transform: none !important; }
+
+.mega-veil { background: linear-gradient(180deg, rgba(5, 11, 22, 0.25), rgba(5, 11, 22, 0.45)); }
+.mega-wrap .mega { color: rgba(255, 255, 255, 0.1) !important; -webkit-text-stroke: 2px rgba(255, 255, 255, 0.92) !important; text-shadow: none; opacity: 1; -webkit-backdrop-filter: none; }
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .mega-wrap .mega { background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.06)); -webkit-background-clip: text; background-clip: text; color: transparent !important; }
+}

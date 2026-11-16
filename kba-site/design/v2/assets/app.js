@@ -109,6 +109,7 @@
   var STEP_BG = ["kona/01-avant-3-4-droit.jpg", "k5/video-1.mp4", "lexus-rx/03-poste-conduite.jpg", "sorento/14-volant-ecran-gps.jpg", "sorento/20-plaque-constructeur.jpg", "korando/20-benne-ouverte.jpg", "kona/13h-camera-recul.jpg", "pilot/04-arriere-3-4-gauche.jpg", "santafe/01-avant-3-4-droit.jpg", "kona/13f-deux-cles.jpg"];
   var KB_SETS = {
     brand: ["lexus-rx/01-face-avant.jpg", "kona/01-avant-3-4-droit.jpg", "pilot/01-avant-3-4-gauche.jpg", "sorento/01-avant-3-4-droit.jpg", "santafe/01-avant-3-4-droit.jpg", "sportage/01-avant-3-4.jpg"],
+    why: ["sorento/12-planche-bord.jpg", "kona/13f-deux-cles.jpg", "pilot/20-plaque-constructeur.jpg", "kona/13h-camera-recul.jpg", "lexus-rx/03-poste-conduite.jpg"],
     mega: ["sportage/01-avant-3-4.jpg", "k7/01-avant-3-4-droit.jpg", "maxcruz/01-avant-3-4-droit.jpg", "grandeur/01-avant-3-4-gauche.jpg", "korando/01-avant-3-4-droit.jpg", "veloster/01-avant-3-4-droit.jpg", "pilot/01-avant-3-4-gauche.jpg"],
     page: {
       arrivages: ["kona/01-avant-3-4-droit.jpg", "santafe/01-avant-3-4-droit.jpg", "pilot/01-avant-3-4-gauche.jpg"],
@@ -303,7 +304,9 @@
     if (fo) fo.innerHTML = T.brand.founders.map(function (f) { return '<figure class="founder rv"><span class="founder-av">' + esc(f[0]) + '</span><figcaption><b>' + esc(f[1]) + '</b><small class="label">' + esc(f[2]) + '</small><q>' + esc(f[3]) + "</q></figcaption></figure>"; }).join("");
     if (PAGE !== "home" && T.pg[PAGE]) { $("#pgPill").textContent = T.pg[PAGE][0]; $("#pgTitle").innerHTML = T.pg[PAGE][1]; $("#pgLead").textContent = T.pg[PAGE][2]; document.title = T.pg[PAGE][0] + " · Korea Business Auto"; }
     $("#flowMobile").innerHTML = T.mo.mob.map(function (m, i) { return '<div' + (i === 2 ? ' class="bad"' : "") + "><b>" + esc(m[0]) + "</b><span>" + esc(m[1]) + "</span></div>"; }).join("");
-    buildPhone(); fillPriceCars();
+    var cm = $("#cmp");
+    if (cm) cm.innerHTML = '<div class="cmp-col bad rv"><span class="label">' + esc(T.man.cmp.a) + "</span><ul>" + T.man.cmp.bad.map(function (x) { return "<li><i>✕</i>" + esc(x) + "</li>"; }).join("") + '</ul></div><div class="cmp-col good rv"><span class="label">' + esc(T.man.cmp.b) + "</span><ul>" + T.man.cmp.good.map(function (x) { return "<li><i>✓</i>" + esc(x) + "</li>"; }).join("") + "</ul></div>";
+    fillPriceCars();
     $("#flowPoints").innerHTML = T.mo.pts.map(function (p) { return '<div class="rv"><h3 class="h3">' + esc(p[0]) + "</h3><p>" + esc(p[1]) + "</p></div>"; }).join("");
     $("#checks6").innerHTML = T.ve.checks.map(function (c, i) { return '<div class="c6 rv"><div class="n">' + String(i + 1).padStart(2, "0") + '</div><h3 class="h3">' + esc(c[0]) + "</h3><p>" + esc(c[1]) + "</p></div>"; }).join("");
     $("#scamList").innerHTML = T.ve.scam.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("");
@@ -324,7 +327,7 @@
     $$("#filters .chip").forEach(function (b) { b.addEventListener("click", function () { setFilter(b.getAttribute("data-f")); }); });
     $("#cars").innerHTML = cars.map(carCard).join("");
     $$("#cars .car").forEach(function (b) { b.addEventListener("click", function () { openCar(+b.getAttribute("data-i")); }); });
-    startSlideshows();
+    showCars(false);
   }
 
   function renderPrices() {
@@ -362,17 +365,29 @@
   $$(".js-theme").forEach(function (b) { b.addEventListener("click", function () { setTheme(document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light"); }); });
 
   /* ================= Filtres et fiche voiture ================= */
+  var carPage = 0, PER_PAGE = 9;
+  function showCars(anim, scroll) {
+    var cards = $$("#cars .car"), match = cards.filter(function (c) { return filter === "all" || c.getAttribute("data-type") === filter; });
+    var pages = Math.max(1, Math.ceil(match.length / PER_PAGE)); if (carPage >= pages) carPage = pages - 1;
+    var show = match.slice(carPage * PER_PAGE, carPage * PER_PAGE + PER_PAGE);
+    cards.forEach(function (c) { c.style.display = show.indexOf(c) >= 0 ? "" : "none"; });
+    var pg = $("#carPager");
+    if (pg) {
+      if (pages < 2) pg.innerHTML = "";
+      else {
+        var btn = function (k, lab, cls, dis) { return '<button class="pg-b' + (cls || "") + '" data-p="' + k + '"' + (dis ? " disabled" : "") + ">" + lab + "</button>"; };
+        pg.innerHTML = btn(carPage - 1, "‹", " pg-arrow", carPage === 0) + Array.from({ length: pages }, function (_, k) { return btn(k, k + 1, k === carPage ? " on" : ""); }).join("") + btn(carPage + 1, "›", " pg-arrow", carPage === pages - 1);
+        $$(".pg-b", pg).forEach(function (b) { b.onclick = function () { carPage = +b.getAttribute("data-p"); showCars(true, true); }; });
+      }
+    }
+    if (scroll) { var top = $("#arrivages").getBoundingClientRect().top + window.scrollY - 70; window.scrollTo({ top: top, behavior: "smooth" }); }
+    if (anim && HAS_GSAP) { gsap.fromTo(show, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, stagger: 0.05, ease: "expo.out" }); ScrollTrigger.refresh(); }
+    startSlideshows();
+  }
   function setFilter(f) {
-    filter = f;
+    filter = f; carPage = 0;
     $$("#filters .chip").forEach(function (x) { x.classList.toggle("on", x.getAttribute("data-f") === f); });
-    var cards = $$("#cars .car");
-    var show = cards.filter(function (c) { return f === "all" || c.getAttribute("data-type") === f; });
-    if (!HAS_GSAP) { cards.forEach(function (c) { c.style.display = show.indexOf(c) >= 0 ? "" : "none"; }); return; }
-    gsap.to(cards, { opacity: 0, y: 16, duration: 0.25, ease: "power2.in", onComplete: function () {
-      cards.forEach(function (c) { c.style.display = show.indexOf(c) >= 0 ? "" : "none"; });
-      gsap.fromTo(show, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, stagger: 0.06, ease: "expo.out" });
-      ScrollTrigger.refresh();
-    } });
+    showCars(true);
   }
 
   var drawer = $("#drawer"), panel = $("#drawerPanel"), bg = $("#drawerBg"), lenis = null, gi = 0, current = null;
@@ -633,10 +648,19 @@
     $$("#jrDots button").forEach(function (b, k) { b.addEventListener("click", function () { goStep(k, true); }); });
     goStep(Math.min(jr.i, jr.max), false, true);
   }
+  var scrollIdle = null;
+  vp.addEventListener("scroll", function () {
+    if (!jr.step) return;
+    var k = Math.round(vp.scrollLeft / jr.step); if (k > jr.max) k = jr.max;
+    if (k !== jr.i) { jr.i = k; $$(".step", track).forEach(function (s, n) { s.classList.toggle("cur", n === k); }); $$("#jrDots button").forEach(function (b, n) { b.classList.toggle("done", n <= k); }); }
+    if (!jr.auto) { clearTimeout(scrollIdle); jr.hover = true; scrollIdle = setTimeout(function () { jr.hover = false; restart(); }, 2500); }
+  }, { passive: true });
   function goStep(k, user, instant) {
     if (k > jr.max) k = 0; if (k < 0) k = jr.max;
     jr.i = k;
-    gsap.to(track, { x: -k * jr.step, duration: instant ? 0 : 1.1, ease: "expo.inOut" });
+    jr.auto = true; clearTimeout(jr.autoT);
+    vp.scrollTo({ left: k * jr.step, behavior: instant ? "auto" : "smooth" });
+    jr.autoT = setTimeout(function () { jr.auto = false; }, instant ? 50 : 900);
     $$(".step", track).forEach(function (s, n) { s.classList.toggle("cur", n === k); });
     $$("#jrDots button").forEach(function (b, n) { b.classList.toggle("done", n <= k); });
     if (user) restart();
@@ -646,9 +670,11 @@
   $("#jrNext").addEventListener("click", function () { goStep(jr.i + 1, true); });
   vp.addEventListener("mouseenter", function () { jr.hover = true; });
   vp.addEventListener("mouseleave", function () { jr.hover = false; });
-  var sx = null;
-  vp.addEventListener("pointerdown", function (e) { sx = e.clientX; });
-  vp.addEventListener("pointerup", function (e) { if (sx === null) return; var dx = e.clientX - sx; sx = null; if (Math.abs(dx) > 50) goStep(jr.i + (dx < 0 ? 1 : -1), true); });
+  // Glisser à la souris (clic maintenu) en plus du pavé tactile
+  var drag = null;
+  vp.addEventListener("pointerdown", function (e) { if (e.pointerType !== "mouse") return; drag = { x: e.clientX, l: vp.scrollLeft, moved: false }; });
+  window.addEventListener("pointermove", function (e) { if (!drag) return; var dx = e.clientX - drag.x; if (Math.abs(dx) > 4) { drag.moved = true; vp.classList.add("dragging"); } vp.scrollLeft = drag.l - dx; });
+  window.addEventListener("pointerup", function () { if (!drag) return; var moved = drag.moved; drag = null; vp.classList.remove("dragging"); if (moved) goStep(Math.round(vp.scrollLeft / jr.step), true); });
   ScrollTrigger.create({ trigger: "#parcours", start: "top 75%", end: "bottom 25%", onToggle: function (s) { jr.inView = s.isActive; } });
   buildCarousel(); restart();
   window.addEventListener("resize", function () { clearTimeout(jr.rs); jr.rs = setTimeout(buildCarousel, 200); });

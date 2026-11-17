@@ -367,8 +367,16 @@
   $$(".js-theme").forEach(function (b) { b.addEventListener("click", function () { setTheme(document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light"); }); });
 
   /* ================= Filtres et fiche voiture ================= */
-  var carPage = 0, PER_PAGE = PAGE === "home" ? 9 : 1000;
+  var carPage = 0, PER_PAGE = 1000;
+  function perPage() {
+    if (PAGE !== "home") return 1000;
+    var g = $("#cars"), cols = g ? getComputedStyle(g).gridTemplateColumns.split(" ").filter(Boolean).length : 3;
+    return cols >= 3 ? 9 : cols === 2 ? 8 : 6;
+  }
+  var lastPer = 0;
+  window.addEventListener("resize", function () { if (PAGE === "home" && perPage() !== lastPer) showCars(false); });
   function showCars(anim, scroll) {
+    PER_PAGE = perPage(); lastPer = PER_PAGE;
     var cards = $$("#cars .car"), match = cards.filter(function (c) { return filter === "all" || c.getAttribute("data-type") === filter; });
     var pages = Math.max(1, Math.ceil(match.length / PER_PAGE)); if (carPage >= pages) carPage = pages - 1;
     var show = match.slice(carPage * PER_PAGE, carPage * PER_PAGE + PER_PAGE);
@@ -555,6 +563,8 @@
   gsap.registerPlugin(ScrollTrigger);
 
   /* ---------- Défilement fluide ---------- */
+  ScrollTrigger.config({ ignoreMobileResize: true });
+  if (ScrollTrigger.normalizeScroll && "ontouchstart" in window) { /* pas de normalisation : on laisse le défilement natif du téléphone */ }
   lenis = new Lenis({ duration: 1.15, easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, smoothWheel: true });
   lenis.on("scroll", ScrollTrigger.update);
   gsap.ticker.add(function (t) { lenis.raf(t * 1000); });

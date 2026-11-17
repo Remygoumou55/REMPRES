@@ -863,3 +863,63 @@ body[data-page="arrivages"] .foot { margin-top: 0; }
 .final-txt p { margin: 0; color: var(--d-muted); font-size: 16px; }
 .final-btn { flex: none; height: 58px; padding: 0 30px; font-size: 16px; }
 .final .foot { margin-top: clamp(44px, 5vw, 64px); }
+
+/* ==========================================================================
+   Téléphone et tablette : rien ne dépasse, rien n'est coupé, rien ne tremble
+   ========================================================================== */
+html { overflow-x: hidden; }
+html, body { overflow-x: clip; max-width: 100%; }
+/* Un élément de grille ne doit jamais élargir sa colonne au-delà de l'écran */
+.brand-in > *, .why-grid > *, .stats > *, .cars > *, .price-box > *, .foot-top > *, .foot-cols > *, .dossier-grid > *, .hero-bottom > *,
+.flow-points > *, .pillars > *, .founders > *, .cmp > *, .offices > *, .checks6 > *, .form > *, .final-band > *, .countries > *, .faq-list > * { min-width: 0; }
+.brand-in, .why-grid, .pillars, .founders, .cmp { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 900px) { .pillars { grid-template-columns: repeat(3, minmax(0, 1fr)); } .founders { grid-template-columns: repeat(2, minmax(0, 440px)); } }
+@media (min-width: 1000px) { .why-dark .why-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.h2, .display, .h3, .brand-h, .page-title, .why-h, .final-title { overflow-wrap: break-word; }
+img, video, svg, canvas { max-width: 100%; }
+
+@media (max-width: 700px) {
+  .h2, .brand-h, .why-h { font-size: clamp(27px, 8.2vw, 40px); }
+  .page-title { font-size: clamp(32px, 10vw, 48px); }
+  .hero-title { font-size: clamp(34px, 10.5vw, 50px); }
+  .stat-n { font-size: clamp(40px, 12vw, 56px); }
+  .pill { white-space: normal; height: auto; min-height: 34px; padding: 8px 14px; line-height: 1.35; text-align: left; max-width: 100%; }
+  .sec { padding: 56px 0; }
+  .brand-sec { min-height: 0; padding: 72px 0 56px; }
+  .pillar { padding: 22px 20px; }
+  .founder { padding: 14px 16px; }
+  .cmp-col { padding: 20px 18px; }
+  .cmp-col li { font-size: 14.5px; }
+  .final-band { padding: 24px 20px; }
+  .final-btn { width: 100%; }
+  .foot-cols { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .office { flex-direction: column; align-items: flex-start; }
+  .foot-bottom { flex-direction: column; gap: 6px; }
+  .mega-wrap { height: 34vw; min-height: 150px; }
+  .pl-row { grid-template-columns: 14px minmax(0, 1fr) auto; }
+  .pl-row .pct { display: none; }
+  .price-top { flex-direction: column; align-items: stretch; }
+  .price-sel select { width: 100%; }
+  .step { width: min(82vw, 330px); min-height: 330px; }
+  .step-n { font-size: 76px; }
+  .hero-actions .btn { width: 100%; }
+}
+@media (max-width: 380px) {
+  .wrap { padding: 0 16px; }
+  .car-body { padding: 18px 16px 20px; }
+  .h2, .brand-h, .why-h { font-size: 26px; }
+}
+@media (max-width: 480px) {
+  .stats { gap: 10px; }
+  .stat { padding: 20px 16px !important; }
+  .stat-n { font-size: clamp(30px, 9.6vw, 44px); white-space: nowrap; }
+  .stat p { font-size: 13.5px; }
+  .stat-k { margin-bottom: 12px; }
+}
+@media (max-width: 700px) {
+  .file-title { flex-direction: column; align-items: flex-start !important; gap: 4px; }
+  .checks li { gap: 10px; }
+  .checks li span.st { white-space: nowrap; font-size: 10px; }
+  .pl-tot { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .file-total { flex-wrap: wrap; gap: 4px 12px; }
+}

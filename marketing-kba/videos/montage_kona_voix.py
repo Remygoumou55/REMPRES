@@ -353,15 +353,19 @@ for fi in range(n_total):
 ff.stdin.close(); ff.wait()
 
 # ---------- MIXAGE ----------
-# voix normalisée et en avant ; musique basse (-22 dB env.) avec ducking ; effets bas
-subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", tmp, "-i", VOIX, "-i", "audio/musique.wav", "-i", "audio/effets.wav",
+# 1) voix normalisée à part, complétée de silence jusqu'à la fin (évite toute coupure)
+subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", VOIX, "-af",
+    "aresample=44100,aformat=channel_layouts=stereo,loudnorm=I=-15:TP=-1.5:LRA=7,aresample=44100,apad",
+    "-t", str(DUREE), "-ar", "44100", "audio/_voix_norm.wav"], check=True)
+# 2) voix en avant ; musique basse avec ducking sous la voix ; effets bas
+subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", tmp, "-i", "audio/_voix_norm.wav",
+    "-i", "audio/musique.wav", "-i", "audio/effets.wav",
     "-filter_complex",
-    "[1:a]aresample=44100,aformat=channel_layouts=stereo,adelay=0|0,apad=whole_dur=%s,"
-    "loudnorm=I=-15:TP=-1.5:LRA=7,asplit=2[voix][sc];"
+    "[1:a]asplit=2[voix][sc];"
     "[2:a]volume=0.16[mus];"
     "[mus][sc]sidechaincompress=threshold=0.03:ratio=6:attack=20:release=350[musd];"
     "[3:a]volume=0.35[fx];"
-    "[voix][musd][fx]amix=inputs=3:duration=first:normalize=0,alimiter=limit=0.95[a]" % DUREE,
+    "[voix][musd][fx]amix=inputs=3:duration=longest:normalize=0,alimiter=limit=0.95,apad[a]",
     "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-t", str(DUREE),
     "-movflags", "+faststart", OUT], check=True)
 print("OK", OUT)

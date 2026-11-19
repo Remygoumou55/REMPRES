@@ -6,73 +6,93 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageEnhance
 
 IMG = sys.argv[1]
 VOIX = "audio/voix_kona.mp3"
-OUT = "KBA_Kona_2017_8500_voix.mp4"
+OUT = "KBA_Kona_2017_13500_voix.mp4"
 W, H, FPS = 1080, 1920, 30
 SR = 44100
 FB = "/usr/share/fonts/opentype/inter/Inter-ExtraBold.otf"
 FM = "/usr/share/fonts/opentype/inter/Inter-SemiBold.otf"
 BLEU, JAUNE, BLANC, NUIT = (37, 99, 235), (255, 214, 0), (255, 255, 255), (8, 18, 38)
 
-# --- Phrases de la voix off, calées sur les silences détectés dans le MP3 (début, fin en s)
-# Chaque mot : (texte affiché, poids ≈ longueur prononcée)
-def m(s, w=None):
-    return (s, w if w is not None else len(s))
-CHUNKS = [
-    (0.00, 1.28, [m("Hyundai"), m("Kona"), m("Turbo.")]),
-    (1.64, 3.77, [m("8 500 $,", 22), m("tout"), m("compris !")]),
-    (4.06, 8.43, [m("2017-2018,", 34), m("essence,"), m("moins"), m("de"), m("83 000", 22), m("kilomètres.")]),
-    (8.78, 11.47, [m("Turbo,"), m("boîte"), m("automatique,"), m("jantes"), m("18", 8), m("pouces.")]),
-    (11.77, 17.74, [m("Intérieur"), m("cuir,"), m("GPS,", 7), m("caméra"), m("de"), m("recul,"), m("affichage"),
-                    m("tête"), m("haute,"), m("sièges"), m("ventilés"), m("pour"), m("la"), m("chaleur"), m("de"), m("Conakry…")]),
-    (18.13, 19.43, [m("et"), m("deux"), m("clés"), m("intelligentes.")]),
-    (19.75, 21.91, [m("Châssis"), m("vérifié"), m("en"), m("vidéo"), m("avant"), m("tout"), m("paiement.")]),
-    (22.29, 23.86, [m("Achat,"), m("transport,"), m("douane :")]),
-    (24.08, 24.68, [m("tout"), m("est"), m("compris.")]),
-    (24.96, 29.00, [m("50 %", 16), m("à"), m("la"), m("commande,"), m("le"), m("reste"), m("quand"), m("elle"),
-                    m("est"), m("sur"), m("le"), m("bateau.")]),
-    (29.34, 30.85, [m("Passez"), m("votre"), m("commande"), m("sur"), m("WhatsApp,")]),
-    (31.04, 31.64, [m("lien"), m("en"), m("bio.")]),
-    (31.99, 32.52, [m("Abonnez-vous :")]),
-    (32.78, 34.87, [m("une"), m("voiture"), m("chaque"), m("soir"), m("à"), m("19 h !", 14)]),
+# --- Texte exact de la voix off, calé sur les pauses mesurées dans le MP3 (silencedetect -30 dB / 70 ms)
+# (début, fin, [(mot affiché, syllabes)]) ; dans chaque bloc, les mots sont répartis selon leurs syllabes
+BLOCS = [
+    (0.00, 1.26, [("Hyundai", 2), ("Kona", 2), ("Turbo.", 2)]),
+    (1.64, 2.82, [("13 500", 4), ("dollars,", 2)]),
+    (2.96, 3.75, [("toutes", 1), ("taxes", 1), ("comprises !", 2)]),
+    (4.06, 5.84, [("2017-2018,", 10)]),
+    (6.02, 6.56, [("essence,", 2)]),
+    (6.69, 7.09, [("moins", 1), ("de", 1)]),
+    (7.17, 8.41, [("83 000", 5), ("kilomètres.", 4)]),
+    (8.78, 9.22, [("Turbo,", 2)]),
+    (9.33, 10.23, [("boîte", 1), ("automatique,", 4)]),
+    (10.31, 11.46, [("jantes", 1), ("18", 2), ("pouces.", 1)]),
+    (11.77, 12.65, [("Intérieur", 4), ("cuir,", 1)]),
+    (12.75, 13.44, [("GPS,", 3)]),
+    (13.58, 14.45, [("caméra", 3), ("de", 1), ("recul,", 2)]),
+    (14.56, 15.04, [("affichage", 3)]),
+    (15.11, 17.73, [("tête", 1), ("haute,", 1), ("sièges", 2), ("ventilés", 3), ("pour", 1), ("la", 1),
+                    ("chaleur", 2), ("de", 1), ("Conakry…", 3)]),
+    (18.14, 19.29, [("et", 1), ("deux", 1), ("clés", 1), ("intelligentes.", 4)]),
+    (19.76, 21.10, [("Châssis", 2), ("vérifié", 3), ("en", 1), ("vidéo", 2)]),
+    (21.18, 21.91, [("avant", 2), ("tout", 1), ("paiement.", 2)]),
+    (22.30, 22.71, [("Achat,", 2)]),
+    (22.81, 23.84, [("transport,", 2), ("douane :", 2)]),
+    (24.08, 24.68, [("tout", 1), ("est", 1), ("compris.", 2)]),
+    (24.96, 28.98, [("50 %", 4), ("à", 1), ("la", 1), ("commande,", 3), ("le", 1), ("reste", 2), ("dès", 1),
+                    ("que", 1), ("vous", 1), ("allez", 2), ("recevoir", 3), ("votre", 2), ("B/L.", 2)]),
+    (29.34, 30.82, [("Passez", 2), ("votre", 2), ("commande", 2), ("chez", 1), ("KBA.", 3)]),
+    (31.04, 31.63, [("Lien", 1), ("en", 1), ("bio.", 2)]),
+    (31.99, 32.51, [("Abonnez-vous :", 4)]),
+    (32.79, 34.79, [("une", 1), ("voiture", 2), ("chaque", 1), ("soir", 1), ("à", 1), ("19 heures !", 3)]),
 ]
-DUREE = 36.6
+DUREE = 37.0
+PRIX = "13 500 $"
 
-# timings mot à mot (répartis selon la longueur prononcée)
 MOTS = []
-for d, f, mots in CHUNKS:
-    tot = sum(w + 2 for _, w in mots)
+for d, f, mots in BLOCS:
+    tot = sum(sy for _, sy in mots)
     t = d
-    for txt, w in mots:
-        dt = (f - d) * (w + 2) / tot
+    for txt, sy in mots:
+        dt = (f - d) * sy / tot
         MOTS.append([txt, t, t + dt])
         t += dt
-# groupes de sous-titres (≤ 3 mots, ≤ 20 caractères), sans traverser une pause
-GROUPES = []
-i = 0
-for d, f, mots in CHUNKS:
-    n = len(mots)
-    idx = list(range(i, i + n))
+# sous-titres : groupes de 3 mots max / 18 caractères, sans traverser une pause
+GROUPES, i = [], 0
+for d, f, mots in BLOCS:
     cur = []
-    for j in idx:
-        if cur and (len(cur) >= 3 or len(" ".join(MOTS[k][0] for k in cur + [j])) > 20):
-            GROUPES.append(cur)
-            cur = []
+    for j in range(i, i + len(mots)):
+        fin_ponct = cur and MOTS[cur[-1]][0][-1] in ",.!:…"
+        if cur and (fin_ponct or len(cur) >= 3 or len(" ".join(MOTS[k][0] for k in cur + [j])) > 18):
+            GROUPES.append(cur); cur = []
         cur.append(j)
     GROUPES.append(cur)
-    i += n
+    i += len(mots)
+# fusionner les groupes d'un seul mot très court avec le suivant si même bloc impossible -> on garde tel quel
+FENETRES = []
+for n, g in enumerate(GROUPES):
+    t0 = MOTS[g[0]][1]
+    t1 = MOTS[g[-1]][2] + 0.35
+    if n + 1 < len(GROUPES):
+        t1 = min(t1, MOTS[GROUPES[n + 1][0]][1])
+    FENETRES.append((t0, t1, g))
 
 def t_mot(prefixe, rang=0):
-    """Début du n-ième mot commençant par prefixe."""
-    r = [w[1] for w in MOTS if w[0].startswith(prefixe)]
-    return r[rang]
+    return [w[1] for w in MOTS if w[0].startswith(prefixe)][rang]
 
-# --- Plans : (image, début) ; chaque plan dure jusqu'au suivant
+# --- Plans plus longs (≈ 3 s), chacun calé sur la phrase qui en parle
 PLANS = [
-    (7, 0.0),
-    (3, 4.06), (9, t_mot("essence")), (24, t_mot("moins")),
-    (8, 8.78), (17, t_mot("boîte")), (16, t_mot("jantes")),
-    (30, 11.77), (20, t_mot("GPS")), (25, t_mot("caméra")), (37, t_mot("affichage")), (32, t_mot("sièges")),
-    (21, 18.13), (14, 19.75), (35, 22.29), (2, 24.96), (7, 29.34),
+    (7, 0.0),      # accroche + prix
+    (3, 4.06),     # 2017-2018, essence
+    (24, 6.69),    # moins de 83 000 km (compteur)
+    (9, 8.78),     # turbo, boîte auto, jantes 18 pouces (profil, roues visibles)
+    (30, 11.77),   # intérieur cuir, GPS
+    (25, 13.58),   # caméra de recul
+    (37, 15.11),   # affichage tête haute, sièges ventilés
+    (21, 17.73),   # deux clés intelligentes
+    (14, 19.76),   # châssis vérifié
+    (35, 22.30),   # achat, transport, douane : tout est compris
+    (2, 24.96),    # paiement 50 / 50
+    (4, 29.34),    # passez votre commande chez KBA
 ]
 DEBUTS = [p[1] for p in PLANS] + [DUREE]
 
@@ -114,17 +134,37 @@ def ease(a):
     a = max(0.0, min(1.0, a))
     return 1 - (1 - a) ** 3
 
+def _calque_elem(d):
+    return d._image if hasattr(d, "_image") else d.im
+
 def centre(d, y, txt, f, fill, alpha=255, stroke=0):
-    w = d.textlength(txt, font=f)
-    d.text(((W - w) / 2, y), txt, font=f, fill=fill + (alpha,), stroke_width=stroke, stroke_fill=(0, 0, 0, alpha))
+    if alpha <= 0:
+        return
+    base = d._base
+    tmp = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    td = ImageDraw.Draw(tmp)
+    w = td.textlength(txt, font=f)
+    td.text(((W - w) / 2, y), txt, font=f, fill=fill + (255,), stroke_width=stroke, stroke_fill=(0, 0, 0, 255))
+    if alpha < 255:
+        tmp.putalpha(tmp.getchannel("A").point(lambda v: v * alpha // 255))
+    base.alpha_composite(tmp)
 
 def pill(d, y, txt, f, bg, fg, alpha, pad=(36, 18)):
-    w = d.textlength(txt, font=f)
     a, de = f.getmetrics()
+    h = a + de + 2 * pad[1]
+    if alpha <= 0:
+        return h
+    base = d._base
+    tmp = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    td = ImageDraw.Draw(tmp)
+    w = td.textlength(txt, font=f)
     x0 = (W - w) / 2 - pad[0]
-    d.rounded_rectangle((x0, y, x0 + w + 2 * pad[0], y + a + de + 2 * pad[1]), radius=22, fill=bg + (alpha,))
-    d.text((x0 + pad[0], y + pad[1]), txt, font=f, fill=fg + (alpha,))
-    return a + de + 2 * pad[1]
+    td.rounded_rectangle((x0, y, x0 + w + 2 * pad[0], y + h), radius=22, fill=bg + (255,))
+    td.text((x0 + pad[0], y + pad[1]), txt, font=f, fill=fg + (255,))
+    if alpha < 255:
+        tmp.putalpha(tmp.getchannel("A").point(lambda v: v * alpha // 255))
+    base.alpha_composite(tmp)
+    return h
 
 def apparait(t, t0, dur=0.3):
     return ease((t - t0) / dur)
@@ -132,6 +172,7 @@ def apparait(t, t0, dur=0.3):
 def calque(t):
     c = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     d = ImageDraw.Draw(c)
+    d._base = c
     # 1) Accroche (0 → 4,06 s)
     if t < 4.06:
         g = Image.new("L", (1, 760))
@@ -143,16 +184,16 @@ def calque(t):
         centre(d, 190 + (1 - a1) * 50, "HYUNDAI KONA 1.6 TURBO", F(FB, 66), BLANC, int(255 * a1))
         a2 = apparait(t, 1.64, 0.25)
         f = F(FB, int(210 * (0.8 + 0.2 * a2)))
-        centre(d, 280 + (1 - a2) * 30, "8 500 $", f, JAUNE, int(255 * a2))
-        a3 = apparait(t, 2.3)
-        pill(d, 545, "TOUT COMPRIS · CLÉS EN MAIN À CONAKRY", F(FB, 40), BLEU, BLANC, int(255 * a3))
+        centre(d, 280 + (1 - a2) * 30, PRIX, f, JAUNE, int(255 * a2))
+        a3 = apparait(t, 2.96)
+        pill(d, 545, "TOUTES TAXES COMPRISES · CLÉS EN MAIN", F(FB, 40), BLEU, BLANC, int(255 * a3))
     # 2) Badge prix permanent
     elif t < 29.34:
         a = apparait(t, 4.06)
-        pill(d, 170, "KBA  ·  8 500 $ TOUT COMPRIS", F(FB, 38), NUIT, JAUNE, int(235 * a), pad=(30, 14))
+        pill(d, 170, "KBA  ·  " + PRIX + " TTC", F(FB, 38), NUIT, JAUNE, int(235 * a), pad=(30, 14))
     # 3) Récap prix (Achat, transport, douane)
-    if 22.29 <= t < 24.96:
-        v = Image.new("RGBA", (W, H), (5, 12, 28, int(150 * apparait(t, 22.29))))
+    if 22.30 <= t < 24.96:
+        v = Image.new("RGBA", (W, H), (5, 12, 28, int(150 * apparait(t, 22.30))))
         c.alpha_composite(v)
         y = 470
         for k, (txt, tt) in enumerate([("ACHAT", "Achat"), ("TRANSPORT", "transport"), ("DOUANE", "douane")]):
@@ -160,6 +201,7 @@ def calque(t):
             pill(d, y + k * 120, "✓ " + txt if False else txt, F(FB, 56), BLEU, BLANC, int(255 * a))
         a = apparait(t, 24.08, 0.25)
         centre(d, 850, "TOUT COMPRIS", F(FB, 92), JAUNE, int(255 * a))
+        centre(d, 975, PRIX, F(FB, 110), BLANC, int(255 * a))
     # 4) Paiement en 2 fois
     if 24.96 <= t < 29.34:
         v = Image.new("RGBA", (W, H), (5, 12, 28, int(150 * apparait(t, 24.96))))
@@ -169,24 +211,23 @@ def calque(t):
         a1 = apparait(t, t_mot("50"), 0.25)
         pill(d, 580, "50 %  À LA COMMANDE", F(FB, 58), BLEU, BLANC, int(255 * a1))
         a2 = apparait(t, t_mot("reste"), 0.25)
-        pill(d, 720, "50 %  SUR LE BATEAU", F(FB, 58), JAUNE, NUIT, int(255 * a2))
+        pill(d, 720, "50 %  À RÉCEPTION DU B/L", F(FB, 58), JAUNE, NUIT, int(255 * a2))
     # 5) Écran de fin
     if t >= 29.34:
         v = Image.new("RGBA", (W, H), (5, 12, 28, int(185 * apparait(t, 29.34))))
         c.alpha_composite(v)
         a = apparait(t, 29.34)
         centre(d, 380, "PASSEZ VOTRE COMMANDE", F(FB, 64), BLANC, int(255 * a))
-        a = apparait(t, t_mot("WhatsApp"), 0.25)
-        pill(d, 490, "WhatsApp  ·  lien en bio", F(FB, 54), (37, 211, 102), BLANC, int(255 * a))
-        a = apparait(t, 31.99, 0.3)
+        a = apparait(t, t_mot("Lien"), 0.25)
+        pill(d, 490, "Lien en bio", F(FB, 54), (37, 211, 102), BLANC, int(255 * a))
+        a = apparait(t, t_mot("KBA"), 0.3)
         pill(d, 660, "KBA", F(FB, 120), BLEU, BLANC, int(255 * a), pad=(60, 20))
         a = apparait(t, t_mot("une"), 0.3)
-        centre(d, 870, "Une voiture de Corée chaque soir à 19 h", F(FM, 42), BLANC, int(255 * a))
+        centre(d, 870, "Une voiture chaque soir à 19 h", F(FM, 42), BLANC, int(255 * a))
         centre(d, 935, "ABONNEZ-VOUS", F(FB, 56), JAUNE, int(255 * apparait(t, 31.99, 0.3)))
     # 6) Sous-titres mot à mot
-    for g in GROUPES:
-        t0, t1 = MOTS[g[0]][1], MOTS[g[-1]][2] + 0.12
-        if t0 - 0.05 <= t < t1:
+    for t0, t1, g in FENETRES:
+        if t0 <= t < t1:
             f = F(FB, 70)
             mots = [MOTS[k][0] for k in g]
             espace = d.textlength(" ", font=f)
@@ -195,7 +236,7 @@ def calque(t):
             pop = apparait(t, t0, 0.12)
             y = 1300 + (1 - pop) * 18
             for k, w in zip(g, mots):
-                actif = MOTS[k][1] <= t < MOTS[k][2] + 0.05
+                actif = MOTS[k][1] <= t < MOTS[k][2]
                 d.text((x, y), w, font=f, fill=(JAUNE if actif else BLANC) + (255,), stroke_width=7, stroke_fill=(0, 0, 0, 255))
                 x += d.textlength(w, font=f) + espace
             break
@@ -278,9 +319,9 @@ def ding(t0, f=1318.5, vol=0.18):
     sfx[s0:s0 + n] += vol * np.exp(-x * 6) * (np.sin(2 * np.pi * f * x) + 0.4 * np.sin(2 * np.pi * 2 * f * x))
 for _, t0 in PLANS[1:]:
     whoosh(t0)
-impact(1.64); impact(22.29, 0.4); impact(24.08, 0.35)
+impact(1.64); impact(22.30, 0.4); impact(24.08, 0.35)
 ding(t_mot("50")); ding(t_mot("reste"), 1568.0)
-ding(t_mot("WhatsApp"), 1046.5); ding(31.99, 1318.5)
+ding(t_mot("KBA"), 1046.5); ding(t_mot("Abonnez"), 1318.5)
 ecrire_wav("audio/effets.wav", sfx)
 
 # ---------- VIDÉO ----------

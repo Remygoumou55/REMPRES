@@ -4,49 +4,18 @@ import sys, subprocess, wave, math, random
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageEnhance
 
-IMG = sys.argv[1]
-VOIX = "audio/voix_kona.mp3"
-OUT = "KBA_Kona_2017_13500_voix.mp4"
+IMG = sys.argv[2]
 W, H, FPS = 1080, 1920, 30
 SR = 44100
 FB = "/usr/share/fonts/opentype/inter/Inter-ExtraBold.otf"
 FM = "/usr/share/fonts/opentype/inter/Inter-SemiBold.otf"
 BLEU, JAUNE, BLANC, NUIT = (37, 99, 235), (255, 214, 0), (255, 255, 255), (8, 18, 38)
 
-# --- Texte exact de la voix off, calé sur les pauses mesurées dans le MP3 (silencedetect -30 dB / 70 ms)
-# (début, fin, [(mot affiché, syllabes)]) ; dans chaque bloc, les mots sont répartis selon leurs syllabes
-BLOCS = [
-    (0.00, 1.26, [("Hyundai", 2), ("Kona", 2), ("Turbo.", 2)]),
-    (1.64, 2.82, [("13 500", 4), ("dollars,", 2)]),
-    (2.96, 3.75, [("toutes", 1), ("taxes", 1), ("comprises !", 2)]),
-    (4.06, 5.84, [("2017-2018,", 10)]),
-    (6.02, 6.56, [("essence,", 2)]),
-    (6.69, 7.09, [("moins", 1), ("de", 1)]),
-    (7.17, 8.41, [("83 000", 5), ("kilomètres.", 4)]),
-    (8.78, 9.22, [("Turbo,", 2)]),
-    (9.33, 10.23, [("boîte", 1), ("automatique,", 4)]),
-    (10.31, 11.46, [("jantes", 1), ("18", 2), ("pouces.", 1)]),
-    (11.77, 12.65, [("Intérieur", 4), ("cuir,", 1)]),
-    (12.75, 13.44, [("GPS,", 3)]),
-    (13.58, 14.45, [("caméra", 3), ("de", 1), ("recul,", 2)]),
-    (14.56, 15.04, [("affichage", 3)]),
-    (15.11, 17.73, [("tête", 1), ("haute,", 1), ("sièges", 2), ("ventilés", 3), ("pour", 1), ("la", 1),
-                    ("chaleur", 2), ("de", 1), ("Conakry…", 3)]),
-    (18.14, 19.29, [("et", 1), ("deux", 1), ("clés", 1), ("intelligentes.", 4)]),
-    (19.76, 21.10, [("Châssis", 2), ("vérifié", 3), ("en", 1), ("vidéo", 2)]),
-    (21.18, 21.91, [("avant", 2), ("tout", 1), ("paiement.", 2)]),
-    (22.30, 22.71, [("Achat,", 2)]),
-    (22.81, 23.84, [("transport,", 2), ("douane :", 2)]),
-    (24.08, 24.68, [("tout", 1), ("est", 1), ("compris.", 2)]),
-    (24.96, 28.98, [("50 %", 4), ("à", 1), ("la", 1), ("commande,", 3), ("le", 1), ("reste", 2), ("dès", 1),
-                    ("que", 1), ("vous", 1), ("allez", 2), ("recevoir", 3), ("votre", 2), ("B/L.", 2)]),
-    (29.34, 30.82, [("Passez", 2), ("votre", 2), ("commande", 2), ("chez", 1), ("KBA.", 3)]),
-    (31.04, 31.63, [("Lien", 1), ("en", 1), ("bio.", 2)]),
-    (31.99, 32.51, [("Abonnez-vous :", 4)]),
-    (32.79, 34.79, [("une", 1), ("voiture", 2), ("chaque", 1), ("soir", 1), ("à", 1), ("19 heures !", 3)]),
-]
-DUREE = 37.0
-PRIX = "13 500 $"
+import importlib.util
+_spec = importlib.util.spec_from_file_location("cfg", sys.argv[1])
+cfg = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(cfg)
+VOIX, OUT, MODELE, INFO = cfg.VOIX, cfg.OUT, cfg.MODELE, cfg.INFO
+BLOCS, DUREE, PRIX, PLANS, R = cfg.BLOCS, cfg.DUREE, cfg.PRIX, cfg.PLANS, cfg.REPERES
 
 MOTS = []
 for d, f, mots in BLOCS:
@@ -79,21 +48,6 @@ for n, g in enumerate(GROUPES):
 def t_mot(prefixe, rang=0):
     return [w[1] for w in MOTS if w[0].startswith(prefixe)][rang]
 
-# --- Plans plus longs (≈ 3 s), chacun calé sur la phrase qui en parle
-PLANS = [
-    (7, 0.0),      # accroche + prix
-    (3, 4.06),     # 2017-2018, essence
-    (24, 6.69),    # moins de 83 000 km (compteur)
-    (9, 8.78),     # turbo, boîte auto, jantes 18 pouces (profil, roues visibles)
-    (30, 11.77),   # intérieur cuir, GPS
-    (25, 13.58),   # caméra de recul
-    (37, 15.11),   # affichage tête haute, sièges ventilés
-    (21, 17.73),   # deux clés intelligentes
-    (14, 19.76),   # châssis vérifié
-    (35, 22.30),   # achat, transport, douane : tout est compris
-    (2, 24.96),    # paiement 50 / 50
-    (4, 29.34),    # passez votre commande chez KBA
-]
 DEBUTS = [p[1] for p in PLANS] + [DUREE]
 
 def F(path, size, _c={}):
@@ -173,58 +127,60 @@ def calque(t):
     c = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     d = ImageDraw.Draw(c)
     d._base = c
-    # 1) Accroche (0 → 4,06 s)
-    if t < 4.06:
+    # 1) Accroche
+    if t < R["fin_accroche"]:
         g = Image.new("L", (1, 760))
         g.putdata([int(210 * (1 - i / 760)) for i in range(760)])
         noir = Image.new("RGBA", (W, 760), (0, 0, 0, 255))
         noir.putalpha(g.resize((W, 760)))
         c.alpha_composite(noir)
         a1 = apparait(t, 0.0)
-        centre(d, 190 + (1 - a1) * 50, "HYUNDAI KONA 1.6 TURBO", F(FB, 66), BLANC, int(255 * a1))
-        a2 = apparait(t, 1.64, 0.25)
+        centre(d, 190 + (1 - a1) * 50, MODELE, F(FB, 66), BLANC, int(255 * a1))
+        a2 = apparait(t, R["prix"], 0.25)
         f = F(FB, int(210 * (0.8 + 0.2 * a2)))
         centre(d, 280 + (1 - a2) * 30, PRIX, f, JAUNE, int(255 * a2))
-        a3 = apparait(t, 2.96)
+        a3 = apparait(t, R["toutes"])
         pill(d, 545, "TOUTES TAXES COMPRISES · CLÉS EN MAIN", F(FB, 40), BLEU, BLANC, int(255 * a3))
     # 2) Badge prix permanent
-    elif t < 29.34:
-        a = apparait(t, 4.06)
+    elif t < R["fin"]:
+        a = apparait(t, R["fin_accroche"])
+        if INFO and t < INFO[1]:
+            pill(d, 250, INFO[0], F(FM, 36), (255, 255, 255), NUIT, int(235 * a), pad=(26, 12))
         pill(d, 170, "KBA  ·  " + PRIX + " TTC", F(FB, 38), NUIT, JAUNE, int(235 * a), pad=(30, 14))
     # 3) Récap prix (Achat, transport, douane)
-    if 22.30 <= t < 24.96:
-        v = Image.new("RGBA", (W, H), (5, 12, 28, int(150 * apparait(t, 22.30))))
+    if R["recap"] <= t < R["paiement"]:
+        v = Image.new("RGBA", (W, H), (5, 12, 28, int(150 * apparait(t, R["recap"]))))
         c.alpha_composite(v)
         y = 470
         for k, (txt, tt) in enumerate([("ACHAT", "Achat"), ("TRANSPORT", "transport"), ("DOUANE", "douane")]):
             a = apparait(t, t_mot(tt), 0.2)
             pill(d, y + k * 120, "✓ " + txt if False else txt, F(FB, 56), BLEU, BLANC, int(255 * a))
-        a = apparait(t, 24.08, 0.25)
+        a = apparait(t, R["compris"], 0.25)
         centre(d, 850, "TOUT COMPRIS", F(FB, 92), JAUNE, int(255 * a))
         centre(d, 975, PRIX, F(FB, 110), BLANC, int(255 * a))
     # 4) Paiement en 2 fois
-    if 24.96 <= t < 29.34:
-        v = Image.new("RGBA", (W, H), (5, 12, 28, int(150 * apparait(t, 24.96))))
+    if R["paiement"] <= t < R["fin"]:
+        v = Image.new("RGBA", (W, H), (5, 12, 28, int(150 * apparait(t, R["paiement"]))))
         c.alpha_composite(v)
-        a = apparait(t, 24.96)
+        a = apparait(t, R["paiement"])
         centre(d, 430, "PAYEZ EN 2 FOIS", F(FB, 80), BLANC, int(255 * a))
         a1 = apparait(t, t_mot("50"), 0.25)
         pill(d, 580, "50 %  À LA COMMANDE", F(FB, 58), BLEU, BLANC, int(255 * a1))
         a2 = apparait(t, t_mot("reste"), 0.25)
         pill(d, 720, "50 %  À RÉCEPTION DU B/L", F(FB, 58), JAUNE, NUIT, int(255 * a2))
     # 5) Écran de fin
-    if t >= 29.34:
-        v = Image.new("RGBA", (W, H), (5, 12, 28, int(185 * apparait(t, 29.34))))
+    if t >= R["fin"]:
+        v = Image.new("RGBA", (W, H), (5, 12, 28, int(185 * apparait(t, R["fin"]))))
         c.alpha_composite(v)
-        a = apparait(t, 29.34)
+        a = apparait(t, R["fin"])
         centre(d, 380, "PASSEZ VOTRE COMMANDE", F(FB, 64), BLANC, int(255 * a))
-        a = apparait(t, t_mot("Lien"), 0.25)
+        a = apparait(t, t_mot(R["bio"]), 0.25)
         pill(d, 490, "Lien en bio", F(FB, 54), (37, 211, 102), BLANC, int(255 * a))
         a = apparait(t, t_mot("KBA"), 0.3)
         pill(d, 660, "KBA", F(FB, 120), BLEU, BLANC, int(255 * a), pad=(60, 20))
         a = apparait(t, t_mot("une"), 0.3)
         centre(d, 870, "Une voiture chaque soir à 19 h", F(FM, 42), BLANC, int(255 * a))
-        centre(d, 935, "ABONNEZ-VOUS", F(FB, 56), JAUNE, int(255 * apparait(t, 31.99, 0.3)))
+        centre(d, 935, "ABONNEZ-VOUS", F(FB, 56), JAUNE, int(255 * apparait(t, R["abonnez"], 0.3)))
     # 6) Sous-titres mot à mot
     for t0, t1, g in FENETRES:
         if t0 <= t < t1:
@@ -319,7 +275,7 @@ def ding(t0, f=1318.5, vol=0.18):
     sfx[s0:s0 + n] += vol * np.exp(-x * 6) * (np.sin(2 * np.pi * f * x) + 0.4 * np.sin(2 * np.pi * 2 * f * x))
 for _, t0 in PLANS[1:]:
     whoosh(t0)
-impact(1.64); impact(22.30, 0.4); impact(24.08, 0.35)
+impact(R["prix"]); impact(R["recap"], 0.4); impact(R["compris"], 0.35)
 ding(t_mot("50")); ding(t_mot("reste"), 1568.0)
 ding(t_mot("KBA"), 1046.5); ding(t_mot("Abonnez"), 1318.5)
 ecrire_wav("audio/effets.wav", sfx)
